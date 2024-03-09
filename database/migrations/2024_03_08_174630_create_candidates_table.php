@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('Company');
             $table->string('postal_code');
             $table->enum('cdt_status', ['Open', 'Close', 'In Progress']);
-            
+            $table->foreignId('created_by')->nullable();
             $table->timestamps();
         });
     }

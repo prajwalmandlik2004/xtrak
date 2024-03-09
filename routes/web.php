@@ -18,13 +18,13 @@ use App\Http\Controllers\RolePermissionController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', [DasboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::get('roles-permissions', [RolePermissionController::class, 'index'])->name('roles.permissions');
-    Route::resource('candidats', CandidateController::class);
+    Route::resource('candidates', CandidateController::class);
     Route::get('import-candidat', [CandidateController::class, 'import'])->name('import.candidat');
 });

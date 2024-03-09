@@ -40,16 +40,16 @@
                    
                 </li> <!-- end Dashboard Menu -->
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('candidats.*') ? 'active' : '' }}" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link {{ request()->routeIs('candidates.*') ? 'active' : '' }}" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span data-key="t-apps">Candidats</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarApps">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('candidats.index') }}" class="nav-link {{ request()->routeIs('candidats.index') ? 'active' : '' }}" data-key="t-calendar"> Liste </a>
+                                <a href="{{ route('candidates.index') }}" class="nav-link {{ request()->routeIs('candidates.index') ? 'active' : '' }}" data-key="t-calendar"> Liste </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('candidats.create') }}" class="nav-link {{ request()->routeIs('candidats.create') ? 'active' : '' }}" data-key="t-chat"> Nouveau </a>
+                                <a href="{{ route('candidates.create') }}" class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}" data-key="t-chat"> Nouveau </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('import.candidat') }}" class="nav-link {{ request()->routeIs('import.candidat') ? 'active' : '' }}" data-key="t-chat"> Importer </a>

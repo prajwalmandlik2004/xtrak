@@ -12,6 +12,7 @@ class CandidateSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        
+        
     }
 }

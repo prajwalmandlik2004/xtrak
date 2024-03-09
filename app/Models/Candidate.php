@@ -20,5 +20,6 @@ class Candidate extends Model
         'Company',
         'postal_code',
         'cdt_status',
+        'created_by'
     ];
 }
