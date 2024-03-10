@@ -3,33 +3,48 @@
 namespace App\Repositories;
 
 use App\Models\File;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-use App\Services\FileService;
-
-class FileRepository implements FileService
+class FileRepository
 {
-    public function create(array $files, $owner_ref)
+    public function upload($file, $dir)
     {
-        try {
-            $fileService = new FileService();
-            foreach ($files as $file) {
-                $_file['path'] = $fileService->upload($file, 'files');
-                $_file['type'] = $file->getClientOriginalExtension();
-                $_file['size'] = $file->getSize();
-                $_file['name'] = $file->getClientOriginalName();
-                $_file['owner_id'] = $owner_ref;
-                if ($_file['path']) {
-                    $file = File::create($_file);
-                }
-            }
+        $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
 
-            return ['success' => true, 'data' => $files];
-        } catch (\Throwable $th) {
-            return ['success' => false, 'message' => $th->getMessage()];
+        $file->storeAs($dir, $fileName, 'public');
+
+        return $dir . '/' . $fileName;
+    }
+    public function create(array $files, $owner_id)
+    {
+        foreach ($files as $file) {
+            $_file['path'] = $this->upload($file, 'files');
+            $_file['type'] = $file->getClientOriginalExtension();
+            $_file['size'] = $file->getSize();
+            $_file['name'] = $file->getClientOriginalName();
+            $_file['owner_id'] = $owner_id;
+            $_file['created_by'] = Auth::user()->id;
+            if ($_file['path']) {
+                return File::create($_file);
+            }
         }
     }
-
-    public function delete(File $file)
+    public function delete($id)
     {
+        $file = File::findOrFail($id);
+        Storage::disk('public')->delete($file->path);
+        return $file->delete();
+    }
+    public function find($id)
+    {
+        return File::findOrFail($id);
+    }
+    public function update($id, array $data)
+    {
+        $file = File::findOrFail($id);
+        $file->update($data);
+        return $file;
     }
 }

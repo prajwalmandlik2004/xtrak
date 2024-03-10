@@ -4,9 +4,11 @@ namespace App\Livewire\Back\Candidates;
 
 use Livewire\Component;
 use App\Models\Candidate;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\On;
+use App\Repositories\CandidateRepository;
+
 class Index extends Component
 {
     use WithPagination;
@@ -17,15 +19,16 @@ class Index extends Component
     #[On('delete')]
     public function deleteData($id)
     {
+        $candidateRepository = new CandidateRepository();
         DB::beginTransaction();
-        $data = Candidate::find($id);
+        $candidate = $candidateRepository->find($id);
         try {
-            $data->delete();
+            $candidateRepository->delete($candidate->id);
             DB::commit();
             $this->dispatch('alert', type: 'success', message: 'le candidat est supprimé avec succès');
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $data->first_name. $data->laste_name");
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $candidate->first_name. $candidate->laste_name");
         }
     }
     public function search()

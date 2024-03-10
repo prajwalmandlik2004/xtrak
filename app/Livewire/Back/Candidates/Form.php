@@ -2,14 +2,19 @@
 
 namespace App\Livewire\Back\Candidates;
 
+use App\Models\File;
 use App\Helpers\Helper;
 use Livewire\Component;
 use App\Models\Position;
 use App\Models\Candidate;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\FileRepository;
+use App\Repositories\CandidateRepository;
 
 class Form extends Component
 {
+    use WithFileUploads;
     public $title;
     public $first_name;
     public $last_name;
@@ -25,6 +30,8 @@ class Form extends Component
     public $candidateTitles;
     public $autorizeAddCandidate = true;
     public $action;
+    public $files = [];
+
     public function mount()
     {
         $this->candidateTitles = Helper::candidateTitles();
@@ -115,7 +122,7 @@ class Form extends Component
 
     public function storeData()
     {
-        $data = $this->validate(
+        $validatedData = $this->validate(
             [
                 'title' => 'required',
                 'first_name' => 'required',
@@ -126,6 +133,8 @@ class Form extends Component
                 'postal_code' => 'required',
                 'cdt_status' => 'required',
                 'position_id' => 'required',
+                'files' => 'nullable',
+                'files.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,jpg,jpeg,png|max:2048',
             ],
             [
                 'title.required' => 'Le titre est obligatoire',
@@ -142,8 +151,13 @@ class Form extends Component
             ],
         );
         DB::beginTransaction();
+        $candidateRepository = new CandidateRepository();
+        $fileRepository = new FileRepository();
         $data['created_by'] = auth()->user()->id;
-        $candidate = Candidate::create($data);
+        $candidate = $candidateRepository->create($validatedData);
+        if (!empty($validatedData['files']) && $candidate->exists) {
+            $fileRepository->create($this->files, $candidate->id);
+        }
         DB::commit();
         $this->reset(['title', 'first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'position_id']);
         $this->dispatch('candidate-created-success');

@@ -153,8 +153,16 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            
+                            <div class="col-md-6">
+                                <!-- Multiple Files Input Example -->
+                                <div>
+                                    <label for="files" class="form-label">Documents</label>
+                                    <input wire:model="files" class="form-control @error('files') is-invalid @enderror" type="file" multiple>
+                                </div>
+                                @error('files')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                     </div>

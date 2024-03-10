@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>{{ config('app.name', 'XTK PROJECT') }}</title>
+    <title>{{ $title ?? config('app.name')}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="HARMEN & BOTTS" name="description" />
     <meta content="HARMEN & BOTTS" name="author" />
@@ -147,7 +147,27 @@
                 icon: event.detail.type
             });
         });
-       
+        window.addEventListener('swal:confirm-parameter', event => {
+            new Swal({
+                title: event.detail.title,
+                text: event.detail.text,
+                icon: event.detail.type,
+                showCancelButton: true,
+                confirmButtonColor: '#008000',
+                cancelButtonColor: '#aaa',
+                confirmButtonText: 'Modifier',
+                cancelButtonText: 'Annuler'
+            }).then((willDelete) => {
+                if (willDelete.isConfirmed) {
+                    if (event.detail.other) {
+                        Livewire.emit(event.detail.method, event.detail.id, event.detail.other);
+                    } else {
+                        Livewire.emit(event.detail.method, event.detail.id);
+                    }
+
+                }
+            });
+        });
         window.addEventListener('swal:confirm', event => {
             new Swal({
                 title: event.detail.title,

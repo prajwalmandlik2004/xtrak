@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->string('path');
             $table->string('type')->nullable();
             $table->string('size')->nullable();
-            $table->string('owner_id')->nullable();
-            $table->foreignUuid('candidate_id')->nullable()->references('id')->on('candidates');
+            $table->foreignUuid('owner_id')->nullable()->references('id')->on('candidates');
+            $table->foreignId('created_by')->nullable()->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -15,4 +15,8 @@ class Candidate extends Model
     {
         return $this->belongsTo(Position::class);
     }
+    public function files()
+    {
+        return $this->hasMany(File::class, 'owner_id','id');
+    }
 }

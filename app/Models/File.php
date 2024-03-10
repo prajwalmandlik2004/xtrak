@@ -15,10 +15,14 @@ class File extends Model
      *
      * @var array<int, string>
      */
-    protected $with = ['candidate'];
-    protected $fillable = ['id', 'ref', 'name', 'path', 'owner_id', 'type', 'size', 'candidate_id'];
+
+    protected $fillable = ['id', 'ref', 'name', 'path', 'owner_id', 'type', 'size', 'created_by'];
     public function candidate()
     {
-        return $this->belongsTo(Candidate::class);
+        return $this->belongsTo(Candidate::class, 'owner_id', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }
