@@ -2,27 +2,49 @@
 
 namespace App\Livewire\Back\Candidates;
 
-use App\Models\Candidate;
 use Livewire\Component;
+use App\Models\Candidate;
 use Livewire\WithPagination;
-
+use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 class Index extends Component
 {
     use WithPagination;
- //   protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $nbPaginate = 10;
+    public $nbPaginate = 5;
+    public $cdtStatus;
+    #[On('delete')]
+    public function deleteData($id)
+    {
+        DB::beginTransaction();
+        $data = Candidate::find($id);
+        try {
+            $data->delete();
+            DB::commit();
+            $this->dispatch('alert', type: 'success', message: 'le candidat est supprimé avec succès');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $data->first_name. $data->laste_name");
+        }
+    }
+    public function search()
+    {
+        return Candidate::where('first_name', 'like', '%' . $this->search . '%')
+            ->orWhere('last_name', 'like', '%' . $this->search . '%')
+            ->when($this->cdtStatus, function ($query) {
+                return $query->where('cdt_status', $this->cdtStatus);
+            })
+            ->paginate($this->nbPaginate);
+    }
+    public function confirmDelete($nom, $id)
+    {
+        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);
+    }
     public function render()
     {
         return view('livewire.back.candidates.index')->with([
             'candidates' => $this->search(),
         ]);
-    }
-
-    public function search()
-    {
-        return Candidate::where('first_name', 'like', '%' . $this->search . '%')
-            ->orWhere('last_name', 'like', '%' . $this->search . '%')
-            ->paginate($this->nbPaginate);
     }
 }

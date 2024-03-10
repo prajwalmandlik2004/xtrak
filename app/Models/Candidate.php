@@ -8,18 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Candidate extends Model
 {
-    use HasFactory,HasUuids;
+    use HasFactory, HasUuids;
 
-    protected $fillable = [
-        'title',
-        'first_name',
-        'last_name',
-        'position',
-        'email',
-        'phone',
-        'Company',
-        'postal_code',
-        'cdt_status',
-        'created_by'
-    ];
+    protected $fillable = ['title', 'first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'created_by', 'position_id', 'phone_2'];
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
 }

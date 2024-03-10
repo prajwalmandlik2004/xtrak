@@ -29,6 +29,8 @@
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -85,7 +87,7 @@
             </div>
         </div>
     </div>
-    @include('layouts.themesettings')
+    {{-- @include('layouts.themesettings') --}}
 
     <!-- JAVASCRIPT -->
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -107,9 +109,85 @@
 
     <!-- Dashboard init -->
     <script src="{{ asset('assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
+    {{-- sweetalert2 --}}
+    <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        window.addEventListener('alert', ({
+            detail: {
+                type,
+                message
+            }
+        }) => {
+            Toast.fire({
+                icon: type,
+                title: message
+            });
+        });
+
+        window.addEventListener('swal:modal', event => {
+            new Swal({
+                title: event.detail.title,
+                text: event.detail.text,
+                icon: event.detail.type
+            });
+        });
+       
+        window.addEventListener('swal:confirm', event => {
+            new Swal({
+                title: event.detail.title,
+                text: event.detail.text,
+                icon: event.detail.type,
+                showCancelButton: true,
+                confirmButtonColor: '#008000',
+                cancelButtonColor: '#aaa',
+                confirmButtonText: 'Supprimer',
+                cancelButtonText: 'Annuler'
+            }).then((willDelete) => {
+                if (willDelete.isConfirmed) {
+                    Livewire.dispatch(event.detail.method, { id:  event.detail.id });
+                }
+            });
+        });
+        // window.addEventListener('close:modal', event => {
+        //     let modal = document.querySelector('.form-modal');
+        //     modal.style.display = 'none';
+        // });
+        // window.addEventListener('close:modal', event => {
+        //     let modals = document.querySelectorAll('.form-modal, .form-modal-0');
+        //     modals.forEach(modal => {
+        //         modal.style.display = 'none';
+        //     });
+        //     document.body.classList.remove('modal-open'); // Supprime la classe 'modal-open' du body
+        //     let backdrops = document.querySelectorAll('.modal-backdrop');
+        //     backdrops.forEach(backdrop => {
+        //         if (backdrop) {
+        //             backdrop.classList.remove('show'); // Supprime la classe 'show' du backdrop
+        //             backdrop.remove();
+        //         }
+        //     });
+        //     // window.location.reload(); // Recharge la page
+        // });
+
+        // window.livewire.on('refreshPage', () => {
+        //     location.reload();
+        // });
+    </script>
     @yield('script')
     @livewireScripts
 </body>

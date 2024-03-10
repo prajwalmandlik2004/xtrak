@@ -15,13 +15,14 @@ return new class extends Migration {
             $table->enum('title', ['Mr', 'Mme', 'Mlle']);
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('position');
             $table->string('email')->unique();
             $table->string('phone');
-            $table->string('Company');
+            $table->string('phone_2')->nullable();
+            $table->string('company');
             $table->string('postal_code');
             $table->enum('cdt_status', ['Open', 'Close', 'In Progress']);
-            $table->foreignId('created_by')->nullable();
+            $table->foreignUuid('position_id')->nullable()->references('id')->on('positions');
+            $table->foreignId('created_by')->nullable()->references('id')->on('users');
             $table->timestamps();
         });
     }

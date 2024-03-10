@@ -21,12 +21,27 @@ class CandidateController extends Controller
      */
     public function create()
     {
-        return view('back.candidates.create');
+        return view('back.candidates.form', [
+            'action' => 'storeData',
+            'candidate' => new Candidate(),
+        ]);
     }
+    public function update(Candidate $candidate)
+    {
+        return view('back.candidates.form', [
+            'action' => 'updateData',
+            'candidate' => $candidate,
+        ]);
+    }
+    public function show(Candidate $candidate)
+    {
+        return view('back.candidates.show', [
+            'candidate' => $candidate,
+        ]);
+    }
+
     public function import()
     {
         return view('back.candidates.import');
     }
-
-    
 }

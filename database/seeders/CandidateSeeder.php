@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Candidate;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CandidateSeeder extends Seeder
 {
@@ -13,6 +14,9 @@ class CandidateSeeder extends Seeder
     public function run(): void
     {
         
+        for ($i = 0; $i < 10; $i++) {
+            Candidate::factory()->create();
+        }
         
     }
 }
