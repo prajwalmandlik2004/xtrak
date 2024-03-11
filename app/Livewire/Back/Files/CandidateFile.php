@@ -7,9 +7,11 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\FileRepository;
+use Livewire\WithFileUploads;
 
 class CandidateFile extends Component
 {
+    use WithFileUploads;
     public $candidate;
     public $search = '';
     public $nbPaginate = 5;
@@ -57,20 +59,22 @@ class CandidateFile extends Component
     public function storeData()
     {
         $validateData = $this->validate([
-            'name' => 'required',
+            'name' => 'nullable|string|max:255',
             'newFiles' => 'nullable',
-            'newFiles.*' => 'required|mimes:pdf,doc,docx|max:1024',
+            'newFiles.*' => 'nullable|mimes:pdf,doc,docx|max:1024',
         ]);
         $fileRepository = new FileRepository();
         DB::beginTransaction();
-        try {
+        
             if ($this->isUpdate) {
                 $fileRepository->update($this->file, ['name' => $validateData['name']]);
             } else {
                 $fileRepository->create($validateData['newFiles'], $this->candidate->id);
             }
             DB::commit();
+            $this->dispatch('close:modal');
             $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'le document est ajouté avec succès');
+            try {
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter le document');

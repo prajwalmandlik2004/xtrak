@@ -41,9 +41,8 @@ class FileRepository
     {
         return File::findOrFail($id);
     }
-    public function update($id, array $data)
+    public function update(File $file, array $data)
     {
-        $file = File::findOrFail($id);
         $file->update($data);
         return $file;
     }

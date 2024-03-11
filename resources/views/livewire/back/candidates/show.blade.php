@@ -27,18 +27,18 @@
                                     </div>
                                     <div class="col-md">
                                         <div>
-                                            <h4 class="fw-bold">{{ $candidate->first_name ?? 'Non définie'}}
-                                                {{ $candidate->last_name ?? 'Non définie'}}</h4>
+                                            <h4 class="fw-bold">{{ $candidate->first_name ?? 'Non définie' }}
+                                                {{ $candidate->last_name ?? 'Non définie' }}</h4>
                                             <div class="hstack gap-3 flex-wrap">
                                                 <div><i class="ri-building-line align-bottom me-1"></i>
                                                     {{ $candidate->company }}</div>
                                                 <div class="vr"></div>
                                                 <div>Date de création : <span
-                                                        class="fw-medium">{{ $candidate->created_at->format('d/m/Y') ?? 'Non définie'}}
+                                                        class="fw-medium">{{ $candidate->created_at->format('d/m/Y') ?? 'Non définie' }}
                                                     </span></div>
                                                 <div class="vr"></div>
                                                 <div>Statut : <span
-                                                        class="fw-medium badge rounded-pill bg-primary fs-12">{{ $candidate->cdt_status ?? 'Non définie'}}</span>
+                                                        class="fw-medium badge rounded-pill bg-primary fs-12">{{ $candidate->cdt_status ?? 'Non définie' }}</span>
                                                 </div>
 
                                             </div>
@@ -50,15 +50,10 @@
                             </div>
                             <div class="col-md-auto">
                                 <div class="hstack gap-1 flex-wrap">
-                                    <button type="button" class="btn py-0 fs-16 favourite-btn active">
-                                        <i class="ri-star-fill"></i>
-                                    </button>
-                                    <button type="button" class="btn py-0 fs-16 text-body">
-                                        <i class="ri-share-line"></i>
-                                    </button>
-                                    <button type="button" class="btn py-0 fs-16 text-body">
-                                        <i class="ri-flag-line"></i>
-                                    </button>
+                                    <a href="{{ Route('candidates.edit', $candidate) }}" type="button"
+                                        class="btn py-0 fs-16 text-body">
+                                        Modifier
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -75,21 +70,24 @@
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium fs-13">Civ :
                                                             </p>
-                                                            <h5 class="fs-15 mb-0">{{ $candidate->title ?? 'Non définie'}}</h5>
+                                                            <h5 class="fs-15 mb-0">
+                                                                {{ $candidate->title ?? 'Non définie' }}</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium fs-13">Prénom :
                                                             </p>
-                                                            <h5 class="fs-15 mb-0">{{ $candidate->first_name ?? 'Non définie'}}</h5>
+                                                            <h5 class="fs-15 mb-0">
+                                                                {{ $candidate->first_name ?? 'Non définie' }}</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium fs-13">Nom :
                                                             </p>
-                                                            <h5 class="fs-15 mb-0">{{ $candidate->last_name ?? 'Non définie'}}</h5>
+                                                            <h5 class="fs-15 mb-0">
+                                                                {{ $candidate->last_name ?? 'Non définie' }}</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
@@ -98,7 +96,8 @@
                                                                 (Fonction1) :
                                                             </p>
                                                             <h5 class="fs-15 mb-0">
-                                                                {{ optional($candidate->position)->name ?? 'Non définie'}}</h5>
+                                                                {{ optional($candidate->position)->name ?? 'Non définie' }}
+                                                            </h5>
                                                         </div>
                                                     </div>
 
@@ -113,28 +112,32 @@
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium fs-13">Société :
                                                             </p>
-                                                            <h5 class="fs-15 mb-0">{{ $candidate->company ?? 'Non définie'}}</h5>
+                                                            <h5 class="fs-15 mb-0">
+                                                                {{ $candidate->company ?? 'Non définie' }}</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium fs-13">Mail :
                                                             </p>
-                                                            <h5 class="fs-15 mb-0">{{ $candidate->email ?? 'Non définie'}}</h5>
+                                                            <h5 class="fs-15 mb-0">
+                                                                {{ $candidate->email ?? 'Non définie' }}</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium fs-13">Nom :
                                                             </p>
-                                                            <h5 class="fs-15 mb-0">{{ $candidate->last_name ?? 'Non définie' }}</h5>
+                                                            <h5 class="fs-15 mb-0">
+                                                                {{ $candidate->last_name ?? 'Non définie' }}</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium fs-13">Téléphone 1 :
                                                             </p>
-                                                            <h5 class="fs-15 mb-0">{{ $candidate->phone ?? 'Non définie'}}</h5>
+                                                            <h5 class="fs-15 mb-0">
+                                                                {{ $candidate->phone ?? 'Non définie' }}</h5>
                                                         </div>
                                                     </div>
 
@@ -149,21 +152,25 @@
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium fs-13">Téléphone 2 :
                                                             </p>
-                                                            <h5 class="fs-15 mb-0">{{ $candidate->phone_2  ?? 'Non définie'}}</h5>
+                                                            <h5 class="fs-15 mb-0">
+                                                                {{ $candidate->phone_2 ?? 'Non définie' }}</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium fs-13">CP/Dpt :
                                                             </p>
-                                                            <h5 class="fs-15 mb-0">{{ $candidate->postal_code ?? 'Non définie' }}</h5>
+                                                            <h5 class="fs-15 mb-0">
+                                                                {{ $candidate->postal_code ?? 'Non définie' }}</h5>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
-                                                            <p class="mb-2 text-uppercase fw-medium fs-13">Statut CDT :</p>
-                                                            <div class="badge bg-primary fs-12">{{  $candidate->cdt_status ?? 'Non définie' }}</div>
+                                                            <p class="mb-2 text-uppercase fw-medium fs-13">Statut CDT :
+                                                            </p>
+                                                            <div class="badge bg-primary fs-12">
+                                                                {{ $candidate->cdt_status ?? 'Non définie' }}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -177,7 +184,7 @@
                             </div>
                             <!-- ene col -->
                             <div class="col-xl-4 col-lg-4">
-                               @livewire('back.files.candidate-file', ['candidate' => $candidate])
+                                @livewire('back.files.candidate-file', ['candidate' => $candidate])
                                 <!-- end card -->
                             </div>
                             <!-- end col -->

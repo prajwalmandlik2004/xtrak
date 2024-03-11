@@ -22,14 +22,14 @@ class CandidateController extends Controller
     public function create()
     {
         return view('back.candidates.form', [
-            'action' => 'storeData',
+            'action' => 'create',
             'candidate' => new Candidate(),
         ]);
     }
-    public function update(Candidate $candidate)
+    public function edit(Candidate $candidate)
     {
         return view('back.candidates.form', [
-            'action' => 'updateData',
+            'action' => 'update',
             'candidate' => $candidate,
         ]);
     }

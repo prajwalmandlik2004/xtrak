@@ -81,10 +81,10 @@ class Form extends Component
                     $query->where('title', $this->title);
                 })
                 ->where('position_id', $this->position_id)
-
                 ->exists();
 
             if ($existingCandidate) {
+                
                 $this->autorizeAddCandidate = false;
                 if (!empty($this->first_name)) {
                     $this->addError('first_name', 'Ce candidat existe déjà.');
@@ -153,19 +153,24 @@ class Form extends Component
         DB::beginTransaction();
         $candidateRepository = new CandidateRepository();
         $fileRepository = new FileRepository();
-        $data['created_by'] = auth()->user()->id;
-        $candidate = $candidateRepository->create($validatedData);
+        if ($this->action == 'create') {
+            $data['created_by'] = auth()->user()->id;
+            $candidate = $candidateRepository->create($validatedData);
+        } else {
+            $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
+        }
+
         if (!empty($validatedData['files']) && $candidate->exists) {
             $fileRepository->create($this->files, $candidate->id);
         }
         DB::commit();
         $this->reset(['title', 'first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'position_id']);
-        $this->dispatch('candidate-created-success');
+        $this->dispatch('operation:success');
         return redirect()->route('candidates.show', $candidate->id);
         try {
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: 'Une erreur s\'est produite lors de la création du candidat. Veuillez réessayer.');
+            $this->dispatch('alert', type: 'error', message: $this->action == 'create' ? 'Erreur lors de la création du candidat' : 'Erreur lors de la modification du candidat');
         }
     }
     public function render()

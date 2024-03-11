@@ -8,10 +8,10 @@ use Livewire\Attributes\On;
 class Show extends Component
 {
     public $candidate;
-    #[On('candidate-created-success')]
-    public function candidateCreatedSuccess($resultat)
+    #[On('operation:success')]
+    public function operationSuccess()
     {
-        $this->dispatch('alert', type: 'success', message: 'Candidat créé avec succès');
+        $this->dispatch('alert', type: 'success', message: 'Operation réussie avec succès');
     }
     public function render()
     {

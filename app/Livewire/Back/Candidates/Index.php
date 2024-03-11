@@ -15,7 +15,7 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
     public $search = '';
     public $nbPaginate = 5;
-    public $cdtStatus;
+    public $cdtStatus = '';
     #[On('delete')]
     public function deleteData($id)
     {
@@ -33,12 +33,15 @@ class Index extends Component
     }
     public function search()
     {
-        return Candidate::where('first_name', 'like', '%' . $this->search . '%')
-            ->orWhere('last_name', 'like', '%' . $this->search . '%')
-            ->when($this->cdtStatus, function ($query) {
-                return $query->where('cdt_status', $this->cdtStatus);
-            })
-            ->paginate($this->nbPaginate);
+        return Candidate::where(function ($query) {
+            $query->where('first_name', 'like', '%' . $this->search . '%')
+                ->orWhere('last_name', 'like', '%' . $this->search . '%');
+        })
+        ->when($this->cdtStatus, function ($query) {
+            return $query->where('cdt_status', $this->cdtStatus);
+        })
+        ->paginate($this->nbPaginate);
+        
     }
     public function confirmDelete($nom, $id)
     {

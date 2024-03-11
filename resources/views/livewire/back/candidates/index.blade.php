@@ -26,6 +26,16 @@
             </select>
         </div>
         <div class="p-2">
+
+            <select class="form-control w-md" wire:model.live='cdtStatus'>
+                <option value="" selected>Selectioner</option>
+                <option value="Close">Close</option>
+                <option value="Open">Open</option>
+                <option value="In Progress">In Progress</option>
+
+            </select>
+        </div>
+        <div class="p-2">
             <div class="search-box ms-2">
                 <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
                 <i class="ri-search-line search-icon"></i>
@@ -56,7 +66,8 @@
                                             </button>
 
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href=""><i
+                                                <a class="dropdown-item"
+                                                    href="{{ Route('candidates.edit', $candidate) }}"><i
                                                         class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                     Modifier</a>
                                                 <div class="dropdown-divider"></div>

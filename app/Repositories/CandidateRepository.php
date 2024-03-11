@@ -21,7 +21,7 @@ class CandidateRepository
         return Candidate::create($data);
     }
 
-    public function update(array $data, $id)
+    public function update($id,array $data,)
     {
         $candidate = $this->find($id);
         $candidate->update($data);

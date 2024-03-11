@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>{{ $title ?? config('app.name')}}</title>
+    <title>{{ $title ?? config('app.name') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="HARMEN & BOTTS" name="description" />
     <meta content="HARMEN & BOTTS" name="author" />
@@ -47,7 +47,7 @@
         @include('layouts.header')
 
         @include('layouts.sidebar')
-       
+
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
@@ -57,7 +57,7 @@
             <div class="page-content">
                 <div class="container-fluid">
 
-                   @yield('content')
+                    @yield('content')
 
                 </div>
                 <!-- container-fluid -->
@@ -111,7 +111,8 @@
     <script src="{{ asset('assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
     {{-- sweetalert2 --}}
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-
+    {{-- jquery --}}
+    <script src="{{ asset('assets/js/pages/jquery-3.7.1.min.js') }}"></script>
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script>
@@ -180,33 +181,15 @@
                 cancelButtonText: 'Annuler'
             }).then((willDelete) => {
                 if (willDelete.isConfirmed) {
-                    Livewire.dispatch(event.detail.method, { id:  event.detail.id });
+                    Livewire.dispatch(event.detail.method, {
+                        id: event.detail.id
+                    });
                 }
             });
         });
-        // window.addEventListener('close:modal', event => {
-        //     let modal = document.querySelector('.form-modal');
-        //     modal.style.display = 'none';
-        // });
-        // window.addEventListener('close:modal', event => {
-        //     let modals = document.querySelectorAll('.form-modal, .form-modal-0');
-        //     modals.forEach(modal => {
-        //         modal.style.display = 'none';
-        //     });
-        //     document.body.classList.remove('modal-open'); // Supprime la classe 'modal-open' du body
-        //     let backdrops = document.querySelectorAll('.modal-backdrop');
-        //     backdrops.forEach(backdrop => {
-        //         if (backdrop) {
-        //             backdrop.classList.remove('show'); // Supprime la classe 'show' du backdrop
-        //             backdrop.remove();
-        //         }
-        //     });
-        //     // window.location.reload(); // Recharge la page
-        // });
-
-        // window.livewire.on('refreshPage', () => {
-        //     location.reload();
-        // });
+        window.addEventListener('close:modal', event => {
+            $('.modal').modal('hide');
+        });
     </script>
     @yield('script')
     @livewireScripts

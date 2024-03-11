@@ -14,7 +14,7 @@
                 <form wire:submit.prevent="storeData()">
                     @csrf
                     <div class="card-header">
-                        <h5 class="card-title mb-0 ">Formulaire de creation d'un candidat</h5>
+                        <h5 class="card-title mb-0 ">{{ $action == "create" ? "Formulaire de creation d'un candidat" : "Formulaire de modification d'un candidat" }}</h5>
                         <h5 class="card-title text-muted mb-0 fs-15 mt-2">les champs avec <span
                                 class="text-danger">*</span> sont obligatoires</h5>
                     </div>
@@ -169,7 +169,7 @@
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary"
-                                @if (!$this->autorizeAddCandidate) disabled @endif>{{ $action == 'storeData' ? 'Enregistrer' : 'Modifier' }}</button>
+                                @if (!$this->autorizeAddCandidate) disabled @endif>{{ $action == 'create' ? 'Enregistrer' : 'Modifier' }}</button>
                         </div>
                     </div>
 

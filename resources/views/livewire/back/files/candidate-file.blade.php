@@ -3,7 +3,8 @@
         <div class="card-header align-items-center d-flex border-bottom-dashed">
             <h4 class="card-title mb-0 flex-grow-1">Documents</h4>
             <div class="flex-shrink-0">
-                <button type="button"  wire:click="openModal()"  data-bs-toggle="modal" data-bs-target="#modal"  class="btn btn-soft-info btn-sm"><i class="ri-upload-2-fill me-1 align-bottom"></i>
+                <button type="button" wire:click="openModal()" data-bs-toggle="modal" data-bs-target="#modal"
+                    class="btn btn-soft-info btn-sm"><i class="ri-upload-2-fill me-1 align-bottom"></i>
                     Nouveau</button>
             </div>
         </div>
@@ -81,24 +82,26 @@
 
     <x-modal>
         <x-slot name="title">
-            {{ 'Modification du nom du document' }}
+            {{ $isUpdate ? 'Modification du document' : 'Ajout de document' }}
         </x-slot>
         <x-slot name="body">
 
             <form wire:submit.prevent="storeData()">
                 @csrf
                 <div class="modal-body">
-                    <div class="mb-2 mt-2">
-                        <label for="name" class="form-label">Nom du document <span
-                                class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror "
-                            wire:model.live='name' placeholder="Veuillez entrer le nom du document" />
+                    @if ($isUpdate)
+                        <div class="mb-2 mt-2">
+                            <label for="name" class="form-label">Nom du document <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror "
+                                wire:model.live='name' placeholder="Veuillez entrer le nom du document" />
 
 
-                        @error('name')
-                            <span class="invalid-feedback">{{ $message }}</span>
-                        @enderror
-                    </div>
+                            @error('name')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endif
                     @if (!$isUpdate)
                         <div>
                             <label for="newFiles" class="form-label">Documents</label>
@@ -110,10 +113,12 @@
                         </div>
                     @endif
 
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-primary ">Modifier</button>
+                    <button type="submit" class="btn btn-primary ">{{ $isUpdate ? 'Modifier' : 'Ajouter' }}</button>
                 </div>
 
             </form>
