@@ -10,13 +10,21 @@ class Candidate extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['title', 'first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'created_by', 'position_id', 'phone_2'];
+    protected $fillable = ['title', 'first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'created_by', 'position_id', 'phone_2', 'certificate', 'city', 'address', 'region', 'country', 'availability', 'url_ctc'];
     public function position()
     {
         return $this->belongsTo(Position::class);
     }
     public function files()
     {
-        return $this->hasMany(File::class, 'owner_id','id');
+        return $this->hasMany(File::class, 'owner_id', 'id');
+    }
+    public function specialties()
+    {
+        return $this->belongsToMany(Speciality::class);
+    }
+    public function fields()
+    {
+        return $this->belongsToMany(Field::class);
     }
 }

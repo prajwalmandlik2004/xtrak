@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Position;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,9 +28,16 @@ class CandidateFactory extends Factory
             'phone_2' => $this->faker->phoneNumber,
             'company' => $this->faker->company,
             'postal_code' => $this->faker->postcode,
-            'cdt_status' => $this->faker->randomElement(['open', 'close','In Progress']),
+            'cdt_status' => $this->faker->randomElement(['open', 'close', 'In Progress']),
             'created_by' => User::inRandomOrder()->first()->id,
             'position_id' => Position::inRandomOrder()->first()->id,
+            'certificate' => Str::random(10),
+            'city' => $this->faker->city,
+            'address' => $this->faker->address,
+            'region' => $this->faker->region,
+            'country' => $this->faker->country,
+            'availability' => $this->faker->randomElement(['immediate', '1 month', '2 months', '3 months']),
+            'url_ctc' => $this->faker->url,
         ];
     }
 }

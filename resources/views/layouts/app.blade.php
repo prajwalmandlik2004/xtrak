@@ -192,6 +192,8 @@
         });
     </script>
     @yield('script')
+    @stack('script-chart')
+    @stack('page-script')
     @livewireScripts
 </body>
 

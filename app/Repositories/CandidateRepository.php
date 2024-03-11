@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Candidate;
+use Illuminate\Support\Str;
 
 class CandidateRepository
 {

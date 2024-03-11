@@ -28,7 +28,7 @@
         <div class="p-2">
 
             <select class="form-control w-md" wire:model.live='cdtStatus'>
-                <option value="" selected>Selectioner</option>
+                <option value="" selected>Trier par Statut CDT</option>
                 <option value="Close">Close</option>
                 <option value="Open">Open</option>
                 <option value="In Progress">In Progress</option>
@@ -98,8 +98,21 @@
                             <dd>{{ $candidate->postal_code ?? 'non definie' }} </dd>
                             <dt>Statut CDT: </dt>
                             <dd>
-                                <div class="badge bg-warning-subtle text-warning fs-12">
-                                    {{ $candidate->cdt_status }} </div>
+                                <div class="badge bg-info-subtle text-info fs-12">
+                                    {{ $candidate->cdt_status ?? 'non definie' }} </div>
+                            </dd>
+                            <dt>Certificat: </dt>
+                            <dd>
+                                <span class="badge rounded-pill bg-success" id="certificate-{{ $loop->index }}"
+                                    onclick="toggleCertificate({{ $loop->index }})">
+                                    <span id="hidden-certificate-{{ $loop->index }}">••••••••</span>
+                                    <span id="visible-certificate-{{ $loop->index }}"
+                                        style="display: none;">{{ $candidate->certificate }}</span>
+                                </span>
+                                <div id="message-{{ $loop->index }}" style="display: none;"></div>
+
+                                {{-- <div class="badge bg-warning-subtle text-warning fs-12">
+                                    {{ $candidate->certificate ?? 'non definie' }} </div> --}}
                             </dd>
                         </div>
 
@@ -125,4 +138,37 @@
     </div><!-- end row -->
 
 
-</div>
+    @push('page-script')
+        <script>
+            function toggleCertificate(index) {
+                var hiddenCertificate = document.getElementById('hidden-certificate-' + index);
+                var visibleCertificate = document.getElementById('visible-certificate-' + index);
+                var messageDiv = document.getElementById('message-' + index);
+
+                if (hiddenCertificate.style.display === "none") {
+                    hiddenCertificate.style.display = "inline";
+                    visibleCertificate.style.display = "none";
+                    messageDiv.style.display = "none"; 
+                } else {
+                    hiddenCertificate.style.display = "none";
+                    visibleCertificate.style.display = "inline";
+
+                
+                    navigator.clipboard.writeText(visibleCertificate.textContent).then(function() {
+                        messageDiv.textContent = 'Copie réussie !';
+                        messageDiv.style.display = "block"; 
+                        setTimeout(function() {
+                            messageDiv.style.display = "none"; 
+                        }, 1000);
+                    }, function(err) {
+                        messageDiv.textContent = 'Erreur lors de la copie : ' + err;
+                        messageDiv.style.display = "block"; 
+                        setTimeout(function() {
+                            messageDiv.style.display = "none"; 
+                        }, 1000);
+                    });
+                }
+            }
+        </script>
+    @endpush
+    < </div>

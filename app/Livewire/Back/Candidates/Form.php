@@ -7,6 +7,7 @@ use App\Helpers\Helper;
 use Livewire\Component;
 use App\Models\Position;
 use App\Models\Candidate;
+use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\FileRepository;
@@ -31,10 +32,18 @@ class Form extends Component
     public $autorizeAddCandidate = true;
     public $action;
     public $files = [];
+    public $city;
+    public $address;
+    public $region;
+    public $country;
+    public $availability;
+    public $url_ctc;
+    public $availabilities;
 
     public function mount()
     {
         $this->candidateTitles = Helper::candidateTitles();
+        $this->availabilities = Helper::candidateAvailabilities();
         $this->positions = Position::orderBy('name', 'asc')->get();
         if ($this->candidate && $this->candidate->exists) {
             $this->title = $this->candidate->title;
@@ -46,6 +55,12 @@ class Form extends Component
             $this->postal_code = $this->candidate->postal_code;
             $this->cdt_status = $this->candidate->cdt_status;
             $this->position_id = $this->candidate->position_id;
+            $this->city = $this->candidate->city;
+            $this->address = $this->candidate->address;
+            $this->region = $this->candidate->region;
+            $this->country = $this->candidate->country;
+            $this->availability = $this->candidate->availability;
+            $this->url_ctc = $this->candidate->url_ctc;
         }
     }
 
@@ -55,13 +70,13 @@ class Form extends Component
     }
     public function checkExistingCandidate()
     {
-        if (!empty($this->position_id)) {
+        if (!empty($this->last_name)) {
             $existingCandidate = Candidate::when($this->first_name, function ($query) {
                 $query->where('first_name', $this->first_name);
             })
-                ->when($this->last_name, function ($query) {
-                    $query->where('last_name', $this->last_name);
-                })
+                // ->when($this->last_name, function ($query) {
+                //     $query->where('last_name', $this->last_name);
+                // })
                 ->when($this->email, function ($query) {
                     $query->where('email', $this->email);
                 })
@@ -80,11 +95,29 @@ class Form extends Component
                 ->when($this->title, function ($query) {
                     $query->where('title', $this->title);
                 })
-                ->where('position_id', $this->position_id)
+                ->when($this->city, function ($query) {
+                    $query->where('city', $this->city);
+                })
+                ->when($this->address, function ($query) {
+                    $query->where('address', $this->address);
+                })
+                ->when($this->region, function ($query) {
+                    $query->where('region', $this->region);
+                })
+                ->when($this->country, function ($query) {
+                    $query->where('country', $this->country);
+                })
+                ->when($this->availability, function ($query) {
+                    $query->where('availability', $this->availability);
+                })
+                ->when($this->url_ctc, function ($query) {
+                    $query->where('url_ctc', $this->url_ctc);
+                })
+
+                ->where('last_name', $this->last_name)
                 ->exists();
 
             if ($existingCandidate) {
-                
                 $this->autorizeAddCandidate = false;
                 if (!empty($this->first_name)) {
                     $this->addError('first_name', 'Ce candidat existe déjà.');
@@ -113,9 +146,27 @@ class Form extends Component
                 if (!empty($this->title)) {
                     $this->addError('title', 'Ce candidat existe déjà.');
                 }
+                if (!empty($this->city)) {
+                    $this->addError('city', 'Ce candidat existe déjà.');
+                }
+                if (!empty($this->address)) {
+                    $this->addError('address', 'Ce candidat existe déjà.');
+                }
+                if (!empty($this->region)) {
+                    $this->addError('region', 'Ce candidat existe déjà.');
+                }
+                if (!empty($this->country)) {
+                    $this->addError('country', 'Ce candidat existe déjà.');
+                }
+                if (!empty($this->availability)) {
+                    $this->addError('availability', 'Ce candidat existe déjà.');
+                }
+                if (!empty($this->url_ctc)) {
+                    $this->addError('url_ctc', 'Ce candidat existe déjà.');
+                }
             } else {
                 $this->autorizeAddCandidate = true;
-                $this->resetErrorBag(['first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'position_id', 'title']);
+                $this->resetErrorBag(['first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'position_id', 'title', 'city', 'address', 'region', 'country', 'availability', 'url_ctc']);
             }
         }
     }
@@ -135,6 +186,12 @@ class Form extends Component
                 'position_id' => 'required',
                 'files' => 'nullable',
                 'files.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,jpg,jpeg,png|max:2048',
+                'city' => 'nullable',
+                'address' => 'nullable',
+                'region' => 'nullable',
+                'country' => 'nullable',
+                'availability' => 'nullable',
+                'url_ctc' => 'nullable',
             ],
             [
                 'title.required' => 'Le titre est obligatoire',
@@ -148,13 +205,15 @@ class Form extends Component
                 'cdt_status.required' => 'Le statut est obligatoire',
                 'position_id.required' => 'Le poste est obligatoire',
                 'email.unique' => 'Cet email existe déjà. Veuillez en saisir un autre.',
+
             ],
         );
         DB::beginTransaction();
         $candidateRepository = new CandidateRepository();
         $fileRepository = new FileRepository();
         if ($this->action == 'create') {
-            $data['created_by'] = auth()->user()->id;
+            $validatedData['created_by'] = auth()->user()->id;
+            $validatedData['certificate'] = Str::random(10);
             $candidate = $candidateRepository->create($validatedData);
         } else {
             $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
@@ -164,7 +223,7 @@ class Form extends Component
             $fileRepository->create($this->files, $candidate->id);
         }
         DB::commit();
-        $this->reset(['title', 'first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'position_id']);
+        $this->reset(['title', 'first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'position_id', 'files', 'city', 'address', 'region', 'country', 'availability', 'url_ctc']);
         $this->dispatch('operation:success');
         return redirect()->route('candidates.show', $candidate->id);
         try {
