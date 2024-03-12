@@ -66,16 +66,21 @@
                                             </button>
 
                                             <div class="dropdown-menu dropdown-menu-end">
+                                            @can('Modifier un candidat')
+                                                    
                                                 <a class="dropdown-item"
                                                     href="{{ Route('candidates.edit', $candidate) }}"><i
                                                         class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                     Modifier</a>
+                                                    @endcan
+                                                @can('Supprimer un candidat')
                                                 <div class="dropdown-divider"></div>
                                                 <button class="dropdown-item"
                                                     wire:click="confirmDelete('{{ $candidate->first_name . ' ' . $candidate->last_name }}', '{{ $candidate->id }}')"
                                                     data-bs-target="#removeProjectModal"><i
                                                         class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
                                                     Supprimer</button>
+                                                    @endcan
                                             </div>
                                         </div>
                                     </div>
@@ -171,4 +176,4 @@
             }
         </script>
     @endpush
-    < </div>
+     </div>

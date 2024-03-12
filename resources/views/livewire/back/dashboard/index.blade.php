@@ -30,37 +30,38 @@
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div><!-- end col -->
-
-                    <div class="col-xl-3 col-md-6">
-                        <!-- card -->
-                        <div class="card card-animate bg-success">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <p class="text-uppercase fw-bold text-white-50 text-truncate mb-0">
-                                            Nombre d'utilisateurs</p>
-                                    </div>
-
-                                </div>
-                                <div class="d-flex align-items-end justify-content-between mt-4">
-                                    <div>
-                                        <h4 class="fs-22 fw-bold ff-secondary text-white mb-4"><span
-                                                class="counter-value" data-target="{{ $nbUsers }}">0</span>
-                                        </h4>
+                    @role('Administrateur')
+                        <div class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate bg-success">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="text-uppercase fw-bold text-white-50 text-truncate mb-0">
+                                                Nombre d'utilisateurs</p>
+                                        </div>
 
                                     </div>
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-white bg-opacity-10 rounded fs-3">
-                                            <i class="bx bx-user-circle text-white"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
-                    </div><!-- end col -->
+                                    <div class="d-flex align-items-end justify-content-between mt-4">
+                                        <div>
+                                            <h4 class="fs-22 fw-bold ff-secondary text-white mb-4"><span
+                                                    class="counter-value" data-target="{{ $nbUsers }}">0</span>
+                                            </h4>
 
+                                        </div>
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-white bg-opacity-10 rounded fs-3">
+                                                <i class="bx bx-user-circle text-white"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                    @endrole
 
                 </div> <!-- end row-->
+                @role('Administrateur')
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="card">
@@ -81,10 +82,12 @@
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div><!-- end col -->
+                    
                     <div class="col-xl-6">
                         <div class="card">
                             <div class="card-header border-0 align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1">Évolution des candidats pendant les cinq dernières années</h4>
+                                <h4 class="card-title mb-0 flex-grow-1">Évolution des candidats pendant les cinq
+                                    dernières années</h4>
                                 {{-- <div>
                                     <select class="form-control w-md" wire:model.live='year' >
                                         @foreach ($years as $year)
@@ -102,6 +105,7 @@
                     </div><!-- end col -->
 
                 </div>
+                @endrole
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">

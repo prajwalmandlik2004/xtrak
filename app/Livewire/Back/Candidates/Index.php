@@ -7,6 +7,7 @@ use App\Models\Candidate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\CandidateRepository;
 
 class Index extends Component
@@ -31,17 +32,21 @@ class Index extends Component
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $candidate->first_name. $candidate->laste_name");
         }
     }
-    public function search()
+    public function searchCandidates()
     {
         return Candidate::where(function ($query) {
             $query->where('first_name', 'like', '%' . $this->search . '%')
                 ->orWhere('last_name', 'like', '%' . $this->search . '%');
         })
+        ->when(Auth::user()->hasRole('Administrateur'), function ($query) {
+            return $query;
+        }, function ($query) {
+            return $query->where('created_by', Auth::id());
+        })
         ->when($this->cdtStatus, function ($query) {
             return $query->where('cdt_status', $this->cdtStatus);
         })
         ->paginate($this->nbPaginate);
-        
     }
     public function confirmDelete($nom, $id)
     {
@@ -50,7 +55,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.back.candidates.index')->with([
-            'candidates' => $this->search(),
+            'candidates' => $this->searchCandidates(),
         ]);
     }
 }

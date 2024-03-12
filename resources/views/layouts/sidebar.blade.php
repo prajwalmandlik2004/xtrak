@@ -39,26 +39,35 @@
                     </a>
                    
                 </li> <!-- end Dashboard Menu -->
+                @can('Gestion des candidats')
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('candidates.*') ? 'active' : '' }}" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span data-key="t-apps">Candidats</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarApps">
                         <ul class="nav nav-sm flex-column">
+                            @can('Liste des candidats')
                             <li class="nav-item">
                                 <a href="{{ route('candidates.index') }}" class="nav-link {{ request()->routeIs('candidates.index') ? 'active' : '' }}" data-key="t-calendar"> Liste </a>
                             </li>
+                            @endcan
+                            @can('Ajouter un candidat')
                             <li class="nav-item">
                                 <a href="{{ route('candidates.create') }}" class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}" data-key="t-chat"> Nouveau </a>
                             </li>
+                            @endcan 
+                            @can('Importer des candidats')
                             <li class="nav-item">
                                 <a href="{{ route('import.candidat') }}" class="nav-link {{ request()->routeIs('import.candidat') ? 'active' : '' }}" data-key="t-chat"> Importer </a>
                             </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
+                @endcan
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Paramèttre</span></li>
+                @can('Menu paramètres')
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Paramètres</span></li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
@@ -66,25 +75,37 @@
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarAuth">
                         <ul class="nav nav-sm flex-column">
+                            @can('Gestion des utilisateurs')
                             <li class="nav-item">
                                 <a href="#sidebarSignIn" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin"> Utilisateurs
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarSignIn">
                                     <ul class="nav nav-sm flex-column">
+                                        @can('Liste des utilisateurs')
+                                       
                                         <li class="nav-item">
                                             <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" data-key="t-basic"> Liste </a>
                                         </li>
+                                             
+                                        @endcan
                                     </ul>
                                 </div>
                             </li>
+                            @endcan
+                            @can('Gestion des rôles et permissions')
                             <li class="nav-item">
                                 <a href="{{ route('roles.permissions') }}" class="nav-link {{ request()->routeIs('roles.permissions') ? 'active' : '' }}"  data-key="t-signup"> Rôles et Permissions
                                 </a>
-                                
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"  data-key="t-signup"> Rôles
+                                </a>
+                            </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
+                @endcan
             </ul>
         </div>
         <!-- Sidebar -->

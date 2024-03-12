@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             PositionSeeder::class,
             CandidateSeeder::class,
             SpecialitySeeder::class,
-
+            PermissionRoleSeeder::class,
         ]);
 
     }

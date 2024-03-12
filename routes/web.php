@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\CandidateController;
@@ -25,6 +26,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/dashboard', [DasboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::get('roles-permissions', [RolePermissionController::class, 'index'])->name('roles.permissions');
+    Route::resource('roles', RoleController::class);
     Route::resource('candidates', CandidateController::class);
     Route::get('import-candidat', [CandidateController::class, 'import'])->name('import.candidat');
 });
