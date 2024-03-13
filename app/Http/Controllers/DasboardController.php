@@ -22,6 +22,8 @@ class DasboardController extends Controller
             \Artisan::call('passport:install');
         } elseif ($param == 'migrate') {
             \Artisan::call('migrate:fresh --seed');
+        }elseif ($param == 'vite') {
+            \Artisan::call('npm run build');
         }
     }
 }
