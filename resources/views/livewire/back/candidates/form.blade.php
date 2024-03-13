@@ -340,7 +340,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <a type="{{ Route('candidats.index') }}" class="btn btn-primary"
+                            <a type="{{ Route('candidates.index') }}" class="btn btn-primary"
                                 >Annuler</a>
                             <button type="submit" class="btn btn-primary"
                                 @if (!$this->autorizeAddCandidate) disabled @endif>{{ $action == 'create' ? 'Enregistrer' : 'Modifier' }}</button>
