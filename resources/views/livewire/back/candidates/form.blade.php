@@ -244,7 +244,8 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div>
-                                                <label for="specialitiesSelected" class="form-label">Spécialité (Fonction2)</label>
+                                                <label for="specialitiesSelected" class="form-label">Spécialité
+                                                    (Fonction2)</label>
                                                 <select
                                                     class="form-control @error('specialitiesSelected') is-invalid @enderror "
                                                     wire:model.live='specialitiesSelected'>
@@ -264,7 +265,8 @@
                                         </div>
                                         <div class="col-lg-6 mt-4">
                                             <div>
-                                                <label for="fieldsSelected" class="form-label">Domaine (Fonction3)</label>
+                                                <label for="fieldsSelected" class="form-label">Domaine
+                                                    (Fonction3)</label>
                                                 <select
                                                     class="form-control @error('fieldsSelected') is-invalid @enderror "
                                                     wire:model.live='fieldsSelected'>
@@ -340,11 +342,13 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <a type="{{ Route('candidates.index') }}" class="btn btn-danger ms-3"
-                                >Annuler</a>
-                            <button type="submit" class="btn btn-primary"
-                                @if (!$this->autorizeAddCandidate) disabled @endif>{{ $action == 'create' ? 'Enregistrer' : 'Modifier' }}</button>
+                            <a type="{{ Route('candidates.index') }}" class="btn btn-danger ms-3">Annuler</a>
+                            <button type="submit"
+                                class="btn btn-primary @if (!$this->autorizeAddCandidate) disabled @endif">
+                                {{ $action == 'create' ? 'Enregistrer' : 'Modifier' }}
+                            </button>
                         </div>
+
                     </div>
 
                 </form>
