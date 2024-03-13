@@ -231,7 +231,9 @@
                                                     wire:model.live='position_id'>
                                                     <option value="" selected>Selectionner un poste</option>
                                                     @foreach ($positions as $position)
-                                                        <option value="{{ $position->id }}">{{ $position->name }}
+                                                        <option value="{{ $position->id }}"
+                                                            @if ($action == 'update' && $position->id == $position_id) selected @endif>
+                                                            {{ $position->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -241,6 +243,47 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
+                                            <div>
+                                                <label for="specialitiesSelected" class="form-label">Spécialité (Fonction2)</label>
+                                                <select
+                                                    class="form-control @error('specialitiesSelected') is-invalid @enderror "
+                                                    wire:model.live='specialitiesSelected'>
+                                                    <option value="" selected>Selectionner une spécialité
+                                                    </option>
+                                                    @foreach ($specialities as $speciality)
+                                                        <option value="{{ $position->id }}"
+                                                            @if ($action == 'update' && $specialitiesSelected > 0 && in_array($speciality->id, $specialitiesSelected)) selected @endif>
+                                                            {{ $speciality->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('specialitiesSelected')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mt-4">
+                                            <div>
+                                                <label for="fieldsSelected" class="form-label">Domaine (Fonction3)</label>
+                                                <select
+                                                    class="form-control @error('fieldsSelected') is-invalid @enderror "
+                                                    wire:model.live='fieldsSelected'>
+                                                    <option value="" selected>Selectionner une spécialité
+                                                    </option>
+                                                    @foreach ($fields as $field)
+                                                        <option value="{{ $position->id }}"
+                                                            @if ($action == 'update' && $fieldsSelected > 0 && in_array($field->id, $fieldsSelected)) selected @endif>
+                                                            {{ $field->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('fieldsSelected')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 mt-4">
                                             <div>
                                                 <label for="company" class="form-label">Sociéte <span
                                                         class="text-danger">*</span></label>
@@ -255,7 +298,7 @@
                                             </div>
                                         </div>
 
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -279,8 +322,7 @@
                                 <div>
                                     <label for="cdt_status" class="form-label">Statut CDT <span
                                             class="text-danger">*</span></label>
-                                    <select
-                                        class="form-control @error('cdt_status') is-invalid @enderror "
+                                    <select class="form-control @error('cdt_status') is-invalid @enderror "
                                         wire:model.live='cdt_status'>
                                         <option value=""selected>Selectionner le statut</option>
                                         <option value="Open">Open</option>

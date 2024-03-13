@@ -15,7 +15,7 @@ class Index extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $nbPaginate = 5;
+    public $nbPaginate = 6;
     public $cdtStatus = '';
     #[On('delete')]
     public function deleteData($id)
@@ -46,6 +46,7 @@ class Index extends Component
         ->when($this->cdtStatus, function ($query) {
             return $query->where('cdt_status', $this->cdtStatus);
         })
+        ->orderBy('last_name', 'asc')
         ->paginate($this->nbPaginate);
     }
     public function confirmDelete($nom, $id)

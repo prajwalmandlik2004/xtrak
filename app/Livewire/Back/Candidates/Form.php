@@ -7,6 +7,8 @@ use App\Helpers\Helper;
 use Livewire\Component;
 use App\Models\Position;
 use App\Models\Candidate;
+use App\Models\Field;
+use App\Models\Speciality;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
@@ -39,12 +41,18 @@ class Form extends Component
     public $availability;
     public $url_ctc;
     public $availabilities;
+    public $specialities;
+    public $specialitiesSelected;
+    public $fields;
+    public $fieldsSelected;
 
     public function mount()
     {
         $this->candidateTitles = Helper::candidateTitles();
         $this->availabilities = Helper::candidateAvailabilities();
         $this->positions = Position::orderBy('name', 'asc')->get();
+        $this->specialities = Speciality::orderBy('name', 'asc')->get();
+        $this->fields = Field::orderBy('name', 'asc')->get(); 
         if ($this->candidate && $this->candidate->exists) {
             $this->title = $this->candidate->title;
             $this->first_name = $this->candidate->first_name;
@@ -61,6 +69,8 @@ class Form extends Component
             $this->country = $this->candidate->country;
             $this->availability = $this->candidate->availability;
             $this->url_ctc = $this->candidate->url_ctc;
+            $this->specialitiesSelected = $this->candidate->specialties->pluck('id')->toArray() ?? [];
+            $this->fieldsSelected = $this->candidate->fields->pluck('id')->toArray() ?? [];
         }
     }
 
@@ -192,6 +202,8 @@ class Form extends Component
                 'country' => 'nullable',
                 'availability' => 'nullable',
                 'url_ctc' => 'nullable',
+                'specialitiesSelected' => 'nullable',
+                'fieldsSelected' => 'nullable',
             ],
             [
                 'title.required' => 'Le titre est obligatoire',
@@ -205,7 +217,6 @@ class Form extends Component
                 'cdt_status.required' => 'Le statut est obligatoire',
                 'position_id.required' => 'Le poste est obligatoire',
                 'email.unique' => 'Cet email existe déjà. Veuillez en saisir un autre.',
-
             ],
         );
         DB::beginTransaction();
@@ -215,6 +226,12 @@ class Form extends Component
             $validatedData['created_by'] = auth()->user()->id;
             $validatedData['certificate'] = Str::random(10);
             $candidate = $candidateRepository->create($validatedData);
+            if (!empty($validatedData['specialitiesSelected'])) {
+                $candidate->specialties()->attach($validatedData['specialitiesSelected']);
+            }
+            if (!empty($validatedData['fieldsSelected'])) {
+                $candidate->fields()->attach($validatedData['fieldsSelected']);
+            }
         } else {
             $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
         }
