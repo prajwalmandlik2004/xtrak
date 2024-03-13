@@ -98,7 +98,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"  data-key="t-signup"> Rôles
+                                <a href="#" class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"  data-key="t-signup"> Rôles
                                 </a>
                             </li>
                             @endcan
