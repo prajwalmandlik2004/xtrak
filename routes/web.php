@@ -30,3 +30,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('candidates', CandidateController::class);
     Route::get('import-candidat', [CandidateController::class, 'import'])->name('import.candidat');
 });
+Route::get('commandes/{param}', [DasboardController::class, 'commande']);
