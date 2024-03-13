@@ -226,12 +226,12 @@ class Form extends Component
             $validatedData['created_by'] = auth()->user()->id;
             $validatedData['certificate'] = Str::random(10);
             $candidate = $candidateRepository->create($validatedData);
-            if (!empty($validatedData['specialitiesSelected'])) {
-                $candidate->specialties()->attach($validatedData['specialitiesSelected']);
-            }
-            if (!empty($validatedData['fieldsSelected'])) {
-                $candidate->fields()->attach($validatedData['fieldsSelected']);
-            }
+            // if (!empty($validatedData['specialitiesSelected'])) {
+            //     $candidate->specialties()->attach($validatedData['specialitiesSelected']);
+            // }
+            // if (!empty($validatedData['fieldsSelected'])) {
+            //     $candidate->fields()->attach($validatedData['fieldsSelected']);
+            // }
         } else {
             $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
         }
