@@ -88,7 +88,7 @@
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" name="email"
-                                            class="form-control @error('email') is-invalid @enderror" id="email" value="admin@local.com"
+                                            class="form-control @error('email') is-invalid @enderror" id="email" value=""
                                             placeholder="Entrez votre adresse email" value="{{ old('email') }}">
                                         @error('email')
                                             <small class="text-danger">
@@ -103,7 +103,7 @@
                                         </div>
                                         <label class="form-label" for="password-input">Mot de passe</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
-                                            <input type="password" name="password" value="admin@2024"
+                                            <input type="password" name="password" value=""
                                                 class="form-control pe-5 password-input @error('password') border-danger @enderror"
                                                 placeholder="Entrez votre mot de passe" id="password-input">
                                             <button
