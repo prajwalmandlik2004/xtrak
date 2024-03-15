@@ -1,5 +1,5 @@
 <div>
-    <div class="card">
+    <div class="card mt-4">
         <div class="card-header align-items-center d-flex border-bottom-dashed">
             <h4 class="card-title mb-0 flex-grow-1">Documents</h4>
             <div class="flex-shrink-0">
@@ -8,12 +8,26 @@
                     Nouveau</button>
             </div>
         </div>
-        <div class="col-md-5 ">
-            <div class="p-2 ">
-                <div class="search-box ms-2">
-                    <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
-                    <i class="ri-search-line search-icon"></i>
+        <div class="col-md-12 ">
+            <div class="d-flex ">
+
+                <div class=" p-2">
+                    <div class="search-box ms-2">
+                        <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
                 </div>
+                <div class="p-2 ">
+                    <select class="form-control w-md" wire:model.live='nbPaginate'>
+                        <option value="0">Tous</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">20</option>
+                        <option value="20">30</option>
+                        <option value="30">50</option>
+                        <option value="50">100</option>
+                    </select>
+                </div>
+
             </div>
         </div>
         <div class="card-body">
@@ -55,7 +69,7 @@
                                                     Rénomer</a>
                                             </li>
                                             <li><a wire:click="confirmDelete('{{ $file->name }}', '{{ $file->id }}')"
-                                                    class="dropdown-item" href="#"><i
+                                                    class="dropdown-item"><i
                                                         class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
                                                     Supprimer</a></li>
                                         </ul>
@@ -70,14 +84,17 @@
                     </div>
                 @endforelse
 
-                <div class="mt-2 text-end">
-                    {{ $files->links() }}
-                </div>
+
             </div>
+
+        </div>
+        <div class="card-header">
+            <div class="row g-0 text-center text-sm-start align-items-center mb-4">
+                <!-- end col -->
+                {{ $files->links() }}
+            </div><!-- end row -->
         </div>
         <!-- end card body -->
-
-
     </div>
 
     <x-modal>

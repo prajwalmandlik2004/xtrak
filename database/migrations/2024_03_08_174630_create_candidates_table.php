@@ -12,24 +12,28 @@ return new class extends Migration {
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->foreignUuid('id')->primary();
-            $table->enum('title', ['Mr', 'Mme', 'Mlle'])->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('phone_2')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('region')->nullable();
             $table->string('country')->nullable();
-            $table->string('availability')->nullable();
-            $table->string('company')->nullable();
             $table->string('postal_code')->nullable();
-            $table->enum('cdt_status', ['Open', 'Close', 'In Progress']);
+            $table->string('cdt_status')->nullable();
             $table->string('certificate')->nullable();
+            $table->string('code_cdt')->nullable();
             $table->string('url_ctc')->nullable();
+            $table->longText('commentaire')->nullable();
+            $table->string('origine')->nullable();
+            $table->foreignUuid('compagny_id')->nullable()->references('id')->on('compagnies');
+            $table->foreignUuid('disponibility_id')->nullable()->references('id')->on('disponibilities');
+            $table->foreignUuid('civ_id')->nullable()->references('id')->on('civs');
             $table->foreignUuid('position_id')->nullable()->references('id')->on('positions');
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
+
             $table->timestamps();
         });
     }

@@ -1,3 +1,207 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
+    <!-- start page title -->
+    @include('components.breadcrumb', [
+        'title' => 'Listes des utilisateurs',
+        'breadcrumbItems' => [
+            ['text' => 'utilisateurs', 'url' => '#'],
+            ['text' => 'Listes', 'url' => Route('users.index')],
+        ],
+    ])
+    <!-- end page title -->
+    <div class="d-flex">
+        <div class="p-2 flex-grow-1">
+            <button type="button" wire:click="openModal()" data-bs-toggle="modal" data-bs-target="#modal"
+                class="btn btn-primary"><i class="ri-add-line align-bottom me-1"></i>
+                Nouveau</button>
+        </div>
+        <div class="p-2">
+            <select class="form-control w-md" wire:model.live='filterRoleId'>
+                <option value="" selected>Filtrer par rôles</option>
+                @foreach ($roles as $role)
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @endforeach
+            </select>
+
+        </div>
+
+        <div class="p-2">
+
+            <select class="form-control w-md" wire:model.live='nbPaginate'>
+                <option value="6" selected>6</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+
+        <div class="p-2">
+            <div class="search-box ms-2">
+                <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
+                <i class="ri-search-line search-icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Téléphone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Rôle</th>
+                            <th scope="col">Date de création</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($users as $user)
+                            <tr>
+
+                                <th scope="row"> <a class="text-body"
+                                        href="{{ Route('users.show', $user) }}">{{ $loop->iteration }}
+                                    </a></th>
+
+                                <td> <a class="text-body"
+                                        href="{{ Route('users.show', $user) }}">{{ $user->first_name }}
+                                    </a></td>
+                                <td> <a class="text-body" href="{{ Route('users.show', $user) }}">{{ $user->last_name }}
+                                    </a></td>
+                                <td> <a class="text-body" href="{{ Route('users.show', $user) }}">{{ $user->phone }}
+                                    </a></td>
+                                <td> <a class="text-body" href="{{ Route('users.show', $user) }}">{{ $user->email }}
+                                    </a></td>
+                                <th scope="row"> <a class="text-body"
+                                        href="{{ Route('users.show', $user) }}">{{ $user->roles->first()->name }}
+                                    </a></th>
+                                <td> <a class="text-body"
+                                        href="{{ Route('users.show', $user) }}">{{ $user->created_at->format('d/m/Y') ?? 'Non renseigné' }}
+                                    </a></td>
+                                <td>
+                                    <ul class="list-inline hstack gap-2 mb-0">
+
+                                        <li class="list-inline-item edit">
+                                            <a wire:click="openModal('{{ $user->id }}')" data-bs-toggle="modal"
+                                                data-bs-target="#modal"
+                                                class="text-primary d-inline-block edit-item-btn">
+                                                <i class="ri-pencil-fill fs-16"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a wire:click="confirmDelete('{{ $user->name }}', '{{ $user->id }}')"
+                                                class="text-danger d-inline-block remove-item-btn">
+                                                <i class="ri-delete-bin-5-fill fs-16"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center">
+                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                        colors="primary:#405189,secondary:#0ab39c" style="width:72px;height:72px">
+                                    </lord-icon>
+                                    <h5 class="mt-4">Aucun résultat trouvé</h5>
+                                </td>
+
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- end row -->
+    <div class="row g-0 text-center text-sm-start align-items-center mb-4">
+        <!-- end col -->
+        {{ $users->links() }}
+    </div><!-- end row -->
+
+
+    <x-modal>
+        <x-slot name="title">
+            {{ $isUpdate ? 'Modification d\'utilisateur' : 'Ajout d\'utilisateur' }}
+        </x-slot>
+        <x-slot name="body">
+
+            <form wire:submit.prevent="storeData()">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-2 mt-2">
+                        <label for="first_name" class="form-label">Nom <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('first_name') is-invalid @enderror "
+                            wire:model.live='first_name' placeholder="Veuillez entrer le nom " />
+
+
+                        @error('first_name')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-2 mt-2">
+                        <label for="last_name" class="form-label">Prénom <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('last_name') is-invalid @enderror "
+                            wire:model.live='last_name' placeholder="Veuillez entrer le prénom " />
+
+
+                        @error('last_name')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-2 mt-2">
+                        <label for="phone" class="form-label">Téléphone <span class="text-danger">*</span></label>
+                        <input type="phone" class="form-control @error('phone') is-invalid @enderror "
+                            wire:model.live='phone' placeholder="Veuillez entrer le numéro de téléphone " />
+
+
+                        @error('phone')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-2 mt-2">
+                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control @error('email') is-invalid @enderror "
+                            wire:model.live='email' placeholder="Veuillez entrer l'address email " />
+
+
+                        @error('email')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="role_id" class="form-label">Rôles
+                        </label>
+                        <select class="form-control @error('role_id') is-invalid @enderror "
+                            wire:model.live='role_id'>
+                            <option value="" selected>Selectionner un rôle
+                            </option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">
+                                    {{ $role->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('role_id')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary ">{{ $isUpdate ? 'Modifier' : 'Ajouter' }}</button>
+                </div>
+
+            </form>
+        </x-slot>
+    </x-modal>
 </div>

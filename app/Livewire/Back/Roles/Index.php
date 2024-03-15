@@ -3,44 +3,84 @@
 namespace App\Livewire\Back\Roles;
 
 use Livewire\Component;
-use Spatie\Permission\Models\Role;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class Index extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    public $role;
     public $search = '';
+    public $nbPaginate = 5;
     public $name;
     public $isUpdate = false;
-    public $nbPaginate = 10;
-    protected $listeners = [
-        'delete' => 'destroyData',
-    ];
+    #[On('delete')]
+    public function deleteData($id)
+    {
+        DB::beginTransaction();
+        $role = Role::find($id);
+        $role->permissions()->detach();
+        $role->delete();
+        DB::commit();
+        $this->dispatch('alert', type: 'success', message: 'le rôle est supprimé avec succès');
+        try {
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le rôle $role->name");
+        }
+    }
 
     public function confirmDelete($nom, $id)
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le rôle $nom", type: 'warning', method: 'delete', id: $id);
     }
-    public function destroyData($id)
+    public function searchFiles()
     {
+        return Role::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
+    }
+    public function openModal($id = null)
+    {
+        $this->name = '';
+        $this->isUpdate = false;
+        if ($id) {
+            $this->isUpdate = true;
+            $this->role = Role::find($id);
+            $this->name = $this->role->name ?? '';
+        }
+    }
+    public function storeData()
+    {
+        $validateData = $this->validate(
+            [
+                'name' => 'required|string|max:255',
+            ],
+            [
+                'name.required' => 'Le nom est obligatoire',
+            ],
+        );
         DB::beginTransaction();
-        $role = Role::find($id);
+
+        if ($this->isUpdate) {
+            $this->role->update($validateData);
+        } else {
+            Role::create($validateData);
+        }
+        DB::commit();
+        $this->dispatch('close:modal');
+        $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'le rôle est ajouté avec succès');
         try {
-            $role->permissions()->detach();
-            $role->delete();
-            DB::commit();
-            $this->dispatch('alert', type: 'success', message: 'Rôle supprimé avec succès');
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer $role->name");
+            $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter le rôle');
         }
     }
     public function render()
     {
-        return view('livewire.back.roles.index', [
-            'roles' => Role::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate),
+        return view('livewire.back.roles.index')->with([
+            'roles' => $this->searchFiles(),
         ]);
     }
 }

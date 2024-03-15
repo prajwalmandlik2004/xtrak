@@ -27,7 +27,7 @@ class FileRepository
             $_file['owner_id'] = $owner_id;
             $_file['created_by'] = Auth::user()->id;
             if ($_file['path']) {
-                return File::create($_file);
+                 File::create($_file);
             }
         }
     }

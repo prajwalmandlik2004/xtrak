@@ -22,7 +22,7 @@
                         @csrf
                         <div class="input-group">
                             <input type="file" class="form-control @error('file') is-invalid @enderror"
-                                wire:model='file' aria-label="Upload" accept=".xls, .xlsx,">
+                                wire:model='file' aria-label="Upload" accept=".xls, .xlsx," required>
                             <button wire:loading.remove wire:target="storeData" type="submit"
                                 class="btn btn-outline-primary">Importer</button>
                             <button wire:loading wire:target="storeData" type="button" class="btn btn-outline-primary"

@@ -1,123 +1,133 @@
 <div>
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Liste des rôles</h4>
-                <!-- Appel du modal -->
-                @can('Ajouter un rôle')
-                    <a href="{{ route('roles.create') }}" class="btn btn-rounded btn-primary btn-info"> <span
-                            class="btn-icon-start text-primary">
-                            <i class="fa fa-plus color-success"></i>
-                        </span>
-                        Nouveau</a>
-                @endcan
-            </div>
-            <div class="card-body">
+    <!-- start page title -->
+    @include('components.breadcrumb', [
+        'title' => 'Listes des rôles',
+        'breadcrumbItems' => [
+            ['text' => 'rôles', 'url' => '#'],
+            ['text' => 'Listes', 'url' => Route('roles.index')],
+        ],
+    ])
+    <!-- end page title -->
+    <div class="d-flex">
+        <div class="p-2 flex-grow-1">
+            <button type="button" wire:click="openModal()" data-bs-toggle="modal" data-bs-target="#modal"
+                class="btn btn-primary"><i class="ri-add-line align-bottom me-1"></i>
+                Nouveau</button>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-2">
-                        <select wire:ignore wire:model='nbPaginate' class="default-select form-control wide mb-3">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
+        <div class="p-2">
 
-                    <div class="offset-md-7 col-md-3">
-                        <div class="input-group input-group-md">
-                            <input type="text" name="table_search" class="form-control " wire:model.debounce='search'
-                                placeholder="Rechercher">
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="table-responsive">
-                    <table class="table table-responsive-md">
-                        <thead>
-                            <tr>
-                                <th><strong>No</strong></th>
-                                <th><strong>Rôles</strong></th>
-                                <th><strong>Permissions</strong></th>
-                                <th><strong>Action</strong></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+            <select class="form-control w-md" wire:model.live='nbPaginate'>
+                <option value="6" selected>6</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
 
-                            @forelse ($roles as $key => $role)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $role->name }}
-
-                                    </td>
-                                    <td>
-                                        @foreach (optional($role)->permissions as $index => $permission)
-                                            @if ($index < 4)
-                                                <span class="badge light badge-dark mb-2">{{ $permission->name }}</span>
-                                                @if ($index < 3 && $index < count($role->permissions) - 1)
-                                                    ,
-                                                @elseif ($index == 3 && count($role->permissions) > 4)
-                                                    <button type="button" class="badge badge-secondary mb-2"
-                                                        data-bs-toggle="modal" data-bs-target=".modal">voir
-                                                        plus</button>
-                                                @endif
-                                            @endif
-                                        @endforeach
-                                        <x-modal>
-                                            <x-slot name="title">
-                                                {{ $role->name }}
-                                            </x-slot>
-                                            <x-slot name="body">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h4 class="card-title">Liste des permissions
-                                                        </h4>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="basic-list-group">
-                                                            <ul class="list-group">
-                                                                @foreach ($role->permissions as $index => $permission)
-                                                                    <li class="list-group-item">
-                                                                        {{ $permission->name }}</li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </x-slot>
-                                            </x>
-                                    </td>
-
-                                    {{-- <td>{{ $role->created_at->format('d/m/Y') }}</td> --}}
-
-                                    <td>
-                                        <div class="d-flex">
-                                            @can('Modifier un rôle')
-                                                <a href="{{ route('roles.edit', $role) }}"
-                                                    class="btn btn-primary shadow btn-xs sharp me-1"> <i
-                                                        class="fas fa-pencil-alt"></i></a>
-                                            @endcan
-                                            @can('Supprimer un rôle')
-                                                <button class="btn btn-danger shadow btn-xs sharp"
-                                                    wire:click="confirmDelete('{{ $role->name }}', '{{ $role->id }}')"><i
-                                                        class="fa fa-trash"></i></button>
-                                            @endcan
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-
-                                <tr class="text-center mt-5">
-                                    <td colspan="3">Aucune donnée</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card-footer ">
-                <div class="float-right "> {{ $roles->links() }}</div>
+        <div class="p-2">
+            <div class="search-box ms-2">
+                <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
+                <i class="ri-search-line search-icon"></i>
             </div>
         </div>
     </div>
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Date de création</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($roles as $role)
+                            <tr>
+
+                                <th scope="row"> <a class="text-body"
+                                        href="{{ Route('roles.show', $role) }}">{{ $loop->iteration }}
+                                    </a></th>
+                                <td> <a class="text-body" href="{{ Route('roles.show', $role) }}">{{ $role->name }}
+                                    </a></td>
+                                <td> <a class="text-body"
+                                        href="{{ Route('roles.show', $role) }}">{{ $role->created_at->format('d/m/Y') ?? 'Non renseigné' }}
+                                    </a></td>
+                                <td>
+                                    <ul class="list-inline hstack gap-2 mb-0">
+
+                                        <li class="list-inline-item edit">
+                                            <a wire:click="openModal('{{ $role->id }}')" data-bs-toggle="modal" data-bs-target="#modal"
+                                                class="text-primary d-inline-block edit-item-btn">
+                                                <i class="ri-pencil-fill fs-16"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a wire:click="confirmDelete('{{ $role->name }}', '{{ $role->id }}')"
+                                                class="text-danger d-inline-block remove-item-btn">
+                                                <i class="ri-delete-bin-5-fill fs-16"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center">
+                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                        colors="primary:#405189,secondary:#0ab39c" style="width:72px;height:72px">
+                                    </lord-icon>
+                                    <h5 class="mt-4">Aucun résultat trouvé</h5>
+                                </td>
+
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- end row -->
+    <div class="row g-0 text-center text-sm-start align-items-center mb-4">
+        <!-- end col -->
+        {{ $roles->links() }}
+    </div><!-- end row -->
+
+
+    <x-modal>
+        <x-slot name="title">
+            {{ $isUpdate ? 'Modification du rôle' : 'Ajout de rôle' }}
+        </x-slot>
+        <x-slot name="body">
+
+            <form wire:submit.prevent="storeData()">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-2 mt-2">
+                        <label for="name" class="form-label">Nom <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror "
+                            wire:model.live='name' placeholder="Veuillez entrer le nom " />
+
+
+                        @error('name')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary ">{{ $isUpdate ? 'Modifier' : 'Ajouter' }}</button>
+                </div>
+
+            </form>
+        </x-slot>
+    </x-modal>
 </div>

@@ -13,7 +13,7 @@ class FieldController extends Controller
      */
     public function index()
     {
-        //
+        return view('back.fields.index');
     }
 
     /**

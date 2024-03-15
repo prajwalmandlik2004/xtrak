@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Civ;
 use App\Models\User;
+use App\Models\Compagny;
+use App\Models\Disponibility;
 use App\Models\Position;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,13 +23,13 @@ class CandidateFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->randomElement(['Mr', 'Mme', 'Mlle']),
+            'civ_id' => Civ::inRandomOrder()->first()->id,
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,
             'phone' => $this->faker->phoneNumber,
             'phone_2' => $this->faker->phoneNumber,
-            'company' => $this->faker->company,
+            'compagny_id' =>Compagny::inRandomOrder()->first()->id,
             'postal_code' => $this->faker->postcode,
             'cdt_status' => $this->faker->randomElement(['open', 'close', 'In Progress']),
             'created_by' => User::inRandomOrder()->first()->id,
@@ -36,7 +39,7 @@ class CandidateFactory extends Factory
             'address' => $this->faker->address,
             'region' => $this->faker->region,
             'country' => $this->faker->country,
-            'availability' => $this->faker->randomElement(['immediate', '1 month', '2 months', '3 months']),
+            'disponibility_id' => Disponibility::inRandomOrder()->first()->id,
             'url_ctc' => $this->faker->url,
         ];
     }

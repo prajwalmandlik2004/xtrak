@@ -13,6 +13,10 @@ class SpecialitySeeder extends Seeder
      */
     public function run(): void
     {
-        Speciality::factory(10)->create();
+        $specialities = ['Réparation d\'ordinateur'];
+        foreach ($specialities as $speciality) {
+            Speciality::create(['name' => $speciality]);
+        }
+
     }
 }

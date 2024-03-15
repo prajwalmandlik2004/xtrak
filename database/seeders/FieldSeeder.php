@@ -13,6 +13,9 @@ class FieldSeeder extends Seeder
      */
     public function run(): void
     {
-        Field::factory(10)->create();
+        $fields = ['Informatique'];
+        foreach ($fields as $field) {
+            Field::create(['name' => $field]);
+        }
     }
 }

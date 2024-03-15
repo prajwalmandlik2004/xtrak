@@ -5,13 +5,15 @@ namespace App\Livewire\Back\Files;
 use App\Models\File;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\FileRepository;
-use Livewire\WithFileUploads;
 
 class CandidateFile extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $candidate;
     public $search = '';
     public $nbPaginate = 5;
@@ -26,9 +28,11 @@ class CandidateFile extends Component
         DB::beginTransaction();
         $file = $fileRepository->find($id);
         try {
+           if($file){
             $fileRepository->delete($file->id);
             DB::commit();
             $this->dispatch('alert', type: 'success', message: 'le document est supprimé avec succès');
+           }
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le document $file->name");
@@ -37,7 +41,7 @@ class CandidateFile extends Component
 
     public function confirmDelete($nom, $id)
     {
-        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);
+        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le document  $nom", type: 'warning', method: 'delete', id: $id);
     }
     public function searchFiles()
     {
@@ -64,6 +68,7 @@ class CandidateFile extends Component
             'newFiles.*' => 'nullable|mimes:pdf,doc,docx|max:1024',
         ]);
         $fileRepository = new FileRepository();
+        try {
         DB::beginTransaction();
         
             if ($this->isUpdate) {
@@ -74,7 +79,6 @@ class CandidateFile extends Component
             DB::commit();
             $this->dispatch('close:modal');
             $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'le document est ajouté avec succès');
-            try {
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter le document');

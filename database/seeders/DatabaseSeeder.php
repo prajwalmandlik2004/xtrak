@@ -18,11 +18,14 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            CivSeeder::class,
+            DisponibilitySeeder::class,
             PositionSeeder::class,
-            CandidateSeeder::class,
+            CompagnySeeder::class,
             SpecialitySeeder::class,
             FieldSeeder::class,
             PermissionRoleSeeder::class,
+            // CandidateSeeder::class,
         ]);
 
     }

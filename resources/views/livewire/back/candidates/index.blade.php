@@ -63,9 +63,10 @@
                     <div class="table-responsive">
                         <table
                             class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
-                            <thead>
+                            <thead class="bg-primary text-white">
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Auteur</th>
                                     <th scope="col">Civilité</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Prénom</th>
@@ -77,28 +78,43 @@
                             </thead>
                             <tbody>
                                 @forelse ($candidates as $candidate)
-                                   
-                                        <tr>
-                                           
-                                            <th scope="row"> <a class="text-body"  href="{{ Route('candidates.show', $candidate) }}">{{ $loop->iteration }} </a></th>
-                                            <td> <a  class="text-body" href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->title }} </a></td>
-                                            <td> <a  class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name }}</a> </td>
-                                            <td> <a  class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name }} </a></td>
-                                            <td> <a  class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->email }}</a> </td>
-                                            <td> <a  class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->phone }} </a></td>
-                                            <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->cdt_status }}</a> </td>
-                                           
-                                            <td>
-                                                <span class="badge rounded-pill bg-success"
-                                                    id="certificate-{{ $loop->index }}"
-                                                    onclick="toggleCertificate({{ $loop->index }})">
-                                                    <span id="hidden-certificate-{{ $loop->index }}">••••••••</span>
-                                                    <span id="visible-certificate-{{ $loop->index }}"
-                                                        style="display: none;">{{ $candidate->certificate }}</span>
-                                                </span>
-                                                <div id="message-{{ $loop->index }}" style="display: none;"></div>
-                                        </tr>
-                                    
+                                    <tr>
+
+                                        <td > <a class="text-body"
+                                                href="{{ Route('candidates.show', $candidate) }}">{{ $loop->iteration }}
+                                            </a></td>
+                                        <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">
+                                                {{ $candidate->auteur->first_name ?? 'Non renseigné' }}
+                                                {{ $candidate->auteur->last_name ?? 'Non renseigné' }}</h5>
+                           </a></td>
+                                        <td> <a class="text-body"
+                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->civ->name ?? "" }}
+                                            </a></td>
+                                        <td> <a
+                                                class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name }}</a>
+                                        </td>
+                                        <td> <a class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name }}
+                                            </a></td>
+                                        <td> <a
+                                                class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->email }}</a>
+                                        </td>
+                                        <td> <a class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->phone }}
+                                            </a></td>
+                                        <td> <a class="text-body"
+                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->cdt_status }}</a>
+                                        </td>
+
+                                        <td>
+                                            <span class="badge rounded-pill bg-success"
+                                                id="certificate-{{ $loop->index }}"
+                                                onclick="toggleCertificate({{ $loop->index }})">
+                                                <span id="hidden-certificate-{{ $loop->index }}">••••••••</span>
+                                                <span id="visible-certificate-{{ $loop->index }}"
+                                                    style="display: none;">{{ $candidate->certificate }}</span>
+                                            </span>
+                                            <div id="message-{{ $loop->index }}" style="display: none;"></div>
+                                    </tr>
+
                                 @empty
                                     <tr>
                                         <td colspan="8" class="text-center">
@@ -172,7 +188,7 @@
                                         <dd>{{ optional($candidate->position)->name ?? 'non definie' }}
                                         </dd>
                                         <dt>Société: </dt>
-                                        <dd>{{ $candidate->company ?? 'non definie' }} </dd>
+                                        <dd>{{ $candidate->compagny->name ?? 'non definie' }} </dd>
                                         <dt>Mail: </dt>
                                         <dd>{{ $candidate->email ?? 'non definie' }} </dd>
                                         <dt>Téléphone: </dt>

@@ -13,7 +13,7 @@ class SpecialityController extends Controller
      */
     public function index()
     {
-        //
+        return view('back.specialities.index');
     }
 
     /**

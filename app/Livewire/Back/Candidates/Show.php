@@ -8,11 +8,16 @@ use Livewire\Attributes\On;
 class Show extends Component
 {
     public $candidate;
-    #[On('operation:success')]
-    public function operationSuccess()
+    #[On('showsuccess')]
+    public function showSuccess($candidate)
     {
-        $this->dispatch('alert', type: 'success', message: 'Operation réussie avec succès');
+        dd($candidate);
+        // $this->dispatch('alert', type: 'success', message: 'Operation réussie avec succès');
+        $this->dispatch('alert', type: 'error', message:  'Erreur lors de la modification du candidat');
+
+      
     }
+   
     public function render()
     {
         return view('livewire.back.candidates.show');

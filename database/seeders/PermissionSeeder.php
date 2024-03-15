@@ -14,7 +14,6 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            'Tableau de bord',
             'Gestion des utilisateurs',
             'Liste des utilisateurs',
             'Ajouter un utilisateur',
@@ -37,6 +36,7 @@ class PermissionSeeder extends Seeder
             'Importer des candidats',
             'Menu paramètres',
             'Gestion des rôles et permissions',
+            'Gestion des sociétes'
             
         ];
         foreach ($permissions as $key => $permission) {

@@ -2,12 +2,15 @@
 
 namespace App\Livewire\Back\Candidates;
 
+use App\Models\Civ;
 use App\Models\File;
+use App\Models\Field;
 use App\Helpers\Helper;
 use Livewire\Component;
+use App\Models\Compagny;
 use App\Models\Position;
 use App\Models\Candidate;
-use App\Models\Field;
+use App\Models\Disponibility;
 use App\Models\Speciality;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
@@ -18,19 +21,20 @@ use App\Repositories\CandidateRepository;
 class Form extends Component
 {
     use WithFileUploads;
-    public $title;
+    public $civs;
+    public $civ_id;
     public $first_name;
     public $last_name;
     public $email;
     public $phone;
-    public $company;
+    public $phone_2;
+    public $compagny_id;
     public $postal_code;
     public $cdt_status;
     public $position_id;
     public $positions;
     public $candidate;
     public $created_by;
-    public $candidateTitles;
     public $autorizeAddCandidate = true;
     public $action;
     public $files = [];
@@ -38,39 +42,45 @@ class Form extends Component
     public $address;
     public $region;
     public $country;
-    public $availability;
+    public $disponibilities;
+    public $disponibility_id;
     public $url_ctc;
-    public $availabilities;
     public $specialities;
     public $specialitiesSelected;
     public $fields;
     public $fieldsSelected;
+    public $compagnies;
+    public $commentaire;
+    public $origine;
 
     public function mount()
     {
-        $this->candidateTitles = Helper::candidateTitles();
-        $this->availabilities = Helper::candidateAvailabilities();
+        $this->civs = Civ::all();
+        $this->disponibilities = Disponibility::all();
         $this->positions = Position::orderBy('name', 'asc')->get();
         $this->specialities = Speciality::orderBy('name', 'asc')->get();
-        $this->fields = Field::orderBy('name', 'asc')->get(); 
+        $this->fields = Field::orderBy('name', 'asc')->get();
+        $this->compagnies = Compagny::orderBy('name', 'asc')->get();
         if ($this->candidate && $this->candidate->exists) {
-            $this->title = $this->candidate->title;
+            $this->civ_id = $this->candidate->civ_id ?? '';
             $this->first_name = $this->candidate->first_name;
             $this->last_name = $this->candidate->last_name;
             $this->email = $this->candidate->email;
             $this->phone = $this->candidate->phone;
-            $this->company = $this->candidate->company;
+            $this->compagny_id = $this->candidate->compagny->id ?? '';
             $this->postal_code = $this->candidate->postal_code;
             $this->cdt_status = $this->candidate->cdt_status;
-            $this->position_id = $this->candidate->position_id;
+            $this->position_id = $this->candidate->position_id ?? '';
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
             $this->region = $this->candidate->region;
             $this->country = $this->candidate->country;
-            $this->availability = $this->candidate->availability;
+            $this->disponibility_id = $this->candidate->disponibility_id ?? '';
             $this->url_ctc = $this->candidate->url_ctc;
-            $this->specialitiesSelected = $this->candidate->specialties->pluck('id')->toArray() ?? [];
+            $this->specialitiesSelected = $this->candidate->specialities->pluck('id')->toArray() ?? [];
             $this->fieldsSelected = $this->candidate->fields->pluck('id')->toArray() ?? [];
+            $this->commentaire = $this->candidate->commentaire;
+            $this->origine = $this->candidate->origine;
         }
     }
 
@@ -84,32 +94,24 @@ class Form extends Component
             $existingCandidate = Candidate::when($this->first_name, function ($query) {
                 $query->where('first_name', $this->first_name);
             })
-                // ->when($this->last_name, function ($query) {
-                //     $query->where('last_name', $this->last_name);
-                // })
                 ->when($this->email, function ($query) {
                     $query->where('email', $this->email);
                 })
                 ->when($this->phone, function ($query) {
                     $query->where('phone', $this->phone);
                 })
-                ->when($this->company, function ($query) {
-                    $query->where('company', $this->company);
+                ->when($this->compagny_id, function ($query) {
+                    $query->where('compagny_id', $this->compagny_id);
                 })
                 ->when($this->postal_code, function ($query) {
                     $query->where('postal_code', $this->postal_code);
                 })
-                ->when($this->cdt_status, function ($query) {
-                    $query->where('cdt_status', $this->cdt_status);
-                })
-                ->when($this->title, function ($query) {
-                    $query->where('title', $this->title);
+
+                ->when($this->civ_id, function ($query) {
+                    $query->where('civ_id', $this->civ_id);
                 })
                 ->when($this->city, function ($query) {
                     $query->where('city', $this->city);
-                })
-                ->when($this->address, function ($query) {
-                    $query->where('address', $this->address);
                 })
                 ->when($this->region, function ($query) {
                     $query->where('region', $this->region);
@@ -117,13 +119,6 @@ class Form extends Component
                 ->when($this->country, function ($query) {
                     $query->where('country', $this->country);
                 })
-                ->when($this->availability, function ($query) {
-                    $query->where('availability', $this->availability);
-                })
-                ->when($this->url_ctc, function ($query) {
-                    $query->where('url_ctc', $this->url_ctc);
-                })
-
                 ->where('last_name', $this->last_name)
                 ->exists();
 
@@ -138,8 +133,8 @@ class Form extends Component
                 if (!empty($this->phone)) {
                     $this->addError('phone', 'Ce candidat existe déjà.');
                 }
-                if (!empty($this->company)) {
-                    $this->addError('company', 'Ce candidat existe déjà.');
+                if (!empty($this->compagny_id)) {
+                    $this->addError('compagny_id', 'Ce candidat existe déjà.');
                 }
                 if (!empty($this->postal_code)) {
                     $this->addError('postal_code', 'Ce candidat existe déjà.');
@@ -147,36 +142,23 @@ class Form extends Component
                 if (!empty($this->email)) {
                     $this->addError('email', 'Ce candidat existe déjà.');
                 }
-                if (!empty($this->cdt_status)) {
-                    $this->addError('cdt_status', 'Ce candidat existe déjà.');
-                }
-                if (!empty($this->position_id)) {
-                    $this->addError('position_id', 'Ce candidat existe déjà.');
-                }
-                if (!empty($this->title)) {
-                    $this->addError('title', 'Ce candidat existe déjà.');
+
+                if (!empty($this->civ_id)) {
+                    $this->addError('civ_id', 'Ce candidat existe déjà.');
                 }
                 if (!empty($this->city)) {
                     $this->addError('city', 'Ce candidat existe déjà.');
                 }
-                if (!empty($this->address)) {
-                    $this->addError('address', 'Ce candidat existe déjà.');
-                }
+
                 if (!empty($this->region)) {
                     $this->addError('region', 'Ce candidat existe déjà.');
                 }
                 if (!empty($this->country)) {
                     $this->addError('country', 'Ce candidat existe déjà.');
                 }
-                if (!empty($this->availability)) {
-                    $this->addError('availability', 'Ce candidat existe déjà.');
-                }
-                if (!empty($this->url_ctc)) {
-                    $this->addError('url_ctc', 'Ce candidat existe déjà.');
-                }
             } else {
                 $this->autorizeAddCandidate = true;
-                $this->resetErrorBag(['first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'position_id', 'title', 'city', 'address', 'region', 'country', 'availability', 'url_ctc']);
+                $this->resetErrorBag(['first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'position_id', 'civ_id', 'city', 'region', 'country']);
             }
         }
     }
@@ -185,53 +167,58 @@ class Form extends Component
     {
         $validatedData = $this->validate(
             [
-                'title' => 'required',
+                'civ_id' => 'nullable',
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'email' => 'required|email|unique:candidates,email',
-                'phone' => 'required',
-                'company' => 'required',
-                'postal_code' => 'required',
-                'cdt_status' => 'required',
-                'position_id' => 'required',
+                'email' => $this->action == 'create' ? 'nullable|email|unique:candidates,email' : 'nullable|email',
+                'phone' => 'nullable',
+                'compagny_id' => 'nullable',
+                'postal_code' => 'nullable',
+                'cdt_status' => 'nullable',
+                'position_id' => 'nullable',
                 'files' => 'nullable',
                 'files.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,jpg,jpeg,png|max:2048',
                 'city' => 'nullable',
                 'address' => 'nullable',
                 'region' => 'nullable',
                 'country' => 'nullable',
-                'availability' => 'nullable',
+                'disponibility_id' => 'nullable',
                 'url_ctc' => 'nullable',
                 'specialitiesSelected' => 'nullable',
                 'fieldsSelected' => 'nullable',
+                'phone_2' => 'nullable',
+                'commentaire' => 'nullable',
+                'origine' => 'nullable',
             ],
             [
-                'title.required' => 'Le titre est obligatoire',
+                // 'civ_id.required' => 'Le titre est obligatoire',
                 'first_name.required' => 'Le prénom est obligatoire',
                 'last_name.required' => 'Le nom est obligatoire',
-                'email.required' => 'L\'email est obligatoire',
-                'email.email' => 'L\'email doit être une adresse email valide',
-                'phone.required' => 'Le téléphone est obligatoire',
-                'company.required' => 'La société est obligatoire',
-                'postal_code.required' => 'Le code postal est obligatoire',
-                'cdt_status.required' => 'Le statut est obligatoire',
-                'position_id.required' => 'Le poste est obligatoire',
-                'email.unique' => 'Cet email existe déjà. Veuillez en saisir un autre.',
+                // 'email.required' => 'L\'email est obligatoire',
+                // 'email.email' => 'L\'email doit être une adresse email valide',
+                // 'phone.required' => 'Le téléphone est obligatoire',
+                // 'compagny_id.required' => 'La société est obligatoire',
+                // 'postal_code.required' => 'Le code postal est obligatoire',
+                // 'cdt_status.required' => 'Le statut est obligatoire',
+                // 'position_id.required' => 'Le poste est obligatoire',
+                // 'email.unique' => 'Cet email existe déjà. Veuillez en saisir un autre.',
             ],
         );
+
         DB::beginTransaction();
         $candidateRepository = new CandidateRepository();
         $fileRepository = new FileRepository();
         if ($this->action == 'create') {
             $validatedData['created_by'] = auth()->user()->id;
             $validatedData['certificate'] = Str::random(10);
+            $validatedData['code_cdt'] = $validatedData['first_name'] . $validatedData['last_name'];
             $candidate = $candidateRepository->create($validatedData);
-            // if (!empty($validatedData['specialitiesSelected'])) {
-            //     $candidate->specialties()->attach($validatedData['specialitiesSelected']);
-            // }
-            // if (!empty($validatedData['fieldsSelected'])) {
-            //     $candidate->fields()->attach($validatedData['fieldsSelected']);
-            // }
+            if (!empty($validatedData['specialitiesSelected'])) {
+                $candidate->specialities()->attach($validatedData['specialitiesSelected']);
+            }
+            if (!empty($validatedData['fieldsSelected'])) {
+                $candidate->fields()->attach($validatedData['fieldsSelected']);
+            }
         } else {
             $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
         }
@@ -240,8 +227,8 @@ class Form extends Component
             $fileRepository->create($this->files, $candidate->id);
         }
         DB::commit();
-        $this->reset(['title', 'first_name', 'last_name', 'email', 'phone', 'company', 'postal_code', 'cdt_status', 'position_id', 'files', 'city', 'address', 'region', 'country', 'availability', 'url_ctc']);
-        $this->dispatch('operation:success');
+        $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'files', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+
         return redirect()->route('candidates.show', $candidate->id);
         try {
         } catch (\Throwable $th) {

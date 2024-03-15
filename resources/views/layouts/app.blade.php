@@ -96,6 +96,7 @@
     <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
+    
 
     <!-- apexcharts -->
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
@@ -113,6 +114,8 @@
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     {{-- jquery --}}
     <script src="{{ asset('assets/js/pages/jquery-3.7.1.min.js') }}"></script>
+        <!-- password-addon init -->
+        <script src="{{ asset('assets/js/pages/password-addon.init.j') }}s"></script>
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script>
@@ -175,8 +178,8 @@
                 text: event.detail.text,
                 icon: event.detail.type,
                 showCancelButton: true,
-                confirmButtonColor: '#008000',
-                cancelButtonColor: '#aaa',
+                confirmButtonColor: '#FF0000 ',
+                cancelButtonColor: '#0000FF',
                 confirmButtonText: 'Supprimer',
                 cancelButtonText: 'Annuler'
             }).then((willDelete) => {

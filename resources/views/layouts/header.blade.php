@@ -4,7 +4,7 @@
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="index.html" class="logo logo-dark">
+                    <a href="{{ Route("user.profile") }}" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="{{ asset('assets/images/logo.png') }}" alt="" height="22">
                         </span>
@@ -13,7 +13,7 @@
                         </span>
                     </a>
 
-                    <a href="index.html" class="logo logo-light">
+                    <a href="{{ Route("user.profile") }}" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="{{ asset('assets/images/logo.png') }}" alt="" height="22">
                         </span>
@@ -136,8 +136,17 @@
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user"
-                                src="{{ asset('assets/images/users/avatar-1.jpg') }} " alt="Header Avatar">
+                            
+                            @php
+                                $user = \Illuminate\Support\Facades\Auth::user();
+                            @endphp
+                                @if ($user->profile_photo_path != null)
+                                <img src=" {{ asset('storage') . '/' . $user->profile_photo_path }}"
+                                    class="rounded-circle header-profile-user" alt="user-profile-image">
+                                @else
+                                <img src="assets/images/logo.png"
+                                class="rounded-circle header-profile-user" alt="user-profile-image">
+                                @endif
                             <span class="text-start ms-xl-2">
                                 <span
                                     class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">{{ Auth::user()->first_name }}</span>
@@ -150,7 +159,7 @@
                         <!-- item-->
                         <h6 class="dropdown-header">Bienvenue {{ Auth::user()->first_name }}
                             {{ Auth::user()->last_name }} </h6>
-                        <a class="dropdown-item" href="#"><i
+                        <a class="dropdown-item" href="{{ Route("user.profile") }}"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profil</span></a>
 

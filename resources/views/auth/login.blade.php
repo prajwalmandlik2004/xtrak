@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Connexion | XTK PROJECT</title>
+    <title>Connexion | Xtrak</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -50,7 +50,7 @@
                                     <img src="{{ asset('assets/images/logo.png') }}" alt="" class="img-fluid">
                                 </a>
                             </div>
-                            <p class="mt-3 fs-15 fw-semibold">XTK PROJECT</p>
+                            <p class="mt-3 fs-15 fw-semibold">Xtrak</p>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" name="email"
-                                            class="form-control @error('email') is-invalid @enderror" id="email" value=""
+                                            class="form-control @error('email') is-invalid @enderror" id="email" value="admin@local.com"
                                             placeholder="Entrez votre adresse email" value="{{ old('email') }}">
                                         @error('email')
                                             <small class="text-danger">
@@ -103,7 +103,7 @@
                                         </div>
                                         <label class="form-label" for="password-input">Mot de passe</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
-                                            <input type="password" name="password" value=""
+                                            <input type="password" name="password" value="admin@2024"
                                                 class="form-control pe-5 password-input @error('password') border-danger @enderror"
                                                 placeholder="Entrez votre mot de passe" id="password-input">
                                             <button
@@ -139,7 +139,7 @@
                         
                         <div class="mt-4 text-center">
                             <p class="mb-0">Vous n'avez pas de compte ? <a href="#"
-                                class="fw-semibold text-primary text-decoration-underline"> Contacter HARMEN & BOTTS </a> </p>
+                                class="fw-semibold text-primary text-decoration-underline"> Contactez HARMEN & BOTTS </a> </p>
                         </div>
 
                     </div>
