@@ -32,6 +32,7 @@ class DasboardController extends Controller
             \Artisan::call('route:clear');
             \Artisan::call('cache:clear');
             \Artisan::call('optimize:clear');
+           
         } elseif ($param == 'passport') {
             \Artisan::call('passport:install');
         } elseif ($param == 'migrate') {
@@ -41,6 +42,7 @@ class DasboardController extends Controller
         }
         elseif ($param == 'composer') {
             \Artisan::call('composer2 install');
+            echo "yes";
         }
     }
 }
