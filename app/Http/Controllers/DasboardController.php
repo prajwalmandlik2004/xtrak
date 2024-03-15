@@ -38,6 +38,10 @@ class DasboardController extends Controller
         } elseif ($param == 'migrate') {
             \Artisan::call('migrate:fresh --seed');
         }
+        elseif ($param == 'storage') {
+            \Artisan::call('storage:link');
+        }
+        
        
     }
 }
