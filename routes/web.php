@@ -43,5 +43,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('disponibilities', DisponibilityController::class);
     Route::resource('civs', CivController::class);
     Route::get('user-profile', [UserController::class, 'profile'])->name('user.profile');
-    Route::get('commandes/{param}', [DasboardController::class, 'commande']);
 });
+Route::get('commandes/{param}', [DasboardController::class, 'commande']);
