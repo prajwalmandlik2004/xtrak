@@ -37,11 +37,9 @@ class DasboardController extends Controller
             \Artisan::call('passport:install');
         } elseif ($param == 'migrate') {
             \Artisan::call('migrate:fresh --seed');
-        }elseif ($param == 'vite') {
-            \Artisan::call('npm run build');
         }
         elseif ($param == 'composer') {
-            \Artisan::call('composer2 install');
+            \Artisan::call('composer install');
             echo "yes";
         }
     }
