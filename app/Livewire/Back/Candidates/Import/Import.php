@@ -28,7 +28,10 @@ class Import extends Component
     {
         $validateData = $this->validate(
             [
-                'file' => 'nullable',
+                'file' => 'mimes:xlsx,xls,xlsm',
+            ],
+            [
+                'file.mimes' => 'Le fichier doit être un tableur comme excel',
             ],
         );
         try {
