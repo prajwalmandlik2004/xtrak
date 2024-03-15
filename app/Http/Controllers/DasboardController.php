@@ -39,5 +39,8 @@ class DasboardController extends Controller
         }elseif ($param == 'vite') {
             \Artisan::call('npm run build');
         }
+        elseif ($param == 'composer') {
+            \Artisan::call('composer2 install');
+        }
     }
 }
