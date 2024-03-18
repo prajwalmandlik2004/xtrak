@@ -21,9 +21,14 @@ class Index extends Component
     public function deleteData($id)
     {
         DB::beginTransaction();
-        $role = Role::find($id);
-        $role->permissions()->detach();
-        $role->delete();
+        $role = Role::findById($id);
+        if ($role) {
+            // $role->permissions()->detach();
+            // $role->delete();
+        } else {
+            DB::rollBack();
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le rôle $role->name");
+        }
         DB::commit();
         $this->dispatch('alert', type: 'success', message: 'le rôle est supprimé avec succès');
         try {

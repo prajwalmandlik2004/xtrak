@@ -16,5 +16,7 @@ class PermissionRoleSeeder extends Seeder
     {
         $admin = Role::where('name', 'Administrateur')->first();
         $admin->syncPermissions(Permission::all());
+        $admin = Role::where('name', 'Consultant')->first();
+        $admin->syncPermissions(Permission::all());
     }
 }

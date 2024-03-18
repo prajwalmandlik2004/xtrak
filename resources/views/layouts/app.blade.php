@@ -31,7 +31,7 @@
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @yield('css')
@@ -96,7 +96,7 @@
     <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
-    
+
 
     <!-- apexcharts -->
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
@@ -114,8 +114,8 @@
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     {{-- jquery --}}
     <script src="{{ asset('assets/js/pages/jquery-3.7.1.min.js') }}"></script>
-        <!-- password-addon init -->
-        <script src="{{ asset('assets/js/pages/password-addon.init.j') }}s"></script>
+    <!-- password-addon init -->
+    <script src="{{ asset('assets/js/pages/password-addon.init.j') }}s"></script>
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script>
@@ -194,6 +194,41 @@
             $('.modal').modal('hide');
         });
     </script>
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            const jours = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+            const mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre",
+                "novembre", "décembre"
+            ];
+
+            const jourEnLettres = jours[now.getDay()];
+            const jourNumero = now.getDate();
+            const moisEnChiffre = now.getMonth() + 1;
+            const moisEnLettres = mois[now.getMonth()];
+            const annee = now.getFullYear();
+
+            const jourFormatte = jourNumero < 10 ? `0${jourNumero}` : jourNumero;
+
+            const moisFormatte = moisEnChiffre < 10 ? `0${moisEnChiffre}` :
+                moisEnChiffre;
+
+            const heureFormattee = now.getHours().toString().padStart(2, '0');
+            const minuteFormattee = now.getMinutes().toString().padStart(2, '0');
+            const secondeFormattee = now.getSeconds().toString().padStart(2, '0');
+
+            document.getElementById('current-date').textContent =
+                `${jourFormatte} / ${moisFormatte} / ${annee}`;
+            document.getElementById('current-time').textContent =
+                `${heureFormattee}:${minuteFormattee}:${secondeFormattee}`;
+        }
+
+        setInterval(updateClock, 1000);
+
+        updateClock();
+    </script>
+
     @yield('script')
     @stack('script-chart')
     @stack('page-script')

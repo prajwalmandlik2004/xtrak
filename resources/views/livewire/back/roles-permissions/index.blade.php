@@ -32,7 +32,7 @@
                                         <td>
                                             <input type="checkbox" style="transform: scale(1.5);"
                                                 wire:change="updateRolePermission({{ $role->id }}, {{ $permission->id }})"
-                                                @if ($role->hasPermissionTo($permission->name)) checked @endif>
+                                                @if ($role->permissions->count() > 0 && $role->hasPermissionTo($permission->name)) checked @endif>
                                         </td>
                                     @endforeach
                                 </tr>

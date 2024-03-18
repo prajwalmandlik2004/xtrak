@@ -33,6 +33,7 @@ return new class extends Migration {
             $table->foreignUuid('civ_id')->nullable()->references('id')->on('civs');
             $table->foreignUuid('position_id')->nullable()->references('id')->on('positions');
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
+            $table->enum('state', ['Certifié', 'Attente', 'Doublon'])->default('Attente');
 
             $table->timestamps();
         });

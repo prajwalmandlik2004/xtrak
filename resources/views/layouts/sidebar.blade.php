@@ -32,10 +32,16 @@
              </div>
              <ul class="navbar-nav" id="navbar-nav">
                  <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-                 <li class="nav-item">
-                     <a class="nav-link menu-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                 <li class="nav-item bg-dash-sidebar">
+                     <a class="nav-link menu-link  text-white {{ request()->routeIs('dashboard') ? 'active' : '' }}"
                          href="{{ route('dashboard') }}">
-                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Tableau de bord</span>
+                        <span data-key="t-dashboards">
+                             @if (auth()->user()->hasRole('Administrateur'))
+                             ESPACE ADMINISTATEUR
+                             @else
+                                 ESPACE CONSULTANT
+                             @endIF
+                         </span>
                      </a>
 
                  </li> <!-- end Dashboard Menu -->
@@ -109,15 +115,15 @@
                                                              data-key="t-basic"> Spécialites </a>
                                                      </li>
                                                      <li class="nav-item">
-                                                        <a href="{{ route('fields.index') }}"
-                                                            class="nav-link {{ request()->routeIs('fields.index') ? 'active' : '' }}"
-                                                            data-key="t-basic"> Domaines </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{{ route('disponibilities.index') }}"
-                                                            class="nav-link {{ request()->routeIs('disponibilities.index') ? 'active' : '' }}"
-                                                            data-key="t-basic"> Disponibilites  </a>
-                                                    </li>
+                                                         <a href="{{ route('fields.index') }}"
+                                                             class="nav-link {{ request()->routeIs('fields.index') ? 'active' : '' }}"
+                                                             data-key="t-basic"> Domaines </a>
+                                                     </li>
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('disponibilities.index') }}"
+                                                             class="nav-link {{ request()->routeIs('disponibilities.index') ? 'active' : '' }}"
+                                                             data-key="t-basic"> Disponibilites </a>
+                                                     </li>
                                                      <li class="nav-item">
                                                          <a href="{{ route('civs.index') }}"
                                                              class="nav-link {{ request()->routeIs('civs.index') ? 'active' : '' }}"
@@ -129,13 +135,13 @@
                                      </li>
                                  @endcan
                                  @can('Gestion des sociétes')
-                                 <li class="nav-item">
-                                    <a href="{{ route('compagnies.index') }}"
-                                        class="nav-link {{ request()->routeIs('compagnies.index') ? 'active' : '' }}"
-                                        data-key="t-signup"> Sociétes
-                                    </a>
-                                </li>
-                                @endcan
+                                     <li class="nav-item">
+                                         <a href="{{ route('compagnies.index') }}"
+                                             class="nav-link {{ request()->routeIs('compagnies.index') ? 'active' : '' }}"
+                                             data-key="t-signup"> Sociétes
+                                         </a>
+                                     </li>
+                                 @endcan
                                  @can('Gestion des rôles et permissions')
                                      <li class="nav-item">
                                          <a href="{{ route('roles.permissions') }}"
@@ -153,7 +159,22 @@
                              </ul>
                          </div>
                      </li>
+
+                    
                  @endcan
+                 <li class="menu-title"> 
+                    <span data-key="t-pages">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item">
+                                <span class="" data-key="t-logout">
+                                    <span class="text-danger fs-40">Déconnexion</span>
+                                </span>
+                            </button>
+                        </form>
+                    </span>
+                </li>                
+
              </ul>
          </div>
          <!-- Sidebar -->

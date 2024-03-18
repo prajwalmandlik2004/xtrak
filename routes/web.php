@@ -30,7 +30,6 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', [DasboardController::class, 'index'])->name('dashboard');
-    Route::get('/connected', [DasboardController::class, 'connected'])->name('connected');
     Route::resource('users', UserController::class);
     Route::get('roles-permissions', [RolePermissionController::class, 'index'])->name('roles.permissions');
     Route::resource('roles', RoleController::class);

@@ -35,3 +35,10 @@ transition: 0.5s;
 cursor: pointer;
 }
 
+.bg-dash-sidebar{
+background-color: #6699FF;
+}
+
+.btn-secondary,.btn-primary,.bg-secondary{
+background-color:#203E75 !important;
+}

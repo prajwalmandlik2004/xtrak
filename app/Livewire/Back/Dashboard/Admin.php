@@ -8,7 +8,7 @@ use Livewire\Component;
 use App\Models\Candidate;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-class Index extends Component
+class Admin extends Component
 {
     public $nbCandidates;
     public $nbUsers;
@@ -19,7 +19,7 @@ class Index extends Component
     public $nbCandidateByMonth;
     public function render()
     {
-        return view('livewire.back.dashboard.index');
+        return view('livewire.back.dashboard.admin');
     }
     public function mount()
     {

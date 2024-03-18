@@ -4,7 +4,7 @@
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="{{ Route("user.profile") }}" class="logo logo-dark">
+                    <a href="{{ Route('user.profile') }}" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="{{ asset('assets/images/logo.png') }}" alt="" height="22">
                         </span>
@@ -13,7 +13,7 @@
                         </span>
                     </a>
 
-                    <a href="{{ Route("user.profile") }}" class="logo logo-light">
+                    <a href="{{ Route('user.profile') }}" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="{{ asset('assets/images/logo.png') }}" alt="" height="22">
                         </span>
@@ -22,7 +22,6 @@
                         </span>
                     </a>
                 </div>
-
                 <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger"
                     id="topnav-hamburger-icon">
                     <span class="hamburger-icon">
@@ -31,92 +30,25 @@
                         <span></span>
                     </span>
                 </button>
-
-
+                <div class="ms-3 header-item d-none d-sm-flex">
+                    <p class="mt-4 ">
+                        <span id="current-date"></span>
+                        <span id="current-time"></span>
+                        <br>
+                        <span> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                    </p>
+                </div>
             </div>
 
             <div class="d-flex align-items-center">
+                <div class="header-item">
+                    @if (auth()->user()->hasRole('Administrateur'))
+                    @else
+                        Anas est : Offline
+                    @endIF
 
-
-
-                <div class="dropdown ms-1 topbar-head-dropdown header-item">
-                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img id="header-lang-img" src="{{ asset('assets/images/flags/french.svg') }} " alt="Header Language"
-                            height="20" class="rounded">
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="fr"
-                            title="French">
-                            <img src="{{ asset('assets/images/flags/french.svg') }} " alt="user-image"
-                                class="me-2 rounded" height="18">
-                            <span class="align-middle">français</span>
-                        </a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="en"
-                            title="English">
-                            <img src="{{ asset('assets/images/flags/us.svg') }} " alt="user-image" class="me-2 rounded"
-                                height="18">
-                            <span class="align-middle">English</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp"
-                            title="Spanish">
-                            <img src="{{ asset('assets/images/flags/spain.svg') }} " alt="user-image"
-                                class="me-2 rounded" height="18">
-                            <span class="align-middle">Española</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr"
-                            title="German">
-                            <img src="{{ asset('assets/images/flags/germany.svg') }} " alt="user-image"
-                                class="me-2 rounded" height="18"> <span class="align-middle">Deutsche</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it"
-                            title="Italian">
-                            <img src="{{ asset('assets/images/flags/italy.svg') }} " alt="user-image"
-                                class="me-2 rounded" height="18">
-                            <span class="align-middle">Italiana</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru"
-                            title="Russian">
-                            <img src="{{ asset('assets/images/flags/russia.svg') }} " alt="user-image"
-                                class="me-2 rounded" height="18">
-                            <span class="align-middle">русский</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ch"
-                            title="Chinese">
-                            <img src="{{ asset('assets/images/flags/china.svg') }} " alt="user-image"
-                                class="me-2 rounded" height="18">
-                            <span class="align-middle">中国人</span>
-                        </a>
-
-
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ar"
-                            title="Arabic">
-                            <img src="{{ asset('assets/images/flags/ae.svg') }} " alt="user-image"
-                                class="me-2 rounded" height="18">
-                            <span class="align-middle">Arabic</span>
-                        </a>
-                    </div>
                 </div>
-
-
-
-
-
-                <div class="ms-1 header-item d-none d-sm-flex">
+                {{-- <div class="ms-1 header-item d-none d-sm-flex">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                         data-toggle="fullscreen">
                         <i class='bx bx-fullscreen fs-22'></i>
@@ -128,16 +60,21 @@
                         class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
                         <i class='bx bx-moon fs-22'></i>
                     </button>
-                </div>
+                </div> --}}
 
 
 
-                <div class="dropdown ms-sm-3 header-item topbar-user">
+                <div class="dropdown ms-sm-3 header-item topbar-user bg-secondary text-white">
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <span class="d-flex align-items-center">
-                            
-                            @php
+                        <span class="d-flex align-items-center text-white">
+
+                            @if (auth()->user()->hasRole('Administrateur'))
+                                SPACE ADMIN
+                            @else
+                                SPACE CONSULTANT
+                            @endIF
+                            {{-- @php
                                 $user = \Illuminate\Support\Facades\Auth::user();
                             @endphp
                                 @if ($user->profile_photo_path != null)
@@ -152,10 +89,10 @@
                                     class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">{{ Auth::user()->first_name }}</span>
                                 <span
                                     class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{ Auth::user()->last_name }}</span>
-                            </span>
+                            </span> --}}
                         </span>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-end">
+                    {{-- <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <h6 class="dropdown-header">Bienvenue {{ Auth::user()->first_name }}
                             {{ Auth::user()->last_name }} </h6>
@@ -170,7 +107,7 @@
                                 <span class="align-middle" data-key="t-logout">Déconnexion</span>
                             </button>
                         </form>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
