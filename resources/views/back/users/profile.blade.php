@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => "Mon profile"])
+@extends('layouts.app')
 
 @section('content')
     @livewire('back.users.profile')

@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  data-preloader="disable" data-layout="vertical" data-topbar="light" data-sidebar="gradient" data-sidebar-size="lg" data-layout-width="fluid">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-layout="vertical" data-sidebar="light"
+    data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+
+
 <head>
 
     <meta charset="utf-8" />

@@ -72,7 +72,7 @@
                                     <th scope="col">Prénom</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Téléphone</th>
-                                    <th scope="col">Statut CDT</th>
+                                    <th scope="col">Statut CDN</th>
                                     <th scope="col">Certification</th>
                                 </tr>
                             </thead>

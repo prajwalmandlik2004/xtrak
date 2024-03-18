@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => "Listes des utilisateurs"])
+@extends('layouts.app')
 
 @section('content')
     @livewire('back.users.index')

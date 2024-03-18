@@ -15,7 +15,7 @@ class Index extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $nbPaginate = 50;
+    public $nbPaginate = 6;
     public $cdtStatus = '';
     #[On('delete')]
     public function deleteData($id)

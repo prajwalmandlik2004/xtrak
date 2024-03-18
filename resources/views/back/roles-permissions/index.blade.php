@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => "Listes des rôles et permissions"])
+@extends('layouts.app')
 
 @section('content')
     @livewire('back.roles-permissions.index')

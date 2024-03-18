@@ -23,8 +23,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin@2024'),
             'uuid' => Str::uuid(),
         ]);
-        $role = Role::where('name', 'Administrateur')->first();
-        $admin->assignRole($role->id);
+        $admin->assignRole(Role::where('name', 'Administrateur')->first()->id);
       $consultant = User::create([
             'first_name' => 'Consultant',
             'last_name' => 'Consultant',
@@ -32,7 +31,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('consultant@2024'),
             'uuid' => Str::uuid(),
         ]);
-        $role = Role::where('name', 'Consultant')->first();
-        $consultant->assignRole($role->id);
+        $consultant->assignRole(Role::where('name', 'Consultant')->first()->id);
     }
 }

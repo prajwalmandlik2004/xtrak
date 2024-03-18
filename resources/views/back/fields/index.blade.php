@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => "Listes des domaines"])
+@extends('layouts.app')
 
 @section('content')
     @livewire('back.fields.index')

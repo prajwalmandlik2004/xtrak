@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => "Tableau de bord"])
+@extends('layouts.app')
 
 @section('content')
 @livewire('back.dashboard.index')

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => "Listes des sociétés"])
+@extends('layouts.app')
 
 @section('content')
     @livewire('back.compagnies.index')

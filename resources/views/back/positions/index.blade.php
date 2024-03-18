@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => "Listes des postes"])
+@extends('layouts.app')
 
 @section('content')
     @livewire('back.positions.index')
