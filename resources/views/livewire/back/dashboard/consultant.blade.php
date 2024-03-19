@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 mt-3">
             <div class="float-md-end mb-3">
                 <div class="p-2">
                     <h5 class="mb-0">Paramètres de tri des candidats</h5>
