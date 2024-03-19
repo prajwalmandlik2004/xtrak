@@ -16,7 +16,7 @@ class Consultant extends Component
     protected $paginationTheme = 'bootstrap';
     public $search = '';
     public $nbPaginate = 10;
-    public $filterName = 'asc';
+    public $filterName = '';
     public $filterDate = '';
     public $state = '';
     #[On('delete')]

@@ -35,42 +35,57 @@
 
 
     </div>
-    <div class="d-flex mt-4">
-        <div class="p-2 flex-grow-1">
-            <a href="{{ route('candidates.create') }}" class="btn "><i class="ri-add-line align-bottom me-1"></i>
-                Saisir un C.R.E</a>
+    <div class="d-flex mt-4 justify-content-end ">
+        <div class="flex-grow">
+            <h5 class="mb-0">Paramètres de tri des candidats</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered border-secondary table-nowrap">
+                    <thead>
+                        <tr>
+                            <th scope="col">Alphabétique</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Etat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+
+                                <select class="form-control w-md" wire:model.live='filterName'>
+                                    <option value="" class="bg-secondary text-white" selected>Selectionner</option>
+                                    <option value="asc">A -> Z</option>
+                                    <option value="desc">Z -> A</option>
+                                </select>
+
+                            </td>
+                            <td>
+
+                                <select class="form-control w-md" wire:model.live='filterDate'>
+                                    <option value="" class="bg-secondary text-white" selected>Selectionner</option>
+                                    <option value="asc">Plus récent en haut</option>
+                                    <option value="desc">Plus ancien en haut</option>
+                                </select>
+
+                            </td>
+                            <td>
+
+                                <select class="form-control w-md" wire:model.live='state'>
+                                    <option value="" class="bg-secondary text-white" selected>Selectionner</option>
+                                    <option value="">Tous</option>
+                                    <option value="Certifié">Certifié</option>
+                                    <option value="Attente">Attente</option>
+                                    <option value="Doublon">Doublon</option>
+                                    
+                                </select>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="p-2">
-
-            <select class="form-control w-md" wire:model.live='filterName'>
-                <option value="" class="bg-secondary text-white" selected>Tri</option>
-                <option value="asc">A -> Z</option>
-                <option value="desc">Z -> A</option>
-
-            </select>
-        </div>
-        <div class="p-2">
-
-            <select class="form-control w-md" wire:model.live='filterDate'>
-                <option value="" class="bg-secondary text-white" selected>Date</option>
-                <option value="asc">Plus récent en haut</option>
-                <option value="desc">Plus ancien en haut</option>
-
-            </select>
-        </div>
-        <div class="p-2">
-
-            <select class="form-control w-md" wire:model.live='state'>
-                <option value="" class="bg-secondary text-white" selected>Etat</option>
-                <option value="Certifié">Certifié
-                </option>
-                <option value="Attente">Attente</option>
-                <option value="Doublon">Doublon</option>
-                <option value="">Tous</option>
-            </select>
-        </div>
-
     </div>
+
     <div class="card mt-5">
         <div class="card-body">
             <div class="table-responsive">
