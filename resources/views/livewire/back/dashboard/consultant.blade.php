@@ -92,7 +92,7 @@
                             class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="bg-secondary text-white">
                                 <tr>
-                                    <th scope="col">#</th>
+                                   
                                     <th scope="col">Date</th>
                                     <th scope="col">Civilité</th>
                                     <th scope="col">Nom</th>
@@ -104,9 +104,7 @@
                             <tbody>
                                 @forelse ($candidates as $candidate)
                                     <tr>
-                                        <td> <a class="text-body"
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $loop->iteration }}
-                                            </a></td>
+                                        
                                         <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">
                                                 {{ $candidate->created_at->format('d/m/Y') ?? 'Non renseigné' }}
                                                 </h5>

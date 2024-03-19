@@ -162,18 +162,7 @@
 
                     
                  @endcan
-                 <li class="menu-title"> 
-                    <span data-key="t-pages">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="dropdown-item">
-                                <span class="" data-key="t-logout">
-                                    <span class="text-danger fs-40">Déconnexion</span>
-                                </span>
-                            </button>
-                        </form>
-                    </span>
-                </li>                
+                
 
              </ul>
          </div>

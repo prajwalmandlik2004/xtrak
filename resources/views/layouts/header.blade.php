@@ -54,13 +54,20 @@
                         <i class='bx bx-fullscreen fs-22'></i>
                     </button>
                 </div>
+                --}}
 
-                <div class="ms-1 header-item d-none d-sm-flex">
+                <div class="ms-1 header-item d-sm-flex text-danger ">
                     <button type="button"
                         class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
-                        <i class='bx bx-moon fs-22'></i>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item">
+                                <i class="mdi mdi-logout fs-16 align-middle me-1"></i>
+                                <span class="align-middle " data-key="t-logout">Déconnexion</span>
+                            </button>
+                        </form>
                     </button>
-                </div> --}}
+                </div>
 
 
 
@@ -70,9 +77,9 @@
                         <span class="d-flex align-items-center text-white">
 
                             @if (auth()->user()->hasRole('Administrateur'))
-                                SPACE ADMIN
+                                ESPACE ADMIN
                             @else
-                                SPACE CONSULTANT
+                                ESPACE CONSULTANT
                             @endIF
                             {{-- @php
                                 $user = \Illuminate\Support\Facades\Auth::user();
