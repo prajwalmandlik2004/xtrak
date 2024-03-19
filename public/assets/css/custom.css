@@ -42,3 +42,7 @@ background-color: #6699FF;
 .btn-secondary,.btn-primary,.bg-secondary{
 background-color:#203E75 !important;
 }
+.table-hover-primary tbody tr:hover {
+    background-color:  #6699FF;
+    color: #fff; 
+}
