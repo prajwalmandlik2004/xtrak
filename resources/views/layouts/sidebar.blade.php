@@ -35,6 +35,7 @@
                  <li class="nav-item bg-dash-sidebar">
                      <a class="nav-link menu-link  text-white {{ request()->routeIs('dashboard') ? 'active' : '' }}"
                          href="{{ route('dashboard') }}">
+                         <i class="ri-dashboard-2-line"></i> 
                         <span data-key="t-dashboards">
                              @if (auth()->user()->hasRole('Administrateur'))
                              ESPACE ADMINISTATEUR
