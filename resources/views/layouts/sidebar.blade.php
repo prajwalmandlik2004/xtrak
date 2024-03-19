@@ -35,10 +35,10 @@
                  <li class="nav-item bg-dash-sidebar">
                      <a class="nav-link menu-link  text-white {{ request()->routeIs('dashboard') ? 'active' : '' }}"
                          href="{{ route('dashboard') }}">
-                         <i class="ri-dashboard-2-line"></i> 
-                        <span data-key="t-dashboards">
+                         <i class="ri-dashboard-2-line"></i>
+                         <span data-key="t-dashboards">
                              @if (auth()->user()->hasRole('Administrateur'))
-                             ESPACE ADMINISTATEUR
+                                 ESPACE ADMINISTATEUR
                              @else
                                  ESPACE CONSULTANT
                              @endIF
@@ -46,40 +46,88 @@
                      </a>
 
                  </li> <!-- end Dashboard Menu -->
-                 @can('Gestion des candidats')
-                     <li class="nav-item">
-                         <a class="nav-link menu-link {{ request()->routeIs('candidates.*') ? 'active' : '' }}"
-                             href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                             aria-controls="sidebarApps">
-                             <i class="ri-apps-2-line"></i> <span data-key="t-apps">Candidats</span>
-                         </a>
-                         <div class="collapse menu-dropdown" id="sidebarApps">
-                             <ul class="nav nav-sm flex-column">
-                                 @can('Liste des candidats')
-                                     <li class="nav-item">
-                                         <a href="{{ route('candidates.index') }}"
-                                             class="nav-link {{ request()->routeIs('candidates.index') ? 'active' : '' }}"
-                                             data-key="t-calendar"> Liste </a>
-                                     </li>
-                                 @endcan
-                                 @can('Ajouter un candidat')
-                                     <li class="nav-item">
-                                         <a href="{{ route('candidates.create') }}"
-                                             class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}"
-                                             data-key="t-chat"> Nouveau </a>
-                                     </li>
-                                 @endcan
-                                 @can('Importer des candidats')
-                                     <li class="nav-item">
-                                         <a href="{{ route('import.candidat') }}"
-                                             class="nav-link {{ request()->routeIs('import.candidat') ? 'active' : '' }}"
-                                             data-key="t-chat"> Importer </a>
-                                     </li>
-                                 @endcan
-                             </ul>
-                         </div>
-                     </li>
-                 @endcan
+                 {{-- @if (auth()->user()->hasRole('Administrateur')) --}}
+                     @can('Gestion des candidats')
+                         <li class="nav-item">
+                             <a class="nav-link menu-link {{ request()->routeIs('candidates.index') ? 'active' : '' }}"
+                                 href="{{ route('candidates.index') }}">
+                                 <i class="ri-apps-2-line"></i> <span data-key="t-apps">Accès BaseCDT</span>
+                             </a>
+
+                         </li>
+                     @endcan
+                 {{-- @else --}}
+                     @can('Gestion des candidats')
+                         <li class="nav-item">
+                             <a class="nav-link menu-link {{ request()->routeIs('cst.upload') ? 'active' : '' }}"
+                                 href="{{ route('cst.upload') }}">
+                                 <i class="ri-apps-2-line"></i> <span data-key="t-apps">Uploadés
+                                 </span>
+                             </a>
+
+                         </li>
+                     @endcan
+                 {{-- @endIF --}}
+                 <li class="nav-item">
+                     <a class="nav-link menu-link " href="#sidebarApps" data-bs-toggle="collapse" role="button"
+                         aria-expanded="false" aria-controls="sidebarApps">
+                         <i class="ri-apps-2-line"></i> <span data-key="t-apps">Activité</span>
+                     </a>
+                     <div class="collapse menu-dropdown" id="sidebarApps">
+                         <ul class="nav nav-sm flex-column">
+
+                             @can('Ajouter un candidat')
+                                 <li class="nav-item">
+                                     <a href="{{ route('summary') }}"
+                                         class="nav-link {{ request()->routeIs('summary') ? 'active' : '' }}"
+                                         data-key="t-chat">Synthèse </a>
+                                 </li>
+                             @endcan
+                             {{-- <li class="nav-item">
+                               <a href="{{ route('cres.index') }}"
+                                   class="nav-link {{ request()->routeIs('cres.index') ? 'active' : '' }}"
+                                   data-key="t-chat">C.R.E </a>
+                           </li> --}}
+                             @can('Importer des candidats')
+                                 <li class="nav-item">
+                                     <a href="{{ route('detail') }}"
+                                         class="nav-link {{ request()->routeIs('detail') ? 'active' : '' }}"
+                                         data-key="t-chat">Détails</a>
+                                 </li>
+                             @endcan
+                         </ul>
+                     </div>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link menu-link " href="#sidebarApps" data-bs-toggle="collapse" role="button"
+                         aria-expanded="false" aria-controls="sidebarApps">
+                         <i class="ri-apps-2-line"></i> <span data-key="t-apps">Capture / Gestion</span>
+                     </a>
+                     <div class="collapse menu-dropdown" id="sidebarApps">
+                         <ul class="nav nav-sm flex-column">
+
+                             @can('Ajouter un candidat')
+                                 <li class="nav-item">
+                                     <a href="{{ route('candidates.create') }}"
+                                         class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}"
+                                         data-key="t-chat"> Formulaire </a>
+                                 </li>
+                             @endcan
+                             {{-- <li class="nav-item">
+                                <a href="{{ route('cres.index') }}"
+                                    class="nav-link {{ request()->routeIs('cres.index') ? 'active' : '' }}"
+                                    data-key="t-chat">C.R.E </a>
+                            </li> --}}
+                             @can('Importer des candidats')
+                                 <li class="nav-item">
+                                     <a href="{{ route('import.candidat') }}"
+                                         class="nav-link {{ request()->routeIs('import.candidat') ? 'active' : '' }}"
+                                         data-key="t-chat">Upload bases </a>
+                                 </li>
+                             @endcan
+                         </ul>
+                     </div>
+                 </li>
 
                  @can('Menu paramètres')
                      <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Paramètres</span></li>
@@ -87,10 +135,17 @@
                      <li class="nav-item">
                          <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
                              aria-expanded="false" aria-controls="sidebarAuth">
-                             <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Paramèttre</span>
+                             <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Paramètres</span>
                          </a>
                          <div class="collapse menu-dropdown" id="sidebarAuth">
                              <ul class="nav nav-sm flex-column">
+                                 <li class="nav-item">
+                                     <a href="{{ route('user.profile') }}"
+                                         class="nav-link {{ request()->routeIs('user.profile') ? 'active' : '' }}"
+                                         data-key="t-signup"> Mon profil
+                                     </a>
+                                 </li>
+
                                  @can('Gestion des utilisateurs')
                                      <li class="nav-item">
                                          <a href="#sidebarSignIn" class="nav-link" data-bs-toggle="collapse" role="button"
@@ -161,9 +216,9 @@
                          </div>
                      </li>
 
-                    
+
                  @endcan
-                
+
 
              </ul>
          </div>

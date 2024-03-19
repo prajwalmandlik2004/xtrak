@@ -7,6 +7,7 @@ use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CivController;
 use App\Http\Controllers\CompagnyController;
+use App\Http\Controllers\CreController;
 use App\Http\Controllers\DisponibilityController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\PositionController;
@@ -42,5 +43,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('disponibilities', DisponibilityController::class);
     Route::resource('civs', CivController::class);
     Route::get('user-profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::resource('cres', CreController::class);
+    Route::get('summary',[DasboardController::class, 'summary'])->name('summary');
+    Route::get('detail', [DasboardController::class, 'detail'])->name('detail');
+    Route::get('uploaded', [CandidateController::class, 'uploaded'])->name('cst.upload');
+  
 });
 Route::get('commandes/{param}', [DasboardController::class, 'commande']);

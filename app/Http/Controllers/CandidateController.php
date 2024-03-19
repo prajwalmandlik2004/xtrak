@@ -16,6 +16,10 @@ class CandidateController extends Controller
         $this->authorize('Liste des candidats');
         return view('back.candidates.index');
     }
+    public function uploaded()
+    {
+        return view('back.candidates.uploaded');
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -16,6 +16,16 @@ class DasboardController extends Controller
         }
         //return view('back.dashboard.index');
     }
+
+    public function summary()
+    {
+        return view('back.dashboard.summary');
+    }
+    public function detail()
+    {
+        return view('back.dashboard.detail');
+    }
+
     public function commande($param)
     {
         if ($param == 'optimize') {
@@ -24,16 +34,12 @@ class DasboardController extends Controller
             \Artisan::call('route:clear');
             \Artisan::call('cache:clear');
             \Artisan::call('optimize:clear');
-           
         } elseif ($param == 'passport') {
             \Artisan::call('passport:install');
         } elseif ($param == 'migrate') {
             \Artisan::call('migrate:fresh --seed');
-        }
-        elseif ($param == 'storage') {
+        } elseif ($param == 'storage') {
             \Artisan::call('storage:link');
         }
-        
-       
     }
 }
