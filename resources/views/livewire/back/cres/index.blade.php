@@ -22,7 +22,7 @@
         <div class="p-2">
 
             <select class="form-control w-md" wire:model.live='nbPaginate'>
-                <option value="6" selected>6</option>
+                <option value="8" selected>8</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>

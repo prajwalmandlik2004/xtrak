@@ -19,7 +19,7 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
     public $user;
     public $search = '';
-    public $nbPaginate = 5;
+    public $nbPaginate = 10;
     public $first_name;
     public $last_name;
     public $email;

@@ -138,7 +138,7 @@
                                                  <li class="nav-item">
                                                      <a href="{{ route('state', 'Certifié') }}"
                                                          class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Certifié' ? 'active' : '' }}"
-                                                         data-key="t-chat">Uploadés </a>
+                                                         data-key="t-chat">Certifié </a>
                                                  </li>
                                                  <li class="nav-item">
                                                      <a href="{{ route('state', 'Attente') }}"

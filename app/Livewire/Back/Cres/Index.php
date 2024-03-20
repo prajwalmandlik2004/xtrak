@@ -15,7 +15,7 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
     public $cre;
     public $search = '';
-    public $nbPaginate = 8;
+    public $nbPaginate = 10;
     public $response;
     public $isUpdate = false;
     #[On('deletecre')]

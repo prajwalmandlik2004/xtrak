@@ -17,7 +17,7 @@ class Profile extends Component
 {
     use WithFileUploads;
     public $user;
-    public $nbPaginate = 5;
+    public $nbPaginate = 10;
     public $first_name;
     public $last_name;
     public $email;

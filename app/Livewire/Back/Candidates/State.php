@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\CandidateRepository;
 
-class Index extends Component
+class State extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -78,6 +78,7 @@ class Index extends Component
             ->when($this->cdtStatus, function ($query) {
                 $query->where('cdt_status', $this->cdtStatus);
             })
+            ->where('created_by', Auth::id())
             ->paginate($this->nbPaginate);
     }
     public function confirmDelete($nom, $id)
@@ -86,7 +87,7 @@ class Index extends Component
     }
     public function render()
     {
-        return view('livewire.back.candidates.index')->with([
+        return view('livewire.back.candidates.state')->with([
             'candidates' => $this->searchCandidates(),
         ]);
     }

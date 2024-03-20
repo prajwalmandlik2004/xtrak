@@ -18,7 +18,7 @@ class CandidateController extends Controller
     }
     public function state($state)
     {
-        return view('back.candidates.uploaded'
+        return view('back.candidates.state'
         ,["state"=>$state]
     );
     }
