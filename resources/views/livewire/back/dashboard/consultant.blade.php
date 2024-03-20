@@ -15,6 +15,11 @@
                             class="ri-add-line align-bottom me-1"></i>
                         Uploader une base de candidats</a>
                 </div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex mt-4">
                 <div class="p-2 ml-auto">
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
                         <option value="6" selected>6</option>
@@ -33,8 +38,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 mt-3">
-            <div class="float-md-end mb-3">
+        <div class="col-md-6">
+            <div class="float-md-end ">
                 <div class="p-2">
                     <h5 class="mb-0">Paramètres de tri des candidats</h5>
                 </div>
@@ -85,14 +90,14 @@
         </div>
 
         <div class="col-md-12">
-            <div class="card mt-5">
+            <div class="card ">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table
                             class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="bg-secondary text-white">
                                 <tr>
-                                   
+
                                     <th scope="col">Date</th>
                                     <th scope="col">Civilité</th>
                                     <th scope="col">Nom</th>
@@ -104,7 +109,7 @@
                             <tbody>
                                 @forelse ($candidates as $candidate)
                                     <tr>
-                                        
+
                                         <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">
                                                 {{ $candidate->created_at->format('d/m/Y') ?? 'Non renseigné' }}
                                                 </h5>

@@ -17,6 +17,9 @@ class Index extends Component
     public $search = '';
     public $nbPaginate = 6;
     public $cdtStatus = '';
+    public $filterName = '';
+    public $filterDate = '';
+    public $state = '';
     #[On('delete')]
     public function deleteData($id)
     {
@@ -34,20 +37,48 @@ class Index extends Component
     }
     public function searchCandidates()
     {
-        return Candidate::where(function ($query) {
-            $query->where('first_name', 'like', '%' . $this->search . '%')
-                ->orWhere('last_name', 'like', '%' . $this->search . '%');
-        })
-        ->when(Auth::user()->hasRole('Administrateur'), function ($query) {
-            return $query;
-        }, function ($query) {
-            return $query->where('created_by', Auth::id());
-        })
-        ->when($this->cdtStatus, function ($query) {
-            return $query->where('cdt_status', $this->cdtStatus);
-        })
-        ->orderBy('last_name', 'asc')
-        ->paginate($this->nbPaginate);
+        $searchFields = ['first_name', 'last_name', 'email', 'phone', 'postal_code', 'city', 'address', 'region', 'country'];
+
+        return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'specialities', 'fields'])
+            ->where(function ($query) use ($searchFields) {
+                $query
+                    ->where(function ($query) use ($searchFields) {
+                        foreach ($searchFields as $field) {
+                            $query->orWhere($field, 'like', '%' . $this->search . '%');
+                        }
+                    })
+                    ->orWhereHas('position', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('disponibility', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('civ', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('compagny', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('specialities', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('fields', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    });
+            })
+            ->when($this->filterName, function ($query) {
+                return $query->orderBy('last_name', $this->filterName);
+            })
+            ->when($this->filterDate, function ($query) {
+                return $query->orderBy('created_at', $this->filterDate);
+            })
+            ->when($this->state, function ($query) {
+                $query->where('state', $this->state);
+            })
+            ->when($this->cdtStatus, function ($query) {
+                $query->where('cdt_status', $this->cdtStatus);
+            })
+            ->paginate($this->nbPaginate);
     }
     public function confirmDelete($nom, $id)
     {

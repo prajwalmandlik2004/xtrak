@@ -14,30 +14,29 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            'Gestion des utilisateurs',
-            'Liste des utilisateurs',
-            'Ajouter un utilisateur',
-            'Modifier un utilisateur',
-            'Supprimer un utilisateur',
-            'Liste des rôles',
-            'Ajouter un rôle',
-            'Modifier un rôle',
-            'Supprimer un rôle',
-            'Liste des permissions',
-            'Ajouter une permission',
-            'Modifier une permission',
-            'Supprimer une permission',
-            'Gestion des candidats',
+            'Menu accès BaseCDT',
             'Liste des candidats',
-            'Ajouter un candidat',
-            'Modifier un candidat',
-            'Voir un candidat',
-            'Supprimer un candidat',
+            'Menu synthèse',
+            'Menu Détails',
+            'Menu activité',
             'Importer des candidats',
+            'Ajouter un candidat',
+            "Menu etats",
+            "Menu saisie",
             'Menu paramètres',
-            'Gestion des rôles et permissions',
-            'Gestion des sociétes'
-            
+            'Menu utilisateur',
+            'Liste des utilisateurs',
+            'Gestion des rôles',
+            'Gestion des permissions',
+            'Menu paramètre BaseCDT',
+            'Gestion des sociétes',
+            'Gestion des spécialites',
+            'Gestion des postes',
+            'Gestion des domaines',
+            'Gestion des disponibilites',
+            'Gestion des civilites',
+            "Menu capture / gestion",
+            "Gestion des étape suivante"
         ];
         foreach ($permissions as $key => $permission) {
             Permission::create(['name' => $permission]);

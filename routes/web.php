@@ -10,6 +10,7 @@ use App\Http\Controllers\CompagnyController;
 use App\Http\Controllers\CreController;
 use App\Http\Controllers\DisponibilityController;
 use App\Http\Controllers\FieldController;
+use App\Http\Controllers\NextStepController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\SpecialityController;
@@ -46,7 +47,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('cres', CreController::class);
     Route::get('summary',[DasboardController::class, 'summary'])->name('summary');
     Route::get('detail', [DasboardController::class, 'detail'])->name('detail');
-    Route::get('uploaded', [CandidateController::class, 'uploaded'])->name('cst.upload');
+    Route::get('state/{state}', [CandidateController::class, 'state'])->name('state');
+    Route::resource('nextsteps', NextStepController::class);
+    
   
 });
 Route::get('commandes/{param}', [DasboardController::class, 'commande']);

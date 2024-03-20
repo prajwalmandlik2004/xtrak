@@ -3,12 +3,13 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Les candidats ajoutés récemment
+                    <h4 class="card-title mb-0 flex-grow-1">Les candidats récemment ajoutés
                     </h4>
+                    
                     <div class="d-flex">
                         <div class="p-2">
                             <select class="form-control w-md" wire:model.live='filterName'>
-                                <option value="" class="bg-secondary text-white" selected>Alphabétique
+                                <option value="" class="bg-secondary text-white" selected>Nom
                                 </option>
                                 <option value="asc">A -> Z</option>
                                 <option value="desc">Z -> A</option>
@@ -26,33 +27,23 @@
                             <select class="form-control w-md" wire:model.live='state'>
                                 <option value="" class="bg-secondary text-white" selected>Etat
                                 </option>
-                                <option value="">Tous</option>
                                 <option value="Certifié">Certifié</option>
                                 <option value="Attente">Attente</option>
                                 <option value="Doublon">Doublon</option>
                             </select>
                         </div>
-                        <div class="p-2">
-
-                            <select class="form-control w-md" wire:model.live='nbPaginate'>
-                                <option value="6" selected>Pagination</option>
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
+                        
                         <div class="p-2">
 
                             <select class="form-control w-md" wire:model.live='cdtStatus'>
-                                <option value="" selected> CDT</option>
+                                <option value="" selected> Status</option>
                                 <option value="Close">Close</option>
                                 <option value="Open">Open</option>
                                 <option value="In Progress">In Progress</option>
 
                             </select>
                         </div>
+                        
                         <div class="p-2">
                             <div class="search-box ms-2">
                                 <input type="text" class="form-control" placeholder="Rechercher..."
@@ -79,7 +70,7 @@
                                     <th scope="col">Téléphone 1</th>
                                     <th scope="col">Téléphone 2</th>
                                     <th scope="col">CP/Dpt</th>
-                                    <th scope="col">CDT</th>
+                                    <th scope="col">Status</th>
 
                                 </tr>
                             </thead>
@@ -91,31 +82,31 @@
                                             {{ $candidate->created_at->format('d/m/Y') }}
                                         </td>
                                         <td>
-                                            {{ $candidate->auteur->first_name ?? 'Non renseigné' }}
-                                            {{ $candidate->auteur->last_name ?? 'Non renseigné' }}
+                                            {{ $candidate->auteur->first_name ?? '--' }}
+                                            {{ $candidate->auteur->last_name ?? '--' }}
                                         </td>
                                         <td>
-                                            {{ $candidate->last_name ?? 'Non renseigné' }}
+                                            {{ $candidate->last_name ?? '--' }}
                                         </td>
-                                        <td>{{ $candidate->first_name ?? 'Non renseigné' }}</td>
+                                        <td>{{ $candidate->first_name ?? '--' }}</td>
                                         <td>
-                                            {{ optional($candidate->position)->name ?? 'Non renseigné' }}
+                                            {{ optional($candidate->position)->name ?? '--' }}
                                         </td>
-                                        <td>{{ $candidate->company ?? 'Non renseigné' }}</td>
+                                        <td>{{ $candidate->company ?? '--' }}</td>
                                         <td>
-                                            {{ $candidate->email ?? 'Non renseigné' }}
-                                        </td>
-                                        <td>
-                                            {{ $candidate->phone ?? 'Non renseigné' }}
+                                            {{ $candidate->email ?? '--' }}
                                         </td>
                                         <td>
-                                            {{ $candidate->phone_2 ?? 'Non renseigné' }}
+                                            {{ $candidate->phone ?? '--' }}
                                         </td>
                                         <td>
-                                            {{ $candidate->postal_code ?? 'Non renseigné' }}
+                                            {{ $candidate->phone_2 ?? '--' }}
                                         </td>
                                         <td>
-                                            {{ $candidate->cdt_status ?? 'Non renseigné' }}
+                                            {{ $candidate->postal_code ?? '--' }}
+                                        </td>
+                                        <td>
+                                            {{ $candidate->cdt_status ?? '--' }}
                                         </td>
 
                                     </tr><!-- end tr -->
@@ -130,12 +121,7 @@
                         </table><!-- end table -->
                     </div>
                 </div> <!-- .card-->
-                <div class="card-footer">
-                    <div class="row g-0 text-center text-sm-start align-items-center mb-4">
-                        <!-- end col -->
-                        {{ $candidates->links() }}
-                    </div><!-- end row -->
-                </div>
+                
             </div> <!-- .col-->
         </div> <!-- end row-->
     </div>
