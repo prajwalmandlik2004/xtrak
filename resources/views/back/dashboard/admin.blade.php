@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app',['title' => "Espace admin"])
 
 @section('content')
 @livewire('back.dashboard.admin')

@@ -51,14 +51,9 @@
                         @forelse ($disponibilities as $disponibility)
                             <tr>
 
-                                <th scope="row"> <a class="text-body"
-                                        href="{{ Route('disponibilities.show', $disponibility) }}">{{ $loop->iteration }}
-                                    </a></th>
-                                <td> <a class="text-body" href="{{ Route('disponibilities.show', $disponibility) }}">{{ $disponibility->name }}
-                                    </a></td>
-                                <td> <a class="text-body"
-                                        href="{{ Route('disponibilities.show', $disponibility) }}">{{ $disponibility->created_at->format('d/m/Y') ?? 'Non renseigné' }}
-                                    </a></td>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $disponibility->name }}</td>
+                                <td>{{ $disponibility->created_at->format('d/m/Y')  }}</td>                                
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
 

@@ -10,10 +10,14 @@ class Candidate extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['code_cdt', 'state', 'origine', 'commentaire', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'created_by', 'position_id', 'phone_2', 'certificate', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc'];
+    protected $fillable = ['ns_date', 'next_step_id', 'code_cdt', 'state', 'origine', 'commentaire', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'created_by', 'position_id', 'phone_2', 'certificate', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc'];
     public function position()
     {
         return $this->belongsTo(Position::class);
+    }
+    public function nextStep()
+    {
+        return $this->belongsTo(NextStep::class);
     }
     public function disponibility()
     {
@@ -42,5 +46,9 @@ class Candidate extends Model
     public function auteur()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+    public function cres()
+    {
+        return $this->hasMany(Cre::class);
     }
 }

@@ -51,19 +51,16 @@
                         @forelse ($positions as $position)
                             <tr>
 
-                                <th scope="row"> <a class="text-body"
-                                        href="{{ Route('positions.show', $position) }}">{{ $loop->iteration }}
-                                    </a></th>
-                                <td> <a class="text-body" href="{{ Route('positions.show', $position) }}">{{ $position->name }}
-                                    </a></td>
-                                <td> <a class="text-body"
-                                        href="{{ Route('positions.show', $position) }}">{{ $position->created_at->format('d/m/Y') ?? 'Non renseigné' }}
-                                    </a></td>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $position->name }}</td>
+                                <td>{{ $position->created_at->format('d/m/Y') ?? 'Non renseigné' }}</td>
+
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
 
                                         <li class="list-inline-item edit">
-                                            <a wire:click="openModal('{{ $position->id }}')" data-bs-toggle="modal" data-bs-target="#modal"
+                                            <a wire:click="openModal('{{ $position->id }}')" data-bs-toggle="modal"
+                                                data-bs-target="#modal"
                                                 class="text-primary d-inline-block edit-item-btn">
                                                 <i class="ri-pencil-fill fs-16"></i>
                                             </a>

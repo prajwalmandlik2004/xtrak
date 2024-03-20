@@ -1,7 +1,7 @@
 <div>
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'importer des candidats',
+        'title' => 'UPLOAD CANDIDATS',
         'breadcrumbItems' => [
             ['text' => 'Candidats', 'url' => '#'],
             ['text' => 'Import', 'url' => Route('import.candidat')],
@@ -12,11 +12,14 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Importation des candidats</h4>
+                    <h4 class="card-title mb-0">UPLOAD AUTOMATIQUE DE CANDIDATS</h4>
                 </div><!-- end card header -->
 
                 <div class="card-body">
-                    <p class="text-muted">Veuillez importer votre fichier Excel en respectant le format requis.</p>
+                    <p class="text-muted">Veuillez vous assurer que votre grille est enregistrée au format CSV et que ses
+                        colonnes suivent la structure du fichier "Matrice UploadCDT", disponible en exemple
+                        téléchargeable.
+                        .</p>
 
                     <form wire:submit.prevent="storeData()">
                         @csrf
@@ -24,11 +27,11 @@
                             <input type="file" class="form-control @error('file') is-invalid @enderror"
                                 wire:model='file' aria-label="Upload" accept=".xls, .xlsx," required>
                             <button wire:loading.remove wire:target="storeData" type="submit"
-                                class="btn btn-outline-primary">Importer</button>
+                                class="btn btn-outline-primary">UPLOAD</button>
                             <button wire:loading wire:target="storeData" type="button" class="btn btn-outline-primary"
                                 disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                Importation...
+                                UPLOAD...
                             </button>
                             @error('file')
                                 <span class="invalid-feedback">{{ $message }}</span>
@@ -43,11 +46,11 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Caneva</h4>
+                    <h4 class="card-title mb-0">Matrice UploadCDT</h4>
                 </div><!-- end card header -->
 
                 <div class="card-body">
-                    <p class="text-muted">Veuillez télécharger l'exemplaire du caneva.</p>
+                    <p class="text-muted">Veuillez télécharger l'exemplaire de la Matrice UploadCDT.</p>
 
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
@@ -59,15 +62,11 @@
                             </div>
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1 fs-15">Exemple du caneva</h5>
-
+                            <h5 class="mb-1 fs-15">Exemple Matrice UploadCDT</h5>
                         </div>
-                        <a class="btn btn-success  " href="{{ URL::asset('assets/files/caneva.xlsx') }}"
-                            download="Caneva" data-bs-toggle="tooltip" data-bs-placement="left" title="Télécharger">
+                        <a class="btn btn-success" wire:click='downloadFile'>
                             <i class="ri-download-fill"></i>
                         </a>
-
-
                     </div>
                 </div>
                 <!-- end card body -->

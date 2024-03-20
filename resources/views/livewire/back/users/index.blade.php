@@ -63,29 +63,15 @@
                     <tbody>
                         @forelse ($users as $user)
                             <tr>
-
-                                <th scope="row"> <a class="text-body"
-                                        href="{{ Route('users.show', $user) }}">{{ $loop->iteration }}
-                                    </a></th>
-
-                                <td> <a class="text-body"
-                                        href="{{ Route('users.show', $user) }}">{{ $user->first_name }}
-                                    </a></td>
-                                <td> <a class="text-body" href="{{ Route('users.show', $user) }}">{{ $user->last_name }}
-                                    </a></td>
-                                <td> <a class="text-body" href="{{ Route('users.show', $user) }}">{{ $user->phone }}
-                                    </a></td>
-                                <td> <a class="text-body" href="{{ Route('users.show', $user) }}">{{ $user->email }}
-                                    </a></td>
-                                <th scope="row"> <a class="text-body"
-                                        href="{{ Route('users.show', $user) }}">{{ $user->roles->first()->name }}
-                                    </a></th>
-                                <td> <a class="text-body"
-                                        href="{{ Route('users.show', $user) }}">{{ $user->created_at->format('d/m/Y') ?? 'Non renseigné' }}
-                                    </a></td>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $user->first_name }}</td>
+                                <td>{{ $user->last_name }}</td>
+                                <td>{{ $user->phone }}</td>
+                                <td>{{ $user->email }}</td>
+                                <th scope="row">{{ $user->roles->first()->name }}</th>
+                                <td>{{ $user->created_at->format('d/m/Y') ?? 'Non renseigné' }}</td>
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
-
                                         <li class="list-inline-item edit">
                                             <a wire:click="openModal('{{ $user->id }}')" data-bs-toggle="modal"
                                                 data-bs-target="#modal"

@@ -6,10 +6,10 @@
     <meta charset="utf-8" />
     <title>Connexion | Xtrak</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
+    <meta content="XTRAK- HARMEN & BOTTS" name="description" />
+    <meta content="Xtrak" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('assets/images/logo.png')}}">
+    <link rel="shortcut icon" href="{{asset('assets/images/logo.jpg')}}" >
 
     <!-- Layout config Js -->
     <script src="{{asset('assets/js/layout.js')}}"></script>
@@ -47,7 +47,7 @@
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
                                 <a href="index.html" class="d-inline-block auth-logo">
-                                    <img src="{{ asset('assets/images/logo.png') }}" alt="" class="img-fluid">
+                                    <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="img-fluid" height="300" width="300">
                                 </a>
                             </div>
                             <p class="mt-3 fs-15 fw-semibold">Xtrak</p>
@@ -160,7 +160,7 @@
                             <p class="mb-0 text-muted">&copy;
                                 <script>
                                     document.write(new Date().getFullYear())
-                                </script> XTK PROJECT. Réalisé avec <i class="mdi mdi-heart text-danger"></i>
+                                </script> Tous droits réservé. XTK PROJECTs, Réalisé  
                                     par <a href="https://www.harmen-botts.com/">HARMEN & BOTTS</a>
                             </p>
                             

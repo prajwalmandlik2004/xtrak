@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app',['title' => "UPLOAD CANDIDAT"])
 
 @section('content')
     @livewire('back.candidates.import.index')

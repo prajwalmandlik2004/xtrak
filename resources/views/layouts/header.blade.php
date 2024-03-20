@@ -6,7 +6,7 @@
                 <div class="navbar-brand-box horizontal-logo">
                     <a href="{{ Route('user.profile') }}" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="" height="22">
+                            <img src="{{ asset('assets/images/logo.jpg') }}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
                             <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="17">
@@ -15,10 +15,10 @@
 
                     <a href="{{ Route('user.profile') }}" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="" height="22">
+                            <img src="{{ asset('assets/images/logo.jpg') }}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="" height="17">
+                            <img src="{{ asset('assets/images/logo.jpg') }}" alt="" height="17">
                         </span>
                     </a>
                 </div>
@@ -88,7 +88,7 @@
                                 <img src=" {{ asset('storage') . '/' . $user->profile_photo_path }}"
                                     class="rounded-circle header-profile-user" alt="user-profile-image">
                                 @else
-                                <img src="assets/images/logo.png"
+                                <img src="assets/images/logo.jpg"
                                 class="rounded-circle header-profile-user" alt="user-profile-image">
                                 @endif
                             <span class="text-start ms-xl-2">

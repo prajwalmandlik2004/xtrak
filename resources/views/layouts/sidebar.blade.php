@@ -4,19 +4,19 @@
          <!-- Dark Logo-->
          <a href="https://www.harmen-botts.com/" class="logo logo-dark">
              <span class="logo-sm">
-                 <img src="{{ asset('assets/images/logo.png') }}" alt="" height="50">
+                 <img src="{{ asset('assets/images/logo.jpg') }}" class="img-fluid" height="250" width="250">
              </span>
              <span class="logo-lg">
-                 <img src="{{ asset('assets/images/logo.png') }}" alt="" height="50">
+                 <img src="{{ asset('assets/images/logo.jpg') }}" class="img-fluid" height="250" width="250">
              </span>
          </a>
          <!-- Light Logo-->
          <a href="https://www.harmen-botts.com/" class="logo logo-light">
              <span class="logo-sm">
-                 <img src="{{ asset('assets/images/logo.png') }}" alt="" height="50">
+                 <img src="{{ asset('assets/images/logo.jpg') }}" class="img-fluid" height="250" width="250">
              </span>
              <span class="logo-lg">
-                 <img src="{{ asset('assets/images/logo.png') }}" alt="" height="50">
+                 <img src="{{ asset('assets/images/logo.jpg') }}" class="img-fluid" height="250" width="250">
              </span>
          </a>
          <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -189,7 +189,7 @@
                                                      <li class="nav-item">
                                                          <a href="{{ route('users.index') }}"
                                                              class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Liste des utilisateurs</a>
+                                                             data-key="t-basic"> Listes des utilisateurs</a>
                                                      </li>
                                                  @endcan
                                                  @can('Gestion des rôles')
@@ -238,25 +238,26 @@
                                                          </a>
                                                      </li>
                                                  @endcan
-                                                 @can('Gestion des postes')
+                                                 @can('Gestion des Métier1')
                                                      <li class="nav-item">
                                                          <a href="{{ route('positions.index') }}"
                                                              class="nav-link {{ request()->routeIs('positions.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Postes </a>
+                                                             data-key="t-basic"> Métier1
+                                                            </a>
                                                      </li>
                                                  @endcan
-                                                 @can('Gestion des spécialites')
+                                                 @can('Gestion des Métier2')
                                                      <li class="nav-item">
                                                          <a href="{{ route('specialities.index') }}"
                                                              class="nav-link {{ request()->routeIs('specialities.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Spécialites </a>
+                                                             data-key="t-basic"> Métier2 </a>
                                                      </li>
                                                  @endcan
-                                                 @can('Gestion des domaines')
+                                                 @can('Gestion des Métier3')
                                                      <li class="nav-item">
                                                          <a href="{{ route('fields.index') }}"
                                                              class="nav-link {{ request()->routeIs('fields.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Domaines </a>
+                                                             data-key="t-basic"> Métier3 </a>
                                                      </li>
                                                  @endcan
                                                  @can('Gestion des disponibilites')

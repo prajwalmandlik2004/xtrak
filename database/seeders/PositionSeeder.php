@@ -13,7 +13,31 @@ class PositionSeeder extends Seeder
      */
     public function run(): void
     {
-        $positions = ['Dessinateur projeteur leader', 'Electromécanicien', 'Technicien industrialisation'];
+        $positions = [
+            'Autres',
+            'Responsable de site',
+            'Chargé d\'exploitation',
+            'Travaux publics',
+            'Chef d\'atelier',
+            'Chef d\'agence',
+            'Chef de groupe',
+            'Chargé d\'étude',
+            'Chef de projet',
+            'Chef d\'équipe',
+            'Commercial',
+            'Coordinateur',
+            'Dessinateur',
+            'Directeur',
+            'Ingénieur',
+            'Génie',
+            'Formateur',
+            'Projeteur',
+            'Responsable',
+            'Superviseur',
+            'Technicien'
+        ];
+        
+        
         foreach ($positions as $position) {
             Position::create(['name' => $position]);
         }

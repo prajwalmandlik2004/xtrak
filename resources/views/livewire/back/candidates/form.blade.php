@@ -20,7 +20,7 @@
                                     {{ $action == 'create' ? "Formulaire de creation d'un candidat" : "Formulaire de modification d'un candidat" }}
                                 </h5>
                                 <h5 class="card-title text-muted mb-0 fs-15 mt-2">les champs avec <span
-                                        class="text-danger">*</span> sont obligatoires</h5>
+                                        class="text-danger">*</span>Obligatoire </h5>
                             </div>
                             <div class="p-2">
                                 <a href="{{ Route("import.candidat")}}" class="btn btn-primary">Importer</a>
@@ -56,7 +56,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-1">
                                             <div>
                                                 <label for="job-category-Input" class="form-label">Civilité</label>
                                                 <select class="form-control @error('civ_id') is-invalid @enderror "
@@ -73,7 +73,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div>
                                                 <label for="first_name" class="form-label">Prénom <span
                                                         class="text-danger">*</span></label>
@@ -85,7 +85,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div>
                                                 <label for="last_name" class="form-label">Nom <span
                                                         class="text-danger">*</span></label>
@@ -116,10 +116,41 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="col-lg-2">
+                                            <div>
+                                                <label for="next_step_id" class="form-label">Etape suivante </label>
+                                                <select
+                                                    class="form-control @error('next_step_id') is-invalid @enderror "
+                                                    wire:model='next_step_id'>
+                                                    <option value="" selected>Selectionner un poste</option>
+                                                    @foreach ($nextSteps as $nextStep)
+                                                        <option value="{{ $nextStep->id }}">
+                                                            {{ $nextStep->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('next_step_id')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="col-md-2 mt-4">
                                             <div>
 
-                                                <label for="cdt_status" class="form-label">Statut CDT <span
+                                                <label for="ns_date" class="form-label">NSDATE </label>
+                                                <input type="date"
+                                                    class="form-control @error('ns_date') is-invalid @enderror"
+                                                    wire:model='ns_date'
+                                                    placeholder="Veuillez entrer ns_date" />
+                                                @error('ns_date')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 mt-4">
+                                            <div>
+
+                                                <label for="cdt_status" class="form-label">Statut <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('cdt_status') is-invalid @enderror"
@@ -137,13 +168,13 @@
                             <div class="card ">
                                 <div class="card-header">
                                     <h5 class="card-title
-                                    mb-0">Addresses</h5>
+                                    mb-0">Addresse</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
 
 
-                                        <div class="col-md-3 ">
+                                        <div class="col-md-2 ">
                                             <div>
                                                 <label for="email" class="form-label">Email </label>
                                                 <input type="email"
@@ -154,7 +185,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 ">
+                                        <div class="col-lg-2 ">
                                             <div>
                                                 <label for="phone" class="form-label">Téléphone 1 </label>
                                                 <input type="text"
@@ -167,7 +198,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 ">
+                                        <div class="col-lg-2 ">
                                             <div>
                                                 <label for="phone_2" class="form-label">Téléphone 2</label>
                                                 <input type="text"
@@ -179,7 +210,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-3 ">
+                                        <div class="col-md-2 ">
                                             <div>
                                                 <label for="vancancy-Input" class="form-label">CP/Dpt </label>
                                                 <input type="number"
@@ -191,7 +222,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-3 mt-4">
+                                        <div class="col-md-2 ">
                                             <div>
                                                 <label for="country" class="form-label">Pays </label>
                                                 <input type="text"
@@ -203,7 +234,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-3 mt-4">
+                                        <div class="col-md-2">
                                             <div>
                                                 <label for="region" class="form-label">Région </label>
                                                 <input type="text"
@@ -215,7 +246,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-3 mt-4">
+                                        <div class="col-md-2 mt-4">
                                             <div>
                                                 <label for="city" class="form-label">Ville </label>
                                                 <input type="text"
@@ -227,7 +258,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-3 mt-4">
+                                        <div class="col-md-2 mt-4">
                                             <div>
                                                 <label for="city" class="form-label">UrlCTC </label>
                                                 <input type="text"
@@ -249,7 +280,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-3">
                                             <div>
                                                 <label for="compagny_id" class="form-label">Societé </label>
                                                 <select
@@ -268,7 +299,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-3">
                                             <div>
                                                 <label for="position_id" class="form-label">Poste (Fonction1) </label>
                                                 <select
@@ -287,7 +318,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 mt-4">
+                                        <div class="col-lg-3">
                                             <div>
                                                 <label for="specialitiesSelected" class="form-label">Spécialité
                                                     (Fonction2)</label>
@@ -308,7 +339,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 mt-4">
+                                        <div class="col-lg-3 ">
                                             <div>
                                                 <label for="fieldsSelected" class="form-label">Domaine
                                                     (Fonction3)</label>
@@ -330,9 +361,6 @@
                                             </div>
                                         </div>
 
-
-
-
                                     </div>
                                 </div>
                             </div>
@@ -349,10 +377,10 @@
                                             <div>
                                                 <label for="commentaire" class="form-label">Commentaire
                                                 </label>
-                                                <textarea wire:model='commentaire' class="form-control" rows="4"></textarea>
+                                                <textarea wire:model='commentaire' class="form-control" rows="3"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <!-- Multiple Files Input Example -->
                                             <div>
                                                 <label for="files" class="form-label">Documents</label>

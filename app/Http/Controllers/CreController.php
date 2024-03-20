@@ -21,9 +21,15 @@ class CreController extends Controller
      */
     public function create()
     {
-        //
     }
-
+    public function form($candidate,$action)
+    {
+        return view('back.cres.form', [
+            'action' => $action,
+            'cre' => new Cre(),
+            'candidate'=>$candidate
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      */

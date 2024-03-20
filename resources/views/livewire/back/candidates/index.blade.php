@@ -164,7 +164,7 @@
 
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="text-center">
+                                        <td colspan="9" class="text-center">
                                             <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
                                                 colors="primary:#405189,secondary:#0ab39c"
                                                 style="width:72px;height:72px">

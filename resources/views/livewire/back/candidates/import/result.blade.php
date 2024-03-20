@@ -11,8 +11,8 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table
-                                class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
-                                <thead class="bg-primary text-white">
+                            class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
+                            <thead class="bg-primary text-white">
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Auteur</th>
@@ -83,8 +83,6 @@
                         </div>
                     </div>
                 </div>
-
-
             @endif
         </div>
         <div class="@if (!empty($accepted) && !empty($rejected)) col-md-6 @else col-md-12 @endif">
@@ -96,7 +94,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        
                             <div class="table-responsive">
                                 <table
                                     class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -136,7 +134,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                       
                     </div>
             @endif
         </div>

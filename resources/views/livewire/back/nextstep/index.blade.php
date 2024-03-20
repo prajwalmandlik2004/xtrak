@@ -51,14 +51,9 @@
                         @forelse ($nextsteps as $nextstep)
                             <tr>
 
-                                <th scope="row"> <a class="text-body"
-                                        href="{{ Route('nextsteps.show', $nextstep) }}">{{ $loop->iteration }}
-                                    </a></th>
-                                <td> <a class="text-body" href="{{ Route('nextsteps.show', $nextstep) }}">{{ $nextstep->name }}
-                                    </a></td>
-                                <td> <a class="text-body"
-                                        href="{{ Route('nextsteps.show', $nextstep) }}">{{ $nextstep->created_at->format('d/m/Y') ?? '--' }}
-                                    </a></td>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $nextstep->name }}</td>
+                                <td>{{ $nextstep->created_at->format('d/m/Y')  }}</td>                                
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
 

@@ -11,6 +11,7 @@ use App\Models\Compagny;
 use App\Models\Position;
 use App\Models\Candidate;
 use App\Models\Disponibility;
+use App\Models\NextStep;
 use App\Models\Speciality;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
@@ -52,9 +53,13 @@ class Form extends Component
     public $compagnies;
     public $commentaire;
     public $origine;
+    public $nextSteps;
+    public $next_step_id;
+    public $ns_date;
 
     public function mount()
     {
+        $this->nextSteps = NextStep::all();
         $this->civs = Civ::all();
         $this->disponibilities = Disponibility::all();
         $this->positions = Position::orderBy('name', 'asc')->get();
@@ -62,25 +67,28 @@ class Form extends Component
         $this->fields = Field::orderBy('name', 'asc')->get();
         $this->compagnies = Compagny::orderBy('name', 'asc')->get();
         if ($this->candidate && $this->candidate->exists) {
-            $this->civ_id = $this->candidate->civ_id ?? '';
+            $this->civ_id = $this->candidate->civ_id ;
             $this->first_name = $this->candidate->first_name;
             $this->last_name = $this->candidate->last_name;
             $this->email = $this->candidate->email;
             $this->phone = $this->candidate->phone;
-            $this->compagny_id = $this->candidate->compagny->id ?? '';
+            $this->compagny_id = $this->candidate->compagny->id ;
             $this->postal_code = $this->candidate->postal_code;
             $this->cdt_status = $this->candidate->cdt_status;
-            $this->position_id = $this->candidate->position_id ?? '';
+            $this->position_id = $this->candidate->position_id ;
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
             $this->region = $this->candidate->region;
             $this->country = $this->candidate->country;
-            $this->disponibility_id = $this->candidate->disponibility_id ?? '';
+            $this->disponibility_id = $this->candidate->disponibility_id ;
+            $this->next_step_id = $this->candidate->next_step_id ;
             $this->url_ctc = $this->candidate->url_ctc;
             $this->specialitiesSelected = $this->candidate->specialities->pluck('id')->toArray() ?? [];
             $this->fieldsSelected = $this->candidate->fields->pluck('id')->toArray() ?? [];
             $this->commentaire = $this->candidate->commentaire;
             $this->origine = $this->candidate->origine;
+            $this->ns_date = $this->candidate->ns_date;
+
         }
     }
 
@@ -189,6 +197,8 @@ class Form extends Component
                 'phone_2' => 'nullable',
                 'commentaire' => 'nullable',
                 'origine' => 'nullable',
+                "ns_date"=>"nullable",
+                "next_step_id"=>"nullable"
             ],
             [
                 // 'civ_id.required' => 'Le titre est obligatoire',
@@ -204,7 +214,7 @@ class Form extends Component
                 // 'email.unique' => 'Cet email existe déjà. Veuillez en saisir un autre.',
             ],
         );
-
+        try {
         DB::beginTransaction();
         $candidateRepository = new CandidateRepository();
         $fileRepository = new FileRepository();
@@ -221,6 +231,12 @@ class Form extends Component
             }
         } else {
             $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
+            if (!empty($validatedData['specialitiesSelected'])) {
+                $candidate->specialities()->sync($validatedData['specialitiesSelected']);
+            }
+            if (!empty($validatedData['fieldsSelected'])) {
+                $candidate->fields()->sync($validatedData['fieldsSelected']);
+            }
         }
 
         if (!empty($validatedData['files']) && $candidate->exists) {
@@ -230,7 +246,7 @@ class Form extends Component
         $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'files', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
 
         return redirect()->route('candidates.show', $candidate->id);
-        try {
+        
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->action == 'create' ? 'Erreur lors de la création du candidat' : 'Erreur lors de la modification du candidat');

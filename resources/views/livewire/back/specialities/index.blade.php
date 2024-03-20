@@ -51,14 +51,10 @@
                         @forelse ($specialities as $speciality)
                             <tr>
 
-                                <th scope="row"> <a class="text-body"
-                                        href="{{ Route('specialities.show', $speciality) }}">{{ $loop->iteration }}
-                                    </a></th>
-                                <td> <a class="text-body" href="{{ Route('specialities.show', $speciality) }}">{{ $speciality->name }}
-                                    </a></td>
-                                <td> <a class="text-body"
-                                        href="{{ Route('specialities.show', $speciality) }}">{{ $speciality->created_at->format('d/m/Y') ?? 'Non renseigné' }}
-                                    </a></td>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $speciality->name }}</td>
+                                <td>{{ $speciality->created_at->format('d/m/Y')  }}</td>
+                                
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
 

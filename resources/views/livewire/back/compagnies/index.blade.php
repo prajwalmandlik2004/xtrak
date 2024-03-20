@@ -49,35 +49,26 @@
                     </thead>
                     <tbody>
                         @forelse ($compagnies as $compagny)
-                            <tr>
-
-                                <th scope="row"> <a class="text-body"
-                                        href="{{ Route('compagnies.show', $compagny) }}">{{ $loop->iteration }}
-                                    </a></th>
-                                <td> <a class="text-body" href="{{ Route('compagnies.show', $compagny) }}">{{ $compagny->name }}
-                                    </a></td>
-                                <td> <a class="text-body"
-                                        href="{{ Route('compagnies.show', $compagny) }}">{{ $compagny->created_at->format('d/m/Y') ?? 'Non renseigné' }}
-                                    </a></td>
-                                <td>
-                                    <ul class="list-inline hstack gap-2 mb-0">
-
-                                        <li class="list-inline-item edit">
-                                            <a wire:click="openModal('{{ $compagny->id }}')" data-bs-toggle="modal" data-bs-target="#modal"
-                                                class="text-primary d-inline-block edit-item-btn">
-                                                <i class="ri-pencil-fill fs-16"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a wire:click="confirmDelete('{{ $compagny->name }}', '{{ $compagny->id }}')"
-                                                class="text-danger d-inline-block remove-item-btn">
-                                                <i class="ri-delete-bin-5-fill fs-16"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-
+                        <tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $compagny->name }}</td>
+                            <td>{{ $compagny->created_at->format('d/m/Y')  }}</td>
+                            <td>
+                                <ul class="list-inline hstack gap-2 mb-0">
+                                    <li class="list-inline-item edit">
+                                        <a wire:click="openModal('{{ $compagny->id }}')" data-bs-toggle="modal" data-bs-target="#modal" class="text-primary d-inline-block edit-item-btn">
+                                            <i class="ri-pencil-fill fs-16"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a wire:click="confirmDelete('{{ $compagny->name }}', '{{ $compagny->id }}')" class="text-danger d-inline-block remove-item-btn">
+                                            <i class="ri-delete-bin-5-fill fs-16"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        
                         @empty
                             <tr>
                                 <td colspan="4" class="text-center">

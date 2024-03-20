@@ -2,15 +2,17 @@
 
 namespace App\Livewire\Back\Candidates\Import;
 
+use Carbon\Carbon;
 use App\Models\Civ;
-use Livewire\Component;
-use App\Models\Candidate;
-use App\Models\Compagny;
-use App\Models\Disponibility;
 use App\Models\Field;
+use Livewire\Component;
+use App\Models\Compagny;
+use App\Models\NextStep;
 use App\Models\Position;
+use App\Models\Candidate;
 use App\Models\Speciality;
 use Illuminate\Support\Str;
+use App\Models\Disponibility;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -35,7 +37,7 @@ class Import extends Component
             ],
         );
         try {
-            $path = Storage::putFile('/public/files', $validateData['file']);
+            $path = Storage::putFile('/public/files', $this->file);
             $filepath = Storage::path($path);
             if (file_exists($filepath)) {
                 $spreadsheet = IOFactory::load($filepath);
@@ -74,12 +76,12 @@ class Import extends Component
             $checkExistingCandidate = $this->checkExistingCandidate($value);
             if ($checkExistingCandidate == false) {
                 $newCandidate = $this->addCandidate($value);
-                if($newCandidate){
+                if ($newCandidate) {
                     $this->accepted[$newCandidate->id] = $newCandidate;
-                }else {
+                } else {
                     $this->rejected[$key] = $value;
                 }
-            }else {
+            } else {
                 $this->rejected[$key] = $value;
             }
         }
@@ -87,7 +89,6 @@ class Import extends Component
         $this->dispatch('data-from-import', accepted: $this->accepted, rejected: $this->rejected);
         $this->dispatch('alert', type: 'success', message: 'Opération reusie avec succès');
         $this->reset(['file']);
-
     }
     public function addCandidate($data)
     {
@@ -109,6 +110,13 @@ class Import extends Component
             $newCandidate['region'] = $data['Région'] ?? '';
             $newCandidate['country'] = $data['Pays'] ?? '';
             $newCandidate['cdt_status'] = $data['Statut CDT'] ?? '';
+            $newCandidate['ns_date'] = isset($data['NSDate']) ? Carbon::createFromFormat('d/m/Y', $data['NSDate'])->format('Y-m-d') : null;
+            if (!empty($data['NextStep'])) {
+                $nextStep = NextStep::where('name', $data['NextStep'])->first() ?? NextStep::create(['name' => $data['NextStep']]);
+                if ($nextStep) {
+                    $newCandidate['next_step_id'] = $nextStep->id;
+                }
+            }
             $civ = Civ::where('name', $data['Civ'])->first() ?? Civ::create(['name' => $data['Civ']]);
             if ($civ) {
                 $newCandidate['civ_id'] = $civ->id;
@@ -175,8 +183,15 @@ class Import extends Component
             return true;
         }
     }
-    public function checkDoublon()
+    public function downloadFile()
     {
+        $filePath = public_path('assets/files/caneva.xlsx');
+
+        if (file_exists($filePath)) {
+            return response()->download($filePath, 'caneva.xlsx');
+        } else {
+            session()->flash('message', 'Le fichier n\'existe pas.');
+        }
     }
     public function render()
     {
