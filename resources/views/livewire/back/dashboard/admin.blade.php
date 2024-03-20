@@ -5,7 +5,7 @@
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1">Les candidats récemment ajoutés
                     </h4>
-                    
+
                     <div class="d-flex">
                         <div class="p-2">
                             <select class="form-control w-md" wire:model.live='filterName'>
@@ -32,7 +32,7 @@
                                 <option value="Doublon">Doublon</option>
                             </select>
                         </div>
-                        
+
                         <div class="p-2">
 
                             <select class="form-control w-md" wire:model.live='cdtStatus'>
@@ -43,7 +43,7 @@
 
                             </select>
                         </div>
-                        
+
                         <div class="p-2">
                             <div class="search-box ms-2">
                                 <input type="text" class="form-control" placeholder="Rechercher..."
@@ -70,7 +70,7 @@
                                     <th scope="col">Téléphone 1</th>
                                     <th scope="col">Téléphone 2</th>
                                     <th scope="col">CP/Dpt</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Statut</th>
 
                                 </tr>
                             </thead>
@@ -82,13 +82,14 @@
                                             {{ $candidate->created_at->format('d/m/Y') }}
                                         </td>
                                         <td>
-                                            {{ $candidate->auteur->first_name ?? '--' }}
-                                            {{ $candidate->auteur->last_name ?? '--' }}
+                                            {{ $candidate->auteur->trigramme ?? '--' }}
+                                           
                                         </td>
-                                        <td>
-                                            {{ $candidate->last_name ?? '--' }}
+                                        <td> <a
+                                                class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name ?? '--' }}</a>
                                         </td>
-                                        <td>{{ $candidate->first_name ?? '--' }}</td>
+                                        <td> <a class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name ?? '--' }}
+                                            </a></td>
                                         <td>
                                             {{ optional($candidate->position)->name ?? '--' }}
                                         </td>
@@ -121,7 +122,7 @@
                         </table><!-- end table -->
                     </div>
                 </div> <!-- .card-->
-                
+
             </div> <!-- .col-->
         </div> <!-- end row-->
     </div>

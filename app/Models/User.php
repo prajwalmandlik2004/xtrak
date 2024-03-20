@@ -31,7 +31,8 @@ class User extends Authenticatable
         'last_name',
         'uuid',
         'profile_photo_path',
-        'phone'
+        'phone',
+        'trigramme'
 
     ];
 

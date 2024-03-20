@@ -118,11 +118,10 @@
                                                 href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->civ->name ?? '-' }}
                                             </a></td>
                                         <td> <a
-                                                class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name ?? '' }}</a>
+                                                class="text-body" href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name ?? '--' }}</a>
                                         </td>
-                                        <td> <a
-                                                class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name ?? '' }}</a>
-                                        </td>
+                                        <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name ?? '--' }}
+                                            </a></td>
                                         <td> <a class="text-body"
                                                 href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->position->name ?? '-' }}</a>
                                         </td>

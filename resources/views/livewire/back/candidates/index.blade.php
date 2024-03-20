@@ -127,27 +127,27 @@
                                     <tr>
 
 
-                                        <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">
-                                                {{ $candidate->auteur->first_name ?? '--' }}
-                                                {{ $candidate->auteur->last_name ?? '--' }}</h5>
+                                        <td> <a class="text-body " href="{{ Route('candidates.show', $candidate) }}">
+                                                {{ $candidate->auteur->trigramme ?? '--' }}
+                                             </h5>
                                             </a></td>
-                                        <td> <a class="text-body"
+                                        <td> <a class="text-body "
                                                 href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->civ->name ?? '--' }}
                                             </a></td>
                                         <td> <a
-                                                class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name ?? '--' }}</a>
+                                                class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name ?? '--' }}</a>
                                         </td>
-                                        <td> <a class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name ?? '--' }}
+                                        <td> <a class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name ?? '--' }}
                                             </a></td>
                                         <td> <a
-                                                class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->email ?? '--' }}</a>
+                                                class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->email ?? '--' }}</a>
                                         </td>
-                                        <td> <a class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->phone ?? '--' }}
+                                        <td> <a class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->phone ?? '--' }}
                                             </a></td>
-                                        <td> <a class="text-body"
+                                        <td> <a class="text-body "
                                                 href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->cdt_status ?? '--' }}</a>
                                         </td>
-                                        <td> <a class="text-body"
+                                        <td> <a class="text-body "
                                                 href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->position->name ?? '--' }}</a>
                                         </td>
 

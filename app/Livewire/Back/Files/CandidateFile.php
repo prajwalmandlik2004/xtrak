@@ -4,6 +4,7 @@ namespace App\Livewire\Back\Files;
 
 use App\Models\File;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
@@ -28,11 +29,11 @@ class CandidateFile extends Component
         DB::beginTransaction();
         $file = $fileRepository->find($id);
         try {
-           if($file){
-            $fileRepository->delete($file->id);
-            DB::commit();
-            $this->dispatch('alert', type: 'success', message: 'le document est supprimé avec succès');
-           }
+            if ($file) {
+                $fileRepository->delete($file->id);
+                DB::commit();
+                $this->dispatch('alert', type: 'success', message: 'le document est supprimé avec succès');
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le document $file->name");
@@ -69,11 +70,17 @@ class CandidateFile extends Component
         ]);
         $fileRepository = new FileRepository();
         try {
-        DB::beginTransaction();
-        
+            DB::beginTransaction();
+
             if ($this->isUpdate) {
                 $fileRepository->update($this->file, ['name' => $validateData['name']]);
             } else {
+                if (!$this->candidate->files()->exists()) {
+                    $certificate = Str::random(10);
+                    $this->candidate->update([
+                        'certificate' => $certificate
+                    ]);
+                }                
                 $fileRepository->create($validateData['newFiles'], $this->candidate->id);
             }
             DB::commit();

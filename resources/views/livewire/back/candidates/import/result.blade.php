@@ -15,7 +15,7 @@
                             <thead class="bg-primary text-white">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Auteur</th>
+                                       
                                         <th scope="col">Civilité</th>
                                         <th scope="col">Nom</th>
                                         <th scope="col">Prénom</th>
@@ -34,10 +34,7 @@
                                             <th scope="row"> <a class="text-body"
                                                     href="{{ Route('candidates.show', $candidate) }}">{{ $loop->iteration }}
                                                 </a></th>
-                                            <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">
-                                                    {{ $candidate->auteur->first_name ?? 'Non renseigné' }}
-                                                    {{ $candidate->auteur->last_name ?? 'Non renseigné' }}</h5>
-                                                </a></td>
+                                            
                                             <td> <a class="text-body"
                                                     href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->civ->name ?? '' }}
                                                 </a></td>
@@ -74,7 +71,7 @@
 
                                     @empty
                                         <tr>
-                                            <td colspan="8" class="text-center">
+                                            <td colspan="7" class="text-center">
                                                 <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
                                                     colors="primary:#405189,secondary:#0ab39c"
                                                     style="width:72px;height:72px">

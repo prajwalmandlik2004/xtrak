@@ -101,7 +101,7 @@
                             <thead class="bg-primary text-white">
                                 <tr>
 
-                                    <th scope="col">Auteur</th>
+                                   
                                     <th scope="col">Civilité</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Prénom</th>
@@ -117,10 +117,7 @@
                                     <tr>
 
 
-                                        <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">
-                                                {{ $candidate->auteur->first_name ?? '--' }}
-                                                {{ $candidate->auteur->last_name ?? '--' }}</h5>
-                                            </a></td>
+                                      
                                         <td> <a class="text-body"
                                                 href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->civ->name ?? '--' }}
                                             </a></td>
@@ -158,7 +155,7 @@
 
                                 @empty
                                     <tr>
-                                        <td colspan="9" class="text-center">
+                                        <td colspan="8" class="text-center">
                                             <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
                                                 colors="primary:#405189,secondary:#0ab39c"
                                                 style="width:72px;height:72px">

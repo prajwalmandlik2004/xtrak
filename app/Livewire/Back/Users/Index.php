@@ -102,6 +102,9 @@ class Index extends Component
         } else {
             $password = Str::random(8);
             $validateData['password'] = Hash::make($password);
+            $randomChar = strtoupper(preg_replace('/[^A-Za-z]/', '', Str::random(1)));
+            $trigramme = strtoupper(substr($validateData['first_name'], 0, 1) . substr($validateData['last_name'], 0, 1));
+            $validateData['trigramme'] = $trigramme . $randomChar;            
             $user = User::create($validateData);
             $roleId = Role::where('id', $validateData['role_id'])->first()->id;
             $user->assignRole($roleId);

@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@local.com',
             'password' => Hash::make('admin@2024'),
             'uuid' => Str::uuid(),
+            'trigramme'=>strtoupper(preg_replace('/[^A-Za-z]/', '', Str::random(3))),
         ]);
         $admin->assignRole(Role::where('name', 'Administrateur')->first()->id);
       $consultant = User::create([
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
             'email' => 'consultant@local.com',
             'password' => Hash::make('consultant@2024'),
             'uuid' => Str::uuid(),
+            'trigramme'=>strtoupper(preg_replace('/[^A-Za-z]/', '', Str::random(3))),
         ]);
         $consultant->assignRole(Role::where('name', 'Consultant')->first()->id);
     }

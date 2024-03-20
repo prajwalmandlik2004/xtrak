@@ -28,14 +28,7 @@ class Import extends Component
     public $accepted = [];
     public function storeData()
     {
-        $validateData = $this->validate(
-            [
-                'file' => 'mimes:xlsx,xls,xlsm',
-            ],
-            [
-                'file.mimes' => 'Le fichier doit être un tableur comme excel',
-            ],
-        );
+        
         try {
             $path = Storage::putFile('/public/files', $this->file);
             $filepath = Storage::path($path);
