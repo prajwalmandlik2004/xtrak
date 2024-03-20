@@ -52,27 +52,23 @@
 
                             </div>
                             <div class="col-md-auto">
-                                
+
 
                                 <div class="hstack gap-1 flex-wrap">
                                     <div class="p-2">
                                         <span>Modifier l'état :</span>
                                         <select class="form-control w-md" wire:model.lazy="state">
                                             @foreach ($candidateStates as $candidateState)
-                                                <option value="{{ $candidateState }}" 
-                                                
-                                                @if ($candidateState == $state)
-                                                selected
-                                                @endif
-                                                >
+                                                <option value="{{ $candidateState }}"
+                                                    @if ($candidateState == $state) selected @endif>
                                                     {{ $candidateState }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        
-                                        
+
+
                                     </div>
-    
+
                                     <a class="btn btn-info mt-3" href="{{ Route('candidates.edit', $candidate) }}"
                                         type="button" class="btn py-0 fs-16 text-body">
                                         Modifier
@@ -222,15 +218,20 @@
                                                                     <p class="mb-2 text-uppercase fw-medium fs-13">
                                                                         Certificat :
                                                                     </p>
-                                                                    <span class="badge rounded-pill bg-success"
-                                                                        id="certificate-{{ 0 }}"
-                                                                        onclick="toggleCertificate({{ 0 }})">
-                                                                        <span
-                                                                            id="hidden-certificate-{{ 0 }}">••••••••</span>
-                                                                        <span
-                                                                            id="visible-certificate-{{ 0 }}"
-                                                                            style="display: none;">{{ $candidate->certificate }}</span>
-                                                                    </span>
+                                                                    @if ($candidate->certificate)
+                                                                        <span class="badge rounded-pill bg-success"
+                                                                            id="certificate-{{ 0 }}"
+                                                                            onclick="toggleCertificate({{ 0 }})">
+                                                                            <span
+                                                                                id="hidden-certificate-{{ 0 }}">••••••••</span>
+                                                                            <span
+                                                                                id="visible-certificate-{{ 0 }}"
+                                                                                style="display: none;">{{ $candidate->certificate }}</span>
+                                                                        </span>
+                                                                    @else
+                                                                        ---
+                                                                    @endif
+
                                                                     <div id="message-{{ 0 }}"
                                                                         style="display: none;"></div>
                                                                 </div>

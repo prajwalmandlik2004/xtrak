@@ -67,28 +67,27 @@ class Form extends Component
         $this->fields = Field::orderBy('name', 'asc')->get();
         $this->compagnies = Compagny::orderBy('name', 'asc')->get();
         if ($this->candidate && $this->candidate->exists) {
-            $this->civ_id = $this->candidate->civ_id ;
+            $this->civ_id = $this->candidate->civ_id;
             $this->first_name = $this->candidate->first_name;
             $this->last_name = $this->candidate->last_name;
             $this->email = $this->candidate->email;
             $this->phone = $this->candidate->phone;
-            $this->compagny_id = $this->candidate->compagny->id ;
+            $this->compagny_id = $this->candidate->compagny->id;
             $this->postal_code = $this->candidate->postal_code;
             $this->cdt_status = $this->candidate->cdt_status;
-            $this->position_id = $this->candidate->position_id ;
+            $this->position_id = $this->candidate->position_id;
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
             $this->region = $this->candidate->region;
             $this->country = $this->candidate->country;
-            $this->disponibility_id = $this->candidate->disponibility_id ;
-            $this->next_step_id = $this->candidate->next_step_id ;
+            $this->disponibility_id = $this->candidate->disponibility_id;
+            $this->next_step_id = $this->candidate->next_step_id;
             $this->url_ctc = $this->candidate->url_ctc;
             $this->specialitiesSelected = $this->candidate->specialities->pluck('id')->toArray() ?? [];
             $this->fieldsSelected = $this->candidate->fields->pluck('id')->toArray() ?? [];
             $this->commentaire = $this->candidate->commentaire;
             $this->origine = $this->candidate->origine;
             $this->ns_date = $this->candidate->ns_date;
-
         }
     }
 
@@ -197,8 +196,8 @@ class Form extends Component
                 'phone_2' => 'nullable',
                 'commentaire' => 'nullable',
                 'origine' => 'nullable',
-                "ns_date"=>"nullable",
-                "next_step_id"=>"nullable"
+                'ns_date' => 'nullable',
+                'next_step_id' => 'nullable',
             ],
             [
                 // 'civ_id.required' => 'Le titre est obligatoire',
@@ -215,38 +214,39 @@ class Form extends Component
             ],
         );
         try {
-        DB::beginTransaction();
-        $candidateRepository = new CandidateRepository();
-        $fileRepository = new FileRepository();
-        if ($this->action == 'create') {
-            $validatedData['created_by'] = auth()->user()->id;
-            $validatedData['certificate'] = Str::random(10);
-            $validatedData['code_cdt'] = $validatedData['first_name'] . $validatedData['last_name'];
-            $candidate = $candidateRepository->create($validatedData);
-            if (!empty($validatedData['specialitiesSelected'])) {
-                $candidate->specialities()->attach($validatedData['specialitiesSelected']);
+            DB::beginTransaction();
+            $candidateRepository = new CandidateRepository();
+            $fileRepository = new FileRepository();
+            if ($this->action == 'create') {
+                $validatedData['created_by'] = auth()->user()->id;
+                if (!empty($validatedData['files'])) {
+                    $validatedData['certificate'] = Str::random(10);
+                }
+                $validatedData['code_cdt'] = $validatedData['first_name'] . $validatedData['last_name'];
+                $candidate = $candidateRepository->create($validatedData);
+                if (!empty($validatedData['specialitiesSelected'])) {
+                    $candidate->specialities()->attach($validatedData['specialitiesSelected']);
+                }
+                if (!empty($validatedData['fieldsSelected'])) {
+                    $candidate->fields()->attach($validatedData['fieldsSelected']);
+                }
+            } else {
+                $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
+                if (!empty($validatedData['specialitiesSelected'])) {
+                    $candidate->specialities()->sync($validatedData['specialitiesSelected']);
+                }
+                if (!empty($validatedData['fieldsSelected'])) {
+                    $candidate->fields()->sync($validatedData['fieldsSelected']);
+                }
             }
-            if (!empty($validatedData['fieldsSelected'])) {
-                $candidate->fields()->attach($validatedData['fieldsSelected']);
-            }
-        } else {
-            $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
-            if (!empty($validatedData['specialitiesSelected'])) {
-                $candidate->specialities()->sync($validatedData['specialitiesSelected']);
-            }
-            if (!empty($validatedData['fieldsSelected'])) {
-                $candidate->fields()->sync($validatedData['fieldsSelected']);
-            }
-        }
 
-        if (!empty($validatedData['files']) && $candidate->exists) {
-            $fileRepository->create($this->files, $candidate->id);
-        }
-        DB::commit();
-        $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'files', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+            if (!empty($validatedData['files']) && $candidate->exists) {
+                $fileRepository->create($this->files, $candidate->id);
+            }
+            DB::commit();
+            $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'files', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
 
-        return redirect()->route('candidates.show', $candidate->id);
-        
+            return redirect()->route('candidates.show', $candidate->id);
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->action == 'create' ? 'Erreur lors de la création du candidat' : 'Erreur lors de la modification du candidat');

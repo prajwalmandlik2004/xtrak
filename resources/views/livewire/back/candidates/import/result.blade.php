@@ -56,13 +56,19 @@
                                             </td>
 
                                             <td>
-                                                <span class="badge rounded-pill bg-success"
-                                                    id="certificate-{{ $loop->index }}"
-                                                    onclick="toggleCertificate({{ $loop->index }})">
-                                                    <span id="hidden-certificate-{{ $loop->index }}">••••••••</span>
-                                                    <span id="visible-certificate-{{ $loop->index }}"
-                                                        style="display: none;">{{ $candidate->certificate }}</span>
-                                                </span>
+                                                @if ($candidate->certificate)
+                                                                        <span class="badge rounded-pill bg-success"
+                                                                            id="certificate-{{ 0 }}"
+                                                                            onclick="toggleCertificate({{ 0 }})">
+                                                                            <span
+                                                                                id="hidden-certificate-{{ 0 }}">••••••••</span>
+                                                                            <span
+                                                                                id="visible-certificate-{{ 0 }}"
+                                                                                style="display: none;">{{ $candidate->certificate }}</span>
+                                                                        </span>
+                                                                    @else
+                                                                        ---
+                                                                    @endif
                                                 <div id="message-{{ $loop->index }}" style="display: none;"></div>
                                         </tr>
 
