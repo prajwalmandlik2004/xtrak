@@ -89,7 +89,6 @@ class Import extends Component
             $candidateRepository = new CandidateRepository();
             $newCandidate = [];
             $newCandidate['created_by'] = auth()->user()->id;
-            $newCandidate['certificate'] = Str::random(10);
             $newCandidate['origine'] = $data['Source'] ?? '';
             $newCandidate['first_name'] = $data['Prénom'] ?? '';
             $newCandidate['last_name'] = $data['Nom'] ?? '';

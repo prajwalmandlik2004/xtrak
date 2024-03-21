@@ -1,5 +1,5 @@
 @component('mail::message')
-    Bonjour {{ $insertion->first_name }} {{ $insertion->last_name }},<br>
+    Bonjour {{ $insertion->first_name }} {{ $insertion->last_name   }},<br>
     Vos identifiants : <br>
     Email : <strong>{{ $insertion->email }}</strong><br>
     Votre mot de passe est : <strong>{{ $password }}</strong><br>

@@ -22,6 +22,7 @@ class GeneralMail extends Mailable
      */
     public function __construct(User $user, $password)
     {
+       
         // $this->contact = Contact::first();
         $this->insertion = $user;
         $this->password = $password;
@@ -34,6 +35,6 @@ class GeneralMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.general.mail')->subject('Compte crée sur la plateforme Xtrak');
+        return $this->markdown('emails.general.mail')->subject('Compte crée sur la plateforme XTRAK');
     }
 }

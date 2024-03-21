@@ -23,6 +23,7 @@ class Index extends Component
     public $first_name;
     public $last_name;
     public $email;
+    public $password;
     public $phone;
     public $isUpdate = false;
     public $roles;
@@ -85,10 +86,12 @@ class Index extends Component
                 'email' => 'nullable|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'role_id' => 'nullable',
+                'password' => 'required|string|max:255',
             ],
             [
                 'first_name.required' => 'Le nom est obligatoire',
                 'last_name.required' => 'Le prénom est obligatoire',
+                'password.required' => 'Le mot de passe est obligatoire',
             ],
         );
 
@@ -100,21 +103,21 @@ class Index extends Component
             $roleId = Role::where('id', $validateData['role_id'])->first()->id;
             $this->user->syncRoles($roleId);
         } else {
-            $password = Str::random(8);
-            $validateData['password'] = Hash::make($password);
+            // $password = Str::random(8);
+            $validateData['password'] = Hash::make($validateData['password']);
             $randomChar = strtoupper(preg_replace('/[^A-Za-z]/', '', Str::random(1)));
             $trigramme = strtoupper(substr($validateData['first_name'], 0, 1) . substr($validateData['last_name'], 0, 1));
-            $validateData['trigramme'] = $trigramme . $randomChar;            
+            $validateData['trigramme'] = $trigramme . $randomChar;
             $user = User::create($validateData);
             $roleId = Role::where('id', $validateData['role_id'])->first()->id;
             $user->assignRole($roleId);
-            try {
-                Mail::to($user->email)->send(new GeneralMail($user, $password));
-            } catch (\Throwable $th) {
-                DB::commit();
-                $this->dispatch('close:modal');
-                $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success ' : 'l\'utilisateur est ajouté avec succès mais ses identifiants n\'ont pas été envoyé à son adresse email');
-            }
+            // try {
+            //     Mail::to($user->email)->send(new GeneralMail($user, $password));
+            // } catch (\Throwable $th) {
+            //     DB::commit();
+            //     $this->dispatch('close:modal');
+            //     $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success ' : 'l\'utilisateur est ajouté avec succès mais ses identifiants n\'ont pas été envoyé à son adresse email');
+            // }
         }
         DB::commit();
         $this->dispatch('close:modal');

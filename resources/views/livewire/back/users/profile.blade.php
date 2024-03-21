@@ -52,7 +52,7 @@
                         
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab">
-                                <i class="far fa-user"></i>Changez votre  mot de passe
+                              Changez votre  mot de passe
                             </a>
                         </li>
                     </ul>

@@ -50,7 +50,7 @@
                                     <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="img-fluid" height="300" width="300">
                                 </a>
                             </div>
-                            <p class="mt-3 fs-15 fw-semibold">Xtrak</p>
+                            <p class="mt-3 fs-15 fw-semibold">XTRAK</p>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
 
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
-                                    <h5 class="text-primary">Bienvenue !</h5>
+                                    <h5 class="text-secondary">Bienvenue !</h5>
                                     <p class="text-muted">Connectez-vous pour continuer.</p>
                                 </div>
                                 <div class="p-2 mt-4">
@@ -97,10 +97,7 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <div class="float-end">
-                                            {{-- <a href="" class="text-muted">Mot de passe oublié ?</a> {{ route('password.forgot') }} --}}
-                                            <a href="" class="text-muted">Mot de passe oublié ?</a>
-                                        </div>
+                                        
                                         <label class="form-label" for="password-input">Mot de passe</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
                                             <input type="password" name="password" value="admin@2024"
@@ -126,7 +123,7 @@
                                     </div>
 
                                     <div class="mt-4">
-                                        <button class="btn btn-primary w-100" type="submit">Connexion</button>
+                                        <button class="btn btn-secondary w-100" type="submit">Connexion</button>
                                     </div>
 
                                 </form>
@@ -135,13 +132,6 @@
                             <!-- end card body -->
                         </div>
                         <!-- end card -->
-
-                        
-                        <div class="mt-4 text-center">
-                            <p class="mb-0">Vous n'avez pas de compte ? <a href="#"
-                                class="fw-semibold text-primary text-decoration-underline"> Contactez HARMEN & BOTTS </a> </p>
-                        </div>
-
                     </div>
                 </div>
                 <!-- end row -->

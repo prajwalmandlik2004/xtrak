@@ -124,7 +124,10 @@
             <form wire:submit.prevent="storeData()">
                 @csrf
                 <div class="modal-body">
-                    <div class="mb-2 mt-2">
+                    <div class="row">
+
+                    
+                    <div class="col-md-6">
                         <label for="first_name" class="form-label">Nom <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('first_name') is-invalid @enderror "
                             wire:model.live='first_name' placeholder="Veuillez entrer le nom " />
@@ -135,7 +138,7 @@
                         @enderror
                     </div>
 
-                    <div class="mb-2 mt-2">
+                    <div class="col-md-6">
                         <label for="last_name" class="form-label">Prénom <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('last_name') is-invalid @enderror "
                             wire:model.live='last_name' placeholder="Veuillez entrer le prénom " />
@@ -145,7 +148,7 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="mb-2 mt-2">
+                    <div class="col-md-6  mt-3">
                         <label for="phone" class="form-label">Téléphone <span class="text-danger">*</span></label>
                         <input type="phone" class="form-control @error('phone') is-invalid @enderror "
                             wire:model.live='phone' placeholder="Veuillez entrer le numéro de téléphone " />
@@ -155,7 +158,7 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="mb-2 mt-2">
+                    <div class="col-md-6  mt-3">
                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror "
                             wire:model.live='email' placeholder="Veuillez entrer l'address email " />
@@ -165,7 +168,23 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div>
+                    <div class="col-md-6  mt-3">
+                                        
+                        <label class="form-label" for="password-input">Mot de passe</label>
+                        <div class="position-relative auth-pass-inputgroup mb-3">
+                            <input type="password"  wire:model.live='password'
+                                class="form-control pe-5 password-input @error('password') is-invalid @enderror"
+                                placeholder="Entrez votre mot de passe" id="password-input">
+                            <button
+                                class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
+                                type="button" id="password-addon"><i
+                                    class="ri-eye-fill align-middle"></i></button>
+                                    @error('password')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
                         <label for="role_id" class="form-label">Rôles
                         </label>
                         <select class="form-control @error('role_id') is-invalid @enderror "
@@ -183,6 +202,7 @@
                         @enderror
 
                     </div>
+                </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
