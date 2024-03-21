@@ -108,7 +108,7 @@
                     <div class="table-responsive">
                         <table
                             class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
-                            <thead class="bg-primary text-white">
+                            <thead class="bg-secondary text-white">
                                 <tr>
 
                                     <th scope="col">Auteur</th>
