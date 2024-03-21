@@ -36,10 +36,11 @@
                         <div class="p-2">
 
                             <select class="form-control w-md" wire:model.live='cdtStatus'>
-                                <option value="" selected> Status</option>
-                                <option value="Close">Close</option>
-                                <option value="Open">Open</option>
-                                <option value="In Progress">In Progress</option>
+                                <option value="" selected> Statut</option>
+                                @foreach ($candidateStatuses as $state)
+                                <option value="{{ $state }}" selected> {{ $state }}</option>
+                                    
+                                @endforeach
 
                             </select>
                         </div>

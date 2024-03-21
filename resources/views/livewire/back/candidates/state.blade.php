@@ -17,11 +17,12 @@
                 </div>
                 <div class="p-2">
 
+
                     <select class="form-control w-md" wire:model.live='cdtStatus'>
-                        <option value="" selected>Trier par Statut</option>
-                        <option value="Close">Close</option>
-                        <option value="Open">Open</option>
-                        <option value="In Progress">In Progress</option>
+                        <option value="" selected> Statut</option>
+                        @foreach ($candidateStatuses as $state)
+                            <option value="{{ $state }}" selected> {{ $state }}</option>
+                        @endforeach
 
                     </select>
                 </div>
@@ -101,7 +102,7 @@
                             <thead class="bg-secondary text-white">
                                 <tr>
 
-                                   
+
                                     <th scope="col">Civilité</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Prénom</th>
@@ -117,7 +118,7 @@
                                     <tr>
 
 
-                                      
+
                                         <td> <a class="text-body"
                                                 href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->civ->name ?? '--' }}
                                             </a></td>

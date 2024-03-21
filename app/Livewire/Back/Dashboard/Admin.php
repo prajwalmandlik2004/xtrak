@@ -19,6 +19,7 @@ class Admin extends Component
     public $filterDate = '';
     public $state = '';
     public $cdtStatus = '';
+    public $candidateStatuses;
     public function render()
     {
         return view('livewire.back.dashboard.admin')->with([
@@ -27,6 +28,7 @@ class Admin extends Component
     }
     public function mount()
     {
+        $this->candidateStatuses = Helper::candidateStatuses();
     }
     public function searchCandidates()
     {
