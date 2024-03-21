@@ -1,0 +1,19 @@
+.btn-secondary,.btn-primary,.bg-secondary{
+background-color:#010066 !important;
+}
+.table-hover-primary tbody tr:hover {
+background-color: #010066;
+color: #fff;
+}
+
+.navbar-menu .navbar-nav .nav-link.active {
+color: #ffffff !important;
+background-color: #6699FF !important;
+}
+.sidebar-background {
+background-color: #010066 !important;
+opacity: 1 !important;
+}
+.navbar-menu .navbar-nav .nav-link {
+color: #fff !important;
+}
