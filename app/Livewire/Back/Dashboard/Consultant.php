@@ -74,10 +74,7 @@ class Consultant extends Component
             ->when($this->state, function ($query) {
                 $query->where('state', $this->state);
             })
-            ->when($this->cdtStatus, function ($query) {
-                $query->where('cdt_status', $this->cdtStatus);
-            })
-
+            
             ->where('created_by', Auth::id())
             ->paginate($this->nbPaginate);
     }
