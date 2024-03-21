@@ -33,7 +33,7 @@
              <ul class="navbar-nav" id="navbar-nav">
                  <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                  <li class="nav-item {{ request()->routeIs('dashboard') ? 'bg-dash-sidebar' : '' }}">
-                     <a class="nav-link menu-link  {{ request()->routeIs('dashboard') ? 'text-white' : '' }}   {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                     <a class="nav-link menu-link  {{ request()->routeIs('dashboard') ? '' : '' }}   {{ request()->routeIs('dashboard') ? 'active' : '' }}"
                          href="{{ route('dashboard') }}">
                          <i class="ri-dashboard-2-line"></i>
                          <span data-key="t-dashboards">
@@ -104,6 +104,7 @@
                                              aria-controls="saisie" data-key="t-signin">
                                              Saisie
                                          </a>
+                                         
                                          <div class="collapse menu-dropdown {{ request()->routeIs('candidates.create', 'import.candidat') ? 'show' : '' }}"
                                              id="saisie">
                                              <ul class="nav nav-sm flex-column">

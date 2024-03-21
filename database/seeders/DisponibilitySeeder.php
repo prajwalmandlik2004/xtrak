@@ -14,19 +14,13 @@ class DisponibilitySeeder extends Seeder
     public function run(): void
     {
         $disponibilities = [
-            'Disponible',
-            'Pas disponible',
-            'Intéressé',
-            'Pas intéressé',
+            'Immédiatement',
             'Préavis en cours',
-            'Préavis 1 mois',
-            'Préavis 2 mois',
-            'Préavis 3 mois',
-            'A l\'écoute',
-            'Pas à l\'écoute',
-            'Plusieurs pistes',
-            'Silence radio',
-            'HIRED'
+            '1 mois',
+            '2 mois',
+            '3 mois',
+            'A négocier',
+            'Indisponible'
         ];
         
         foreach ($disponibilities as $disponibility) {

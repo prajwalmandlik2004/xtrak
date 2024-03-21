@@ -32,4 +32,8 @@ class Helper
     {
         return ['Certifié', 'Attente', 'Doublon'];
     }
+    static function candidateStatuses()
+    {
+        return ['Intéressé', 'Pas intéressé', 'A voir', 'A l\'écoute', 'Recherche active', 'En poste', 'Disponible'];
+    }
 }

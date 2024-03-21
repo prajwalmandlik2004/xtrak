@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Back\Candidates;
 
+use App\Helpers\Helper;
 use Livewire\Component;
 use App\Models\Candidate;
 use Livewire\Attributes\On;
@@ -17,6 +18,7 @@ class Index extends Component
     public $search = '';
     public $nbPaginate = 10;
     public $cdtStatus = '';
+    public $candidateStatuses;
     public $filterName = '';
     public $filterDate = '';
     public $state = '';
@@ -83,6 +85,12 @@ class Index extends Component
     public function confirmDelete($nom, $id)
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);
+    }
+    public function mount()
+    {
+        $this->candidateStatuses = Helper::candidateStatuses();
+      
+
     }
     public function render()
     {
