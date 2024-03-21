@@ -10,6 +10,7 @@ use App\Http\Controllers\CompagnyController;
 use App\Http\Controllers\CreController;
 use App\Http\Controllers\DisponibilityController;
 use App\Http\Controllers\FieldController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NextStepController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\RolePermissionController;
@@ -49,5 +50,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('detail', [DasboardController::class, 'detail'])->name('detail');
     Route::get('state/{state}', [CandidateController::class, 'state'])->name('state');
     Route::resource('nextsteps', NextStepController::class);
+    // Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 Route::get('commandes/{param}', [DasboardController::class, 'commande']);

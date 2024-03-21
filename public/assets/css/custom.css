@@ -30,4 +30,10 @@ cursor: pointer;
 background-color: #6699FF;
 }
 
+.user-online {
+background-color: #67b173;
+}
 
+.user-offline {
+background-color: red;
+}

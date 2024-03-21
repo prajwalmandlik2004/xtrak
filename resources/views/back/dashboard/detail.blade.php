@@ -1,5 +1,5 @@
-@extends('layouts.app',['title' => "Détail"])
+@extends('layouts.app', ['title' => 'Détail'])
 
 @section('content')
-@livewire('back.dashboard.admin')
+    @livewire('back.detail.index')
 @endsection

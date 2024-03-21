@@ -32,7 +32,8 @@ class User extends Authenticatable
         'uuid',
         'profile_photo_path',
         'phone',
-        'trigramme'
+        'trigramme',
+        'last_seen'
 
     ];
 
@@ -69,4 +70,5 @@ class User extends Authenticatable
     {
         return 'uuid';
     }
+    
 }
