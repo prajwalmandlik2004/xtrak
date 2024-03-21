@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Back\Nextstep;
 
-use App\Models\nextStep;
+use App\Models\NextStep;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
