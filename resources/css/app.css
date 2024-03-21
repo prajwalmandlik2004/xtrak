@@ -17,3 +17,7 @@ opacity: 1 !important;
 .navbar-menu .navbar-nav .nav-link {
 color: #fff !important;
 }
+
+.table-hover-primary tbody tr:hover .text-body {
+    color: white !important; 
+}
