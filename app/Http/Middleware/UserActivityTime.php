@@ -18,7 +18,7 @@ class UserActivityTime
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
+            // User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
         }
         return $next($request);
     }
