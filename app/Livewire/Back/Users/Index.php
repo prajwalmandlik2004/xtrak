@@ -99,6 +99,9 @@ class Index extends Component
         $validateData['uuid'] = Str::uuid();
 
         if ($this->isUpdate) {
+            if (!empty($validateData['password'])) {
+                $validateData['password'] = Hash::make($validateData['password']);
+            }
             $this->user->update($validateData);
             $roleId = Role::where('id', $validateData['role_id'])->first()->id;
             $this->user->syncRoles($roleId);
