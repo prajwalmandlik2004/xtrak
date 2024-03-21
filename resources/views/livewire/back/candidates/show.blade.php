@@ -116,7 +116,7 @@
                                                                         Auteur :
                                                                     </p>
                                                                     <h5 class="fs-15 mb-0">
-                                                                  
+                                                                
                                                                         {{ $candidate->auteur->trigramme ?? '--' }}
                                                                     </h5>
                                                                 </div>
