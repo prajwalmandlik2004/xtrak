@@ -1,4 +1,3 @@
-
 .dl dt {
 float: left;
 /* width: 41%; */
@@ -37,4 +36,15 @@ background-color:#203E75 !important;
 .table-hover-primary tbody tr:hover {
 background-color: #6699FF;
 color: #fff;
+}
+.navbar-menu .navbar-nav .nav-link.active {
+color: #ffffff !important;
+background-color: #6699FF !important;
+}
+.sidebar-background {
+background-color: #203E75 !important;
+opacity: 1 !important;
+}
+.navbar-menu .navbar-nav .nav-link {
+color: #fff !important;
 }
