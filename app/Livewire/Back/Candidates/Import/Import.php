@@ -177,7 +177,7 @@ class Import extends Component
     }
     public function downloadFile()
     {
-        $filePath = public_path('assets/files/caneva.xlsx');
+        $filePath = public_path('storage/files/caneva.xlsx');
 
         if (file_exists($filePath)) {
             return response()->download($filePath, 'caneva.xlsx');

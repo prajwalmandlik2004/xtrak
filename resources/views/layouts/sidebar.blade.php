@@ -227,7 +227,7 @@
                                                      <li class="nav-item">
                                                          <a href="{{ route('nextsteps.index') }}"
                                                              class="nav-link {{ request()->routeIs('nextsteps.index') ? 'active' : '' }}"
-                                                             data-key="t-signup"> Étape suivante
+                                                             data-key="t-signup"> NextStep
                                                          </a>
                                                      </li>
                                                  @endcan
