@@ -1,16 +1,19 @@
 <div>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <div class="page-title  align-items-center">
 
-                <span class="badge border border-dark text-body">
-                    <h2 class="mb-0">Données d’activité</h2>
-                </span>
-            </div>
+
+<div class="row justify-content-center">
+    <div class="col-md-12 text-center">
+        <div class="page-title align-items-center">
+            <span class="badge border border-dark text-body">
+                <h2 class="mb-0">Données d’activité</h2>
+            </span>
         </div>
+    </div>
+</div>
 
-
-        <div class="card mt-4">
+<div class="row justify-content-center">
+    <div class="col-md-8"> 
+        <div class="card mt-5">
             <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0">Synthèse :
 
@@ -43,34 +46,29 @@
 
                                 <td style="width: 50px;" class="py-3 px-6 text-center">
                                     @if ($user->last_seen >= now()->subSeconds(30))
-                                        En ligne
+                                    <span class="badge border border-light rounded-circle bg-success p-2 fs-4">
+                                    </span>
                                     @else
-                                        Hors ligne
+                                    <span class="badge border border-light rounded-circle bg-danger p-2 fs-4">
+                                    </span>
                                     @endif
                                 </td>
-                                {{-- <td style="width: 50px;">
-                                    @if ($user->last_seen >= now()->subMinutes(2))
-                                        <span class="badge border border-light rounded-circle bg-success p-2 fs-4">
-                                        </span>
-                                        @else
-                                            <span class="badge border border-light rounded-circle bg-danger p-2 fs-4">
-                                            </span>
-                                    @endif
-
-                                </td> --}}
+                               
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-
-
+      
     </div>
-    <script>
-        // Rafraîchissement de la page toutes les secondes
-        // Rafraîchissement du composant Livewire toutes les secondes
-        setInterval(function() {
-            Livewire.dispatch('userActivityUpdated');
-        }, 1000); // 1000 millisecondes = 1 seconde
-    </script>
+</div>
+
+@push('page-script')
+<script>
+    setInterval(function() {
+        Livewire.emit('userActivityUpdated');
+    }, 1000);
+</script>
+@endpush
+</div>
