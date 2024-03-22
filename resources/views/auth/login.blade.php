@@ -44,7 +44,7 @@
                     <div class="col-md-8 col-lg-6 col-xl-5">
                         <div class="card mt-4">
                             <div class="card-body p-4">
-                                <div class="text-center text-secondary">
+                                <div class="text-center ">
                                     <div>
                                         <a href="index.html" class="d-inline-block auth-logo">
                                             <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="img-fluid"
@@ -52,17 +52,23 @@
                                         </a>
                                     </div>
                                     <H2 class="mt-3 fw-bold text-secondary">XTRAK</H2>
-                                    <span>Administrateur :
-                                        Login : admin@local.com
-                                        password: admin@2024
-
-                                        Consultant : 
-                                        Login : consultant@local.com
-                                        password: consultant@2024
-
-                                    </span>
+                                    <div class="container">
+                                        <div class="row">
+                                          <div class="col">
+                                            <h5 class="fw-bold">Administrateur :</h5>
+                                            <p>Login : admin@local.com</p>
+                                            <p>Password : admin@2024</p>
+                                          </div>
+                                          <div class="col">
+                                            <h5 class="fw-bold">Consultant :</h5>
+                                            <p>Login : consultant@local.com</p>
+                                            <p>Password : consultant@2024</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
                                 </div>
-                                <div class="p-2 mt-4">
+                                <div class="p-2">
                                     @if (session()->has('error'))
                                         <div class="alert alert-danger alert-dismissible alert-label-icon label-arrow show"
                                             role="alert">
@@ -88,7 +94,7 @@
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" name="email"
                                                 class="form-control @error('email') is-invalid @enderror" id="email"
-                                                value="admin@local.com" placeholder="Entrez votre adresse email"
+                                                 placeholder="Entrez votre adresse email"
                                                 value="{{ old('email') }}">
                                             @error('email')
                                                 <small class="text-danger">
@@ -100,7 +106,7 @@
 
                                             <label class="form-label" for="password-input">Mot de passe</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" name="password" value="admin@2024"
+                                                <input type="password" name="password" 
                                                     class="form-control pe-5 password-input @error('password') border-danger @enderror"
                                                     placeholder="Entrez votre mot de passe" id="password-input">
                                                 <button
