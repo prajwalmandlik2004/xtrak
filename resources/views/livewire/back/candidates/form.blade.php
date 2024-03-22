@@ -155,7 +155,7 @@
                                                 <input type="text"
                                                     class="form-control @error('cdt_status') is-invalid @enderror"
                                                     wire:model='cdt_status'
-                                                    placeholder="Veuillez entrer le statut CDN" />
+                                                    placeholder="Veuillez entrer le statut" />
                                                 @error('cdt_status')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
