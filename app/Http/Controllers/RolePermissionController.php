@@ -11,6 +11,8 @@ class RolePermissionController extends Controller
      */
     public function index()
     {
+        $this->authorize('Gestion des permissions');
+
         return view('back.roles-permissions.index');
     }
 

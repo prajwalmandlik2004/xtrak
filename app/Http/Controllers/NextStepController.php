@@ -13,6 +13,7 @@ class NextStepController extends Controller
      */
     public function index()
     {
+        $this->authorize("Menu paramètre BaseCDT");
         return view('back.nextstep.index');
     }
 

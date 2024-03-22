@@ -39,12 +39,14 @@
                     </p>
                 </div>
             </div>
-
+            @php
+                $user = \App\Models\User::first();
+            @endphp
             <div class="d-flex align-items-center">
                 <div class="header-item">
                     @if (auth()->user()->hasRole('Administrateur'))
                     @else
-                        Anas est : Offline
+                        {{ $user->first_name }}   {{ $user->last_name }} est : {{ $user->last_seen >= now()->subSeconds(30) ? 'En ligne' : 'Hors ligne' }}
                     @endIF
 
                 </div>

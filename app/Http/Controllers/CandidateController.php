@@ -13,11 +13,13 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        // $this->authorize('Liste des candidats');
+        $this->authorize('Liste des candidats');
         return view('back.candidates.index');
     }
+    
     public function state($state)
     {
+        $this->authorize("Menu etats");
         return view('back.candidates.state'
         ,["state"=>$state]
     );
@@ -28,7 +30,7 @@ class CandidateController extends Controller
      */
     public function create()
     {
-        // $this->authorize('Ajouter un candidat');
+        $this->authorize('Menu saisie');
         return view('back.candidates.form', [
             'action' => 'create',
             'candidate' => new Candidate(),
@@ -36,7 +38,7 @@ class CandidateController extends Controller
     }
     public function edit(Candidate $candidate)
     {
-        // $this->authorize('Modifier un candidat');
+        $this->authorize('Menu accès BaseCDT');
         return view('back.candidates.form', [
             'action' => 'update',
             'candidate' => $candidate,
@@ -52,7 +54,7 @@ class CandidateController extends Controller
 
     public function import()
     {
-        // $this->authorize('Importer des candidats');
+        $this->authorize('Importer des candidats');
         return view('back.candidates.import');
     }
 }

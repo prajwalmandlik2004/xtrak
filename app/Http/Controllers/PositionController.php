@@ -13,6 +13,7 @@ class PositionController extends Controller
      */
     public function index()
     {
+        $this->authorize("Menu paramètre BaseCDT");
         return view('back.positions.index');
     }
 

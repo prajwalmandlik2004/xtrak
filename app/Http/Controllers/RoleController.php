@@ -8,6 +8,8 @@ class RoleController extends Controller
 {
     public function index()
     {
+        $this->authorize('Gestion des rôles');
+
         return view('back.roles.index');
     }
 }
