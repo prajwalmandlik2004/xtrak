@@ -52,6 +52,15 @@
                                         </a>
                                     </div>
                                     <H2 class="mt-3 fw-bold text-secondary">XTRAK</H2>
+                                    <span>Administrateur :
+                                        Login : admin@local.com
+                                        password: admin@2024
+
+                                        Consultant : 
+                                        Login : consultant@local.com
+                                        password: consultant@2024
+
+                                    </span>
                                 </div>
                                 <div class="p-2 mt-4">
                                     @if (session()->has('error'))
