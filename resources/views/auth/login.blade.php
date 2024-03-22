@@ -52,23 +52,14 @@
                                         </a>
                                     </div>
                                     <H2 class="mt-3 fw-bold text-secondary">XTRAK</H2>
-                                    <div class="container">
-                                        <div class="row">
-                                          <div class="col">
-                                            <h5 class="fw-bold">Administrateur :</h5>
-                                            <p>Login : admin@local.com</p>
-                                            <p>Password : admin@2024</p>
-                                          </div>
-                                          <div class="col">
-                                            <h5 class="fw-bold">Consultant :</h5>
-                                            <p>Login : consultant@local.com</p>
-                                            <p>Password : consultant@2024</p>
-                                          </div>
-                                        </div>
-                                      </div>
+                                    <p>Consultant : 
+                                        <br>
+                                        Login : consultant@local.com 
+                                        <br>
+                                    Password : consultant@2024 </p>
                                       
                                 </div>
-                                <div class="p-2">
+                                <div class="p-2 ">
                                     @if (session()->has('error'))
                                         <div class="alert alert-danger alert-dismissible alert-label-icon label-arrow show"
                                             role="alert">
@@ -94,7 +85,7 @@
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" name="email"
                                                 class="form-control @error('email') is-invalid @enderror" id="email"
-                                                 placeholder="Entrez votre adresse email"
+                                                value="admin@local.com" placeholder="Entrez votre adresse email"
                                                 value="{{ old('email') }}">
                                             @error('email')
                                                 <small class="text-danger">
@@ -106,7 +97,7 @@
 
                                             <label class="form-label" for="password-input">Mot de passe</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" name="password" 
+                                                <input type="password" name="password" value="admin@2024"
                                                     class="form-control pe-5 password-input @error('password') border-danger @enderror"
                                                     placeholder="Entrez votre mot de passe" id="password-input">
                                                 <button
