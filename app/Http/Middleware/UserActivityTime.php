@@ -4,22 +4,30 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\User;
+use Livewire\Livewire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserActivityTime
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
+        $response = $next($request);
+
         if (Auth::check()) {
-            // User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
+            $user = Auth::user();
+            $user->last_seen = now();
+            $user->save();
         }
-        return $next($request);
+
+        return $response;
     }
 }
+

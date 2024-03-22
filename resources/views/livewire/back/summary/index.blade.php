@@ -40,7 +40,15 @@
                                 <td>{{ $user->first_name }}</td>
                                 <td style="width: 50px;">{{ Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
                                 </td>
-                                <td style="width: 50px;">
+
+                                <td style="width: 50px;" class="py-3 px-6 text-center">
+                                    @if ($user->last_seen >= now()->subSeconds(30))
+                                        En ligne
+                                    @else
+                                        Hors ligne
+                                    @endif
+                                </td>
+                                {{-- <td style="width: 50px;">
                                     @if ($user->last_seen >= now()->subMinutes(2))
                                         <span class="badge border border-light rounded-circle bg-success p-2 fs-4">
                                         </span>
@@ -49,8 +57,7 @@
                                             </span>
                                     @endif
 
-                                </td>
-
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
@@ -60,3 +67,10 @@
 
 
     </div>
+    <script>
+        // Rafraîchissement de la page toutes les secondes
+        // Rafraîchissement du composant Livewire toutes les secondes
+        setInterval(function() {
+            Livewire.dispatch('userActivityUpdated');
+        }, 1000); // 1000 millisecondes = 1 seconde
+    </script>

@@ -57,7 +57,7 @@
                      </li>
                  @endcan
                  <!-- end   Accès BaseCDT Menu -->
-                 {{-- @can('Menu activité')
+                 @can('Menu activité')
                      <li class="nav-item">
                          <a class="nav-link menu-link {{ request()->is(['summary', 'summary/*', 'detail', 'detail/*']) ? 'active' : '' }}"
                              href="#activite" data-bs-toggle="collapse" role="button"
@@ -85,7 +85,7 @@
                              </ul>
                          </div>
                      </li>
-                 @endcan --}}
+                 @endcan
                  @can('Menu capture / gestion')
                      <li class="nav-item">
                          <a class="nav-link menu-link {{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'active' : '' }}"
