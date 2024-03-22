@@ -78,9 +78,10 @@ class CandidateFile extends Component
                 if (!$this->candidate->files()->exists()) {
                     $certificate = Str::random(10);
                     $this->candidate->update([
-                        'certificate' => $certificate
+                        'certificate' => $certificate,
+                        'state' => 'Certifié',
                     ]);
-                }                
+                }
                 $fileRepository->create($validateData['newFiles'], $this->candidate->id);
             }
             DB::commit();
@@ -91,10 +92,9 @@ class CandidateFile extends Component
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter le document');
         }
     }
-    public function downloadFile($path,$name)
+    public function downloadFile($path, $name)
     {
-        
-        $filePath = public_path('storage/'.$path);
+        $filePath = public_path('storage/' . $path);
         if (file_exists($filePath)) {
             return response()->download($filePath, $name);
         } else {

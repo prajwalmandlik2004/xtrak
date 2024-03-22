@@ -15,17 +15,7 @@
                             class="ri-add-line align-bottom me-1"></i>
                         Nouveau</a>
                 </div>
-                <div class="p-2">
-
-                    <select class="form-control w-md" wire:model.live='cdtStatus'>
-                        <option value="" selected> Statut</option>
-                        @foreach ($candidateStatuses as $state)
-                            <option value="{{ $state }}" selected> {{ $state }}</option>
-                        @endforeach
                 
-                    </select>
-                
-                </div>
                 <div class="p-2">
 
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
@@ -57,8 +47,9 @@
                         <table class="table table-bordered border-secondary table-nowrap">
                             <thead>
                                 <tr>
-                                    <th scope="col">Alphabétique</th>
+                                    <th scope="col">Nom</th>
                                     <th scope="col">Date</th>
+                                    <th scope="col">Etat</th>
                                     <th scope="col">Etat</th>
                                 </tr>
                             </thead>
@@ -91,6 +82,15 @@
                                             <option value="Certifié">Certifié</option>
                                             <option value="Attente">Attente</option>
                                             <option value="Doublon">Doublon</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control w-md" wire:model.live='cdtStatus'>
+                                            <option value="" selected> Statut</option>
+                                            @foreach ($candidateStatuses as $state)
+                                                <option value="{{ $state }}" selected> {{ $state }}</option>
+                                            @endforeach
+                                    
                                         </select>
                                     </td>
                                 </tr>

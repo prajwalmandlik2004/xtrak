@@ -72,10 +72,10 @@ class Form extends Component
             $this->last_name = $this->candidate->last_name;
             $this->email = $this->candidate->email;
             $this->phone = $this->candidate->phone;
-            $this->compagny_id = $this->candidate->compagny->id ?? "";
+            $this->compagny_id = $this->candidate->compagny->id ?? '';
             $this->postal_code = $this->candidate->postal_code;
             $this->cdt_status = $this->candidate->cdt_status;
-            $this->position_id = $this->candidate->position_id ;
+            $this->position_id = $this->candidate->position_id;
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
             $this->region = $this->candidate->region;
@@ -221,6 +221,7 @@ class Form extends Component
                 $validatedData['created_by'] = auth()->user()->id;
                 if (!empty($validatedData['files'])) {
                     $validatedData['certificate'] = Str::random(10);
+                    $validatedData['state'] = 'Certifié';
                 }
                 $validatedData['code_cdt'] = $validatedData['first_name'] . $validatedData['last_name'];
                 $candidate = $candidateRepository->create($validatedData);
