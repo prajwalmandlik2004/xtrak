@@ -91,6 +91,16 @@ class CandidateFile extends Component
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter le document');
         }
     }
+    public function downloadFile($path,$name)
+    {
+        
+        $filePath = public_path('storage/'.$path);
+        if (file_exists($filePath)) {
+            return response()->download($filePath, $name);
+        } else {
+            session()->flash('message', 'Le fichier n\'existe pas.');
+        }
+    }
     public function render()
     {
         return view('livewire.back.files.candidate-file')->with([

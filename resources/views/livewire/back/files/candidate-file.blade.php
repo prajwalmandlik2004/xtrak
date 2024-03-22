@@ -43,16 +43,19 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1 overflow-hidden">
-                                <h5 class="fs-15 mb-1"><a href="#"
+                                 <h5 class="fs-15 mb-1"><a href="#"
                                         class="text-body text-truncate d-block">{{ $file->name }}</a>
                                 </h5>
                             </div>
                             <div class="flex-shrink-0 ms-2">
                                 <div class="d-flex gap-1">
 
-                                    <a class="btn btn-icon text-muted btn-sm fs-18"
+                                    {{-- <a class=""
                                         href="{{ asset('storage') . '/' . $file->path }}"
                                         download="{{ $file->name }}">
+                                        <i class=""></i>
+                                    </a> --}}
+                                    <a class="btn btn-icon text-muted btn-sm fs-18" wire:click="downloadFile('{{ $file->path }}','{{ $file->name }}')">
                                         <i class="ri-download-2-line"></i>
                                     </a>
                                     <div class="dropdown">
