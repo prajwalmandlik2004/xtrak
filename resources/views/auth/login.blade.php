@@ -85,19 +85,20 @@
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" name="email"
                                                 class="form-control @error('email') is-invalid @enderror" id="email"
-                                                value="admin@local.com" placeholder="Entrez votre adresse email"
+                                               placeholder="Entrez votre adresse email"
                                                 value="{{ old('email') }}">
                                             @error('email')
                                                 <small class="text-danger">
                                                     {{ $message }}
                                                 </small>
                                             @enderror
+                                            {{-- value="admin@local.com" --}}
                                         </div>
                                         <div class="mb-3">
 
                                             <label class="form-label" for="password-input">Mot de passe</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" name="password" value="admin@2024"
+                                                <input type="password" name="password" 
                                                     class="form-control pe-5 password-input @error('password') border-danger @enderror"
                                                     placeholder="Entrez votre mot de passe" id="password-input">
                                                 <button
@@ -109,6 +110,7 @@
                                                         {{ $message }}
                                                     </small>
                                                 @enderror
+                                                {{-- value="admin@2024" --}}
                                             </div>
                                         </div>
 
