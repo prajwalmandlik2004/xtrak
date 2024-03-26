@@ -24,6 +24,10 @@ class CreateNewUser implements CreatesNewUsers
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+        ],[
+            'password.confirmed' => "La confirmation de :attribute ne correspond pas, réessayer...",
+            'password.min' => 'La longueur de :attribute doit être d\'au moins :min caractères.',
+            
         ])->validate();
 
         return User::create([

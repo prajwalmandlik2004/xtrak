@@ -9,13 +9,13 @@
         <div class="row g-4">
             <div class="text-center col-auto profile-user position-relative d-inline-block mx-auto  mb-4">
                 @if ($user->profile_photo_path != null)
-                <img src=" {{ asset('storage') . '/' . $user->profile_photo_path }}"
-                    class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
+                    <img src=" {{ asset('storage') . '/' . $user->profile_photo_path }}"
+                        class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
                 @else
-                <img src="assets/images/logo.png"
-                class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
+                    <img src="assets/images/logo.png" class="rounded-circle avatar-xl img-thumbnail user-profile-image"
+                        alt="user-profile-image">
                 @endif
-                
+
             </div>
             <!--end col-->
             <div class="col">
@@ -24,8 +24,7 @@
                     <p class="text-white text-opacity-75">{{ $user->roles->first()->name }}</p>
                     <div class="hstack text-white-50 gap-1">
                         <div>
-                            <i class="ri-building-line me-1 text-white text-opacity-75 fs-16 align-middle"></i>HARMEN &
-                            BOTTS
+                            <i class="ri-building-line me-1 text-white text-opacity-75 fs-16 align-middle"></i>HARMEN & BOTTS
                         </div>
                     </div>
                 </div>
@@ -49,10 +48,10 @@
                                     class="d-none d-md-inline-block">Vos informations</span>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab">
-                              Changez votre  mot de passe
+                                Changez votre mot de passe
                             </a>
                         </li>
                     </ul>
@@ -80,18 +79,26 @@
                                                     <div class="mb-3">
                                                         <label for="firstnameInput" class="form-label">Nom</label>
                                                         <input wire:model='first_name' type="text"
-                                                            class="form-control" id="firstnameInput"
-                                                            placeholder="Enter your firstname">
+                                                            class="form-control  @error('first_name') is-invalid @enderror"
+                                                            id="firstnameInput" placeholder="Enter your firstname">
                                                     </div>
+                                                    @error('first_name')
+                                                        <span class="invalid-feedback">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                                 <!--end col-->
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="lastnameInput" class="form-label">Prénom</label>
-                                                        <input type="text" class="form-control"
+                                                        <input type="text"
+                                                            class="form-control @error('last_name') is-invalid @enderror"
                                                             wire:model='last_name'
                                                             placeholder="Veuillez entrer le prénom ">
                                                     </div>
+
+                                                    @error('last_name')
+                                                        <span class="invalid-feedback">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                                 <!--end col-->
                                                 <div class="col-lg-6">
@@ -108,9 +115,14 @@
                                                     <div class="mb-3">
                                                         <label for="emailInput" class="form-label">Address Email
                                                         </label>
-                                                        <input type="email" class="form-control" wire:model='email'
+                                                        <input type="email"
+                                                            class="form-control @error('email') is-invalid @enderror"
+                                                            wire:model='email'
                                                             placeholder="Veuillez entrer l'address email ">
                                                     </div>
+                                                    @error('email')
+                                                        <span class="invalid-feedback">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                                 <!--end col-->
 
@@ -167,8 +179,7 @@
                                                     wire:model='passwordRepete' placeholder="Repetez le nouveau">
                                                 <button
                                                     class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted "
-                                                    type="button"><i
-                                                        class="ri-eye-fill align-middle"></i></button>
+                                                    type="button"><i class="ri-eye-fill align-middle"></i></button>
                                             </div>
 
                                             @error('passwordRepete')
@@ -188,7 +199,7 @@
                             </div>
                         </form>
                     </div>
-                    
+
 
                 </div>
             </div>

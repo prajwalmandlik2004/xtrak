@@ -52,11 +52,11 @@
                                         </a>
                                     </div>
                                     <H2 class="mt-3 fw-bold text-secondary">XTRAK</H2>
-                                    <p>Consultant : 
+                                    {{-- <p>Consultant : 
                                         <br>
                                         Login : consultant@local.com 
                                         <br>
-                                    Password : consultant@2024 </p>
+                                    Password : consultant@2024 </p> --}}
                                       
                                 </div>
                                 <div class="p-2 ">
