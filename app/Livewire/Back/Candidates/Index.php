@@ -22,6 +22,16 @@ class Index extends Component
     public $filterName = '';
     public $filterDate = '';
     public $state = '';
+    public $selectedCandidateId;
+
+    public function selectCandidate($id, $page)
+    {
+        $this->selectedCandidateId = $id;
+        session(['base_cdt_selected_candidate_id' => $id]);
+        session(['base_cdt_current_page' => $page]);
+        session(['base_cdt_nb_paginate' => $this->nbPaginate]);
+        return redirect()->route('candidates.show', $id);
+    }
     #[On('delete')]
     public function deleteData($id)
     {
@@ -89,8 +99,16 @@ class Index extends Component
     public function mount()
     {
         $this->candidateStatuses = Helper::candidateStatuses();
-      
+        if (session()->has('base_cdt_selected_candidate_id')) {
+            $this->selectedCandidateId = session('base_cdt_selected_candidate_id');
+        }
 
+        if (session()->has('base_cdt_current_page')) {
+            $this->setPage(session('base_cdt_current_page'));
+        }
+        if (session()->has('base_cdt_nb_paginate')) {
+            $this->nbPaginate = session('base_cdt_nb_paginate');
+        }
     }
     public function render()
     {

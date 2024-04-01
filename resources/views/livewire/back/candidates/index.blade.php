@@ -124,62 +124,77 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @forelse ($candidates as $candidate)
-                                    <tr>
-
-
-                                        <td> <a class="text-body " href="{{ Route('candidates.show', $candidate) }}">
-                                                {{ $candidate->auteur->trigramme ?? '--' }}
-                                             </h5>
-                                            </a></td>
-                                        <td> <a class="text-body "
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->civ->name ?? '--' }}
-                                            </a></td>
-                                        <td> <a
-                                                class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name ?? '--' }}</a>
-                                        </td>
-                                        <td> <a class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name ?? '--' }}
-                                            </a></td>
-                                        <td> <a
-                                                class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->email ?? '--' }}</a>
-                                        </td>
-                                        <td> <a class="text-body " href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->phone ?? '--' }}
-                                            </a></td>
-                                        <td> <a class="text-body "
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->cdt_status ?? '--' }}</a>
-                                        </td>
-                                        <td> <a class="text-body "
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->position->name ?? '--' }}</a>
-                                        </td>
-
-                                        <td>
-                                            @if ($candidate->certificate)
-                                                <span class="badge rounded-pill bg-success"
-                                                    id="certificate-{{ 0 }}"
-                                                    onclick="toggleCertificate({{ 0 }})">
-                                                    <span id="hidden-certificate-{{ 0 }}">••••••••</span>
-                                                    <span id="visible-certificate-{{ 0 }}"
-                                                        style="display: none;">{{ $candidate->certificate }}</span>
-                                                </span>
-                                            @else
-                                                ---
-                                            @endif
-                                            <div id="message-{{ $loop->index }}" style="display: none;"></div>
-                                    </tr>
-
+                                
+                                <tr wire:key="{{ $candidate->id }}" class="{{ $selectedCandidateId == $candidate->id ? 'table-primary' : '' }}">
+                                    <td>
+                                        <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                            {{ $candidate->auteur->trigramme ?? '--' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                            {{ $candidate->civ->name ?? '--' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                            {{ $candidate->last_name ?? '--' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                            {{ $candidate->first_name ?? '--' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                            {{ $candidate->email ?? '--' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                            {{ $candidate->phone ?? '--' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                            {{ $candidate->cdt_status ?? '--' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                            {{ $candidate->position->name ?? '--' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if ($candidate->certificate)
+                                        <span class="badge rounded-pill bg-success" id="certificate-{{ $loop->index }}"
+                                            onclick="toggleCertificate({{ $loop->index }})">
+                                            <span id="hidden-certificate-{{ $loop->index }}">••••••••</span>
+                                            <span id="visible-certificate-{{ $loop->index }}" style="display: none;">
+                                                {{ $candidate->certificate }}
+                                            </span>
+                                        </span>
+                                        @else
+                                        ---
+                                        @endif
+                                        <div id="message-{{ $loop->index }}" style="display: none;"></div>
+                                    </td>
+                                </tr>
                                 @empty
-                                    <tr>
-                                        <td colspan="9" class="text-center">
-                                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                                colors="primary:#405189,secondary:#0ab39c"
-                                                style="width:72px;height:72px">
-                                            </lord-icon>
-                                            <h5 class="mt-4">Aucun résultat trouvé</h5>
-                                        </td>
-
-                                    </tr>
+                                <tr>
+                                    <td colspan="9" class="text-center">
+                                        <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                            colors="primary:#405189,secondary:#0ab39c" style="width:72px;height:72px">
+                                        </lord-icon>
+                                        <h5 class="mt-4">Aucun résultat trouvé</h5>
+                                    </td>
+                                </tr>
                                 @endforelse
                             </tbody>
+                            
                         </table>
                     </div>
                 </div>
@@ -224,5 +239,15 @@
                 }
             }
         </script>
+       <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let selectedRow = document.querySelector('.table-primary');
+            if (selectedRow) {
+                selectedRow.scrollIntoView({block: 'nearest'});
+            }
+        });
+        </script>
+        
+            
     @endpush
 </div>
