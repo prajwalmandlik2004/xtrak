@@ -1,54 +1,100 @@
-<div style="display: flex; justify-content: center;">
-    <div style="width: 50%;">
-        <div style="border-bottom: 1px dashed #000; padding: 20px;">
-            <div style="display: flex;">
-                <div style="flex: 1;">
-                    <img src="{{ asset('assets/images/logo.jpg') }}" alt="" style="max-width: 200px;">
-                </div>
-                <div style="flex: 1; text-align: center;">
-                    <span style="font-weight: bold;">CONFIDENTIEL</span>
-                </div>
-                <div style="flex: 1; text-align: right;">
-                    <div style="font-size: 12px;">
-                        <span style="color: #6c757d;">Réf:</span>
-                        <span>{{ $candidate->cre_ref ?? '---' }}</span>
-                    </div>
-                    <div style="font-size: 12px;">
-                        <span style="color: #6c757d;">Auteur:</span>
-                        <span>{{ $candidate->auteur->trigramme ?? '' }}</span>
-                    </div>
-                    <div style="font-size: 12px;">
-                        <span style="color: #6c757d;">Date:</span>
-                        <span>{{ $candidate->cre_created_at ? \Carbon\Carbon::parse($candidate->cre_created_at)->format('d-m-Y') : '--' }}</span>
-                    </div>
-                </div>
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .card {
+        width: 50%;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .card-header {
+        border-bottom: 1px dashed #000;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        max-width: 200px;
+    }
+
+    .confidential {
+        font-weight: bold;
+    }
+
+    .info {
+        font-size: 12px;
+        color: #6c757d;
+    }
+
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .badge {
+        font-size: 20px;
+    }
+
+    .list {
+        padding: 20px;
+    }
+
+    .download-btn {
+        text-align: right;
+        padding: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="logo">
             </div>
-            <div style="margin-top: 20px; text-align: center;">
-                <span style="font-size: 20px; font-weight: bold;">COMPTE RENDU D'ENTRETIEN DE {{ $candidate->civ->name ?? '---' }}.</span>
-                <span style="font-size: 20px;" class="badge bg-light text-body">{{ $candidate->first_name }} {{ $candidate->last_name }}</span>
+            <div>
+                <span class="confidential">CONFIDENTIEL</span>
             </div>
-            <div style="margin-top: 10px; text-align: center;">
-                <span style="font-size: 20px; font-weight: bold;">POSTE : </span>
-                <span style="font-size: 20px;" class="badge bg-light text-body">{{ $candidate->position->name }}</span>
+            <div>
+                <div class="info">
+                    <span>Réf: {{ $candidate->cre_ref ?? '---' }}</span><br>
+                    <span>Auteur: {{ $candidate->auteur->trigramme ?? '' }}</span><br>
+                    <span>Date: {{ $candidate->cre_created_at ? \Carbon\Carbon::parse($candidate->cre_created_at)->format('d-m-Y') : '--' }}</span>
+                </div>
             </div>
         </div>
-        <div style="padding: 20px;">
-            <ol>
-                @forelse ($cres as $cre)
-                    <li>
-                        <span style="font-weight: bold;">{{ $cre->question }} :</span>
-                        <br>
-                        <span style="font-size: 20px;" class="badge bg-light text-body">{{ $cre->response }}</span>
-                    </li>
-                @empty
-                    <div class="alert alert-warning" role="alert" style="font-size: 16px; text-align: center;">
-                        Aucun compte rendu d'entretien n'est disponible pour le moment.
-                    </div>
-                @endforelse
-            </ol>
-        </div>
-        <div style="display: flex; justify-content: flex-end; padding: 20px;">
-            <button wire:click='generatePdf' class="btn btn-primary" style="font-size: 16px;"><i class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
+        <div class="card-body">
+            <div>
+                <span class="title">COMPTE RENDU D'ENTRETIEN DE {{ $candidate->civ->name ?? '---' }}</span>
+                <span class="badge bg-light text-body">{{ $candidate->first_name }} {{ $candidate->last_name }}</span>
+            </div>
+            <div>
+                <span class="title">POSTE :</span>
+                <span class="badge bg-light text-body">{{ $candidate->position->name }}</span>
+            </div>
+            <div class="list">
+                <ol>
+                    @forelse ($cres as $cre)
+                        <li>
+                            <span class="title">{{ $cre->question }} :</span>
+                            <br>
+                            <span class="badge bg-light text-body">{{ $cre->response }}</span>
+                        </li>
+                    @empty
+                        <div class="alert alert-warning" role="alert">
+                            Aucun compte rendu d'entretien n'est disponible pour le moment.
+                        </div>
+                    @endforelse
+                </ol>
+            </div>
+            <div class="download-btn">
+                <button wire:click='generatePdf' class="btn btn-primary"><i class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
+            </div>
         </div>
     </div>
 </div>
