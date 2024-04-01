@@ -124,6 +124,8 @@
                                     <th scope="col">Etat</th>
                                     <th scope="col">Next step</th>
                                     <th scope="col">NSdate</th>
+                                    <th scope="col">CV</th>
+                                    <th scope="col">CRE</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -178,6 +180,24 @@
                                         </td>
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->ns_date ?? '--' }}</a>
+                                        </td>
+                                        <td>
+                                            @if ($candidate->files()->exists())
+                                                <a class="text-body " href="#"
+                                                    wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
+                                            @else
+                                                ---
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($candidate->cres()->exists())
+                                                <a class="text-body " href="#"
+                                                    wire:click.prevent="selectCandidateGoToCre('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
+                                            @else
+                                                ---
+                                            @endif
+
+
                                         </td>
                                     </tr>
 
