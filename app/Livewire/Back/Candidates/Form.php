@@ -97,34 +97,13 @@ class Form extends Component
     }
     public function checkExistingCandidate()
     {
-        if (!empty($this->last_name)) {
+       
+        if (!empty($this->email)) {
             $existingCandidate = Candidate::when($this->first_name, function ($query) {
                 $query->where('first_name', $this->first_name);
             })
                 ->when($this->email, function ($query) {
                     $query->where('email', $this->email);
-                })
-                ->when($this->phone, function ($query) {
-                    $query->where('phone', $this->phone);
-                })
-                ->when($this->compagny_id, function ($query) {
-                    $query->where('compagny_id', $this->compagny_id);
-                })
-                ->when($this->postal_code, function ($query) {
-                    $query->where('postal_code', $this->postal_code);
-                })
-
-                ->when($this->civ_id, function ($query) {
-                    $query->where('civ_id', $this->civ_id);
-                })
-                ->when($this->city, function ($query) {
-                    $query->where('city', $this->city);
-                })
-                ->when($this->region, function ($query) {
-                    $query->where('region', $this->region);
-                })
-                ->when($this->country, function ($query) {
-                    $query->where('country', $this->country);
                 })
                 ->where('last_name', $this->last_name)
                 ->exists();
@@ -132,40 +111,17 @@ class Form extends Component
             if ($existingCandidate) {
                 $this->autorizeAddCandidate = false;
                 if (!empty($this->first_name)) {
-                    $this->addError('first_name', 'Ce candidat existe déjà.');
+                    $this->addError('first_name', 'Candidat déja enregistré.');
                 }
                 if (!empty($this->last_name)) {
-                    $this->addError('last_name', 'Ce candidat existe déjà.');
-                }
-                if (!empty($this->phone)) {
-                    $this->addError('phone', 'Ce candidat existe déjà.');
-                }
-                if (!empty($this->compagny_id)) {
-                    $this->addError('compagny_id', 'Ce candidat existe déjà.');
-                }
-                if (!empty($this->postal_code)) {
-                    $this->addError('postal_code', 'Ce candidat existe déjà.');
+                    $this->addError('last_name', 'Candidat déja enregistré.');
                 }
                 if (!empty($this->email)) {
-                    $this->addError('email', 'Ce candidat existe déjà.');
-                }
-
-                if (!empty($this->civ_id)) {
-                    $this->addError('civ_id', 'Ce candidat existe déjà.');
-                }
-                if (!empty($this->city)) {
-                    $this->addError('city', 'Ce candidat existe déjà.');
-                }
-
-                if (!empty($this->region)) {
-                    $this->addError('region', 'Ce candidat existe déjà.');
-                }
-                if (!empty($this->country)) {
-                    $this->addError('country', 'Ce candidat existe déjà.');
+                    $this->addError('email', 'Candidat déja enregistré.');
                 }
             } else {
                 $this->autorizeAddCandidate = true;
-                $this->resetErrorBag(['first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'position_id', 'civ_id', 'city', 'region', 'country']);
+                $this->resetErrorBag(['first_name', 'last_name', 'email']);
             }
         }
     }
@@ -177,7 +133,7 @@ class Form extends Component
                 'civ_id' => 'nullable',
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'email' => $this->action == 'create' ? 'nullable|email|unique:candidates,email' : 'nullable|email',
+                'email' => $this->action == 'create' ? 'required|email|unique:candidates,email' : 'required|email',
                 'phone' => 'nullable',
                 'compagny_id' => 'nullable',
                 'postal_code' => 'nullable',
@@ -200,17 +156,9 @@ class Form extends Component
                 'next_step_id' => 'nullable',
             ],
             [
-                // 'civ_id.required' => 'Le titre est obligatoire',
                 'first_name.required' => 'Le prénom est obligatoire',
                 'last_name.required' => 'Le nom est obligatoire',
-                // 'email.required' => 'L\'email est obligatoire',
-                // 'email.email' => 'L\'email doit être une adresse email valide',
-                // 'phone.required' => 'Le téléphone est obligatoire',
-                // 'compagny_id.required' => 'La société est obligatoire',
-                // 'postal_code.required' => 'Le code postal est obligatoire',
-                // 'cdt_status.required' => 'Le statut est obligatoire',
-                // 'position_id.required' => 'Le poste est obligatoire',
-                // 'email.unique' => 'Cet email existe déjà. Veuillez en saisir un autre.',
+                'email.required' => 'L\'email est obligatoire',
             ],
         );
         try {

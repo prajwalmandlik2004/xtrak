@@ -16,8 +16,6 @@
                         Nouveau</a>
                 </div>
                 <div class="p-2">
-
-
                     <select class="form-control w-md" wire:model.live='cdtStatus'>
                         <option value="" selected> Statut</option>
                         @foreach ($candidateStatuses as $state)
@@ -44,6 +42,11 @@
                         <i class="ri-search-line search-icon"></i>
                     </div>
                 </div>
+            </div>
+            <div class="p-2 mt-5">
+                <span class="font-size-14">Total candidats en attente : <strong> {{ $candidates->total() }}
+                    {{ $candidates->total() > 1 ? 'candidats' : 'candidat' }}</strong>
+                </span>
             </div>
         </div>
 

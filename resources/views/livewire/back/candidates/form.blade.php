@@ -19,8 +19,7 @@
                                 <h5 class="card-title mb-0 ">
                                     {{ $action == 'create' ? "Formulaire de creation d'un candidat" : "Formulaire de modification d'un candidat" }}
                                 </h5>
-                                <h5 class="card-title text-muted mb-0 fs-15 mt-2">les champs avec <span
-                                        class="text-danger">*</span>Obligatoire </h5>
+                                
                             </div>
                             <div class="p-2">
                                 <a href="{{ Route("import.candidat")}}" class="btn btn-primary">Importer</a>
@@ -79,7 +78,7 @@
                                                         class="text-danger">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('first_name') is-invalid @enderror "
-                                                    wire:model='first_name' placeholder="Veuillez entrer le prénom" />
+                                                    wire:model.live='first_name' placeholder="Veuillez entrer le prénom" />
                                                 @error('first_name')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
@@ -91,7 +90,7 @@
                                                         class="text-danger">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('last_name') is-invalid @enderror"
-                                                    wire:model='last_name' placeholder="Veuillez entrer le nom" />
+                                                    wire:model.live='last_name' placeholder="Veuillez entrer le nom" />
 
                                                 @error('last_name')
                                                     <span class="invalid-feedback">{{ $message }}</span>
@@ -176,10 +175,11 @@
 
                                         <div class="col-md-2 ">
                                             <div>
-                                                <label for="email" class="form-label">Email </label>
+                                                <label for="email" class="form-label">Email <span
+                                                    class="text-danger">*</span></label>
                                                 <input type="email"
                                                     class="form-control @error('email') is-invalid @enderror "
-                                                    wire:model='email' placeholder="Veuillez entrer l'address email" />
+                                                    wire:model.live='email' placeholder="Veuillez entrer l'address email" />
                                                 @error('email')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror

@@ -6,29 +6,37 @@ use App\Models\User;
 use App\Helpers\Helper;
 use Livewire\Component;
 use App\Models\Candidate;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\CandidateRepository;
 
 class Admin extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
+    public $nbPaginate = 10;
+    public $cdtStatus = '';
+    public $candidateStatuses;
     public $filterName = '';
     public $filterDate = '';
     public $state = '';
-    public $cdtStatus = '';
-    public $candidateStatuses;
-    public function render()
+    #[On('delete')]
+    public function deleteData($id)
     {
-        return view('livewire.back.dashboard.admin')->with([
-            'candidates' => $this->searchCandidates(),
-        ]);
-    }
-    public function mount()
-    {
-        $this->candidateStatuses = Helper::candidateStatuses();
+        $candidateRepository = new CandidateRepository();
+        DB::beginTransaction();
+        $candidate = $candidateRepository->find($id);
+        try {
+            $candidateRepository->delete($candidate->id);
+            DB::commit();
+            $this->dispatch('alert', type: 'success', message: 'le candidat est supprimé avec succès');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $candidate->first_name. $candidate->laste_name");
+        }
     }
     public function searchCandidates()
     {
@@ -73,8 +81,20 @@ class Admin extends Component
             ->when($this->cdtStatus, function ($query) {
                 $query->where('cdt_status', $this->cdtStatus);
             })
-            ->latest()
-            ->take(10)
-            ->get();
+            ->paginate($this->nbPaginate);
+    }
+    public function confirmDelete($nom, $id)
+    {
+        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);
+    }
+    public function mount()
+    {
+        $this->candidateStatuses = Helper::candidateStatuses();
+    }
+    public function render()
+    {
+        return view('livewire.back.dashboard.admin')->with([
+            'candidates' => $this->searchCandidates(),
+        ]);
     }
 }

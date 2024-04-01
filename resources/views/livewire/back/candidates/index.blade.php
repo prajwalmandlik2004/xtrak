@@ -50,7 +50,7 @@
                                     <th scope="col">Nom</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Etat</th>
-                                    <th scope="col">Etat</th>
+                                    <th scope="col">Statut</th>
                                 </tr>
                             </thead>
                             <tbody>
