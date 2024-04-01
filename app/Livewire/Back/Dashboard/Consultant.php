@@ -19,6 +19,16 @@ class Consultant extends Component
     public $filterName = '';
     public $filterDate = '';
     public $state = '';
+    public $selectedCandidateId;
+
+    public function selectCandidate($id, $page)
+    {
+        $this->selectedCandidateId = $id;
+        session(['cte_base_cdt_selected_candidate_id' => $id]);
+        session(['cte_base_cdt_current_page' => $page]);
+        session(['cte_base_cdt_nb_paginate' => $this->nbPaginate]);
+        return redirect()->route('candidates.show', $id);
+    }
     #[On('delete')]
     public function deleteData($id)
     {
@@ -81,6 +91,19 @@ class Consultant extends Component
     public function confirmDelete($nom, $id)
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);
+    }
+    public function mount()
+    {
+        if (session()->has('cte_base_cdt_selected_candidate_id')) {
+            $this->selectedCandidateId = session('cte_base_cdt_selected_candidate_id');
+        }
+
+        if (session()->has('cte_base_cdt_current_page')) {
+            $this->setPage(session('cte_base_cdt_current_page'));
+        }
+        if (session()->has('cte_base_cdt_nb_paginate')) {
+            $this->nbPaginate = session('cte_base_cdt_nb_paginate');
+        }
     }
     public function render()
     {

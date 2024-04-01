@@ -107,26 +107,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($candidates as $candidate)
-                                    <tr>
+                                @forelse ($candidates as $index => $candidate)
+                                <tr wire:key="{{ $candidate->id }}"
+                                    class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? 'table-secondary' : '') }}">
 
-                                        <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">
+                                        <td> <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
                                                 {{ $candidate->created_at->format('d/m/Y') ?? 'Non renseigné' }}
                                                 </h5>
                                             </a></td>
                                         <td> <a class="text-body"
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->civ->name ?? '-' }}
+                                                href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->civ->name ?? '-' }}
                                             </a></td>
                                         <td> <a
-                                                class="text-body" href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name ?? '--' }}</a>
+                                                class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->last_name ?? '--' }}</a>
                                         </td>
-                                        <td> <a class="text-body" href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name ?? '--' }}
+                                        <td> <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->first_name ?? '--' }}
                                             </a></td>
                                         <td> <a class="text-body"
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->position->name ?? '-' }}</a>
+                                                href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->position->name ?? '-' }}</a>
                                         </td>
                                         <td> <a class="text-body"
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->state ?? '' }}</a>
+                                                href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->state ?? '' }}</a>
                                         </td>
                                     </tr>
                                 @empty
@@ -153,6 +154,14 @@
         <!-- end col -->
         {{ $candidates->links() }}
     </div><!-- end row -->
-
-
+    @push('page-script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let selectedRow = document.querySelector('.table-info');
+            if (selectedRow) {
+                selectedRow.scrollIntoView({block: 'nearest'});
+            }
+        });
+        </script>
+         @endpush
 </div>

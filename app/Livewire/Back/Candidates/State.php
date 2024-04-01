@@ -22,6 +22,16 @@ class State extends Component
     public $filterDate = '';
     public $state = '';
     public $candidateStatuses;
+    public $selectedCandidateId;
+
+    public function selectCandidate($id, $page)
+    {
+        $this->selectedCandidateId = $id;
+        session(['state_selected_candidate_id_'.$this->state => $id]);
+        session(['state_current_page_'.$this->state => $page]);
+        session(['state_nb_paginate_'.$this->state => $this->nbPaginate]);
+        return redirect()->route('candidates.show', $id);
+    }
     #[On('delete')]
     public function deleteData($id)
     {
@@ -91,6 +101,17 @@ class State extends Component
     public function mount()
     {
     $this->candidateStatuses = Helper::candidateStatuses();
+    $this->candidateStatuses = Helper::candidateStatuses();
+        if (session()->has('state_selected_candidate_id_'.$this->state)) {
+            $this->selectedCandidateId = session('state_selected_candidate_id_'.$this->state);
+        }
+
+        if (session()->has('state_current_page_'.$this->state)) {
+            $this->setPage(session('state_current_page_'.$this->state));
+        }
+        if (session()->has('state_nb_paginate_'.$this->state)) {
+            $this->nbPaginate = session('state_nb_paginate_'.$this->state);
+        }
     }
     public function render()
     {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cre;
 use App\Http\Requests\StoreCreRequest;
 use App\Http\Requests\UpdateCreRequest;
+use App\Models\Candidate;
 
 class CreController extends Controller
 {
@@ -22,13 +23,13 @@ class CreController extends Controller
     public function create()
     {
     }
-    public function form($candidate,$action)
+    public function form($candidate, $action)
     {
         $this->authorize('Liste des candidats');
         return view('back.cres.form', [
             'action' => $action,
             'cre' => new Cre(),
-            'candidate'=>$candidate
+            'candidate' => $candidate,
         ]);
     }
     /**
@@ -42,9 +43,11 @@ class CreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Cre $cre)
+    public function candidateCre(Candidate $candidate)
     {
-        //
+        return view('back.cres.show', [
+            'candidate' => $candidate,
+        ]);
     }
 
     /**

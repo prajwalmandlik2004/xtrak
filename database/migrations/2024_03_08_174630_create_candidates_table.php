@@ -36,6 +36,8 @@ return new class extends Migration {
             $table->enum('state', ['Certifié', 'Attente', 'Doublon'])->default('Attente');
             $table->foreignUuid('next_step_id')->nullable()->references('id')->on('next_steps');
             $table->date('ns_date')->nullable();
+            $table->string('cre_ref')->nullable();
+            $table->timestamp('cre_created_at')->nullable();
             $table->timestamps();
         });
     }

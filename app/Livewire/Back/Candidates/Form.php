@@ -56,9 +56,10 @@ class Form extends Component
     public $nextSteps;
     public $next_step_id;
     public $ns_date;
-
+    public $candidateStatuses;
     public function mount()
     {
+        $this->candidateStatuses = Helper::candidateStatuses();
         $this->nextSteps = NextStep::all();
         $this->civs = Civ::all();
         $this->disponibilities = Disponibility::all();

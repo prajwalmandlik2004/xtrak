@@ -45,11 +45,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('disponibilities', DisponibilityController::class);
     Route::resource('civs', CivController::class);
     Route::get('user-profile', [UserController::class, 'profile'])->name('user.profile');
-    Route::get('add-cre/{candidate}/{action}', [CreController::class,'form'])->name('add.cre');
+    Route::get('add-cre/{candidate}/{action}', [CreController::class, 'form'])->name('add.cre');
     Route::get('summary', [DasboardController::class, 'summary'])->name('summary');
     Route::get('detail', [DasboardController::class, 'detail'])->name('detail');
     Route::get('state/{state}', [CandidateController::class, 'state'])->name('state');
     Route::resource('nextsteps', NextStepController::class);
+    Route::get('candidate-cre/{candidate}', [CreController::class, 'candidateCre'])->name('candidate.cre');
+
     // Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 Route::get('commandes/{param}', [DasboardController::class, 'commande']);

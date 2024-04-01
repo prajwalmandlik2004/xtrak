@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cre extends Model
 {
-    use HasFactory,HasUuids;
-    protected $fillable = ['question','response','number','candidate_id'];
+    use HasFactory, HasUuids;
+    protected $fillable = ['question', 'response', 'number', 'candidate_id'];
+   
     public function candidate()
     {
-        return $this->belongsTo(Cre::class);
+        return $this->belongsTo(Candidate::class);
     }
 }

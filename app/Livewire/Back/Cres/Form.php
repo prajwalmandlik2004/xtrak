@@ -77,6 +77,10 @@ class Form extends Component
                         'question' => $questions[$number],
                     ]);
                 }
+                $this->candidate->update([
+                    'cre_ref' => 'CRE' . rand(1, 99999),
+                    'cre_created_at' => now(),
+                ]);
             } else {
                 foreach ($validatedData as $key => $value) {
                     $number = substr($key, strlen('response'));
@@ -89,6 +93,7 @@ class Form extends Component
                     ]);
                 }
             }
+
             DB::commit();
             return redirect()->route('candidates.show', $this->candidate->id);
         } catch (\Throwable $th) {

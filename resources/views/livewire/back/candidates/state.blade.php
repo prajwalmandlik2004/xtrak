@@ -45,7 +45,7 @@
             </div>
             <div class="p-2 mt-5">
                 <span class="font-size-14">Total candidats en attente : <strong> {{ $candidates->total() }}
-                    {{ $candidates->total() > 1 ? 'candidats' : 'candidat' }}</strong>
+                        {{ $candidates->total() > 1 ? 'candidats' : 'candidat' }}</strong>
                 </span>
             </div>
         </div>
@@ -117,29 +117,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($candidates as $candidate)
-                                    <tr>
+                                @forelse ($candidates as $index => $candidate)
+                                    <tr wire:key="{{ $candidate->id }}"
+                                        class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? 'table-secondary' : '') }}">
 
 
 
-                                        <td> <a class="text-body"
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->civ->name ?? '--' }}
+                                        <td> <a class="text-body" href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->civ->name ?? '--' }}
                                             </a></td>
-                                        <td> <a
-                                                class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->last_name ?? '--' }}</a>
+                                        <td> <a class="text-body"href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->last_name ?? '--' }}</a>
                                         </td>
-                                        <td> <a class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->first_name ?? '--' }}
+                                        <td> <a class="text-body"href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->first_name ?? '--' }}
                                             </a></td>
-                                        <td> <a
-                                                class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->email ?? '--' }}</a>
+                                        <td> <a class="text-body"href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->email ?? '--' }}</a>
                                         </td>
-                                        <td> <a class="text-body"href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->phone ?? '--' }}
+                                        <td> <a class="text-body"href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->phone ?? '--' }}
                                             </a></td>
-                                        <td> <a class="text-body"
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->cdt_status ?? '--' }}</a>
+                                        <td> <a class="text-body" href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cdt_status ?? '--' }}</a>
                                         </td>
-                                        <td> <a class="text-body"
-                                                href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->position->name ?? '--' }}</a>
+                                        <td> <a class="text-body" href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->position->name ?? '--' }}</a>
                                         </td>
 
                                         <td>
@@ -213,6 +216,16 @@
                     });
                 }
             }
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let selectedRow = document.querySelector('.table-info');
+                if (selectedRow) {
+                    selectedRow.scrollIntoView({
+                        block: 'nearest'
+                    });
+                }
+            });
         </script>
     @endpush
 </div>
