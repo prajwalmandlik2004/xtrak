@@ -23,8 +23,8 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 20px;">
-                <span style="font-size: 20px; font-weight: bold;">COMPTE RENDU D'ENTRETIEN DE {{ $candidate->civ->name ?? '---' }}</span>
+            <div style="margin-top: 20px; text-align: center;">
+                <span style="font-size: 20px; font-weight: bold;">COMPTE RENDU D'ENTRETIEN DE {{ $candidate->civ->name ?? '---' }}.</span>
                 <span style="font-size: 20px;" class="badge bg-light text-body">{{ $candidate->first_name }} {{ $candidate->last_name }}</span>
             </div>
             <div style="margin-top: 10px; text-align: center;">
@@ -41,11 +41,14 @@
                         <span style="font-size: 20px;" class="badge bg-light text-body">{{ $cre->response }}</span>
                     </li>
                 @empty
-                    <div class="alert alert-warning" role="alert" style="font-size: 16px;">
+                    <div class="alert alert-warning" role="alert" style="font-size: 16px; text-align: center;">
                         Aucun compte rendu d'entretien n'est disponible pour le moment.
                     </div>
                 @endforelse
             </ol>
+        </div>
+        <div style="display: flex; justify-content: flex-end; padding: 20px;">
+            <button wire:click='generatePdf' class="btn btn-primary" style="font-size: 16px;"><i class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
         </div>
     </div>
 </div>
