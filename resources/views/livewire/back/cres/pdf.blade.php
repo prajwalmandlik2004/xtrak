@@ -3,11 +3,15 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
         Détails du CRE
     </title>
-    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   
     <style>
+        
 
         * {
             margin: 0 auto;
@@ -17,6 +21,7 @@
 
         body {
             padding: 20px;
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
             -webkit-font-smoothing: antialiased;
             background-color: #dcdcdc;
         }
