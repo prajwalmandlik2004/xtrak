@@ -4,7 +4,18 @@
         'title' => 'Détails du CRE',
         'breadcrumbItems' => [['text' => 'Détail du CRE', 'url' => '#']],
     ])
+    <div class="d-flex">
+        <div class="p-2 flex-grow-1">
+            <div class="hstack gap-2 justify-content-center d-print-none ">
+                <a href="javascript:window.print()" class="btn btn-success"><i
+                        class="ri-printer-line align-bottom me-1"></i> Imprimer</a>
+                <button wire:click="generatePdf" class="btn btn-primary"><i
+                        class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
 
+            </div>
+        </div>
+
+    </div>
     <div class="row justify-content-center">
         <div class="col-xxl-9">
             <div class="card" id="demo">
@@ -23,10 +34,13 @@
                                     </span>
                                 </div>
                                 <div class="p-2 flex-fill">
-                                    <h6><span class="fw-bold">Réf: </span><span  class="badge bg-light-subtle text-body text-wrap"
+                                    <h6><span class="fw-bold">Réf: </span><span
+                                            class="badge bg-light-subtle text-body text-wrap"
                                             id="legal-register-no">{{ $candidate->cre_ref ?? '---' }}</span></h6>
                                     <h6><span class="fw-bold">Auteur:
-                                        </span><span class="badge bg-light-subtle text-body text-wrap">{{ $candidate->auteur->trigramme ?? '' }}</span></h6>
+                                        </span><span
+                                            class="badge bg-light-subtle text-body text-wrap">{{ $candidate->auteur->trigramme ?? '' }}</span>
+                                    </h6>
                                     <h6><span class="fw-bold">Date:
                                         </span><span class="badge bg-light-subtle text-body text-wrap">
                                             {{ $candidate->cre_created_at ? \Carbon\Carbon::parse($candidate->cre_created_at)->format('d-m-Y') : '--' }}</span>
@@ -71,13 +85,7 @@
                                 @endforelse
                             </ol>
 
-                            <div class="hstack gap-2 justify-content-end d-print-none mt-5">
-                                <a href="javascript:window.print()" class="btn btn-success"><i
-                                        class="ri-printer-line align-bottom me-1"></i> Imprimer</a>
-                                <button wire:click='generatePdf' class="btn btn-primary"><i
-                                        class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
 
-                            </div>
                         </div>
                         <!--end card-body-->
                     </div><!--end col-->

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cre;
+use App\Models\Candidate;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use App\Http\Requests\StoreCreRequest;
 use App\Http\Requests\UpdateCreRequest;
-use App\Models\Candidate;
 
 class CreController extends Controller
 {
@@ -73,4 +75,5 @@ class CreController extends Controller
     {
         //
     }
+
 }

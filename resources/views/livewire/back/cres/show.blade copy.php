@@ -6,7 +6,7 @@
     ])
 
     <div class="row justify-content-center">
-        <div class="col-sm-6">
+        <div class="col-xxl-9">
             <div class="card" id="demo">
                 <div class="row">
                     <div class="col-lg-12">
@@ -19,34 +19,32 @@
 
                                 </div>
                                 <div class="p-2 flex-fill mt-4">
-                                    <span><strong>CONFIDENTIEL</strong></span>
+                                    <span class="fw-bold">CONFIDENTIEL
+                                    </span>
                                 </div>
                                 <div class="p-2 flex-fill">
-                                    <h6><span class="text-muted fw-normal">Réf: </span><span
+                                    <h6><span class="fw-bold">Réf: </span><span  class="badge bg-light-subtle text-body text-wrap"
                                             id="legal-register-no">{{ $candidate->cre_ref ?? '---' }}</span></h6>
-                                    <h6><span class="text-muted fw-normal">Auteur:
-                                        </span><span>{{ $candidate->auteur->trigramme ?? '' }}</span></h6>
-                                    <h6><span class="text-muted fw-normal">Date:
-                                        </span><span>
+                                    <h6><span class="fw-bold">Auteur:
+                                        </span><span class="badge bg-light-subtle text-body text-wrap">{{ $candidate->auteur->trigramme ?? '' }}</span></h6>
+                                    <h6><span class="fw-bold">Date:
+                                        </span><span class="badge bg-light-subtle text-body text-wrap">
                                             {{ $candidate->cre_created_at ? \Carbon\Carbon::parse($candidate->cre_created_at)->format('d-m-Y') : '--' }}</span>
                                     </h6>
                                 </div>
                             </div>
                             <div class=" mt-4 ms-1">
                                 <div>
-                                    <span class="fs-20"><strong>COMPTE RENDU D'ENTRETIEN DE
-                                            {{ $candidate->civ->name ?? '---' }}. </strong>
-                                    </span>
-
-                                    <span class="badge bg-light-subtle text-body fs-20 text-wrap">{{ $candidate->first_name }}
-                                        {{ $candidate->last_name }}</span>
+                                    <p class="fw-bold ">COMPTE RENDU D'ENTRETIEN DE
+                                        {{ $candidate->civ->name ?? '---' }}. <span
+                                            class="badge bg-light-subtle text-body text-wrap fs-15">{{ $candidate->first_name ?? '---' }}
+                                            {{ $candidate->last_name ?? '---' }}</span></p>
+                                    </p>
                                 </div>
-                                <div class="d-flex justify-content-center mt-2">
-                                    <span class="fs-20"><strong>POSTE : </strong>
-                                    </span>
-
-                                    <span
-                                        class="badge bg-light-subtle text-body fs-20 text-wrap">{{ $candidate->position->name }}</span>
+                                <div class="d-flex justify-content-start mt-2">
+                                    <p class="fw-bold">POSTE : <span
+                                            class="badge bg-light-subtle text-body fs-15 text-wrap">{{ $candidate->position->name }}</span>
+                                    </p>
                                 </div>
 
                             </div>
@@ -61,9 +59,9 @@
                             <ol>
                                 @forelse ($cres as $cre)
                                     <li>
-                                        <span class="text-body d-block mb-2">{{ $cre->question }} :</span>
-                                        <span
-                                            class="badge bg-light-subtle text-body fs-20 text-wrap">{{ $cre->response }}</span>
+                                        <p class="fw-bold ">{{ $cre->question }} :</p>
+                                        <p class="text-start badge bg-light-subtle text-body fs-6 text-wrap">
+                                            {{ $cre->response }}</p>
                                     </li>
 
                                 @empty
@@ -78,7 +76,7 @@
                                         class="ri-printer-line align-bottom me-1"></i> Imprimer</a>
                                 <button wire:click='generatePdf' class="btn btn-primary"><i
                                         class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
-                                        
+                                        <button wire:click="generatePdf">Générer PDF</button>
                             </div>
                         </div>
                         <!--end card-body-->

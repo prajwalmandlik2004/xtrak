@@ -39,6 +39,6 @@ $app->singleton(Illuminate\Contracts\Debug\ExceptionHandler::class, App\Exceptio
 | from the actual running of the application and sending responses.
 |
 */
-$app->singleton(\Barryvdh\DomPDF\ServiceProvider::class);
+
 
 return $app;
