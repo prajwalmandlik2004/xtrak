@@ -1,82 +1,77 @@
-<div class="row justify-content-center">
-    <div class="col-xxl-9">
-        <div class="card" id="demo">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card-header border-bottom-dashed p-4">
-                        <div class="d-flex">
-                            <div class="p-2 flex-fill">
-                                <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="img-fluid"
-                                    height="200" width="200">
+<html lang="fr">
+<head>
+    <title>Invoice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
 
-
-                            </div>
-                            <div class="p-2 flex-fill mt-4">
-                                <span class="fw-bold">CONFIDENTIEL
-                                </span>
-                            </div>
-                            <div class="p-2 flex-fill">
-                                <h6><span class="fw-bold">Réf: </span><span  class="badge bg-light-subtle text-body text-wrap"
-                                        id="legal-register-no">{{ $candidate->cre_ref ?? '---' }}</span></h6>
-                                <h6><span class="fw-bold">Auteur:
-                                    </span><span class="badge bg-light-subtle text-body text-wrap">{{ $candidate->auteur->trigramme ?? '' }}</span></h6>
-                                <h6><span class="fw-bold">Date:
-                                    </span><span class="badge bg-light-subtle text-body text-wrap">
-                                        {{ $candidate->cre_created_at ? \Carbon\Carbon::parse($candidate->cre_created_at)->format('d-m-Y') : '--' }}</span>
-                                </h6>
-                            </div>
-                        </div>
-                        <div class=" mt-4 ms-1">
-                            <div>
-                                <p class="fw-bold ">COMPTE RENDU D'ENTRETIEN DE
-                                    {{ $candidate->civ->name ?? '---' }}. <span
-                                        class="badge bg-light-subtle text-body text-wrap fs-15">{{ $candidate->first_name ?? '---' }}
-                                        {{ $candidate->last_name ?? '---' }}</span></p>
-                                </p>
-                            </div>
-                            <div class="d-flex justify-content-start mt-2">
-                                <p class="fw-bold">POSTE : <span
-                                        class="badge bg-light-subtle text-body fs-15 text-wrap">{{ $candidate->position->name }}</span>
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!--end card-header-->
-                </div><!--end col-->
-
-
-
-                <div class="col-lg-12">
-                    <div class="card-body p-4">
-                        <ol>
-                            @forelse ($cres as $cre)
-                                <li>
-                                    <p class="fw-bold ">{{ $cre->question }} :</p>
-                                    <p class="text-start badge bg-light-subtle text-body fs-6 text-wrap">
-                                        {{ $cre->response }}</p>
-                                </li>
-
-                            @empty
-                                <div class="alert alert-warning" role="alert">
-                                    Aucun compte rendu d'entretien n'est disponible pour le moment.
-                                </div>
-                            @endforelse
-                        </ol>
-
-                        {{-- <div class="hstack gap-2 justify-content-end d-print-none mt-5">
-                            <a href="javascript:window.print()" class="btn btn-success"><i
-                                    class="ri-printer-line align-bottom me-1"></i> Imprimer</a>
-                            <button wire:click='generatePdf' class="btn btn-primary"><i
-                                    class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
-
-                        </div> --}}
-                    </div>
-                    <!--end card-body-->
-                </div><!--end col-->
-            </div><!--end row-->
+<div class="px-2 py-8 max-w-xl mx-auto">
+    <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center">
+            <div class="text-gray-700 font-semibold text-lg">Your Company Name</div>
         </div>
-        <!--end card-->
+        <div class="text-gray-700">
+            <div class="font-bold text-xl mb-2 uppercase">Invoice</div>
+            <div class="text-sm">Date: 01/05/2023</div>
+            <div class="text-sm">Invoice #: {{ $invoiceNumber }}</div>
+        </div>
     </div>
-    <!--end col-->
+    <div class="border-b-2 border-gray-300 pb-8 mb-8">
+        <h2 class="text-2xl font-bold mb-4">Bill To:</h2>
+        <div class="text-gray-700 mb-2">{{ $customerName }}</div>
+        <div class="text-gray-700 mb-2">123 Main St.</div>
+        <div class="text-gray-700 mb-2">Anytown, USA 12345</div>
+        <div class="text-gray-700">johndoe@example.com</div>
+    </div>
+    <table class="w-full text-left mb-8">
+        <thead>
+        <tr>
+            <th class="text-gray-700 font-bold uppercase py-2">Description</th>
+            <th class="text-gray-700 font-bold uppercase py-2">Quantity</th>
+            <th class="text-gray-700 font-bold uppercase py-2">Price</th>
+            <th class="text-gray-700 font-bold uppercase py-2">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="py-4 text-gray-700">Product 1</td>
+            <td class="py-4 text-gray-700">1</td>
+            <td class="py-4 text-gray-700">$100.00</td>
+            <td class="py-4 text-gray-700">$100.00</td>
+        </tr>
+        <tr>
+            <td class="py-4 text-gray-700">Product 2</td>
+            <td class="py-4 text-gray-700">2</td>
+            <td class="py-4 text-gray-700">$50.00</td>
+            <td class="py-4 text-gray-700">$100.00</td>
+        </tr>
+        <tr>
+            <td class="py-4 text-gray-700">Product 3</td>
+            <td class="py-4 text-gray-700">3</td>
+            <td class="py-4 text-gray-700">$75.00</td>
+            <td class="py-4 text-gray-700">$225.00</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="flex justify-end mb-8">
+        <div class="text-gray-700 mr-2">Subtotal:</div>
+        <div class="text-gray-700">$425.00</div>
+    </div>
+    <div class="text-right mb-8">
+        <div class="text-gray-700 mr-2">Tax:</div>
+        <div class="text-gray-700">$25.50</div>
+
+    </div>
+    <div class="flex justify-end mb-8">
+        <div class="text-gray-700 mr-2">Total:</div>
+        <div class="text-gray-700 font-bold text-xl">$450.50</div>
+    </div>
+    <div class="border-t-2 border-gray-300 pt-8 mb-8">
+        <div class="text-gray-700 mb-2">Payment is due within 30 days. Late payments are subject to fees.</div>
+        <div class="text-gray-700 mb-2">Please make checks payable to Your Company Name and mail to:</div>
+        <div class="text-gray-700">123 Main St., Anytown, USA 12345</div>
+    </div>
 </div>
+
+</body>
+</html>
