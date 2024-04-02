@@ -11,7 +11,8 @@
                         class="ri-printer-line align-bottom me-1"></i> Imprimer</a>
                 <button wire:click="generatePdf" class="btn btn-primary"><i
                         class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
-
+                <a href="{{ url()->previous() }}" class="btn btn-secondary me-1 ms-5"><i
+                        class="mdi mdi-arrow-left me-1"></i>Retour</a>
             </div>
         </div>
 
@@ -89,6 +90,9 @@
                         </div>
                         <!--end card-body-->
                     </div><!--end col-->
+                    <div class="hstack gap-2 justify-content-center  mt-2">
+                        <span>-----+-----+-----+-----</span>
+                    </div>
                 </div><!--end row-->
             </div>
             <!--end card-->

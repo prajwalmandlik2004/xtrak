@@ -186,7 +186,7 @@
                                                 <a class="text-body " href="#"
                                                     wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
                                             @else
-                                                ---
+                                            n/a
                                             @endif
                                         </td>
                                         <td>
@@ -194,7 +194,7 @@
                                                 <a class="text-body " href="#"
                                                     wire:click.prevent="selectCandidateGoToCre('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
                                             @else
-                                                ---
+                                            n/a
                                             @endif
 
 
