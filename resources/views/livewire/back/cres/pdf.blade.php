@@ -1,138 +1,82 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Compte Rendu</title>
-<style>
-    .custom-row {
-        display: flex;
-        justify-content: center;
-    }
-
-    .custom-col-sm-6 {
-        flex-basis: 50%;
-        max-width: 50%;
-    }
-
-    .custom-card {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        margin-top: 20px;
-        width: 100%;
-    }
-
-    .custom-card-header {
-        padding: 20px;
-        border-bottom: 1px dashed #ccc;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .custom-card-body {
-        padding: 20px;
-    }
-
-    .custom-logo {
-        height: 200px;
-        width: 200px;
-    }
-
-    .custom-badge {
-        background-color: #f8f9fa;
-        color: #000;
-        font-size: 20px;
-        padding: 5px 10px;
-        border-radius: 4px;
-        margin-right: 5px;
-    }
-
-    .custom-alert-warning {
-        background-color: #fff3cd;
-        color: #856404;
-        border-color: #ffeeba;
-        padding: .75rem 1.25rem;
-        margin-bottom: 1rem;
-        border: 1px solid transparent;
-        border-radius: .25rem;
-    }
-
-    .custom-btn {
-        display: inline-block;
-        font-weight: 400;
-        text-align: center;
-        vertical-align: middle;
-        user-select: none;
-        border: 1px solid transparent;
-        padding: .375rem .75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        border-radius: .25rem;
-        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        cursor: pointer;
-        background-color: #007bff;
-        color: #fff;
-        border-color: #007bff;
-    }
-</style>
-</head>
-<body>
-
-<div class="custom-row justify-content-center">
-    <div class="custom-col-sm-6">
-        <div class="custom-card" id="demo">
+<div class="row justify-content-center">
+    <div class="col-xxl-9">
+        <div class="card" id="demo">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="custom-card-header">
+                    <div class="card-header border-bottom-dashed p-4">
                         <div class="d-flex">
                             <div class="p-2 flex-fill">
-                                <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="img-fluid custom-logo">
+                                <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="img-fluid"
+                                    height="200" width="200">
+
+
                             </div>
                             <div class="p-2 flex-fill mt-4">
-                                <span class="font-weight-bold">CONFIDENTIEL</span>
+                                <span class="fw-bold">CONFIDENTIEL
+                                </span>
                             </div>
                             <div class="p-2 flex-fill">
-                                <h6><span class="text-muted fw-normal">Réf: </span><span id="legal-register-no">{{ $candidate->cre_ref ?? '---' }}</span></h6>
-                                <h6><span class="text-muted fw-normal">Auteur: </span><span>{{ $candidate->auteur->trigramme ?? '' }}</span></h6>
-                                <h6><span class="text-muted fw-normal">Date: </span><span>{{ $candidate->cre_created_at ? \Carbon\Carbon::parse($candidate->cre_created_at)->format('d-m-Y') : '--' }}</span></h6>
+                                <h6><span class="fw-bold">Réf: </span><span  class="badge bg-light-subtle text-body text-wrap"
+                                        id="legal-register-no">{{ $candidate->cre_ref ?? '---' }}</span></h6>
+                                <h6><span class="fw-bold">Auteur:
+                                    </span><span class="badge bg-light-subtle text-body text-wrap">{{ $candidate->auteur->trigramme ?? '' }}</span></h6>
+                                <h6><span class="fw-bold">Date:
+                                    </span><span class="badge bg-light-subtle text-body text-wrap">
+                                        {{ $candidate->cre_created_at ? \Carbon\Carbon::parse($candidate->cre_created_at)->format('d-m-Y') : '--' }}</span>
+                                </h6>
                             </div>
                         </div>
                         <div class=" mt-4 ms-1">
                             <div>
-                                <span class="fs-20"><strong>COMPTE RENDU D'ENTRETIEN DE {{ $candidate->civ->name ?? '---' }}. </strong></span>
-                                <span class="custom-badge bg-light-subtle text-body fs-20 text-wrap">{{ $candidate->first_name }} {{ $candidate->last_name }}</span>
+                                <p class="fw-bold ">COMPTE RENDU D'ENTRETIEN DE
+                                    {{ $candidate->civ->name ?? '---' }}. <span
+                                        class="badge bg-light-subtle text-body text-wrap fs-15">{{ $candidate->first_name ?? '---' }}
+                                        {{ $candidate->last_name ?? '---' }}</span></p>
+                                </p>
                             </div>
-                            <div class="d-flex justify-content-center mt-2">
-                                <span class="fs-20"><strong>POSTE : </strong></span>
-                                <span class="custom-badge bg-light-subtle text-body fs-20 text-wrap">{{ $candidate->position->name }}</span>
+                            <div class="d-flex justify-content-start mt-2">
+                                <p class="fw-bold">POSTE : <span
+                                        class="badge bg-light-subtle text-body fs-15 text-wrap">{{ $candidate->position->name }}</span>
+                                </p>
                             </div>
+
                         </div>
                     </div>
-                </div>
+                    <!--end card-header-->
+                </div><!--end col-->
+
+
+
                 <div class="col-lg-12">
-                    <div class="custom-card-body">
+                    <div class="card-body p-4">
                         <ol>
                             @forelse ($cres as $cre)
                                 <li>
-                                    <span class="text-body d-block mb-2 fs-15">{{ $cre->question }} :</span>
-                                    <span class="custom-badge bg-light-subtle text-body fs-13 text-wrap">{{ $cre->response }}</span>
+                                    <p class="fw-bold ">{{ $cre->question }} :</p>
+                                    <p class="text-start badge bg-light-subtle text-body fs-6 text-wrap">
+                                        {{ $cre->response }}</p>
                                 </li>
+
                             @empty
-                                <div class="custom-alert-warning" role="alert">
+                                <div class="alert alert-warning" role="alert">
                                     Aucun compte rendu d'entretien n'est disponible pour le moment.
                                 </div>
                             @endforelse
                         </ol>
-                        <div class="hstack gap-2 justify-content-end d-print-none mt-5">
-                            <button class="custom-btn btn-primary"><i class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-</body>
-</html>
+                        {{-- <div class="hstack gap-2 justify-content-end d-print-none mt-5">
+                            <a href="javascript:window.print()" class="btn btn-success"><i
+                                    class="ri-printer-line align-bottom me-1"></i> Imprimer</a>
+                            <button wire:click='generatePdf' class="btn btn-primary"><i
+                                    class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
+
+                        </div> --}}
+                    </div>
+                    <!--end card-body-->
+                </div><!--end col-->
+            </div><!--end row-->
+        </div>
+        <!--end card-->
+    </div>
+    <!--end col-->
+</div>

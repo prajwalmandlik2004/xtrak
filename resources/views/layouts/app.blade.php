@@ -116,6 +116,7 @@
     <script src="{{ asset('assets/js/pages/jquery-3.7.1.min.js') }}"></script>
     <!-- password-addon init -->
     <script src="{{ asset('assets/js/pages/password-addon.init.j') }}s"></script>
+    <script src="{{ asset('assets/js/pages/invoicedetails.js') }}"></script>
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script>
