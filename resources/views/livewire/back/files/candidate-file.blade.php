@@ -106,7 +106,7 @@
         </x-slot>
         <x-slot name="body">
 
-            <form wire:submit.prevent="storeData()">
+            <form wire:submit.prevent="storeFile()">
                 @csrf
                 <div class="modal-body">
                     @if ($isUpdate)

@@ -61,13 +61,20 @@ class CandidateFile extends Component
             $this->name = $this->file->name ?? '';
         }
     }
-    public function storeData()
+    public function storeFile()
     {
-        $validateData = $this->validate([
-            'name' => 'nullable|string|max:255',
-            'newFiles' => 'nullable',
-            'newFiles.*' => 'nullable|mimes:pdf,doc,docx|max:1024',
-        ]);
+        $validateData = $this->validate(
+            [
+                'name' => 'nullable|string|max:255',
+                'newFiles' => 'required|array',
+                'newFiles.*' => 'nullable|mimes:pdf,doc,docx|max:1024',
+            ],
+            [
+                'newFiles.required' => 'Veuillez choisir un fichier',
+                'newFiles.*.mimes' => 'Le fichier doit être de type: pdf, doc, docx',
+                'newFiles.*.max' => 'Le fichier ne doit pas dépasser 1 Mo',
+            ],
+        );
         $fileRepository = new FileRepository();
         try {
             DB::beginTransaction();
