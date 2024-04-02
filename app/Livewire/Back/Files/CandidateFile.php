@@ -66,7 +66,7 @@ class CandidateFile extends Component
         $validateData = $this->validate(
             [
                 'name' => 'nullable|string|max:255',
-                'newFiles' => 'required|array',
+                'newFiles' => 'nullable',
                 'newFiles.*' => 'nullable|mimes:pdf,doc,docx|max:1024',
             ],
             [
@@ -92,6 +92,7 @@ class CandidateFile extends Component
                 $fileRepository->create($validateData['newFiles'], $this->candidate->id);
             }
             DB::commit();
+            $this->reset('name', 'newFiles');
             $this->dispatch('close:modal');
             $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'le document est ajouté avec succès');
         } catch (\Throwable $th) {
