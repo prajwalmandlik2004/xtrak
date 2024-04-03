@@ -30,7 +30,7 @@
                             @if ($cvFile->type === 'word' || $cvFile->type === 'pdf')
                                 <iframe src="{{ Storage::url($cvFile->path) }}" width="100%" height="800"></iframe>
                             @else
-                                <a href="{{ Storage::url($cvFile->path) }}" download> Télécharger le fichier </a>
+                               <span>La visualisation est disponible qu'avec un document word ou pdf.</span>
                             @endif
 
                         </div>
