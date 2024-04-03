@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\candidateStatut;
+use App\Models\CandidateStatut;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
