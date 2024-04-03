@@ -83,15 +83,20 @@ class Index extends Component
             [
                 'first_name' => 'required|string|max:255',
                 'phone' => 'nullable|string|max:255',
-                'email' => 'nullable|string|max:255',
+                'email' => 'required|string|max:255|unique:users,email' . ($this->isUpdate ? ',' . $this->user->id : ''),
                 'last_name' => 'required|string|max:255',
-                'role_id' => 'nullable',
+                'role_id' => 'required|exists:roles,id',
                 'password' => 'required|string|max:255',
             ],
             [
                 'first_name.required' => 'Le nom est obligatoire',
                 'last_name.required' => 'Le prénom est obligatoire',
                 'password.required' => 'Le mot de passe est obligatoire',
+                'email.required' => 'L\'email est obligatoire',
+                'role_id.required' => 'Le role est obligatoire',
+                'role_id.exists' => 'Le role est invalide',
+                'email.unique' => 'L\'email est déjà utilisé',
+
             ],
         );
 

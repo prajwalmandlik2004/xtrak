@@ -49,7 +49,7 @@
                                                     </span></div>
                                                 <div class="vr"></div>
                                                 <div>Statut : <span
-                                                        class="fw-medium badge rounded-pill bg-primary fs-12">{{ $candidate->cdt_status ?? '--' }}</span>
+                                                        class="fw-medium badge rounded-pill bg-primary fs-12">{{ $candidate->candidate_statut_id ?? '--' }}</span>
                                                 </div>
                                                 <div class="vr"></div>
                                                 <div>Etat : <span
@@ -84,7 +84,7 @@
                                 <div class="hstack gap-1 flex-wrap">
                                     <div class="p-2">
                                         <span>Modifier l'état :</span>
-                                        <select class="form-control w-md" wire:model.lazy="state">
+                                        <select class="form-control   w-md" wire:model.lazy="state">
                                             @foreach ($candidateStates as $candidateState)
                                                 <option value="{{ $candidateState }}"
                                                     @if ($candidateState == $state) selected @endif>
@@ -100,10 +100,12 @@
                                         type="button" class="btn py-0 fs-16 text-body">
                                         Supprimer
                                     </button>
-                                    {{-- <a class="btn btn-info mt-3" href="{{ Route('candidates.edit', $candidate) }}"
+                                    @if (!auth()->user()->hasRole('Administrateur'))
+                                    <a class="btn btn-info mt-3" href="{{ Route('candidates.edit', $candidate) }}"
                                         type="button" class="btn py-0 fs-16 text-body">
                                         Modifier
-                                    </a> --}}
+                                    </a>
+                                    @endif
                                     <a href="{{ url()->previous() }}" class="btn btn-secondary ms-5 mt-3"><i
                                             class="mdi mdi-arrow-left me-1"></i>Retour</a>
                                 </div>
@@ -232,7 +234,7 @@
                                                                         Statut :
                                                                     </p>
                                                                     <div class="badge bg-primary fs-12">
-                                                                        {{ $candidate->cdt_status ?? '--' }}</div>
+                                                                        {{ $candidate->candidate_statut_id ?? '--' }}</div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-3 mt-4">
@@ -447,7 +449,7 @@
                                                                                 <label for="origine"
                                                                                     class="form-label">Source </label>
                                                                                 <input type="text"
-                                                                                    class="form-control @error('origine') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('origine') is-invalid @enderror "
                                                                                     wire:model='origine'
                                                                                     placeholder="Veuillez entrer la source" />
                                                                                 @error('origine')
@@ -461,7 +463,7 @@
                                                                                 <label for="job-category-Input"
                                                                                     class="form-label">Civilité</label>
                                                                                 <select
-                                                                                    class="form-control @error('civ_id') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('civ_id') is-invalid @enderror "
                                                                                     wire:model='civ_id'>
                                                                                     <option value="" selected>
                                                                                         Selectionner</option>
@@ -485,7 +487,7 @@
                                                                                     class="form-label">Prénom <span
                                                                                         class="text-danger">*</span></label>
                                                                                 <input type="text"
-                                                                                    class="form-control @error('first_name') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('first_name') is-invalid @enderror "
                                                                                     wire:model.live='first_name'
                                                                                     placeholder="Veuillez entrer le prénom" />
                                                                                 @error('first_name')
@@ -500,7 +502,7 @@
                                                                                     class="form-label">Nom <span
                                                                                         class="text-danger">*</span></label>
                                                                                 <input type="text"
-                                                                                    class="form-control @error('last_name') is-invalid @enderror"
+                                                                                    class="form-control form-control-custom  @error('last_name') is-invalid @enderror"
                                                                                     wire:model.live='last_name'
                                                                                     placeholder="Veuillez entrer le nom" />
 
@@ -516,7 +518,7 @@
                                                                                     class="form-label">Disponibilité
                                                                                 </label>
                                                                                 <select
-                                                                                    class="form-control @error('disponibility_id') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('disponibility_id') is-invalid @enderror "
                                                                                     wire:model='disponibility_id'>
                                                                                     <option value="" selected>
                                                                                         Selectionner</option>
@@ -539,7 +541,7 @@
                                                                                     class="form-label">Next step
                                                                                 </label>
                                                                                 <select
-                                                                                    class="form-control @error('next_step_id') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('next_step_id') is-invalid @enderror "
                                                                                     wire:model='next_step_id'>
                                                                                     <option value="" selected>
                                                                                         Selectionner</option>
@@ -562,7 +564,7 @@
                                                                                 <label for="ns_date"
                                                                                     class="form-label">NSDATE </label>
                                                                                 <input type="date"
-                                                                                    class="form-control @error('ns_date') is-invalid @enderror"
+                                                                                    class="form-control form-control-custom  @error('ns_date') is-invalid @enderror"
                                                                                     wire:model='ns_date'
                                                                                     placeholder="Veuillez entrer ns_date" />
                                                                                 @error('ns_date')
@@ -573,23 +575,23 @@
                                                                         </div>
                                                                         <div class="col-md-2 mt-4">
                                                                             <div>
-                                                                                <label for="cdt_status"
+                                                                                <label for="candidate_statut_id"
                                                                                     class="form-label">Statut <span
                                                                                         class="text-danger">*</span></label>
                                                                                 <select
-                                                                                    class="form-control @error('cdt_status') is-invalid @enderror"
-                                                                                    wire:model='cdt_status'>
+                                                                                    class="form-control form-control-custom  @error('candidate_statut_id') is-invalid @enderror"
+                                                                                    wire:model='candidate_statut_id'>
                                                                                     <option value="" selected>
                                                                                         Selectionner</option>
                                                                                     @foreach ($candidateStatuses as $statu)
                                                                                         <option
-                                                                                            value="{{ $statu }}"
-                                                                                            @if ($statu == $cdt_status) selected @endif>
-                                                                                            {{ $statu }}
+                                                                                            value="{{ $statu->id }}"
+                                                                                            @if ($statu->id == $candidate_statut_id) selected @endif>
+                                                                                            {{ $statu->name }}
                                                                                         </option>
                                                                                     @endforeach
                                                                                 </select>
-                                                                                @error('cdt_status')
+                                                                                @error('candidate_statut_id')
                                                                                     <span
                                                                                         class="invalid-feedback">{{ $message }}</span>
                                                                                 @enderror
@@ -597,11 +599,11 @@
                                                                         </div>
                                                                         <div class="col-md-2 mt-4">
                                                                             <div>
-                                                                                <label for="cdt_status"
+                                                                                <label for="candidate_statut_id"
                                                                                     class="form-label">codeCDT <span
                                                                                         class="text-danger">*</span></label>
                                                                                 <input type="text"
-                                                                                    class="form-control "
+                                                                                    class="form-control form-control-custom  "
                                                                                     value="{{ $candidate->code_cdt }}"
                                                                                     wire:model='code_cdt' disabled />
 
@@ -629,7 +631,7 @@
                                                                                     class="form-label">Email <span
                                                                                         class="text-danger">*</span></label>
                                                                                 <input type="email"
-                                                                                    class="form-control @error('email') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('email') is-invalid @enderror "
                                                                                     wire:model.live='email'
                                                                                     placeholder="Veuillez entrer l'address email" />
                                                                                 @error('email')
@@ -644,7 +646,7 @@
                                                                                     class="form-label">Téléphone 1
                                                                                 </label>
                                                                                 <input type="text"
-                                                                                    class="form-control @error('phone') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('phone') is-invalid @enderror "
                                                                                     wire:model='phone'
                                                                                     placeholder="Veuillez entrer le numéro de télépone 1" />
 
@@ -660,7 +662,7 @@
                                                                                     class="form-label">Téléphone
                                                                                     2</label>
                                                                                 <input type="text"
-                                                                                    class="form-control @error('phone_2') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('phone_2') is-invalid @enderror "
                                                                                     wire:model='phone_2'
                                                                                     placeholder="Veuillez entrer le numéro de télépone 2" />
 
@@ -675,7 +677,7 @@
                                                                                 <label for="vancancy-Input"
                                                                                     class="form-label">CP/Dpt </label>
                                                                                 <input type="number"
-                                                                                    class="form-control @error('postal_code') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('postal_code') is-invalid @enderror "
                                                                                     min="0"
                                                                                     wire:model='postal_code'
                                                                                     placeholder="Veuillez entrer la boîte postal" />
@@ -690,7 +692,7 @@
                                                                                 <label for="country"
                                                                                     class="form-label">Pays </label>
                                                                                 <input type="text"
-                                                                                    class="form-control @error('country') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('country') is-invalid @enderror "
                                                                                     min="0"
                                                                                     wire:model='country'
                                                                                     placeholder="Veuillez entrer le pays" />
@@ -705,7 +707,7 @@
                                                                                 <label for="region"
                                                                                     class="form-label">Région </label>
                                                                                 <input type="text"
-                                                                                    class="form-control @error('region') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('region') is-invalid @enderror "
                                                                                     min="0" wire:model='region'
                                                                                     placeholder="Veuillez  entrer la région" />
                                                                                 @error('region')
@@ -719,7 +721,7 @@
                                                                                 <label for="city"
                                                                                     class="form-label">Ville </label>
                                                                                 <input type="text"
-                                                                                    class="form-control @error('city') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('city') is-invalid @enderror "
                                                                                     min="0" wire:model='city'
                                                                                     placeholder="Veuillez  entrer la ville" />
                                                                                 @error('city')
@@ -733,7 +735,7 @@
                                                                                 <label for="city"
                                                                                     class="form-label">UrlCTC </label>
                                                                                 <input type="text"
-                                                                                    class="form-control @error('url_ctc') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('url_ctc') is-invalid @enderror "
                                                                                     min="0"
                                                                                     wire:model='url_ctc'
                                                                                     placeholder="Veuillez entrer l'UrlCTC" />
@@ -760,7 +762,7 @@
                                                                                 <label for="compagny_id"
                                                                                     class="form-label">Societé </label>
                                                                                 <select
-                                                                                    class="form-control @error('compagny_id') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('compagny_id') is-invalid @enderror "
                                                                                     wire:model='compagny_id'>
                                                                                     <option value="" selected>
                                                                                         Selectionner</option>
@@ -784,7 +786,7 @@
                                                                                     class="form-label">Poste
                                                                                     (Fonction1) </label>
                                                                                 <select
-                                                                                    class="form-control @error('position_id') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('position_id') is-invalid @enderror "
                                                                                     wire:model='position_id'>
                                                                                     <option value="" selected>
                                                                                         Selectionner</option>
@@ -808,7 +810,7 @@
                                                                                     class="form-label">Spécialité
                                                                                     (Fonction2)</label>
                                                                                 <select
-                                                                                    class="form-control @error('specialitiesSelected') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('specialitiesSelected') is-invalid @enderror "
                                                                                     wire:model='specialitiesSelected'>
                                                                                     <option value="" selected>
                                                                                         Selectionner
@@ -833,7 +835,7 @@
                                                                                     class="form-label">Domaine
                                                                                     (Fonction3)</label>
                                                                                 <select
-                                                                                    class="form-control @error('fieldsSelected') is-invalid @enderror "
+                                                                                    class="form-control form-control-custom  @error('fieldsSelected') is-invalid @enderror "
                                                                                     wire:model='fieldsSelected'>
                                                                                     <option value="" selected>
                                                                                         Selectionner une spécialité
@@ -866,7 +868,7 @@
                                                                                 <label for="commentaire"
                                                                                     class="form-label">Commentaire
                                                                                 </label>
-                                                                                <textarea wire:model='commentaire' class="form-control" rows="3"></textarea>
+                                                                                <textarea wire:model='commentaire' class="form-control form-control-custom " rows="3"></textarea>
                                                                             </div>
                                                                         </div>
 

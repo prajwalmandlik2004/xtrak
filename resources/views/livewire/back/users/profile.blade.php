@@ -70,8 +70,7 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label for="firstnameInput" class="form-label">Photo de
-                                                            profile</label>
+                                                        <label for="firstnameInput" class="form-label">Photo de profil</label>
                                                         <input wire:model='photo' type="file" class="form-control">
                                                     </div>
                                                 </div>
@@ -133,7 +132,7 @@
                                         </div><!-- end card body -->
                                         <div class="card-footer">
                                             <div class="text-end">
-                                                <button type="submit" class="btn btn-success">Modifier</button>
+                                                <button type="submit" class="btn btn-success">Enregistrer</button>
                                             </div>
                                         </div>
                                     </div><!-- end card -->
@@ -193,7 +192,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="text-end">
-                                        <button type="submit" class="btn btn-success">Modifier</button>
+                                        <button type="submit" class="btn btn-success">Enregistrer</button>
                                     </div>
                                 </div>
                             </div>

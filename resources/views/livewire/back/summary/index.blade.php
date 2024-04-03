@@ -5,7 +5,7 @@
     <div class="col-md-12 text-center">
         <div class="page-title align-items-center">
             <span class="badge border border-dark text-body">
-                <h2 class="mb-0">Données d’activité</h2>
+                <h2 class="mb-0">Effectuer</h2>
             </span>
         </div>
     </div>

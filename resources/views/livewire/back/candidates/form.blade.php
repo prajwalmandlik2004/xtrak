@@ -21,16 +21,37 @@
                                 </h5>
 
                             </div>
-                            <div class="p-2">
-                                <a href="{{ Route('import.candidat') }}" class="btn btn-primary">Importer</a>
-                            </div>
+                            {{-- @if (!$action == 'update')
+                                <div class="p-2">
+                                    <a href="{{ Route('import.candidat') }}" class="btn btn-primary">Uplodad</a>
+                                </div>
+                            @endif --}}
                             <div class="p-2">
                                 <a wire:click='resetForm' class="btn btn-danger"></i>Effacer</a>
                             </div>
                             <div class="p-2">
-                                <a href="{{ url()->previous() }}" class="btn btn-primary"><i
-                                        class="mdi mdi-arrow-left me-1"></i>Base</a>
+                                <button wire:loading.remove wire:target="storeData" type="submit"
+                                class="btn btn-primary">
+                                Enregistrer
+                            </button>
+                            <button wire:loading wire:target="storeData" type="button" class="btn btn-primary"
+                                disabled>
+                                <span class="spinner-border spinner-border-sm" role="status"
+                                    aria-hidden="true"></span>
+                                Enregistrement...
+                            </button>
                             </div>
+                            <div class="p-2">
+                                <a href="{{ url()->previous() }}" class="btn btn-primary"><i
+                                        class="mdi mdi-arrow-left me-1"></i>
+                                    @if (!auth()->user()->hasRole('Administrateur'))
+                                        Retour en arrirère
+                                    @else
+                                        Base
+                                    @endif
+                                </a>
+                            </div>
+                           
                         </div>
 
 
@@ -51,7 +72,8 @@
                                             <div>
                                                 <label for="origine" class="form-label">Source </label>
                                                 <input type="text"
-                                                    class="form-control @error('origine') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('origine') is-invalid @enderror "
                                                     wire:model='origine' placeholder="Veuillez entrer la source" />
                                                 @error('origine')
                                                     <span class="invalid-feedback">{{ $message }}</span>
@@ -61,7 +83,9 @@
                                         <div class="col-lg-2">
                                             <div>
                                                 <label for="job-category-Input" class="form-label">Civilité</label>
-                                                <select class="form-control @error('civ_id') is-invalid @enderror "
+                                                <select
+                                                    class="form-control  
+form-control-custom  @error('civ_id') is-invalid @enderror "
                                                     wire:model='civ_id'>
                                                     <option value="" selected>Selectionner</option>
                                                     @foreach ($civs as $civ)
@@ -80,7 +104,8 @@
                                                 <label for="first_name" class="form-label">Prénom <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text"
-                                                    class="form-control @error('first_name') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('first_name') is-invalid @enderror "
                                                     wire:model.live='first_name'
                                                     placeholder="Veuillez entrer le prénom" />
                                                 @error('first_name')
@@ -93,7 +118,8 @@
                                                 <label for="last_name" class="form-label">Nom <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text"
-                                                    class="form-control @error('last_name') is-invalid @enderror"
+                                                    class="form-control  
+form-control-custom  @error('last_name') is-invalid @enderror"
                                                     wire:model.live='last_name' placeholder="Veuillez entrer le nom" />
 
                                                 @error('last_name')
@@ -103,9 +129,10 @@
                                         </div>
                                         <div class="col-lg-2 ">
                                             <div>
-                                                <label for="disponibility" class="form-label">Disponibilité </label>
+                                                <label for="disponibility" class="form-label">disponibilité </label>
                                                 <select
-                                                    class="form-control @error('disponibility_id') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('disponibility_id') is-invalid @enderror "
                                                     wire:model='disponibility_id'>
                                                     <option value="" selected>Selectionner</option>
                                                     @foreach ($disponibilities as $disponibility)
@@ -123,7 +150,8 @@
                                             <div>
                                                 <label for="next_step_id" class="form-label">Next step </label>
                                                 <select
-                                                    class="form-control @error('next_step_id') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('next_step_id') is-invalid @enderror "
                                                     wire:model='next_step_id'>
                                                     <option value="" selected>Selectionner</option>
                                                     @foreach ($nextSteps as $nextStep)
@@ -142,7 +170,8 @@
 
                                                 <label for="ns_date" class="form-label">NSDATE </label>
                                                 <input type="date"
-                                                    class="form-control @error('ns_date') is-invalid @enderror"
+                                                    class="form-control  
+form-control-custom  @error('ns_date') is-invalid @enderror"
                                                     wire:model='ns_date' placeholder="Veuillez entrer ns_date" />
                                                 @error('ns_date')
                                                     <span class="invalid-feedback">{{ $message }}</span>
@@ -151,19 +180,21 @@
                                         </div>
                                         <div class="col-md-2 mt-4">
                                             <div>
-                                                <label for="cdt_status" class="form-label">Statut <span
+                                                <label for="candidate_statut_id" class="form-label">Statut <span
                                                         class="text-danger">*</span></label>
-                                                <select class="form-control @error('cdt_status') is-invalid @enderror"
-                                                    wire:model='cdt_status'>
+                                                <select
+                                                    class="form-control  
+form-control-custom  @error('candidate_statut_id') is-invalid @enderror"
+                                                    wire:model='candidate_statut_id'>
                                                     <option value="" selected>Selectionner</option>
                                                     @foreach ($candidateStatuses as $statu)
-                                                        <option value="{{ $statu }}"
-                                                            @if ($action == 'update' && $statu == $cdt_status) selected @endif>
-                                                            {{ $statu }}
+                                                        <option value="{{ $statu->id }}"
+                                                            @if ($action == 'update' && $statu->id == $candidate_statut_id) selected @endif>
+                                                            {{ $statu->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('cdt_status')
+                                                @error('candidate_statut_id')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -186,7 +217,8 @@
                                                 <label for="email" class="form-label">Email <span
                                                         class="text-danger">*</span></label>
                                                 <input type="email"
-                                                    class="form-control @error('email') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('email') is-invalid @enderror "
                                                     wire:model.live='email'
                                                     placeholder="Veuillez entrer l'address email" />
                                                 @error('email')
@@ -198,7 +230,8 @@
                                             <div>
                                                 <label for="phone" class="form-label">Téléphone 1 </label>
                                                 <input type="text"
-                                                    class="form-control @error('phone') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('phone') is-invalid @enderror "
                                                     wire:model='phone'
                                                     placeholder="Veuillez entrer le numéro de télépone 1" />
 
@@ -211,7 +244,8 @@
                                             <div>
                                                 <label for="phone_2" class="form-label">Téléphone 2</label>
                                                 <input type="text"
-                                                    class="form-control @error('phone_2') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('phone_2') is-invalid @enderror "
                                                     wire:model='phone_2'
                                                     placeholder="Veuillez entrer le numéro de télépone 2" />
 
@@ -224,7 +258,8 @@
                                             <div>
                                                 <label for="vancancy-Input" class="form-label">CP/Dpt </label>
                                                 <input type="number"
-                                                    class="form-control @error('postal_code') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('postal_code') is-invalid @enderror "
                                                     min="0" wire:model='postal_code'
                                                     placeholder="Veuillez entrer la boîte postal" />
                                                 @error('postal_code')
@@ -236,7 +271,8 @@
                                             <div>
                                                 <label for="country" class="form-label">Pays </label>
                                                 <input type="text"
-                                                    class="form-control @error('country') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('country') is-invalid @enderror "
                                                     min="0" wire:model='country'
                                                     placeholder="Veuillez entrer le pays" />
                                                 @error('country')
@@ -248,7 +284,8 @@
                                             <div>
                                                 <label for="region" class="form-label">Région </label>
                                                 <input type="text"
-                                                    class="form-control @error('region') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('region') is-invalid @enderror "
                                                     min="0" wire:model='region'
                                                     placeholder="Veuillez  entrer la région" />
                                                 @error('region')
@@ -260,7 +297,8 @@
                                             <div>
                                                 <label for="city" class="form-label">Ville </label>
                                                 <input type="text"
-                                                    class="form-control @error('city') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('city') is-invalid @enderror "
                                                     min="0" wire:model='city'
                                                     placeholder="Veuillez  entrer la ville" />
                                                 @error('city')
@@ -272,7 +310,8 @@
                                             <div>
                                                 <label for="city" class="form-label">UrlCTC </label>
                                                 <input type="text"
-                                                    class="form-control @error('url_ctc') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('url_ctc') is-invalid @enderror "
                                                     min="0" wire:model='url_ctc'
                                                     placeholder="Veuillez entrer l'UrlCTC" />
                                                 @error('url_ctc')
@@ -294,7 +333,8 @@
                                             <div>
                                                 <label for="compagny_id" class="form-label">Societé </label>
                                                 <select
-                                                    class="form-control @error('compagny_id') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('compagny_id') is-invalid @enderror "
                                                     wire:model='compagny_id'>
                                                     <option value="" selected>Selectionner</option>
                                                     @foreach ($compagnies as $compagny)
@@ -313,7 +353,8 @@
                                             <div>
                                                 <label for="position_id" class="form-label">Poste (Fonction1) </label>
                                                 <select
-                                                    class="form-control @error('position_id') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('position_id') is-invalid @enderror "
                                                     wire:model='position_id'>
                                                     <option value="" selected>Selectionner</option>
                                                     @foreach ($positions as $position)
@@ -333,7 +374,8 @@
                                                 <label for="specialitiesSelected" class="form-label">Spécialité
                                                     (Fonction2)</label>
                                                 <select
-                                                    class="form-control @error('specialitiesSelected') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('specialitiesSelected') is-invalid @enderror "
                                                     wire:model='specialitiesSelected'>
                                                     <option value="" selected>Selectionner
                                                     </option>
@@ -354,7 +396,8 @@
                                                 <label for="fieldsSelected" class="form-label">Domaine
                                                     (Fonction3)</label>
                                                 <select
-                                                    class="form-control @error('fieldsSelected') is-invalid @enderror "
+                                                    class="form-control  
+form-control-custom  @error('fieldsSelected') is-invalid @enderror "
                                                     wire:model='fieldsSelected'>
                                                     <option value="" selected>Selectionner une spécialité
                                                     </option>
@@ -387,27 +430,31 @@
                                             <div>
                                                 <label for="commentaire" class="form-label">Commentaire
                                                 </label>
-                                                <textarea wire:model='commentaire' class="form-control" rows="3"></textarea>
+                                                <textarea wire:model='commentaire' class="form-control  
+form-control-custom " rows="3"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                           
+
                                             <div>
                                                 <label for="cv" class="form-label">Curriculum Vitae</label>
                                                 <input wire:model="cv"
-                                                    class="form-control @error('cv') is-invalid @enderror"
-                                                    type="file" >
+                                                    class="form-control  
+form-control-custom  @error('cv') is-invalid @enderror"
+                                                    type="file">
                                             </div>
                                             @error('cv')
                                                 <span class="invalid-feedback">{{ $message }}</span>
                                             @enderror
-                                            
+
                                         </div>
                                         <div class="col-md-4">
                                             <div>
-                                                <label for="cover_letter" class="form-label">Lettre de motivation</label>
+                                                <label for="cover_letter" class="form-label">Lettre de
+                                                    motivation</label>
                                                 <input wire:model="cover_letter"
-                                                    class="form-control @error('cover_letter') is-invalid @enderror"
+                                                    class="form-control  
+form-control-custom  @error('cover_letter') is-invalid @enderror"
                                                     type="file">
                                             </div>
                                             @error('cover_letter')
@@ -424,15 +471,18 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <button wire:loading.remove wire:target="storeData" type="submit" class="btn btn-primary">
-                                {{ $action == 'create' ? 'Enregistrer' : 'Modifier' }}
+                            <button wire:loading.remove wire:target="storeData" type="submit"
+                                class="btn btn-primary">
+                                Enregistrer
                             </button>
-                            <button wire:loading wire:target="storeData" type="button" class="btn btn-primary" disabled>
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <button wire:loading wire:target="storeData" type="button" class="btn btn-primary"
+                                disabled>
+                                <span class="spinner-border spinner-border-sm" role="status"
+                                    aria-hidden="true"></span>
                                 Enregistrement...
                             </button>
                         </div>
-                        
+
                     </div>
 
                 </form>

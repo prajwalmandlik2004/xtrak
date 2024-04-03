@@ -15,7 +15,11 @@
                 </div>
                 <div class="card-body">
                     <!-- Bordered Tables -->
-                    <table class="table table-bordered table-nowrap">
+                    <div class="table-responsive">
+
+                        <table
+                            class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
+                            <thead class="bg-secondary text-white">
                         <thead>
                             <tr>
                                 <th scope="col">Autorisations</th>
@@ -25,8 +29,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($permissions as $permission)
-                                <tr>
+                            @foreach ($permissions as $index => $permission)
+                                <tr class="{{  $index % 2 == 0 ? 'table-secondary' : '' }}">
                                     <td>{{ $permission->name }}</td>
                                     @foreach ($roles as $role)
                                         <td>
@@ -40,6 +44,7 @@
 
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

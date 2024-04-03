@@ -28,3 +28,8 @@ color: #fff !important;
 .header-item {
     height: 50px !important;
 }
+
+.form-control-custom {
+   
+    background-color: #e1e1e1 !important;
+}

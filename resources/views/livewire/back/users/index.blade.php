@@ -149,7 +149,7 @@
                         @enderror
                     </div>
                     <div class="col-md-6  mt-3">
-                        <label for="phone" class="form-label">Téléphone <span class="text-danger">*</span></label>
+                        <label for="phone" class="form-label">Téléphone </label>
                         <input type="phone" class="form-control @error('phone') is-invalid @enderror "
                             wire:model.live='phone' placeholder="Veuillez entrer le numéro de téléphone " />
 

@@ -81,10 +81,11 @@ class Profile extends Component
                 'phone' => $validateData['phone'],
                 'email' => $validateData['email'],
                 'last_name' => $validateData['last_name'],
-                'profile_photo_path'=> $validateData['profile_photo_path']
+                'profile_photo_path'=> $validateData['profile_photo_path'] ?? $this->user->profile_photo_path ?? null,
             ]);
             DB::commit();
             $this->dispatch('alert', type: 'success', message: 'Vos informations sont modifier avec succès');
+            
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: 'Impossible de modifier vos informations');

@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Candidate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\CandidateRepository;
@@ -18,7 +19,7 @@ class Admin extends Component
     protected $paginationTheme = 'bootstrap';
     public $search = '';
     public $nbPaginate = 10;
-    public $cdtStatus = '';
+    public $candidate_statut_id = '';
     public $candidateStatuses;
     public $filterName = '';
     public $filterDate = '';
@@ -104,8 +105,8 @@ class Admin extends Component
             ->when($this->state, function ($query) {
                 $query->where('state', $this->state);
             })
-            ->when($this->cdtStatus, function ($query) {
-                $query->where('cdt_status', $this->cdtStatus);
+            ->when($this->candidate_statut_id, function ($query) {
+                $query->where('candidate_statut_id', $this->candidate_statut_id);
             })
             ->paginate($this->nbPaginate);
     }
@@ -115,8 +116,8 @@ class Admin extends Component
     }
     public function mount()
     {
-        $this->candidateStatuses = Helper::candidateStatuses();
-        $this->candidateStatuses = Helper::candidateStatuses();
+
+        $this->candidateStatuses = CandidateStatut::all();
         if (session()->has('dash_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('dash_base_cdt_selected_candidate_id');
         }

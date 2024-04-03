@@ -94,10 +94,10 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control w-md" wire:model.live='cdtStatus'>
+                                        <select class="form-control w-md" wire:model.live='candidate_statut_id'>
                                             <option value="" selected> Statut</option>
                                             @foreach ($candidateStatuses as $state)
-                                                <option value="{{ $state }}" selected> {{ $state }}
+                                                <option value="{{ $state->id }}" selected> {{ $state->name }}
                                                 </option>
                                             @endforeach
 

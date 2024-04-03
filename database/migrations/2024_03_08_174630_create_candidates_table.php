@@ -22,13 +22,13 @@ return new class extends Migration {
             $table->string('region')->nullable();
             $table->string('country')->nullable();
             $table->string('postal_code')->nullable();
-            $table->string('cdt_status')->nullable();
             $table->string('certificate')->nullable();
             $table->string('code_cdt')->nullable();
             $table->string('url_ctc')->nullable();
             $table->longText('commentaire')->nullable();
             $table->string('origine')->nullable();
             $table->foreignUuid('compagny_id')->nullable()->references('id')->on('compagnies');
+            $table->foreignUuid('candidate_statut_id')->nullable()->references('id')->on('candidate_statuts');
             $table->foreignUuid('disponibility_id')->nullable()->references('id')->on('disponibilities');
             $table->foreignUuid('civ_id')->nullable()->references('id')->on('civs');
             $table->foreignUuid('position_id')->nullable()->references('id')->on('positions');

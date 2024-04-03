@@ -12,6 +12,7 @@ use App\Models\Position;
 use App\Models\Speciality;
 use Livewire\Attributes\On;
 use App\Models\Disponibility;
+use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\CandidateRepository;
 
@@ -29,7 +30,7 @@ class Show extends Component
     public $phone_2;
     public $compagny_id;
     public $postal_code;
-    public $cdt_status;
+    public $candidate_statut_id;
     public $position_id;
     public $positions;
     public $created_by;
@@ -79,7 +80,7 @@ class Show extends Component
     public function mount()
     {
         $this->candidateStates = Helper::candidateState();
-        $this->candidateStatuses = Helper::candidateStatuses();
+        $this->candidateStatuses = CandidateStatut::all();
         $this->state = $this->candidate->state;
         $this->nextSteps = NextStep::all();
         $this->civs = Civ::all();
@@ -96,7 +97,8 @@ class Show extends Component
             $this->phone = $this->candidate->phone;
             $this->compagny_id = $this->candidate->compagny->id ?? null;
             $this->postal_code = $this->candidate->postal_code;
-            $this->cdt_status = $this->candidate->cdt_status;
+            $this->candidate_statut_id = $this->candidate->candidateStatut->candidate_statut_id ?? '';
+
             $this->position_id = $this->candidate->position_id;
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
@@ -123,7 +125,7 @@ class Show extends Component
                 'phone' => 'nullable',
                 'compagny_id' => 'nullable',
                 'postal_code' => 'nullable',
-                'cdt_status' => 'nullable',
+                'candidate_statut_id' => 'nullable',
                 'position_id' => 'nullable',
                 'city' => 'nullable',
                 'address' => 'nullable',
@@ -157,7 +159,7 @@ class Show extends Component
         }
         DB::commit();
         $this->mount();
-        // $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+        // $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
         $this->dispatch('alert', type: 'success', message: 'Candidat modifié avec succès');
         try {
         } catch (\Throwable $th) {

@@ -10,6 +10,7 @@ use App\Models\Compagny;
 use App\Models\NextStep;
 use App\Models\Position;
 use App\Models\Candidate;
+use App\Models\CandidateStatut;
 use App\Models\Speciality;
 use Illuminate\Support\Str;
 use App\Models\Disponibility;
@@ -103,7 +104,12 @@ class Import extends Component
             $newCandidate['city'] = $data['Ville'] ?? '';
             $newCandidate['region'] = $data['Région'] ?? '';
             $newCandidate['country'] = $data['Pays'] ?? '';
-            $newCandidate['cdt_status'] = $data['Statut CDT'] ?? '';
+            if (!empty($data['Statut CDT'])) {
+                $cdtStatus = CandidateStatut::where('name', $data['Statut CDT'])->first() ?? CandidateStatut::create(['name' => $data['Statut CDT']]);
+                if ($cdtStatus) {
+                    $newCandidate['cdt_status'] = $cdtStatus->id;
+                }
+            }
             $newCandidate['ns_date'] = isset($data['NSDate']) ? Carbon::createFromFormat('d/m/Y', $data['NSDate'])->format('Y-m-d') : null;
             if (!empty($data['NextStep'])) {
                 $nextStep = NextStep::where('name', $data['NextStep'])->first() ?? NextStep::create(['name' => $data['NextStep']]);

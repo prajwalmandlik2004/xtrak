@@ -35,6 +35,7 @@ class PermissionSeeder extends Seeder
             'Gestion des Métier3',
             'Gestion des disponibilites',
             'Gestion des civilites',
+            'Gestion des statuts',
             "Menu capture / gestion",
             "Gestion des étape suivante"
         ];

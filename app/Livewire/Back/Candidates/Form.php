@@ -15,6 +15,7 @@ use App\Models\Speciality;
 use Illuminate\Support\Str;
 use App\Models\Disponibility;
 use Livewire\WithFileUploads;
+use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\FileRepository;
 use Illuminate\Support\Facades\Hash;
@@ -32,7 +33,7 @@ class Form extends Component
     public $phone_2;
     public $compagny_id;
     public $postal_code;
-    public $cdt_status;
+    public $candidate_statut_id;
     public $position_id;
     public $positions;
     public $candidate;
@@ -61,7 +62,7 @@ class Form extends Component
     public $cover_letter;
     public function mount()
     {
-        $this->candidateStatuses = Helper::candidateStatuses();
+        $this->candidateStatuses = CandidateStatut::all();
         $this->nextSteps = NextStep::all();
         $this->civs = Civ::all();
         $this->disponibilities = Disponibility::all();
@@ -77,7 +78,7 @@ class Form extends Component
             $this->phone = $this->candidate->phone;
             $this->compagny_id = $this->candidate->compagny->id ?? '';
             $this->postal_code = $this->candidate->postal_code;
-            $this->cdt_status = $this->candidate->cdt_status;
+            $this->candidate_statut_id = $this->candidate->candidateStatut->candidate_statut_id ?? '';
             $this->position_id = $this->candidate->position_id;
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
@@ -139,7 +140,7 @@ class Form extends Component
                 'phone' => 'nullable',
                 'compagny_id' => 'nullable',
                 'postal_code' => 'nullable',
-                'cdt_status' => 'nullable',
+                'candidate_statut_id' => 'nullable',
                 'position_id' => 'nullable',
                 'cv' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
                 'cover_letter' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
@@ -207,7 +208,7 @@ class Form extends Component
                 $fileRepository->createOne($validatedData['cover_letter'], $candidate->id, 'cover letter');
             }
             DB::commit();
-            $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+            $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
 
             return redirect()->route('candidates.show', $candidate->id)->with('success', 'Le candidat a été enregistré avec succès.');
         } catch (\Throwable $th) {
@@ -217,7 +218,7 @@ class Form extends Component
     }
     public function resetForm()
     {
-        $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+        $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
     }
     public function render()
     {

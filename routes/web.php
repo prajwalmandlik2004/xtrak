@@ -15,6 +15,7 @@ use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\DisponibilityController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\CandidateStatutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,5 +53,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('candidate-cre/{candidate}', [CreController::class, 'candidateCre'])->name('candidate.cre');
     Route::get('candidate-cv/{candidate}', [CandidateController::class, 'candidateCv'])->name('candidate.cv');
     Route::get('metiers', [DasboardController::class, 'metier'])->name('metiers');
+    Route::resource('candidate_statuts', CandidateStatutController::class);
 });
 Route::get('commandes/{param}', [DasboardController::class, 'commande']);
