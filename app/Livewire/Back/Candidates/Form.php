@@ -38,7 +38,6 @@ class Form extends Component
     public $created_by;
     public $autorizeAddCandidate = true;
     public $action;
-    public $files = [];
     public $city;
     public $address;
     public $region;
@@ -57,6 +56,8 @@ class Form extends Component
     public $next_step_id;
     public $ns_date;
     public $candidateStatuses;
+    public $cv;
+    public $cover_letter;
     public function mount()
     {
         $this->candidateStatuses = Helper::candidateStatuses();
@@ -98,7 +99,6 @@ class Form extends Component
     }
     public function checkExistingCandidate()
     {
-       
         if (!empty($this->email)) {
             $existingCandidate = Candidate::when($this->first_name, function ($query) {
                 $query->where('first_name', $this->first_name);
@@ -140,8 +140,8 @@ class Form extends Component
                 'postal_code' => 'nullable',
                 'cdt_status' => 'nullable',
                 'position_id' => 'nullable',
-                'files' => 'nullable',
-                'files.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,jpg,jpeg,png|max:2048',
+                'cv' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+                'cover_letter' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
                 'city' => 'nullable',
                 'address' => 'nullable',
                 'region' => 'nullable',
@@ -168,7 +168,7 @@ class Form extends Component
             $fileRepository = new FileRepository();
             if ($this->action == 'create') {
                 $validatedData['created_by'] = auth()->user()->id;
-                if (!empty($validatedData['files'])) {
+                if (!empty($validatedData['cv'])) {
                     $validatedData['certificate'] = Str::random(10);
                     $validatedData['state'] = 'Certifié';
                 }
@@ -181,6 +181,13 @@ class Form extends Component
                     $candidate->fields()->attach($validatedData['fieldsSelected']);
                 }
             } else {
+                if ($this->candidate->files()->exists()) {
+                    $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
+                    if (!$cvFile && !empty($validatedData['cv'])) {
+                        $validatedData['certificate'] = Str::random(10);
+                        $validatedData['state'] = 'Certifié';
+                    }
+                }
                 $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
                 if (!empty($validatedData['specialitiesSelected'])) {
                     $candidate->specialities()->sync($validatedData['specialitiesSelected']);
@@ -190,11 +197,14 @@ class Form extends Component
                 }
             }
 
-            if (!empty($validatedData['files']) && $candidate->exists) {
-                $fileRepository->create($this->files, $candidate->id);
+            if (!empty($validatedData['cv']) && $candidate->exists) {
+                $fileRepository->createOne($validatedData['cv'], $candidate->id, 'cv');
+            }
+            if (!empty($validatedData['cover_letter']) && $candidate->exists) {
+                $fileRepository->createOne($validatedData['cover_letter'], $candidate->id, 'cover letter');
             }
             DB::commit();
-            $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'files', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+            $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
 
             return redirect()->route('candidates.show', $candidate->id);
         } catch (\Throwable $th) {

@@ -17,7 +17,7 @@ class FileRepository
 
         return $dir . '/' . $fileName;
     }
-    public function create(array $files, $owner_id)
+    public function create(array $files, $owner_id, $file_type = 'other')
     {
         foreach ($files as $file) {
             $_file['path'] = $this->upload($file, 'files');
@@ -26,9 +26,23 @@ class FileRepository
             $_file['name'] = $file->getClientOriginalName();
             $_file['owner_id'] = $owner_id;
             $_file['created_by'] = Auth::user()->id;
+            $_file['file_type'] = $file_type;
             if ($_file['path']) {
-                 File::create($_file);
+                File::create($_file);
             }
+        }
+    }
+    public function createOne($file, $owner_id, $file_type = 'other')
+    {
+        $_file['path'] = $this->upload($file, 'files');
+        $_file['type'] = $file->getClientOriginalExtension();
+        $_file['size'] = $file->getSize();
+        $_file['name'] = $file->getClientOriginalName();
+        $_file['owner_id'] = $owner_id;
+        $_file['created_by'] = Auth::user()->id;
+        $_file['file_type'] = $file_type;
+        if ($_file['path']) {
+            return File::create($_file);
         }
     }
     public function delete($id)

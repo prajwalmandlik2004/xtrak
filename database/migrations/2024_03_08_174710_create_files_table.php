@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('size')->nullable();
             $table->foreignUuid('owner_id')->nullable()->references('id')->on('candidates');
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
+            $table->enum('file_type', ['cv', 'cover letter', 'other'])->default('other');
             $table->timestamps();
         });
     }

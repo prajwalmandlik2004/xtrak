@@ -183,10 +183,18 @@
                                         </td>
                                         <td>
                                             @if ($candidate->files()->exists())
-                                                <a class="text-body " href="#"
-                                                    wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
+                                                @php
+                                                    $cvFile = $candidate->files()->where('file_type', 'cv')->first();
+                                                @endphp
+
+                                                @if ($cvFile)
+                                                    <a class="text-body" href="#"
+                                                        wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
+                                                @else
+                                                    n/a
+                                                @endif
                                             @else
-                                            n/a
+                                                n/a
                                             @endif
                                         </td>
                                         <td>
@@ -194,7 +202,7 @@
                                                 <a class="text-body " href="#"
                                                     wire:click.prevent="selectCandidateGoToCre('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
                                             @else
-                                            n/a
+                                                n/a
                                             @endif
 
 

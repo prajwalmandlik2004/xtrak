@@ -332,7 +332,7 @@
                                                 <select
                                                     class="form-control @error('specialitiesSelected') is-invalid @enderror "
                                                     wire:model='specialitiesSelected'>
-                                                    <option value="" selected>Selectionner 
+                                                    <option value="" selected>Selectionner
                                                     </option>
                                                     @foreach ($specialities as $speciality)
                                                         <option value="{{ $speciality->id }}"
@@ -379,7 +379,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <!-- Example Textarea -->
                                             <div>
                                                 <label for="commentaire" class="form-label">Commentaire
@@ -388,14 +388,26 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <!-- Multiple Files Input Example -->
+                           
                                             <div>
-                                                <label for="files" class="form-label">Documents</label>
-                                                <input wire:model="files"
-                                                    class="form-control @error('files') is-invalid @enderror"
-                                                    type="file" multiple>
+                                                <label for="cv" class="form-label">Curriculum Vitae</label>
+                                                <input wire:model="cv"
+                                                    class="form-control @error('cv') is-invalid @enderror"
+                                                    type="file" >
                                             </div>
-                                            @error('files')
+                                            @error('cv')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
+                                            
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <label for="cover_letter" class="form-label">Lettre de motivation</label>
+                                                <input wire:model="cover_letter"
+                                                    class="form-control @error('cover_letter') is-invalid @enderror"
+                                                    type="file">
+                                            </div>
+                                            @error('cover_letter')
                                                 <span class="invalid-feedback">{{ $message }}</span>
                                             @enderror
                                         </div>

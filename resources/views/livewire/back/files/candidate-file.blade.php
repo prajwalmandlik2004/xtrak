@@ -43,9 +43,23 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1 overflow-hidden">
-                                 <h5 class="fs-15 mb-1"><a href="#"
-                                        class="text-body text-truncate d-block">{{ $file->name }}</a>
+                                <h5 class="fs-15 mb-1"><a href="#"
+                                        class="text-body text-truncate d-block">{{ $file->name ?? '---' }}</a>
                                 </h5>
+                                <p
+                                    class="fw-medium badge rounded-pill bg-primary fs-10 
+                                mb-0">
+                                    @if ($file->file_type)
+                                        @if ($file->file_type == 'cv')
+                                            Curriculum Vitae
+                                        @elseif($file->file_type == 'cover letter')
+                                            Lettre de motivation
+                                        @else
+                                            Autre
+                                        @endif
+                                    @endif
+                                </p>
+
                             </div>
                             <div class="flex-shrink-0 ms-2">
                                 <div class="d-flex gap-1">
@@ -55,7 +69,8 @@
                                         download="{{ $file->name }}">
                                         <i class=""></i>
                                     </a> --}}
-                                    <a class="btn btn-icon text-muted btn-sm fs-18" wire:click="downloadFile('{{ $file->path }}','{{ $file->name }}')">
+                                    <a class="btn btn-icon text-muted btn-sm fs-18"
+                                        wire:click="downloadFile('{{ $file->path }}','{{ $file->name }}')">
                                         <i class="ri-download-2-line"></i>
                                     </a>
                                     <div class="dropdown">
@@ -109,6 +124,7 @@
             <form wire:submit.prevent="storeFile()">
                 @csrf
                 <div class="modal-body">
+
                     @if ($isUpdate)
                         <div class="mb-2 mt-2">
                             <label for="name" class="form-label">Nom du document <span
@@ -122,12 +138,23 @@
                             @enderror
                         </div>
                     @endif
+                    <div>
+                        <label for="fileType" class="form-label">Type</label>
+                        <select wire:model="fileType" class="form-select @error('fileType') is-invalid @enderror">
+                            <option value="" selected>Selectionner le type de document</option>
+                            <option value="cv">Curriculum Vitae</option>
+                            <option value="cover letter">Lettre de motivation</option>
+                            <option value="autre">Autre</option>
+                            @error('fileType')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                    </div>
                     @if (!$isUpdate)
                         <div>
-                            <label for="newFiles" class="form-label">Documents</label>
-                            <input wire:model="newFiles" class="form-control @error('newFiles') is-invalid @enderror"
+                            <label for="newFile" class="form-label">Documents</label>
+                            <input wire:model="newFile" class="form-control @error('newFile') is-invalid @enderror"
                                 type="file" multiple>
-                            @error('newFiles')
+                            @error('newFile')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>

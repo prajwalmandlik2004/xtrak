@@ -16,7 +16,7 @@ class File extends Model
      * @var array<int, string>
      */
 
-    protected $fillable = ['id', 'ref', 'name', 'path', 'owner_id', 'type', 'size', 'created_by'];
+    protected $fillable = ['id', 'ref', 'name', 'path', 'owner_id', 'type', 'size', 'created_by', 'file_type'];
     public function candidate()
     {
         return $this->belongsTo(Candidate::class, 'owner_id', 'id');

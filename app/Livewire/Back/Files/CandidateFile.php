@@ -19,9 +19,10 @@ class CandidateFile extends Component
     public $search = '';
     public $nbPaginate = 5;
     public $name;
-    public $newFiles = [];
+    public $newFile = [];
     public $isUpdate = false;
     public $file;
+    public $fileType;
     #[On('delete')]
     public function deleteData($id)
     {
@@ -59,6 +60,7 @@ class CandidateFile extends Component
             $this->isUpdate = true;
             $this->file = File::find($id);
             $this->name = $this->file->name ?? '';
+            $this->fileType = $this->file->file_type ?? '';
         }
     }
     public function storeFile()
@@ -66,13 +68,13 @@ class CandidateFile extends Component
         $validateData = $this->validate(
             [
                 'name' => 'nullable|string|max:255',
-                'newFiles' => 'nullable',
-                'newFiles.*' => 'nullable|mimes:pdf,doc,docx|max:1024',
+                'newFile' => 'nullable|mimes:pdf,doc,docx|max:2024',
+                'fileType' => 'required|string',
             ],
             [
-                'newFiles.required' => 'Veuillez choisir un fichier',
-                'newFiles.*.mimes' => 'Le fichier doit être de type: pdf, doc, docx',
-                'newFiles.*.max' => 'Le fichier ne doit pas dépasser 1 Mo',
+                'newFile.mimes' => 'Le fichier doit être de type: pdf, doc, docx',
+                'newFile.max' => 'Le fichier ne doit pas dépasser 2Mo',
+                'fileType.required' => 'Le type de fichier est obligatoire',
             ],
         );
         $fileRepository = new FileRepository();
@@ -80,19 +82,22 @@ class CandidateFile extends Component
             DB::beginTransaction();
 
             if ($this->isUpdate) {
-                $fileRepository->update($this->file, ['name' => $validateData['name']]);
+                $fileRepository->update($this->file, ['name' => $validateData['name'], 'file_type' => $validateData['fileType']]);
             } else {
-                if (!$this->candidate->files()->exists()) {
-                    $certificate = Str::random(10);
-                    $this->candidate->update([
-                        'certificate' => $certificate,
-                        'state' => 'Certifié',
-                    ]);
+                if ($this->candidate->files()->exists()) {
+                    $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
+                    if (!$cvFile) {
+                        $certificate = Str::random(10);
+                        $this->candidate->update([
+                            'certificate' => $certificate,
+                            'state' => 'Certifié',
+                        ]);
+                    }
                 }
-                $fileRepository->create($validateData['newFiles'], $this->candidate->id);
+                $fileRepository->createOne($validateData['newFile'], $this->candidate->id, $validateData['fileType']);
             }
             DB::commit();
-            $this->reset('name', 'newFiles');
+            $this->reset('name', 'newFile');
             $this->dispatch('close:modal');
             $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'le document est ajouté avec succès');
         } catch (\Throwable $th) {
