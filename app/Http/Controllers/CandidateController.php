@@ -61,4 +61,5 @@ class CandidateController extends Controller
             'candidate' => $candidate,
         ]);
     }
+
 }

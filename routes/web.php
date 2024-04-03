@@ -56,7 +56,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('metiers', [DasboardController::class, 'metier'])->name('metiers');
     Route::resource('candidate_statuts', CandidateStatutController::class);
     Route::resource('candidate_states', CandidateStateController::class);
-    
+
 
 });
 Route::get('commandes/{param}', [DasboardController::class, 'commande']);
