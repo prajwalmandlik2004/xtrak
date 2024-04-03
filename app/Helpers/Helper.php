@@ -28,8 +28,5 @@ class Helper
             '12' => 'Décembre',
         ];
     }
-    static function candidateState()
-    {
-        return ['Certifié', 'Attente', 'Doublon'];
-    }
+    
 }

@@ -12,6 +12,7 @@ use App\Models\Position;
 use App\Models\Speciality;
 use Livewire\Attributes\On;
 use App\Models\Disponibility;
+use App\Models\CandidateState;
 use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\CandidateRepository;
@@ -20,7 +21,7 @@ class Show extends Component
 {
     public $candidate;
     public $candidateStates;
-    public $state;
+    public $candidate_state_id;
     public $civs;
     public $civ_id;
     public $first_name;
@@ -58,11 +59,11 @@ class Show extends Component
         $candidateRepository = new CandidateRepository();
         DB::beginTransaction();
         $candidate = $candidateRepository->find($id);
-       
-            $candidateRepository->delete($candidate->id);
-            DB::commit();
-            return redirect()->route('candidates.index')->with('success', 'le candidat est supprimé avec succès');
-            try {
+
+        $candidateRepository->delete($candidate->id);
+        DB::commit();
+        return redirect()->route('candidates.index')->with('success', 'le candidat est supprimé avec succès');
+        try {
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $candidate->first_name. $candidate->laste_name");
@@ -79,9 +80,9 @@ class Show extends Component
     }
     public function mount()
     {
-        $this->candidateStates = Helper::candidateState();
+        $this->candidateStates = CandidateState::all();
         $this->candidateStatuses = CandidateStatut::all();
-        $this->state = $this->candidate->state;
+        $this->candidate_state_id = $this->candidate->candidateState->id ?? '';
         $this->nextSteps = NextStep::all();
         $this->civs = Civ::all();
         $this->disponibilities = Disponibility::all();
@@ -97,8 +98,7 @@ class Show extends Component
             $this->phone = $this->candidate->phone;
             $this->compagny_id = $this->candidate->compagny->id ?? null;
             $this->postal_code = $this->candidate->postal_code;
-            $this->candidate_statut_id = $this->candidate->candidateStatut->candidate_statut_id ?? '';
-
+            $this->candidate_statut_id = $this->candidate->candidateStatut->id ?? '';
             $this->position_id = $this->candidate->position_id;
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
@@ -171,9 +171,9 @@ class Show extends Component
     {
         return view('livewire.back.candidates.show');
     }
-    public function updatedState($state)
+    public function updatedState($id)
     {
-        $this->candidate->state = $state;
+        $this->candidate->candidate_state_id = CandidateState::where('id', $id)->first()->id;
         $this->candidate->save();
         $this->dispatch('alert', type: 'success', message: 'Etat modifier avec succès');
     }

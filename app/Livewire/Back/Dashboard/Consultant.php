@@ -18,8 +18,9 @@ class Consultant extends Component
     public $nbPaginate = 10;
     public $filterName = '';
     public $filterDate = '';
-    public $state = '';
+    public $candidate_state_id = '';
     public $selectedCandidateId;
+    public $candidateStates;
 
     public function selectCandidate($id, $page)
     {
@@ -81,8 +82,8 @@ class Consultant extends Component
             ->when($this->filterDate, function ($query) {
                 return $query->orderBy('created_at', $this->filterDate);
             })
-            ->when($this->state, function ($query) {
-                $query->where('state', $this->state);
+            ->when($this->candidate_state_id, function ($query) {
+                $query->where('candidate_state_id', $this->candidate_state_id);
             })
             
             ->where('created_by', Auth::id())

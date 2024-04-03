@@ -129,7 +129,7 @@ form-control-custom  @error('last_name') is-invalid @enderror"
                                         </div>
                                         <div class="col-lg-2 ">
                                             <div>
-                                                <label for="disponibility" class="form-label">disponibilité </label>
+                                                <label for="disponibility" class="form-label">Disponibilité </label>
                                                 <select
                                                     class="form-control  
 form-control-custom  @error('disponibility_id') is-invalid @enderror "

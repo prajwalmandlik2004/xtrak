@@ -72,13 +72,14 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control w-md" wire:model.live='state'>
+                                        <select class="form-control w-md" wire:model.live='candidate_state_id'>
                                             <option value="" class="bg-secondary text-white" selected>Selectionner
                                             </option>
                                             <option value="">Tous</option>
-                                            <option value="Certifié">Certifié</option>
-                                            <option value="Attente">Attente</option>
-                                            <option value="Doublon">Doublon</option>
+                                            @foreach ($candidateStates as $state)
+                                                <option value="{{ $state->id }}" selected> {{ $state->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </td>
                                 </tr>
@@ -108,26 +109,28 @@
                             </thead>
                             <tbody>
                                 @forelse ($candidates as $index => $candidate)
-                                <tr wire:key="{{ $candidate->id }}"
-                                    class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? 'table-secondary' : '') }}">
+                                    <tr wire:key="{{ $candidate->id }}"
+                                        class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? 'table-secondary' : '') }}">
 
-                                        <td> <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                        <td> <a class="text-body" href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
                                                 {{ $candidate->created_at->format('d/m/Y') ?? 'Non renseigné' }}
                                                 </h5>
                                             </a></td>
-                                        <td> <a class="text-body"
-                                                href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->civ->name ?? '-' }}
+                                        <td> <a class="text-body" href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->civ->name ?? '-' }}
                                             </a></td>
-                                        <td> <a
-                                                class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->last_name ?? '--' }}</a>
+                                        <td> <a class="text-body" href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->last_name ?? '--' }}</a>
                                         </td>
-                                        <td> <a class="text-body" href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->first_name ?? '--' }}
+                                        <td> <a class="text-body" href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->first_name ?? '--' }}
                                             </a></td>
-                                        <td> <a class="text-body"
-                                                href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->position->name ?? '-' }}</a>
+                                        <td> <a class="text-body" href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->position->name ?? '-' }}</a>
                                         </td>
-                                        <td> <a class="text-body"
-                                                href="#"  wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->state ?? '' }}</a>
+                                        <td> <a class="text-body" href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->state ?? '' }}</a>
                                         </td>
                                     </tr>
                                 @empty
@@ -155,13 +158,15 @@
         {{ $candidates->links() }}
     </div><!-- end row -->
     @push('page-script')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let selectedRow = document.querySelector('.table-info');
-            if (selectedRow) {
-                selectedRow.scrollIntoView({block: 'nearest'});
-            }
-        });
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let selectedRow = document.querySelector('.table-info');
+                if (selectedRow) {
+                    selectedRow.scrollIntoView({
+                        block: 'nearest'
+                    });
+                }
+            });
         </script>
-         @endpush
+    @endpush
 </div>

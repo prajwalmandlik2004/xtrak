@@ -12,6 +12,7 @@ use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\NextStepController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\CandidateStateController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\DisponibilityController;
 use App\Http\Controllers\RolePermissionController;
@@ -54,5 +55,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('candidate-cv/{candidate}', [CandidateController::class, 'candidateCv'])->name('candidate.cv');
     Route::get('metiers', [DasboardController::class, 'metier'])->name('metiers');
     Route::resource('candidate_statuts', CandidateStatutController::class);
+    Route::resource('candidate_states', CandidateStateController::class);
+    
+
 });
 Route::get('commandes/{param}', [DasboardController::class, 'commande']);

@@ -1,7 +1,7 @@
 <div>
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'Listes des candidats',
+        'title' => 'BaseCDT '.$state.'s',
         'breadcrumbItems' => [
             ['text' => 'Candidats', 'url' => '#'],
             ['text' => 'Listes', 'url' => Route('candidates.index')],
@@ -139,7 +139,7 @@
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->phone ?? '--' }}
                                             </a></td>
                                         <td> <a class="text-body" href="#"
-                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cdt_status ?? '--' }}</a>
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->candidateStatut->name ?? '--' }}</a>
                                         </td>
                                         <td> <a class="text-body" href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->position->name ?? '--' }}</a>

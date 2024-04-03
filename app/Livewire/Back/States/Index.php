@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\Back\Statuts;
+namespace App\Livewire\Back\States;
 
-use App\Models\CandidateStatut;
+use App\Models\candidateState;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -21,26 +21,26 @@ class Index extends Component
     public function deleteData($id)
     {
         DB::beginTransaction();
-        $state = CandidateStatut::find($id);
+        $state = candidateState::find($id);
         try {
             if ($state) {
                 $state->delete($state->id);
                 DB::commit();
-                $this->dispatch('alert', type: 'success', message: 'le statut est supprimé avec succès');
+                $this->dispatch('alert', type: 'success', message: 'l\'état est supprimé avec succès');
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le statut $state->name");
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer l'état $state->name");
         }
     }
 
     public function confirmDelete($nom, $id)
     {
-        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le statut $nom", type: 'warning', method: 'delete', id: $id);
+        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer l'état $nom", type: 'warning', method: 'delete', id: $id);
     }
     public function searchFiles()
     {
-        return CandidateStatut::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
+        return candidateState::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
     }
     public function openModal($id = null)
     {
@@ -48,7 +48,7 @@ class Index extends Component
         $this->isUpdate = false;
         if ($id) {
             $this->isUpdate = true;
-            $this->state = CandidateStatut::find($id);
+            $this->state = candidateState::find($id);
             $this->name = $this->state->name ?? '';
         }
     }
@@ -68,21 +68,21 @@ class Index extends Component
         if ($this->isUpdate) {
             $this->state->update($validateData);
         } else {
-            CandidateStatut::create($validateData);
+            candidateState::create($validateData);
         }
         DB::commit();
         $this->dispatch('close:modal');
-        $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'le statut est ajouté avec succès');
+        $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'l\'état est ajouté avec succès');
        
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter le statut');
+            $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter l\'état');
         }
     }
     public function render()
     {
-        return view('livewire.back.statuts.index')->with([
-            'candidateStatuts' => $this->searchFiles(),
+        return view('livewire.back.states.index')->with([
+            'candidateStates' => $this->searchFiles(),
         ]);
     }
 }

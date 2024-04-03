@@ -15,6 +15,7 @@ use App\Models\Speciality;
 use Illuminate\Support\Str;
 use App\Models\Disponibility;
 use Livewire\WithFileUploads;
+use App\Models\CandidateState;
 use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\FileRepository;
@@ -60,6 +61,7 @@ class Form extends Component
     public $candidateStatuses;
     public $cv;
     public $cover_letter;
+
     public function mount()
     {
         $this->candidateStatuses = CandidateStatut::all();
@@ -78,7 +80,7 @@ class Form extends Component
             $this->phone = $this->candidate->phone;
             $this->compagny_id = $this->candidate->compagny->id ?? '';
             $this->postal_code = $this->candidate->postal_code;
-            $this->candidate_statut_id = $this->candidate->candidateStatut->candidate_statut_id ?? '';
+            $this->candidate_statut_id = $this->candidate->candidateStatut->id ?? '';
             $this->position_id = $this->candidate->position_id;
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
@@ -172,11 +174,13 @@ class Form extends Component
                 $validatedData['created_by'] = auth()->user()->id;
                 if (!empty($validatedData['cv'])) {
                     $validatedData['certificate'] = Str::random(10);
-                    $validatedData['state'] = 'Certifié';
+                    $validatedData['candidate_state_id'] = CandidateState::where('name', 'Certifié')->first()->id;
+                } else {
+                    $validatedData['candidate_state_id'] = CandidateState::where('name', 'Attente')->first()->id;
                 }
                 $stringToHash = $validatedData['first_name'] . $validatedData['last_name'] . now();
-                $hash=  Hash::make($stringToHash); 
-                $validatedData['code_cdt'] =  Str::limit(preg_replace('/[^a-zA-Z0-9]/', '', $hash), 7, '');
+                $hash = Hash::make($stringToHash);
+                $validatedData['code_cdt'] = Str::limit(preg_replace('/[^a-zA-Z0-9]/', '', $hash), 7, '');
                 $candidate = $candidateRepository->create($validatedData);
                 if (!empty($validatedData['specialitiesSelected'])) {
                     $candidate->specialities()->attach($validatedData['specialitiesSelected']);
@@ -189,7 +193,9 @@ class Form extends Component
                     $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
                     if (!$cvFile && !empty($validatedData['cv'])) {
                         $validatedData['certificate'] = Str::random(10);
-                        $validatedData['state'] = 'Certifié';
+                        $validatedData['candidate_state_id'] = CandidateState::where('name', 'Certifié')->first()->id;
+                    } else {
+                        $validatedData['candidate_state_id'] = CandidateState::where('name', 'Attente')->first()->id;
                     }
                 }
                 $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
@@ -210,7 +216,9 @@ class Form extends Component
             DB::commit();
             $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
 
-            return redirect()->route('candidates.show', $candidate->id)->with('success', 'Le candidat a été enregistré avec succès.');
+            return redirect()
+                ->route('candidates.show', $candidate->id)
+                ->with('success', 'Le candidat a été enregistré avec succès.');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->action == 'create' ? 'Erreur lors de la création du candidat' : 'Erreur lors de la modification du candidat');

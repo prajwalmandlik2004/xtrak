@@ -49,11 +49,11 @@
                                                     </span></div>
                                                 <div class="vr"></div>
                                                 <div>Statut : <span
-                                                        class="fw-medium badge rounded-pill bg-primary fs-12">{{ $candidate->candidate_statut_id ?? '--' }}</span>
+                                                        class="fw-medium badge rounded-pill bg-primary fs-12">{{ $candidate->candidateStatut->name ?? '--' }}</span>
                                                 </div>
                                                 <div class="vr"></div>
                                                 <div>Etat : <span
-                                                        class="fw-medium badge rounded-pill bg-primary fs-12">{{ $candidate->state ?? '--' }}</span>
+                                                        class="fw-medium badge rounded-pill bg-primary fs-12">{{ $candidate->candidateState->name ?? '--' }}</span>
                                                 </div>
                                                 <div class="vr"></div>
                                                 <div>Certificat : @if ($candidate->certificate)
@@ -84,11 +84,11 @@
                                 <div class="hstack gap-1 flex-wrap">
                                     <div class="p-2">
                                         <span>Modifier l'état :</span>
-                                        <select class="form-control   w-md" wire:model.lazy="state">
+                                        <select class="form-control   w-md" wire:model.lazy="candidate_state_id">
                                             @foreach ($candidateStates as $candidateState)
-                                                <option value="{{ $candidateState }}"
-                                                    @if ($candidateState == $state) selected @endif>
-                                                    {{ $candidateState }}
+                                                <option value="{{ $candidateState->id }}"
+                                                    @if ($candidateState->id == $candidate_state_id) selected @endif>
+                                                    {{ $candidateState->name }}
                                                 </option>
                                             @endforeach
                                         </select>

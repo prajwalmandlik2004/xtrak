@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Candidate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use App\Models\CandidateState;
 use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -21,16 +22,18 @@ class State extends Component
     public $candidate_statut_id = '';
     public $filterName = '';
     public $filterDate = '';
-    public $state = '';
+    public $candidate_state_id = '';
     public $candidateStatuses;
     public $selectedCandidateId;
+    public $candidateStates;
+    public $state;
 
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
-        session(['state_selected_candidate_id_'.$this->state => $id]);
-        session(['state_current_page_'.$this->state => $page]);
-        session(['state_nb_paginate_'.$this->state => $this->nbPaginate]);
+        session(['state_selected_candidate_id_' . $this->candidate_state_id => $id]);
+        session(['state_current_page_' . $this->candidate_state_id => $page]);
+        session(['state_nb_paginate_' . $this->candidate_state_id => $this->nbPaginate]);
         return redirect()->route('candidates.show', $id);
     }
     #[On('delete')]
@@ -85,8 +88,8 @@ class State extends Component
             ->when($this->filterDate, function ($query) {
                 return $query->orderBy('created_at', $this->filterDate);
             })
-            ->when($this->state, function ($query) {
-                $query->where('state', $this->state);
+            ->when($this->candidate_state_id, function ($query) {
+                $query->where('candidate_state_id', $this->candidate_state_id);
             })
             ->when($this->candidate_statut_id, function ($query) {
                 $query->where('candidate_statut_id', $this->candidate_statut_id);
@@ -98,20 +101,21 @@ class State extends Component
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);
     }
-    
+
     public function mount()
     {
-
-    $this->candidateStatuses = CandidateStatut::all();
-        if (session()->has('state_selected_candidate_id_'.$this->state)) {
-            $this->selectedCandidateId = session('state_selected_candidate_id_'.$this->state);
+        $this->candidateStatuses = CandidateStatut::all();
+        $this->candidateStates = CandidateState::all();
+        $this->candidate_state_id = CandidateState::where('name', $this->state)->first()->id;
+        if (session()->has('state_selected_candidate_id_' . $this->candidate_state_id)) {
+            $this->selectedCandidateId = session('state_selected_candidate_id_' . $this->candidate_state_id);
         }
 
-        if (session()->has('state_current_page_'.$this->state)) {
-            $this->setPage(session('state_current_page_'.$this->state));
+        if (session()->has('state_current_page_' . $this->candidate_state_id)) {
+            $this->setPage(session('state_current_page_' . $this->candidate_state_id));
         }
-        if (session()->has('state_nb_paginate_'.$this->state)) {
-            $this->nbPaginate = session('state_nb_paginate_'.$this->state);
+        if (session()->has('state_nb_paginate_' . $this->candidate_state_id)) {
+            $this->nbPaginate = session('state_nb_paginate_' . $this->candidate_state_id);
         }
     }
     public function render()

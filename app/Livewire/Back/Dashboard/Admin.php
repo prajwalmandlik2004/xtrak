@@ -23,8 +23,9 @@ class Admin extends Component
     public $candidateStatuses;
     public $filterName = '';
     public $filterDate = '';
-    public $state = '';
+    public $candidate_state_id  = '';
     public $selectedCandidateId;
+    public $candidateStates;
 
     public function selectCandidate($id, $page)
     {
@@ -102,8 +103,8 @@ class Admin extends Component
             ->when($this->filterDate, function ($query) {
                 return $query->orderBy('created_at', $this->filterDate);
             })
-            ->when($this->state, function ($query) {
-                $query->where('state', $this->state);
+            ->when($this->candidate_state_id , function ($query) {
+                $query->where('candidate_state_id', $this->candidate_state_id );
             })
             ->when($this->candidate_statut_id, function ($query) {
                 $query->where('candidate_statut_id', $this->candidate_statut_id);
@@ -118,6 +119,7 @@ class Admin extends Component
     {
 
         $this->candidateStatuses = CandidateStatut::all();
+        $this->candidateStates = CandidateStatut::all();
         if (session()->has('dash_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('dash_base_cdt_selected_candidate_id');
         }

@@ -83,14 +83,15 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control w-md" wire:model.live='state'>
+                                        <select class="form-control w-md" wire:model.live='candidate_state_id'>
                                             <option value="" class="bg-secondary text-white" selected>
                                                 Selectionner
                                             </option>
-                                            <option value="">Tous</option>
-                                            <option value="Certifié">Certifié</option>
-                                            <option value="Attente">Attente</option>
-                                            <option value="Doublon">Doublon</option>
+                                            <option value="" selected>Tous</option>
+                                            @foreach ($candidateStates as $state)
+                                                <option value="{{ $state->id }}" > {{ $state->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </td>
                                     <td>
@@ -187,7 +188,7 @@
                                             </a></td>
 
                                         <td> <a class="text-body " href="#"
-                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->state ?? '--' }}</a>
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->candidateState->name ?? '--' }}</a>
                                         </td>
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->nextStep->name ?? '--' }}</a>

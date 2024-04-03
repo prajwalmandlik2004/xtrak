@@ -33,7 +33,7 @@ return new class extends Migration {
             $table->foreignUuid('civ_id')->nullable()->references('id')->on('civs');
             $table->foreignUuid('position_id')->nullable()->references('id')->on('positions');
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
-            $table->enum('state', ['Certifié', 'Attente', 'Doublon'])->default('Attente');
+            $table->foreignUuid('candidate_state_id')->nullable()->references('id')->on('candidate_states');
             $table->foreignUuid('next_step_id')->nullable()->references('id')->on('next_steps');
             $table->date('ns_date')->nullable();
             $table->string('cre_ref')->nullable();

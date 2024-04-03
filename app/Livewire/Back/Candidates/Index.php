@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Candidate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use App\Models\CandidateState;
 use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +23,9 @@ class Index extends Component
     public $candidateStatuses;
     public $filterName = '';
     public $filterDate = '';
-    public $state = '';
+    public $candidate_state_id = '';
     public $selectedCandidateId;
+   public $candidateStates; 
 
     public function selectCandidate($id, $page)
     {
@@ -101,8 +103,8 @@ class Index extends Component
             ->when($this->filterDate, function ($query) {
                 return $query->orderBy('created_at', $this->filterDate);
             })
-            ->when($this->state, function ($query) {
-                $query->where('state', $this->state);
+            ->when($this->candidate_state_id, function ($query) {
+                $query->where('candidate_state_id', $this->candidate_state_id);
             })
             ->when($this->candidate_statut_id, function ($query) {
                 $query->where('candidate_statut_id', $this->candidate_statut_id);
@@ -116,6 +118,7 @@ class Index extends Component
     public function mount()
     {
         $this->candidateStatuses = CandidateStatut::all();
+        $this->candidateStates = CandidateState::all();
         if (session()->has('base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('base_cdt_selected_candidate_id');
         }

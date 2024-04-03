@@ -16,7 +16,7 @@ class CandidateStatutSeeder extends Seeder
         $statuts = ['Intéressé', 'Pas intéressé', 'A voir', 'A l\'écoute', 'Recherche active', 'En poste', 'Disponible'];
 
         foreach ($statuts as $statut) {
-           candidateStatut::create(
+           CandidateStatut::create(
                 ['name' => $statut]
            );
         }

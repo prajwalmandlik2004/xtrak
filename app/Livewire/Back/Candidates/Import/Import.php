@@ -10,11 +10,12 @@ use App\Models\Compagny;
 use App\Models\NextStep;
 use App\Models\Position;
 use App\Models\Candidate;
-use App\Models\CandidateStatut;
 use App\Models\Speciality;
 use Illuminate\Support\Str;
 use App\Models\Disponibility;
 use Livewire\WithFileUploads;
+use App\Models\CandidateState;
+use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -104,6 +105,8 @@ class Import extends Component
             $newCandidate['city'] = $data['Ville'] ?? '';
             $newCandidate['region'] = $data['Région'] ?? '';
             $newCandidate['country'] = $data['Pays'] ?? '';
+            $newCandidate['candidate_state_id'] = CandidateState::where('name', 'Attente')->first()->id;
+
             if (!empty($data['Statut CDT'])) {
                 $cdtStatus = CandidateStatut::where('name', $data['Statut CDT'])->first() ?? CandidateStatut::create(['name' => $data['Statut CDT']]);
                 if ($cdtStatus) {

@@ -72,7 +72,7 @@
                                      <li class="nav-item">
                                          <a href="{{ route('summary') }}"
                                              class="nav-link {{ request()->routeIs('summary*') ? 'active' : '' }}"
-                                             data-key="t-chat">Synthèse</a>
+                                             data-key="t-chat">Connexions</a>
                                      </li>
                                  @endcan
                                  @can('Menu Détails')
@@ -162,12 +162,12 @@
                  @endcan
                  @can('Menu paramètres')
                      <li class="nav-item">
-                         <a class="nav-link menu-link {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index']) ? 'active' : '' }}"
+                         <a class="nav-link menu-link {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}"
                              href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false"
                              aria-controls="sidebarAuth">
                              <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Paramètres</span>
                          </a>
-                         <div class="collapse menu-dropdown {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index']) ? 'show' : '' }}"
+                         <div class="collapse menu-dropdown {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
                              id="sidebarAuth">
                              <ul class="nav nav-sm flex-column">
                                  <li class="nav-item">
@@ -216,11 +216,11 @@
                                  @can('Menu paramètre BaseCDT')
                                      <li class="nav-item">
                                          <a href="#sidebarSignInBaseCDT" class="nav-link" data-bs-toggle="collapse"
-                                             role="button" aria-expanded="{{ request()->routeIs('nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
+                                             role="button" aria-expanded="{{ request()->routeIs('nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
                                              data-key="t-signin">
                                              BaseCDT
                                          </a>
-                                         <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index']) ? 'show' : '' }}"
+                                         <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
                                              id="sidebarSignInBaseCDT">
                                              <ul class="nav nav-sm flex-column">
                                                  @can('Gestion des étape suivante')
@@ -279,7 +279,14 @@
                                                      <li class="nav-item">
                                                          <a href="{{ route('candidate_statuts.index') }}"
                                                              class="nav-link {{ request()->routeIs('candidate_statuts.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Civ. </a>
+                                                             data-key="t-basic"> Statut </a>
+                                                     </li>
+                                                 @endcan
+                                                 @can('Gestion des etats')
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('candidate_states.index') }}"
+                                                             class="nav-link {{ request()->routeIs('candidate_states.index') ? 'active' : '' }}"
+                                                             data-key="t-basic"> Etat </a>
                                                      </li>
                                                  @endcan
                                              </ul>

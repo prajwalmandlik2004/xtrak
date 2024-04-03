@@ -10,7 +10,7 @@ class Candidate extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['ns_date', 'next_step_id', 'code_cdt', 'state', 'origine', 'commentaire', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'created_by', 'position_id', 'phone_2', 'certificate', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc', 'cre_ref', 'cre_created_at'];
+    protected $fillable = ['candidate_state_id', 'ns_date', 'next_step_id', 'code_cdt', 'state', 'origine', 'commentaire', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'created_by', 'position_id', 'phone_2', 'certificate', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc', 'cre_ref', 'cre_created_at'];
     public function position()
     {
         return $this->belongsTo(Position::class);
@@ -54,5 +54,9 @@ class Candidate extends Model
     public function candidateStatut()
     {
         return $this->belongsTo(CandidateStatut::class);
+    }
+    public function candidateState()
+    {
+        return $this->belongsTo(CandidateState::class);
     }
 }
