@@ -75,13 +75,13 @@
                                              data-key="t-chat">Connexions</a>
                                      </li>
                                  @endcan
-                                 @can('Menu Détails')
+                                 {{-- @can('Menu Détails')
                                      <li class="nav-item">
                                          <a href="{{ route('detail') }}"
                                              class="nav-link {{ request()->routeIs('detail*') ? 'active' : '' }}"
                                              data-key="t-chat">Détails</a>
                                      </li>
-                                 @endcan
+                                 @endcan --}}
                              </ul>
                          </div>
                      </li>

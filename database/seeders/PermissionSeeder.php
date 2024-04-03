@@ -17,7 +17,7 @@ class PermissionSeeder extends Seeder
             'Menu accès BaseCDT',
             'Liste des candidats',
             'Menu synthèse',
-            'Menu Détails',
+            // 'Menu Détails',
             'Menu activité',
             'Importer des candidats',
             'Ajouter un candidat',
