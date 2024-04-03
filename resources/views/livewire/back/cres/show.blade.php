@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="d-flex justify-content-start mt-2">
                                     <p class="fw-bold">POSTE : <span
-                                            class="badge bg-light-subtle text-body fs-15 text-wrap">{{ $candidate->position->name }}</span>
+                                            class="badge bg-light-subtle text-body fs-15 text-wrap">{{ $candidate->position->name ?? '---' }}</span>
                                     </p>
                                 </div>
 

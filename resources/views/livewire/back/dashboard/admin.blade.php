@@ -189,7 +189,7 @@
 
                                                 @if ($cvFile)
                                                     <a class="text-body" href="#"
-                                                        wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
+                                                        wire:click.prevent="selectCandidateGoToCv('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
                                                 @else
                                                     n/a
                                                 @endif

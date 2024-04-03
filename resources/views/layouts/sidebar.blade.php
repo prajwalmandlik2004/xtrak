@@ -99,7 +99,7 @@
                              <ul class="nav nav-sm flex-column">
                                  @can('Menu saisie')
                                      <li class="nav-item">
-                                         <a href="#saisie" class="nav-link" data-bs-toggle="collapse" role="button"
+                                         <a href="#saisie" class="nav-link {{ request()->routeIs('candidates.create', 'import.candidat') ? 'active' : '' }} " data-bs-toggle="collapse" role="button"
                                              aria-expanded="{{ request()->routeIs('candidates.create', 'import.candidat') ? 'true' : 'false' }}"
                                              aria-controls="saisie" data-key="t-signin">
                                              Saisie
@@ -128,7 +128,7 @@
                                  @endcan
                                  @can('Menu etats')
                                      <li class="nav-item">
-                                         <a href="#etats" class="nav-link" data-bs-toggle="collapse" role="button"
+                                         <a href="#etats" class="nav-link {{ request()->routeIs('state*') ? 'active' : '' }}" data-bs-toggle="collapse" role="button"
                                              aria-expanded="{{ request()->routeIs('state*') ? 'true' : 'false' }}"
                                              aria-controls="etats" data-key="t-signin">
                                              Etats
@@ -149,7 +149,7 @@
                                                  <li class="nav-item">
                                                      <a href="{{ route('state', 'Doublon') }}"
                                                          class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Doublon' ? 'active' : '' }}"
-                                                         data-key="t-chat">Rejeté </a>
+                                                         data-key="t-chat">Doublons </a>
                                                  </li>
                                              </ul>
 
@@ -162,12 +162,12 @@
                  @endcan
                  @can('Menu paramètres')
                      <li class="nav-item">
-                         <a class="nav-link menu-link {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'positions.index', 'specialities.index', 'fields.index', 'disponibilities.index', 'civs.index']) ? 'active' : '' }}"
+                         <a class="nav-link menu-link {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index']) ? 'active' : '' }}"
                              href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false"
                              aria-controls="sidebarAuth">
                              <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Paramètres</span>
                          </a>
-                         <div class="collapse menu-dropdown {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'positions.index', 'specialities.index', 'fields.index', 'disponibilities.index', 'civs.index']) ? 'show' : '' }}"
+                         <div class="collapse menu-dropdown {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index']) ? 'show' : '' }}"
                              id="sidebarAuth">
                              <ul class="nav nav-sm flex-column">
                                  <li class="nav-item">
@@ -216,11 +216,11 @@
                                  @can('Menu paramètre BaseCDT')
                                      <li class="nav-item">
                                          <a href="#sidebarSignInBaseCDT" class="nav-link" data-bs-toggle="collapse"
-                                             role="button" aria-expanded="{{ request()->routeIs('nextsteps.index', 'compagnies.index', 'positions.index', 'specialities.index', 'fields.index', 'disponibilities.index', 'civs.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
+                                             role="button" aria-expanded="{{ request()->routeIs('nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
                                              data-key="t-signin">
                                              BaseCDT
                                          </a>
-                                         <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index', 'compagnies.index', 'positions.index', 'specialities.index', 'fields.index', 'disponibilities.index', 'civs.index']) ? 'show' : '' }}"
+                                         <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index']) ? 'show' : '' }}"
                                              id="sidebarSignInBaseCDT">
                                              <ul class="nav nav-sm flex-column">
                                                  @can('Gestion des étape suivante')
@@ -239,28 +239,28 @@
                                                          </a>
                                                      </li>
                                                  @endcan
-                                                 @can('Gestion des Métier1')
+                                                 {{-- @can('Gestion des Métier1')
                                                      <li class="nav-item">
                                                          <a href="{{ route('positions.index') }}"
                                                              class="nav-link {{ request()->routeIs('positions.index') ? 'active' : '' }}"
                                                              data-key="t-basic"> Métier1
                                                             </a>
                                                      </li>
-                                                 @endcan
+                                                 @endcan --}}
                                                  @can('Gestion des Métier2')
                                                      <li class="nav-item">
-                                                         <a href="{{ route('specialities.index') }}"
-                                                             class="nav-link {{ request()->routeIs('specialities.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Métier2 </a>
+                                                         <a href="{{ route('metiers') }}"
+                                                             class="nav-link {{ request()->routeIs('metiers') ? 'active' : '' }}"
+                                                             data-key="t-basic"> Métiers </a>
                                                      </li>
                                                  @endcan
-                                                 @can('Gestion des Métier3')
+                                                 {{-- @can('Gestion des Métier3')
                                                      <li class="nav-item">
                                                          <a href="{{ route('fields.index') }}"
                                                              class="nav-link {{ request()->routeIs('fields.index') ? 'active' : '' }}"
                                                              data-key="t-basic"> Métier3 </a>
                                                      </li>
-                                                 @endcan
+                                                 @endcan --}}
                                                  @can('Gestion des disponibilites')
                                                      <li class="nav-item">
                                                          <a href="{{ route('disponibilities.index') }}"

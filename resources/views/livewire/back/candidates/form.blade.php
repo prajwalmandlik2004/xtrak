@@ -1,7 +1,7 @@
 <div>
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'Nouveau candidat',
+        'title' => 'Nouvelle saisie',
         'breadcrumbItems' => [
             ['text' => 'Candidats', 'url' => '#'],
             ['text' => 'Liste', 'url' => Route('candidates.index')],
@@ -25,8 +25,11 @@
                                 <a href="{{ Route('import.candidat') }}" class="btn btn-primary">Importer</a>
                             </div>
                             <div class="p-2">
+                                <a wire:click='resetForm' class="btn btn-danger"></i>Effacer</a>
+                            </div>
+                            <div class="p-2">
                                 <a href="{{ url()->previous() }}" class="btn btn-primary"><i
-                                        class="mdi mdi-arrow-left me-1"></i>Retour</a>
+                                        class="mdi mdi-arrow-left me-1"></i>Base</a>
                             </div>
                         </div>
 
@@ -172,7 +175,7 @@
                             <div class="card ">
                                 <div class="card-header">
                                     <h5 class="card-title
-                                    mb-0">Addresse</h5>
+                                    mb-0">Coordonnées</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -421,9 +424,15 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary"
-                                @if (!$this->autorizeAddCandidate) disabled @endif>{{ $action == 'create' ? 'Enregistrer' : 'Modifier' }}</button>
+                            <button wire:loading.remove wire:target="storeData" type="submit" class="btn btn-primary">
+                                {{ $action == 'create' ? 'Enregistrer' : 'Modifier' }}
+                            </button>
+                            <button wire:loading wire:target="storeData" type="button" class="btn btn-primary" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Enregistrement...
+                            </button>
                         </div>
+                        
                     </div>
 
                 </form>

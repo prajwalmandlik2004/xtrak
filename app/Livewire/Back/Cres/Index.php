@@ -82,6 +82,10 @@ class Index extends Component
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier la réponse' : 'Impossible d\'ajouter Le C.R.E');
         }
     }
+    public function goToCre($id)
+    {
+        return redirect()->route('candidate.cre',$id);
+    }
     public function render()
     {
         return view('livewire.back.cres.index')->with([

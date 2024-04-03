@@ -19,7 +19,7 @@ class CandidateFile extends Component
     public $search = '';
     public $nbPaginate = 5;
     public $name;
-    public $newFile = [];
+    public $newFile;
     public $isUpdate = false;
     public $file;
     public $fileType;
@@ -68,7 +68,7 @@ class CandidateFile extends Component
         $validateData = $this->validate(
             [
                 'name' => 'nullable|string|max:255',
-                'newFile' => 'nullable|mimes:pdf,doc,docx|max:2024',
+                'newFile' => 'nullable|file|mimes:pdf,doc,docx|max:2024',
                 'fileType' => 'required|string',
             ],
             [
@@ -97,7 +97,7 @@ class CandidateFile extends Component
                 $fileRepository->createOne($validateData['newFile'], $this->candidate->id, $validateData['fileType']);
             }
             DB::commit();
-            $this->reset('name', 'newFile');
+            $this->reset('name', 'newFile', 'fileType');
             $this->dispatch('close:modal');
             $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'le document est ajouté avec succès');
         } catch (\Throwable $th) {
@@ -114,6 +114,7 @@ class CandidateFile extends Component
             session()->flash('message', 'Le fichier n\'existe pas.');
         }
     }
+    
     public function render()
     {
         return view('livewire.back.files.candidate-file')->with([

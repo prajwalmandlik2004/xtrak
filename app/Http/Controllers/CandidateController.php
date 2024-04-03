@@ -16,13 +16,11 @@ class CandidateController extends Controller
         $this->authorize('Liste des candidats');
         return view('back.candidates.index');
     }
-    
+
     public function state($state)
     {
-        $this->authorize("Menu etats");
-        return view('back.candidates.state'
-        ,["state"=>$state]
-    );
+        $this->authorize('Menu etats');
+        return view('back.candidates.state', ['state' => $state]);
     }
 
     /**
@@ -56,5 +54,11 @@ class CandidateController extends Controller
     {
         $this->authorize('Importer des candidats');
         return view('back.candidates.import');
+    }
+    public function candidateCv(Candidate $candidate)
+    {
+        return view('back.candidates.cv', [
+            'candidate' => $candidate,
+        ]);
     }
 }

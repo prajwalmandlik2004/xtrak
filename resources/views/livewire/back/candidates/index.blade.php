@@ -8,6 +8,15 @@
         ],
     ])
     <div class="row">
+        @if (session()->has('success'))
+        <div class="d-flex justify-content-center mt-3">
+            <div class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
+                {{ session()->get('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
         <div class="col-md-6">
             <div class="d-flex">
                 <div class="p-2 flex-grow-1">
@@ -46,7 +55,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered border-secondary table-nowrap">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th scope="col">Nom</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Etat</th>
@@ -56,7 +65,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <select class="form-control w-md" wire:model.live='filterName'>
+                                        <select  class="form-control w-md" wire:model.live='filterName'>
                                             <option value="" class="bg-secondary text-white" selected>
                                                 Selectionner
                                             </option>
@@ -194,7 +203,7 @@
 
                                                 @if ($cvFile)
                                                     <a class="text-body" href="#"
-                                                        wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
+                                                        wire:click.prevent="selectCandidateGoToCv('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
                                                 @else
                                                     n/a
                                                 @endif
@@ -281,6 +290,14 @@
                     });
                 }
             });
+        </script>
+        <script>
+            setTimeout(function() {
+                var successAlert = document.getElementById('successAlert');
+                if (successAlert) {
+                    successAlert.style.display = 'none';
+                }
+            }, 3000);
         </script>
     @endpush
 </div>

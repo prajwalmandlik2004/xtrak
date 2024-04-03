@@ -1,15 +1,19 @@
 <div>
-    
+
     <!-- end page title -->
     <div class="d-flex">
         <div class="p-2 flex-grow-1">
-            
+
         </div>
-        
+
         <div class="p-2">
-            @if($candidate->cres()->exists())
+            @if ($candidate->cres()->exists())
+                <a type="button" href="#"  wire:click.prevent="goToCre('{{ $candidate->id }}')"
+                    class="btn btn-success">
+                    Détail
+                </a>
                 <a type="button" href="{{ route('add.cre', ['candidate' => $candidate, 'action' => 'update']) }}"
-                    class="btn btn-info">
+                    class="btn btn-info ms-2">
                     <i class="ri-add-line align-bottom me-1"></i> Modifier
                 </a>
             @else
@@ -19,7 +23,7 @@
                 </a>
             @endif
         </div>
-        <div class="p-2">
+        {{-- <div class="p-2">
 
             <select class="form-control w-md" wire:model.live='nbPaginate'>
                 <option value="8" selected>8</option>
@@ -29,7 +33,7 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
             </select>
-        </div>
+        </div> --}}
 
         <div class="p-2">
             <div class="search-box ms-2">
@@ -55,14 +59,14 @@
                         @forelse ($cres as $cre)
                             <tr>
 
-                                <td>{{ $cre->created_at->format('d/m/Y') ?? 'Non renseigné' }}</td>      
+                                <td>{{ $cre->created_at->format('d/m/Y') ?? 'Non renseigné' }}</td>
                                 <td>{{ $cre->question }}</td>
                                 <td>{{ $cre->response }}</td>
-                                                        
+
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
 
-                                        
+
                                         <li class="list-inline-item">
                                             <a wire:click="confirmDelete('{{ $cre->response }}', '{{ $cre->id }}')"
                                                 class="text-danger d-inline-block remove-item-btn">

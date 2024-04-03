@@ -21,3 +21,10 @@ color: #fff !important;
 .table-hover-primary tbody tr:hover .text-body {
     color: white !important; 
 }
+
+.navbar-header {
+    height: 50px !important;
+}
+.header-item {
+    height: 50px !important;
+}

@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CivController;
 use App\Http\Controllers\CreController;
@@ -51,5 +50,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('state/{state}', [CandidateController::class, 'state'])->name('state');
     Route::resource('nextsteps', NextStepController::class);
     Route::get('candidate-cre/{candidate}', [CreController::class, 'candidateCre'])->name('candidate.cre');
+    Route::get('candidate-cv/{candidate}', [CandidateController::class, 'candidateCv'])->name('candidate.cv');
+    Route::get('metiers', [DasboardController::class, 'metier'])->name('metiers');
 });
 Route::get('commandes/{param}', [DasboardController::class, 'commande']);

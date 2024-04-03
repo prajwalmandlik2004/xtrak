@@ -8,15 +8,16 @@ use App\Models\Field;
 use App\Helpers\Helper;
 use Livewire\Component;
 use App\Models\Compagny;
+use App\Models\NextStep;
 use App\Models\Position;
 use App\Models\Candidate;
-use App\Models\Disponibility;
-use App\Models\NextStep;
 use App\Models\Speciality;
 use Illuminate\Support\Str;
+use App\Models\Disponibility;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\FileRepository;
+use Illuminate\Support\Facades\Hash;
 use App\Repositories\CandidateRepository;
 
 class Form extends Component
@@ -172,7 +173,9 @@ class Form extends Component
                     $validatedData['certificate'] = Str::random(10);
                     $validatedData['state'] = 'Certifié';
                 }
-                $validatedData['code_cdt'] = $validatedData['first_name'] . $validatedData['last_name'];
+                $stringToHash = $validatedData['first_name'] . $validatedData['last_name'] . now();
+                $hash=  Hash::make($stringToHash); 
+                $validatedData['code_cdt'] =  Str::limit(preg_replace('/[^a-zA-Z0-9]/', '', $hash), 7, '');
                 $candidate = $candidateRepository->create($validatedData);
                 if (!empty($validatedData['specialitiesSelected'])) {
                     $candidate->specialities()->attach($validatedData['specialitiesSelected']);
@@ -206,11 +209,15 @@ class Form extends Component
             DB::commit();
             $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
 
-            return redirect()->route('candidates.show', $candidate->id);
+            return redirect()->route('candidates.show', $candidate->id)->with('success', 'Le candidat a été enregistré avec succès.');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->action == 'create' ? 'Erreur lors de la création du candidat' : 'Erreur lors de la modification du candidat');
         }
+    }
+    public function resetForm()
+    {
+        $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'cdt_status', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
     }
     public function render()
     {

@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use App\Models\Disponibility;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Repositories\CandidateRepository;
@@ -28,7 +29,6 @@ class Import extends Component
     public $accepted = [];
     public function storeData()
     {
-        
         try {
             $path = Storage::putFile('/public/files', $this->file);
             $filepath = Storage::path($path);
@@ -92,7 +92,9 @@ class Import extends Component
             $newCandidate['origine'] = $data['Source'] ?? '';
             $newCandidate['first_name'] = $data['Prénom'] ?? '';
             $newCandidate['last_name'] = $data['Nom'] ?? '';
-            $newCandidate['code_cdt'] = $newCandidate['first_name'] . $newCandidate['last_name'];
+            $stringToHash = $newCandidate['first_name'] . $newCandidate['last_name'] . now();
+            $hash = Hash::make($stringToHash);
+            $newCandidate['code_cdt'] = Str::limit(preg_replace('/[^a-zA-Z0-9]/', '', $hash), 7, '');
             $newCandidate['email'] = $data['Mail'] ?? '';
             $newCandidate['phone'] = $data['Tél1'] ?? '';
             $newCandidate['phone_2'] = $data['Tél2'] ?? '';

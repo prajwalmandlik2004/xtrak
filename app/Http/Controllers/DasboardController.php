@@ -21,6 +21,10 @@ class DasboardController extends Controller
     {
         return view('back.dashboard.summary');
     }
+    public function metier()
+    {
+        return view('back.dashboard.metier');
+    }
     public function detail()
     {
         return view('back.dashboard.detail');

@@ -1,20 +1,20 @@
 <div>
     <!-- start page title -->
-    @include('components.breadcrumb', [
+    {{-- @include('components.breadcrumb', [
         'title' => 'Listes des domaines',
         'breadcrumbItems' => [
             ['text' => 'domaines', 'url' => '#'],
             ['text' => 'Listes', 'url' => Route('fields.index')],
         ],
-    ])
+    ]) --}}
     <!-- end page title -->
-    <div class="d-flex">
-        <div class="p-2 flex-grow-1">
-            <button type="button" wire:click="openModal()" data-bs-toggle="modal" data-bs-target="#modal"
+    <div class="d-flex justify-content-end">
+       
+        <div class="p-2 ">
+            <button type="button" wire:click="openModal()" data-bs-toggle="modal" data-bs-target="#modalforme"
                 class="btn btn-primary"><i class="ri-add-line align-bottom me-1"></i>
                 Nouveau</button>
         </div>
-
         <div class="p-2">
 
             <select class="form-control w-md" wire:model.live='nbPaginate'>
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div class="card mt-5">
+    <div class="card mt-3">
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -60,7 +60,7 @@
 
                                         <li class="list-inline-item edit">
                                             <a wire:click="openModal('{{ $field->id }}')" data-bs-toggle="modal"
-                                                data-bs-target="#modal"
+                                                data-bs-target="#modalforme"
                                                 class="text-primary d-inline-block edit-item-btn">
                                                 <i class="ri-pencil-fill fs-16"></i>
                                             </a>
@@ -99,7 +99,7 @@
     </div><!-- end row -->
 
 
-    <x-modal>
+    <x-modalforme>
         <x-slot name="title">
             {{ $isUpdate ? 'Modification du domaine' : 'Ajout de domaine' }}
         </x-slot>
@@ -126,5 +126,5 @@
 
             </form>
         </x-slot>
-    </x-modal>
+    </x-modalforme>
 </div>

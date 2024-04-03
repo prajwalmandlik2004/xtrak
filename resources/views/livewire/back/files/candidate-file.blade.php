@@ -79,6 +79,7 @@
                                             <i class="ri-more-fill"></i>
                                         </button>
                                         <ul class="dropdown-menu">
+
                                             <li>
 
                                                 <a class="dropdown-item" wire:click="openModal('{{ $file->id }}')"
@@ -120,54 +121,56 @@
             {{ $isUpdate ? 'Modification du document' : 'Ajout de document' }}
         </x-slot>
         <x-slot name="body">
-
             <form wire:submit.prevent="storeFile()">
                 @csrf
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="fileType" class="form-label">Type</label>
+                            <select wire:model="fileType"
+                                class="form-select mb-3  @error('fileType') is-invalid @enderror">
+                                <option value="" selected>Selectionner</option>
+                                <option value="cv">Curriculum Vitae</option>
+                                <option value="cover letter">Lettre de motivation</option>
+                                <option value="autre">Autre</option>
+                                @error('fileType')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
 
-                    @if ($isUpdate)
-                        <div class="mb-2 mt-2">
-                            <label for="name" class="form-label">Nom du document <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror "
-                                wire:model.live='name' placeholder="Veuillez entrer le nom du document" />
-
-
-                            @error('name')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
                         </div>
-                    @endif
-                    <div>
-                        <label for="fileType" class="form-label">Type</label>
-                        <select wire:model="fileType" class="form-select @error('fileType') is-invalid @enderror">
-                            <option value="" selected>Selectionner le type de document</option>
-                            <option value="cv">Curriculum Vitae</option>
-                            <option value="cover letter">Lettre de motivation</option>
-                            <option value="autre">Autre</option>
-                            @error('fileType')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
+                        @if ($isUpdate)
+                        <div class="col-md-12">
+                                <label for="name" class="form-label">Nom du document <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror "
+                                    wire:model.live='name' placeholder="Veuillez entrer le nom du document" />
+
+
+                                @error('name')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                          
+                        </div>
+                        @endif
+                        @if (!$isUpdate)
+                        <div class="col-md-12 ">
+                          
+                                <label for="newFile" class="form-label ">Documents</label>
+                                <input wire:model="newFile" class="form-control mt-4 @error('newFile') is-invalid @enderror"
+                                    type="file">
+                                @error('newFile')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                           
+                        </div>
+                        @endif
                     </div>
-                    @if (!$isUpdate)
-                        <div>
-                            <label for="newFile" class="form-label">Documents</label>
-                            <input wire:model="newFile" class="form-control @error('newFile') is-invalid @enderror"
-                                type="file" multiple>
-                            @error('newFile')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    @endif
-
-
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
                     <button type="submit" class="btn btn-primary ">{{ $isUpdate ? 'Modifier' : 'Ajouter' }}</button>
                 </div>
-
             </form>
         </x-slot>
     </x-modal>

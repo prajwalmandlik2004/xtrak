@@ -22,7 +22,7 @@ class CandidateRepository
         return Candidate::create($data);
     }
 
-    public function update($id,array $data,)
+    public function update($id, array $data)
     {
         $candidate = $this->find($id);
         $candidate->update($data);
@@ -32,6 +32,14 @@ class CandidateRepository
     public function delete($id)
     {
         $candidate = Candidate::find($id);
-        return $candidate->delete();
+        $candidate->specialities()->detach();
+        $candidate->fields()->detach();
+        $candidate->cres()->delete();
+        $files = $candidate->files;
+        foreach ($files as $file) {
+            $file->delete();
+        }
+
+        return Candidate::destroy($id);
     }
 }

@@ -37,7 +37,7 @@
                     </div>
                     <div class="mt-2">
                         <p class="font-semibold">POSTE : <span
-                                class="badge bg-gray-100 text-gray-600">{{ $candidate->position->name }}</span>
+                                class="badge bg-gray-100 text-gray-600">{{ $candidate->position->name ?? '---'}}</span>
                         </p>
                     </div>
                 </div>

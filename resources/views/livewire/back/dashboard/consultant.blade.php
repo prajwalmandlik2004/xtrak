@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="page-title d-flex justify-content-between align-items-center">
-                <h2 class="mb-0">Bienvenue dans votre espace</h2>
+                <h2 class="mb-0">Votre base globale </h2>
             </div>
         </div>
         <div class="col-md-12">
