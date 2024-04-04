@@ -91,7 +91,7 @@ class Show extends Component
         $this->fields = Field::orderBy('name', 'asc')->get();
         $this->compagnies = Compagny::orderBy('name', 'asc')->get();
         if ($this->candidate && $this->candidate->exists) {
-            $this->civ_id = $this->candidate->civ_id;
+            $this->civ_id = $this->candidate->civ->id ?? null;
             $this->first_name = $this->candidate->first_name;
             $this->last_name = $this->candidate->last_name;
             $this->email = $this->candidate->email;
