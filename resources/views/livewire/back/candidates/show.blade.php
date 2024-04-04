@@ -82,7 +82,7 @@
 
 
                                 <div class="hstack gap-1 flex-wrap">
-                                    @if (!auth()->user()->hasRole('Administrateur'))
+                                    @if (auth()->user()->hasRole('Administrateur'))
                                     <div class="p-2">
                                         <span>Modifier l'état :</span>
                                         <select class="form-control   w-md" wire:model.lazy="candidate_state_id">
