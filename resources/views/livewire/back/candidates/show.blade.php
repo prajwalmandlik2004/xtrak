@@ -95,17 +95,18 @@
 
 
                                     </div>
+                                    @if (!auth()->user()->hasRole('Administrateur'))
                                     <button class="btn btn-danger mt-3"
                                         wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
                                         type="button" class="btn py-0 fs-16 text-body">
                                         Supprimer
                                     </button>
-                                    @if (!auth()->user()->hasRole('Administrateur'))
-                                    <a class="btn btn-info mt-3" href="{{ Route('candidates.edit', $candidate) }}"
+                                    @endif
+                                    {{-- <a class="btn btn-info mt-3" href="{{ Route('candidates.edit', $candidate) }}"
                                         type="button" class="btn py-0 fs-16 text-body">
                                         Modifier
-                                    </a>
-                                    @endif
+                                    </a> --}}
+                                   
                                     <a href="{{ url()->previous() }}" class="btn btn-secondary ms-5 mt-3"><i
                                             class="mdi mdi-arrow-left me-1"></i>Retour</a>
                                 </div>
