@@ -130,7 +130,7 @@
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->position->name ?? '-' }}</a>
                                         </td>
                                         <td> <a class="text-body" href="#"
-                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->state ?? '' }}</a>
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->candidateState->name ?? '' }}</a>
                                         </td>
                                     </tr>
                                 @empty
