@@ -884,8 +884,16 @@
                                                     </div>
                                                     <div class="card-footer">
                                                         <div class="d-flex justify-content-end">
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Enregistrer</button>
+                                                            <button wire:loading.remove wire:target="storeData"
+                                                                type="submit" class="btn btn-primary">
+                                                                Enregistrer
+                                                            </button>
+                                                            <button wire:loading wire:target="storeData"
+                                                                type="button" class="btn btn-primary" disabled>
+                                                                <span class="spinner-border spinner-border-sm"
+                                                                    role="status" aria-hidden="true"></span>
+                                                                Enregistrement...
+                                                            </button>
                                                         </div>
                                                     </div>
 
