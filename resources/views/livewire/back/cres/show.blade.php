@@ -9,8 +9,19 @@
             <div class="hstack gap-2 justify-content-center d-print-none ">
                 <a href="javascript:window.print()" class="btn btn-success"><i
                         class="ri-printer-line align-bottom me-1"></i> Imprimer</a>
-                <button wire:click="generatePdf" class="btn btn-primary"><i
-                        class="ri-download-2-line align-bottom me-1"></i> Télécharger</button>
+                {{-- <button wire:click="generatePdf" class="btn btn-primary"><i
+                        class="ri-download-2-line align-bottom me-1"></i> Télécharger</button> --}}
+                <button wire:click="generatePdf" wire:loading.attr="disabled" wire:target="generatePdf"
+                    class="btn btn-primary position-relative">
+                    <i class="ri-download-2-line align-bottom me-1"></i>
+                    <span class="download-text">Télécharger</span>
+                    <span wire:loading wire:target="generatePdf"
+                        class="position-absolute top-50 start-50 translate-middle">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="visually-hidden">Chargement...</span>
+                    </span>
+                </button>
+
                 <a href="{{ url()->previous() }}" class="btn btn-secondary me-1 ms-5"><i
                         class="mdi mdi-arrow-left me-1"></i>Retour</a>
             </div>

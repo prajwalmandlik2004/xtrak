@@ -17,9 +17,21 @@
                                 </div>
                                 <div class="col-md-8 d-flex justify-content-end">
                                     <div class="hstack gap-2 justify-content-center d-print-none ">
-                                        <a wire:click="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
+                                        {{-- <a wire:click="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
                                             class="btn btn-success"><i class="ri-download-2-line align-bottom me-1"></i>
-                                            Télécharger</a>
+                                            Télécharger</a> --}}
+                                            <a wire:click="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
+                                                wire:loading.attr="disabled" wire:target="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
+                                                class="btn btn-success position-relative">
+                                                <i class="ri-download-2-line align-bottom me-1"></i>
+                                                <span class="download-text">Télécharger</span>
+                                                <span wire:loading wire:target="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
+                                                      class="position-absolute top-50 start-50 translate-middle">
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Chargement...</span>
+                                                </span>
+                                             </a>
+                                             
                                         <a href="{{ url()->previous() }}" class="btn btn-secondary me-1"><i
                                                 class="mdi mdi-arrow-left me-1"></i>Retour</a>
                                     </div>
