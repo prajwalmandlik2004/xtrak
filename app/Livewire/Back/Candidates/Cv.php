@@ -8,10 +8,14 @@ class Cv extends Component
 {
     public $candidate;
     public $cvFile;
+    public $filePath;
 
     public function mount()
     {
         $this->cvFile = $this->candidate->files()->exists() ? $this->candidate->files()->where('file_type', 'cv')->first() : null;
+        if ($this->cvFile) {
+            $this->filePath = asset('storage/' . $this->cvFile->path);
+        }
     }
     public function downloadFile($path, $name)
     {

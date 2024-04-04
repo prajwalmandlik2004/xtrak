@@ -28,7 +28,7 @@
                         </div>
                         <div class="card-body">
                             @if ($cvFile->type === 'word' || $cvFile->type === 'pdf')
-                                <iframe src="{{ asset('storage/' . $cvFile->path) }}" width="100%"
+                                <iframe src="{{ $filePath }}" width="100%"
                                     height="800"></iframe>
                             @else
                                 <span>La visualisation est disponible qu'avec un document word ou pdf.</span>
