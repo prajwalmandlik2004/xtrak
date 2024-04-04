@@ -42,14 +42,16 @@
                             </button>
                             </div>
                             <div class="p-2">
-                                <a href="{{ url()->previous() }}" class="btn btn-primary"><i
+                                {{-- <a href="{{ url()->previous() }}" class="btn btn-primary"><i
                                         class="mdi mdi-arrow-left me-1"></i>
                                     @if (!auth()->user()->hasRole('Administrateur'))
                                         Retour en arrirère
                                     @else
                                         Base
                                     @endif
-                                </a>
+                                </a> --}}
+                                <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5"><i
+                                    class="mdi mdi-arrow-left me-1"></i>Retour en arrirère</a>
                             </div>
                            
                         </div>
