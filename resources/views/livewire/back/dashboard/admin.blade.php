@@ -43,7 +43,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered border-secondary table-nowrap">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th scope="col">Nom</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Etat</th>
