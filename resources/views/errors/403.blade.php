@@ -1,6 +1,5 @@
 @extends('layouts.app',['title' => "Action interdit"])
 @section('title', '403 - Action interdite')
-{{-- @section('title', 'Titre de la page - ' . $maPageName) --}}
 @section('css')
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
