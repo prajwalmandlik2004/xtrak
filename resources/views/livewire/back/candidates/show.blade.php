@@ -82,6 +82,7 @@
 
 
                                 <div class="hstack gap-1 flex-wrap">
+                                    @if (!auth()->user()->hasRole('Administrateur'))
                                     <div class="p-2">
                                         <span>Modifier l'état :</span>
                                         <select class="form-control   w-md" wire:model.lazy="candidate_state_id">
@@ -95,7 +96,7 @@
 
 
                                     </div>
-                                    @if (!auth()->user()->hasRole('Administrateur'))
+                                    
                                     <button class="btn btn-danger mt-3"
                                         wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
                                         type="button" class="btn py-0 fs-16 text-body">
