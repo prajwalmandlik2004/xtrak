@@ -99,13 +99,13 @@ class Show extends Component
             $this->compagny_id = $this->candidate->compagny->id ?? null;
             $this->postal_code = $this->candidate->postal_code;
             $this->candidate_statut_id = $this->candidate->candidateStatut->id ?? null;
-            $this->position_id = $this->candidate->position_id;
+            $this->position_id = $this->candidate->position->id ?? null;
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
             $this->region = $this->candidate->region;
             $this->country = $this->candidate->country;
-            $this->disponibility_id = $this->candidate->disponibility_id;
-            $this->next_step_id = $this->candidate->next_step_id;
+            $this->disponibility_id = $this->candidate->disponibility->id ?? null;
+            $this->next_step_id = $this->candidate->nextStep->id ?? null;
             $this->url_ctc = $this->candidate->url_ctc;
             $this->specialitiesSelected = $this->candidate->specialities->pluck('id')->toArray() ?? [];
             $this->fieldsSelected = $this->candidate->fields->pluck('id')->toArray() ?? [];
