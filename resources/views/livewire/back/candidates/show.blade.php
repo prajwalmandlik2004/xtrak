@@ -83,30 +83,32 @@
 
                                 <div class="hstack gap-1 flex-wrap">
                                     @if (auth()->user()->hasRole('Administrateur'))
-                                    <div class="p-2">
-                                        <span>Modifier l'état :</span>
-                                        <select class="form-control   w-md" wire:model.lazy="candidate_state_id">
-                                            @foreach ($candidateStates as $candidateState)
-                                                <option value="{{ $candidateState->id }}"
-                                                    @if ($candidateState->id == $candidate_state_id) selected @endif>
-                                                    {{ $candidateState->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    
-                                    <button class="btn btn-danger mt-3"
-                                        wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
-                                        type="button" class="btn py-0 fs-16 text-body">
-                                        Supprimer
-                                    </button>
+                                        <div class="p-2">
+                                            <span>Modifier l'état :</span>
+                                            <select class="form-control   w-md" wire:model.lazy="candidate_state_id">
+                                                @foreach ($candidateStates as $candidateState)
+                                                    <option value="{{ $candidateState->id }}"
+                                                        @if ($candidateState->id == $candidate_state_id) selected @endif>
+                                                        {{ $candidateState->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <button class="btn btn-danger mt-3"
+                                            wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
+                                            type="button" class="btn py-0 fs-16 text-body">
+                                            Supprimer
+                                        </button>
                                     @endif
                                     {{-- <a class="btn btn-info mt-3" href="{{ Route('candidates.edit', $candidate) }}"
                                         type="button" class="btn py-0 fs-16 text-body">
                                         Modifier
                                     </a> --}}
-                                   
-                                    <a href="{{ url()->previous() }}" class="btn btn-secondary ms-5 mt-3"><i
+
+                                    {{-- <a href="{{ url()->previous() }}" class="btn btn-secondary ms-5 mt-3"><i
+                                            class="mdi mdi-arrow-left me-1"></i>Retour</a> --}}
+                                    <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5"><i
                                             class="mdi mdi-arrow-left me-1"></i>Retour</a>
                                 </div>
 

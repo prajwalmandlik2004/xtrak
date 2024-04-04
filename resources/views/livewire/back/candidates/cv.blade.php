@@ -20,30 +20,35 @@
                                         {{-- <a wire:click="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
                                             class="btn btn-success"><i class="ri-download-2-line align-bottom me-1"></i>
                                             Télécharger</a> --}}
-                                            <a wire:click="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
-                                                wire:loading.attr="disabled" wire:target="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
-                                                class="btn btn-success position-relative">
-                                                <i class="ri-download-2-line align-bottom me-1"></i>
-                                                <span class="download-text">Télécharger</span>
-                                                <span wire:loading wire:target="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
-                                                      class="position-absolute top-50 start-50 translate-middle">
-                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Chargement...</span>
-                                                </span>
-                                             </a>
-                                             
-                                        <a href="{{ url()->previous() }}" class="btn btn-secondary me-1"><i
+                                        <a wire:click="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
+                                            wire:loading.attr="disabled"
+                                            wire:target="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
+                                            class="btn btn-success position-relative">
+                                            <i class="ri-download-2-line align-bottom me-1"></i>
+                                            <span class="download-text">Télécharger</span>
+                                            <span wire:loading
+                                                wire:target="downloadFile('{{ $cvFile->path }}','{{ $cvFile->name }}')"
+                                                class="position-absolute top-50 start-50 translate-middle">
+                                                <span class="spinner-border spinner-border-sm" role="status"
+                                                    aria-hidden="true"></span>
+                                                <span class="visually-hidden">Chargement...</span>
+                                            </span>
+                                        </a>
+
+                                        {{-- <a href="{{ url()->previous() }}" class="btn btn-secondary me-1"><i
+                                                class="mdi mdi-arrow-left me-1"></i>Retour</a> --}}
+                                        <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5"><i
                                                 class="mdi mdi-arrow-left me-1"></i>Retour</a>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
                             @if ($cvFile->type === 'word' || $cvFile->type === 'pdf')
-                            
                                 <iframe src="{{ Storage::url($cvFile->path) }}" width="100%" height="800"></iframe>
                             @else
-                               <span>La visualisation est disponible qu'avec un document word ou pdf.</span>
+                                <span>La visualisation est disponible qu'avec un document word ou pdf.</span>
                             @endif
 
                         </div>

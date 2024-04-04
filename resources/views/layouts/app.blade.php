@@ -229,7 +229,27 @@
 
         updateClock();
     </script>
+    <script>
+        document.addEventListener('livewire:load', function() {
+            Livewire.hook('afterDomUpdate', () => {
+                updatePreviousUrl();
+            });
+        });
 
+        function updatePreviousUrl() {
+            var currentUrl = window.location.href;
+            localStorage.setItem('previousUrl', currentUrl);
+        }
+
+        function goBack() {
+            var previousUrl = localStorage.getItem('previousUrl');
+            if (previousUrl) {
+                window.location.href = previousUrl;
+            } else {
+                window.history.back();
+            }
+        }
+    </script>
     @yield('script')
     @stack('script-chart')
     @stack('page-script')
