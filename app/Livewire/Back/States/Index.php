@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Back\States;
 
-use App\Models\candidateState;
+use App\Models\CandidateState;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -21,7 +21,7 @@ class Index extends Component
     public function deleteData($id)
     {
         DB::beginTransaction();
-        $state = candidateState::find($id);
+        $state = CandidateState::find($id);
         try {
             if ($state) {
                 $state->delete($state->id);
@@ -40,7 +40,7 @@ class Index extends Component
     }
     public function searchFiles()
     {
-        return candidateState::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
+        return CandidateState::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
     }
     public function openModal($id = null)
     {
@@ -48,7 +48,7 @@ class Index extends Component
         $this->isUpdate = false;
         if ($id) {
             $this->isUpdate = true;
-            $this->state = candidateState::find($id);
+            $this->state = CandidateState::find($id);
             $this->name = $this->state->name ?? '';
         }
     }
@@ -68,7 +68,7 @@ class Index extends Component
         if ($this->isUpdate) {
             $this->state->update($validateData);
         } else {
-            candidateState::create($validateData);
+            CandidateState::create($validateData);
         }
         DB::commit();
         $this->dispatch('close:modal');
