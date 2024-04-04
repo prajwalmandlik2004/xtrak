@@ -98,7 +98,7 @@ class Show extends Component
             $this->phone = $this->candidate->phone;
             $this->compagny_id = $this->candidate->compagny->id ?? null;
             $this->postal_code = $this->candidate->postal_code;
-            $this->candidate_statut_id = $this->candidate->candidateStatut->id ?? '';
+            $this->candidate_statut_id = $this->candidate->candidateStatut->id ?? null;
             $this->position_id = $this->candidate->position_id;
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
