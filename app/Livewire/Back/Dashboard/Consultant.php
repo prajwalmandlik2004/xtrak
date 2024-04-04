@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Candidate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\CandidateRepository;
@@ -95,6 +96,8 @@ class Consultant extends Component
     }
     public function mount()
     {
+        $this->candidateStates = CandidateStatut::all();
+
         if (session()->has('cte_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('cte_base_cdt_selected_candidate_id');
         }
