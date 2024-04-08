@@ -215,7 +215,7 @@
                                  @endcan
                                  @can('Menu paramètre BaseCDT')
                                      <li class="nav-item">
-                                         <a href="#sidebarSignInBaseCDT" class="nav-link" data-bs-toggle="collapse"
+                                         <a href="#sidebarSignInBaseCDT" class="nav-link {{ request()->routeIs(['nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                              role="button" aria-expanded="{{ request()->routeIs('nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
                                              data-key="t-signin">
                                              BaseCDT
