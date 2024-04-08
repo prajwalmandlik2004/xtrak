@@ -193,7 +193,7 @@ class Import extends Component
         if (file_exists($filePath)) {
             return response()->download($filePath, 'caneva.xlsx');
         } else {
-            session()->flash('message', 'Le fichier n\'existe pas.');
+            $this->dispatch('alert', type: 'error', message: 'Le fichier n\'existe pas');
         }
     }
     public function render()

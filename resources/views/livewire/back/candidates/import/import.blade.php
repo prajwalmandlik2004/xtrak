@@ -64,9 +64,17 @@
                         <div class="flex-grow-1 ms-3">
                             <h5 class="mb-1 fs-15">Exemple Matrice UploadCDT</h5>
                         </div>
-                        <a class="btn btn-success" wire:click='downloadFile'>
-                            <i class="ri-download-fill"></i>
-                        </a>
+                        <div>
+                            <a class="btn btn-success" wire:click='downloadFile' wire:loading.remove wire:target='downloadFile'>
+                                <i class="ri-download-fill"></i>
+                            </a>
+                            <a class="btn btn-success" wire:loading wire:target='downloadFile' disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Téléchargement...
+                            </a>
+                        </div>
+                        
+                        
                     </div>
                 </div>
                 <!-- end card body -->
