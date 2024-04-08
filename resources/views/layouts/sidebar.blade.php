@@ -178,7 +178,7 @@
                                  </li>
                                  @can('Menu utilisateur')
                                      <li class="nav-item">
-                                         <a href="#sidebarSignInUsers" class="nav-link" data-bs-toggle="collapse"
+                                         <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                              role="button"  aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                              data-key="t-signin">
                                              Utilisateurs
