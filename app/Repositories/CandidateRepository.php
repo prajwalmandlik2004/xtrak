@@ -32,8 +32,6 @@ class CandidateRepository
     public function delete($id)
     {
         $candidate = Candidate::find($id);
-        $candidate->specialities()->detach();
-        $candidate->fields()->detach();
         $candidate->cres()->delete();
         $files = $candidate->files;
         foreach ($files as $file) {

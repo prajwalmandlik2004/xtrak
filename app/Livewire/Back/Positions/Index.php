@@ -40,7 +40,9 @@ class Index extends Component
     }
     public function searchFiles()
     {
-        return Position::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
+        return Position::where('name', 'like', '%' . $this->search . '%')
+        ->orderBy('created_at', 'desc') 
+        ->paginate($this->nbPaginate);
     }
     public function openModal($id = null)
     {
@@ -73,7 +75,7 @@ class Index extends Component
         DB::commit();
         $this->dispatch('close:modal');
         $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'le poste est ajouté avec succès');
-       
+        $this->dispatch('refresh-page');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter le poste');

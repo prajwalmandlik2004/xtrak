@@ -43,9 +43,9 @@ class Show extends Component
     public $disponibility_id;
     public $url_ctc;
     public $specialities;
-    public $specialitiesSelected = [];
+    public $speciality_id;
     public $fields;
-    public $fieldsSelected = [];
+    public $field_id;
     public $compagnies;
     public $commentaire;
     public $origine;
@@ -91,8 +91,6 @@ class Show extends Component
         $this->civs = Civ::all();
         $this->disponibilities = Disponibility::all();
         $this->positions = Position::orderBy('name', 'asc')->get();
-        $this->specialities = Speciality::orderBy('name', 'asc')->get();
-        $this->fields = Field::orderBy('name', 'asc')->get();
         $this->compagnies = Compagny::orderBy('name', 'asc')->get();
         if ($this->candidate && $this->candidate->exists) {
             $this->civ_id = $this->candidate->civ->id ?? null;
@@ -111,11 +109,13 @@ class Show extends Component
             $this->disponibility_id = $this->candidate->disponibility->id ?? null;
             $this->next_step_id = $this->candidate->nextStep->id ?? null;
             $this->url_ctc = $this->candidate->url_ctc;
-            $this->specialitiesSelected = $this->candidate->specialities->pluck('id')->toArray() ?? [];
-            $this->fieldsSelected = $this->candidate->fields->pluck('id')->toArray() ?? [];
+            $this->speciality_id = $this->candidate->speciality_id ?? null;
+            $this->field_id = $this->candidate->field_id ?? null;
             $this->commentaire = $this->candidate->commentaire;
             $this->origine = $this->candidate->origine;
             $this->ns_date = $this->candidate->ns_date;
+            $this->specialities = $this->candidate->position->specialities ?? null;
+            $this->fields = $this->candidate->speciality->fields ?? null;
         }
     }
     public function storeData()
@@ -137,8 +137,8 @@ class Show extends Component
                 'country' => 'nullable',
                 'disponibility_id' => 'nullable',
                 'url_ctc' => 'nullable',
-                'specialitiesSelected' => 'nullable',
-                'fieldsSelected' => 'nullable',
+                'speciality_id' => 'nullable',
+                'field_id' => 'nullable',
                 'phone_2' => 'nullable',
                 'commentaire' => 'nullable',
                 'origine' => 'nullable',
@@ -155,12 +155,7 @@ class Show extends Component
         DB::beginTransaction();
         $candidateRepository = new CandidateRepository();
         $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
-        if (!empty($validatedData['specialitiesSelected'])) {
-            $this->candidate->specialities()->sync($validatedData['specialitiesSelected']);
-        }
-        if (!empty($validatedData['fieldsSelected'])) {
-            $this->candidate->fields()->sync($validatedData['fieldsSelected']);
-        }
+       
         DB::commit();
         $this->mount();
         // $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
@@ -170,6 +165,14 @@ class Show extends Component
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification du candidat');
         }
+    }
+    public function updatedPositionId($value)
+    {
+        $this->specialities = Position::find($value)->specialities;
+    }
+    public function updatedSpecialityId($value)
+    {
+        $this->fields = Speciality::find($value)->fields;
     }
     public function render()
     {

@@ -795,79 +795,88 @@
                                                                         </div>
                                                                         <div class="col-lg-3">
                                                                             <div>
-                                                                                <label for="position_id"
-                                                                                    class="form-label">Poste
-                                                                                    (Fonction1) </label>
+                                                                                <label for="position_id" class="form-label">Poste (Fonction1) </label>
                                                                                 <select
-                                                                                    class="form-control form-control-custom  @error('position_id') is-invalid @enderror "
-                                                                                    wire:model='position_id'>
-                                                                                    <option value="" selected>
-                                                                                        Selectionner</option>
+                                                                                    class="form-control  
+                                form-control-custom  @error('position_id') is-invalid @enderror "
+                                                                                    wire:model.live='position_id'>
+                                                                                    <option value="" selected>Selectionner</option>
                                                                                     @foreach ($positions as $position)
-                                                                                        <option
-                                                                                            value="{{ $position->id }}"
-                                                                                            @if ($position->id == $position_id) selected @endif>
+                                                                                        <option value="{{ $position->id }}"
+                                                                                            @if ( $position->id == $position_id) selected @endif>
                                                                                             {{ $position->name }}
                                                                                         </option>
                                                                                     @endforeach
                                                                                 </select>
                                                                                 @error('position_id')
-                                                                                    <span
-                                                                                        class="invalid-feedback">{{ $message }}</span>
+                                                                                    <span class="invalid-feedback">{{ $message }}</span>
                                                                                 @enderror
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-3">
                                                                             <div>
-                                                                                <label for="specialitiesSelected"
-                                                                                    class="form-label">Spécialité
+                                                                                <label for="speciality_id" class="form-label">Spécialité
                                                                                     (Fonction2)</label>
                                                                                 <select
-                                                                                    class="form-control form-control-custom  @error('specialitiesSelected') is-invalid @enderror "
-                                                                                    wire:model='specialitiesSelected'>
-                                                                                    <option value="" selected>
-                                                                                        Selectionner
-                                                                                    </option>
-                                                                                    @foreach ($specialities as $speciality)
-                                                                                        <option
-                                                                                            value="{{ $speciality->id }}"
-                                                                                            @if ($specialitiesSelected > 0 && in_array($speciality->id, $specialitiesSelected)) selected @endif>
-                                                                                            {{ $speciality->name }}
-                                                                                        </option>
-                                                                                    @endforeach
+                                                                                    class="form-control  
+                                form-control-custom  @error('speciality_id') is-invalid @enderror "
+                                                                                    wire:model.live='speciality_id'>
+                                                                                    @if ($specialities)
+                                                                                        @if ($specialities->count() > 0)
+                                
+                                                                                            <option value="" selected>Selectionner
+                                                                                            </option>
+                                                                                            @foreach ($specialities as $speciality)
+                                                                                                <option value="{{ $speciality->id }}"
+                                                                                                    @if ($speciality->id == $speciality_id) selected @endif>
+                                                                                                    {{ $speciality->name }}
+                                                                                                </option>
+                                                                                            @endforeach
+                                                                                        @else
+                                                                                            <option value="">Aucune donnée</option>
+                                
+                                                                                        @endif
+                                                                                    @else
+                                                                                        <option value="">Veuillez choisir un poste</option>
+                                                                                    @endif
                                                                                 </select>
-                                                                                @error('specialitiesSelected')
-                                                                                    <span
-                                                                                        class="invalid-feedback">{{ $message }}</span>
+                                                                                @error('speciality_id')
+                                                                                    <span class="invalid-feedback">{{ $message }}</span>
                                                                                 @enderror
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-3 ">
                                                                             <div>
-                                                                                <label for="fieldsSelected"
-                                                                                    class="form-label">Domaine
+                                                                                <label for="field_id" class="form-label">Domaine
                                                                                     (Fonction3)</label>
                                                                                 <select
-                                                                                    class="form-control form-control-custom  @error('fieldsSelected') is-invalid @enderror "
-                                                                                    wire:model='fieldsSelected'>
-                                                                                    <option value="" selected>
-                                                                                        Selectionner une spécialité
-                                                                                    </option>
-                                                                                    @foreach ($fields as $field)
-                                                                                        <option
-                                                                                            value="{{ $field->id }}"
-                                                                                            @if ($fieldsSelected > 0 && in_array($field->id, $fieldsSelected)) selected @endif>
-                                                                                            {{ $field->name }}
-                                                                                        </option>
-                                                                                    @endforeach
+                                                                                    class="form-control  
+                                form-control-custom  @error('field_id') is-invalid @enderror "
+                                                                                    wire:model.live='field_id'>
+                                                                                    @if ($fields)
+                                                                                        @if ($fields->count() > 0)
+                                
+                                                                                            <option value="" selected>Selectionner une spécialité
+                                                                                            </option>
+                                                                                            @foreach ($fields as $field)
+                                                                                                <option value="{{ $field->id }}"
+                                                                                                    @if ($field->id == $field_id) selected @endif>
+                                                                                                    {{ $field->name }}
+                                                                                                </option>
+                                                                                            @endforeach
+                                                                                        @else
+                                                                                            <option value="">Aucune donnée</option>
+                                
+                                                                                        @endif
+                                                                                    @else
+                                                                                        <option value="">Veuillez choisir une spécialité</option>
+                                                                                    @endif
                                                                                 </select>
-                                                                                @error('fieldsSelected')
-                                                                                    <span
-                                                                                        class="invalid-feedback">{{ $message }}</span>
+                                                                                @error('field_id')
+                                                                                    <span class="invalid-feedback">{{ $message }}</span>
                                                                                 @enderror
                                                                             </div>
                                                                         </div>
-
                                                                     </div>
                                                                 </div>
                                                             </div>

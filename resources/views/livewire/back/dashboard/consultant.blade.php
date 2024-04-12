@@ -92,6 +92,11 @@
 
         <div class="col-md-12">
             <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-title
+                        d-flex justify-content-between align-items-center">
+                       Base Consultant</h4>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive">
 
@@ -128,10 +133,10 @@
                                             </a></td>
 
                                         <td> <a class="text-body " href="#"
-                                            wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
-                                            {{ $candidate->auteur->trigramme ?? '--' }}
-                                            </h5>
-                                        </a></td>
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                                {{ $candidate->auteur->trigramme ?? '--' }}
+                                                </h5>
+                                            </a></td>
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->civ->name ?? '--' }}
                                             </a></td>
@@ -203,7 +208,7 @@
 
                                 @empty
                                     <tr>
-                                        <td colspan="16" class="text-center">
+                                        <td colspan="17" class="text-center">
                                             <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
                                                 colors="primary:#405189,secondary:#0ab39c"
                                                 style="width:72px;height:72px">

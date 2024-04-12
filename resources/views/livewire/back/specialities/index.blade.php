@@ -43,6 +43,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nom</th>
+                            <th scope="col">Poste</th>
                             <th scope="col">Date de création</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -52,7 +53,8 @@
                             <tr>
 
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $speciality->name }}</td>
+                                <td>{{ $speciality->name ?? '---'}}</td>
+                                <td>{{ $speciality->position->name ?? '---' }}</td>
                                 <td>{{ $speciality->created_at->format('d/m/Y')  }}</td>
                                 
                                 <td>
@@ -108,15 +110,36 @@
                 @csrf
                 <div class="modal-body">
                     <div class="mb-2 mt-2">
+                        <div>
+                            <label for="position" class="form-label">Postes </label>
+                            <select
+                                class="form-control  
+form-control-custom  @error('position_id') is-invalid @enderror "
+                                wire:model='position_id'>
+                                <option value="" selected>Selectionner</option>
+                                @foreach ($positions as $position)
+                                    <option value="{{ $position->id }}">
+                                        {{ $position->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('position_id')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-2 mt-2">
                         <label for="name" class="form-label">Nom <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror "
                             wire:model.live='name' placeholder="Veuillez entrer le nom " />
-
-
                         @error('name')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
+                    
+
+                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>

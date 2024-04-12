@@ -130,6 +130,19 @@ class Import extends Component
                     $newCandidate['position_id'] = $position->id;
                 }
             }
+            if (!empty($data['Spécialité'])) {
+                $speciality = Speciality::where('name', $data['Spécialité'])->first() ?? Speciality::create(['name' => $data['Spécialité']]);
+                if ($speciality) {
+                    $newCandidate['speciality_id'] = $speciality->id;
+                }
+            }
+            if (!empty($data['Domaine'])) {
+                $field = Field::where('name', $data['Domaine'])->first() ?? Field::create(['name' => $data['Domaine']]);
+                if ($field) {
+                    $newCandidate['field_id'] = $field->id;
+                }
+            }
+            
             if (!empty($data['Société'])) {
                 $compagny = Compagny::where('name', $data['Société'])->first() ?? Compagny::create(['name' => $data['Société']]);
                 if ($compagny) {
@@ -144,14 +157,7 @@ class Import extends Component
             }
 
             $candidate = $candidateRepository->create($newCandidate);
-            if (!empty($data['Spécialité'] && $candidate)) {
-                $speciality = Speciality::where('name', $data['Poste'])->first() ?? Speciality::create(['name' => $data['Poste']]);
-                $candidate->specialities()->attach($speciality->id);
-            }
-            if (!empty($data['Domaine'] && $candidate)) {
-                $field = Field::where('name', $data['Domaine'])->first() ?? Field::create(['name' => $data['Domaine']]);
-                $candidate->fields()->attach($field->id);
-            }
+            
 
             return $candidate;
         } catch (\Throwable $th) {

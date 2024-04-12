@@ -49,9 +49,9 @@ class Form extends Component
     public $disponibility_id;
     public $url_ctc;
     public $specialities;
-    public $specialitiesSelected;
+    public $speciality_id;
     public $fields;
-    public $fieldsSelected;
+    public $field_id;
     public $compagnies;
     public $commentaire;
     public $origine;
@@ -69,8 +69,6 @@ class Form extends Component
         $this->civs = Civ::all();
         $this->disponibilities = Disponibility::all();
         $this->positions = Position::orderBy('name', 'asc')->get();
-        $this->specialities = Speciality::orderBy('name', 'asc')->get();
-        $this->fields = Field::orderBy('name', 'asc')->get();
         $this->compagnies = Compagny::orderBy('name', 'asc')->get();
         if ($this->candidate && $this->candidate->exists) {
             $this->civ_id = $this->candidate->civ_id;
@@ -89,8 +87,8 @@ class Form extends Component
             $this->disponibility_id = $this->candidate->disponibility_id;
             $this->next_step_id = $this->candidate->next_step_id;
             $this->url_ctc = $this->candidate->url_ctc;
-            $this->specialitiesSelected = $this->candidate->specialities->pluck('id')->toArray() ?? [];
-            $this->fieldsSelected = $this->candidate->fields->pluck('id')->toArray() ?? [];
+            $this->speciality_id = $this->candidate->speciality_id ?? null;
+            $this->field_id = $this->candidate->field_id ?? null;
             $this->commentaire = $this->candidate->commentaire;
             $this->origine = $this->candidate->origine;
             $this->ns_date = $this->candidate->ns_date;
@@ -152,8 +150,8 @@ class Form extends Component
                 'country' => 'nullable',
                 'disponibility_id' => 'nullable',
                 'url_ctc' => 'nullable',
-                'specialitiesSelected' => 'nullable',
-                'fieldsSelected' => 'nullable',
+                'speciality_id' => 'nullable',
+                'field_id' => 'nullable',
                 'phone_2' => 'nullable',
                 'commentaire' => 'nullable',
                 'origine' => 'nullable',
@@ -182,12 +180,6 @@ class Form extends Component
                 $hash = Hash::make($stringToHash);
                 $validatedData['code_cdt'] = Str::limit(preg_replace('/[^a-zA-Z0-9]/', '', $hash), 7, '');
                 $candidate = $candidateRepository->create($validatedData);
-                if (!empty($validatedData['specialitiesSelected'])) {
-                    $candidate->specialities()->attach($validatedData['specialitiesSelected']);
-                }
-                if (!empty($validatedData['fieldsSelected'])) {
-                    $candidate->fields()->attach($validatedData['fieldsSelected']);
-                }
             } else {
                 if ($this->candidate->files()->exists()) {
                     $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
@@ -199,12 +191,6 @@ class Form extends Component
                     }
                 }
                 $candidate = $candidateRepository->update($this->candidate->id, $validatedData);
-                if (!empty($validatedData['specialitiesSelected'])) {
-                    $candidate->specialities()->sync($validatedData['specialitiesSelected']);
-                }
-                if (!empty($validatedData['fieldsSelected'])) {
-                    $candidate->fields()->sync($validatedData['fieldsSelected']);
-                }
             }
 
             if (!empty($validatedData['cv']) && $candidate->exists) {
@@ -214,7 +200,7 @@ class Form extends Component
                 $fileRepository->createOne($validatedData['cover_letter'], $candidate->id, 'cover letter');
             }
             DB::commit();
-            $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+            $this->reset(['origine', 'commentaire', 'speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
 
             return redirect()
                 ->route('candidates.show', $candidate->id)
@@ -226,7 +212,15 @@ class Form extends Component
     }
     public function resetForm()
     {
-        $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+        $this->reset(['origine', 'commentaire', 'speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'cv', 'cover_letter', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+    }
+    public function updatedPositionId($value)
+    {
+        $this->specialities = Position::find($value)->specialities;
+    }
+    public function updatedSpecialityId($value)
+    {
+        $this->fields = Speciality::find($value)->fields;
     }
     public function render()
     {

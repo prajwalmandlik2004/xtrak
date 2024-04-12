@@ -9,7 +9,7 @@
     ]) --}}
     <!-- end page title -->
     <div class="d-flex justify-content-end">
-       
+
         <div class="p-2 ">
             <button type="button" wire:click="openModal()" data-bs-toggle="modal" data-bs-target="#modalforme"
                 class="btn btn-primary"><i class="ri-add-line align-bottom me-1"></i>
@@ -43,6 +43,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nom</th>
+                            <th scope="col">Spécialité</th>
                             <th scope="col">Date de création</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -52,7 +53,8 @@
                             <tr>
 
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $field->name }}</td>
+                                <td>{{ $field->name ?? '---' }}</td>
+                                <td>{{ $field->speciality->name ?? '---' }}</td>
                                 <td>{{ $field->created_at->format('d/m/Y') }}</td>
 
                                 <td>
@@ -109,11 +111,23 @@
                 @csrf
                 <div class="modal-body">
                     <div class="mb-2 mt-2">
+                        <label for="speciality_id" class="form-label">Spécialité <span
+                                class="text-danger">*</span></label>
+                        <select class="form-select @error('speciality_id') is-invalid @enderror"
+                            wire:model='speciality_id'>
+                            <option value="">Choisir une spécialité</option>
+                            @foreach ($specialities as $speciality)
+                                <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('speciality_id')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-2 mt-2">
                         <label for="name" class="form-label">Nom <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror "
-                            wire:model.live='name' placeholder="Veuillez entrer le nom " />
-
-
+                            wire:model='name' placeholder="Veuillez entrer le nom " />
                         @error('name')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror

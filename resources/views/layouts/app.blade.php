@@ -194,6 +194,11 @@
         window.addEventListener('close:modal', event => {
             $('.modal').modal('hide');
         });
+        window.addEventListener('refresh-page', event => {
+            setTimeout(function() {
+                window.location.reload(false);
+            }, 2500); 
+        });
     </script>
     <script>
         function updateClock() {
@@ -251,7 +256,7 @@
         }
         window.addEventListener('goBack', function() {
 
-            goBack(); 
+            goBack();
         });
     </script>
     @yield('script')

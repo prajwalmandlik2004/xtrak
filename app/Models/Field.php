@@ -8,12 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Field extends Model
 {
-    use HasFactory,HasUuids;
+    use HasFactory, HasUuids;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'speciality_id'];
 
     public function candidates()
     {
         return $this->belongsToMany(Candidate::class);
+    }
+    public function speciality()
+    {
+        return $this->belongsTo(Speciality::class);
     }
 }

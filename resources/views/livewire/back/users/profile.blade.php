@@ -68,13 +68,24 @@
                                         <div class="card-body">
 
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-2">
+                                                    <div class="mb-3">
+                                                        <label for="trigramme" class="form-label">Trigramme</label>
+                                                        <input type="text"
+                                                            class="form-control"
+                                                            value='{{ $user->trigramme }}'
+                                                            disabled>
+                                                    </div>
+
+                                                   
+                                                </div>
+                                                <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="firstnameInput" class="form-label">Photo de profil</label>
                                                         <input wire:model='photo' type="file" class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="firstnameInput" class="form-label">Nom</label>
                                                         <input wire:model='first_name' type="text"
@@ -86,7 +97,7 @@
                                                     @enderror
                                                 </div>
                                                 <!--end col-->
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="lastnameInput" class="form-label">Prénom</label>
                                                         <input type="text"
@@ -100,7 +111,7 @@
                                                     @enderror
                                                 </div>
                                                 <!--end col-->
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="phonenumberInput"
                                                             class="form-label">Téléphone</label>
@@ -110,7 +121,7 @@
                                                     </div>
                                                 </div>
                                                 <!--end col-->
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="emailInput" class="form-label">Address Email
                                                         </label>

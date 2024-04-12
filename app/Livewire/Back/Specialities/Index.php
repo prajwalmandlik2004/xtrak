@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Back\Specialities;
 
+use App\Models\Position;
 use App\Models\Speciality;
 use Livewire\Component;
 use Livewire\Attributes\On;
@@ -17,6 +18,9 @@ class Index extends Component
     public $nbPaginate = 10;
     public $name;
     public $isUpdate = false;
+    public $position_id;
+    public $positions;
+
     #[On('delete')]
     public function deleteData($id)
     {
@@ -40,16 +44,20 @@ class Index extends Component
     }
     public function searchFiles()
     {
-        return Speciality::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
+        return Speciality::where('name', 'like', '%' . $this->search . '%')
+        ->orderBy('created_at', 'desc') 
+        ->paginate($this->nbPaginate);
     }
     public function openModal($id = null)
     {
         $this->name = '';
+        $this->position_id = '';
         $this->isUpdate = false;
         if ($id) {
             $this->isUpdate = true;
             $this->speciality = Speciality::find($id);
             $this->name = $this->speciality->name ?? '';
+            $this->position_id = $this->speciality->position_id ?? '';
         }
     }
     public function storeData()
@@ -57,9 +65,11 @@ class Index extends Component
         $validateData = $this->validate(
             [
                 'name' => 'required|string|max:255',
+                'position_id'=>'required'
             ],
             [
                 'name.required' => 'Le nom est obligatoire',
+                'position_id.required'=>'Le poste est obligatoire'
             ],
         );
         try {
@@ -73,11 +83,15 @@ class Index extends Component
         DB::commit();
         $this->dispatch('close:modal');
         $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'la spécialité est ajouté avec succès');
-        
+        $this->dispatch('refresh-page');
+
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter la spécialité');
         }
+    }
+    public function mount(){
+        $this->positions =  Position::all();
     }
     public function render()
     {

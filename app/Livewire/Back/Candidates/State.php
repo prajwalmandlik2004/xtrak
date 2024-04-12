@@ -55,7 +55,7 @@ class State extends Component
     {
         $searchFields = ['first_name', 'last_name', 'email', 'phone', 'postal_code', 'city', 'address', 'region', 'country'];
 
-        return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'specialities', 'fields'])
+        return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field'])
             ->where(function ($query) use ($searchFields) {
                 $query
                     ->where(function ($query) use ($searchFields) {
@@ -75,10 +75,10 @@ class State extends Component
                     ->orWhereHas('compagny', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     })
-                    ->orWhereHas('specialities', function ($query) {
+                    ->orWhereHas('speciality', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     })
-                    ->orWhereHas('fields', function ($query) {
+                    ->orWhereHas('field', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     });
             })

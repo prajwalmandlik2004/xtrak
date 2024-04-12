@@ -15,5 +15,9 @@ class Position extends Model
     {
         return $this->hasMany(Candidate::class);
     }
+    public function specialities()
+    {
+        return $this->hasMany(Speciality::class);
+    }
 
 }
