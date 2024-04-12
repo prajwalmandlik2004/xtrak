@@ -9,6 +9,7 @@ use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Models\CandidateState;
 use App\Models\CandidateStatut;
+use App\Models\Position;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\CandidateRepository;
@@ -25,7 +26,9 @@ class Index extends Component
     public $filterDate = '';
     public $candidate_state_id = '';
     public $selectedCandidateId;
-   public $candidateStates; 
+    public $candidateStates;
+    public $positions;
+    public $position_id;
 
     public function selectCandidate($id, $page)
     {
@@ -41,7 +44,7 @@ class Index extends Component
         session(['base_cdt_selected_candidate_id' => $id]);
         session(['base_cdt_current_page' => $page]);
         session(['base_cdt_nb_paginate' => $this->nbPaginate]);
-        return redirect()->route('candidate.cre',$id);
+        return redirect()->route('candidate.cre', $id);
     }
     public function selectCandidateGoToCv($id, $page)
     {
@@ -49,7 +52,7 @@ class Index extends Component
         session(['base_cdt_selected_candidate_id' => $id]);
         session(['base_cdt_current_page' => $page]);
         session(['base_cdt_nb_paginate' => $this->nbPaginate]);
-        return redirect()->route('candidate.cv',$id);
+        return redirect()->route('candidate.cv', $id);
     }
     #[On('delete')]
     public function deleteData($id)
@@ -78,9 +81,7 @@ class Index extends Component
                             $query->orWhere($field, 'like', '%' . $this->search . '%');
                         }
                     })
-                    ->orWhereHas('position', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
+                   
                     ->orWhereHas('disponibility', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     })
@@ -109,6 +110,9 @@ class Index extends Component
             ->when($this->candidate_statut_id, function ($query) {
                 $query->where('candidate_statut_id', $this->candidate_statut_id);
             })
+            ->when($this->position_id, function ($query) {
+                $query->where('position_id', $this->position_id);
+            })
             ->paginate($this->nbPaginate);
     }
     public function confirmDelete($nom, $id)
@@ -117,6 +121,7 @@ class Index extends Component
     }
     public function mount()
     {
+        $this->positions= Position::all();
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidateStates = CandidateState::all();
         if (session()->has('base_cdt_selected_candidate_id')) {

@@ -20,6 +20,7 @@
         </div>
         <div class="col-md-6">
             <div class="d-flex mt-4">
+                
                 <div class="p-2 ml-auto">
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
                         <option value="6" selected>6</option>
@@ -51,6 +52,7 @@
                                     <th scope="col">Alphabétique</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Etat</th>
+                                    <th scope="col">Fonction</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,6 +81,14 @@
                                             @foreach ($candidateStates as $state)
                                                 <option value="{{ $state->id }}" selected> {{ $state->name }}
                                                 </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control w-md" wire:model.live='position_id'>
+                                            <option value="" selected>Fonction</option>
+                                            @foreach ($positions as $position)
+                                                <option value="{{ $position->id }}">{{ $position->name }}</option>
                                             @endforeach
                                         </select>
                                     </td>

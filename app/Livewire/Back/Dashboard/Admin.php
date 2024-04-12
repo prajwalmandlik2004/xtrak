@@ -5,6 +5,7 @@ namespace App\Livewire\Back\Dashboard;
 use App\Models\User;
 use App\Helpers\Helper;
 use Livewire\Component;
+use App\Models\Position;
 use App\Models\Candidate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -26,7 +27,8 @@ class Admin extends Component
     public $candidate_state_id  = '';
     public $selectedCandidateId;
     public $candidateStates;
-
+    public $positions;
+    public $position_id;
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -78,9 +80,7 @@ class Admin extends Component
                             $query->orWhere($field, 'like', '%' . $this->search . '%');
                         }
                     })
-                    ->orWhereHas('position', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
+                   
                     ->orWhereHas('disponibility', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     })
@@ -109,6 +109,9 @@ class Admin extends Component
             ->when($this->candidate_statut_id, function ($query) {
                 $query->where('candidate_statut_id', $this->candidate_statut_id);
             })
+            ->when($this->position_id, function ($query) {
+                $query->where('position_id', $this->position_id);
+            })
             ->paginate($this->nbPaginate);
     }
     public function confirmDelete($nom, $id)
@@ -117,7 +120,7 @@ class Admin extends Component
     }
     public function mount()
     {
-
+        $this->positions= Position::all();
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidateStates = CandidateStatut::all();
         if (session()->has('dash_base_cdt_selected_candidate_id')) {

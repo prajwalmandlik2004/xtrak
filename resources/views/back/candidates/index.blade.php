@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Liste des candidats'])
+@extends('layouts.app', ['title' => 'Base candidats'])
 
 @section('content')
     @livewire('back.candidates.index')

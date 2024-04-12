@@ -4,6 +4,7 @@ namespace App\Livewire\Back\Candidates;
 
 use App\Helpers\Helper;
 use Livewire\Component;
+use App\Models\Position;
 use App\Models\Candidate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -27,7 +28,8 @@ class State extends Component
     public $selectedCandidateId;
     public $candidateStates;
     public $state;
-
+    public $positions;
+    public $position_id;
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -63,9 +65,7 @@ class State extends Component
                             $query->orWhere($field, 'like', '%' . $this->search . '%');
                         }
                     })
-                    ->orWhereHas('position', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
+                   
                     ->orWhereHas('disponibility', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     })
@@ -94,6 +94,9 @@ class State extends Component
             ->when($this->candidate_statut_id, function ($query) {
                 $query->where('candidate_statut_id', $this->candidate_statut_id);
             })
+            ->when($this->position_id, function ($query) {
+                $query->where('position_id', $this->position_id);
+            })
             ->where('created_by', Auth::id())
             ->paginate($this->nbPaginate);
     }
@@ -104,6 +107,7 @@ class State extends Component
 
     public function mount()
     {
+        $this->positions= Position::all();
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidateStates = CandidateState::all();
         $this->candidate_state_id = CandidateState::where('name', $this->state)->first()->id;

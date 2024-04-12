@@ -15,15 +15,7 @@
                             class="ri-add-line align-bottom me-1"></i>
                         Nouveau</a>
                 </div>
-                <div class="p-2">
-                    <select class="form-control w-md" wire:model.live='candidate_statut_id'>
-                        <option value="" selected> Statut</option>
-                        @foreach ($candidateStatuses as $state)
-                            <option value="{{ $state->id }}" selected> {{ $state->name }}</option>
-                        @endforeach
-
-                    </select>
-                </div>
+               
                 <div class="p-2">
 
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
@@ -62,7 +54,8 @@
                                 <tr>
                                     <th scope="col">Alphabétique</th>
                                     <th scope="col">Date</th>
-
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Fonction</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -85,6 +78,23 @@
                                             <option value="desc">Plus ancien en haut</option>
                                         </select>
                                     </td>
+                                    <td>
+                                        <select class="form-control w-md" wire:model.live='candidate_statut_id'>
+                                            <option value="" selected> Statut</option>
+                                            @foreach ($candidateStatuses as $state)
+                                                <option value="{{ $state->id }}" selected> {{ $state->name }}</option>
+                                            @endforeach
+                    
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control w-md" wire:model.live='position_id'>
+                                            <option value="" selected>Fonction</option>
+                                            @foreach ($positions as $position)
+                                                <option value="{{ $position->id }}">{{ $position->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
 
                                 </tr>
                             </tbody>
@@ -101,7 +111,11 @@
                 <div class="card-header">
                     <h4 class="card-title
                         d-flex justify-content-between align-items-center">
-                       Base candidat</h4>
+                        @if (auth()->user()->hasRole('Administrateur'))
+                       Base candidats
+                    @else
+                    Base consultant
+                    @endIF</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

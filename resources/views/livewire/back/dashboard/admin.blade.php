@@ -12,7 +12,7 @@
                             class="ri-add-line align-bottom me-1"></i>
                         Nouveau</a>
                 </div>
-
+               
                 <div class="p-2">
 
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
@@ -48,6 +48,7 @@
                                     <th scope="col">Date</th>
                                     <th scope="col">Etat</th>
                                     <th scope="col">Statut</th>
+                                    <th scope="col">Fonction</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,6 +91,14 @@
                                                 </option>
                                             @endforeach
 
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control w-md" wire:model.live='position_id'>
+                                            <option value="" selected>Fonction</option>
+                                            @foreach ($positions as $position)
+                                                <option value="{{ $position->id }}">{{ $position->name }}</option>
+                                            @endforeach
                                         </select>
                                     </td>
                                 </tr>
