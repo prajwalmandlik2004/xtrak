@@ -124,7 +124,7 @@
                             <thead class="bg-secondary text-white">
                                 <tr>
                                     <th scope="col">Date</th>
-                                    {{-- <th scope="col">Auteur</th> --}}
+                                    <th scope="col">Auteur</th>
                                     <th scope="col">Civilité</th>
                                     <th scope="col">Prénom</th>
                                     <th scope="col">Nom</th>
@@ -151,11 +151,11 @@
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->created_at->format('d/m/Y') ?? '--' }}
                                             </a></td>
 
-                                        {{-- <td> <a class="text-body " href="#"
+                                        <td> <a class="text-body " href="#"
                                             wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
                                             {{ $candidate->auteur->trigramme ?? '--' }}
                                             </h5>
-                                        </a></td> --}}
+                                        </a></td>
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->civ->name ?? '--' }}
                                             </a></td>

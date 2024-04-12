@@ -85,7 +85,8 @@
                                     @if (auth()->user()->hasRole('Administrateur'))
                                         <div class="p-2">
                                             <span>Modifier l'état :</span>
-                                            <select class="form-control   w-md" wire:model.lazy="candidate_state_id">
+                                            <select class="form-control   w-md" wire:model.live="candidate_state_id">
+                                                <option value="">Selectionner</option>
                                                 @foreach ($candidateStates as $candidateState)
                                                     <option value="{{ $candidateState->id }}"
                                                         @if ($candidateState->id == $candidate_state_id) selected @endif>
@@ -95,12 +96,12 @@
                                             </select>
                                         </div>
 
-                                        <button class="btn btn-danger mt-3"
-                                            wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
-                                            type="button" class="btn py-0 fs-16 text-body">
-                                            Supprimer
-                                        </button>
                                     @endif
+                                    <button class="btn btn-danger mt-3"
+                                        wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
+                                        type="button" class="btn py-0 fs-16 text-body">
+                                        Supprimer
+                                    </button>
                                     {{-- <a class="btn btn-info mt-3" href="{{ Route('candidates.edit', $candidate) }}"
                                         type="button" class="btn py-0 fs-16 text-body">
                                         Modifier
@@ -449,6 +450,17 @@
                                                                         <div class="col-lg-2">
                                                                             <div>
                                                                                 <label for="origine"
+                                                                                    class="form-label">Auteur </label>
+                                                                                <input type="text"
+                                                                                    class="form-control form-control-custom  @error('origine') is-invalid @enderror "
+                                                                                    value=" {{ $candidate->auteur->trigramme ?? '--' }}"
+                                                                                    placeholder="auteur" disabled />
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-2">
+                                                                            <div>
+                                                                                <label for="origine"
                                                                                     class="form-label">Source </label>
                                                                                 <input type="text"
                                                                                     class="form-control form-control-custom  @error('origine') is-invalid @enderror "
@@ -514,7 +526,7 @@
                                                                                 @enderror
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-lg-2 ">
+                                                                        <div class="col-lg-2 mt-4">
                                                                             <div>
                                                                                 <label for="disponibility"
                                                                                     class="form-label">Disponibilité
@@ -602,8 +614,7 @@
                                                                         <div class="col-md-2 mt-4">
                                                                             <div>
                                                                                 <label for="candidate_statut_id"
-                                                                                    class="form-label">codeCDT <span
-                                                                                        class="text-danger">*</span></label>
+                                                                                    class="form-label">codeCDT</label>
                                                                                 <input type="text"
                                                                                     class="form-control form-control-custom  "
                                                                                     value="{{ $candidate->code_cdt }}"

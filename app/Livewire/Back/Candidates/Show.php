@@ -56,14 +56,18 @@ class Show extends Component
     #[On('deleteCandidate')]
     public function deleteData($id)
     {
-        $candidateRepository = new CandidateRepository();
-        DB::beginTransaction();
-        $candidate = $candidateRepository->find($id);
-
-        $candidateRepository->delete($candidate->id);
-        DB::commit();
-        return redirect()->route('candidates.index')->with('success', 'le candidat est supprimé avec succès');
         try {
+            $candidateRepository = new CandidateRepository();
+            DB::beginTransaction();
+            $candidate = $candidateRepository->find($id);
+            if ($candidate->candidateState->name == 'Certifié') {
+                $this->dispatch('swal:modal', type: 'error', title:"Ce candidat est certifié" , text: 'Impossible de supprimer un candidat certifié');
+                return;
+            }
+            $candidateRepository->delete($candidate->id);
+            DB::commit();
+            $this->dispatch('goBack');
+            // return redirect()->route('candidates.index')->with('success', 'le candidat est supprimé avec succès');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $candidate->first_name. $candidate->laste_name");
@@ -171,9 +175,9 @@ class Show extends Component
     {
         return view('livewire.back.candidates.show');
     }
-    public function updatedState($id)
+    public function updatedCandidateStateId($id)
     {
-        $this->candidate->candidate_state_id = CandidateState::where('id', $id)->first()->id;
+        $this->candidate->candidate_state_id = CandidateState::where('id', $id)->first()->id ?? null;
         $this->candidate->save();
         $this->dispatch('alert', type: 'success', message: 'Etat modifier avec succès');
     }

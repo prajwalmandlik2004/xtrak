@@ -249,6 +249,10 @@
                 window.history.back();
             }
         }
+        window.addEventListener('goBack', function() {
+
+            goBack(); 
+        });
     </script>
     @yield('script')
     @stack('script-chart')
