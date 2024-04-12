@@ -182,8 +182,7 @@ form-control-custom  @error('ns_date') is-invalid @enderror"
                                         </div>
                                         <div class="col-md-2 mt-4">
                                             <div>
-                                                <label for="candidate_statut_id" class="form-label">Statut <span
-                                                        class="text-danger">*</span></label>
+                                                <label for="candidate_statut_id" class="form-label">Statut </label>
                                                 <select
                                                     class="form-control  
 form-control-custom  @error('candidate_statut_id') is-invalid @enderror"

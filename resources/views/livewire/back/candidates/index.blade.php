@@ -25,7 +25,7 @@
                         Nouveau</a>
                 </div>
                 
-                <div class="p-2">
+                <div class="p-2 mt-5">
 
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
                         <option value="6" selected>6</option>
@@ -37,7 +37,7 @@
                     </select>
                 </div>
 
-                <div class="p-2">
+                <div class="p-2 mt-5">
                     <div class="search-box ms-2">
                         <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
                         <i class="ri-search-line search-icon"></i>
@@ -47,12 +47,9 @@
         </div>
 
         <div class="col-md-6">
-            <div class="float-md-end ">
-                <div class="p-2">
-                    <h5 class="mb-0">Paramètres de tri des candidats</h5>
-                </div>
-                <div class="p-2">
+            <div class="">
                     <div class="table-responsive">
+                        <h5 class="mb-0">Paramètres de tri des candidats</h5>
                         <table class="table table-bordered border-secondary table-nowrap">
                             <thead>
                                 <tr class="text-center">
@@ -117,7 +114,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
         </div>
 
