@@ -197,7 +197,7 @@
         window.addEventListener('refresh-page', event => {
             setTimeout(function() {
                 window.location.reload(false);
-            }, 2500); 
+            }, 1500); 
         });
     </script>
     <script>

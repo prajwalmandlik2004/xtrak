@@ -94,6 +94,24 @@ class Form extends Component
                 $this->dispatch('alert', type: 'success', message: 'le document est supprimé avec succès');
             }
             $this->files = $this->candidate->files;
+            if ($this->candidate->files()->exists()) {
+                $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
+                $stateId = CandidateState::where('name', 'Attente')->first()->id;
+                if ($cvFile == null && $stateId) {
+                    $this->candidate->update([
+                        'certificate' => null,
+                        'candidate_state_id' => $stateId,
+                    ]);
+                }
+            }else {
+                $stateId = CandidateState::where('name', 'Attente')->first()->id;
+               if($stateId){
+                $this->candidate->update([
+                    'certificate' => null,
+                    'candidate_state_id' => $stateId,
+                ]);
+               }
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le document $file->name");

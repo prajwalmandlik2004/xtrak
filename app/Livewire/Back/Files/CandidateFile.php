@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use App\Models\CandidateState;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\FileRepository;
 
@@ -33,8 +34,28 @@ class CandidateFile extends Component
             if ($file) {
                 $fileRepository->delete($file->id);
                 DB::commit();
-                $this->dispatch('alert', type: 'success', message: 'le document est supprimé avec succès');
+              
             }
+            if ($this->candidate->files()->exists()) {
+                $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
+                $stateId = CandidateState::where('name', 'Attente')->first()->id;
+                if ($cvFile == null && $stateId) {
+                    $this->candidate->update([
+                        'certificate' => null,
+                        'candidate_state_id' => $stateId,
+                    ]);
+                }
+            }else {
+                $stateId = CandidateState::where('name', 'Attente')->first()->id;
+               if($stateId){
+                $this->candidate->update([
+                    'certificate' => null,
+                    'candidate_state_id' => $stateId,
+                ]);
+               }
+            }
+            $this->dispatch('alert', type: 'success', message: 'le document est supprimé avec succès');
+            $this->dispatch('refresh-page');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le document $file->name");
@@ -84,22 +105,25 @@ class CandidateFile extends Component
             if ($this->isUpdate) {
                 $fileRepository->update($this->file, ['name' => $validateData['name'], 'file_type' => $validateData['fileType']]);
             } else {
+                
+                $fileRepository->createOne($validateData['newFile'], $this->candidate->id, $validateData['fileType']);
                 if ($this->candidate->files()->exists()) {
                     $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
-                    if (!$cvFile) {
+                    $stateId = CandidateState::where('name', 'Certifié')->first()->id;
+                    if ($cvFile && $stateId) {
                         $certificate = Str::random(10);
                         $this->candidate->update([
                             'certificate' => $certificate,
-                            'state' => 'Certifié',
+                            'candidate_state_id' => $stateId,
                         ]);
                     }
                 }
-                $fileRepository->createOne($validateData['newFile'], $this->candidate->id, $validateData['fileType']);
             }
             DB::commit();
             $this->reset('name', 'newFile', 'fileType');
             $this->dispatch('close:modal');
             $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'le document est ajouté avec succès');
+            $this->dispatch('refresh-page');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter le document');
