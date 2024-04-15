@@ -180,21 +180,21 @@ class Show extends Component
     }
     public function updatedCandidateStateId($id)
     {
-       $state = CandidateState::where('id', $id)->first() ?? null;
+        $state = CandidateState::where('id', $id)->first() ?? null;
         if ($this->candidate->files()->exists()) {
             $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
-            if ($cvFile) {
+            $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id && $this->candidate->email && $this->candidate->position_id;
+            if ($cvFile && $additionalFieldsFilled) {
                 $this->candidate->update([
-                    'certificate' => null,
                     'candidate_state_id' => $state->id,
                 ]);
-            }else {
+            } else {
                 return $this->dispatch('alert', type: 'error', message: 'Impossible de modifier l\'état du candidat');
             }
         } else {
             return $this->dispatch('alert', type: 'error', message: 'Impossible de modifier l\'état du candidat');
         }
-        $this->candidate->candidate_state_id  = $state->id ?? null;
+        $this->candidate->candidate_state_id = $state->id ?? null;
         $this->candidate->save();
         $this->dispatch('alert', type: 'success', message: 'Etat modifier avec succès');
     }

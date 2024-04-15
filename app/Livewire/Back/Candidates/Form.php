@@ -91,13 +91,14 @@ class Form extends Component
             if ($file) {
                 $fileRepository->delete($file->id);
                 DB::commit();
-                $this->dispatch('alert', type: 'success', message: 'le document est supprimé avec succès');
+                
             }
             $this->files = $this->candidate->files;
             if ($this->candidate->files()->exists()) {
                 $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
                 $stateId = CandidateState::where('name', 'Attente')->first()->id;
-                if ($cvFile == null && $stateId) {
+                $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id &&  $this->candidate->email && $this->candidate->position_id;  
+                if ($cvFile && $stateId && $additionalFieldsFilled) {
                     $this->candidate->update([
                         'certificate' => null,
                         'candidate_state_id' => $stateId,
@@ -112,6 +113,7 @@ class Form extends Component
                 ]);
                }
             }
+            $this->dispatch('alert', type: 'success', message: 'le document est supprimé avec succès');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le document $file->name");
@@ -305,7 +307,8 @@ class Form extends Component
             if ($this->candidate->files()->exists()) {
                 $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
                 $stateId = CandidateState::where('name', 'Certifié')->first()->id;
-                if ($cvFile && $stateId) {
+                $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id &&  $this->candidate->email && $this->candidate->position_id;  
+                if ($cvFile && $stateId && $additionalFieldsFilled) {
                     $certificate = Str::random(10);
                     $this->candidate->update([
                         'certificate' => $certificate,
@@ -313,6 +316,7 @@ class Form extends Component
                     ]);
                 }
             }
+            
         }
         DB::commit();
         $this->reset('name', 'newFile', 'fileType');
@@ -368,7 +372,8 @@ class Form extends Component
             if ($this->candidate->files()->exists()) {
                 $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
                 $stateId = CandidateState::where('name', 'Certifié')->first()->id;
-                if ($cvFile && $stateId) {
+                $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id &&  $this->candidate->email && $this->candidate->position_id;  
+                if ($cvFile && $stateId && $additionalFieldsFilled) {
                     $certificate = Str::random(10);
                     $this->candidate->update([
                         'certificate' => $certificate,
@@ -391,7 +396,8 @@ class Form extends Component
         if ($this->candidate->files()->exists()) {
             $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
             $stateId = CandidateState::where('name', 'Certifié')->first()->id;
-            if ($cvFile && $stateId) {
+            $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id &&  $this->candidate->email && $this->candidate->position_id;  
+            if ($cvFile && $stateId && $additionalFieldsFilled) {
                 $certificate = Str::random(10);
                 $this->candidate->update([
                     'certificate' => $certificate,

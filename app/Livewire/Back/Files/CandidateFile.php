@@ -39,7 +39,8 @@ class CandidateFile extends Component
             if ($this->candidate->files()->exists()) {
                 $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
                 $stateId = CandidateState::where('name', 'Attente')->first()->id;
-                if ($cvFile == null && $stateId) {
+                $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id &&  $this->candidate->email && $this->candidate->position_id;  
+                if ($cvFile && $stateId && $additionalFieldsFilled) {
                     $this->candidate->update([
                         'certificate' => null,
                         'candidate_state_id' => $stateId,
@@ -110,7 +111,8 @@ class CandidateFile extends Component
                 if ($this->candidate->files()->exists()) {
                     $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
                     $stateId = CandidateState::where('name', 'Certifié')->first()->id;
-                    if ($cvFile && $stateId) {
+                    $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id &&  $this->candidate->email && $this->candidate->position_id;  
+                    if ($cvFile && $stateId && $additionalFieldsFilled) {
                         $certificate = Str::random(10);
                         $this->candidate->update([
                             'certificate' => $certificate,
