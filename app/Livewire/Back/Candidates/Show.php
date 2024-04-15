@@ -122,7 +122,7 @@ class Show extends Component
     {
         $validatedData = $this->validate(
             [
-                'civ_id' => 'nullable',
+                'civ_id' => 'required',
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'email' => 'required|email',
@@ -130,7 +130,7 @@ class Show extends Component
                 'compagny_id' => 'nullable',
                 'postal_code' => 'nullable',
                 'candidate_statut_id' => 'nullable',
-                'position_id' => 'nullable',
+                'position_id' => 'required',
                 'city' => 'nullable',
                 'address' => 'nullable',
                 'region' => 'nullable',
@@ -149,6 +149,9 @@ class Show extends Component
                 'first_name.required' => 'Le prénom est obligatoire',
                 'last_name.required' => 'Le nom est obligatoire',
                 'email.required' => 'L\'email est obligatoire',
+                'email.email' => 'L\'email doit être une adresse email valide',
+                'position_id.required' => 'Le poste est obligatoire',
+                'civ_id.required' => 'La civilité est obligatoire',
             ],
         );
 

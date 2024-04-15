@@ -189,7 +189,8 @@
                                                                         <div class="col-lg-2">
                                                                             <div>
                                                                                 <label for="job-category-Input"
-                                                                                    class="form-label">Civilité</label>
+                                                                                    class="form-label">Civilité <span
+                                                                                    class="text-danger">*</span></label>
                                                                                 <select
                                                                                     class="form-control form-control-custom  @error('civ_id') is-invalid @enderror "
                                                                                     wire:model='civ_id'>
@@ -507,7 +508,8 @@
                                                                         </div>
                                                                         <div class="col-lg-3">
                                                                             <div>
-                                                                                <label for="position_id" class="form-label">Poste (Fonction1) </label>
+                                                                                <label for="position_id" class="form-label">Poste (Fonction1)  <span
+                                                                                    class="text-danger">*</span></label>
                                                                                 <select
                                                                                     class="form-control  
                                 form-control-custom  @error('position_id') is-invalid @enderror "
