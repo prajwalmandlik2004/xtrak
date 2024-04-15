@@ -61,7 +61,7 @@ class Show extends Component
             DB::beginTransaction();
             $candidate = $candidateRepository->find($id);
             if ($candidate->candidateState->name == 'Certifié') {
-                $this->dispatch('swal:modal', type: 'error', title:"Ce candidat est certifié" , text: 'Impossible de supprimer un candidat certifié');
+                $this->dispatch('swal:modal', type: 'error', title: 'Ce candidat est certifié', text: 'Impossible de supprimer un candidat certifié');
                 return;
             }
             $candidateRepository->delete($candidate->id);
@@ -155,7 +155,7 @@ class Show extends Component
         DB::beginTransaction();
         $candidateRepository = new CandidateRepository();
         $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
-       
+
         DB::commit();
         $this->mount();
         // $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
@@ -180,7 +180,21 @@ class Show extends Component
     }
     public function updatedCandidateStateId($id)
     {
-        $this->candidate->candidate_state_id = CandidateState::where('id', $id)->first()->id ?? null;
+       $state = CandidateState::where('id', $id)->first() ?? null;
+        if ($this->candidate->files()->exists()) {
+            $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
+            if ($cvFile) {
+                $this->candidate->update([
+                    'certificate' => null,
+                    'candidate_state_id' => $state->id,
+                ]);
+            }else {
+                return $this->dispatch('alert', type: 'error', message: 'Impossible de modifier l\'état du candidat');
+            }
+        } else {
+            return $this->dispatch('alert', type: 'error', message: 'Impossible de modifier l\'état du candidat');
+        }
+        $this->candidate->candidate_state_id  = $state->id ?? null;
         $this->candidate->save();
         $this->dispatch('alert', type: 'success', message: 'Etat modifier avec succès');
     }
