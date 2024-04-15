@@ -84,7 +84,8 @@ form-control-custom  @error('origine') is-invalid @enderror "
                                         </div>
                                         <div class="col-lg-2">
                                             <div>
-                                                <label for="job-category-Input" class="form-label">Civilité</label>
+                                                <label for="job-category-Input" class="form-label">Civilité <span
+                                                    class="text-danger">*</span></label>
                                                 <select
                                                     class="form-control  
 form-control-custom  @error('civ_id') is-invalid @enderror "

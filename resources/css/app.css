@@ -38,5 +38,5 @@ background-color: #e1e1e1 !important;
 max-width: 200px !important;
 overflow: hidden !important;
 text-overflow: ellipsis !important;
-white-space: normal !important;
+white-space: nowrap !important;
 }

@@ -133,7 +133,7 @@ class Form extends Component
     {
         $validatedData = $this->validate(
             [
-                'civ_id' => 'nullable',
+                'civ_id' => 'required',
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'email' => $this->action == 'create' ? 'required|email|unique:candidates,email' : 'required|email',
@@ -162,6 +162,7 @@ class Form extends Component
                 'first_name.required' => 'Le prénom est obligatoire',
                 'last_name.required' => 'Le nom est obligatoire',
                 'email.required' => 'L\'email est obligatoire',
+                'civ_id.required' => 'La civilité est obligatoire',
             ],
         );
         try {
