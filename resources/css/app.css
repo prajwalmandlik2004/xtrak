@@ -19,17 +19,24 @@ color: #fff !important;
 }
 
 .table-hover-primary tbody tr:hover .text-body {
-    color: white !important; 
+color: white !important;
 }
 
 .navbar-header {
-    height: 50px !important;
+height: 50px !important;
 }
 .header-item {
-    height: 50px !important;
+height: 50px !important;
 }
 
 .form-control-custom {
-   
-    background-color: #e1e1e1 !important;
+
+background-color: #e1e1e1 !important;
+}
+
+.table-responsive table td {
+max-width: 200px !important;
+overflow: hidden !important;
+text-overflow: ellipsis !important;
+white-space: normal !important;
 }

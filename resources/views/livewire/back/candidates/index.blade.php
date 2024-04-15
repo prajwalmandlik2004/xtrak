@@ -1,4 +1,5 @@
 <div>
+    
     <!-- start page title -->
     @include('components.breadcrumb', [
         'title' => 'Base candidats',
