@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('trigramme')->nullable();
             $table->timestamp('last_seen')->nullable();
+            $table->boolean('is_connect')->default(false)->nullable();
             $table->timestamps();
         });
     }

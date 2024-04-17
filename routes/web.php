@@ -35,6 +35,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::post('/connexion', [AuthenticatedSessionController::class, 'store'])->name('connexion');
+Route::post('/deconnexion', [AuthenticatedSessionController::class, 'logOut'])->name('deconnexion');
+
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', [DasboardController::class, 'index'])->name('dashboard');

@@ -41,9 +41,9 @@
                     <tbody>
                         @forelse ($usersWithLoginCounts as $value)
                             <tr>
-                                <td>{{ $value->trigramme ?? ''}}</td>
-                                <td>{{ $value->first_name ?? ''}}</td>
-                                <td>{{ $value->last_name ?? ''}}</td>
+                                <td>{{ $value->trigramme ?? '' }}</td>
+                                <td>{{ $value->first_name ?? '' }}</td>
+                                <td>{{ $value->last_name ?? '' }}</td>
                                 <td>{{ $value->total_logins ?? 0 }}</td>
                                 <td>{{ $value->logins_today ?? 0 }}</td>
                                 <td>{{ $value->logins_this_week ?? 0 }}</td>
@@ -52,12 +52,12 @@
                                 </td>
 
                                 <td style="width: 50px;" class="py-3 px-6 text-center">
-                                    @if ($value->last_seen >= now()->subSeconds(30))
-                                    <span class="badge border border-light rounded-circle bg-success p-2 fs-4">
-                                    </span>
+                                    @if ($value->is_connect)
+                                        <span class="badge border border-light rounded-circle bg-success p-2 fs-4">
+                                        </span>
                                     @else
-                                    <span class="badge border border-light rounded-circle bg-danger p-2 fs-4">
-                                    </span>
+                                        <span class="badge border border-light rounded-circle bg-danger p-2 fs-4">
+                                        </span>
                                     @endif
                                 </td>
                             </tr>
@@ -83,4 +83,12 @@
         <!-- end col -->
         {{-- {{ $usersWithLoginCounts->links() }} --}}
     </div><!-- end row -->
+
+    @push('page-script')
+        <script>
+            setInterval(function() {
+                Livewire.emit('userActivityUpdated');
+            }, 1000);
+        </script>
+    @endpush
 </div>

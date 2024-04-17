@@ -61,7 +61,7 @@
                 <div class="ms-1 header-item d-sm-flex text-danger ">
                     <button type="button"
                         class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('deconnexion') }}">
                             @csrf
                             <button type="submit" class="dropdown-item">
                                 <i class="mdi mdi-logout fs-16 align-middle me-1"></i>

@@ -20,9 +20,25 @@ class AuthenticatedSessionController extends FortifyAuthenticatedSessionControll
                 'user_id' => $user->id,
                 'login_at' => now(),
             ]);
+            $user->update([
+                'last_seen' => now(),
+                'is_connect' => true,
+            ]);
             return redirect()->route('dashboard');
         }
 
         return back()->with('error', 'Identifiants incorrects');
+    }
+    public function logOut(Request $request)
+    {
+        $user = auth()->user();
+        $user->update([
+            'is_connect' => false,
+            'last_seen' => now(),
+        ]);
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

@@ -33,7 +33,8 @@ class User extends Authenticatable
         'profile_photo_path',
         'phone',
         'trigramme',
-        'last_seen'
+        'last_seen',
+        'is_connect',
 
     ];
 
