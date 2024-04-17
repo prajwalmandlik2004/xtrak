@@ -84,11 +84,11 @@
         {{-- {{ $usersWithLoginCounts->links() }} --}}
     </div><!-- end row -->
 
-    @push('page-script')
+    {{-- @push('page-script')
         <script>
             setInterval(function() {
                 Livewire.dispatch('userActivityUpdated');
             }, 500);
         </script>
-    @endpush
+    @endpush --}}
 </div>

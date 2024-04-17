@@ -10,7 +10,7 @@ class Index extends Component
     public $usersWithLoginCounts;
     public $users;
     public $user_id;
-    protected $listeners = ['userActivityUpdated' => '$refresh'];
+    // protected $listeners = ['userActivityUpdated' => '$refresh'];
     public function mount()
     {
         $this->users = User::orderBy('last_name')->get();
