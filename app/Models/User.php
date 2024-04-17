@@ -75,5 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Candidate::class, 'created_by', 'id');
     }
+    public function userLogins()
+    {
+        return $this->hasMany(UserLogin::class);
+    }
     
 }

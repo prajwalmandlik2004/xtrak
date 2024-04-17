@@ -7,17 +7,18 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NsDateController;
 use App\Http\Controllers\CompagnyController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\NextStepController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\CandidateController;
-use App\Http\Controllers\CandidateStateController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\DisponibilityController;
+use App\Http\Controllers\CandidateStateController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\CandidateStatutController;
-use App\Http\Controllers\NsDateController;
+use App\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ use App\Http\Controllers\NsDateController;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::post('/connexion', [AuthenticatedSessionController::class, 'store'])->name('connexion');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', [DasboardController::class, 'index'])->name('dashboard');
@@ -59,7 +61,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('candidate_statuts', CandidateStatutController::class);
     Route::resource('candidate_states', CandidateStateController::class);
     Route::resource('nsdates', NsDateController::class);
-
-
 });
 Route::get('commandes/{param}', [DasboardController::class, 'commande']);

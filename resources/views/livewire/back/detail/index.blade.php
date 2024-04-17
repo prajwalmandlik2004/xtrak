@@ -66,6 +66,6 @@
     <!-- end row -->
     <div class="row g-0 text-center text-sm-start align-items-center mb-4">
         <!-- end col -->
-        {{-- {{ $roles->links() }} --}}
+        {{-- {{ $usersWithCandidateCounts->links() }} --}}
     </div><!-- end row -->
 </div>

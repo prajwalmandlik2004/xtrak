@@ -17,4 +17,5 @@ class UserController extends Controller
         $this->authorize('Menu paramètres');
         return view('back.users.profile');
     }
+    
 }
