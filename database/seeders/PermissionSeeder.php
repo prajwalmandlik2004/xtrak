@@ -21,6 +21,7 @@ class PermissionSeeder extends Seeder
             'Ajouter un candidat',
             "Menu etats",
             "Menu saisie",
+            "Menu Détails",
             'Menu paramètres',
             'Menu utilisateur',
             'Liste des utilisateurs',

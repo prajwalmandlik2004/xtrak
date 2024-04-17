@@ -71,4 +71,9 @@ class User extends Authenticatable
         return 'uuid';
     }
     
+    public function candidates()
+    {
+        return $this->hasMany(Candidate::class, 'created_by', 'id');
+    }
+    
 }
