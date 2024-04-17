@@ -839,7 +839,7 @@
                                         </div>
                                         <div class="col-md-12 mt-3">
                                             <div>
-                                                <label for="response6" class="form-label">6. Savoir-être du C.R.E
+                                                <label for="response6" class="form-label">6. Savoir-être 
                                                     :</label>
                                                 <textarea wire:model='response6' class="form-control auto-resize" id="response6"
                                                     style="resize: none; overflow-y: hidden;"></textarea>
@@ -856,7 +856,7 @@
                                         </div>
                                         <div class="col-md-12 mt-3">
                                             <div>
-                                                <label for="response8" class="form-label">8. Disponibilités C.R.E
+                                                <label for="response8" class="form-label">8. Disponibilités
                                                     :</label>
                                                 <textarea wire:model='response8' class="form-control auto-resize" id="response8"
                                                     style="resize: none; overflow-y: hidden;"></textarea>

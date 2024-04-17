@@ -49,15 +49,15 @@ class Form extends Component
             3 => 'Situation professionnelle',
             4 => 'Points incontournables',
             5 => 'Résumé du parcours professionnel',
-            6 => 'Savoir-être du C.R.E',
+            6 => 'Savoir-être', 
             7 => 'Prétentions salariales',
-            8 => 'Disponibilités C.R.E',
+            8 => 'Disponibilités',
         ];
 
         $validatedData = $this->validate([
             'response1' => 'nullable',
             'response2' => 'nullable',
-            'response3' => 'nullable',
+            'response3' => 'nullable',  
             'response4' => 'nullable',
             'response5' => 'nullable',
             'response6' => 'nullable',
