@@ -15,8 +15,7 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             'Menu accès BaseCDT',
-            'Menu synthèse',
-            // 'Menu Détails',
+            'Menu connexion',
             'Menu activité',
             'Importer des candidats',
             'Ajouter un candidat',

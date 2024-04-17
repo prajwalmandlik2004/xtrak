@@ -17,5 +17,9 @@ class PermissionRoleSeeder extends Seeder
         $admin = Role::where('name', 'Administrateur')->first();
         $admin->syncPermissions(Permission::all());
         $admin = Role::where('name', 'Consultant')->first();
+        $cdt = Role::where('name', 'Consultant')->first();
+        $permissions = Permission::whereIn('name', ['Importer des candidats', 'Ajouter un candidat', 'Menu etats', 'Menu saisie', 'Menu paramètres', 'Gestion des etats', 'Menu capture / gestion'])->get();
+        $permissionIds = $permissions->pluck('id')->toArray();
+        $cdt->syncPermissions($permissionIds);
     }
 }

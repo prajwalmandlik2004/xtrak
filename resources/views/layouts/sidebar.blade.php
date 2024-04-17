@@ -68,7 +68,7 @@
                          <div class="collapse menu-dropdown {{ request()->is(['summary', 'summary/*', 'detail', 'detail/*']) ? 'show' : '' }}"
                              id="activite">
                              <ul class="nav nav-sm flex-column">
-                                 @can('Menu synthèse')
+                                 @can('Menu connexion')
                                      <li class="nav-item">
                                          <a href="{{ route('summary') }}"
                                              class="nav-link {{ request()->routeIs('summary*') ? 'active' : '' }}"
