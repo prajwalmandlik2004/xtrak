@@ -88,7 +88,7 @@
         <script>
             setInterval(function() {
                 Livewire.emit('userActivityUpdated');
-            }, 1000);
+            }, 500);
         </script>
     @endpush
 </div>
