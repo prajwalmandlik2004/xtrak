@@ -87,7 +87,7 @@
     @push('page-script')
         <script>
             setInterval(function() {
-                Livewire.emit('userActivityUpdated');
+                Livewire.dispatch('userActivityUpdated');
             }, 500);
         </script>
     @endpush
