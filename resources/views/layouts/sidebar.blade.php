@@ -59,19 +59,19 @@
                  <!-- end   Accès BaseCDT Menu -->
                  @can('Menu activité')
                      <li class="nav-item">
-                         <a class="nav-link menu-link {{ request()->is(['summary', 'summary/*', 'detail', 'detail/*']) ? 'active' : '' }}"
+                         <a class="nav-link menu-link {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'active' : '' }}"
                              href="#activite" data-bs-toggle="collapse" role="button"
-                             aria-expanded="{{ request()->is(['summary', 'summary/*', 'detail', 'detail/*']) ? 'true' : 'false' }}"
+                             aria-expanded="{{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'true' : 'false' }}"
                              aria-controls="activite">
                              <i class="ri-apps-2-line"></i> <span data-key="t-apps">Activité</span>
                          </a>
-                         <div class="collapse menu-dropdown {{ request()->is(['summary', 'summary/*', 'detail', 'detail/*']) ? 'show' : '' }}"
+                         <div class="collapse menu-dropdown {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'show' : '' }}"
                              id="activite">
                              <ul class="nav nav-sm flex-column">
                                  @can('Menu connexion')
                                      <li class="nav-item">
-                                         <a href="{{ route('summary') }}"
-                                             class="nav-link {{ request()->routeIs('summary*') ? 'active' : '' }}"
+                                         <a href="{{ route('connexions') }}"
+                                             class="nav-link {{ request()->routeIs('connexions*') ? 'active' : '' }}"
                                              data-key="t-chat">Connexions</a>
                                      </li>
                                  @endcan

@@ -15,7 +15,7 @@
     <div class="col-md-8"> 
         <div class="card mt-5">
             <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0">Synthèse :
+                <h4 class="card-title mb-0">Connexions :
 
                 </h4>
 
