@@ -13,7 +13,9 @@ use App\Models\CandidateStatut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\CandidateRepository;
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Illuminate\Support\Facades\Response;
 class Admin extends Component
 {
     use WithPagination;
@@ -29,6 +31,7 @@ class Admin extends Component
     public $candidateStates;
     public $positions;
     public $position_id;
+    
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -132,6 +135,30 @@ class Admin extends Component
         }
         if (session()->has('dash_base_cdt_nb_paginate')) {
             $this->nbPaginate = session('dash_base_cdt_nb_paginate');
+        }
+    }
+    public function downloadExcel()
+    {
+        try {
+            $candidates = Candidate::with(['position', 'nextStep', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur', 'cres', 'candidateStatut', 'candidateState'])->get();
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            $headers = ['Source', 'CodeCDT', 'Auteur', 'Civ', 'Prénom', 'Nom', 'Poste', 'Spécialité', 'Domaine', 'Société', 'Mail', 'Tél1', 'Tél2', 'UrlCTC', 'CP/Dpt', 'Ville', 'Région', 'Disponibilité', 'Statut CDT', 'NextStep', 'NSDate'];
+            $sheet->fromArray([$headers], null, 'A1');
+            $row = 2;
+            foreach ($candidates as $candidate) {
+                $rowData = [$candidate->source ?? '', $candidate->code_cdt ?? '', $candidate->auteur->trigramme ?? '', $candidate->civ->name ?? '', $candidate->first_name ?? '', $candidate->last_name ?? '', $candidate->position->name ?? '', $candidate->speciality->name ?? '', $candidate->field->name ?? '', $candidate->compagny->name ?? '', $candidate->email ?? '', $candidate->phone ?? '', $candidate->phone2 ?? '', $candidate->url_ctc ?? '', $candidate->postal_code ?? '', $candidate->city ?? '', $candidate->region ?? '', $candidate->disponibility->name ?? '', $candidate->candidateStatut->name ?? '', $candidate->nextStep->name ?? '', $candidate->next_step_date ?? ''];
+                $sheet->fromArray([$rowData], null, 'A' . $row);
+                $row++;
+            }
+            $writer = new Xlsx($spreadsheet);
+            $fileName = 'base_candidats.xlsx';
+            $writer->save($fileName);
+            $this->dispatch('alert', type: 'success', message: 'Base candidats, exporter avec succèss');
+            return response()->download($fileName)->deleteFileAfterSend(true);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $this->dispatch('alert', type: 'error', message: "Une erreure est survenu, veuillez réessayez ou contacter l'administrateur");
         }
     }
     public function render()

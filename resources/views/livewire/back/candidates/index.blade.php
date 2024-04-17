@@ -1,5 +1,5 @@
 <div>
-    
+
     <!-- start page title -->
     @include('components.breadcrumb', [
         'title' => 'Base candidats',
@@ -10,14 +10,13 @@
     ])
     <div class="row">
         @if (session()->has('success'))
-        <div class="d-flex justify-content-center mt-3">
-            <div class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
-                {{ session()->get('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                    aria-label="Close"></button>
+            <div class="d-flex justify-content-center mt-3">
+                <div class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
+                    {{ session()->get('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
-        </div>
-    @endif
+        @endif
         <div class="col-md-6">
             <div class="d-flex">
                 <div class="p-2 flex-grow-1">
@@ -25,7 +24,7 @@
                             class="ri-add-line align-bottom me-1"></i>
                         Nouveau</a>
                 </div>
-                
+
                 <div class="p-2 mt-5">
 
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
@@ -49,72 +48,72 @@
 
         <div class="col-md-6">
             <div class="">
-                    <div class="table-responsive">
-                        <h5 class="mb-0">Paramètres de tri des candidats</h5>
-                        <table class="table table-bordered border-secondary table-nowrap">
-                            <thead>
-                                <tr class="text-center">
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Etat</th>
-                                    <th scope="col">Statut</th>
-                                    <th scope="col">Fonction</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <select  class="form-control w-md" wire:model.live='filterName'>
-                                            <option value="" class="bg-secondary text-white" selected>
-                                                Selectionner
+                <div class="table-responsive">
+                    <h5 class="mb-0">Paramètres de tri des candidats</h5>
+                    <table class="table table-bordered border-secondary table-nowrap">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">Nom</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Etat</th>
+                                <th scope="col">Statut</th>
+                                <th scope="col">Fonction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='filterName'>
+                                        <option value="" class="bg-secondary text-white" selected>
+                                            Selectionner
+                                        </option>
+                                        <option value="asc">A -> Z</option>
+                                        <option value="desc">Z -> A</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='filterDate'>
+                                        <option value="" class="bg-secondary text-white" selected>
+                                            Selectionner
+                                        </option>
+                                        <option value="asc">Plus récent en haut</option>
+                                        <option value="desc">Plus ancien en haut</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='candidate_state_id'>
+                                        <option value="" class="bg-secondary text-white" selected>
+                                            Selectionner
+                                        </option>
+                                        <option value="" selected>Tous</option>
+                                        @foreach ($candidateStates as $state)
+                                            <option value="{{ $state->id }}"> {{ $state->name }}
                                             </option>
-                                            <option value="asc">A -> Z</option>
-                                            <option value="desc">Z -> A</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control w-md" wire:model.live='filterDate'>
-                                            <option value="" class="bg-secondary text-white" selected>
-                                                Selectionner
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='candidate_statut_id'>
+                                        <option value="" selected> Statut</option>
+                                        @foreach ($candidateStatuses as $state)
+                                            <option value="{{ $state->id }}" selected> {{ $state->name }}
                                             </option>
-                                            <option value="asc">Plus récent en haut</option>
-                                            <option value="desc">Plus ancien en haut</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control w-md" wire:model.live='candidate_state_id'>
-                                            <option value="" class="bg-secondary text-white" selected>
-                                                Selectionner
-                                            </option>
-                                            <option value="" selected>Tous</option>
-                                            @foreach ($candidateStates as $state)
-                                                <option value="{{ $state->id }}" > {{ $state->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control w-md" wire:model.live='candidate_statut_id'>
-                                            <option value="" selected> Statut</option>
-                                            @foreach ($candidateStatuses as $state)
-                                                <option value="{{ $state->id }}" selected> {{ $state->name }}
-                                                </option>
-                                            @endforeach
+                                        @endforeach
 
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control w-md" wire:model.live='position_id'>
-                                            <option value="" selected>Fonction</option>
-                                            @foreach ($positions as $position)
-                                                <option value="{{ $position->id }}">{{ $position->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='position_id'>
+                                        <option value="" selected>Fonction</option>
+                                        @foreach ($positions as $position)
+                                            <option value="{{ $position->id }}">{{ $position->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -123,12 +122,31 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title
-                        d-flex justify-content-between align-items-center">
-                       Base candidats</h4>
+                    <div class="d-flex">
+                        <div class="flex-grow-1">
+                            <h4
+                                class="card-title
+                            d-flex justify-content-between align-items-center">
+                                Base candidats</h4>
+                        </div>
+
+                        <div class="">
+                            <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel" type="button" class="btn btn-primary position-relative">
+                                <i class="ri-file-download-line me-1"></i>
+                                <span class="download-text">Importer</span>
+                                <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Importation...</span>
+                                </span>
+                            </button>
+                            
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="card-body">
-                    
+
                     <div class="table-responsive">
 
                         <table
@@ -164,10 +182,10 @@
                                             </a></td>
 
                                         <td> <a class="text-body " href="#"
-                                            wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
-                                            {{ $candidate->auteur->trigramme ?? '--' }}
-                                            </h5>
-                                        </a></td>
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                                {{ $candidate->auteur->trigramme ?? '--' }}
+                                                </h5>
+                                            </a></td>
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->civ->name ?? '--' }}
                                             </a></td>
