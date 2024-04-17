@@ -15,7 +15,6 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             'Menu accès BaseCDT',
-            'Liste des candidats',
             'Menu synthèse',
             // 'Menu Détails',
             'Menu activité',
@@ -38,7 +37,8 @@ class PermissionSeeder extends Seeder
             'Gestion des statuts',
             'Gestion des etats',
             "Menu capture / gestion",
-            "Gestion des étape suivante"
+            "nextStep",
+            "nsDate"
         ];
         foreach ($permissions as $key => $permission) {
             Permission::create(['name' => $permission]);

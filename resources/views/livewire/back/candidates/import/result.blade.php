@@ -22,7 +22,8 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">Téléphone</th>
                                         <th scope="col">Statut CDN</th>
-                                        <th scope="col">Certification</th>
+                                        <th scope="col">Statut</th>
+                                        {{-- <th scope="col">Certification</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,8 +52,9 @@
                                             <td> <a class="text-body"
                                                     href="{{ Route('candidates.show', $candidate) }}">{{ $candidate->cdt_status }}</a>
                                             </td>
+                                            <td>En Attente</td>
 
-                                            <td>
+                                            {{-- <td>
                                                 @if ($candidate->certificate)
                                                                         <span class="badge rounded-pill bg-success"
                                                                             id="certificate-{{ 0 }}"
@@ -66,7 +68,7 @@
                                                                     @else
                                                                         ---
                                                                     @endif
-                                                <div id="message-{{ $loop->index }}" style="display: none;"></div>
+                                                <div id="message-{{ $loop->index }}" style="display: none;"></div> --}}
                                         </tr>
 
                                     @empty

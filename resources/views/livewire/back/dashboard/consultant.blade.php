@@ -180,7 +180,7 @@
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->nextStep->name ?? '--' }}</a>
                                         </td>
                                         <td> <a class="text-body " href="#"
-                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->ns_date ?? '--' }}</a>
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->nsDate->name ?? '--' }}</a>
                                         </td>
                                         <td>
                                             @if ($candidate->files()->exists())

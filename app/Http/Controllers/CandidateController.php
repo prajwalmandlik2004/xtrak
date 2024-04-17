@@ -13,7 +13,7 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        $this->authorize('Liste des candidats');
+        $this->authorize('Menu accès BaseCDT');
         return view('back.candidates.index');
     }
 
@@ -36,7 +36,7 @@ class CandidateController extends Controller
     }
     public function edit(Candidate $candidate)
     {
-        $this->authorize('Menu accès BaseCDT');
+        
         return view('back.candidates.form', [
             'action' => 'update',
             'candidate' => $candidate,

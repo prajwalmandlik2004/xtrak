@@ -37,7 +37,7 @@ return new class extends Migration {
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
             $table->foreignUuid('candidate_state_id')->nullable()->references('id')->on('candidate_states');
             $table->foreignUuid('next_step_id')->nullable()->references('id')->on('next_steps');
-            $table->date('ns_date')->nullable();
+            $table->foreignUuid('ns_date_id')->nullable()->references('id')->on('ns_dates');
             $table->string('cre_ref')->nullable();
             $table->timestamp('cre_created_at')->nullable();
             $table->timestamps();

@@ -189,7 +189,9 @@
                                                             wire:model='next_step_id'>
                                                             <option value="" selected>Selectionner</option>
                                                             @foreach ($nextSteps as $nextStep)
-                                                                <option value="{{ $nextStep->id }}">
+                                                                <option value="{{ $nextStep->id }}" @if ($nextStep->id == $next_step_id )
+                                                                    selected
+                                                                @endif>
                                                                     {{ $nextStep->name }}
                                                                 </option>
                                                             @endforeach
@@ -199,16 +201,23 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 mt-4">
+                                                <div class="col-lg-3 mt-4">
                                                     <div>
-
-                                                        <label for="ns_date" class="form-label">NSDATE </label>
-                                                        <input type="date"
+                                                        <label for="ns_date_id" class="form-label">NsDate </label>
+                                                        <select
                                                             class="form-control  
-        form-control-custom  @error('ns_date') is-invalid @enderror"
-                                                            wire:model='ns_date'
-                                                            placeholder="Veuillez entrer ns_date" />
-                                                        @error('ns_date')
+        form-control-custom  @error('ns_date_id') is-invalid @enderror "
+                                                            wire:model='ns_date_id'>
+                                                            <option value="" selected>Selectionner</option>
+                                                            @foreach ($nsDates as $nsDate)
+                                                                <option value="{{ $nsDate->id }}" @if ($nsDate->id == $ns_date_id )
+                                                                    selected
+                                                                @endif>
+                                                                    {{ $nsDate->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('ns_date_id')
                                                             <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
                                                     </div>

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\Back\Nextstep;
+namespace App\Livewire\Back\Nsdate;
 
-use App\Models\NextStep;
+use App\Models\NsDate;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -12,7 +12,7 @@ class Index extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $nextstep;
+    public $nsDate;
     public $search = '';
     public $nbPaginate = 10;
     public $name;
@@ -21,26 +21,26 @@ class Index extends Component
     public function deleteData($id)
     {
         DB::beginTransaction();
-        $nextstep = NextStep::find($id);
+        $nsDate = NsDate::find($id);
         try {
-            if ($nextstep) {
-                $nextstep->delete($nextstep->id);
+            if ($nsDate) {
+                $nsDate->delete($nsDate->id);
                 DB::commit();
-                $this->dispatch('alert', type: 'success', message: 'NextStep est supprimé avec succès');
+                $this->dispatch('alert', type: 'success', message: 'NsDate est supprimé avec succès');
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer nextstep $nextstep->name");
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer NsDate $nsDate->name");
         }
     }
 
     public function confirmDelete($nom, $id)
     {
-        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer nextstep $nom", type: 'warning', method: 'delete', id: $id);
+        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer NsDate $nom", type: 'warning', method: 'delete', id: $id);
     }
     public function searchFiles()
     {
-        return NextStep::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
+        return NsDate::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
     }
     public function openModal($id = null)
     {
@@ -48,8 +48,8 @@ class Index extends Component
         $this->isUpdate = false;
         if ($id) {
             $this->isUpdate = true;
-            $this->nextstep = NextStep::find($id);
-            $this->name = $this->nextstep->name ?? '';
+            $this->nsDate = NsDate::find($id);
+            $this->name = $this->nsDate->name ?? '';
         }
     }
     public function storeData()
@@ -66,23 +66,23 @@ class Index extends Component
         DB::beginTransaction();
 
         if ($this->isUpdate) {
-            $this->nextstep->update($validateData);
+            $this->nsDate->update($validateData);
         } else {
-            NextStep::create($validateData);
+            NsDate::create($validateData);
         }
         DB::commit();
         $this->dispatch('close:modal');
-        $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'NextStep est ajouté avec succès');
+        $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'NsDate est ajouté avec succès');
        
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter NextStep');
+            $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter NsDate');
         }
     }
     public function render()
     {
-        return view('livewire.back.nextstep.index')->with([
-            'nextsteps' => $this->searchFiles(),
+        return view('livewire.back.nsdate.index')->with([
+            'nsDates' => $this->searchFiles(),
         ]);
     }
 }

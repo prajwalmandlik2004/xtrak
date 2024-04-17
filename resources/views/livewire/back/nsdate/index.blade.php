@@ -1,10 +1,10 @@
 <div>
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'Listes des nextStep',
+        'title' => 'Listes des nsDate',
         'breadcrumbItems' => [
-            ['text' => 'nextStep', 'url' => '#'],
-            ['text' => 'Listes', 'url' => Route('nextsteps.index')],
+            ['text' => 'nsDate', 'url' => '#'],
+            ['text' => 'Listes', 'url' => Route('nsdates.index')],
         ],
     ])
     <!-- end page title -->
@@ -48,23 +48,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($nextsteps as $nextstep)
+                        @forelse ($nsDates as $nsDate)
                             <tr>
 
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $nextstep->name }}</td>
-                                <td>{{ $nextstep->created_at->format('d/m/Y')  }}</td>                                
+                                <td>{{ $nsDate->name }}</td>
+                                <td>{{ $nsDate->created_at->format('d/m/Y')  }}</td>                                
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
 
                                         <li class="list-inline-item edit">
-                                            <a wire:click="openModal('{{ $nextstep->id }}')" data-bs-toggle="modal" data-bs-target="#modal"
+                                            <a wire:click="openModal('{{ $nsDate->id }}')" data-bs-toggle="modal" data-bs-target="#modal"
                                                 class="text-primary d-inline-block edit-item-btn">
                                                 <i class="ri-pencil-fill fs-16"></i>
                                             </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a wire:click="confirmDelete('{{ $nextstep->name }}', '{{ $nextstep->id }}')"
+                                            <a wire:click="confirmDelete('{{ $nsDate->name }}', '{{ $nsDate->id }}')"
                                                 class="text-danger d-inline-block remove-item-btn">
                                                 <i class="ri-delete-bin-5-fill fs-16"></i>
                                             </a>
@@ -93,13 +93,13 @@
     <!-- end row -->
     <div class="row g-0 text-center text-sm-start align-items-center mb-4">
         <!-- end col -->
-        {{ $nextsteps->links() }}
+        {{ $nsDates->links() }}
     </div><!-- end row -->
 
 
     <x-modal>
         <x-slot name="title">
-            {{ $isUpdate ? 'Modification du nextStep' : 'Ajout du nextStep' }}
+            {{ $isUpdate ? 'Modification du nsDate' : 'Ajout du nsDate' }}
         </x-slot>
         <x-slot name="body">
 

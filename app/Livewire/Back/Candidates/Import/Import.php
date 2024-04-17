@@ -16,6 +16,7 @@ use App\Models\Disponibility;
 use Livewire\WithFileUploads;
 use App\Models\CandidateState;
 use App\Models\CandidateStatut;
+use App\Models\NsDate;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -113,7 +114,12 @@ class Import extends Component
                     $newCandidate['cdt_status'] = $cdtStatus->id;
                 }
             }
-            $newCandidate['ns_date'] = isset($data['NSDate']) ? Carbon::createFromFormat('d/m/Y', $data['NSDate'])->format('Y-m-d') : null;
+            if (!empty($data['NSDate'])) {
+                $nsDate = NsDate::where('name', $data['NSDate'])->first() ?? NsDate::create(['name' => $data['NSDate']]);
+                if ($nsDate) {
+                    $newCandidate['ns_date_id'] = $nsDate->id;
+                }
+            }
             if (!empty($data['NextStep'])) {
                 $nextStep = NextStep::where('name', $data['NextStep'])->first() ?? NextStep::create(['name' => $data['NextStep']]);
                 if ($nextStep) {

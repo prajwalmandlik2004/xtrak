@@ -10,7 +10,7 @@ class Candidate extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['speciality_id','field_id','candidate_state_id', 'ns_date', 'next_step_id', 'code_cdt', 'state', 'origine', 'commentaire', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'created_by', 'position_id', 'phone_2', 'certificate', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc', 'cre_ref', 'cre_created_at'];
+    protected $fillable = ['speciality_id','field_id','candidate_state_id', 'ns_date_id', 'next_step_id', 'code_cdt', 'state', 'origine', 'commentaire', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'created_by', 'position_id', 'phone_2', 'certificate', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc', 'cre_ref', 'cre_created_at'];
     public function position()
     {
         return $this->belongsTo(Position::class);
@@ -18,6 +18,10 @@ class Candidate extends Model
     public function nextStep()
     {
         return $this->belongsTo(NextStep::class);
+    }
+    public function nsDate()
+    {
+        return $this->belongsTo(NsDate::class);
     }
     public function disponibility()
     {
@@ -59,4 +63,5 @@ class Candidate extends Model
     {
         return $this->belongsTo(CandidateState::class);
     }
+
 }

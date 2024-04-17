@@ -4,6 +4,7 @@ namespace App\Livewire\Back\Candidates;
 
 use App\Models\Civ;
 use App\Models\Field;
+use App\Models\NsDate;
 use App\Helpers\Helper;
 use Livewire\Component;
 use App\Models\Compagny;
@@ -51,7 +52,9 @@ class Show extends Component
     public $origine;
     public $nextSteps;
     public $next_step_id;
-    public $ns_date;
+    public $ns_date_id;
+    public $nsDates;
+
     public $candidateStatuses;
     #[On('deleteCandidate')]
     public function deleteData($id)
@@ -88,6 +91,7 @@ class Show extends Component
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidate_state_id = $this->candidate->candidateState->id ?? '';
         $this->nextSteps = NextStep::all();
+        $this->nsDates = NsDate::all();
         $this->civs = Civ::all();
         $this->disponibilities = Disponibility::all();
         $this->positions = Position::orderBy('name', 'asc')->get();
@@ -113,7 +117,7 @@ class Show extends Component
             $this->field_id = $this->candidate->field_id ?? null;
             $this->commentaire = $this->candidate->commentaire;
             $this->origine = $this->candidate->origine;
-            $this->ns_date = $this->candidate->ns_date;
+            $this->ns_date_id = $this->candidate->ns_date_id;
             $this->specialities = $this->candidate->position->specialities ?? null;
             $this->fields = $this->candidate->speciality->fields ?? null;
         }
@@ -142,7 +146,7 @@ class Show extends Component
                 'phone_2' => 'nullable',
                 'commentaire' => 'nullable',
                 'origine' => 'nullable',
-                'ns_date' => 'nullable',
+                'ns_date_id' => 'nullable',
                 'next_step_id' => 'nullable',
             ],
             [

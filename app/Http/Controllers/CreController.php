@@ -27,7 +27,7 @@ class CreController extends Controller
     }
     public function form($candidate, $action)
     {
-        $this->authorize('Liste des candidats');
+       
         return view('back.cres.form', [
             'action' => $action,
             'cre' => new Cre(),

@@ -228,7 +228,8 @@
                                                                         <div class="col-lg-3">
                                                                             <div>
                                                                                 <label for="last_name"
-                                                                                    class="form-label">Nom </label>
+                                                                                    class="form-label">Nom  <span
+                                                                                    class="text-danger">*</span> </label>
                                                                                 <input type="text"
                                                                                     class="form-control form-control-custom  @error('last_name') is-invalid @enderror"
                                                                                     wire:model.live='last_name'
@@ -286,18 +287,24 @@
                                                                                 @enderror
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-2 mt-4">
+                                                                        <div class="col-lg-3 mt-4">
                                                                             <div>
-
-                                                                                <label for="ns_date"
-                                                                                    class="form-label">NSDATE </label>
-                                                                                <input type="date"
-                                                                                    class="form-control form-control-custom  @error('ns_date') is-invalid @enderror"
-                                                                                    wire:model='ns_date'
-                                                                                    placeholder="Veuillez entrer ns_date" />
-                                                                                @error('ns_date')
-                                                                                    <span
-                                                                                        class="invalid-feedback">{{ $message }}</span>
+                                                                                <label for="ns_date_id" class="form-label">NsDate </label>
+                                                                                <select
+                                                                                    class="form-control  
+                                form-control-custom  @error('ns_date_id') is-invalid @enderror "
+                                                                                    wire:model='ns_date_id'>
+                                                                                    <option value="" selected>Selectionner</option>
+                                                                                    @foreach ($nsDates as $nsDate)
+                                                                                        <option value="{{ $nsDate->id }}" @if ($nsDate->id == $ns_date_id )
+                                                                                            selected
+                                                                                        @endif>
+                                                                                            {{ $nsDate->name }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                                @error('ns_date_id')
+                                                                                    <span class="invalid-feedback">{{ $message }}</span>
                                                                                 @enderror
                                                                             </div>
                                                                         </div>

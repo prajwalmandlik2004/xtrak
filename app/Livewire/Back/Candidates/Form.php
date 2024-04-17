@@ -19,6 +19,7 @@ use App\Models\Disponibility;
 use Livewire\WithFileUploads;
 use App\Models\CandidateState;
 use App\Models\CandidateStatut;
+use App\Models\NsDate;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\FileRepository;
 use Illuminate\Support\Facades\Hash;
@@ -59,7 +60,8 @@ class Form extends Component
     public $origine;
     public $nextSteps;
     public $next_step_id;
-    public $ns_date;
+    public $ns_date_id;
+    public $nsDates;
     public $candidateStatuses;
     // public $cv;
     // public $cover_letter;
@@ -128,6 +130,7 @@ class Form extends Component
     {
         $this->candidateStatuses = CandidateStatut::all();
         $this->nextSteps = NextStep::all();
+        $this->nsDates = NsDate::all();
         $this->civs = Civ::all();
         $this->disponibilities = Disponibility::all();
         $this->positions = Position::orderBy('name', 'asc')->get();
@@ -153,7 +156,7 @@ class Form extends Component
             $this->field_id = $this->candidate->field_id ?? null;
             $this->commentaire = $this->candidate->commentaire;
             $this->origine = $this->candidate->origine;
-            $this->ns_date = $this->candidate->ns_date;
+            $this->ns_date_id = $this->candidate->ns_date_id ?? null;
             $this->files = $this->candidate->files;
             $this->files = $this->candidate->files;
         }
@@ -219,7 +222,7 @@ class Form extends Component
                 'phone_2' => 'nullable',
                 'commentaire' => 'nullable',
                 'origine' => 'nullable',
-                'ns_date' => 'nullable',
+                'ns_date_id' => 'nullable',
                 'next_step_id' => 'nullable',
             ],
             [
@@ -417,6 +420,7 @@ class Form extends Component
     {
         $this->candidateStatuses = CandidateStatut::all();
         $this->nextSteps = NextStep::all();
+        $this->nsDates = NsDate::all();
         $this->civs = Civ::all();
         $this->disponibilities = Disponibility::all();
         $this->positions = Position::orderBy('name', 'asc')->get();
@@ -442,7 +446,7 @@ class Form extends Component
             $this->field_id = $this->candidate->field_id ?? null;
             $this->commentaire = $this->candidate->commentaire;
             $this->origine = $this->candidate->origine;
-            $this->ns_date = $this->candidate->ns_date;
+            $this->ns_date_id = $this->candidate->ns_date_id ?? null;
             $this->files = $this->candidate->files;
             $this->action = 'update';
         }
@@ -455,7 +459,7 @@ class Form extends Component
 
     public function resetForm()
     {
-        $this->reset(['origine', 'commentaire', 'speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id',  'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+        $this->reset(['next_step_id','ns_date_id','origine', 'commentaire', 'speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id',  'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
     }
     public function updatedPositionId($value)
     {

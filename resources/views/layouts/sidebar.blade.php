@@ -47,7 +47,7 @@
 
                  </li> <!-- end Dashboard Menu -->
 
-                 @can(['Menu accès BaseCDT', 'Liste des candidats'])
+                 @can(['Menu accès BaseCDT'])
                      <li class="nav-item">
                          <a class="nav-link menu-link {{ request()->routeIs('candidates.index') ? 'active' : '' }}"
                              href="{{ route('candidates.index') }}">
@@ -162,12 +162,12 @@
                  @endcan
                  @can('Menu paramètres')
                      <li class="nav-item">
-                         <a class="nav-link menu-link {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}"
+                         <a class="nav-link menu-link {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}"
                              href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false"
                              aria-controls="sidebarAuth">
                              <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Paramètres</span>
                          </a>
-                         <div class="collapse menu-dropdown {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
+                         <div class="collapse menu-dropdown {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
                              id="sidebarAuth">
                              <ul class="nav nav-sm flex-column">
                                  <li class="nav-item">
@@ -215,15 +215,15 @@
                                  @endcan
                                  @can('Menu paramètre BaseCDT')
                                      <li class="nav-item">
-                                         <a href="#sidebarSignInBaseCDT" class="nav-link {{ request()->routeIs(['nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}" data-bs-toggle="collapse"
-                                             role="button" aria-expanded="{{ request()->routeIs('nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
+                                         <a href="#sidebarSignInBaseCDT" class="nav-link {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                             role="button" aria-expanded="{{ request()->routeIs('nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
                                              data-key="t-signin">
                                              BaseCDT
                                          </a>
-                                         <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
+                                         <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
                                              id="sidebarSignInBaseCDT">
                                              <ul class="nav nav-sm flex-column">
-                                                 @can('Gestion des étape suivante')
+                                                 @can('nextStep')
                                                      <li class="nav-item">
                                                          <a href="{{ route('nextsteps.index') }}"
                                                              class="nav-link {{ request()->routeIs('nextsteps.index') ? 'active' : '' }}"
@@ -231,6 +231,14 @@
                                                          </a>
                                                      </li>
                                                  @endcan
+                                                 @can('nsDate')
+                                                 <li class="nav-item">
+                                                     <a href="{{ route('nsdates.index') }}"
+                                                         class="nav-link {{ request()->routeIs('nsdates.index') ? 'active' : '' }}"
+                                                         data-key="t-signup"> NsDate
+                                                     </a>
+                                                 </li>
+                                             @endcan
                                                  @can('Gestion des sociétes')
                                                      <li class="nav-item">
                                                          <a href="{{ route('compagnies.index') }}"
