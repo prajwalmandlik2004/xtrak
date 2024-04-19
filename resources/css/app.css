@@ -40,3 +40,9 @@ overflow: hidden !important;
 text-overflow: ellipsis !important;
 white-space: nowrap !important;
 }
+.table-hover.table-hover-primary tbody tr:hover {
+background-color: #6699FF !important;
+}
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+--vz-table-bg-type: #dadeec !important; 
+}

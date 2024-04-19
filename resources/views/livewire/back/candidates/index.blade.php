@@ -133,10 +133,10 @@
                         <div class="">
                             <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel" type="button" class="btn btn-primary position-relative">
                                 <i class="ri-file-download-line me-1"></i>
-                                <span class="download-text">Importer</span>
+                                <span class="download-text">Exporter</span>
                                 <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Importation...</span>
+                                    <span class="visually-hidden">Exportation...</span>
                                 </span>
                             </button>
                             
@@ -176,7 +176,7 @@
                             <tbody>
                                 @forelse ($candidates as $index => $candidate)
                                     <tr wire:key="{{ $candidate->id }}"
-                                        class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? 'table-secondary' : '') }}">
+                                        class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : '') }}">
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->created_at->format('d/m/Y') ?? '--' }}
                                             </a></td>
