@@ -1,4 +1,5 @@
 <div>
+    {{-- créer par MAHAMADOU ALI ABDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
         'title' => 'Espace administrateur',
