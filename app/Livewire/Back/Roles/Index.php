@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Back\Roles;
 
+
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class Index extends Component
 {
@@ -21,10 +23,11 @@ class Index extends Component
     public function deleteData($id)
     {
         DB::beginTransaction();
-        $role = Role::findById($id);
+        $role = Role::find($id);
         if ($role) {
-            // $role->permissions()->detach();
-            // $role->delete();
+            $role->permissions()->detach();
+            // dd($role);
+            $role->delete();
         } else {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le rôle $role->name");

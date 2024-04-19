@@ -2,7 +2,7 @@
     <!-- start page title -->
     @include('components.breadcrumb', [
         'title' => 'Espace administrateur',
-        'breadcrumbItems' => [['text' => 'Listes de candidats', 'url' => Route('candidates.index')]],
+        'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => "#"]],
     ])
     <div class="row">
         <div class="col-md-6">
@@ -113,7 +113,7 @@
                             <h4
                                 class="card-title
                             d-flex justify-content-between align-items-center">
-                                Base candidats</h4>
+                            BaseCDT</h4>
                         </div>
 
                         <div class="">

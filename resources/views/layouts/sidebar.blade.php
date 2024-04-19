@@ -47,7 +47,7 @@
 
                  </li> <!-- end Dashboard Menu -->
 
-                 @can(['Menu accès BaseCDT'])
+                 {{-- @can(['Menu accès BaseCDT'])
                      <li class="nav-item">
                          <a class="nav-link menu-link {{ request()->routeIs('candidates.index') ? 'active' : '' }}"
                              href="{{ route('candidates.index') }}">
@@ -55,7 +55,7 @@
                          </a>
 
                      </li>
-                 @endcan
+                 @endcan --}}
                  <!-- end   Accès BaseCDT Menu -->
                  @can('Menu activité')
                      <li class="nav-item">

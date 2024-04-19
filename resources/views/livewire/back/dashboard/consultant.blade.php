@@ -100,7 +100,7 @@
                 <div class="card-header">
                     <h4 class="card-title
                         d-flex justify-content-between align-items-center">
-                       Base Consultant</h4>
+                        BaseCST</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -132,7 +132,7 @@
                             <tbody>
                                 @forelse ($candidates as $index => $candidate)
                                     <tr wire:key="{{ $candidate->id }}"
-                                        class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? 'table-secondary' : '') }}">
+                                        class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : '') }}">
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->created_at->format('d/m/Y') ?? '--' }}
                                             </a></td>

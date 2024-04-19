@@ -14,7 +14,7 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            'Menu accès BaseCDT',
+            // 'Menu accès BaseCDT',
             'Menu connexion',
             'Menu activité',
             'Importer des candidats',

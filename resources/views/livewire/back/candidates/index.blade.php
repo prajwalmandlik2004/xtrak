@@ -2,10 +2,10 @@
 
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'Base candidats',
+        'title' => 'BaseCDT',
         'breadcrumbItems' => [
             ['text' => 'Candidats', 'url' => '#'],
-            ['text' => 'Listes', 'url' => Route('candidates.index')],
+            ['text' => 'Listes', 'url' => '#'],
         ],
     ])
     <div class="row">
@@ -127,7 +127,7 @@
                             <h4
                                 class="card-title
                             d-flex justify-content-between align-items-center">
-                                Base candidats</h4>
+                            BaseCDT</h4>
                         </div>
 
                         <div class="">

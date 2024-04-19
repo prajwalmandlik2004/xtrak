@@ -1,7 +1,7 @@
 <div>
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'BaseCDT '.$state.'s',
+        'title' => 'BaseCDT ' . $state . 's',
         'breadcrumbItems' => [
             ['text' => 'Candidats', 'url' => '#'],
             ['text' => 'Listes', 'url' => Route('candidates.index')],
@@ -15,7 +15,7 @@
                             class="ri-add-line align-bottom me-1"></i>
                         Nouveau</a>
                 </div>
-               
+
                 <div class="p-2 mt-5">
 
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
@@ -77,10 +77,10 @@
                             <td>
                                 <select class="form-control w-md" wire:model.live='candidate_statut_id'>
                                     <option value="" selected> Statut</option>
-                                    @foreach ($candidateStatuses as $state)
-                                        <option value="{{ $state->id }}" selected> {{ $state->name }}</option>
+                                    @foreach ($candidateStatuses as $candidateState)
+                                        <option value="{{ $candidateState->id }}" selected> {{ $candidateState->name }}</option>
                                     @endforeach
-            
+
                                 </select>
                             </td>
                             <td>
@@ -105,11 +105,13 @@
                 <div class="card-header">
                     <h4 class="card-title
                         d-flex justify-content-between align-items-center">
-                        @if (auth()->user()->hasRole('Administrateur'))
-                       Base candidats
-                    @else
-                    Base consultant
-                    @endIF</h4>
+                        {{-- @if (auth()->user()->hasRole('Administrateur'))
+                       
+                           Votre baseCDT @if($state == 'Certifié' )  @else en @endif  {{ strtolower($state) }}s
+                        @else
+                            Votre baseCST  @if($state == 'Certifié' )  @else en @endif  {{ strtolower($state) }}s
+                        @endIF --}}
+                    </h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -147,10 +149,10 @@
                                             </a></td>
 
                                         <td> <a class="text-body " href="#"
-                                            wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
-                                            {{ $candidate->auteur->trigramme ?? '--' }}
-                                            </h5>
-                                        </a></td>
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
+                                                {{ $candidate->auteur->trigramme ?? '--' }}
+                                                </h5>
+                                            </a></td>
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->civ->name ?? '--' }}
                                             </a></td>

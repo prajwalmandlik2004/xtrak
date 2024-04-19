@@ -32,7 +32,7 @@
                 </button>
                 <div class="ms-3 header-item d-none d-sm-flex">
                     <p class="mt-4 ">
-                        <span id="current-date"></span>
+                        <span id="current-date" class="me-3"></span>
                         <span id="current-time"></span>
                         <br>
                         <span> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
