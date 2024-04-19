@@ -80,9 +80,7 @@
                         @empty
                             <tr>
                                 <td colspan="4" class="text-center">
-                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                        colors="primary:#405189,secondary:#0ab39c" style="width:72px;height:72px">
-                                    </lord-icon>
+                                    
                                     <h5 class="mt-4">Aucun résultat trouvé</h5>
                                 </td>
 

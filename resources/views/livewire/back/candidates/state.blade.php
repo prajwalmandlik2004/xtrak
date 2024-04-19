@@ -224,11 +224,8 @@
 
                                 @empty
                                     <tr>
-                                        <td colspan="16" class="text-center">
-                                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                                colors="primary:#405189,secondary:#0ab39c"
-                                                style="width:72px;height:72px">
-                                            </lord-icon>
+                                        <td colspan="17" class="text-center">
+                                           
                                             <h5 class="mt-4">Aucun résultat trouvé</h5>
                                         </td>
 

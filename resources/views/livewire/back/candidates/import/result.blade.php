@@ -95,7 +95,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            Les données rejétés parce qu'ils existent déjà.
+                            Doublons non intégrés
                         </div>
                     </div>
                     <div class="card-body">
