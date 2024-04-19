@@ -2,13 +2,11 @@
 
 namespace App\Livewire\Back\Roles;
 
-
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class Index extends Component
 {
@@ -25,8 +23,12 @@ class Index extends Component
         DB::beginTransaction();
         $role = Role::find($id);
         if ($role) {
+            if ($role->name == 'Administrateur') {
+                DB::rollBack();
+                $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le rôle $role->name");
+                return;
+            }
             $role->permissions()->detach();
-            // dd($role);
             $role->delete();
         } else {
             DB::rollBack();
@@ -74,7 +76,10 @@ class Index extends Component
         if ($this->isUpdate) {
             $this->role->update($validateData);
         } else {
-            Role::create($validateData);
+            Role::create([
+                'name' => $validateData['name'],
+                'guard_name' => 'web',
+            ]);
         }
         DB::commit();
         $this->dispatch('close:modal');
