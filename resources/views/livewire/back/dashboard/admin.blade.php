@@ -158,7 +158,7 @@
                             <tbody>
                                 @forelse ($candidates as $index => $candidate)
                                     <tr wire:key="{{ $candidate->id }}"
-                                        class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : '') }}">
+                                        class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}">
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->created_at->format('d/m/Y') ?? '--' }}
                                             </a></td>
