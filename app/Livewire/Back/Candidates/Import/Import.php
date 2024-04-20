@@ -35,34 +35,32 @@ class Import extends Component
         try {
             $path = Storage::putFile('/public/files', $this->file);
             $filepath = Storage::path($path);
-            if (file_exists($filepath)) {
-                $spreadsheet = IOFactory::load($filepath);
-                $worksheet = $spreadsheet->getActiveSheet();
-                $headers = $worksheet->toArray()[0];
-                $worksheet->removeRow(1);
-                $usagers = $worksheet->toArray();
-                $fileData = [];
-                foreach ($usagers as $usager) {
-                    $cell[$headers[0]] = $usager[0];
-                    $cell[$headers[1]] = $usager[1];
-                    $cell[$headers[2]] = $usager[2];
-                    $cell[$headers[3]] = $usager[3];
-                    $cell[$headers[4]] = $usager[4];
-                    $cell[$headers[5]] = $usager[5];
-                    $cell[$headers[6]] = $usager[6];
-                    $cell[$headers[7]] = $usager[7];
-                    $cell[$headers[8]] = $usager[8];
-                    $cell[$headers[9]] = $usager[9];
-                    $cell[$headers[10]] = $usager[10];
-                    $cell[$headers[11]] = $usager[11];
-                    $cell[$headers[12]] = $usager[12];
-                    $cell[$headers[13]] = $usager[13];
-                    $cell[$headers[14]] = $usager[14];
-                    $cell[$headers[15]] = $usager[15];
-                    $cell[$headers[16]] = $usager[16];
-                    $cell[$headers[17]] = $usager[17];
-                    array_push($fileData, $cell);
-                }
+            $spreadsheet = IOFactory::load($filepath);
+            $worksheet = $spreadsheet->getActiveSheet();
+            $headers = $worksheet->toArray()[0];
+            $worksheet->removeRow(1);
+            $usagers = $worksheet->toArray();
+            $fileData = [];
+            foreach ($usagers as $usager) {
+                $cell[$headers[0]] = $usager[0];
+                $cell[$headers[1]] = $usager[1];
+                $cell[$headers[2]] = $usager[2];
+                $cell[$headers[3]] = $usager[3];
+                $cell[$headers[4]] = $usager[4];
+                $cell[$headers[5]] = $usager[5];
+                $cell[$headers[6]] = $usager[6];
+                $cell[$headers[7]] = $usager[7];
+                $cell[$headers[8]] = $usager[8];
+                $cell[$headers[9]] = $usager[9];
+                $cell[$headers[10]] = $usager[10];
+                $cell[$headers[11]] = $usager[11];
+                $cell[$headers[12]] = $usager[12];
+                $cell[$headers[13]] = $usager[13];
+                $cell[$headers[14]] = $usager[14];
+                $cell[$headers[15]] = $usager[15];
+                $cell[$headers[16]] = $usager[16];
+                $cell[$headers[17]] = $usager[17];
+                array_push($fileData, $cell);
             }
         } catch (\Throwable $th) {
             return $this->dispatch('alert', type: 'error', message: 'Une erreure est survenu lors de l\'analyse de votre fichier, merci de réessayez');
@@ -71,13 +69,14 @@ class Import extends Component
         foreach ($fileData as $key => $value) {
             $checkExistingCandidate = $this->checkExistingCandidate($value);
             if ($checkExistingCandidate == false) {
-                $newCandidate = $this->addCandidate($value);
+                $newCandidate = $this->addCandidate($value, 'Attente');
                 if ($newCandidate) {
                     $this->accepted[$newCandidate->id] = $newCandidate;
                 } else {
                     $this->rejected[$key] = $value;
                 }
             } else {
+                $doublon = $this->addCandidate($value, 'Doublon');
                 $this->rejected[$key] = $value;
             }
         }
@@ -86,7 +85,7 @@ class Import extends Component
         $this->dispatch('alert', type: 'success', message: 'Opération reusie avec succès');
         $this->reset(['file']);
     }
-    public function addCandidate($data)
+    public function addCandidate($data, $stateName)
     {
         try {
             $candidateRepository = new CandidateRepository();
@@ -106,7 +105,7 @@ class Import extends Component
             $newCandidate['city'] = $data['Ville'] ?? '';
             $newCandidate['region'] = $data['Région'] ?? '';
             $newCandidate['country'] = $data['Pays'] ?? '';
-            $newCandidate['candidate_state_id'] = CandidateState::where('name', 'Attente')->first()->id;
+            $newCandidate['candidate_state_id'] = CandidateState::where('name', $stateName)->first()->id ?? null;
 
             if (!empty($data['Statut CDT'])) {
                 $cdtStatus = CandidateStatut::where('name', $data['Statut CDT'])->first() ?? CandidateStatut::create(['name' => $data['Statut CDT']]);
@@ -148,7 +147,7 @@ class Import extends Component
                     $newCandidate['field_id'] = $field->id;
                 }
             }
-            
+
             if (!empty($data['Société'])) {
                 $compagny = Compagny::where('name', $data['Société'])->first() ?? Compagny::create(['name' => $data['Société']]);
                 if ($compagny) {
@@ -163,7 +162,6 @@ class Import extends Component
             }
 
             $candidate = $candidateRepository->create($newCandidate);
-            
 
             return $candidate;
         } catch (\Throwable $th) {

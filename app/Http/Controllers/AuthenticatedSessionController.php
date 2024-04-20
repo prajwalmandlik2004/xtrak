@@ -32,6 +32,15 @@ class AuthenticatedSessionController extends FortifyAuthenticatedSessionControll
     public function logOut(Request $request)
     {
         $user = auth()->user();
+        $lastLogin = UserLogin::where('user_id', $user->id)
+            ->orderBy('login_at', 'desc')
+            ->first();
+
+        if ($lastLogin) {
+            $lastLogin->update([
+                'logout_at' => now(),
+            ]);
+        }
         $user->update([
             'is_connect' => false,
             'last_seen' => now(),
@@ -39,6 +48,7 @@ class AuthenticatedSessionController extends FortifyAuthenticatedSessionControll
         auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect('/');
     }
 }

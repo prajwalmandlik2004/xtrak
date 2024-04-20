@@ -2,11 +2,9 @@
     <div class="card mt-4">
         <div class="card-header align-items-center d-flex border-bottom-dashed">
             <h4 class="card-title mb-0 flex-grow-1">Documents</h4>
-            <div class="flex-shrink-0">
-                <button type="button" wire:click="openModal()" data-bs-toggle="modal" data-bs-target="#modal"
-                    class="btn btn-soft-info btn-sm"><i class="ri-upload-2-fill me-1 align-bottom"></i>
-                    Nouveau</button>
-            </div>
+            {{-- <div class="flex-shrink-0">
+               
+            </div> --}}
         </div>
         <div class="col-md-12 ">
             <div class="d-flex ">
@@ -26,6 +24,11 @@
                         <option value="30">50</option>
                         <option value="50">100</option>
                     </select>
+                </div>
+                <div class="p-2">
+                    <button type="button" wire:click="openModal()" data-bs-toggle="modal" data-bs-target="#modal"
+                    class="btn btn-soft-info "><i class="ri-upload-2-fill me-1 align-bottom"></i>
+                    Nouveau</button>
                 </div>
 
             </div>

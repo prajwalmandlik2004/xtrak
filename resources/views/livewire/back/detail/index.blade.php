@@ -48,7 +48,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">
+                                <td colspan="7" class="text-center">
                                    
                                     <h5 class="mt-4">Aucun résultat trouvé</h5>
                                 </td>

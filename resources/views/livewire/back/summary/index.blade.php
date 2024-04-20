@@ -23,7 +23,7 @@
                 ">Nombre de connexion par utilisateur</h4>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
+                <table class="table table-striped table-hover table-hover-primary align-middle table-nowrap mb-0">
                     <thead>
                         <tr>
                             <th scope="col">Trigramme</th>
@@ -35,24 +35,22 @@
                             <th scope="col">Mois (en cours)</th>
                             <th scope="col">Dernière connexion</th>
                             <th scope="col">Etat</th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($usersWithLoginCounts as $value)
+                        @forelse ($usersWithLoginTimes as $userData)
                             <tr>
-                                <td>{{ $value->trigramme ?? '' }}</td>
-                                <td>{{ $value->first_name ?? '' }}</td>
-                                <td>{{ $value->last_name ?? '' }}</td>
-                                <td>{{ $value->total_logins ?? 0 }}</td>
-                                <td>{{ $value->logins_today ?? 0 }}</td>
-                                <td>{{ $value->logins_this_week ?? 0 }}</td>
-                                <td>{{ $value->logins_this_month ?? 0 }}</td>
-                                <td style="width: 50px;">{{ Carbon\Carbon::parse($value->last_seen)->diffForHumans() }}
-                                </td>
-
+                                <td>{{ $userData['user']->trigramme ?? '' }}</td>
+                                <td>{{ $userData['user']->last_name ?? '' }}</td>
+                                <td>{{ $userData['user']->first_name ?? '' }}</td>
+                                <td>{{ gmdate('H:i:s', $userData['total_login_time']) }}</td>
+                                <td>{{ gmdate('H:i:s', $userData['login_time_today']) }}</td>
+                                <td>{{ gmdate('H:i:s', $userData['login_time_this_week']) }}</td>
+                                <td>{{ gmdate('H:i:s', $userData['login_time_this_month']) }}</td>
+                                <td style="width: 50px;">
+                                    {{ Carbon\Carbon::parse($userData['user']->last_seen)->diffForHumans() }}</td>
                                 <td style="width: 50px;" class="py-3 px-6 text-center">
-                                    @if ($value->is_connect)
+                                    @if ($userData['user']->is_connect)
                                         <span class="badge border border-light rounded-circle bg-success p-2 fs-4">
                                         </span>
                                     @else
@@ -63,15 +61,14 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">
-                                    
+                                <td colspan="9" class="text-center">
                                     <h5 class="mt-4">Aucun résultat trouvé</h5>
                                 </td>
-
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>

@@ -191,6 +191,24 @@
                 }
             });
         });
+        window.addEventListener('swal:confirm-modif', event => {
+            new Swal({
+                title: event.detail.title,
+                text: event.detail.text,
+                icon: event.detail.type,
+                showCancelButton: true,
+                confirmButtonColor: '#FF0000 ',
+                cancelButtonColor: '#0000FF',
+                confirmButtonText: 'Modifier',
+                cancelButtonText: 'Annuler'
+            }).then((willDelete) => {
+                if (willDelete.isConfirmed) {
+                    Livewire.dispatch(event.detail.method, {
+                        id: event.detail.id
+                    });
+                }
+            });
+        });
         window.addEventListener('close:modal', event => {
             $('.modal').modal('hide');
         });
