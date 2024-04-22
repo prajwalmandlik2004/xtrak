@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Back\Candidates;
 
+use App\Models\User;
 use App\Helpers\Helper;
 use Livewire\Component;
 use App\Models\Position;
@@ -30,6 +31,8 @@ class State extends Component
     public $state;
     public $positions;
     public $position_id;
+    public $users;
+    public $user_id;
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -98,6 +101,9 @@ class State extends Component
                 ->when($this->position_id, function ($query) {
                     $query->where('position_id', $this->position_id);
                 })
+                ->when($this->user_id, function ($query) {
+                    $query->where('created_by', $this->user_id);
+                })
                 ->paginate($this->nbPaginate);
         } else {
             return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field'])
@@ -151,6 +157,7 @@ class State extends Component
 
     public function mount()
     {
+        $this->users = User::all();
         $this->positions = Position::all();
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidateStates = CandidateState::all();

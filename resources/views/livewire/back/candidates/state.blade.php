@@ -52,6 +52,9 @@
                             <th scope="col">Date</th>
                             <th scope="col">Statut</th>
                             <th scope="col">Fonction</th>
+                            @if (auth()->user()->hasRole('Administrateur'))
+                                <th scope="col">Utilisateurs</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -78,7 +81,8 @@
                                 <select class="form-control w-md" wire:model.live='candidate_statut_id'>
                                     <option value="" selected> Statut</option>
                                     @foreach ($candidateStatuses as $candidateState)
-                                        <option value="{{ $candidateState->id }}" selected> {{ $candidateState->name }}</option>
+                                        <option value="{{ $candidateState->id }}" selected> {{ $candidateState->name }}
+                                        </option>
                                     @endforeach
 
                                 </select>
@@ -91,7 +95,17 @@
                                     @endforeach
                                 </select>
                             </td>
-
+                            @if (auth()->user()->hasRole('Administrateur'))
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='user_id'>
+                                        <option value="" selected>Utilisateur</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->first_name }} |
+                                                {{ $user->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                            @endif
                         </tr>
                     </tbody>
                 </table>
@@ -107,9 +121,9 @@
                         d-flex justify-content-between align-items-center">
                         {{-- @if (auth()->user()->hasRole('Administrateur'))
                        
-                           Votre baseCDT @if($state == 'Certifié' )  @else en @endif  {{ strtolower($state) }}s
+                           Votre baseCDT @if ($state == 'Certifié')  @else en @endif  {{ strtolower($state) }}s
                         @else
-                            Votre baseCST  @if($state == 'Certifié' )  @else en @endif  {{ strtolower($state) }}s
+                            Votre baseCST  @if ($state == 'Certifié')  @else en @endif  {{ strtolower($state) }}s
                         @endIF --}}
                     </h4>
                 </div>
@@ -225,7 +239,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="17" class="text-center">
-                                           
+
                                             <h5 class="mt-4">Aucun résultat trouvé</h5>
                                         </td>
 
