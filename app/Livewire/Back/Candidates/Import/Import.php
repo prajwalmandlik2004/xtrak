@@ -78,7 +78,7 @@ class Import extends Component
                     $this->rejected[$key] = $value;
                 }
             } else {
-                $doublon = $this->addCandidate($value, 'Doublon');
+                // $doublon = $this->addCandidate($value, 'Doublon');
                 $this->rejected[$key] = $value;
             }
         }
