@@ -50,6 +50,7 @@
                         <tr>
                             <th scope="col">Alphabétique</th>
                             <th scope="col">Date</th>
+                            <th scope="col">Etat</th>
                             <th scope="col">Statut</th>
                             <th scope="col">Fonction</th>
                             @if (auth()->user()->hasRole('Administrateur'))
@@ -78,10 +79,23 @@
                                 </select>
                             </td>
                             <td>
+                                <select class="form-control w-md" wire:model.live='candidate_state_id'>
+                                    <option value="" class="bg-secondary text-white" selected>
+                                        Selectionner
+                                    </option>
+                                    <option value="" selected>Tous</option>
+                                    @foreach ($candidateStates as $candidateState)
+                                        <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
                                 <select class="form-control w-md" wire:model.live='candidate_statut_id'>
                                     <option value="" selected> Statut</option>
-                                    @foreach ($candidateStatuses as $candidateState)
-                                        <option value="{{ $candidateState->id }}" selected> {{ $candidateState->name }}
+                                    @foreach ($candidateStatuses as $candidateStatus)
+                                        <option value="{{ $candidateStatus->id }}" selected>
+                                            {{ $candidateStatus->name }}
                                         </option>
                                     @endforeach
 
