@@ -48,9 +48,9 @@
                         $admin = \App\Models\User::where('id', 1)->first();
                     @endphp
                     @if ($admin->is_connect)
-                        En ligne
+                        {{ $user->first_name }} {{ $user->last_name }} est : En ligne
                     @else
-                        Hors ligne
+                        {{ $user->first_name }} {{ $user->last_name }} est : Hors ligne
                     @endif
                 </div>
                 {{-- <div class="ms-1 header-item d-none d-sm-flex">
