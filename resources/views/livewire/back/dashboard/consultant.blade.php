@@ -72,15 +72,17 @@
                                 </td>
                                 <td>
                                     <select class="form-control w-md" wire:model.live='candidate_state_id'>
-                                        <option value="" class="bg-secondary text-white" selected>Selectionner
+                                        <option value="" class="bg-secondary text-white" selected>
+                                            Selectionner
                                         </option>
-                                        <option value="">Tous</option>
-                                        @foreach ($candidateStates as $state)
-                                            <option value="{{ $state->id }}" selected> {{ $state->name }}
+                                        <option value="" selected>Tous</option>
+                                        @foreach ($candidateStates as $candidateState)
+                                            <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </td>
+                               
                                 <td>
                                     <select class="form-control w-md" wire:model.live='position_id'>
                                         <option value="" selected>Fonction</option>

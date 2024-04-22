@@ -3,7 +3,7 @@
     <!-- start page title -->
     @include('components.breadcrumb', [
         'title' => 'Espace administrateur',
-        'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => "#"]],
+        'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
     ])
     <div class="row">
         <div class="col-md-6">
@@ -13,7 +13,7 @@
                             class="ri-add-line align-bottom me-1"></i>
                         Nouveau</a>
                 </div>
-               
+
                 <div class="p-2 mt-5">
 
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
@@ -73,9 +73,9 @@
                                     <option value="" class="bg-secondary text-white" selected>
                                         Selectionner
                                     </option>
-                                    <option value="">Tous</option>
-                                    @foreach ($candidateStates as $state)
-                                        <option value="{{ $state->id }}" selected> {{ $state->name }}
+                                    <option value="" selected>Tous</option>
+                                    @foreach ($candidateStates as $candidateState)
+                                        <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -83,8 +83,9 @@
                             <td>
                                 <select class="form-control w-md" wire:model.live='candidate_statut_id'>
                                     <option value="" selected> Statut</option>
-                                    @foreach ($candidateStatuses as $state)
-                                        <option value="{{ $state->id }}" selected> {{ $state->name }}
+                                    @foreach ($candidateStatuses as $candidateStatus)
+                                        <option value="{{ $candidateStatus->id }}" selected>
+                                            {{ $candidateStatus->name }}
                                         </option>
                                     @endforeach
 
@@ -114,19 +115,22 @@
                             <h4
                                 class="card-title
                             d-flex justify-content-between align-items-center">
-                            BaseCDT</h4>
+                                BaseCDT</h4>
                         </div>
 
                         <div class="">
-                            <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel" type="button" class="btn btn-primary position-relative">
+                            <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel"
+                                type="button" class="btn btn-primary position-relative">
                                 <i class="ri-file-download-line me-1"></i>
                                 <span class="download-text">Exporter</span>
-                                <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span wire:loading wire:target="downloadExcel"
+                                    class="position-absolute top-50 start-50 translate-middle">
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
                                     <span class="visually-hidden">Exportation...</span>
                                 </span>
                             </button>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -239,7 +243,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="16" class="text-center">
-                                           
+
                                             <h5 class="mt-4">Aucun résultat trouvé</h5>
                                         </td>
 

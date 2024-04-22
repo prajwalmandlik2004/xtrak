@@ -86,8 +86,8 @@
                                             Selectionner
                                         </option>
                                         <option value="" selected>Tous</option>
-                                        @foreach ($candidateStates as $state)
-                                            <option value="{{ $state->id }}"> {{ $state->name }}
+                                        @foreach ($candidateStates as $candidateState)
+                                            <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -95,11 +95,12 @@
                                 <td>
                                     <select class="form-control w-md" wire:model.live='candidate_statut_id'>
                                         <option value="" selected> Statut</option>
-                                        @foreach ($candidateStatuses as $state)
-                                            <option value="{{ $state->id }}" selected> {{ $state->name }}
+                                        @foreach ($candidateStatuses as $candidateStatus)
+                                            <option value="{{ $candidateStatus->id }}" selected>
+                                                {{ $candidateStatus->name }}
                                             </option>
                                         @endforeach
-
+    
                                     </select>
                                 </td>
                                 <td>

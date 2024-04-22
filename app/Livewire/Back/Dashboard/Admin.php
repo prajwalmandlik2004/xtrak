@@ -7,6 +7,7 @@ use App\Helpers\Helper;
 use Livewire\Component;
 use App\Models\Position;
 use App\Models\Candidate;
+use App\Models\CandidateState;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Models\CandidateStatut;
@@ -125,7 +126,7 @@ class Admin extends Component
     {
         $this->positions= Position::all();
         $this->candidateStatuses = CandidateStatut::all();
-        $this->candidateStates = CandidateStatut::all();
+        $this->candidateStates = CandidateState::all();
         if (session()->has('dash_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('dash_base_cdt_selected_candidate_id');
         }
