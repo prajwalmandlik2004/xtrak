@@ -100,7 +100,7 @@
                                     <select class="form-control w-md" wire:model.live='user_id'>
                                         <option value="" selected>Auteur</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->first_name }} |
+                                            <option value="{{ $user->id }}"> {{ $user->trigramme }} | {{ $user->first_name }} |
                                                 {{ $user->last_name }}</option>
                                         @endforeach
                                     </select>
