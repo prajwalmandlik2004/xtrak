@@ -44,11 +44,14 @@
             @endphp
             <div class="d-flex align-items-center">
                 <div class="header-item">
-                    @if (auth()->user()->hasRole('Administrateur'))
+                    @php
+                        $admin = \App\Models\User::where('id', 1)->first();
+                    @endphp
+                    @if ($admin->is_connect)
+                        En ligne
                     @else
-                        {{ $user->first_name }}   {{ $user->last_name }} est : {{ $user->last_seen >= now()->subSeconds(30) ? 'En ligne' : 'Hors ligne' }}
-                    @endIF
-
+                        Hors ligne
+                    @endif
                 </div>
                 {{-- <div class="ms-1 header-item d-none d-sm-flex">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
