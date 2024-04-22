@@ -97,6 +97,8 @@
                                         </div>
 
                                     @endif
+                                    <a href="{{ route('candidates.create') }}" class="btn btn-info me-1 ms-5  mt-3"><i
+                                        class="ri-add-line align-bottom me-1"></i>Nouveau</a>
                                     <button class="btn btn-danger mt-3"
                                         wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
                                         type="button" class="btn py-0 fs-16 text-body">
