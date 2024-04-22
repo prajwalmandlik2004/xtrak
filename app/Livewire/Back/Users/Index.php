@@ -35,6 +35,13 @@ class Index extends Component
         DB::beginTransaction();
         $user = User::find($id);
         try {
+            if ($user->id == auth()->user()->id) {
+                $this->dispatch('alert', type: 'error', message: 'Impossible de supprimer votre compte parce que vous êtes connecté');
+                return;
+            } elseif ($user->hasRole('Administrateur')) {
+                $this->dispatch('alert', type: 'error', message: 'Impossible de supprimer le compte administrateur principal');
+                return;
+            }
             if ($user) {
                 $user->delete($user->id);
                 DB::commit();
@@ -96,7 +103,6 @@ class Index extends Component
                 'role_id.required' => 'Le role est obligatoire',
                 'role_id.exists' => 'Le role est invalide',
                 'email.unique' => 'L\'email est déjà utilisé',
-
             ],
         );
 
