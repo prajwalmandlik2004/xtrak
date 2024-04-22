@@ -101,7 +101,7 @@ class Index extends Component
                     });
             })
             ->when($this->filterName, function ($query) {
-                return $query->orderBy('first_name', $this->filterName);
+                return $query->orderBy('last_name', $this->filterName);
             })
             ->when($this->filterDate, function ($query) {
                 return $query->orderBy('created_at', $this->filterDate);
