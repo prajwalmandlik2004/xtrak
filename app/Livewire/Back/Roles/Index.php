@@ -74,6 +74,11 @@ class Index extends Component
         DB::beginTransaction();
 
         if ($this->isUpdate) {
+            if ($this->role->name == 'Administrateur') {
+                DB::rollBack();
+                $this->dispatch('alert', type: 'error', message: 'Impossible de modifier le rôle administrateur');
+                return;
+            }
             $this->role->update($validateData);
         } else {
             Role::create([

@@ -38,9 +38,6 @@ class Index extends Component
             if ($user->id == auth()->user()->id) {
                 $this->dispatch('alert', type: 'error', message: 'Impossible de supprimer votre compte parce que vous êtes connecté');
                 return;
-            } elseif ($user->hasRole('Administrateur')) {
-                $this->dispatch('alert', type: 'error', message: 'Impossible de supprimer le compte administrateur principal');
-                return;
             }
             if ($user) {
                 $user->delete($user->id);
