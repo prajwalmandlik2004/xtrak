@@ -173,6 +173,15 @@ class State extends Component
             $this->nbPaginate = session('state_nb_paginate_' . $this->candidate_state_id);
         }
     }
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->filterName = '';
+        $this->filterDate = '';
+        $this->candidate_state_id = '';
+        $this->candidate_statut_id = '';
+        $this->position_id = '';
+    }
     public function render()
     {
         return view('livewire.back.candidates.state')->with([

@@ -162,6 +162,15 @@ class Admin extends Component
             $this->dispatch('alert', type: 'error', message: "Une erreure est survenu, veuillez réessayez ou contacter l'administrateur");
         }
     }
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->filterName = '';
+        $this->filterDate = '';
+        $this->candidate_state_id = '';
+        $this->candidate_statut_id = '';
+        $this->position_id = '';
+    }
     public function render()
     {
         return view('livewire.back.dashboard.admin')->with([

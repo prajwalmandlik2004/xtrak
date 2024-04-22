@@ -41,6 +41,7 @@
                 <table class="table table-bordered border-secondary table-nowrap">
                     <thead>
                         <tr class="text-center">
+                            <th scope="col">Effacer les filtres</th>
                             <th scope="col">Nom</th>
                             <th scope="col">Date</th>
                             <th scope="col">Etat</th>
@@ -50,6 +51,12 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <td>
+                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
+                                    <i class="ri-delete-bin-line"></i>
+                                </button>
+                            </td>
+                                
                             <td>
                                 <select class="form-control w-md" wire:model.live='filterName'>
                                     <option value="" class="bg-secondary text-white" selected>

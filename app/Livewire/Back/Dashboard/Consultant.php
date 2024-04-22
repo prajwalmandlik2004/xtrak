@@ -119,6 +119,15 @@ class Consultant extends Component
             $this->nbPaginate = session('cte_base_cdt_nb_paginate');
         }
     }
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->filterName = '';
+        $this->filterDate = '';
+        $this->candidate_state_id = '';
+        $this->candidate_statut_id = '';
+        $this->position_id = '';
+    }
     public function render()
     {
         return view('livewire.back.dashboard.consultant')->with([
