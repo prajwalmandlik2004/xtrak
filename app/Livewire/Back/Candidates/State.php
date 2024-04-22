@@ -56,49 +56,93 @@ class State extends Component
     public function searchCandidates()
     {
         $searchFields = ['first_name', 'last_name', 'email', 'phone', 'postal_code', 'city', 'address', 'region', 'country'];
+        //if user hasrole Administrateur he can see all candidates
+        if (Auth::user()->hasRole('Administrateur')) {
+            return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field'])
+                ->where(function ($query) use ($searchFields) {
+                    $query
+                        ->where(function ($query) use ($searchFields) {
+                            foreach ($searchFields as $field) {
+                                $query->orWhere($field, 'like', '%' . $this->search . '%');
+                            }
+                        })
 
-        return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field'])
-            ->where(function ($query) use ($searchFields) {
-                $query
-                    ->where(function ($query) use ($searchFields) {
-                        foreach ($searchFields as $field) {
-                            $query->orWhere($field, 'like', '%' . $this->search . '%');
-                        }
-                    })
-                   
-                    ->orWhereHas('disponibility', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('civ', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('compagny', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('speciality', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('field', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    });
-            })
-            ->when($this->filterName, function ($query) {
-                return $query->orderBy('last_name', $this->filterName);
-            })
-            ->when($this->filterDate, function ($query) {
-                return $query->orderBy('created_at', $this->filterDate);
-            })
-            ->when($this->candidate_state_id, function ($query) {
-                $query->where('candidate_state_id', $this->candidate_state_id);
-            })
-            ->when($this->candidate_statut_id, function ($query) {
-                $query->where('candidate_statut_id', $this->candidate_statut_id);
-            })
-            ->when($this->position_id, function ($query) {
-                $query->where('position_id', $this->position_id);
-            })
-            ->where('created_by', Auth::id())
-            ->paginate($this->nbPaginate);
+                        ->orWhereHas('disponibility', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('civ', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('compagny', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('speciality', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('field', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        });
+                })
+                ->when($this->filterName, function ($query) {
+                    return $query->orderBy('last_name', $this->filterName);
+                })
+                ->when($this->filterDate, function ($query) {
+                    return $query->orderBy('created_at', $this->filterDate);
+                })
+                ->when($this->candidate_state_id, function ($query) {
+                    $query->where('candidate_state_id', $this->candidate_state_id);
+                })
+                ->when($this->candidate_statut_id, function ($query) {
+                    $query->where('candidate_statut_id', $this->candidate_statut_id);
+                })
+                ->when($this->position_id, function ($query) {
+                    $query->where('position_id', $this->position_id);
+                })
+                ->paginate($this->nbPaginate);
+        } else {
+            return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field'])
+                ->where(function ($query) use ($searchFields) {
+                    $query
+                        ->where(function ($query) use ($searchFields) {
+                            foreach ($searchFields as $field) {
+                                $query->orWhere($field, 'like', '%' . $this->search . '%');
+                            }
+                        })
+
+                        ->orWhereHas('disponibility', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('civ', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('compagny', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('speciality', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('field', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        });
+                })
+                ->when($this->filterName, function ($query) {
+                    return $query->orderBy('last_name', $this->filterName);
+                })
+                ->when($this->filterDate, function ($query) {
+                    return $query->orderBy('created_at', $this->filterDate);
+                })
+                ->when($this->candidate_state_id, function ($query) {
+                    $query->where('candidate_state_id', $this->candidate_state_id);
+                })
+                ->when($this->candidate_statut_id, function ($query) {
+                    $query->where('candidate_statut_id', $this->candidate_statut_id);
+                })
+                ->when($this->position_id, function ($query) {
+                    $query->where('position_id', $this->position_id);
+                })
+                ->where('created_by', Auth::id())
+                ->paginate($this->nbPaginate);
+        }
     }
     public function confirmDelete($nom, $id)
     {
@@ -107,7 +151,7 @@ class State extends Component
 
     public function mount()
     {
-        $this->positions= Position::all();
+        $this->positions = Position::all();
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidateStates = CandidateState::all();
         $this->candidate_state_id = CandidateState::where('name', $this->state)->first()->id;
