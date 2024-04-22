@@ -231,6 +231,8 @@ class Form extends Component
                 'email.required' => 'L\'email est obligatoire',
                 'civ_id.required' => 'La civilité est obligatoire',
                 'position_id.required' => 'Le poste est obligatoire',
+                'email.unique' => 'Cet email est déjà utilisé',
+                
             ],
         );
         try {
