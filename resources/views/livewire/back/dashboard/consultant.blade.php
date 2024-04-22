@@ -113,7 +113,7 @@
             <div class="card ">
                 <div class="card-header">
                     <h4 class="card-title
-                        d-flex justify-content-between align-items-center">
+                        d-flex justify-content-between align-items-center fw-bold fs-2">
                         BaseCST</h4>
                 </div>
                 <div class="card-body">

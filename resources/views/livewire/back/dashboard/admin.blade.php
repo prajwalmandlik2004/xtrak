@@ -114,7 +114,7 @@
                         <div class="flex-grow-1">
                             <h4
                                 class="card-title
-                            d-flex justify-content-between align-items-center">
+                            d-flex justify-content-between align-items-center fw-bold fs-2">
                                 BaseCDT</h4>
                         </div>
 
