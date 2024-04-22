@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-6">
             <div class="d-flex justify-content-end mt-5">
-                
+
                 <div class="p-2 ml-auto">
                     <select class="form-control w-md" wire:model.live='nbPaginate'>
                         <option value="6" selected>6</option>
@@ -43,58 +43,70 @@
             <div class="table-responsive">
                 <h5 class="mb-0">Paramètres de tri des candidats</h5>
 
-                    <table class="table table-bordered border-secondary table-nowrap">
-                        <thead>
-                            <tr>
-                                <th scope="col">Alphabétique</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Etat</th>
-                                <th scope="col">Fonction</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <select class="form-control w-md" wire:model.live='filterName'>
-                                        <option value="" class="bg-secondary text-white" selected>Selectionner
+                <table class="table table-bordered border-secondary table-nowrap">
+                    <thead>
+                        <tr>
+                            <th scope="col">Alphabétique</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Etat</th>
+                            <th scope="col">Statut</th>
+                            <th scope="col">Fonction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='filterName'>
+                                    <option value="" class="bg-secondary text-white" selected>Selectionner
+                                    </option>
+                                    <option value="asc">A -> Z</option>
+                                    <option value="desc">Z -> A</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='filterDate'>
+                                    <option value="" class="bg-secondary text-white" selected>Selectionner
+                                    </option>
+                                    <option value="asc">Plus récent en haut</option>
+                                    <option value="desc">Plus ancien en haut</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='candidate_state_id'>
+                                    <option value="" class="bg-secondary text-white" selected>
+                                        Selectionner
+                                    </option>
+                                    <option value="" selected>Tous</option>
+                                    @foreach ($candidateStates as $candidateState)
+                                        <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
                                         </option>
-                                        <option value="asc">A -> Z</option>
-                                        <option value="desc">Z -> A</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select class="form-control w-md" wire:model.live='filterDate'>
-                                        <option value="" class="bg-secondary text-white" selected>Selectionner
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='candidate_statut_id'>
+                                    <option value="" selected> Statut</option>
+                                    @foreach ($candidateStatuses as $candidateStatus)
+                                        <option value="{{ $candidateStatus->id }}" selected>
+                                            {{ $candidateStatus->name }}
                                         </option>
-                                        <option value="asc">Plus récent en haut</option>
-                                        <option value="desc">Plus ancien en haut</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select class="form-control w-md" wire:model.live='candidate_state_id'>
-                                        <option value="" class="bg-secondary text-white" selected>
-                                            Selectionner
-                                        </option>
-                                        <option value="" selected>Tous</option>
-                                        @foreach ($candidateStates as $candidateState)
-                                            <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                               
-                                <td>
-                                    <select class="form-control w-md" wire:model.live='position_id'>
-                                        <option value="" selected>Fonction</option>
-                                        @foreach ($positions as $position)
-                                            <option value="{{ $position->id }}">{{ $position->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                                    @endforeach
+
+                                </select>
+                            </td>
+
+                            <td>
+                                <select class="form-control w-md" wire:model.live='position_id'>
+                                    <option value="" selected>Fonction</option>
+                                    @foreach ($positions as $position)
+                                        <option value="{{ $position->id }}">{{ $position->name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="col-md-12">
@@ -216,7 +228,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="17" class="text-center">
-                                            
+
                                             <h5 class="mt-4">Aucun résultat trouvé</h5>
                                         </td>
 

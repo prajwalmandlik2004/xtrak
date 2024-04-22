@@ -5,6 +5,7 @@ namespace App\Livewire\Back\Dashboard;
 use Livewire\Component;
 use App\Models\Position;
 use App\Models\Candidate;
+use App\Models\CandidateState;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Models\CandidateStatut;
@@ -25,6 +26,8 @@ class Consultant extends Component
     public $candidateStates;
     public $positions;
     public $position_id;
+    public $candidate_statut_id = '';
+    public $candidateStatuses;
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -83,8 +86,11 @@ class Consultant extends Component
             ->when($this->filterDate, function ($query) {
                 return $query->orderBy('created_at', $this->filterDate);
             })
-            ->when($this->candidate_state_id, function ($query) {
-                $query->where('candidate_state_id', $this->candidate_state_id);
+            ->when($this->candidate_state_id , function ($query) {
+                $query->where('candidate_state_id', $this->candidate_state_id );
+            })
+            ->when($this->candidate_statut_id, function ($query) {
+                $query->where('candidate_statut_id', $this->candidate_statut_id);
             })
             ->when($this->position_id, function ($query) {
                 $query->where('position_id', $this->position_id);
@@ -99,7 +105,8 @@ class Consultant extends Component
     public function mount()
     {
         $this->positions= Position::all();
-        $this->candidateStates = CandidateStatut::all();
+        $this->candidateStatuses = CandidateStatut::all();
+        $this->candidateStates = CandidateState::all();
 
         if (session()->has('cte_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('cte_base_cdt_selected_candidate_id');
