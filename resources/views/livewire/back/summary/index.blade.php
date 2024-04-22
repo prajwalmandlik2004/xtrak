@@ -30,9 +30,9 @@
                             <th scope="col">Nom</th>
                             <th scope="col">Prénom</th>
                             <th scope="col">Total</th>
-                            <th scope="col">Jours (en cours)</th>
-                            <th scope="col">Semaine (en cours)</th>
-                            <th scope="col">Mois (en cours)</th>
+                            <th scope="col">Aujourd'hui</th>
+                            <th scope="col">7 derniers jours</th>
+                            <th scope="col">30 derniers jours</th>
                             <th scope="col">Dernière connexion</th>
                             <th scope="col">Etat</th>
                         </tr>
