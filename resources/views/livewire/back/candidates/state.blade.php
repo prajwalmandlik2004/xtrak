@@ -53,7 +53,7 @@
                             <th scope="col">Statut</th>
                             <th scope="col">Fonction</th>
                             @if (auth()->user()->hasRole('Administrateur'))
-                                <th scope="col">Utilisateurs</th>
+                                <th scope="col">Auteur</th>
                             @endif
                         </tr>
                     </thead>
@@ -98,7 +98,7 @@
                             @if (auth()->user()->hasRole('Administrateur'))
                                 <td>
                                     <select class="form-control w-md" wire:model.live='user_id'>
-                                        <option value="" selected>Utilisateur</option>
+                                        <option value="" selected>Auteur</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->first_name }} |
                                                 {{ $user->last_name }}</option>
