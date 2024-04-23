@@ -156,8 +156,9 @@
                                     <th scope="col">Société</th>
                                     <th scope="col">Téléphone</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Code postal (ou dpt) </th>
+                                    <th scope="col">CP/Dpt</th>
                                     <th scope="col">Ville </th>
+                                    <th scope="col">Statut</th>
                                     <th scope="col">Disponibilité</th>
                                     <th scope="col">Etat</th>
                                     <th scope="col">Next step</th>
@@ -206,10 +207,12 @@
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->city ?? '--' }}
                                             </a></td>
+                                            <td> <a class="text-body " href="#"
+                                                wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->candidateStatut->name ?? '--' }}
+                                            </a></td>
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->disponibility->name ?? '--' }}
                                             </a></td>
-
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->candidateState->name ?? '--' }}</a>
                                         </td>
