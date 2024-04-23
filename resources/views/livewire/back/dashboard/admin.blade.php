@@ -108,7 +108,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Rechercher..."
+                                <input type="text" class="form-control" placeholder="valeur..."
                                     wire:model.live='cp'>
                                 
                             </td>

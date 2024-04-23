@@ -75,7 +75,7 @@ class Admin extends Component
     }
     public function searchCandidates()
     {
-        $searchFields = ['first_name', 'last_name', 'email', 'phone', 'postal_code', 'city', 'address', 'region', 'country'];
+        $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country'];
 
         return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field'])
             ->where(function ($query) use ($searchFields) {
