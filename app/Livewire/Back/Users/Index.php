@@ -29,6 +29,7 @@ class Index extends Component
     public $roles;
     public $role_id;
     public $filterRoleId;
+    public $trigramme;
     #[On('delete')]
     public function deleteData($id)
     {
@@ -71,6 +72,8 @@ class Index extends Component
         $this->isUpdate = false;
         $this->phone = '';
         $this->email = '';
+        $this->password = '';
+        $this->trigramme = '';
         if ($id) {
             $this->isUpdate = true;
             $this->user = User::find($id);
@@ -79,6 +82,7 @@ class Index extends Component
             $this->phone = $this->user->phone ?? '';
             $this->email = $this->user->email ?? '';
             $this->role_id = $this->user->roles->pluck('id')->first() ?? null;
+            $this->trigramme = $this->user->trigramme ?? '';
         }
     }
     public function storeData()
@@ -90,7 +94,8 @@ class Index extends Component
                 'email' => 'required|string|max:255|unique:users,email' . ($this->isUpdate ? ',' . $this->user->id : ''),
                 'last_name' => 'required|string|max:255',
                 'role_id' => 'required|exists:roles,id',
-                'password' => 'required|string|max:255',
+                'password' =>  $this->isUpdate ? 'nullable|string|max:255' : 'required|string|max:255',
+                'trigramme' => 'nullable|string|max:255',
             ],
             [
                 'first_name.required' => 'Le nom est obligatoire',
@@ -107,18 +112,50 @@ class Index extends Component
         $validateData['uuid'] = Str::uuid();
 
         if ($this->isUpdate) {
+            if ($validateData['trigramme']) {
+                $trigrammeExist = User::where('trigramme', $validateData['trigramme'])
+                    ->where('id', '!=', $this->user->id)
+                    ->exists();
+                if ($trigrammeExist) {
+                    $this->dispatch('alert', type: 'error', message: 'Le trigramme est déjà utilisé');
+                    return;
+                }
+                $validateData['trigramme'] = $validateData['trigramme'];
+            }
             if (!empty($validateData['password'])) {
                 $validateData['password'] = Hash::make($validateData['password']);
             }
-            $this->user->update($validateData);
+            $this->user->update([
+                'first_name' => $validateData['first_name'],
+                'last_name' => $validateData['last_name'],
+                'phone' => $validateData['phone'],
+                'email' => $validateData['email'],
+                'trigramme' => $validateData['trigramme'],
+                'password' => $validateData['password'] ?? $this->user->password,
+            ]);
             $roleId = Role::where('id', $validateData['role_id'])->first()->id;
             $this->user->syncRoles($roleId);
         } else {
             // $password = Str::random(8);
             $validateData['password'] = Hash::make($validateData['password']);
-            $randomChar = strtoupper(preg_replace('/[^A-Za-z]/', '', Str::random(1)));
-            $trigramme = strtoupper(substr($validateData['first_name'], 0, 1) . substr($validateData['last_name'], 0, 1));
-            $validateData['trigramme'] = $trigramme . $randomChar;
+
+            if ($validateData['trigramme']) {
+                $trigrammeExist = User::where('trigramme', $validateData['trigramme'])->exists();
+                if ($trigrammeExist) {
+                    $this->dispatch('alert', type: 'error', message: 'Le trigramme est déjà utilisé');
+                    return;
+                }
+                $validateData['trigramme'] = $validateData['trigramme'];
+            } else {
+                do {
+                    $randomChar = strtoupper(preg_replace('/[^A-Za-z]/', '', Str::random(1)));
+                    $trigramme = strtoupper(substr($validateData['first_name'], 0, 1) . substr($validateData['last_name'], 0, 1));
+                    $trigramme = $trigramme . $randomChar;
+                    $trigrammeExist = User::where('trigramme', $trigramme)->exists();
+                } while ($trigrammeExist);
+                $validateData['trigramme'] = $trigramme;
+            }
+
             $user = User::create($validateData);
             $roleId = Role::where('id', $validateData['role_id'])->first()->id;
             $user->assignRole($roleId);
