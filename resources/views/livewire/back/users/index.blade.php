@@ -200,7 +200,7 @@
 
                         </div>
                         <div class="col-md-6 mt-3">
-                            <label for="trigramme" class="form-label">Trigramme </label>
+                            <label for="trigramme" class="form-label">Trigramme</label>
                             <input type="text" class="form-control @error('trigramme') is-invalid @enderror "
                                 wire:model.live='trigramme' placeholder="Veuillez entrer le trigramme " />
                             @error('first_name')
