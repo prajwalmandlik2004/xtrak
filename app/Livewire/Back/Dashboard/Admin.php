@@ -27,12 +27,13 @@ class Admin extends Component
     public $candidateStatuses;
     public $filterName = '';
     public $filterDate = '';
-    public $candidate_state_id  = '';
+    public $candidate_state_id = '';
     public $selectedCandidateId;
     public $candidateStates;
     public $positions;
     public $position_id;
-    
+    public $cp;
+
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -47,7 +48,7 @@ class Admin extends Component
         session(['base_cdt_selected_candidate_id' => $id]);
         session(['base_cdt_current_page' => $page]);
         session(['base_cdt_nb_paginate' => $this->nbPaginate]);
-        return redirect()->route('candidate.cre',$id);
+        return redirect()->route('candidate.cre', $id);
     }
     public function selectCandidateGoToCv($id, $page)
     {
@@ -55,7 +56,7 @@ class Admin extends Component
         session(['base_cdt_selected_candidate_id' => $id]);
         session(['base_cdt_current_page' => $page]);
         session(['base_cdt_nb_paginate' => $this->nbPaginate]);
-        return redirect()->route('candidate.cv',$id);
+        return redirect()->route('candidate.cv', $id);
     }
     #[On('delete')]
     public function deleteData($id)
@@ -84,7 +85,7 @@ class Admin extends Component
                             $query->orWhere($field, 'like', '%' . $this->search . '%');
                         }
                     })
-                   
+
                     ->orWhereHas('disponibility', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     })
@@ -107,14 +108,17 @@ class Admin extends Component
             ->when($this->filterDate, function ($query) {
                 return $query->orderBy('created_at', $this->filterDate);
             })
-            ->when($this->candidate_state_id , function ($query) {
-                $query->where('candidate_state_id', $this->candidate_state_id );
+            ->when($this->candidate_state_id, function ($query) {
+                $query->where('candidate_state_id', $this->candidate_state_id);
             })
             ->when($this->candidate_statut_id, function ($query) {
                 $query->where('candidate_statut_id', $this->candidate_statut_id);
             })
             ->when($this->position_id, function ($query) {
                 $query->where('position_id', $this->position_id);
+            })
+            ->when($this->cp, function ($query) {
+                $query->where('postal_code', 'like', '%' . $this->cp . '%');
             })
             ->paginate($this->nbPaginate);
     }
@@ -124,7 +128,7 @@ class Admin extends Component
     }
     public function mount()
     {
-        $this->positions= Position::all();
+        $this->positions = Position::all();
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidateStates = CandidateState::all();
         if (session()->has('dash_base_cdt_selected_candidate_id')) {
@@ -141,7 +145,7 @@ class Admin extends Component
     public function downloadExcel()
     {
         try {
-            $candidates = Candidate::with(['position', 'nextStep', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur', 'cres', 'candidateStatut', 'candidateState','nsDate'])->get();
+            $candidates = Candidate::with(['position', 'nextStep', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur', 'cres', 'candidateStatut', 'candidateState', 'nsDate'])->get();
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
             $headers = ['Source', 'CodeCDT', 'Auteur', 'Civ', 'Prénom', 'Nom', 'Poste', 'Spécialité', 'Domaine', 'Société', 'Mail', 'Tél1', 'Tél2', 'UrlCTC', 'CP/Dpt', 'Ville', 'Région', 'Disponibilité', 'Statut CDT', 'NextStep', 'NSDate'];

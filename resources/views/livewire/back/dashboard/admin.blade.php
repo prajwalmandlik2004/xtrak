@@ -47,6 +47,7 @@
                             <th scope="col">Etat</th>
                             <th scope="col">Statut</th>
                             <th scope="col">Fonction</th>
+                            <th scope="col">CP/Dpt</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +57,7 @@
                                     <i class="ri-delete-bin-line"></i>
                                 </button>
                             </td>
-                                
+
                             <td>
                                 <select class="form-control w-md" wire:model.live='filterName'>
                                     <option value="" class="bg-secondary text-white" selected>
@@ -105,6 +106,11 @@
                                         <option value="{{ $position->id }}">{{ $position->name }}</option>
                                     @endforeach
                                 </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="Rechercher..."
+                                    wire:model.live='cp'>
+                                <i class="ri-search-line search-icon"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -207,7 +213,7 @@
                                         <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->city ?? '--' }}
                                             </a></td>
-                                            <td> <a class="text-body " href="#"
+                                        <td> <a class="text-body " href="#"
                                                 wire:click.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->candidateStatut->name ?? '--' }}
                                             </a></td>
                                         <td> <a class="text-body " href="#"
