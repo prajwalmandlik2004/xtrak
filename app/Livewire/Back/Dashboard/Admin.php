@@ -22,7 +22,7 @@ class Admin extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $nbPaginate = 10;
+    public $nbPaginate = 30;
     public $candidate_statut_id = '';
     public $candidateStatuses;
     public $filterName = '';
