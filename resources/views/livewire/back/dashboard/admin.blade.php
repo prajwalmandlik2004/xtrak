@@ -110,7 +110,7 @@
                             <td>
                                 <input type="text" class="form-control" placeholder="Rechercher..."
                                     wire:model.live='cp'>
-                                <i class="ri-search-line search-icon"></i>
+                                
                             </td>
                         </tr>
                     </tbody>
