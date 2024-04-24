@@ -57,6 +57,7 @@
                             @if (auth()->user()->hasRole('Administrateur'))
                                 <th scope="col">Auteur</th>
                             @endif
+                            <th scope="col">CP/Dpt</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,6 +127,10 @@
                                     </select>
                                 </td>
                             @endif
+                            <td>
+                                <input type="text" class="form-control" placeholder="valeur" wire:model.live='cp'>
+
+                            </td>
                         </tr>
                     </tbody>
                 </table>

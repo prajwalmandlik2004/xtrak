@@ -489,19 +489,11 @@
                                                                             <div>
                                                                                 <label for="compagny_id"
                                                                                     class="form-label">Societé </label>
-                                                                                <select
-                                                                                    class="form-control form-control-custom  @error('compagny_id') is-invalid @enderror "
-                                                                                    wire:model='compagny_id'>
-                                                                                    <option value="" selected>
-                                                                                        Selectionner</option>
-                                                                                    @foreach ($compagnies as $compagny)
-                                                                                        <option
-                                                                                            value="{{ $compagny->id }}"
-                                                                                            @if ($compagny->id == $compagny_id) selected @endif>
-                                                                                            {{ $compagny->name }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
+                                                                                    <input type="text"
+                                                                                    class="form-control  
+                                form-control-custom  @error('compagny_id') is-invalid @enderror "
+                                                                                   wire:model='compagny_id'
+                                                                                    placeholder="Veuillez  entrer la société" />
                                                                                 @error('compagny_id')
                                                                                     <span
                                                                                         class="invalid-feedback">{{ $message }}</span>

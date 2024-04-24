@@ -33,6 +33,7 @@ class State extends Component
     public $position_id;
     public $users;
     public $user_id;
+    public $cp;
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -104,6 +105,9 @@ class State extends Component
                 ->when($this->user_id, function ($query) {
                     $query->where('created_by', $this->user_id);
                 })
+                ->when($this->cp, function ($query) {
+                    $query->where('postal_code', 'like', '%' . $this->cp . '%');
+                })
                 ->paginate($this->nbPaginate);
         } else {
             return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field'])
@@ -145,6 +149,9 @@ class State extends Component
                 })
                 ->when($this->position_id, function ($query) {
                     $query->where('position_id', $this->position_id);
+                })
+                ->when($this->cp, function ($query) {
+                    $query->where('postal_code', 'like', '%' . $this->cp . '%');
                 })
                 ->where('created_by', Auth::id())
                 ->paginate($this->nbPaginate);

@@ -102,7 +102,7 @@ class Show extends Component
             $this->last_name = $this->candidate->last_name;
             $this->email = $this->candidate->email;
             $this->phone = $this->candidate->phone;
-            $this->compagny_id = $this->candidate->compagny->id ?? null;
+            $this->compagny_id = $this->candidate->compagny->name ?? '';
             $this->postal_code = $this->candidate->postal_code;
             $this->candidate_statut_id = $this->candidate->candidateStatut->id ?? null;
             $this->position_id = $this->candidate->position->id ?? null;
@@ -161,6 +161,9 @@ class Show extends Component
 
         DB::beginTransaction();
         $candidateRepository = new CandidateRepository();
+        $companyName = $validatedData['compagny_id'];
+        $company = Compagny::firstOrCreate(['name' => $companyName]);
+        $validatedData['compagny_id'] = $company->id;
         $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
 
         DB::commit();

@@ -72,7 +72,6 @@ class Index extends Component
         $this->isUpdate = false;
         $this->phone = '';
         $this->email = '';
-        $this->password = '';
         $this->trigramme = '';
         if ($id) {
             $this->isUpdate = true;

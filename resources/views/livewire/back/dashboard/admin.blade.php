@@ -108,9 +108,8 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="valeur..."
-                                    wire:model.live='cp'>
-                                
+                                <input type="text" class="form-control" placeholder="valeur" wire:model.live='cp'>
+
                             </td>
                         </tr>
                     </tbody>

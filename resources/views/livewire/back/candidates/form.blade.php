@@ -189,9 +189,8 @@
                                                             wire:model='next_step_id'>
                                                             <option value="" selected>Selectionner</option>
                                                             @foreach ($nextSteps as $nextStep)
-                                                                <option value="{{ $nextStep->id }}" @if ($nextStep->id == $next_step_id )
-                                                                    selected
-                                                                @endif>
+                                                                <option value="{{ $nextStep->id }}"
+                                                                    @if ($nextStep->id == $next_step_id) selected @endif>
                                                                     {{ $nextStep->name }}
                                                                 </option>
                                                             @endforeach
@@ -210,9 +209,8 @@
                                                             wire:model='ns_date_id'>
                                                             <option value="" selected>Selectionner</option>
                                                             @foreach ($nsDates as $nsDate)
-                                                                <option value="{{ $nsDate->id }}" @if ($nsDate->id == $ns_date_id )
-                                                                    selected
-                                                                @endif>
+                                                                <option value="{{ $nsDate->id }}"
+                                                                    @if ($nsDate->id == $ns_date_id) selected @endif>
                                                                     {{ $nsDate->name }}
                                                                 </option>
                                                             @endforeach
@@ -378,18 +376,12 @@
                                                 <div class="col-lg-3">
                                                     <div>
                                                         <label for="compagny_id" class="form-label">Societé </label>
-                                                        <select
+                                                        <input type="text"
                                                             class="form-control  
         form-control-custom  @error('compagny_id') is-invalid @enderror "
-                                                            wire:model='compagny_id'>
-                                                            <option value="" selected>Selectionner</option>
-                                                            @foreach ($compagnies as $compagny)
-                                                                <option value="{{ $compagny->id }}"
-                                                                    @if ($action == 'update' && $compagny->id == $compagny_id) selected @endif>
-                                                                    {{ $compagny->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
+                                                            wire:model='compagny_id'
+                                                            placeholder="Veuillez  entrer la société" />
+
                                                         @error('compagny_id')
                                                             <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
@@ -397,7 +389,8 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div>
-                                                        <label for="position_id" class="form-label">Poste (Fonction1) <span class="text-danger">*</span>
+                                                        <label for="position_id" class="form-label">Poste (Fonction1)
+                                                            <span class="text-danger">*</span>
                                                         </label>
                                                         <select
                                                             class="form-control  
@@ -570,35 +563,36 @@
 
                                 <div class="card-header align-items-center d-flex border-bottom-dashed">
                                     <h4 class="card-title mb-0 flex-grow-1">Documents</h4>
-                                   
+
                                     <div class="d-flex">
                                         <div class="p-2 flex-grow-1">
-                                            
+
                                             <button type="button" wire:click='goToForm'
-                                          class="btn  btn-sm btn-label">
-                                          <i
-                                                class="ri-arrow-left-line label-icon align-middle  ms-2"></i>Aller vers le
-                                          formulaire</button>
+                                                class="btn  btn-sm btn-label">
+                                                <i class="ri-arrow-left-line label-icon align-middle  ms-2"></i>Aller
+                                                vers le
+                                                formulaire</button>
                                         </div>
                                         <div class="p-2 ">
-                                            <button type="button" wire:click="openFileModal()" data-bs-toggle="modal"
-                                            data-bs-target="#modal" class="btn btn-soft-info btn-sm"><i
-                                                class="ri-upload-2-fill me-1 align-bottom"></i>
-                                            Nouveau</button>
+                                            <button type="button" wire:click="openFileModal()"
+                                                data-bs-toggle="modal" data-bs-target="#modal"
+                                                class="btn btn-soft-info btn-sm"><i
+                                                    class="ri-upload-2-fill me-1 align-bottom"></i>
+                                                Nouveau</button>
                                         </div>
                                         <div class="p-2">
                                             <button type="button" wire:click='endCreate'
-                                          class="btn btn-info btn-sm">
+                                                class="btn btn-info btn-sm">
                                                 Ignorer et Terminer</button>
-                                           
+
                                         </div>
                                         <div class="p-2">
                                             <button type="button" wire:click='goToCre'
-                                          class="btn  btn-sm btn-label">
-                                          <i
-                                          class="ri-arrow-right-line label-icon align-middle  ms-2"></i>Aller vers
+                                                class="btn  btn-sm btn-label">
+                                                <i class="ri-arrow-right-line label-icon align-middle  ms-2"></i>Aller
+                                                vers
                                                 le CRE</button>
-                                       
+
                                         </div>
                                     </div>
                                 </div>
@@ -758,7 +752,7 @@
                                 </x-modal>
 
                             </div>
-                            
+
 
                             <!-- end card -->
                         </div>
@@ -781,7 +775,8 @@
                                                 vers les documents</a>
                                         </div>
                                         <div class="p-2">
-                                            <button type="submit" class="btn btn-primary">Enregistrer et terminer</button>
+                                            <button type="submit" class="btn btn-primary">Enregistrer et
+                                                terminer</button>
                                         </div>
                                         <div class="p-2">
                                             <a wire:click='endCreate' class="btn btn-info"></i>Ignorer et Terminer</a>
@@ -839,7 +834,7 @@
                                         </div>
                                         <div class="col-md-12 mt-3">
                                             <div>
-                                                <label for="response6" class="form-label">6. Savoir-être 
+                                                <label for="response6" class="form-label">6. Savoir-être
                                                     :</label>
                                                 <textarea wire:model='response6' class="form-control auto-resize" id="response6"
                                                     style="resize: none; overflow-y: hidden;"></textarea>

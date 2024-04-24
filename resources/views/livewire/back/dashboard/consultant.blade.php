@@ -52,6 +52,7 @@
                             <th scope="col">Etat</th>
                             <th scope="col">Statut</th>
                             <th scope="col">Fonction</th>
+                            <th scope="col">CP/Dpt</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,6 +109,10 @@
                                         <option value="{{ $position->id }}">{{ $position->name }}</option>
                                     @endforeach
                                 </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="valeur" wire:model.live='cp'>
+
                             </td>
                         </tr>
                     </tbody>

@@ -19,13 +19,17 @@
                                     {{ $action == 'create' ? "Formulaire de creation d'un C.R.E" : "Formulaire de modification d'un C.R.E" }}
                                 </h5>
                             </div>
+                            <div class="p-2">
+                                <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5  mt-3"><i
+                                    class="mdi mdi-arrow-left me-1"></i>Retour</a>
+                            </div>
 
                         </div>
 
 
                     </div>
                     <div class="card-body">
-
+                        
                        
                         <div class="row">
                             <div class="col-md-12 mt-3">

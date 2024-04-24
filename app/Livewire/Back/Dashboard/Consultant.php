@@ -28,6 +28,7 @@ class Consultant extends Component
     public $position_id;
     public $candidate_statut_id = '';
     public $candidateStatuses;
+    public $cp;
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -94,6 +95,9 @@ class Consultant extends Component
             })
             ->when($this->position_id, function ($query) {
                 $query->where('position_id', $this->position_id);
+            })
+            ->when($this->cp, function ($query) {
+                $query->where('postal_code', 'like', '%' . $this->cp . '%');
             })
             ->where('created_by', Auth::id())
             ->paginate($this->nbPaginate);
