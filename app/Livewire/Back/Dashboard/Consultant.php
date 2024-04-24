@@ -18,7 +18,7 @@ class Consultant extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $nbPaginate = 10;
+    public $nbPaginate =  30;
     public $filterName = '';
     public $filterDate = '';
     public $candidate_state_id = '';
