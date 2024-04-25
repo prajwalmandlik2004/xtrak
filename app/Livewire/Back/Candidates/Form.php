@@ -233,43 +233,44 @@ class Form extends Component
                 'email.unique' => 'Cet email est déjà utilisé',
             ],
         );
-        try {
-            DB::beginTransaction();
-            $candidateRepository = new CandidateRepository();
-            $fileRepository = new FileRepository();
-            if ($validatedData['compagny_id'] == 'null') {
-                $validatedData['compagny_id'] = null;
-            } else {
-                $companyName = $validatedData['compagny_id'];
-                $company = Compagny::firstOrCreate(['name' => $companyName]);
-                $validatedData['compagny_id'] = $company->id;
-            }
-            if ($this->action == 'create') {
-                $validatedData['created_by'] = auth()->user()->id;
-                if (!empty($validatedData['cv'])) {
-                    $validatedData['certificate'] = Str::random(10);
-                    $validatedData['candidate_state_id'] = CandidateState::where('name', 'Certifié')->first()->id;
-                } else {
-                    $validatedData['candidate_state_id'] = CandidateState::where('name', 'Attente')->first()->id;
-                }
-                $stringToHash = $validatedData['first_name'] . $validatedData['last_name'] . now();
-                $hash = Hash::make($stringToHash);
-                $validatedData['code_cdt'] = Str::limit(preg_replace('/[^a-zA-Z0-9]/', '', $hash), 7, '');
-                $this->candidate = $candidateRepository->create($validatedData);
-            } else {
-                $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
-            }
 
-            // if (!empty($validatedData['cv']) && $this->candidate->exists) {
-            //     $fileRepository->createOne($validatedData['cv'], $this->candidate->id, 'cv');
-            // }
-            // if (!empty($validatedData['cover_letter']) && $this->candidate->exists) {
-            //     $fileRepository->createOne($validatedData['cover_letter'], $this->candidate->id, 'cover letter');
-            // }
-            DB::commit();
-            $this->reset(['origine', 'commentaire', 'speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
-            $this->step = 2;
-            $this->dispatch('alert', type: 'success', message: $this->action == 'create' ? 'Le candidat a été enregistré avec succès.' : 'Le candidat a été modifié avec succès.');
+        DB::beginTransaction();
+        $candidateRepository = new CandidateRepository();
+        $fileRepository = new FileRepository();
+        if ($validatedData['compagny_id']) {
+            $companyName = $validatedData['compagny_id'];
+            $company = Compagny::firstOrCreate(['name' => $companyName]);
+            $validatedData['compagny_id'] = $company->id;
+        } else {
+            $validatedData['compagny_id'] = null;
+        }
+        if ($this->action == 'create') {
+            $validatedData['created_by'] = auth()->user()->id;
+            if (!empty($validatedData['cv'])) {
+                $validatedData['certificate'] = Str::random(10);
+                $validatedData['candidate_state_id'] = CandidateState::where('name', 'Certifié')->first()->id;
+            } else {
+                $validatedData['candidate_state_id'] = CandidateState::where('name', 'Attente')->first()->id;
+            }
+            $stringToHash = $validatedData['first_name'] . $validatedData['last_name'] . now();
+            $hash = Hash::make($stringToHash);
+            $validatedData['code_cdt'] = Str::limit(preg_replace('/[^a-zA-Z0-9]/', '', $hash), 7, '');
+            $this->candidate = $candidateRepository->create($validatedData);
+        } else {
+            $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
+        }
+
+        // if (!empty($validatedData['cv']) && $this->candidate->exists) {
+        //     $fileRepository->createOne($validatedData['cv'], $this->candidate->id, 'cv');
+        // }
+        // if (!empty($validatedData['cover_letter']) && $this->candidate->exists) {
+        //     $fileRepository->createOne($validatedData['cover_letter'], $this->candidate->id, 'cover letter');
+        // }
+        DB::commit();
+        $this->reset(['origine', 'commentaire', 'speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+        $this->step = 2;
+        $this->dispatch('alert', type: 'success', message: $this->action == 'create' ? 'Le candidat a été enregistré avec succès.' : 'Le candidat a été modifié avec succès.');
+        try {
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->action == 'create' ? 'Erreur lors de la création du candidat' : 'Erreur lors de la modification du candidat');
