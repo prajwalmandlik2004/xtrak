@@ -161,9 +161,13 @@ class Show extends Component
 
         DB::beginTransaction();
         $candidateRepository = new CandidateRepository();
-        $companyName = $validatedData['compagny_id'];
-        $company = Compagny::firstOrCreate(['name' => $companyName]);
-        $validatedData['compagny_id'] = $company->id;
+        if ($validatedData['compagny_id'] == 'null') {
+            $validatedData['compagny_id'] = null;
+        } else {
+            $companyName = $validatedData['compagny_id'];
+            $company = Compagny::firstOrCreate(['name' => $companyName]);
+            $validatedData['compagny_id'] = $company->id;
+        }
         $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
 
         DB::commit();

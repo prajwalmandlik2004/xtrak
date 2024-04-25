@@ -237,9 +237,13 @@ class Form extends Component
             DB::beginTransaction();
             $candidateRepository = new CandidateRepository();
             $fileRepository = new FileRepository();
-            $companyName = $validatedData['compagny_id'];
-            $company = Compagny::firstOrCreate(['name' => $companyName]);
-            $validatedData['compagny_id'] = $company->id;
+            if ($validatedData['compagny_id'] == 'null') {
+                $validatedData['compagny_id'] = null;
+            } else {
+                $companyName = $validatedData['compagny_id'];
+                $company = Compagny::firstOrCreate(['name' => $companyName]);
+                $validatedData['compagny_id'] = $company->id;
+            }
             if ($this->action == 'create') {
                 $validatedData['created_by'] = auth()->user()->id;
                 if (!empty($validatedData['cv'])) {
