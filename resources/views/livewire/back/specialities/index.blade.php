@@ -42,7 +42,7 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Nom</th>
+                            <th scope="col">Spécialité</th>
                             <th scope="col">Poste</th>
                             <th scope="col">Date de création</th>
                             <th scope="col">Action</th>
