@@ -42,8 +42,8 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Spécialité</th>
                             <th scope="col">Poste</th>
+                            <th scope="col">Spécialité</th>
                             <th scope="col">Date de création</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -53,8 +53,8 @@
                             <tr>
 
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $speciality->name ?? '---'}}</td>
                                 <td>{{ $speciality->position->name ?? '---' }}</td>
+                                <td>{{ $speciality->name ?? '---'}}</td>
                                 <td>{{ $speciality->created_at->format('d/m/Y')  }}</td>
                                 
                                 <td>

@@ -13,7 +13,7 @@
         <div class="card-hearder">
             <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active fw-bold" data-bs-toggle="tab" href="#positions" role="tab">
+                    <a class="nav-link active fw-bold " data-bs-toggle="tab" href="#positions" role="tab">
                         POSTES
                     </a>
                 </li>
