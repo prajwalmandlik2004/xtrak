@@ -18,36 +18,17 @@
 
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="d-flex justify-content-end mt-5">
-
-                <div class="p-2 ml-auto">
-                    <select class="form-control w-md" wire:model.live='nbPaginate'>
-                        <option value="6" selected>6</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </div>
-                <div class="p-2">
-                    <div class="search-box ms-2">
-                        <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
-                        <i class="ri-search-line search-icon"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
+      
+        <div class="col-md-12 mt-4 mb-3">
             <div class="table-responsive">
                 <h5 class="mb-0">Paramètres de tri des candidats</h5>
-
                 <table class="table table-bordered border-secondary table-nowrap">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th scope="col">Effacer les filtres</th>
-                            <th scope="col">Alphabétique</th>
+                            <th scope="col">Recherche</th>
+                            <th scope="col">N lignes</th>
+                            <th scope="col">Nom</th>
                             <th scope="col">Date</th>
                             <th scope="col">Etat</th>
                             <th scope="col">Statut</th>
@@ -63,8 +44,23 @@
                                 </button>
                             </td>
                             <td>
+                                <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
+                               
+                            </td>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='nbPaginate'>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30" selected>30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </td>
+
+                            <td>
                                 <select class="form-control w-md" wire:model.live='filterName'>
-                                    <option value="" class="bg-secondary text-white" selected>Selectionner
+                                    <option value="" class="bg-secondary text-white" selected>
+                                        Selectionner
                                     </option>
                                     <option value="asc">A -> Z</option>
                                     <option value="desc">Z -> A</option>
@@ -72,7 +68,8 @@
                             </td>
                             <td>
                                 <select class="form-control w-md" wire:model.live='filterDate'>
-                                    <option value="" class="bg-secondary text-white" selected>Selectionner
+                                    <option value="" class="bg-secondary text-white" selected>
+                                        Selectionner
                                     </option>
                                     <option value="asc">Plus récent en haut</option>
                                     <option value="desc">Plus ancien en haut</option>
@@ -101,7 +98,6 @@
 
                                 </select>
                             </td>
-
                             <td>
                                 <select class="form-control w-md" wire:model.live='position_id'>
                                     <option value="" selected>Fonction</option>
@@ -111,7 +107,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="valeur" wire:model.live='cp'>
+                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
 
                             </td>
                         </tr>
