@@ -1,6 +1,8 @@
 <?php
 namespace App\Helpers;
 
+use Illuminate\Support\Str;
+
 class Helper
 {
     static function years()
@@ -27,6 +29,9 @@ class Helper
             '11' => 'Novembre',
             '12' => 'Décembre',
         ];
+    }
+    static function generateCandidateCertificate(){
+        return Str::random(10);
     }
     
 }

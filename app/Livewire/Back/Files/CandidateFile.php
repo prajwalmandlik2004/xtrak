@@ -3,6 +3,7 @@
 namespace App\Livewire\Back\Files;
 
 use App\Models\File;
+use App\Helpers\Helper;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
@@ -27,34 +28,31 @@ class CandidateFile extends Component
     #[On('delete')]
     public function deleteData($id)
     {
+        try {
         $fileRepository = new FileRepository();
         DB::beginTransaction();
         $file = $fileRepository->find($id);
-        try {
             if ($file) {
                 $fileRepository->delete($file->id);
-                DB::commit();
-              
             }
+            $stateId = CandidateState::where('name', 'Attente')->first()->id;
             if ($this->candidate->files()->exists()) {
                 $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
-                $stateId = CandidateState::where('name', 'Attente')->first()->id;
-                $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id &&  $this->candidate->email && $this->candidate->position_id;  
-                if ($cvFile && $stateId && $additionalFieldsFilled) {
+                if (!$cvFile && $stateId) {
                     $this->candidate->update([
                         'certificate' => null,
                         'candidate_state_id' => $stateId,
                     ]);
                 }
-            }else {
-                $stateId = CandidateState::where('name', 'Attente')->first()->id;
-               if($stateId){
-                $this->candidate->update([
-                    'certificate' => null,
-                    'candidate_state_id' => $stateId,
-                ]);
-               }
+            } else {
+                if ($stateId) {
+                    $this->candidate->update([
+                        'certificate' => null,
+                        'candidate_state_id' => $stateId,
+                    ]);
+                }
             }
+            DB::commit();
             $this->dispatch('alert', type: 'success', message: 'le document est supprimé avec succès');
             $this->dispatch('refresh-page');
         } catch (\Throwable $th) {
@@ -106,14 +104,25 @@ class CandidateFile extends Component
             if ($this->isUpdate) {
                 $fileRepository->update($this->file, ['name' => $validateData['name'], 'file_type' => $validateData['fileType']]);
             } else {
-                
+                if ($this->candidate->files()->exists()) {
+                    $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
+                    if ($cvFile && $validateData['fileType'] == 'cv') {
+                        $this->dispatch('swal:modal', type: 'error', title: 'Action refusée', text: 'Impossible d\'ajouter un autre Cv');
+                        return;
+                    }
+                    $coverLetterFile = $this->candidate->files()->where('file_type', 'cover letter')->first();
+                    if ($coverLetterFile && $validateData['fileType'] == 'cover letter') {
+                        $this->dispatch('swal:modal', type: 'error', title: 'Action refusée', text: 'Impossible d\'ajouter une autre lettre de motivation');
+                        return;
+                    }
+                }
                 $fileRepository->createOne($validateData['newFile'], $this->candidate->id, $validateData['fileType']);
                 if ($this->candidate->files()->exists()) {
                     $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
                     $stateId = CandidateState::where('name', 'Certifié')->first()->id;
-                    $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id &&  $this->candidate->email && $this->candidate->position_id;  
+                    $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->last_name && $this->candidate->civ_id &&  $this->candidate->email && $this->candidate->position_id;  
                     if ($cvFile && $stateId && $additionalFieldsFilled) {
-                        $certificate = Str::random(10);
+                        $certificate = Helper::generateCandidateCertificate();
                         $this->candidate->update([
                             'certificate' => $certificate,
                             'candidate_state_id' => $stateId,

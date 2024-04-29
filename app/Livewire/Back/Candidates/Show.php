@@ -158,23 +158,33 @@ class Show extends Component
                 'civ_id.required' => 'La civilité est obligatoire',
             ],
         );
-
-        DB::beginTransaction();
-        $candidateRepository = new CandidateRepository();
-        if ($validatedData['compagny_id']) {
-            $companyName = $validatedData['compagny_id'];
-            $company = Compagny::firstOrCreate(['name' => $companyName]);
-            $validatedData['compagny_id'] = $company->id;
-        } else {
-            $validatedData['compagny_id'] = null;
-        }
-        $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
-
-        DB::commit();
-        $this->mount();
-        // $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
-        $this->dispatch('alert', type: 'success', message: 'Candidat modifié avec succès');
         try {
+            DB::beginTransaction();
+            $candidateRepository = new CandidateRepository();
+            if ($validatedData['compagny_id']) {
+                $companyName = $validatedData['compagny_id'];
+                $company = Compagny::firstOrCreate(['name' => $companyName]);
+                $validatedData['compagny_id'] = $company->id;
+            } else {
+                $validatedData['compagny_id'] = null;
+            }
+            $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
+            $stateId = CandidateState::where('name', 'Certifié')->first()->id;
+            if ($stateId != $this->candidate->candidate_state_id && $this->candidate->files()->exists()) {
+                $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
+                $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->last_name && $this->candidate->civ_id && $this->candidate->email && $this->candidate->position_id;
+                if ($cvFile && $additionalFieldsFilled) {
+                    $certificate = Helper::generateCandidateCertificate();
+                    $this->candidate->update([
+                        'certificate' => $certificate,
+                        'candidate_state_id' => $stateId,
+                    ]);
+                }
+            }
+            DB::commit();
+            $this->mount();
+            // $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+            $this->dispatch('alert', type: 'success', message: 'Candidat modifié avec succès');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification du candidat');
@@ -197,26 +207,26 @@ class Show extends Component
         try {
             DB::beginTransaction();
             $state = CandidateState::where('id', $id)->first() ?? null;
-            if ($this->candidate->files()->exists()) {
+            $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->last_name && $this->candidate->civ_id && $this->candidate->email && $this->candidate->position_id;
+            if ($state && $this->candidate->files()->exists() && $additionalFieldsFilled && $state->name == 'Certifié' ) {
                 $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
-                $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->first_name && $this->candidate->civ_id && $this->candidate->email && $this->candidate->position_id;
-                if ($cvFile && $additionalFieldsFilled) {
+                if ($cvFile ) {
+                    $certificate = Helper::generateCandidateCertificate();
                     $this->candidate->update([
+                        'certificate' => $certificate,
                         'candidate_state_id' => $state->id,
                     ]);
                 } else {
                     return $this->dispatch('swal:confirm-modif', title: 'Modification', text: "Vous êtes sur le point de modifier l'état du candidat alors qu'il n'a pas de CV ou que certains champs obligatoires sont manquants.", type: 'warning', method: 'updateState', id: $id);
                 }
             } else {
-                return $this->dispatch('swal:confirm-modif', title: 'Modification', text: "Vous êtes sur le point de modifier l'état du candidat alors qu'il n'a pas de CV ou que certains champs obligatoires sont manquants.", type: 'warning', method: 'updateState', id: $id);
+                return $this->dispatch('swal:confirm-modif', title: 'Modification', text: "Vous êtes sur le point de modifier l'état du candidat.", type: 'warning', method: 'updateState', id: $id);
             }
-            $this->candidate->candidate_state_id = $state->id ?? null;
-            $this->candidate->save();
-            $this->dispatch('alert', type: 'success', texte: 'Etat modifier avec succès');
+            $this->dispatch('alert', type: 'success', message: 'Etat modifier avec succès');
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', texte: 'Erreur lors de la modification de l\'état du candidat');
+            $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification de l\'état du candidat');
         }
     }
     #[On('updateState')]
@@ -225,8 +235,10 @@ class Show extends Component
         try {
             DB::beginTransaction();
             $state = CandidateState::where('id', $id)->first() ?? null;
-            $this->candidate->candidate_state_id = $state->id ?? null;
-            $this->candidate->save();
+            $this->candidate->update([
+                'certificate' => '',
+                'candidate_state_id' => $state->id,
+            ]);
             $this->dispatch('alert', type: 'success', message: 'Etat modifier avec succès');
             DB::commit();
         } catch (\Throwable $th) {

@@ -128,6 +128,7 @@
                 @csrf
                 <div class="modal-body">
                     <div class="row">
+                        @if (!$isUpdate)
                         <div class="col-md-12">
                             <label for="fileType" class="form-label">Type</label>
                             <select wire:model="fileType"
@@ -135,12 +136,13 @@
                                 <option value="" selected>Selectionner</option>
                                 <option value="cv">Curriculum Vitae</option>
                                 <option value="cover letter">Lettre de motivation</option>
-                                <option value="autre">Autre</option>
+                                <option value="other">Autre</option>
                                 @error('fileType')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
 
                         </div>
+                        @endif
                         @if ($isUpdate)
                         <div class="col-md-12">
                                 <label for="name" class="form-label">Nom du document <span
