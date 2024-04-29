@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('user_logins', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('user_id')->nullable()->references('id')->on('users');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamp('login_at')->nullable();
             $table->timestamp('logout_at')->nullable();
             $table->timestamps();
