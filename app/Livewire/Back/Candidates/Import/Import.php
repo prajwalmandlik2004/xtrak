@@ -127,9 +127,11 @@ class Import extends Component
                     $newCandidate['next_step_id'] = $nextStep->id;
                 }
             }
-            $civ = Civ::where('name', $data['Civ'])->first() ?? Civ::create(['name' => $data['Civ']]);
-            if ($civ) {
-                $newCandidate['civ_id'] = $civ->id;
+            if (!empty($data['Civ'])) {
+                $civ = Civ::where('name', $data['Civ'])->first() ?? Civ::create(['name' => $data['Civ']]);
+                if ($civ) {
+                    $newCandidate['civ_id'] = $civ->id;
+                }
             }
             if (!empty($data['Poste'])) {
                 $position = Position::where('name', $data['Poste'])->first() ?? Position::create(['name' => $data['Poste']]);
@@ -138,13 +140,23 @@ class Import extends Component
                 }
             }
             if (!empty($data['Spécialité'])) {
-                $speciality = Speciality::where('name', $data['Spécialité'])->first() ?? Speciality::create(['name' => $data['Spécialité']]);
+                $speciality =
+                    Speciality::where('name', $data['Spécialité'])->first() ??
+                    Speciality::create([
+                        'name' => $data['Spécialité'],
+                        'position_id' => $newCandidate['position_id'] ?? null,
+                    ]);
                 if ($speciality) {
                     $newCandidate['speciality_id'] = $speciality->id;
                 }
             }
             if (!empty($data['Domaine'])) {
-                $field = Field::where('name', $data['Domaine'])->first() ?? Field::create(['name' => $data['Domaine']]);
+                $field =
+                    Field::where('name', $data['Domaine'])->first() ??
+                    Field::create([
+                        'name' => $data['Domaine'],
+                        'speciality_id' => $newCandidate['speciality_id'] ?? null,
+                    ]);
                 if ($field) {
                     $newCandidate['field_id'] = $field->id;
                 }
@@ -167,6 +179,7 @@ class Import extends Component
 
             return $candidate;
         } catch (\Throwable $th) {
+            dd($th);
             return null;
         }
     }
