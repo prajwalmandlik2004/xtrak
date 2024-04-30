@@ -39,8 +39,8 @@
                         @forelse ($usersWithCandidateCounts as $value)
                             <tr>
                                 <td>{{ $value->trigramme ?? ''}}</td>
-                                <td>{{ $value->first_name ?? ''}}</td>
                                 <td>{{ $value->last_name ?? ''}}</td>
+                                <td>{{ $value->first_name ?? ''}}</td>
                                 <td>{{ $value->total_candidates ?? 0 }}</td>
                                 <td>{{ $value->candidates_today ?? 0 }}</td>
                                 <td>{{ $value->candidates_this_week ?? 0 }}</td>

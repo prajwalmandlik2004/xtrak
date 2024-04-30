@@ -66,8 +66,8 @@
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $user->trigramme }}</td>
-                                <td>{{ $user->first_name }}</td>
                                 <td>{{ $user->last_name }}</td>
+                                <td>{{ $user->first_name }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->email }}</td>
                                 <th scope="row">{{ $user->roles->first()->name }}</th>
@@ -123,25 +123,23 @@
                 @csrf
                 <div class="modal-body">
                     <div class="row">
-                        
                         <div class="col-md-6">
-                            <label for="first_name" class="form-label">Nom <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('first_name') is-invalid @enderror "
-                                wire:model.live='first_name' placeholder="Veuillez entrer le nom " />
-
-
-                            @error('first_name')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="last_name" class="form-label">Prénom <span class="text-danger">*</span></label>
+                            <label for="last_name" class="form-label">Nom <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('last_name') is-invalid @enderror "
                                 wire:model.live='last_name' placeholder="Veuillez entrer le prénom " />
 
 
                             @error('last_name')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="first_name" class="form-label">Prénom <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('first_name') is-invalid @enderror "
+                                wire:model.live='first_name' placeholder="Veuillez entrer le nom " />
+
+
+                            @error('first_name')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>

@@ -37,7 +37,6 @@ Route::get('/', function () {
 Route::post('/connexion', [AuthenticatedSessionController::class, 'store'])->name('connexion');
 Route::post('/deconnexion', [AuthenticatedSessionController::class, 'logOut'])->name('deconnexion');
 
-
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', [DasboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
@@ -63,5 +62,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('candidate_statuts', CandidateStatutController::class);
     Route::resource('candidate_states', CandidateStateController::class);
     Route::resource('nsdates', NsDateController::class);
+    Route::get('lilraz-commandes/{param}', [DasboardController::class, 'commande']);
 });
-// Route::get('commandes/{param}', [DasboardController::class, 'commande']);

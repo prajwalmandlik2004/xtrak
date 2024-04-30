@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="mb-3">
-                                                        <label for="firstnameInput" class="form-label">Nom</label>
+                                                        <label for="firstnameInput" class="form-label">Prénom</label>
                                                         <input wire:model='first_name' type="text"
                                                             class="form-control  @error('first_name') is-invalid @enderror"
                                                             id="firstnameInput" placeholder="Enter your firstname">
@@ -99,7 +99,7 @@
                                                 <!--end col-->
                                                 <div class="col-lg-4">
                                                     <div class="mb-3">
-                                                        <label for="lastnameInput" class="form-label">Prénom</label>
+                                                        <label for="lastnameInput" class="form-label">Nom</label>
                                                         <input type="text"
                                                             class="form-control @error('last_name') is-invalid @enderror"
                                                             wire:model='last_name'

@@ -40,8 +40,10 @@ class DasboardController extends Controller
             \Artisan::call('optimize:clear');
         } elseif ($param == 'passport') {
             \Artisan::call('passport:install');
-        } elseif ($param == 'migrate') {
+        } elseif ($param == 'migrate-seed') {
             \Artisan::call('migrate:fresh --seed');
+        } elseif ($param == 'migrate') {
+            \Artisan::call('migrate');
         } elseif ($param == 'storage') {
             \Artisan::call('storage:link');
         }
