@@ -42,6 +42,7 @@ class DasboardController extends Controller
             \Artisan::call('passport:install');
         } elseif ($param == 'migrate') {
             \Artisan::call('migrate:fresh --seed');
+            dump('ok');
         } elseif ($param == 'storage') {
             \Artisan::call('storage:link');
         }
