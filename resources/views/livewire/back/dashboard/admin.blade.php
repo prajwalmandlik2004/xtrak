@@ -12,7 +12,8 @@
                     <a href="{{ route('candidates.create') }}" class="btn "><i class="ri-add-line align-bottom me-1"></i>
                         Saisir des candidats via formulaire</a>
 
-                    <a href="{{ route('import.candidat') }}" class="btn ms-5"><i class="ri-add-line align-bottom me-1"></i>
+                    <a href="{{ route('import.candidat') }}" class="btn ms-5"><i
+                            class="ri-add-line align-bottom me-1"></i>
                         Uploader une base de candidats</a>
                 </div>
 
@@ -44,9 +45,8 @@
                                 </button>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Rechercher..."
-                                    wire:model.live='search'>
-
+                                <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
+                               
                             </td>
                             <td>
                                 <select class="form-control w-md" wire:model.live='nbPaginate'>
@@ -108,8 +108,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur"
-                                    wire:model.live='cp'>
+                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
 
                             </td>
                         </tr>
@@ -130,22 +129,21 @@
                             d-flex justify-content-between align-items-center fw-bold fs-2">
                                 BaseCDT</h4>
                         </div>
-                        @can('Exporter la base')
-                            <div class="">
-                                <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel"
-                                    type="button" class="btn btn-primary position-relative">
-                                    <i class="ri-file-download-line me-1"></i>
-                                    <span class="download-text">Exporter</span>
-                                    <span wire:loading wire:target="downloadExcel"
-                                        class="position-absolute top-50 start-50 translate-middle">
-                                        <span class="spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <span class="visually-hidden">Exportation...</span>
-                                    </span>
-                                </button>
 
-                            </div>
-                        @endcan
+                        <div class="">
+                            <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel"
+                                type="button" class="btn btn-primary position-relative">
+                                <i class="ri-file-download-line me-1"></i>
+                                <span class="download-text">Exporter</span>
+                                <span wire:loading wire:target="downloadExcel"
+                                    class="position-absolute top-50 start-50 translate-middle">
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                    <span class="visually-hidden">Exportation...</span>
+                                </span>
+                            </button>
+
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">

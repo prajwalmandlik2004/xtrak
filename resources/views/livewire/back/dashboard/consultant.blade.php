@@ -119,32 +119,10 @@
         <div class="col-md-12">
             <div class="card ">
                 <div class="card-header">
-                    <div class="d-flex">
-                        <div class="flex-grow-1">
-                            <h4
-                                class="card-title
-                            d-flex justify-content-between align-items-center fw-bold fs-2">
-                            BaseCST</h4>
-                        </div>
-                        @can('Exporter la base')
-                            <div class="">
-                                <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel"
-                                    type="button" class="btn btn-primary position-relative">
-                                    <i class="ri-file-download-line me-1"></i>
-                                    <span class="download-text">Exporter</span>
-                                    <span wire:loading wire:target="downloadExcel"
-                                        class="position-absolute top-50 start-50 translate-middle">
-                                        <span class="spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        <span class="visually-hidden">Exportation...</span>
-                                    </span>
-                                </button>
-
-                            </div>
-                        @endcan
-                    </div>
+                    <h4 class="card-title
+                        d-flex justify-content-between align-items-center fw-bold fs-2">
+                        BaseCST</h4>
                 </div>
-                
                 <div class="card-body">
                     <div class="table-responsive">
 
