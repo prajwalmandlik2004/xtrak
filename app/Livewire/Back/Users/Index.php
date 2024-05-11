@@ -73,6 +73,7 @@ class Index extends Component
         $this->phone = '';
         $this->email = '';
         $this->trigramme = '';
+        $this->password = null;
         if ($id) {
             $this->isUpdate = true;
             $this->user = User::find($id);
@@ -93,7 +94,7 @@ class Index extends Component
                 'email' => 'required|string|max:255|unique:users,email' . ($this->isUpdate ? ',' . $this->user->id : ''),
                 'last_name' => 'required|string|max:255',
                 'role_id' => 'required|exists:roles,id',
-                'password' =>  $this->isUpdate ? 'nullable|string|max:255' : 'required|string|max:255',
+                'password' => $this->isUpdate ? 'nullable|string|max:255' : 'required|string|max:255',
                 'trigramme' => 'nullable|string|max:255',
             ],
             [
