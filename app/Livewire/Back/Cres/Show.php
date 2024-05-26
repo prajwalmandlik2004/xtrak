@@ -26,7 +26,7 @@ class Show extends Component
             $pdfName = 'CRE ' . $this->candidate->first_name . '_' . $this->candidate->last_name . '.pdf';
             return response()->download(public_path($pdfFileName), $pdfName)->deleteFileAfterSend(true);
         } else {
-            return response()->json(['error' => 'Une erreur est survenue lors de la génération du PDF'], 500);
+            return response()->json(['error' => 'Une erreur est survenue la génération du PDF'], 500);
         }
     }
     public function render()

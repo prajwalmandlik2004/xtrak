@@ -29,6 +29,9 @@ class Consultant extends Component
     public $candidate_statut_id = '';
     public $candidateStatuses;
     public $cp;
+    public $sortColumn = 'last_name';
+    public $sortDirection = 'asc';
+
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -37,21 +40,48 @@ class Consultant extends Component
         session(['cte_base_cdt_nb_paginate' => $this->nbPaginate]);
         return redirect()->route('candidates.show', $id);
     }
-    #[On('delete')]
+    #[On('delete')]// modified
     public function deleteData($id)
     {
+
         $candidateRepository = new CandidateRepository();
         DB::beginTransaction();
-        $candidate = $candidateRepository->find($id);
-        try {
-            $candidateRepository->delete($candidate->id);
-            DB::commit();
-            $this->dispatch('alert', type: 'success', message: 'le candidat est supprimé avec succès');
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $candidate->first_name. $candidate->laste_name");
+        //if(is_array($id)){
+            try {
+                foreach($id as $idc){ // $id is an array
+                    $candidate = $candidateRepository->find($idc);
+                    $candidateRepository->delete($candidate->id);
+                    DB::commit();
+                }
+                
+                $this->dispatch('alert', type: 'success', message: 'les candidats sont supprimés avec succès');
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                $this->dispatch('alert', type: 'error', message: "Impossible de supprimer les candidats erreur : $th");
+            }
+        /*
+        }else
+        {
+            $candidate = $candidateRepository->find($id);
+            try {
+                $candidateRepository->delete($candidate->id);
+                DB::commit();
+                $this->dispatch('alert', type: 'success', message: 'le candidat est supprimé avec succès');
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $candidate->first_name. $candidate->laste_name");
+            }
         }
+        */
     }
+    public function sortBy($column)
+{
+    $this->sortDirection = $this->sortColumn === $column
+        ? ($this->sortDirection === 'asc' ? 'desc' : 'asc')
+        : 'asc';
+
+    $this->sortColumn = $column;
+}
     public function searchCandidates()
     {
         $searchFields = ['first_name', 'last_name', 'email', 'phone', 'postal_code', 'city', 'address', 'region', 'country'];
@@ -85,7 +115,7 @@ class Consultant extends Component
                 return $query->orderBy('last_name', $this->filterName);
             })
             ->when($this->filterDate, function ($query) {
-                return $query->orderBy('created_at', $this->filterDate);
+                return $query->orderBy('updated_at', $this->filterDate);
             })
             ->when($this->candidate_state_id , function ($query) {
                 $query->where('candidate_state_id', $this->candidate_state_id );
@@ -100,12 +130,25 @@ class Consultant extends Component
                 $query->where('postal_code', 'like', '%' . $this->cp . '%');
             })
             ->where('created_by', Auth::id())
+            ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate($this->nbPaginate);
     }
     public function confirmDelete($nom, $id)
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);
     }
+
+    //
+    public function confirmDeleteChecked($id)
+    {
+        $idsArray = explode(",", $id); // transform the string set passed by JS into an array
+        //idsString = implode(", ", $idsArray);
+        $this->dispatch('swal:confirm', title: 'Suppression', 
+        text: "Vous-êtes sur le point de supprimer le(s) candidat(s) sélectionné(s)", type: 'warning', method: 'delete', id: $idsArray);
+    }
+    //
+
+    
     public function mount()
     {
         $this->positions= Position::all();

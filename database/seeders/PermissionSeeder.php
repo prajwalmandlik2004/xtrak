@@ -38,8 +38,7 @@ class PermissionSeeder extends Seeder
             'Gestion des etats',
             "Menu capture / gestion",
             "nextStep",
-            "nsDate",
-            'Exporter la base'
+            "nsDate"
         ];
         foreach ($permissions as $key => $permission) {
             Permission::create(['name' => $permission]);

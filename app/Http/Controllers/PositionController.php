@@ -16,6 +16,7 @@ class PositionController extends Controller
         $this->authorize("Menu paramètre BaseCDT");
         return view('back.positions.index');
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -28,11 +29,14 @@ class PositionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePositionRequest $request)
+    public function store(Request $request)
     {
-        //
-    }
+        $position = Position::create([
+            'name' => $request->name
+        ]);
 
+        return response()->json($position);
+    }
     /**
      * Display the specified resource.
      */

@@ -49,6 +49,8 @@ class Show extends Component
     public $field_id;
     public $compagnies;
     public $commentaire;
+    public $description;
+    public $suivi;
     public $origine;
     public $nextSteps;
     public $next_step_id;
@@ -116,6 +118,8 @@ class Show extends Component
             $this->speciality_id = $this->candidate->speciality_id ?? null;
             $this->field_id = $this->candidate->field_id ?? null;
             $this->commentaire = $this->candidate->commentaire;
+            $this->description = $this->candidate->description;
+            $this->suivi = $this->candidate->suivi;
             $this->origine = $this->candidate->origine;
             $this->ns_date_id = $this->candidate->ns_date_id;
             $this->specialities = $this->candidate->position->specialities ?? null;
@@ -145,6 +149,8 @@ class Show extends Component
                 'field_id' => 'nullable',
                 'phone_2' => 'nullable',
                 'commentaire' => 'nullable',
+                'description' => 'nullable',  // Corrected spelling
+                'suivi' => 'nullable',
                 'origine' => 'nullable',
                 'ns_date_id' => 'nullable',
                 'next_step_id' => 'nullable',
@@ -183,13 +189,12 @@ class Show extends Component
             }
             DB::commit();
             $this->mount();
-            // $this->reset(['origine', 'commentaire', 'specialitiesSelected', 'fieldsSelected', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
             $this->dispatch('alert', type: 'success', message: 'Candidat modifié avec succès');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification du candidat');
         }
-    }
+    }    
     public function updatedPositionId($value)
     {
         $this->specialities = Position::find($value)->specialities;

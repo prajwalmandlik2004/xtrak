@@ -2242,7 +2242,7 @@ progress {
 
 .table-info {
   --vz-table-color: #000;
-  --vz-table-bg: #d4f1f8;
+  --vz-table-bg: #2b15a8 !important;
   --vz-table-border-color: #bfd9df;
   --vz-table-striped-bg: #d0ecf3;
   --vz-table-striped-color: #000;

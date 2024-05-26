@@ -65,8 +65,7 @@ class Import extends Component
                 array_push($fileData, $cell);
             }
         } catch (\Throwable $th) {
-            return $this->dispatch('alert', type: 'error', message: 'Une erreure est survenu lors de l\'analyse de votre fichier, merci de réessayez');
-        }
+            return $this->dispatch('alert', type: 'error', message: $th->getMessage());        }
         DB::beginTransaction();
         foreach ($fileData as $key => $value) {
             $checkExistingCandidate = $this->checkExistingCandidate($value);

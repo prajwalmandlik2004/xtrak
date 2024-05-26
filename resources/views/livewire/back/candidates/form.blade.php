@@ -11,7 +11,55 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
+                <div class="tab-content text-muted">
+                  
+                        <form wire:submit.prevent="storeCandidateData2()">
+                            @csrf
+                            
+                                <div class="d-flex">
+                                    <div class="p-2 flex-grow-1">
+                                        <h5 class="card-title mb-0 " style="color:black">
+                                            {{ $action == 'create' ? "Formulaire de creation d'un candidat" : "Formulaire de modification d'un candidat" }}
+                                        </h5>
+
+                                    </div>
+                                    {{-- @if (!$action == 'update')
+                                        <div class="p-2">
+                                            <a href="{{ Route('import.candidat') }}" class="btn btn-primary">Uplodad</a>
+                                        </div>
+                                    @endif --}}
+                                    <div class="p-2">
+                                        <a wire:click='resetForm' class="btn btn-danger"></i>Effacer</a>
+                                    </div>
+                                    <div class="p-2">
+
+                                        <button wire:loading.remove wire:target="storeCandidateData" type="submit"
+                                            class="btn btn-success btn-label right ms-auto nexttab nexttab"><i
+                                                class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
+                                            {{ $action == 'create' ? 'Enregistrer': 'Modifier'}}</button>
+
+                                        <button wire:loading wire:target="storeCandidateData" type="button"
+                                            class="btn btn-primary" disabled>
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            Enregistrement...
+                                        </button>
+                                    </div>
+                                    <div class="p-2">
+                                        {{-- <a href="{{ url()->previous() }}" class="btn btn-primary"><i
+                                                class="mdi mdi-arrow-left me-1"></i>
+                                            @if (!auth()->user()->hasRole('Administrateur'))
+                                                Retour en arrirère
+                                            @else
+                                                Base
+                                            @endif
+                                        </a> --}}
+                                        <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5"><i
+                                                class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Base' : 'Retour en arrirère et terminer' }}</a>
+                                    </div>
+
+                                </div>
+                            <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'disabled' : '' }}"
                             data-bs-toggle="tab" href="{{ $step != 1 ? '#info' : '' }}" role="tab">
@@ -31,92 +79,56 @@
                         </a>
                     </li>
                 </ul>
+            
 
-
-                <div class="tab-content text-muted">
-                    <div class="tab-pane fade  {{ $step == 1 ? 'show active' : '' }}" id="info" role="tabpanel">
-                        <form wire:submit.prevent="storeCandidateData()">
-                            @csrf
-                            <div class="card-header">
-                                <div class="d-flex">
-                                    <div class="p-2 flex-grow-1">
-                                        <h5 class="card-title mb-0 ">
-                                            {{ $action == 'create' ? "Formulaire de creation d'un candidat" : "Formulaire de modification d'un candidat" }}
-                                        </h5>
-
-                                    </div>
-                                    {{-- @if (!$action == 'update')
-                                        <div class="p-2">
-                                            <a href="{{ Route('import.candidat') }}" class="btn btn-primary">Uplodad</a>
-                                        </div>
-                                    @endif --}}
-                                    <div class="p-2">
-                                        <a wire:click='resetForm' class="btn btn-danger"></i>Effacer</a>
-                                    </div>
-                                    <div class="p-2">
-
-                                        <button wire:loading.remove wire:target="storeCandidateData" type="submit"
-                                            class="btn btn-success btn-label right ms-auto nexttab nexttab"><i
-                                                class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
-                                            {{ $action == 'create' ? 'Enregistrer et suivant' : 'Modifier et suivant' }}</button>
-
-                                        <button wire:loading wire:target="storeCandidateData" type="button"
-                                            class="btn btn-primary" disabled>
-                                            <span class="spinner-border spinner-border-sm" role="status"
-                                                aria-hidden="true"></span>
-                                            Enregistrement...
-                                        </button>
-                                    </div>
-                                    <div class="p-2">
-                                        {{-- <a href="{{ url()->previous() }}" class="btn btn-primary"><i
-                                                class="mdi mdi-arrow-left me-1"></i>
-                                            @if (!auth()->user()->hasRole('Administrateur'))
-                                                Retour en arrirère
-                                            @else
-                                                Base
-                                            @endif
-                                        </a> --}}
-                                        <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5"><i
-                                                class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Retour en arrirère' : 'Retour en arrirère et terminer' }}</a>
-                                    </div>
-
-                                </div>
-
-
-                            </div>
                             <div class="card-body">
+                            <div class="tab-pane fade  {{ $step == 1 ? 'show active' : '' }}" id="info" role="tabpanel">
 
                                 <div class="row g-4">
 
                                     <div class="card mt-4">
                                         <div class="card-header">
-                                            <h5 class="card-title
+                                            <!-- <h5 class="card-title
                                             mb-0">
                                                 Informations
-                                                personnelles</h5>
+                                                personnelles</h5> -->
+                                                <div class="col-lg-3" style="margin-left:3%">
+                                                <div style="display: flex; align-items:center">
+                                                    <label for="origine" class="form-label" style="margin-right:5%">Date</label>
+                                                    <input type="text" class="form-control form-control-custom @error('origine') is-invalid @enderror" 
+                                                        value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" disabled 
+                                                        style="width:40%; text-align:center"/>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-lg-2">
+                                        <div class="card-body"  style="margin-left:3%"> 
+                                            <div class="row g-5">
+                                                <div class="col-lg-1">
                                                     <div>
-                                                        <label for="origine" class="form-label">Source </label>
-                                                        <input type="text"
-                                                            class="form-control  
-        form-control-custom  @error('origine') is-invalid @enderror "
-                                                            wire:model='origine'
-                                                            placeholder="Veuillez entrer la source" />
-                                                        @error('origine')
-                                                            <span class="invalid-feedback">{{ $message }}</span>
-                                                        @enderror
+                                                        <label for="origine"class="form-label">Aut.</label>
+                                                        <input type="text"class="form-control form-control-custom  @error('origine') is-invalid @enderror "
+                                                            value="{{ Auth::user()->trigramme ?? '--' }}"
+                                                            placeholder="auteur" disabled/>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
+                                                        <div>
+                                                            <label for="origine" class="form-label">Source </label>
+                                                            <input type="text"
+                                                                class="form-control form-control-custom  @error('origine') is-invalid @enderror "
+                                                                wire:model='origine'
+                                                                placeholder="Entrez la source" />
+                                                            @error('origine')
+                                                                <span class="invalid-feedback">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                </div>
+                                                <div class="col-lg-auto">
                                                     <div>
                                                         <label for="job-category-Input" class="form-label">Civilité
                                                             <span class="text-danger">*</span></label>
                                                         <select
-                                                            class="form-control  
-        form-control-custom  @error('civ_id') is-invalid @enderror "
+                                                            class="form-control form-control-custom  @error('civ_id') is-invalid @enderror "
                                                             wire:model='civ_id'>
                                                             <option value="" selected>Selectionner</option>
                                                             @foreach ($civs as $civ)
@@ -131,42 +143,93 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-auto">
                                                     <div>
                                                         <label for="first_name" class="form-label">Prénom <span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text"
-                                                            class="form-control  
-        form-control-custom  @error('first_name') is-invalid @enderror "
+                                                            class="form-control form-control-custom  @error('first_name') is-invalid @enderror "
                                                             wire:model.live='first_name'
-                                                            placeholder="Veuillez entrer le prénom" />
+                                                            placeholder="Entrez le prénom" />
                                                         @error('first_name')
                                                             <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-auto me-5">
                                                     <div>
                                                         <label for="last_name" class="form-label">Nom <span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text"
-                                                            class="form-control  
-        form-control-custom  @error('last_name') is-invalid @enderror"
+                                                            class="form-control form-control-custom  @error('last_name') is-invalid @enderror"
                                                             wire:model.live='last_name'
-                                                            placeholder="Veuillez entrer le nom" />
+                                                            placeholder="Entrez le nom" />
 
                                                         @error('last_name')
                                                             <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-2 ">
+                                                <div class="col-lg-auto">
+                                                    <div>
+                                                        <label for="cv_status" class="form-label">CV</label>
+                                                            @php
+                                                                $cvFile = $candidate->files()->where('file_type', 'cv')->first();
+                                                                $cvStatus = $cvFile ? ' OK ' : 'N/A';
+                                                                $cvColor = $cvFile ? 'limegreen' : 'red';
+                                                            @endphp
+                                                        <div id="cv_status" class="p-2 text-center" style="background-color: {{ $cvColor }}; color:#ffffff">
+                                                            <strong>{{ $cvStatus }}</strong>
+                                                        </div>
+                                                     </div>
+                                                </div>
+                                                <div class="col-lg-auto">
+                                                    <div>
+                                                        <label for="cre_status" class="form-label">CRE</label>
+                                                            @php
+                                                                $creExists = $candidate->cres()->exists();
+                                                                $creStatus = $creExists ? 'OK' : 'N/A';
+                                                                $creColor = $creExists ? 'limegreen' : 'red';
+                                                            @endphp
+                                                        <div id="cre_status" class="p-2 text-center" style=" background-color: {{ $creColor }};color:#ffffff">
+                                                             <strong> {{ $creStatus }} </strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2 mt-4 ">
+                                                    <div>
+                                                        <label for="email" class="form-label">Email <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="email"
+                                                            class="form-control form-control-custom  @error('email') is-invalid @enderror "
+                                                            wire:model.live='email'
+                                                            placeholder="Entrez l'adresse email" />
+                                                        @error('email')
+                                                            <span class="invalid-feedback">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 mt-4 ">
+                                                    <div>
+                                                        <label for="phone" class="form-label">Téléphone 1 </label>
+                                                        <input type="text"
+                                                            class="form-control form-control-custom  @error('phone') is-invalid @enderror "
+                                                            wire:model='phone'
+                                                            placeholder="Entrez le numéro de télépone 1" />
+
+                                                        @error('phone')
+                                                            <span class="invalid-feedback">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-auto mt-4">
                                                     <div>
                                                         <label for="disponibility" class="form-label">Disponibilité
                                                         </label>
                                                         <select
-                                                            class="form-control  
-        form-control-custom  @error('disponibility_id') is-invalid @enderror "
+                                                            class="form-control form-control-custom  @error('disponibility_id') is-invalid @enderror "
                                                             wire:model='disponibility_id'>
                                                             <option value="" selected>Selectionner</option>
                                                             @foreach ($disponibilities as $disponibility)
@@ -180,53 +243,12 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 mt-4">
-                                                    <div>
-                                                        <label for="next_step_id" class="form-label">Next step </label>
-                                                        <select
-                                                            class="form-control  
-        form-control-custom  @error('next_step_id') is-invalid @enderror "
-                                                            wire:model='next_step_id'>
-                                                            <option value="" selected>Selectionner</option>
-                                                            @foreach ($nextSteps as $nextStep)
-                                                                <option value="{{ $nextStep->id }}"
-                                                                    @if ($nextStep->id == $next_step_id) selected @endif>
-                                                                    {{ $nextStep->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('next_step_id')
-                                                            <span class="invalid-feedback">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 mt-4">
-                                                    <div>
-                                                        <label for="ns_date_id" class="form-label">NsDate </label>
-                                                        <select
-                                                            class="form-control  
-        form-control-custom  @error('ns_date_id') is-invalid @enderror "
-                                                            wire:model='ns_date_id'>
-                                                            <option value="" selected>Selectionner</option>
-                                                            @foreach ($nsDates as $nsDate)
-                                                                <option value="{{ $nsDate->id }}"
-                                                                    @if ($nsDate->id == $ns_date_id) selected @endif>
-                                                                    {{ $nsDate->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('ns_date_id')
-                                                            <span class="invalid-feedback">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 mt-4">
+                                                <div class="col-md-auto mt-4">
                                                     <div>
                                                         <label for="candidate_statut_id" class="form-label">Statut
                                                         </label>
                                                         <select
-                                                            class="form-control  
-        form-control-custom  @error('candidate_statut_id') is-invalid @enderror"
+                                                            class="form-control form-control-custom  @error('candidate_statut_id') is-invalid @enderror"
                                                             wire:model='candidate_statut_id'>
                                                             <option value="" selected>Selectionner</option>
                                                             @foreach ($candidateStatuses as $statu)
@@ -241,76 +263,85 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-2 mt-4">
+                                                    <div>
+                                                        <label for="next_step_id" class="form-label">Next step </label>
+                                                        <select
+                                                            class="form-control form-control-custom  @error('next_step_id') is-invalid @enderror "
+                                                            wire:model='next_step_id'>
+                                                            <option value="" selected>Selectionner</option>
+                                                            @foreach ($nextSteps as $nextStep)
+                                                                <option value="{{ $nextStep->id }}"
+                                                                    @if ($nextStep->id == $next_step_id) selected @endif>
+                                                                    {{ $nextStep->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('next_step_id')
+                                                            <span class="invalid-feedback">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 mt-4">
+                                                    <div>
+                                                        <label for="ns_date_id" class="form-label">NsDate </label>
+                                                        <select
+                                                            class="form-control form-control-custom  @error('ns_date_id') is-invalid @enderror "
+                                                            wire:model='ns_date_id'>
+                                                            <option value="" selected>Selectionner</option>
+                                                            @foreach ($nsDates as $nsDate)
+                                                                <option value="{{ $nsDate->id }}"
+                                                                    @if ($nsDate->id == $ns_date_id) selected @endif>
+                                                                    {{ $nsDate->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('ns_date_id')
+                                                            <span class="invalid-feedback">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="card ">
-                                        <div class="card-header">
+                                        <!-- <div class="card-header">
                                             <h5 class="card-title
                                             mb-0">
                                                 Coordonnées</h5>
-                                        </div>
-                                        <div class="card-body">
+                                        </div> -->
+                                        <div class="card-body" style="margin-top:-2%;margin-left:3%">
                                             <div class="row">
 
-
-                                                <div class="col-md-2 ">
-                                                    <div>
-                                                        <label for="email" class="form-label">Email <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="email"
-                                                            class="form-control  
-        form-control-custom  @error('email') is-invalid @enderror "
-                                                            wire:model.live='email'
-                                                            placeholder="Veuillez entrer l'address email" />
-                                                        @error('email')
-                                                            <span class="invalid-feedback">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 ">
-                                                    <div>
-                                                        <label for="phone" class="form-label">Téléphone 1 </label>
-                                                        <input type="text"
-                                                            class="form-control  
-        form-control-custom  @error('phone') is-invalid @enderror "
-                                                            wire:model='phone'
-                                                            placeholder="Veuillez entrer le numéro de télépone 1" />
-
-                                                        @error('phone')
-                                                            <span class="invalid-feedback">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 ">
+                                                <div class="col-lg-2 ">
                                                     <div>
                                                         <label for="phone_2" class="form-label">Téléphone 2</label>
                                                         <input type="text"
                                                             class="form-control  
         form-control-custom  @error('phone_2') is-invalid @enderror "
                                                             wire:model='phone_2'
-                                                            placeholder="Veuillez entrer le numéro de télépone 2" />
+                                                            placeholder="Entrez le numéro de télépone 2" />
 
-                                                        @error('phone_2')
+                                                               @error('phone_2')
                                                             <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 ">
+                                                <div class="col-md-1">
                                                     <div>
                                                         <label for="vancancy-Input" class="form-label">CP/Dpt </label>
-                                                        <input type="number"
+                                                        <input type="text"
                                                             class="form-control  
         form-control-custom  @error('postal_code') is-invalid @enderror "
                                                             min="0" wire:model='postal_code'
-                                                            placeholder="Veuillez entrer la boîte postal" />
+                                                            placeholder="CP/DPt"/>
                                                         @error('postal_code')
                                                             <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 ">
+                                                <div class="col-md-2">
                                                     <div>
                                                         <label for="country" class="form-label">Pays </label>
                                                         <input type="text"
@@ -323,7 +354,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 mt-4">
+                                                <div class="col-md-2">
                                                     <div>
                                                         <label for="region" class="form-label">Région </label>
                                                         <input type="text"
@@ -336,20 +367,20 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 mt-4">
+                                                <div class="col-md-2">
                                                     <div>
                                                         <label for="city" class="form-label">Ville </label>
                                                         <input type="text"
                                                             class="form-control  
         form-control-custom  @error('city') is-invalid @enderror "
                                                             min="0" wire:model='city'
-                                                            placeholder="Veuillez  entrer la ville" />
+                                                            placeholder="Entrez la ville" />
                                                         @error('city')
                                                             <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 mt-4">
+                                                <div class="col-md-2">
                                                     <div>
                                                         <label for="city" class="form-label">UrlCTC </label>
                                                         <input type="text"
@@ -366,14 +397,14 @@
                                         </div>
                                     </div>
                                     <div class="card mt-4">
-                                        <div class="card-header">
+                                        <div class="card-header" style="margin-top:-2%;" >
                                             <h5 class="card-title
-                                            mb-0">
-                                                Cursus</h5>
+                                            mb-0" style="margin-left:3%">
+                                                Dernier poste occupé</h5>
                                         </div>
-                                        <div class="card-body">
+                                        <div class="card-body" style="margin-left:3%" >
                                             <div class="row">
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-auto">
                                                     <div>
                                                         <label for="compagny_id" class="form-label">Societé </label>
                                                         <input type="text"
@@ -442,7 +473,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 ">
+                                                <div class="col-lg-3 "  style="width:330px">
                                                     <div>
                                                         <label for="field_id" class="form-label">Domaine
                                                             (Fonction3)</label>
@@ -481,21 +512,36 @@
                                         </div>
                                     </div>
                                     <div class="card mt-4">
-                                        <div class="card-header">
+                                        <!-- <div class="card-header">
                                             <h5 class="card-title
                                             mb-0">
                                                 Commentaire et
                                                 Documents</h5>
-                                        </div>
-                                        <div class="card-body">
+                                        </div> -->
+                                        <div class="card-body" style="margin-top:-3%;margin-left:3%">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4" style="margin-right:3%">
                                                     <!-- Example Textarea -->
                                                     <div>
                                                         <label for="commentaire" class="form-label">Commentaire
                                                         </label>
-                                                        <textarea wire:model='commentaire' class="form-control  
-        form-control-custom " rows="3"></textarea>
+                                                        <textarea wire:model='commentaire' class="form-control form-control-custom " rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3" style="margin-right:3%">
+                                                    <!-- Example Textarea -->
+                                                    <div>
+                                                        <label for="description" class="form-label">Description
+                                                        </label>
+                                                        <textarea wire:model='description' class="form-control form-control-custom " rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Example Textarea -->
+                                                    <div>
+                                                        <label for="suivi" class="form-label">Suivi
+                                                        </label>
+                                                        <textarea wire:model='suivi' class="form-control form-control-custom " rows="3"></textarea>
                                                     </div>
                                                 </div>
                                                 {{--  
@@ -505,8 +551,7 @@
                                                         <label for="cv" class="form-label">Curriculum
                                                             Vitae</label>
                                                         <input wire:model="cv"
-                                                            class="form-control  
-        form-control-custom  @error('cv') is-invalid @enderror"
+                                                            class="form-control form-control-custom  @error('cv') is-invalid @enderror"
                                                             type="file">
                                                     </div>
                                                     @error('cv')
@@ -519,8 +564,7 @@
                                                         <label for="cover_letter" class="form-label">Lettre de
                                                             motivation</label>
                                                         <input wire:model="cover_letter"
-                                                            class="form-control  
-        form-control-custom  @error('cover_letter') is-invalid @enderror"
+                                                            class="form-control form-control-custom  @error('cover_letter') is-invalid @enderror"
                                                             type="file">
                                                     </div>
                                                     @error('cover_letter')
@@ -536,7 +580,7 @@
                                 </div>
 
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer" style="margin-top:-3%">
                                 <div class="d-flex justify-content-end">
                                     <button wire:loading.remove wire:target="storeCandidateData" type="submit"
                                         class="btn btn-success btn-label right ms-auto nexttab nexttab"><i

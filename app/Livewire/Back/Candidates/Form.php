@@ -28,6 +28,7 @@ use App\Repositories\CandidateRepository;
 class Form extends Component
 {
     use WithFileUploads;
+    
     public $civs;
     public $civ_id;
     public $first_name;
@@ -57,6 +58,8 @@ class Form extends Component
     public $field_id;
     public $compagnies;
     public $commentaire;
+    public $description;
+    public $suivi;
     public $origine;
     public $nextSteps;
     public $next_step_id;
@@ -151,6 +154,8 @@ class Form extends Component
             $this->speciality_id = $this->candidate->speciality_id ?? null;
             $this->field_id = $this->candidate->field_id ?? null;
             $this->commentaire = $this->candidate->commentaire;
+            $this->description = $this->candidate->description;
+            $this->suivi = $this->candidate->suivi;
             $this->origine = $this->candidate->origine;
             $this->ns_date_id = $this->candidate->ns_date_id ?? null;
             $this->files = $this->candidate->files;
@@ -214,6 +219,8 @@ class Form extends Component
                 'field_id' => 'nullable',
                 'phone_2' => 'nullable',
                 'commentaire' => 'nullable',
+                'description' => 'nullable',
+                'suivi' => 'nullable',
                 'origine' => 'nullable',
                 'ns_date_id' => 'nullable',
                 'next_step_id' => 'nullable',
@@ -251,8 +258,79 @@ class Form extends Component
         }
 
         DB::commit();
-        $this->reset(['origine', 'commentaire', 'speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+        $this->reset(['origine', 'commentaire','speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
         $this->step = 2;
+        $this->dispatch('alert', type: 'success', message: $this->action == 'create' ? 'Le candidat a été enregistré avec succès.' : 'Le candidat a été modifié avec succès.');
+        try {
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $this->dispatch('alert', type: 'error', message: $this->action == 'create' ? 'Erreur lors de la création du candidat' : 'Erreur lors de la modification du candidat');
+        }
+    }
+    public function storeCandidateData2()
+    {
+        $validatedData = $this->validate(
+            [
+                'civ_id' => 'required',
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => $this->action == 'create' ? 'required|email|unique:candidates,email' : 'required|email',
+                'phone' => 'nullable',
+                'compagny_id' => 'nullable',
+                'postal_code' => 'nullable',
+                'candidate_statut_id' => 'nullable',
+                'position_id' => 'required',
+                'city' => 'nullable',
+                'address' => 'nullable',
+                'region' => 'nullable',
+                'country' => 'nullable',
+                'disponibility_id' => 'nullable',
+                'url_ctc' => 'nullable',
+                'speciality_id' => 'nullable',
+                'field_id' => 'nullable',
+                'phone_2' => 'nullable',
+                'commentaire' => 'nullable',
+                'description' => 'nullable',
+                'suivi' => 'nullable',
+                'origine' => 'nullable',
+                'ns_date_id' => 'nullable',
+                'next_step_id' => 'nullable',
+            ],
+            [
+                'first_name.required' => 'Le prénom est obligatoire',
+                'last_name.required' => 'Le nom est obligatoire',
+                'email.required' => 'L\'email est obligatoire',
+                'civ_id.required' => 'La civilité est obligatoire',
+                'position_id.required' => 'Le poste est obligatoire',
+                'email.unique' => 'Cet email est déjà utilisé',
+            ],
+        );
+
+        DB::beginTransaction();
+        $candidateRepository = new CandidateRepository();
+        $fileRepository = new FileRepository();
+        if ($validatedData['compagny_id']) {
+            $companyName = $validatedData['compagny_id'];
+            $company = Compagny::firstOrCreate(['name' => $companyName]);
+            $validatedData['compagny_id'] = $company->id;
+        } else {
+            $validatedData['compagny_id'] = null;
+        }
+        if ($this->action == 'create') {
+            $stateId = CandidateState::where('name', 'Attente')->first()->id;
+            $validatedData['candidate_state_id'] = $stateId;
+            $validatedData['created_by'] = auth()->user()->id;
+            $stringToHash = $validatedData['first_name'] . $validatedData['last_name'] . now();
+            $hash = Hash::make($stringToHash);
+            $validatedData['code_cdt'] = Str::limit(preg_replace('/[^a-zA-Z0-9]/', '', $hash), 7, '');
+            $this->candidate = $candidateRepository->create($validatedData);
+        } else {
+            $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
+        }
+
+        DB::commit();
+        $this->reset(['origine', 'commentaire', 'description','suivi','speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+        // $this->step = 2;
         $this->dispatch('alert', type: 'success', message: $this->action == 'create' ? 'Le candidat a été enregistré avec succès.' : 'Le candidat a été modifié avec succès.');
         try {
         } catch (\Throwable $th) {
@@ -437,6 +515,8 @@ class Form extends Component
             $this->speciality_id = $this->candidate->speciality_id ?? null;
             $this->field_id = $this->candidate->field_id ?? null;
             $this->commentaire = $this->candidate->commentaire;
+            $this->description = $this->candidate->description;
+            $this->suivi = $this->candidate->suivi;
             $this->origine = $this->candidate->origine;
             $this->ns_date_id = $this->candidate->ns_date_id ?? null;
             $this->files = $this->candidate->files;
@@ -451,12 +531,20 @@ class Form extends Component
 
     public function resetForm()
     {
-        $this->reset(['next_step_id', 'ns_date_id', 'origine', 'commentaire', 'speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+        $this->reset(['next_step_id', 'ns_date_id', 'origine', 'commentaire','description','suivi','speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
     }
     public function updatedPositionId($value)
     {
         $this->specialities = Position::find($value)->specialities;
     }
+    public $new_position;
+
+public function createPosition()
+{
+    $position = Position::create(['name' => $this->new_position]);
+    $this->position_id = $position->id;
+    $this->new_position = '';
+}
     public function updatedSpecialityId($value)
     {
         $this->fields = Speciality::find($value)->fields;

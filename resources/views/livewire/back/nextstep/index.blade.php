@@ -53,7 +53,7 @@
 
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $nextstep->name }}</td>
-                                <td>{{ $nextstep->created_at->format('d/m/Y')  }}</td>                                
+                                <td>{{ $nextstep->created_at}}</td>                               
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
 
