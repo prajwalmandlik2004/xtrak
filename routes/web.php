@@ -64,4 +64,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('candidate_states', CandidateStateController::class);
     Route::resource('nsdates', NsDateController::class);
 });
-// Route::get('commandes/{param}', [DasboardController::class, 'commande']);
+     Route::get('commandes/{param}', [DasboardController::class, 'commande']);
