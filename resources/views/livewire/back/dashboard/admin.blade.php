@@ -313,18 +313,20 @@
         checkbox.style.display = 'none';
     });
     // Update the delete button click handler
-function updateDeleteButton() {
-    if (deleteButtonContainer) {
-        deleteButtonContainer.setAttribute('wire:click', `confirmDeleteChecked('${selectedCandidateIds.join(',')}')`);
-        deleteButtonContainer.style.cursor = 'pointer'; // Change cursor to a hand when it hovers over the delete button
+    function updateDeleteButton() {
+        if (deleteButtonContainer) {
+            deleteButtonContainer.setAttribute('wire:click', `confirmDeleteChecked('${selectedCandidateIds.join(',')}')`);
+            deleteButtonContainer.style.cursor = 'pointer'; // Change cursor to a hand when it hovers over the delete button
 
-        // If deleteButtonContainer is displayed, hide the export button
-        if (deleteButtonContainer.style.display === 'block') {
-            exportButton.style.display = 'none';
-        } else {
-            exportButton.style.display = 'block';
+            // If deleteButtonContainer is displayed, hide the export button
+            if (deleteButtonContainer.style.display === 'block') {
+                exportButton.style.display = 'none';
+            } 
+            else 
+            {
+                exportButton.style.display = 'block';
+            }
         }
-    }
 }
     // Handle row click event
     document.querySelectorAll('tr[data-id]').forEach(function(row) {
@@ -416,6 +418,7 @@ document.getElementById('select-all-checkbox').addEventListener('change', functi
     let anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
     // Show or hide deleteButtonContainer based on whether any checkbox is checked
     deleteButtonContainer.style.display = anyChecked ? 'block' : 'none';
+    updateDeleteButton();
 });
 
    // Handle direct checkbox click to toggle selection class
@@ -447,6 +450,7 @@ document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
         let anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
         // Show or hide deleteButtonContainer based on whether any checkbox is checked
         deleteButtonContainer.style.display = anyChecked ? 'block' : 'none';
+        updateDeleteButton();
     });
 });
 });
