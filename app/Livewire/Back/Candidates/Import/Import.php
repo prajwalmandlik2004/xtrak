@@ -32,6 +32,7 @@ class Import extends Component
     public $accepted = [];
     public function storeData()
     {
+        set_time_limit(0); 
         try {
             $path = Storage::putFile('/public/files', $this->file);
             $filepath = Storage::path($path);
@@ -42,30 +43,22 @@ class Import extends Component
             $usagers = $worksheet->toArray();
             $fileData = [];
             foreach ($usagers as $usager) {
-                $cell[$headers[0]] = $usager[0];
-                $cell[$headers[1]] = $usager[1];
-                $cell[$headers[2]] = $usager[2];
-                $cell[$headers[3]] = $usager[3];
-                $cell[$headers[4]] = $usager[4];
-                $cell[$headers[5]] = $usager[5];
-                $cell[$headers[6]] = $usager[6];
-                $cell[$headers[7]] = $usager[7];
-                $cell[$headers[8]] = $usager[8];
-                $cell[$headers[9]] = $usager[9];
-                $cell[$headers[10]] = $usager[10];
-                $cell[$headers[11]] = $usager[11];
-                $cell[$headers[12]] = $usager[12];
-                $cell[$headers[13]] = $usager[13];
-                $cell[$headers[14]] = $usager[14];
-                $cell[$headers[15]] = $usager[15];
-                $cell[$headers[16]] = $usager[16];
-                $cell[$headers[17]] = $usager[17];
-                $cell[$headers[18]] = $usager[18];
-                $cell[$headers[19]] = $usager[19];
-                array_push($fileData, $cell);
+                // Skip empty rows
+                if (array_filter($usager)) {
+                    $cell = [];
+                    foreach ($headers as $index => $header) {
+                        if (isset($usager[$index])) {
+                            $cell[$header] = $usager[$index];
+                        } else {
+                            $cell[$header] = null;
+                        }
+                    }
+                    array_push($fileData, $cell);
+                }
             }
         } catch (\Throwable $th) {
-            return $this->dispatch('alert', type: 'error', message: $th->getMessage());        }
+            return $this->dispatch('alert', type: 'error', message: $th->getMessage());
+        }
         DB::beginTransaction();
         foreach ($fileData as $key => $value) {
             $checkExistingCandidate = $this->checkExistingCandidate($value);
@@ -126,7 +119,15 @@ class Import extends Component
                     $newCandidate['next_step_id'] = $nextStep->id;
                 }
             }
-            if (!empty($data['Civ'])) {
+            // if (!empty($data['Civ'])) {
+            //     $civ = Civ::where('name', $data['Civ'])->first() ?? Civ::create(['name' => $data['Civ']]);
+            //     if ($civ) {
+            //         $newCandidate['civ_id'] = $civ->id;
+            //     }
+            // }
+            $allowedCivilities = ['M.', 'Mme', 'Mlle', 'Monsieur', 'Madame', 'Mademoiselle'];
+
+            if (!empty($data['Civ']) && in_array($data['Civ'], $allowedCivilities)) {
                 $civ = Civ::where('name', $data['Civ'])->first() ?? Civ::create(['name' => $data['Civ']]);
                 if ($civ) {
                     $newCandidate['civ_id'] = $civ->id;
