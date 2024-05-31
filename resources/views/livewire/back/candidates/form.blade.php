@@ -11,14 +11,36 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
+                <!-- <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'disabled' : '' }}"
+                            data-bs-toggle="tab" href="{{ $step != 1 ? '#info' : '' }}" role="tab">
+                            Informations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'disabled' : '' }}"
+                            data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#documents' }}" role="tab">
+                            Documents
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'disabled' : '' }}"
+                            data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#cre' }}" role="tab">
+                            C.R.E
+                        </a>
+                    </li>
+                </ul> -->
+
+
                 <div class="tab-content text-muted">
-                  
-                        <form wire:submit.prevent="storeCandidateData2()">
+                    <div class="tab-pane fade  {{ $step == 1 ? 'show active' : '' }}" id="info" role="tabpanel">
+                        <form wire:submit.prevent="storeCandidateData()">
                             @csrf
-                            
+                            <div class="card-header">
                                 <div class="d-flex">
                                     <div class="p-2 flex-grow-1">
-                                        <h5 class="card-title mb-0 " style="color:black">
+                                        <h5 class="card-title mb-0 ">
                                             {{ $action == 'create' ? "Formulaire de creation d'un candidat" : "Formulaire de modification d'un candidat" }}
                                         </h5>
 
@@ -32,13 +54,12 @@
                                         <a wire:click='resetForm' class="btn btn-danger"></i>Effacer</a>
                                     </div>
                                     <div class="p-2">
-
-                                        <button wire:loading.remove wire:target="storeCandidateData" type="submit"
+                                        <button wire:click.prevent="storeCandidateData2" wire:loading.remove wire:target="storeCandidateData2" type="button"
                                             class="btn btn-success btn-label right ms-auto nexttab nexttab"><i
                                                 class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
-                                            {{ $action == 'create' ? 'Enregistrer': 'Modifier'}}</button>
+                                            {{ $action == 'create' ? 'Enregistrer' : 'Modifier et suivant' }}</button>
 
-                                        <button wire:loading wire:target="storeCandidateData" type="button"
+                                        <button wire:loading wire:target="storeCandidateData2" type="button"
                                             class="btn btn-primary" disabled>
                                             <span class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
@@ -55,10 +76,13 @@
                                             @endif
                                         </a> --}}
                                         <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5"><i
-                                                class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Base' : 'Retour en arrirère et terminer' }}</a>
+                                                class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Retour en arrirère' : 'Retour en arrirère et terminer' }}</a>
                                     </div>
 
                                 </div>
+
+
+                            </div>
                             <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'disabled' : '' }}"
@@ -79,10 +103,7 @@
                         </a>
                     </li>
                 </ul>
-            
-
                             <div class="card-body">
-                            <div class="tab-pane fade  {{ $step == 1 ? 'show active' : '' }}" id="info" role="tabpanel">
 
                                 <div class="row g-4">
 
@@ -181,7 +202,7 @@
                                                         <div id="cv_status" class="p-2 text-center" style="background-color: {{ $cvColor }}; color:#ffffff">
                                                             <strong>{{ $cvStatus }}</strong>
                                                         </div>
-                                                     </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-auto">
                                                     <div>
@@ -192,7 +213,7 @@
                                                                 $creColor = $creExists ? 'limegreen' : 'red';
                                                             @endphp
                                                         <div id="cre_status" class="p-2 text-center" style=" background-color: {{ $creColor }};color:#ffffff">
-                                                             <strong> {{ $creStatus }} </strong>
+                                                            <strong> {{ $creStatus }} </strong>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -319,11 +340,11 @@
                                                         <label for="phone_2" class="form-label">Téléphone 2</label>
                                                         <input type="text"
                                                             class="form-control  
-        form-control-custom  @error('phone_2') is-invalid @enderror "
+                                    form-control-custom  @error('phone_2') is-invalid @enderror "
                                                             wire:model='phone_2'
                                                             placeholder="Entrez le numéro de télépone 2" />
 
-                                                               @error('phone_2')
+                                                            @error('phone_2')
                                                             <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
                                                     </div>
@@ -333,7 +354,7 @@
                                                         <label for="vancancy-Input" class="form-label">CP/Dpt </label>
                                                         <input type="text"
                                                             class="form-control  
-        form-control-custom  @error('postal_code') is-invalid @enderror "
+                                    form-control-custom  @error('postal_code') is-invalid @enderror "
                                                             min="0" wire:model='postal_code'
                                                             placeholder="CP/DPt"/>
                                                         @error('postal_code')
@@ -346,7 +367,7 @@
                                                         <label for="country" class="form-label">Pays </label>
                                                         <input type="text"
                                                             class="form-control  
-        form-control-custom  @error('country') is-invalid @enderror "
+                                    form-control-custom  @error('country') is-invalid @enderror "
                                                             min="0" wire:model='country'
                                                             placeholder="Veuillez entrer le pays" />
                                                         @error('country')
@@ -359,7 +380,7 @@
                                                         <label for="region" class="form-label">Région </label>
                                                         <input type="text"
                                                             class="form-control  
-        form-control-custom  @error('region') is-invalid @enderror "
+                                    form-control-custom  @error('region') is-invalid @enderror "
                                                             min="0" wire:model='region'
                                                             placeholder="Veuillez  entrer la région" />
                                                         @error('region')
@@ -372,7 +393,7 @@
                                                         <label for="city" class="form-label">Ville </label>
                                                         <input type="text"
                                                             class="form-control  
-        form-control-custom  @error('city') is-invalid @enderror "
+                                    form-control-custom  @error('city') is-invalid @enderror "
                                                             min="0" wire:model='city'
                                                             placeholder="Entrez la ville" />
                                                         @error('city')
@@ -385,7 +406,7 @@
                                                         <label for="city" class="form-label">UrlCTC </label>
                                                         <input type="text"
                                                             class="form-control  
-        form-control-custom  @error('url_ctc') is-invalid @enderror "
+                                    form-control-custom  @error('url_ctc') is-invalid @enderror "
                                                             min="0" wire:model='url_ctc'
                                                             placeholder="Veuillez entrer l'UrlCTC" />
                                                         @error('url_ctc')
@@ -409,7 +430,7 @@
                                                         <label for="compagny_id" class="form-label">Societé </label>
                                                         <input type="text"
                                                             class="form-control  
-        form-control-custom  @error('compagny_id') is-invalid @enderror "
+                                    form-control-custom  @error('compagny_id') is-invalid @enderror "
                                                             wire:model='compagny_id'
                                                             placeholder="Veuillez  entrer la société" />
 
@@ -425,7 +446,7 @@
                                                         </label>
                                                         <select
                                                             class="form-control  
-        form-control-custom  @error('position_id') is-invalid @enderror "
+                                    form-control-custom  @error('position_id') is-invalid @enderror "
                                                             wire:model.live='position_id'>
                                                             <option value="" selected>Selectionner</option>
                                                             @foreach ($positions as $position)
@@ -446,7 +467,7 @@
                                                             (Fonction2)</label>
                                                         <select
                                                             class="form-control  
-        form-control-custom  @error('speciality_id') is-invalid @enderror "
+                                    form-control-custom  @error('speciality_id') is-invalid @enderror "
                                                             wire:model.live='speciality_id'>
                                                             @if ($specialities)
                                                                 @if ($specialities->count() > 0)
@@ -479,7 +500,7 @@
                                                             (Fonction3)</label>
                                                         <select
                                                             class="form-control  
-        form-control-custom  @error('field_id') is-invalid @enderror "
+                                    form-control-custom  @error('field_id') is-invalid @enderror "
                                                             wire:model.live='field_id'>
                                                             @if ($fields)
                                                                 @if ($fields->count() > 0)
@@ -577,10 +598,10 @@
                                     </div>
 
 
-                                </div>
+                                    </div>
 
-                            </div>
-                            <div class="card-footer" style="margin-top:-3%">
+                                    </div>
+                            <div class="card-footer">
                                 <div class="d-flex justify-content-end">
                                     <button wire:loading.remove wire:target="storeCandidateData" type="submit"
                                         class="btn btn-success btn-label right ms-auto nexttab nexttab"><i
@@ -601,6 +622,26 @@
                     </div>
                     <!-- end tab pane -->
                     <div class="tab-pane fade {{ $step == 2 ? 'show active' : '' }}" id="documents" role="tabpanel">
+                    <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'disabled' : '' }}"
+                            data-bs-toggle="tab" href="{{ $step != 1 ? '#info' : '' }}" role="tab">
+                            Informations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'disabled' : '' }}"
+                            data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#documents' }}" role="tab">
+                            Documents
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'disabled' : '' }}"
+                            data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#cre' }}" role="tab">
+                            C.R.E
+                        </a>
+                    </li>
+                </ul>
                         <div class="col-sm-12">
 
                             <div>
@@ -805,6 +846,26 @@
                     </div>
                     <!-- end tab pane -->
                     <div class="tab-pane fade {{ $step == 3 ? 'show active' : '' }}" id="cre" role="tabpanel">
+                    <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'disabled' : '' }}"
+                            data-bs-toggle="tab" href="{{ $step != 1 ? '#info' : '' }}" role="tab">
+                            Informations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'disabled' : '' }}"
+                            data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#documents' }}" role="tab">
+                            Documents
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'disabled' : '' }}"
+                            data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#cre' }}" role="tab">
+                            C.R.E
+                        </a>
+                    </li>
+                </ul>
                         <div class="col-sm-12">
                             <form wire:submit.prevent="storeCre()">
                                 @csrf
