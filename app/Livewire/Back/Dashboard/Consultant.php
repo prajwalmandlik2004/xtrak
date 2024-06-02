@@ -30,7 +30,9 @@ class Consultant extends Component
     public $candidateStatuses;
     public $cp;
     public $sortColumn = 'last_name';
-    public $sortDirection = 'asc';
+    public $sortDirection = 'desc';
+    public $checkboxes = [];
+    public $selectAll = false;
 
     public function selectCandidate($id, $page)
     {
@@ -43,22 +45,26 @@ class Consultant extends Component
     #[On('delete')]// modified
     public function deleteData($id)
     {
-
         $candidateRepository = new CandidateRepository();
         DB::beginTransaction();
-        //if(is_array($id)){
-            try {
-                foreach($id as $idc){ // $id is an array
-                    $candidate = $candidateRepository->find($idc);
-                    $candidateRepository->delete($candidate->id);
-                    DB::commit();
-                }
-                
-                $this->dispatch('alert', type: 'success', message: 'les candidats sont supprimés avec succès');
-            } catch (\Throwable $th) {
-                DB::rollBack();
-                $this->dispatch('alert', type: 'error', message: "Impossible de supprimer les candidats erreur : $th");
+    
+        try {
+            foreach($id as $idc){ // $id is an array
+                $candidate = $candidateRepository->find($idc);
+                $candidateRepository->delete($candidate->id);
             }
+            
+            DB::commit();
+            $this->dispatch('alert', type: 'success', message: "Les candidats sont supprimés avec succès" );
+            $this->checkboxes = [];
+            $this->selectAll = false;
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $ids = implode(', ', $id);
+    
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer les candidats");
+        }
         /*
         }else
         {
