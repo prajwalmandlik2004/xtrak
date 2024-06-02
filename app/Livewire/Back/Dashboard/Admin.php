@@ -76,7 +76,7 @@ class Admin extends Component
             }
             
             DB::commit();
-            $this->dispatch('alert', type: 'success', message: "Les candidats sont supprimés avec succès : " . implode(', ', $id));
+            $this->dispatch('alert', type: 'success', message: "Les candidats sont supprimés avec succès" );
             $this->checkboxes = [];
             $this->selectAll = false;
 
@@ -84,7 +84,7 @@ class Admin extends Component
             DB::rollBack();
             $ids = implode(', ', $id);
     
-            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer les candidats erreur : $ids");
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer les candidats");
         }
         /*
         }else
