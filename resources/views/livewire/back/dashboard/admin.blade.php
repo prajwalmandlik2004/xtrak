@@ -1,5 +1,5 @@
 <div>
-    {{-- créer par MAHAMADOU ALI ABDOUL RAZAK +226 70147315 --}}
+    {{-- créer par MAHAMADOU ALI AdbDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
         'title' => 'Espace administrateur',
@@ -123,11 +123,20 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
-                        <div class="flex-grow-1">
-                            <h4
-                                class="card-title
-                            d-flex justify-content-between align-items-center fw-bold fs-2">
-                                BaseCDT</h4>
+                        <div class="me-3">
+                            <button type="button" class="btn btn-outline-dark" id ="selectionButton">
+                            <i class="bi bi-check-square-fill"></i> Sélection
+                            </button>
+                        </div>
+                        <div class="me-3">
+                            <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
+                            <i class="bi bi-check-square"></i> Désélection
+                            </button>
+                        </div>
+                         <div class="flex-grow-1 text-center">
+                            <h4 class="card-title fw-bold fs-2">
+                                BaseCDT
+                            </h4>
                         </div>
                         <div class="action" id="delete-button-container" style="display: none;">
                                 <ul class="list-inline hstack gap-2 mb-0">
@@ -139,7 +148,7 @@
                                     </li>
                                 </ul>
                         </div>
-                        <div class="" id="exporter">
+                        <div id="exporter">
                             <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel"
                                 type="button" class="btn btn-primary position-relative">
                                 <i class="ri-file-download-line me-1"></i>
@@ -161,7 +170,8 @@
                             class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="bg-secondary text-white sticky-top">
                             <tr>
-                                        <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox" style="display:none;"></th>
+                                        <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox" 
+                                        style="display:none;" wire:model="selectAll"></th>
                                         <th scope="col" wire:click="sortBy('updated_at')">
                                             Date MAJ
                                         </th>
@@ -199,7 +209,8 @@
                                         <tr data-id="{{ $candidate->id }}"
                                             class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}">
                                             <td class="checkbox-cell">
-                                                <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}" style="display:none;">
+                                                <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}" 
+                                                style="display:none;pointer-events: none;" wire:model="checkboxes.{{ $candidate->id }}">
                                             </td>
                                             <td>{{ \Carbon\Carbon::parse($candidate->updated_at)->format('d/m/y') ?? '--' }}</td>
                                             <td>{{ $candidate->auteur->trigramme ?? '--' }}</td>
@@ -298,162 +309,142 @@
             }
         </script>
         <script>
-           document.addEventListener('DOMContentLoaded', function() {
-    let lastClickTime = 0;
-    let clickTimeout;
-    const doubleClickDelay = 300; // Milliseconds
-    const deleteButtonContainer = document.getElementById('delete-button-container');
-    let checkboxesDisplayed = false;
-    let selectedCandidateIds = []; // Initialize selectedCandidateIds as an array
-    let candidateId;
-    const exportButton = document.getElementById('exporter');
+         document.addEventListener('DOMContentLoaded', function() {
+                var selectionButton = document.getElementById('selectionButton');
+                selectionButton.addEventListener('click', toggleCheckboxes);
+                uncheckedButton.addEventListener('click', deleteAllCheckboxes) 
+                let selectedCandidateIds = [];
+                let candidateId;
+                const doubleClickDelay = 300; // Milliseconds
+                var clickTimeout;            
 
-    // Hide all checkboxes initially
-    document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-        checkbox.style.display = 'none';
-    });
-    // Update the delete button click handler
-    function updateDeleteButton() {
-        if (deleteButtonContainer) {
-            deleteButtonContainer.setAttribute('wire:click', `confirmDeleteChecked('${selectedCandidateIds.join(',')}')`);
-            deleteButtonContainer.style.cursor = 'pointer'; // Change cursor to a hand when it hovers over the delete button
+                document.querySelectorAll('tr[data-id]').forEach(function(row) {
+                    var candidateId = row.getAttribute('data-id');
 
-            // If deleteButtonContainer is displayed, hide the export button
-            if (deleteButtonContainer.style.display === 'block') {
-                exportButton.style.display = 'none';
-            } 
-            else 
-            {
-                exportButton.style.display = 'block';
-            }
-        }
-}
-    // Handle row click event
-    document.querySelectorAll('tr[data-id]').forEach(function(row) {
-        row.addEventListener('click', function(event) {
-            candidateId = row.getAttribute('data-id');
-            let currentTime = new Date().getTime();
+                    // Si cette ligne a été consultée précédemment, lui attribuer la classe 'table-info'
+                    if (localStorage.getItem('lastVisited') === candidateId) {
+                        row.classList.add('table-info');
+                    }
 
-            if (currentTime - lastClickTime < doubleClickDelay) {
-                // Double-click detected
-                clearTimeout(clickTimeout); // Clear the timeout for the single-click action
-                window.location.href = "{{ url('/candidates') }}/" + candidateId;
-            } else {
-                // Single-click
-                lastClickTime = currentTime;
-                clickTimeout = setTimeout(function() {
-                    // Show all checkboxes on the first click
-                    if (!checkboxesDisplayed) {
-                        document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-                            checkbox.style.display = '';
+                    //making checkbox clickable
+                    var checkbox = row.querySelector('.candidate-checkbox');
+                    checkbox.addEventListener('click', function(e) {
+                        e.stopPropagation(); // Prevent the row click event from firing
+                    });
+
+
+                    row.addEventListener('click', function() {
+                        clearTimeout(clickTimeout); // Clear previous timeout
+
+                        clickTimeout = setTimeout(function() {
+                            // Affiche toutes les cases à cocher
+                            document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                                checkbox.style.display = 'block';
+                            });
+
+                            var checkbox = row.querySelector('.candidate-checkbox');
+                            checkbox.checked = !checkbox.checked;
+                            if (checkbox.checked) {
+                                row.classList.add('table-info');
+                            } else {
+                                row.classList.remove('table-info');
+                            }
+                            // var event = new Event('change');
+                            // checkbox.dispatchEvent(event);
+
+                            // Check if any checkbox is checked and toggle the buttons
+                            toggleButtons();
+                            deleteSelectedCandidates();
+                            updateSelectAllCheckbox();
+
+                        }, doubleClickDelay);
+                    });
+
+                    row.addEventListener('dblclick', function(e) {
+                            clearTimeout(clickTimeout); // Clear previous timeout
+                            localStorage.setItem('lastVisited', candidateId); // Enregistre l'ID de la ligne consultée
+                            window.location.href = "{{ url('/candidates') }}/" + candidateId;
                         });
-                        checkboxesDisplayed = true;
+
+                        var checkbox = row.querySelector('.candidate-checkbox');
+                        checkbox.addEventListener('change', function(e) {
+                            // Check if any checkbox is checked and toggle the buttons
+                            toggleButtons();
+                            deleteSelectedCandidates();
+                        });
+                });
+
+                // check & uncheck all checkboxes
+                document.getElementById('select-all-checkbox').addEventListener('change', function(e) {
+                    var isChecked = e.target.checked;
+                    document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                        checkbox.checked = isChecked;
+                    });
+                    toggleButtons();
+                    deleteSelectedCandidates();                   
+                });
+                //if a checkbox is unchecked, unchecked select all checkbox
+            //     document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+            //     checkbox.addEventListener('change', function() {
+            //         var allChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).every(c => c.checked);
+            //         document.getElementById('select-all-checkbox').checked = allChecked;
+            //     });
+            // });
+});
+
+/*************************************************************************************/
+            function toggleCheckboxes() {
+                document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                    //hide checkboxes
+                    checkbox.style.display = checkbox.style.display === 'none' ? 'block' : 'none';
+                    //uncheck all checkboxes
+                    if(checkbox.checked){
+                        checkbox.checked=false;
                     }
+                });
+                // update delete button visibility
+                toggleButtons();
+            }
+
+            //function to toggle the buttons
+            function toggleButtons() {
+                var anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
+                var deleteButtonContainer = document.getElementById('delete-button-container');
+                var exporter = document.getElementById('exporter');
+
+                if (anyChecked) {
                     deleteButtonContainer.style.display = 'block';
-
-                    // Toggle selection class and check/uncheck the checkbox for the clicked row
-                    let checkbox = row.querySelector('.candidate-checkbox');
-                    if (checkbox) {
-                        checkbox.checked = !checkbox.checked; // Toggle checkbox
-                        row.classList.toggle('table-info', checkbox.checked); // Toggle row highlight
-                        if (checkbox.checked) {
-                            selectedCandidateIds.push(candidateId); // Add ID to selected IDs
-                        } else {
-                            selectedCandidateIds = selectedCandidateIds.filter(id => id !== candidateId); // Remove ID from selected IDs
-                        }
-                        updateDeleteButton(); // Update delete button with new selected IDs
-                    }
-                }, doubleClickDelay); // Delay for distinguishing between single and double click
-            }
-        });
-    });
-
-    // Handle direct checkbox click to toggle selection class
-    document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-        checkbox.addEventListener('click', function(event) {
-            let row = checkbox.closest('tr[data-id]');
-            let candidateId = row.getAttribute('data-id');
-            if (row) {
-                row.classList.toggle('table-info', checkbox.checked);
-                if (checkbox.checked) {
-                    selectedCandidateIds.push(candidateId); // Add ID to selected IDs
+                    exporter.style.display = 'none';
                 } else {
-                    selectedCandidateIds = selectedCandidateIds.filter(id => id !== candidateId); // Remove ID from selected IDs
+                    deleteButtonContainer.style.display = 'none';
+                    exporter.style.display = 'block';
                 }
-                updateDeleteButton(); // Update delete button with new selected IDs
             }
-            event.stopPropagation(); // Prevent the row click event from firing
-        });
-    });
 
-   // Handle select all checkbox
-document.getElementById('select-all-checkbox').addEventListener('change', function(event) {
-    let checkboxes = document.querySelectorAll('.candidate-checkbox');
-    if (event.target.checked) {
-        // If the select-all checkbox is checked, add all candidate IDs to selected IDs
-        selectedCandidateIds = [];
-        checkboxes.forEach(function(checkbox) {
-            checkbox.checked = true;
-            let row = checkbox.closest('tr[data-id]');
-            if (row) {
-                row.classList.add('table-info');
-                let candidateId = row.getAttribute('data-id');
-                selectedCandidateIds.push(candidateId);
-            }
-        });
-    } else {
-        // If the select-all checkbox is unchecked, reset selected IDs
-        selectedCandidateIds = [];
-        checkboxes.forEach(function(checkbox) {
-            checkbox.checked = false;
-            let row = checkbox.closest('tr[data-id]');
-            if (row) {
-                row.classList.remove('table-info');
-            }
-        });
-    }
-    updateDeleteButton(); // Update delete button with new selected IDs
+            function deleteSelectedCandidates() {
+                let selectedCandidateIds = Array.from(document.querySelectorAll('.candidate-checkbox:checked'))
+                    .map(checkbox => checkbox.closest('tr').getAttribute('data-id'))
+                    .filter(id => id !== null && id !== '');
+                console.log(selectedCandidateIds);
 
-    // Check if any checkbox is checked
-    let anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
-    // Show or hide deleteButtonContainer based on whether any checkbox is checked
-    deleteButtonContainer.style.display = anyChecked ? 'block' : 'none';
-    updateDeleteButton();
-});
-
-   // Handle direct checkbox click to toggle selection class
-document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-    checkbox.addEventListener('click', function(event) {
-        let row = checkbox.closest('tr[data-id]');
-        let candidateId = row.getAttribute('data-id');
-        if (row) {
-            row.classList.toggle('table-info', checkbox.checked);
-            if (checkbox.checked) {
-                // If checkbox is checked, add ID to selected IDs
-                if (!selectedCandidateIds.includes(candidateId)) {
-                    selectedCandidateIds.push(candidateId);
+                let deleteButtonContainer = document.getElementById('delete-button-container');
+                if(deleteButtonContainer){
+                    deleteButtonContainer.setAttribute('wire:click', `confirmDeleteChecked('${selectedCandidateIds.join(',')}')`);
+                    deleteButtonContainer.style.cursor = 'pointer';
                 }
-            } else {
-                // If checkbox is unchecked, remove ID from selected IDs
-                selectedCandidateIds = selectedCandidateIds.filter(id => id !== candidateId);
             }
-            updateDeleteButton(); // Update delete button with new selected IDs
-        }
-        event.stopPropagation(); // Prevent the row click event from firing
 
-        // If checkbox is unchecked, uncheck the select-all checkbox
-        if (!checkbox.checked) {
-            document.getElementById('select-all-checkbox').checked = false;
+            function deleteAllCheckboxes() {
+                document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                    checkbox.checked = false;
+                });
+                // update delete button visibility
+                toggleButtons();
+            }
+            function updateSelectAllCheckbox() {
+            var allChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).every(c => c.checked);
+            document.getElementById('select-all-checkbox').checked = allChecked;
         }
-
-        // Check if any checkbox is checked
-        let anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
-        // Show or hide deleteButtonContainer based on whether any checkbox is checked
-        deleteButtonContainer.style.display = anyChecked ? 'block' : 'none';
-        updateDeleteButton();
-    });
-});
-});
-        </script>
+    </script>
     @endpush
 </div>
