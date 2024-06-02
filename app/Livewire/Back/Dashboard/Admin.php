@@ -34,7 +34,10 @@ class Admin extends Component
     public $position_id;
     public $cp;
     public $sortColumn = 'last_name';
-    public $sortDirection = 'asc';
+    public $sortDirection = 'desc';
+    public $checkboxes = [];
+    public $selectAll = false;
+
 
     public function selectCandidate($id, $page)
     {
@@ -63,22 +66,26 @@ class Admin extends Component
     #[On('delete')]// modified
     public function deleteData($id)
     {
-
         $candidateRepository = new CandidateRepository();
         DB::beginTransaction();
-        //if(is_array($id)){
-            try {
-                foreach($id as $idc){ // $id is an array
-                    $candidate = $candidateRepository->find($idc);
-                    $candidateRepository->delete($candidate->id);
-                    DB::commit();
-                }
-                
-                $this->dispatch('alert', type: 'success', message: 'les candidats sont supprimés avec succès');
-            } catch (\Throwable $th) {
-                DB::rollBack();
-                $this->dispatch('alert', type: 'error', message: "Impossible de supprimer les candidats erreur : $th");
+    
+        try {
+            foreach($id as $idc){ // $id is an array
+                $candidate = $candidateRepository->find($idc);
+                $candidateRepository->delete($candidate->id);
             }
+            
+            DB::commit();
+            $this->dispatch('alert', type: 'success', message: "Les candidats sont supprimés avec succès : " . implode(', ', $id));
+            $this->checkboxes = [];
+            $this->selectAll = false;
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $ids = implode(', ', $id);
+    
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer les candidats erreur : $ids");
+        }
         /*
         }else
         {
@@ -94,6 +101,17 @@ class Admin extends Component
         }
         */
     }
+
+    public function updatedSelectAll($value)
+{
+    if ($value) {
+        // If the select all box is checked, check all checkboxes
+        $this->checkboxes = Candidate::pluck('id')->toArray();
+    } else {
+        // If the select all box is unchecked, uncheck all checkboxes
+        $this->checkboxes = [];
+    }
+}
     public function sortBy($column)
     {
         $this->sortDirection = $this->sortColumn === $column
@@ -164,6 +182,7 @@ class Admin extends Component
          //idsString = implode(", ", $idsArray);
          $this->dispatch('swal:confirm', title: 'Suppression', 
          text: "Vous-êtes sur le point de supprimer le(s) candidat(s) séléctionné(s)", type: 'warning', method: 'delete', id: $idsArray);
+        
      }
      //
 
