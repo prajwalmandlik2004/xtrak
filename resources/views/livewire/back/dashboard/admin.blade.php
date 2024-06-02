@@ -207,7 +207,8 @@
                             <tbody>
                                     @forelse ($candidates as $index => $candidate)
                                         <tr data-id="{{ $candidate->id }}"
-                                            class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}">
+                                            class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}"
+                                            wire:dblclick.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
                                             <td class="checkbox-cell">
                                                 <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}" 
                                                 style="display:none;pointer-events: none;" wire:model="checkboxes.{{ $candidate->id }}">
@@ -316,15 +317,21 @@
                 let selectedCandidateIds = [];
                 let candidateId;
                 const doubleClickDelay = 300; // Milliseconds
-                var clickTimeout;            
+                var clickTimeout; 
+                
+                let selectedRow = document.querySelector('.table-info');
+                if (selectedRow) {
+                    selectedRow.scrollIntoView({
+                        block: 'nearest'
+                    });
+                }
 
                 document.querySelectorAll('tr[data-id]').forEach(function(row) {
                     var candidateId = row.getAttribute('data-id');
 
-                    // Si cette ligne a été consultée précédemment, lui attribuer la classe 'table-info'
-                    if (localStorage.getItem('lastVisited') === candidateId) {
-                        row.classList.add('table-info');
-                    }
+                    // if (localStorage.getItem('lastVisited') === candidateId) {
+                    //     row.classList.add('table-info');
+                    // }
 
                     //making checkbox clickable
                     var checkbox = row.querySelector('.candidate-checkbox');
