@@ -18,9 +18,8 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-12 mt-4 mb-3">
-            <div class="table">
+            <div class="table-responsive">
                 <h5 class="mb-0">Paramètres de tri des candidats</h5>
                 <table class="table table-bordered border-secondary table-nowrap">
                     <thead>
@@ -45,6 +44,7 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
+                               
                             </td>
                             <td>
                                 <select class="form-control w-md" wire:model.live='nbPaginate'>
@@ -55,6 +55,7 @@
                                     <option value="100">100</option>
                                 </select>
                             </td>
+
                             <!-- <td>
                                 <select class="form-control w-md" wire:model.live='filterName'>
                                     <option value="" class="bg-secondary text-white" selected>
@@ -93,6 +94,7 @@
                                             {{ $candidateStatus->name }}
                                         </option>
                                     @endforeach
+
                                 </select>
                             </td>
                             <td>
@@ -105,13 +107,14 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
+
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
+        
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
@@ -121,11 +124,11 @@
                             <i class="bi bi-check-square-fill"></i> Sélection
                             </button>
                         </div>
-                        <div class="me-3">
+                        <!-- <div class="me-3">
                             <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
                             <i class="bi bi-check-square"></i> Désélection
                             </button>
-                        </div>
+                        </div> -->
                          <div class="flex-grow-1 text-center">
                             <h4 class="card-title fw-bold fs-2">
                                 BaseCST
@@ -361,16 +364,29 @@
 
 /*************************************************************************************/
             function toggleCheckboxes() {
+                let areCheckboxesVisible = false;
                 document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-                    //hide checkboxes
+                    // Toggle checkboxes
                     checkbox.style.display = checkbox.style.display === 'none' ? 'block' : 'none';
-                    //uncheck all checkboxes
+                    // Check if at least one checkbox is visible
+                    if (checkbox.style.display === 'block') {
+                        areCheckboxesVisible = true;
+                    }
+                    // Uncheck all checkboxes
                     if(checkbox.checked){
                         checkbox.checked=false;
                     }
                 });
-                // update delete button visibility
+                // Update delete button visibility
                 toggleButtons();
+
+                // Update selection button text
+                const selectionButton = document.getElementById('selectionButton');
+                if (areCheckboxesVisible) {
+                    selectionButton.innerHTML = '<i class="bi bi-check-square"></i> Désélection';
+                } else {
+                    selectionButton.innerHTML = '<i class="bi bi-check-square-fill"></i> Sélection';
+                }
             }
 
             //function to toggle the buttons
