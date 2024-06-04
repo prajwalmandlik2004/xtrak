@@ -128,11 +128,11 @@
                             <i class="bi bi-check-square-fill"></i> Sélection
                             </button>
                         </div>
-                        <div class="me-3">
+                        <!-- <div class="me-3">
                             <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
                             <i class="bi bi-check-square"></i> Désélection
                             </button>
-                        </div>
+                        </div> -->
                          <div class="flex-grow-1 text-center">
                             <h4 class="card-title fw-bold fs-2">
                                 BaseCDT
@@ -232,26 +232,32 @@
                                             <td>{{ $candidate->nextStep->name ?? '--' }}</td>
                                             <td>{{ $candidate->nsDate->name ?? '--' }}</td>
                                             <td>
-                                                @if ($candidate->files()->exists())
-                                                    @php
-                                                        $cvFile = $candidate->files()->where('file_type', 'cv')->first();
-                                                    @endphp
-                                                    @if ($cvFile)
-                                                        OK
-                                                    @else
-                                                        n/a
-                                                    @endif
+                                            @if ($candidate->files()->exists())
+                                                @php
+                                                    $cvFile = $candidate->files()->where('file_type', 'cv')->first();
+                                                @endphp
+
+                                                @if ($cvFile)
+                                                    <a class="text-body" href="#"
+                                                        wire:click.prevent="selectCandidateGoToCv('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
                                                 @else
                                                     n/a
                                                 @endif
-                                            </td>
-                                            <td>
-                                                @if ($candidate->cres()->exists())
-                                                    OK
-                                                @else
-                                                    n/a
-                                                @endif
-                                            </td>
+                                            @else
+                                                n/a
+                                            @endif
+
+                                        </td>
+                                        <td>
+                                            @if ($candidate->cres()->exists())
+                                                <a class="text-body " href="#"
+                                                    wire:click.prevent="selectCandidateGoToCre('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
+                                            @else
+                                                n/a
+                                            @endif
+
+
+                                        </td>
                                             <td>{{ $candidate->commentaire ?? '--' }}</td>
                                             <td>{{ $candidate->description ?? '--' }}</td>
                                             <td>{{ $candidate->suivi ?? '--' }}</td>
@@ -259,7 +265,7 @@
                                         
                                     @empty
                                         <tr>
-                                            <td colspan="17" class="text-center">
+                                            <td colspan="50" class="text-center">
                                                 <h5 class="mt-4">Aucun résultat trouvé</h5>
                                             </td>
                                         </tr>
@@ -313,7 +319,7 @@
          document.addEventListener('DOMContentLoaded', function() {
                 var selectionButton = document.getElementById('selectionButton');
                 selectionButton.addEventListener('click', toggleCheckboxes);
-                uncheckedButton.addEventListener('click', deleteAllCheckboxes) 
+                // uncheckedButton.addEventListener('click', deleteAllCheckboxes) 
                 let selectedCandidateIds = [];
                 let candidateId;
                 const doubleClickDelay = 300; // Milliseconds
@@ -401,16 +407,29 @@
 
 /*************************************************************************************/
             function toggleCheckboxes() {
+                let areCheckboxesVisible = false;
                 document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-                    //hide checkboxes
+                    // Toggle checkboxes
                     checkbox.style.display = checkbox.style.display === 'none' ? 'block' : 'none';
-                    //uncheck all checkboxes
+                    // Check if at least one checkbox is visible
+                    if (checkbox.style.display === 'block') {
+                        areCheckboxesVisible = true;
+                    }
+                    // Uncheck all checkboxes
                     if(checkbox.checked){
                         checkbox.checked=false;
                     }
                 });
-                // update delete button visibility
+                // Update delete button visibility
                 toggleButtons();
+
+                // Update selection button text
+                const selectionButton = document.getElementById('selectionButton');
+                if (areCheckboxesVisible) {
+                    selectionButton.innerHTML = '<i class="bi bi-check-square"></i> Désélection';
+                } else {
+                    selectionButton.innerHTML = '<i class="bi bi-check-square-fill"></i> Sélection';
+                }
             }
 
             //function to toggle the buttons
@@ -440,7 +459,7 @@
                     deleteButtonContainer.style.cursor = 'pointer';
                 }
             }
-
+// **************unchecked all checkbox***************
             function deleteAllCheckboxes() {
                 document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
                     checkbox.checked = false;
@@ -448,6 +467,7 @@
                 // update delete button visibility
                 toggleButtons();
             }
+// *********************************************************************
             function updateSelectAllCheckbox() {
             var allChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).every(c => c.checked);
             document.getElementById('select-all-checkbox').checked = allChecked;

@@ -20,7 +20,7 @@ class State extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $nbPaginate =  30;
+    public $nbPaginate = 30;
     public $candidate_statut_id = '';
     public $filterName = '';
     public $filterDate = '';

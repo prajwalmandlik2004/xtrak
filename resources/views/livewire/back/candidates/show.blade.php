@@ -239,33 +239,48 @@
                                                                                 @enderror
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-lg-auto">
+                                                                        @php
+                                                                            $cvFile = $candidate->files()->where('file_type', 'cv')->first();
+                                                                            $cvStatus = $cvFile ? ' OK ' : 'N/A';
+                                                                            $cvColor = $cvFile ? 'limegreen' : 'red';
+                                                                        @endphp
+
+                                                                        @if ($cvStatus === ' OK ')
+                                                                            <a class="col-lg-auto" href="{{ route('candidate.cv', ['candidate' => $candidate->id]) }}" style="display: block; color: inherit; text-decoration: none;">
+                                                                        @else
+                                                                            <a class="col-lg-auto" href="#documents" style="display: block; color: inherit; text-decoration: none; cursor:pointer;" onclick="handleClickCV()">
+                                                                        @endif
                                                                             <div>
-                                                                                <label for="cv_status" class="form-label">CV</label>
-                                                                                @php
-                                                                                    $cvFile = $candidate->files()->where('file_type', 'cv')->first();
-                                                                                    $cvStatus = $cvFile ? ' OK ' : 'N/A';
-                                                                                    $cvColor = $cvFile ? 'limegreen' : 'red';
-                                                                                @endphp
-                                                                                <div id="cv_status" class="p-2 text-center" style="background-color: {{ $cvColor }}; color:#ffffff">
-                                                                                <strong>{{ $cvStatus }}</strong>
+                                                                                <div>
+                                                                                    <label for="cv_status" class="form-label">CV</label>
+                                                                                    <div id="cv_status" class="p-2 text-center" style="background-color: {{ $cvColor }}; color:#ffffff">
+                                                                                        <strong>{{ $cvStatus }}</strong>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-lg-auto">
+                                                                        </a>
+
+                                                                       @php
+                                                                            $creExists = $candidate->cres()->exists();
+                                                                            $creStatus = $creExists ? 'OK' : 'N/A';
+                                                                            $creColor = $creExists ? 'limegreen' : 'red';
+                                                                        @endphp
+
+                                                                        @if ($creStatus === 'OK')
+                                                                            <a class="col-lg-auto" href="{{ route('candidate.cre', ['candidate' => $candidate->id]) }}" style="display: block; color: inherit; text-decoration: none; cursor:pointer;" onclick="handleClickCRE()">
+                                                                        @else
+                                                                            <a class="col-lg-auto" href="{{ route('add.cre', ['candidate' => $candidate, 'action' => 'create']) }}" style="display: block; color: inherit; text-decoration: none; cursor:pointer;" onclick="handleClickCRE()">
+                                                                        @endif
                                                                             <div>
-                                                                                <label for="cre_status" class="form-label">CRE</label>
-                                                                                @php
-                                                                                    $creExists = $candidate->cres()->exists();
-                                                                                    $creStatus = $creExists ? 'OK' : 'N/A';
-                                                                                    $creColor = $creExists ? 'limegreen' : 'red';
-                                                                                @endphp
-                                                                                <div id="cre_status" class="p-2 text-center" style=" background-color: {{ $creColor }};color:#ffffff">
-                                                                                   <strong> {{ $creStatus }} </strong>
+                                                                                <div>
+                                                                                    <label for="cre_status" class="form-label">CRE</label>
+                                                                                    <div id="cre_status" class="p-2 text-center" style="background-color: {{ $creColor }}; color:#ffffff">
+                                                                                        <strong>{{ $creStatus }}</strong>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
+                                                                        </a>
+                                                                   </div>
                                                                     <div class="row">
                                                                         <div class="col-lg-2 mt-4">
                                                                             <div>
@@ -742,5 +757,19 @@
                 successAlert.style.display = 'none';
             }
         }, 3000);
+        function handleClickCV() {
+    // Get the tab link
+    var tabLink = document.querySelector('a[href="#documents"]');
+    
+    // Create a new 'click' event
+    var clickEvent = new MouseEvent('click', {
+        'view': window,
+        'bubbles': true,
+        'cancelable': false
+    });
+    
+    // Dispatch the 'click' event on the tab link
+    tabLink.dispatchEvent(clickEvent);
+}
     </script>
 @endpush

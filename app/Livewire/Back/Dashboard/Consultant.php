@@ -181,6 +181,25 @@ class Consultant extends Component
         $this->candidate_statut_id = '';
         $this->position_id = '';
     }
+    
+    public function selectCandidateGoToCre($id, $page)
+    {
+        $this->selectedCandidateId = $id;
+        session(['base_cdt_selected_candidate_id' => $id]);
+        session(['base_cdt_current_page' => $page]);
+        session(['base_cdt_nb_paginate' => $this->nbPaginate]);
+        return redirect()->route('candidate.cre', $id);
+    }
+    
+    public function selectCandidateGoToCv($id, $page)
+    {
+        $this->selectedCandidateId = $id;
+        session(['base_cdt_selected_candidate_id' => $id]);
+        session(['base_cdt_current_page' => $page]);
+        session(['base_cdt_nb_paginate' => $this->nbPaginate]);
+        return redirect()->route('candidate.cv', $id);
+    }
+
     public function render()
     {
         return view('livewire.back.dashboard.consultant')->with([

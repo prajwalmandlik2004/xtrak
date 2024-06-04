@@ -61,5 +61,9 @@ class CandidateController extends Controller
             'candidate' => $candidate,
         ]);
     }
+    public function showFile(Candidate $candidate)
+{
+    $files = File::all();
+    return view('livewire.back.files.candidate-file', ['candidate' => $candidate]);}
 
 }

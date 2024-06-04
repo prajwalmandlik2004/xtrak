@@ -211,26 +211,30 @@
                                             <td>{{ $candidate->nextStep->name ?? '--' }}</td>
                                             <td>{{ $candidate->nsDate->name ?? '--' }}</td>
                                             <td>
-                                                @if ($candidate->files()->exists())
-                                                    @php
-                                                        $cvFile = $candidate->files()->where('file_type', 'cv')->first();
-                                                    @endphp
-                                                    @if ($cvFile)
-                                                        OK
-                                                    @else
-                                                        n/a
-                                                    @endif
+                                            @if ($candidate->files()->exists())
+                                                @php
+                                                    $cvFile = $candidate->files()->where('file_type', 'cv')->first();
+                                                @endphp
+
+                                                @if ($cvFile)
+                                                    <a class="text-body" href="#"
+                                                        wire:click.prevent="selectCandidateGoToCv('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
                                                 @else
                                                     n/a
                                                 @endif
-                                            </td>
-                                            <td>
-                                                @if ($candidate->cres()->exists())
-                                                    OK
-                                                @else
-                                                    n/a
-                                                @endif
-                                            </td>
+                                            @else
+                                                n/a
+                                            @endif
+
+                                        </td>
+                                        <td>
+                                            @if ($candidate->cres()->exists())
+                                                <a class="text-body " href="#"
+                                                    wire:click.prevent="selectCandidateGoToCre('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
+                                            @else
+                                                n/a
+                                            @endif
+                                        </td>
                                             <td>{{ $candidate->commentaire ?? '--' }}</td>
                                             <td>{{ $candidate->description ?? '--' }}</td>
                                             <td>{{ $candidate->suivi ?? '--' }}</td>

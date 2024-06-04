@@ -234,6 +234,10 @@ class Show extends Component
             $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification de l\'état du candidat');
         }
     }
+    public function goToCv($candidateId)
+    {
+        return redirect()->route('candidate.cv', ['candidate' => $candidateId]);
+    }
     #[On('updateState')]
     public function updateState($id)
     {

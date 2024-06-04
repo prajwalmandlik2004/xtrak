@@ -46,9 +46,10 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1 overflow-hidden">
-                                <h5 class="fs-15 mb-1"><a href="#"
-                                        class="text-body text-truncate d-block">{{ $file->name ?? '---' }}</a>
-                                </h5>
+                                <h5 class="fs-15 mb-1">
+                                    <a type="button" href="#" wire:click.prevent="goToCv('{{ $file->candidate->id }}')"
+                                    class="text-body text-truncate d-block">{{ $file->name ?? '---' }}</a>
+                                </h5> 
                                 <p
                                     class="fw-medium badge rounded-pill bg-primary fs-10 
                                 mb-0">
