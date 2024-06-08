@@ -41,7 +41,7 @@
                         <tr>
                             <td>
                                 <button class="btn btn-danger ms-4" wire:click="resetFilters">
-                                    <i class="ri-delete-bin-line"></i>
+                                    <i class="bi bi-x-lg"></i>
                                 </button>
                             </td>
                             <td>
@@ -190,7 +190,7 @@
                                         <th scope="col">CP/Dpt</th>
                                         <th scope="col">Ville</th>
                                         <th scope="col">Pays</th>
-                                        <th scope="col">UrlCTC</th>
+                                        <th scope="col">Etat</th>
                                         <th scope="col">Statut</th>
                                         <th scope="col">Disponibilité</th>
                                         <!-- <th scope="col">Etat</th> -->
@@ -217,15 +217,26 @@
                                             <td>{{ $candidate->auteur->trigramme ?? '--' }}</td>
                                             <td>{{ $candidate->civ->name ?? '--' }}</td>
                                             <td>{{ $candidate->first_name ?? '--' }}</td>
-                                            <td>{{ $candidate->last_name ?? '--' }}</td>
-                                            <td>{{ $candidate->position->name ?? '--' }}</td>
+                                            <td id="Lcol">{{ $candidate->last_name ?? '--' }}</td>
+                                            <td id="Lcol">{{ $candidate->position->name ?? '--' }}</td>
                                             <td>{{ $candidate->compagny->name ?? '--' }}</td>
                                             <td>{{ $candidate->phone ?? '--' }}</td>
                                             <td>{{ $candidate->email ?? '--' }}</td>
                                             <td>{{ $candidate->postal_code ?? '--' }}</td>
                                             <td>{{ $candidate->city ?? '--' }}</td>
                                             <td>{{ $candidate->country ?? '--' }}</td>
-                                            <td>{{ $candidate->url_ctc ?? '--' }}</td>
+                                        @if($candidate->candidateState->name == 'Certifié')
+                                            <td id="colState">
+                                                <span class="badge rounded-pill bg-success" id="certificate-{{ 0 }}" onclick="toggleCertificate({{ 0 }})">
+                                                    <span id="hidden-certificate-{{ 0 }}">Certifié</span>
+                                                    <span id="visible-certificate-{{ 0 }}" style="display: none;">{{ $candidate->certificate }}</span>
+                                                </span>
+                                            </td>
+                                        @else
+                                            <td>
+                                                {{ $candidate->candidateState->name }}
+                                            </td>
+                                        @endif
                                             <td>{{ $candidate->candidateStatut->name ?? '--' }}</td>
                                             <td>{{ $candidate->disponibility->name ?? '--' }}</td>
                                             <!-- <td>{{ $candidate->candidateState->name ?? '--' }}</td> -->
@@ -372,12 +383,32 @@
 
                         }, doubleClickDelay);
                     });
+//                     row.addEventListener('click', function() {
+//     clearTimeout(clickTimeout); // Clear previous timeout
 
-                    row.addEventListener('dblclick', function(e) {
-                            clearTimeout(clickTimeout); // Clear previous timeout
-                            localStorage.setItem('lastVisited', candidateId); // Enregistre l'ID de la ligne consultée
-                            window.location.href = "{{ url('/candidates') }}/" + candidateId;
-                        });
+//     clickTimeout = setTimeout(function() {
+//         var checkbox = row.querySelector('.candidate-checkbox');
+//         checkbox.style.display = 'block'; // Affiche la case à cocher de la ligne cliquée
+//         checkbox.checked = !checkbox.checked;
+//         if (checkbox.checked) {
+//             row.classList.add('table-info');
+//         } else {
+//             row.classList.remove('table-info');
+//         }
+
+//         // Check if any checkbox is checked and toggle the buttons
+//         toggleButtons();
+//         deleteSelectedCandidates();
+//         updateSelectAllCheckbox();
+
+//     }, doubleClickDelay);
+// });
+
+                    // row.addEventListener('dblclick', function(e) {
+                    //         clearTimeout(clickTimeout); // Clear previous timeout
+                    //         localStorage.setItem('lastVisited', candidateId); // Enregistre l'ID de la ligne consultée
+                    //         window.location.href = "{{ url('/candidates') }}/" + candidateId;
+                    //     });
 
                         var checkbox = row.querySelector('.candidate-checkbox');
                         checkbox.addEventListener('change', function(e) {

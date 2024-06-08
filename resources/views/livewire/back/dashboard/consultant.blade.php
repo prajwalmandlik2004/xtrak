@@ -24,7 +24,7 @@
                 <table class="table table-bordered border-secondary table-nowrap">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col" style="width:100px">Effacer les filtres</th>
+                            <th scope="col" style="width:100px">Effacer</th>
                             <th scope="col">Recherche</th>
                             <th scope="col">N lignes</th>
                             <!-- <th scope="col">Nom</th>
@@ -39,7 +39,7 @@
                         <tr>
                             <td>
                                 <button class="btn btn-danger ms-4" wire:click="resetFilters">
-                                    <i class="ri-delete-bin-line"></i>
+                                    <i class="bi bi-x-lg"></i>
                                 </button>
                             </td>
                             <td>
@@ -207,7 +207,18 @@
                                             <td>{{ $candidate->postal_code ?? '--' }}</td>
                                             <td>{{ $candidate->city ?? '--' }}</td>
                                             <td>{{ $candidate->country ?? '--' }}</td>
-                                            <td>{{ $candidate->url_ctc ?? '--' }}</td>
+                                        @if($candidate->candidateState->name == 'Certifié')
+                                            <td id="colState">
+                                                <span class="badge rounded-pill bg-success" id="certificate-{{ 0 }}" onclick="toggleCertificate({{ 0 }})">
+                                                    <span id="hidden-certificate-{{ 0 }}">Certifié</span>
+                                                    <span id="visible-certificate-{{ 0 }}" style="display: none;">{{ $candidate->certificate }}</span>
+                                                </span>
+                                            </td>
+                                        @else
+                                            <td>
+                                                {{ $candidate->candidateState->name }}
+                                            </td>
+                                        @endif
                                             <td>{{ $candidate->candidateStatut->name ?? '--' }}</td>
                                             <td>{{ $candidate->disponibility->name ?? '--' }}</td>
                                             <!-- <td>{{ $candidate->candidateState->name ?? '--' }}</td> -->
@@ -267,6 +278,37 @@
 </div>
 
 @push('page-script')
+        <script>
+            function toggleCertificate(index) {
+                var hiddenCertificate = document.getElementById('hidden-certificate-' + index);
+                var visibleCertificate = document.getElementById('visible-certificate-' + index);
+                var messageDiv = document.getElementById('message-' + index);
+
+                if (hiddenCertificate.style.display === "none") {
+                    hiddenCertificate.style.display = "inline";
+                    visibleCertificate.style.display = "none";
+                    messageDiv.style.display = "none";
+                } else {
+                    hiddenCertificate.style.display = "none";
+                    visibleCertificate.style.display = "inline";
+
+
+                    navigator.clipboard.writeText(visibleCertificate.textContent).then(function() {
+                        messageDiv.textContent = 'Copie réussie !';
+                        messageDiv.style.display = "block";
+                        setTimeout(function() {
+                            messageDiv.style.display = "none";
+                        }, 1000);
+                    }, function(err) {
+                        messageDiv.textContent = 'Erreur lors de la copie : ' + err;
+                        messageDiv.style.display = "block";
+                        setTimeout(function() {
+                            messageDiv.style.display = "none";
+                        }, 1000);
+                    });
+                }
+            }
+        </script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
                 var selectionButton = document.getElementById('selectionButton');
@@ -327,19 +369,19 @@
                             }, doubleClickDelay);
                         });
 
-                    row.addEventListener('dblclick', function(e) {
-                            clearTimeout(clickTimeout); // Clear previous timeout
-                            localStorage.setItem('lastVisited', candidateId); // Enregistre l'ID de la ligne consultée
-                            window.location.href = "{{ url('/candidates') }}/" + candidateId;
-                        });
+                //     row.addEventListener('dblclick', function(e) {
+                //             clearTimeout(clickTimeout); // Clear previous timeout
+                //             localStorage.setItem('lastVisited', candidateId); // Enregistre l'ID de la ligne consultée
+                //             window.location.href = "{{ url('/candidates') }}/" + candidateId;
+                //         });
 
-                        var checkbox = row.querySelector('.candidate-checkbox');
-                        checkbox.addEventListener('change', function(e) {
-                            // Check if any checkbox is checked and toggle the buttons
-                            toggleButtons();
-                            deleteSelectedCandidates();
-                        });
-                });
+                //         var checkbox = row.querySelector('.candidate-checkbox');
+                //         checkbox.addEventListener('change', function(e) {
+                //             // Check if any checkbox is checked and toggle the buttons
+                //             toggleButtons();
+                //             deleteSelectedCandidates();
+                //         });
+                // });
 
                 // check & uncheck all checkboxes
                 document.getElementById('select-all-checkbox').addEventListener('change', function(e) {

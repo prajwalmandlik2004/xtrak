@@ -24,7 +24,7 @@ class AuthenticatedSessionController extends FortifyAuthenticatedSessionControll
                 'last_seen' => now(),
                 'is_connect' => true,
             ]);
-            return redirect()->route('dashboard');
+            return redirect()->route('home');
         }
 
         return back()->with('error', 'Identifiants incorrects');
