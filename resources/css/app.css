@@ -53,9 +53,9 @@ max-width: 150px !important;
 .table-hover.table-hover-primary tbody tr:hover {
 background-color: #6699FF !important;
 }
-.cdtnonactiveontable{
+/* .cdtnonactiveontable{
 --vz-table-bg-type: #dadeec !important; 
-}
+} */
 /* ROJO */
 /* Taille du tableau */
 .table-responsive {

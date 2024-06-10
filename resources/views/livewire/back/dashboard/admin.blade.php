@@ -330,30 +330,31 @@
 
                   
                     row.addEventListener('click', function() {
-                        clearTimeout(clickTimeout); // Clear previous timeout
+                    clearTimeout(clickTimeout); // Clear previous timeout
 
-                        clickTimeout = setTimeout(function() {
-                            var checkbox = row.querySelector('.candidate-checkbox');
-                            if (checkbox.style.display === 'none' || !checkbox.checked) {
-                                checkbox.style.display = 'block'; // Show the checkbox of the clicked row
-                                checkbox.checked = true; // Check the checkbox of the clicked row
-                                row.classList.add('table-info');
-                            } else {
-                                checkbox.style.display = 'none'; // Hide the checkbox of the clicked row
-                                checkbox.checked = false; // Uncheck the checkbox of the clicked row
-                                row.classList.remove('table-info');
-                            }
+                    clickTimeout = setTimeout(function() {
+                        var checkbox = row.querySelector('.candidate-checkbox');
 
-                            // Check if any checkbox is checked and toggle the buttons
-                            toggleButtons();
-                            deleteSelectedCandidates();
-                            updateSelectAllCheckbox();
+                        // Remove 'table-info' class from all rows
+                        var rows = document.querySelectorAll('.table-info');
+                        rows.forEach(function(r) {
+                            r.classList.remove('table-info');
+                        });
 
-                            // Update selection button and select-all checkbox
-                            updateSelectionButtonAndSelectAllCheckbox();
+                        // Add 'table-info' class to the clicked row
+                        row.classList.add('table-info');
 
-                        }, doubleClickDelay);
-                    });
+                        // Check if any checkbox is checked and toggle the buttons
+                        toggleButtons();
+                        deleteSelectedCandidates();
+                        updateSelectAllCheckbox();
+
+                        // Update selection button and select-all checkbox
+                        updateSelectionButtonAndSelectAllCheckbox();
+                        
+
+                    }, doubleClickDelay);
+                });
 
                         var checkbox = row.querySelector('.candidate-checkbox');
                         checkbox.addEventListener('change', function(e) {
