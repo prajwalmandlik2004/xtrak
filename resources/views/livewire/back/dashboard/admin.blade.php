@@ -328,27 +328,31 @@
                         e.stopPropagation(); // Prevent the row click event from firing
                     });
 
-                  
-                    row.addEventListener('click', function() {
+                        row.addEventListener('click', function() {
                         clearTimeout(clickTimeout); // Clear previous timeout
 
                         clickTimeout = setTimeout(function() {
-                            // Uncheck all checkboxes and remove 'table-info' class from all rows
-                            var rows = document.querySelectorAll('tr');
-                            rows.forEach(function(r) {
-                                var checkbox = r.querySelector('.candidate-checkbox');
-                                if (checkbox) { // Check if the checkbox exists
-                                    checkbox.checked = false; // Uncheck the checkbox
-                                }
-                                r.classList.remove('table-info');
-                            });
+                            // If checkboxes are visible, allow multiple checkboxes to be checked
+                            var checkboxesVisible = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.style.display === 'block');
+
+                            if (!checkboxesVisible) {
+                                // If checkboxes are not visible, uncheck all checkboxes and remove 'table-info' class from all rows
+                                var rows = document.querySelectorAll('tr');
+                                rows.forEach(function(r) {
+                                    var checkbox = r.querySelector('.candidate-checkbox');
+                                    if (checkbox) { // Check if the checkbox exists
+                                        checkbox.checked = false; // Uncheck the checkbox
+                                    }
+                                    r.classList.remove('table-info');
+                                });
+                            }
 
                             // Check the checkbox of the clicked row and add 'table-info' class
                             var checkbox = row.querySelector('.candidate-checkbox');
                             if (checkbox) { // Check if the checkbox exists
                                 checkbox.checked = true; // Check the checkbox
+                                row.classList.add('table-info');
                             }
-                            row.classList.add('table-info');
 
                             // Check if any checkbox is checked and toggle the buttons
                             toggleButtons();
