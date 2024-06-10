@@ -39,8 +39,6 @@ class Admin extends Component
     public $selectAll = false;
     public $created_by;
 
-
-
     public function selectCandidate($id, $page)
     {
         $this->selectedCandidateId = $id;

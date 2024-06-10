@@ -330,31 +330,36 @@
 
                   
                     row.addEventListener('click', function() {
-                    clearTimeout(clickTimeout); // Clear previous timeout
+                        clearTimeout(clickTimeout); // Clear previous timeout
 
-                    clickTimeout = setTimeout(function() {
-                        var checkbox = row.querySelector('.candidate-checkbox');
+                        clickTimeout = setTimeout(function() {
+                            // Uncheck all checkboxes and remove 'table-info' class from all rows
+                            var rows = document.querySelectorAll('tr');
+                            rows.forEach(function(r) {
+                                var checkbox = r.querySelector('.candidate-checkbox');
+                                if (checkbox) { // Check if the checkbox exists
+                                    checkbox.checked = false; // Uncheck the checkbox
+                                }
+                                r.classList.remove('table-info');
+                            });
 
-                        // Remove 'table-info' class from all rows
-                        var rows = document.querySelectorAll('.table-info');
-                        rows.forEach(function(r) {
-                            r.classList.remove('table-info');
-                        });
+                            // Check the checkbox of the clicked row and add 'table-info' class
+                            var checkbox = row.querySelector('.candidate-checkbox');
+                            if (checkbox) { // Check if the checkbox exists
+                                checkbox.checked = true; // Check the checkbox
+                            }
+                            row.classList.add('table-info');
 
-                        // Add 'table-info' class to the clicked row
-                        row.classList.add('table-info');
+                            // Check if any checkbox is checked and toggle the buttons
+                            toggleButtons();
+                            deleteSelectedCandidates();
+                            updateSelectAllCheckbox();
 
-                        // Check if any checkbox is checked and toggle the buttons
-                        toggleButtons();
-                        deleteSelectedCandidates();
-                        updateSelectAllCheckbox();
+                            // Update selection button and select-all checkbox
+                            updateSelectionButtonAndSelectAllCheckbox();
 
-                        // Update selection button and select-all checkbox
-                        updateSelectionButtonAndSelectAllCheckbox();
-                        
-
-                    }, doubleClickDelay);
-                });
+                        }, doubleClickDelay);
+                    });
 
                         var checkbox = row.querySelector('.candidate-checkbox');
                         checkbox.addEventListener('change', function(e) {
