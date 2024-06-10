@@ -29,9 +29,8 @@
                             <th scope="col" style="width:100px">Effacer les filtres</th>
                             <th scope="col">Recherche</th>
                             <th scope="col">N lignes</th>
-                            <!-- <th scope="col">Nom</th>
-                            <th scope="col">Date</th> -->
                             <th scope="col">Etat</th>
+                            <!-- <th scope="col">Auteur</th> -->
                             <th scope="col">Statut</th>
                             <th scope="col">Fonction</th>
                             <th scope="col">CP/Dpt</th>
@@ -57,25 +56,6 @@
                                     <option value="100">100</option>
                                 </select>
                             </td>
-
-                            <!-- <td>
-                                <select class="form-control w-md" wire:model.live='filterName'>
-                                    <option value="" class="bg-secondary text-white" selected>
-                                        Selectionner
-                                    </option>
-                                    <option value="asc">A -> Z</option>
-                                    <option value="desc">Z -> A</option>
-                                </select>
-                            </td> -->
-                            <!-- <td>
-                                <select class="form-control w-md" wire:model.live='filterDate'>
-                                    <option value="" class="bg-secondary text-white" selected>
-                                        Selectionner
-                                    </option>
-                                    <option value="asc">Plus récent en haut</option>
-                                    <option value="desc">Plus ancien en haut</option>
-                                </select>
-                            </td> -->
                             <td>
                                 <select class="form-control w-md" wire:model.live='candidate_state_id'>
                                     <option value="" class="bg-secondary text-white" selected>
@@ -128,7 +108,12 @@
                             <i class="bi bi-check-square-fill"></i> Sélection
                             </button>
                         </div>
-                        <!-- <div class="me-3">
+                        <div>
+                                <button wire:click="" class="btn btn-danger" id="delete-button-container"  style="display: none;">
+                                    <i class="bi bi-trash-fill"></i>Supprimer
+                                 </button> 
+                        </div>
+                                                <!-- <div class="me-3">
                             <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
                             <i class="bi bi-check-square"></i> Désélection
                             </button>
@@ -138,16 +123,7 @@
                                 BaseCDT
                             </h4>
                         </div>
-                        <div class="action" id="delete-button-container" style="display: none;">
-                                <ul class="list-inline hstack gap-2 mb-0">
-                                    <li class="list-inline-item">
-                                        <a wire:click=""
-                                            class="text-danger d-inline-block remove-item-btn">
-                                            <i class="ri-delete-bin-5-fill fs-16"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                        </div>
+                        
                         <div id="exporter">
                             <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel"
                                 type="button" class="btn btn-primary position-relative">
@@ -176,7 +152,7 @@
                                             Date MAJ
                                         </th>
                                         <th scope="col">Aut</th>
-                                        <th scope="col">Civilité</th>
+                                        <th scope="col">Civ</th>
                                         <th scope="col" wire:click="sortBy('first_name')">
                                             Prénom
                                         </th>
@@ -346,69 +322,38 @@
                 document.querySelectorAll('tr[data-id]').forEach(function(row) {
                     var candidateId = row.getAttribute('data-id');
 
-                    // if (localStorage.getItem('lastVisited') === candidateId) {
-                    //     row.classList.add('table-info');
-                    // }
-
                     //making checkbox clickable
                     var checkbox = row.querySelector('.candidate-checkbox');
                     checkbox.addEventListener('click', function(e) {
                         e.stopPropagation(); // Prevent the row click event from firing
                     });
 
-
+                  
                     row.addEventListener('click', function() {
                         clearTimeout(clickTimeout); // Clear previous timeout
 
                         clickTimeout = setTimeout(function() {
-                            // Affiche toutes les cases à cocher
-                            document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-                                checkbox.style.display = 'block';
-                            });
-
                             var checkbox = row.querySelector('.candidate-checkbox');
-                            checkbox.checked = !checkbox.checked;
-                            if (checkbox.checked) {
+                            if (checkbox.style.display === 'none' || !checkbox.checked) {
+                                checkbox.style.display = 'block'; // Show the checkbox of the clicked row
+                                checkbox.checked = true; // Check the checkbox of the clicked row
                                 row.classList.add('table-info');
                             } else {
+                                checkbox.style.display = 'none'; // Hide the checkbox of the clicked row
+                                checkbox.checked = false; // Uncheck the checkbox of the clicked row
                                 row.classList.remove('table-info');
                             }
-                            // var event = new Event('change');
-                            // checkbox.dispatchEvent(event);
 
                             // Check if any checkbox is checked and toggle the buttons
                             toggleButtons();
                             deleteSelectedCandidates();
                             updateSelectAllCheckbox();
 
+                            // Update selection button and select-all checkbox
+                            updateSelectionButtonAndSelectAllCheckbox();
+
                         }, doubleClickDelay);
                     });
-//                     row.addEventListener('click', function() {
-//     clearTimeout(clickTimeout); // Clear previous timeout
-
-//     clickTimeout = setTimeout(function() {
-//         var checkbox = row.querySelector('.candidate-checkbox');
-//         checkbox.style.display = 'block'; // Affiche la case à cocher de la ligne cliquée
-//         checkbox.checked = !checkbox.checked;
-//         if (checkbox.checked) {
-//             row.classList.add('table-info');
-//         } else {
-//             row.classList.remove('table-info');
-//         }
-
-//         // Check if any checkbox is checked and toggle the buttons
-//         toggleButtons();
-//         deleteSelectedCandidates();
-//         updateSelectAllCheckbox();
-
-//     }, doubleClickDelay);
-// });
-
-                    // row.addEventListener('dblclick', function(e) {
-                    //         clearTimeout(clickTimeout); // Clear previous timeout
-                    //         localStorage.setItem('lastVisited', candidateId); // Enregistre l'ID de la ligne consultée
-                    //         window.location.href = "{{ url('/candidates') }}/" + candidateId;
-                    //     });
 
                         var checkbox = row.querySelector('.candidate-checkbox');
                         checkbox.addEventListener('change', function(e) {
@@ -418,51 +363,62 @@
                         });
                 });
 
-                // check & uncheck all checkboxes
-                document.getElementById('select-all-checkbox').addEventListener('change', function(e) {
-                    var isChecked = e.target.checked;
-                    document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-                        checkbox.checked = isChecked;
-                    });
-                    toggleButtons();
-                    deleteSelectedCandidates();                   
+               // check & uncheck all checkboxes
+            document.getElementById('select-all-checkbox').addEventListener('change', function(e) {
+                var isChecked = e.target.checked;
+                document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                    checkbox.checked = isChecked;
+                    checkbox.style.display = isChecked ? 'block' : 'none';
                 });
-                //if a checkbox is unchecked, unchecked select all checkbox
-            //     document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-            //     checkbox.addEventListener('change', function() {
-            //         var allChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).every(c => c.checked);
-            //         document.getElementById('select-all-checkbox').checked = allChecked;
-            //     });
-            // });
+                toggleButtons();
+                deleteSelectedCandidates();                   
+            });
+              // Select all checkboxes functionality
+            document.getElementById('select-all-checkbox').addEventListener('change', function() {
+                var isChecked = this.checked;
+                document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                    checkbox.checked = isChecked;
+                    checkbox.style.display = 'block'; // Keep checkboxes visible
+                });
+                toggleButtons();
+                updateSelectionButtonAndSelectAllCheckbox();
+            });
+                            
 });
 
 /*************************************************************************************/
+            // Toggle selection checkboxes
             function toggleCheckboxes() {
-                let areCheckboxesVisible = false;
+                let areCheckboxesVisible = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.style.display === 'block');
                 document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-                    // Toggle checkboxes
-                    checkbox.style.display = checkbox.style.display === 'none' ? 'block' : 'none';
-                    // Check if at least one checkbox is visible
-                    if (checkbox.style.display === 'block') {
-                        areCheckboxesVisible = true;
-                    }
-                    // Uncheck all checkboxes
-                    if(checkbox.checked){
-                        checkbox.checked=false;
-                    }
+                    checkbox.style.display = areCheckboxesVisible ? 'none' : 'block';
+                    if (areCheckboxesVisible) checkbox.checked = false; // Uncheck all checkboxes if toggling to hide
                 });
-                // Update delete button visibility
-                toggleButtons();
-
+                
                 // Update selection button text
                 const selectionButton = document.getElementById('selectionButton');
                 if (areCheckboxesVisible) {
-                    selectionButton.innerHTML = '<i class="bi bi-check-square"></i> Désélection';
-                } else {
                     selectionButton.innerHTML = '<i class="bi bi-check-square-fill"></i> Sélection';
+                    document.getElementById('select-all-checkbox').style.display = 'none';
+                    document.getElementById('select-all-checkbox').checked = false;
+                } else {
+                    selectionButton.innerHTML = '<i class="bi bi-check-square"></i> Désélection';
+                    document.getElementById('select-all-checkbox').style.display = 'block';
+                }
+
+                // Update delete button visibility
+                updateDeleteButtonVisibility();
+            }
+            // Update delete button visibility
+            function updateDeleteButtonVisibility() {
+                var deleteButtonContainer = document.getElementById('delete-button-container');
+                let isAnyCheckboxChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked && c.style.display === 'block');
+                if (isAnyCheckboxChecked) {
+                    deleteButtonContainer.style.display = 'block';
+                } else {
+                    deleteButtonContainer.style.display = 'none';
                 }
             }
-
             //function to toggle the buttons
             function toggleButtons() {
                 var anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
@@ -490,6 +446,30 @@
                     deleteButtonContainer.style.cursor = 'pointer';
                 }
             }
+        function updateSelectionButtonAndSelectAllCheckbox() {
+            let isAnyCheckboxVisible = false;
+            document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                // Check if at least one checkbox is visible
+                if (checkbox.style.display === 'block') {
+                    isAnyCheckboxVisible = true;
+                }
+            });
+
+            // Update selection button text
+            const selectionButton = document.getElementById('selectionButton');
+            if (isAnyCheckboxVisible) {
+                selectionButton.innerHTML = '<i class="bi bi-check-square"></i> Désélection';
+                // Show the select-all checkbox
+                document.getElementById('select-all-checkbox').style.display = 'block';
+            } else {
+                selectionButton.innerHTML = '<i class="bi bi-check-square-fill"></i> Sélection';
+                // Hide the select-all checkbox
+                document.getElementById('select-all-checkbox').style.display = 'none';
+                
+            }
+    }
+
+
 // **************unchecked all checkbox***************
             function deleteAllCheckboxes() {
                 document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
@@ -499,9 +479,13 @@
                 toggleButtons();
             }
 // *********************************************************************
-            function updateSelectAllCheckbox() {
+        function updateSelectAllCheckbox() {
             var allChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).every(c => c.checked);
+            var anyVisible = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.style.display === 'block');
             document.getElementById('select-all-checkbox').checked = allChecked;
+
+            // Update select-all checkbox visibility
+            document.getElementById('select-all-checkbox').style.display = anyVisible ? 'block' : 'none';
         }
     </script>
     @endpush

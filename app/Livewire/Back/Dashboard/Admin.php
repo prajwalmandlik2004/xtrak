@@ -37,6 +37,8 @@ class Admin extends Component
     public $sortDirection = 'desc';
     public $checkboxes = [];
     public $selectAll = false;
+    public $created_by;
+
 
 
     public function selectCandidate($id, $page)
@@ -236,9 +238,12 @@ class Admin extends Component
         $this->position_id = '';
     }
     public function render()
-    {
-        return view('livewire.back.dashboard.admin')->with([
-            'candidates' => $this->searchCandidates(),
-        ]);
-    }
+{
+    $users = User::all();
+
+    return view('livewire.back.dashboard.admin')->with([
+        'candidates' => $this->searchCandidates(),
+        'users' => $users,
+    ]);
+}
 }

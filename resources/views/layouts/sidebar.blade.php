@@ -146,11 +146,11 @@
                                                          class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Attente' ? 'active' : '' }}"
                                                          data-key="t-chat">En attente </a>
                                                  </li>
-                                                 <li class="nav-item">
+                                                 <!-- <li class="nav-item">
                                                      <a href="{{ route('state', 'Doublon') }}"
                                                          class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Doublon' ? 'active' : '' }}"
                                                          data-key="t-chat">Doublons </a>
-                                                 </li>
+                                                 </li> -->
                                              </ul>
 
                                          </div>

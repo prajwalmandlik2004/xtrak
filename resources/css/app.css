@@ -111,3 +111,7 @@ background-color: #6699FF !important;
     background-color: #0d6efd !important; 
     z-index: 0 !important; 
 }
+.table-info {
+    --vz-table-striped-bg: #00a2ff !important;
+    --vz-table-hover-bg: #3d78e3!important;
+  }
