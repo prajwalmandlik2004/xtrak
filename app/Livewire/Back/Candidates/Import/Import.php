@@ -42,20 +42,44 @@ class Import extends Component
             $worksheet->removeRow(1);
             $usagers = $worksheet->toArray();
             $fileData = [];
-            foreach ($usagers as $usager) {
-                // Skip empty rows
-                if (array_filter($usager)) {
-                    $cell = [];
-                    foreach ($headers as $index => $header) {
-                        if (isset($usager[$index])) {
-                            $cell[$header] = $usager[$index];
-                        } else {
-                            $cell[$header] = null;
-                        }
-                    }
-                    array_push($fileData, $cell);
-                }
+            foreach ($usagers as $key => $usager) {
+                $candidate[$headers[0]] = $usager[0];
+                $candidate[$headers[1]] = $usager[1];
+                $candidate[$headers[2]] = $usager[2];
+                $candidate[$headers[3]] = $usager[3];
+                $candidate[$headers[4]] = $usager[4];
+                $candidate[$headers[5]] = $usager[5];
+                $candidate[$headers[6]] = $usager[6];
+                $candidate[$headers[7]] = $usager[7];
+                $candidate[$headers[8]] = $usager[8];
+                $candidate[$headers[9]] = $usager[9];
+                $candidate[$headers[10]] = $usager[10];
+                $candidate[$headers[11]] = $usager[11];
+                $candidate[$headers[12]] = $usager[12];
+                $candidate[$headers[13]] = $usager[13];
+                $candidate[$headers[14]] = $usager[14];
+                $candidate[$headers[15]] = $usager[15];
+                $candidate[$headers[16]] = $usager[16];
+                $candidate[$headers[17]] = $usager[17];
+                $candidate[$headers[18]] = $usager[18];
+                $candidate[$headers[19]] = $usager[19];
+                $candidate[$headers[20]] = $usager[20];
+                array_push($fileData, $candidate);
             }
+            // foreach ($usagers as $usager) {
+            //     // Skip empty rows
+            //     if (array_filter($usager)) {
+            //         $cell = [];
+            //         foreach ($headers as $index => $header) {
+            //             if (isset($usager[$index])) {
+            //                 $cell[$header] = $usager[$index];
+            //             } else {
+            //                 $cell[$header] = null;
+            //             }
+            //         }
+            //         array_push($fileData, $cell);
+            //     }
+            // }
         } catch (\Throwable $th) {
             return $this->dispatch('alert', type: 'error', message: $th->getMessage());
         }
