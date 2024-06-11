@@ -19,6 +19,7 @@ use App\Http\Controllers\CandidateStateController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\CandidateStatutController;
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,5 +64,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('candidate_statuts', CandidateStatutController::class);
     Route::resource('candidate_states', CandidateStateController::class);
     Route::resource('nsdates', NsDateController::class);
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
-// Route::get('commandes/{param}', [DasboardController::class, 'commande']);
+    //Route::get('commandes/{param}', [DasboardController::class, 'commande']);

@@ -42,64 +42,76 @@ overflow: hidden !important;
 text-overflow: ellipsis !important;
 white-space: nowrap !important;
 }
+.table-responsive table #Lcol {
+max-width: 150px !important;
+}
+.table-responsive table #colState
+ {
+    max-width:100px !important;
+}
+
 .table-hover.table-hover-primary tbody tr:hover {
 background-color: #6699FF !important;
 }
-.cdtnonactiveontable{
+/* .cdtnonactiveontable{
 --vz-table-bg-type: #dadeec !important; 
-}
+} */
 /* ROJO */
 /* Taille du tableau */
 .table-responsive {
-    max-height:520px ;
-    overflow-y: auto; 
+    max-height:520px  !important;
+    overflow-y: auto !important; 
 }
 
 .nav-tabs-custom {
-    display: flex;
-    position: relative;
-    padding-left: 0; /* Ensure no left padding on the list */
-    list-style: none; /* Remove default list styling */
-    margin-bottom: 1rem; /* Space below the tabs */
+    display: flex !important;
+    position: relative !important;
+    padding-left: 0 !important; 
+    list-style: none !important; 
+    margin-bottom: 1rem !important; 
 }
 
 .nav-tabs-custom .nav-item {
-    margin-bottom: -1px;
+    margin-bottom: -1px !important;
 }
 
 .nav-tabs-custom .nav-link {
-    border: 1px solid #0d6efd; /* Blue border */
-    border-bottom: none; /* Remove the bottom border initially */
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    color: #495057;
-    padding: 0.5rem 1rem;
-    margin-right: -1px; /* Prevent double border between items */
-    background-color: #f8f9fa; /* Background color to match the tabs */
-    position: relative;
-    z-index: 1; /* Ensure tabs are above the bottom border */
+    border: 1px solid #0d6efd !important;
+    border-bottom: none !important; 
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+    color: #495057 !important;
+    padding: 0.5rem 1rem !important;
+    margin-right: -1px !important; 
+    background-color: #f8f9fa !important; 
+    position: relative !important;
+    z-index: 1 !important; 
 }
 
 .nav-tabs-custom .nav-link.active {
     color: #ffffff !important;
-    background-color: #0d6efd;
-    border-color: #0d6efd #0d6efd transparent; /* Maintain blue borders, but remove bottom border */
-    font-weight: bold;
-    z-index: 2; /* Bring active tab to the front */
-    top: 0; /* Ensure active tab is properly aligned */
+    background-color: #0d6efd !important;
+    border-color: #0d6efd #0d6efd transparent !important; 
+    font-weight: bold !important;
+    z-index: 2 !important; 
+    top: 0 !important; 
 }
 
 .nav-tabs-custom .nav-link:hover {
-    border-color: #0d6efd; /* Blue border on hover */
+    border-color: #0d6efd !important; 
 }
 
 .nav-tabs-custom::before {
-    content: "";
-    position: absolute;
-    bottom:-2px; /* Position at the bottom */
-    left: 0;
-    width: 100%;
-    height: 1px; /* Adjust height to create a border effect */
-    background-color: #0d6efd; /* Blue color for bottom border */
-    z-index: 0; /* Ensure it is behind the tabs */
+    content: "" !important;
+    position: absolute !important;
+    bottom:-2px !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 1px !important; 
+    background-color: #0d6efd !important; 
+    z-index: 0 !important; 
 }
+.table-info {
+    --vz-table-striped-bg: #00a2ff !important;
+    --vz-table-hover-bg: #3d78e3!important;
+  }

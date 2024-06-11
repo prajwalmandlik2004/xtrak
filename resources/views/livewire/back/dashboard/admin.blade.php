@@ -1,5 +1,5 @@
 <div>
-    {{-- créer par MAHAMADOU ALI ABDOUL RAZAK +226 70147315 --}}
+    {{-- créer par MAHAMADOU ALI AdbDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
         'title' => 'Espace administrateur',
@@ -29,9 +29,8 @@
                             <th scope="col" style="width:100px">Effacer les filtres</th>
                             <th scope="col">Recherche</th>
                             <th scope="col">N lignes</th>
-                            <!-- <th scope="col">Nom</th>
-                            <th scope="col">Date</th> -->
                             <th scope="col">Etat</th>
+                            <!-- <th scope="col">Auteur</th> -->
                             <th scope="col">Statut</th>
                             <th scope="col">Fonction</th>
                             <th scope="col">CP/Dpt</th>
@@ -41,7 +40,7 @@
                         <tr>
                             <td>
                                 <button class="btn btn-danger ms-4" wire:click="resetFilters">
-                                    <i class="ri-delete-bin-line"></i>
+                                    <i class="bi bi-x-lg"></i>
                                 </button>
                             </td>
                             <td>
@@ -57,25 +56,6 @@
                                     <option value="100">100</option>
                                 </select>
                             </td>
-
-                            <!-- <td>
-                                <select class="form-control w-md" wire:model.live='filterName'>
-                                    <option value="" class="bg-secondary text-white" selected>
-                                        Selectionner
-                                    </option>
-                                    <option value="asc">A -> Z</option>
-                                    <option value="desc">Z -> A</option>
-                                </select>
-                            </td> -->
-                            <!-- <td>
-                                <select class="form-control w-md" wire:model.live='filterDate'>
-                                    <option value="" class="bg-secondary text-white" selected>
-                                        Selectionner
-                                    </option>
-                                    <option value="asc">Plus récent en haut</option>
-                                    <option value="desc">Plus ancien en haut</option>
-                                </select>
-                            </td> -->
                             <td>
                                 <select class="form-control w-md" wire:model.live='candidate_state_id'>
                                     <option value="" class="bg-secondary text-white" selected>
@@ -123,23 +103,28 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
-                        <div class="flex-grow-1">
-                            <h4
-                                class="card-title
-                            d-flex justify-content-between align-items-center fw-bold fs-2">
-                                BaseCDT</h4>
+                        <div class="me-3">
+                            <button type="button" class="btn btn-outline-dark" id ="selectionButton">
+                            <i class="bi bi-check-square-fill"></i> Sélection
+                            </button>
                         </div>
-                        <div class="action" id="delete-button-container" style="display: none;">
-                                <ul class="list-inline hstack gap-2 mb-0">
-                                    <li class="list-inline-item">
-                                        <a wire:click=""
-                                            class="text-danger d-inline-block remove-item-btn">
-                                            <i class="ri-delete-bin-5-fill fs-16"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                        <div>
+                                <button wire:click="" class="btn btn-danger" id="delete-button-container"  style="display: none;">
+                                    <i class="bi bi-trash-fill"></i>Supprimer
+                                 </button> 
                         </div>
-                        <div class="" id="exporter">
+                                                <!-- <div class="me-3">
+                            <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
+                            <i class="bi bi-check-square"></i> Désélection
+                            </button>
+                        </div> -->
+                         <div class="flex-grow-1 text-center">
+                            <h4 class="card-title fw-bold fs-2">
+                                BaseCDT
+                            </h4>
+                        </div>
+                        
+                        <div id="exporter">
                             <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel"
                                 type="button" class="btn btn-primary position-relative">
                                 <i class="ri-file-download-line me-1"></i>
@@ -161,12 +146,13 @@
                             class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="bg-secondary text-white sticky-top">
                             <tr>
-                                        <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox" style="display:none;"></th>
+                                        <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox" 
+                                        style="display:none;" wire:model="selectAll"></th>
                                         <th scope="col" wire:click="sortBy('updated_at')">
                                             Date MAJ
                                         </th>
                                         <th scope="col">Aut</th>
-                                        <th scope="col">Civilité</th>
+                                        <th scope="col">Civ</th>
                                         <th scope="col" wire:click="sortBy('first_name')">
                                             Prénom
                                         </th>
@@ -180,7 +166,7 @@
                                         <th scope="col">CP/Dpt</th>
                                         <th scope="col">Ville</th>
                                         <th scope="col">Pays</th>
-                                        <th scope="col">UrlCTC</th>
+                                        <th scope="col">Etat</th>
                                         <th scope="col">Statut</th>
                                         <th scope="col">Disponibilité</th>
                                         <!-- <th scope="col">Etat</th> -->
@@ -197,49 +183,68 @@
                             <tbody>
                                     @forelse ($candidates as $index => $candidate)
                                         <tr data-id="{{ $candidate->id }}"
-                                            class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}">
+                                            class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}"
+                                            wire:dblclick.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
                                             <td class="checkbox-cell">
-                                                <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}" style="display:none;">
+                                                <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}" 
+                                                style="display:none;pointer-events: none;" wire:model="checkboxes.{{ $candidate->id }}">
                                             </td>
                                             <td>{{ \Carbon\Carbon::parse($candidate->updated_at)->format('d/m/y') ?? '--' }}</td>
                                             <td>{{ $candidate->auteur->trigramme ?? '--' }}</td>
                                             <td>{{ $candidate->civ->name ?? '--' }}</td>
                                             <td>{{ $candidate->first_name ?? '--' }}</td>
-                                            <td>{{ $candidate->last_name ?? '--' }}</td>
-                                            <td>{{ $candidate->position->name ?? '--' }}</td>
+                                            <td id="Lcol">{{ $candidate->last_name ?? '--' }}</td>
+                                            <td id="Lcol">{{ $candidate->position->name ?? '--' }}</td>
                                             <td>{{ $candidate->compagny->name ?? '--' }}</td>
                                             <td>{{ $candidate->phone ?? '--' }}</td>
                                             <td>{{ $candidate->email ?? '--' }}</td>
                                             <td>{{ $candidate->postal_code ?? '--' }}</td>
                                             <td>{{ $candidate->city ?? '--' }}</td>
                                             <td>{{ $candidate->country ?? '--' }}</td>
-                                            <td>{{ $candidate->url_ctc ?? '--' }}</td>
+                                        @if($candidate->candidateState->name == 'Certifié')
+                                            <td id="colState">
+                                                <span class="badge rounded-pill bg-success" id="certificate-{{ 0 }}" onclick="toggleCertificate({{ 0 }})">
+                                                    <span id="hidden-certificate-{{ 0 }}">Certifié</span>
+                                                    <span id="visible-certificate-{{ 0 }}" style="display: none;">{{ $candidate->certificate }}</span>
+                                                </span>
+                                            </td>
+                                        @else
+                                            <td>
+                                                {{ $candidate->candidateState->name }}
+                                            </td>
+                                        @endif
                                             <td>{{ $candidate->candidateStatut->name ?? '--' }}</td>
                                             <td>{{ $candidate->disponibility->name ?? '--' }}</td>
                                             <!-- <td>{{ $candidate->candidateState->name ?? '--' }}</td> -->
                                             <td>{{ $candidate->nextStep->name ?? '--' }}</td>
                                             <td>{{ $candidate->nsDate->name ?? '--' }}</td>
                                             <td>
-                                                @if ($candidate->files()->exists())
-                                                    @php
-                                                        $cvFile = $candidate->files()->where('file_type', 'cv')->first();
-                                                    @endphp
-                                                    @if ($cvFile)
-                                                        OK
-                                                    @else
-                                                        n/a
-                                                    @endif
+                                            @if ($candidate->files()->exists())
+                                                @php
+                                                    $cvFile = $candidate->files()->where('file_type', 'cv')->first();
+                                                @endphp
+
+                                                @if ($cvFile)
+                                                    <a class="text-body" href="#"
+                                                        wire:click.prevent="selectCandidateGoToCv('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
                                                 @else
                                                     n/a
                                                 @endif
-                                            </td>
-                                            <td>
-                                                @if ($candidate->cres()->exists())
-                                                    OK
-                                                @else
-                                                    n/a
-                                                @endif
-                                            </td>
+                                            @else
+                                                n/a
+                                            @endif
+
+                                        </td>
+                                        <td>
+                                            @if ($candidate->cres()->exists())
+                                                <a class="text-body " href="#"
+                                                    wire:click.prevent="selectCandidateGoToCre('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
+                                            @else
+                                                n/a
+                                            @endif
+
+
+                                        </td>
                                             <td>{{ $candidate->commentaire ?? '--' }}</td>
                                             <td>{{ $candidate->description ?? '--' }}</td>
                                             <td>{{ $candidate->suivi ?? '--' }}</td>
@@ -247,7 +252,7 @@
                                         
                                     @empty
                                         <tr>
-                                            <td colspan="17" class="text-center">
+                                            <td colspan="50" class="text-center">
                                                 <h5 class="mt-4">Aucun résultat trouvé</h5>
                                             </td>
                                         </tr>
@@ -298,158 +303,203 @@
             }
         </script>
         <script>
-           document.addEventListener('DOMContentLoaded', function() {
-    let lastClickTime = 0;
-    let clickTimeout;
-    const doubleClickDelay = 300; // Milliseconds
-    const deleteButtonContainer = document.getElementById('delete-button-container');
-    let checkboxesDisplayed = false;
-    let selectedCandidateIds = []; // Initialize selectedCandidateIds as an array
-    let candidateId;
-    const exportButton = document.getElementById('exporter');
-
-    // Hide all checkboxes initially
-    document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-        checkbox.style.display = 'none';
-    });
-    // Update the delete button click handler
-function updateDeleteButton() {
-    if (deleteButtonContainer) {
-        deleteButtonContainer.setAttribute('wire:click', `confirmDeleteChecked('${selectedCandidateIds.join(',')}')`);
-        deleteButtonContainer.style.cursor = 'pointer'; // Change cursor to a hand when it hovers over the delete button
-
-        // If deleteButtonContainer is displayed, hide the export button
-        if (deleteButtonContainer.style.display === 'block') {
-            exportButton.style.display = 'none';
-        } else {
-            exportButton.style.display = 'block';
-        }
-    }
-}
-    // Handle row click event
-    document.querySelectorAll('tr[data-id]').forEach(function(row) {
-        row.addEventListener('click', function(event) {
-            candidateId = row.getAttribute('data-id');
-            let currentTime = new Date().getTime();
-
-            if (currentTime - lastClickTime < doubleClickDelay) {
-                // Double-click detected
-                clearTimeout(clickTimeout); // Clear the timeout for the single-click action
-                window.location.href = "{{ url('/candidates') }}/" + candidateId;
-            } else {
-                // Single-click
-                lastClickTime = currentTime;
-                clickTimeout = setTimeout(function() {
-                    // Show all checkboxes on the first click
-                    if (!checkboxesDisplayed) {
-                        document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-                            checkbox.style.display = '';
-                        });
-                        checkboxesDisplayed = true;
-                    }
-                    deleteButtonContainer.style.display = 'block';
-
-                    // Toggle selection class and check/uncheck the checkbox for the clicked row
-                    let checkbox = row.querySelector('.candidate-checkbox');
-                    if (checkbox) {
-                        checkbox.checked = !checkbox.checked; // Toggle checkbox
-                        row.classList.toggle('table-info', checkbox.checked); // Toggle row highlight
-                        if (checkbox.checked) {
-                            selectedCandidateIds.push(candidateId); // Add ID to selected IDs
-                        } else {
-                            selectedCandidateIds = selectedCandidateIds.filter(id => id !== candidateId); // Remove ID from selected IDs
-                        }
-                        updateDeleteButton(); // Update delete button with new selected IDs
-                    }
-                }, doubleClickDelay); // Delay for distinguishing between single and double click
-            }
-        });
-    });
-
-    // Handle direct checkbox click to toggle selection class
-    document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-        checkbox.addEventListener('click', function(event) {
-            let row = checkbox.closest('tr[data-id]');
-            let candidateId = row.getAttribute('data-id');
-            if (row) {
-                row.classList.toggle('table-info', checkbox.checked);
-                if (checkbox.checked) {
-                    selectedCandidateIds.push(candidateId); // Add ID to selected IDs
-                } else {
-                    selectedCandidateIds = selectedCandidateIds.filter(id => id !== candidateId); // Remove ID from selected IDs
+         document.addEventListener('DOMContentLoaded', function() {
+                var selectionButton = document.getElementById('selectionButton');
+                selectionButton.addEventListener('click', toggleCheckboxes);
+                // uncheckedButton.addEventListener('click', deleteAllCheckboxes) 
+                let selectedCandidateIds = [];
+                let candidateId;
+                const doubleClickDelay = 300; // Milliseconds
+                var clickTimeout; 
+                
+                let selectedRow = document.querySelector('.table-info');
+                if (selectedRow) {
+                    selectedRow.scrollIntoView({
+                        block: 'nearest'
+                    });
                 }
-                updateDeleteButton(); // Update delete button with new selected IDs
-            }
-            event.stopPropagation(); // Prevent the row click event from firing
-        });
-    });
 
-   // Handle select all checkbox
-document.getElementById('select-all-checkbox').addEventListener('change', function(event) {
-    let checkboxes = document.querySelectorAll('.candidate-checkbox');
-    if (event.target.checked) {
-        // If the select-all checkbox is checked, add all candidate IDs to selected IDs
-        selectedCandidateIds = [];
-        checkboxes.forEach(function(checkbox) {
-            checkbox.checked = true;
-            let row = checkbox.closest('tr[data-id]');
-            if (row) {
+                document.querySelectorAll('tr[data-id]').forEach(function(row) {
+                    var candidateId = row.getAttribute('data-id');
+
+                    //making checkbox clickable
+                    var checkbox = row.querySelector('.candidate-checkbox');
+                    checkbox.addEventListener('click', function(e) {
+                        e.stopPropagation(); // Prevent the row click event from firing
+                    });
+
+                    row.addEventListener('click', function() {
+    clearTimeout(clickTimeout); // Clear previous timeout
+
+    clickTimeout = setTimeout(function() {
+        // If checkboxes are visible, allow multiple checkboxes to be checked
+        var checkboxesVisible = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.style.display !== 'none');
+
+        if (!checkboxesVisible) {
+            // If checkboxes are not visible, uncheck all checkboxes and remove 'table-info' class from all rows
+            var rows = document.querySelectorAll('tr');
+            rows.forEach(function(r) {
+                var checkbox = r.querySelector('.candidate-checkbox');
+                if (checkbox) { // Check if the checkbox exists
+                    checkbox.checked = false; // Uncheck the checkbox
+                }
+                r.classList.remove('table-info');
+            });
+        }
+
+        // Toggle the checkbox of the clicked row and add/remove 'table-info' class
+        var checkbox = row.querySelector('.candidate-checkbox');
+        if (checkbox) { // Check if the checkbox exists
+            checkbox.checked = !checkbox.checked; // Toggle the checkbox
+            if (checkbox.checked) {
                 row.classList.add('table-info');
-                let candidateId = row.getAttribute('data-id');
-                selectedCandidateIds.push(candidateId);
-            }
-        });
-    } else {
-        // If the select-all checkbox is unchecked, reset selected IDs
-        selectedCandidateIds = [];
-        checkboxes.forEach(function(checkbox) {
-            checkbox.checked = false;
-            let row = checkbox.closest('tr[data-id]');
-            if (row) {
+            } else {
                 row.classList.remove('table-info');
             }
-        });
-    }
-    updateDeleteButton(); // Update delete button with new selected IDs
+        }
 
-    // Check if any checkbox is checked
-    let anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
-    // Show or hide deleteButtonContainer based on whether any checkbox is checked
-    deleteButtonContainer.style.display = anyChecked ? 'block' : 'none';
+        // Check if any checkbox is checked and toggle the buttons
+        toggleButtons();
+        deleteSelectedCandidates();
+        updateSelectAllCheckbox();
+
+        // Update selection button and select-all checkbox
+        updateSelectionButtonAndSelectAllCheckbox();
+
+    }, doubleClickDelay);
+});
+                        var checkbox = row.querySelector('.candidate-checkbox');
+                        checkbox.addEventListener('change', function(e) {
+                            // Check if any checkbox is checked and toggle the buttons
+                            toggleButtons();
+                            deleteSelectedCandidates();
+                        });
+                });
+
+               // check & uncheck all checkboxes
+            document.getElementById('select-all-checkbox').addEventListener('change', function(e) {
+                var isChecked = e.target.checked;
+                document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                    checkbox.checked = isChecked;
+                    checkbox.style.display = isChecked ? 'block' : 'none';
+                });
+                toggleButtons();
+                deleteSelectedCandidates();                   
+            });
+              // Select all checkboxes functionality
+            document.getElementById('select-all-checkbox').addEventListener('change', function() {
+                var isChecked = this.checked;
+                document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                    checkbox.checked = isChecked;
+                    checkbox.style.display = 'block'; // Keep checkboxes visible
+                });
+                toggleButtons();
+                updateSelectionButtonAndSelectAllCheckbox();
+            });
+                            
 });
 
-   // Handle direct checkbox click to toggle selection class
-document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
-    checkbox.addEventListener('click', function(event) {
-        let row = checkbox.closest('tr[data-id]');
-        let candidateId = row.getAttribute('data-id');
-        if (row) {
-            row.classList.toggle('table-info', checkbox.checked);
-            if (checkbox.checked) {
-                // If checkbox is checked, add ID to selected IDs
-                if (!selectedCandidateIds.includes(candidateId)) {
-                    selectedCandidateIds.push(candidateId);
+/*************************************************************************************/
+            // Toggle selection checkboxes
+            function toggleCheckboxes() {
+                let areCheckboxesVisible = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.style.display === 'block');
+                document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                    checkbox.style.display = areCheckboxesVisible ? 'none' : 'block';
+                    if (areCheckboxesVisible) checkbox.checked = false; // Uncheck all checkboxes if toggling to hide
+                });
+                
+                // Update selection button text
+                const selectionButton = document.getElementById('selectionButton');
+                if (areCheckboxesVisible) {
+                    selectionButton.innerHTML = '<i class="bi bi-check-square-fill"></i> Sélection';
+                    document.getElementById('select-all-checkbox').style.display = 'none';
+                    document.getElementById('select-all-checkbox').checked = false;
+                } else {
+                    selectionButton.innerHTML = '<i class="bi bi-check-square"></i> Désélection';
+                    document.getElementById('select-all-checkbox').style.display = 'block';
                 }
-            } else {
-                // If checkbox is unchecked, remove ID from selected IDs
-                selectedCandidateIds = selectedCandidateIds.filter(id => id !== candidateId);
+
+                // Update delete button visibility
+                updateDeleteButtonVisibility();
             }
-            updateDeleteButton(); // Update delete button with new selected IDs
-        }
-        event.stopPropagation(); // Prevent the row click event from firing
+            // Update delete button visibility
+            function updateDeleteButtonVisibility() {
+                var deleteButtonContainer = document.getElementById('delete-button-container');
+                let isAnyCheckboxChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked && c.style.display === 'block');
+                if (isAnyCheckboxChecked) {
+                    deleteButtonContainer.style.display = 'block';
+                } else {
+                    deleteButtonContainer.style.display = 'none';
+                }
+            }
+            //function to toggle the buttons
+            function toggleButtons() {
+                var anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
+                var deleteButtonContainer = document.getElementById('delete-button-container');
+                var exporter = document.getElementById('exporter');
 
-        // If checkbox is unchecked, uncheck the select-all checkbox
-        if (!checkbox.checked) {
-            document.getElementById('select-all-checkbox').checked = false;
-        }
+                if (anyChecked) {
+                    deleteButtonContainer.style.display = 'block';
+                    exporter.style.display = 'none';
+                } else {
+                    deleteButtonContainer.style.display = 'none';
+                    exporter.style.display = 'block';
+                }
+            }
 
-        // Check if any checkbox is checked
-        let anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
-        // Show or hide deleteButtonContainer based on whether any checkbox is checked
-        deleteButtonContainer.style.display = anyChecked ? 'block' : 'none';
-    });
-});
-});
-        </script>
+            function deleteSelectedCandidates() {
+                let selectedCandidateIds = Array.from(document.querySelectorAll('.candidate-checkbox:checked'))
+                    .map(checkbox => checkbox.closest('tr').getAttribute('data-id'))
+                    .filter(id => id !== null && id !== '');
+                console.log(selectedCandidateIds);
+
+                let deleteButtonContainer = document.getElementById('delete-button-container');
+                if(deleteButtonContainer){
+                    deleteButtonContainer.setAttribute('wire:click', `confirmDeleteChecked('${selectedCandidateIds.join(',')}')`);
+                    deleteButtonContainer.style.cursor = 'pointer';
+                }
+            }
+        function updateSelectionButtonAndSelectAllCheckbox() {
+            let isAnyCheckboxVisible = false;
+            document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                // Check if at least one checkbox is visible
+                if (checkbox.style.display === 'block') {
+                    isAnyCheckboxVisible = true;
+                }
+            });
+
+            // Update selection button text
+            const selectionButton = document.getElementById('selectionButton');
+            if (isAnyCheckboxVisible) {
+                selectionButton.innerHTML = '<i class="bi bi-check-square"></i> Désélection';
+                // Show the select-all checkbox
+                document.getElementById('select-all-checkbox').style.display = 'block';
+            } else {
+                selectionButton.innerHTML = '<i class="bi bi-check-square-fill"></i> Sélection';
+                // Hide the select-all checkbox
+                document.getElementById('select-all-checkbox').style.display = 'none';
+                
+            }
+    }
+
+
+// **************unchecked all checkbox***************
+            function deleteAllCheckboxes() {
+                document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
+                    checkbox.checked = false;
+                });
+                // update delete button visibility
+                toggleButtons();
+            }
+// *********************************************************************
+        function updateSelectAllCheckbox() {
+            var allChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).every(c => c.checked);
+            var anyVisible = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.style.display === 'block');
+            document.getElementById('select-all-checkbox').checked = allChecked;
+
+            // Update select-all checkbox visibility
+            document.getElementById('select-all-checkbox').style.display = anyVisible ? 'block' : 'none';
+        }
+    </script>
     @endpush
 </div>

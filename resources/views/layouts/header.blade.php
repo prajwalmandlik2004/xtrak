@@ -43,7 +43,7 @@
                 $user = \App\Models\User::first();
             @endphp
             <div class="d-flex align-items-center">
-                <div class="header-item">
+                <!-- <div class="header-item">
                     @if (!auth()->user()->hasRole('Administrateur'))
 
                         @if ($user->is_connect)
@@ -52,7 +52,7 @@
                             {{ $user->first_name }} {{ $user->last_name }} est : Hors ligne
                         @endif
                     @endif
-                </div>
+                </div> -->
                 {{-- <div class="ms-1 header-item d-none d-sm-flex">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                         data-toggle="fullscreen">

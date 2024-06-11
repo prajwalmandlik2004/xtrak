@@ -149,6 +149,10 @@ class CandidateFile extends Component
             session()->flash('message', 'Le fichier n\'existe pas.');
         }
     }
+    public function goToCv($candidateId)
+    {
+        return redirect()->route('candidate.cv', ['candidate' => $candidateId]);
+    }
     
     public function render()
     {
