@@ -32,7 +32,7 @@ class Import extends Component
     public $accepted = [];
     public function storeData()
     {
-        set_time_limit(0); 
+        // set_time_limit(0); 
         try {
             $path = Storage::putFile('/public/files', $this->file);
             $filepath = Storage::path($path);
