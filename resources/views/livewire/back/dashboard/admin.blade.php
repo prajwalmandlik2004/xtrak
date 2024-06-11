@@ -18,6 +18,17 @@
                 </div>
 
             </div>
+            <div class="p-2 ms-3">
+                <span class="font-size-14 me-5">
+                    Total candidats: <strong> {{ $candidates->total() }} {{ $candidates->total() > 1 ? 'candidats' : 'candidat' }} </strong>
+                </span>
+                <span class="font-size-14 ms-10">
+                    Total candidats certifiés: <strong> {{ $certifiedCandidatesCount }} </strong>
+                </span>
+                <span class="font-size-14 ms-5">
+                    Total candidats en attente: <strong> {{ $uncertifiedCandidatesCount }} </strong>
+                </span>
+            </div>
         </div>
 
         <div class="col-md-12 mt-4 mb-3">
@@ -30,7 +41,7 @@
                             <th scope="col">Recherche</th>
                             <th scope="col">N lignes</th>
                             <th scope="col">Etat</th>
-                            <!-- <th scope="col">Auteur</th> -->
+                            <th scope="col">Auteur</th>
                             <th scope="col">Statut</th>
                             <th scope="col">Fonction</th>
                             <th scope="col">CP/Dpt</th>
@@ -64,6 +75,18 @@
                                     <option value="" selected>Tous</option>
                                     @foreach ($candidateStates as $candidateState)
                                         <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='users_id'>
+                                    <option value="" class="bg-secondary text-white" selected>
+                                        Selectionner
+                                    </option>
+                                    <option value="" selected>Tous</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}"> {{ $user->trigramme }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -329,52 +352,58 @@
                     });
 
                     row.addEventListener('click', function() {
-    clearTimeout(clickTimeout); // Clear previous timeout
+                        clearTimeout(clickTimeout); // Clear previous timeout
 
-    clickTimeout = setTimeout(function() {
-        // If checkboxes are visible, allow multiple checkboxes to be checked
-        var checkboxesVisible = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.style.display !== 'none');
+                        clickTimeout = setTimeout(function() {
+                            var checkbox = row.querySelector('.candidate-checkbox');
+                            if (checkbox && checkbox.style.display === 'block') {
+                                // If checkboxes are visible, just toggle the checkbox and remove 'table-info' class from all rows
+                                checkbox.checked = !checkbox.checked;
+                                document.querySelectorAll('tr[data-id]').forEach(function(otherRow) {
+                                    otherRow.classList.remove('table-info');
+                                });
+                            } else {
+                                // If the clicked row already has the 'table-info' class, remove it, otherwise add it
+                                if (row.classList.contains('table-info')) {
+                                    row.classList.remove('table-info');
+                                    if (checkbox) { // Check if the checkbox exists
+                                        checkbox.checked = false;
+                                    }
+                                } else {
+                                    // Remove 'table-info' class and uncheck all other rows
+                                    document.querySelectorAll('tr[data-id]').forEach(function(otherRow) {
+                                        otherRow.classList.remove('table-info');
+                                        var otherCheckbox = otherRow.querySelector('.candidate-checkbox');
+                                        if (otherCheckbox) { // Check if the checkbox exists
+                                            otherCheckbox.checked = false;
+                                        }
+                                    });
 
-        if (!checkboxesVisible) {
-            // If checkboxes are not visible, uncheck all checkboxes and remove 'table-info' class from all rows
-            var rows = document.querySelectorAll('tr');
-            rows.forEach(function(r) {
-                var checkbox = r.querySelector('.candidate-checkbox');
-                if (checkbox) { // Check if the checkbox exists
-                    checkbox.checked = false; // Uncheck the checkbox
-                }
-                r.classList.remove('table-info');
-            });
-        }
+                                    // Add 'table-info' class and check the clicked row
+                                    row.classList.add('table-info');
+                                    if (checkbox) { // Check if the checkbox exists
+                                        checkbox.checked = true;
+                                    }
+                                }
+                            }
 
-        // Toggle the checkbox of the clicked row and add/remove 'table-info' class
-        var checkbox = row.querySelector('.candidate-checkbox');
-        if (checkbox) { // Check if the checkbox exists
-            checkbox.checked = !checkbox.checked; // Toggle the checkbox
-            if (checkbox.checked) {
-                row.classList.add('table-info');
-            } else {
-                row.classList.remove('table-info');
-            }
-        }
+                            // Check if any checkbox is checked and toggle the buttons
+                            toggleButtons();
+                            deleteSelectedCandidates();
+                            updateSelectAllCheckbox();
 
-        // Check if any checkbox is checked and toggle the buttons
-        toggleButtons();
-        deleteSelectedCandidates();
-        updateSelectAllCheckbox();
+                            // Update selection button and select-all checkbox
+                            updateSelectionButtonAndSelectAllCheckbox();
 
-        // Update selection button and select-all checkbox
-        updateSelectionButtonAndSelectAllCheckbox();
-
-    }, doubleClickDelay);
-});
-                        var checkbox = row.querySelector('.candidate-checkbox');
+                        }, doubleClickDelay);
+                    });
+                    var checkbox = row.querySelector('.candidate-checkbox');
                         checkbox.addEventListener('change', function(e) {
                             // Check if any checkbox is checked and toggle the buttons
                             toggleButtons();
                             deleteSelectedCandidates();
                         });
-                });
+                    });
 
                // check & uncheck all checkboxes
             document.getElementById('select-all-checkbox').addEventListener('change', function(e) {

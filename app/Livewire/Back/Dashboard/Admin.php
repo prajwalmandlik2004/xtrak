@@ -32,12 +32,16 @@ class Admin extends Component
     public $candidateStates;
     public $positions;
     public $position_id;
+    public $users_id;
+    public $users;
     public $cp;
     public $sortColumn = 'last_name';
     public $sortDirection = 'desc';
     public $checkboxes = [];
     public $selectAll = false;
     public $created_by;
+    public $certifiedCandidatesCount;
+    public $uncertifiedCandidatesCount;
 
     public function selectCandidate($id, $page)
     {
@@ -122,9 +126,10 @@ class Admin extends Component
     }
     public function searchCandidates()
     {
+        \Log::info('searchCandidates method called with search: ' . $this->search);
         $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country'];
-
-        return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field'])
+    
+        return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur'])
             ->where(function ($query) use ($searchFields) {
                 $query
                     ->where(function ($query) use ($searchFields) {
@@ -132,7 +137,6 @@ class Admin extends Component
                             $query->orWhere($field, 'like', '%' . $this->search . '%');
                         }
                     })
-
                     ->orWhereHas('disponibility', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     })
@@ -147,6 +151,9 @@ class Admin extends Component
                     })
                     ->orWhereHas('field', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('auteur', function ($query) {
+                        $query->where('trigramme', 'like', '%' . $this->search . '%');
                     });
             })
             ->when($this->filterName, function ($query) {
@@ -164,12 +171,17 @@ class Admin extends Component
             ->when($this->position_id, function ($query) {
                 $query->where('position_id', $this->position_id);
             })
+            ->when($this->users_id, function ($query) {
+                $query->where('created_by', $this->users_id);
+            })
             ->when($this->cp, function ($query) {
                 $query->where('postal_code', 'like', '%' . $this->cp . '%');
             })
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate($this->nbPaginate);
     }
+    
+    
     public function confirmDelete($nom, $id)
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);
@@ -191,6 +203,10 @@ class Admin extends Component
         $this->positions = Position::all();
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidateStates = CandidateState::all();
+        $this->users = User::all();
+        $this->certifiedCandidatesCount = $this->countCertifiedCandidates();
+        $this->uncertifiedCandidatesCount = $this->countUncertifiedCandidates();
+
         if (session()->has('dash_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('dash_base_cdt_selected_candidate_id');
         }
@@ -234,7 +250,20 @@ class Admin extends Component
         $this->candidate_state_id = '';
         $this->candidate_statut_id = '';
         $this->position_id = '';
+        $this->users_id = '';
     }
+    public function countCertifiedCandidates()
+    {
+        return Candidate::whereHas('candidateState', function ($query) {
+            $query->where('name', 'Certifié');
+        })->count();
+    }
+    public function countUncertifiedCandidates()
+{
+    return Candidate::whereHas('candidateState', function ($query) {
+        $query->where('name', 'Attente');
+    })->count();
+}
     public function render()
 {
     $users = User::all();
