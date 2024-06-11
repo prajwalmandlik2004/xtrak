@@ -34,12 +34,12 @@ class Import extends Component
     public function storeData()
     {
         // Configuration des paramètres PHP pour augmenter le temps d'exécution et la mémoire
-        ini_set('max_execution_time', 7200); 
-        ini_set('memory_limit', '512M'); 
+        ini_set('max_execution_time',43200); 
+        ini_set('memory_limit', '10G'); 
 
         // Configuration des paramètres de session MySQL
-        DB::statement('SET SESSION wait_timeout = 28800;');
-        DB::statement('SET SESSION interactive_timeout = 28800;');
+        DB::statement('SET SESSION wait_timeout = 38800;');
+        DB::statement('SET SESSION interactive_timeout = 38800;');
 
         try {
             $path = Storage::putFile('/public/files', $this->file);
