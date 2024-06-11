@@ -34,7 +34,7 @@ class Import extends Component
     public function storeData()
     {
         // Configuration des paramètres PHP pour augmenter le temps d'exécution et la mémoire
-        ini_set('max_execution_time', 3600); 
+        ini_set('max_execution_time', 7200); 
         ini_set('memory_limit', '512M'); 
 
         // Configuration des paramètres de session MySQL
