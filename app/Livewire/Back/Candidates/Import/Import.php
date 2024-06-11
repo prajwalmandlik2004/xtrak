@@ -62,6 +62,7 @@ class Import extends Component
                 $cell[$headers[17]] = $usager[17];
                 $cell[$headers[18]] = $usager[18];
                 $cell[$headers[19]] = $usager[19];
+                $cell[$headers[20]] = $usager[20];
                 array_push($fileData, $cell);
             }
         } catch (\Throwable $th) {
