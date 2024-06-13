@@ -37,14 +37,17 @@
                 <table class="table table-bordered border-secondary table-nowrap">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col" style="width:100px">Effacer les filtres</th>
+                            <th scope="col" style="width:100px">Effacer</th>
                             <th scope="col">Recherche</th>
                             <th scope="col">N lignes</th>
-                            <th scope="col">Etat</th>
                             <th scope="col">Auteur</th>
+                            <th scope="col">Etat</th>
                             <th scope="col">Statut</th>
+                            <th scope="col">Société</th>
                             <th scope="col">Fonction</th>
                             <th scope="col">CP/Dpt</th>
+                            <th scope="col">CV</th> 
+                            <th scope="col">CRE</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -68,6 +71,18 @@
                                 </select>
                             </td>
                             <td>
+                                <select class="form-control w-md" wire:model.live='users_id'>
+                                    <option value="" class="bg-secondary text-white" selected>
+                                       Auteur
+                                    </option>
+                                    <option value="" selected>Tous</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}"> {{ $user->trigramme }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
                                 <select class="form-control w-md" wire:model.live='candidate_state_id'>
                                     <option value="" class="bg-secondary text-white" selected>
                                         Selectionner
@@ -75,18 +90,6 @@
                                     <option value="" selected>Tous</option>
                                     @foreach ($candidateStates as $candidateState)
                                         <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control w-md" wire:model.live='users_id'>
-                                    <option value="" class="bg-secondary text-white" selected>
-                                        Selectionner
-                                    </option>
-                                    <option value="" selected>Tous</option>
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}"> {{ $user->trigramme }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -103,6 +106,10 @@
                                 </select>
                             </td>
                             <td>
+                                <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+                               
+                            </td>
+                            <td>
                                 <select class="form-control w-md" wire:model.live='position_id'>
                                     <option value="" selected>Fonction</option>
                                     @foreach ($positions as $position)
@@ -114,6 +121,20 @@
                                 <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
 
                             </td>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                    <option value="" selected>Selectionner</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </td>
+                            <td> 
+                            <select class="form-control w-md" wire:model.live='creFileExists'>
+                                <option value="" selected>Selectionner</option>
+                                <option value="1">Oui</option>
+                                <option value="0">Non</option>
+                            </select>
+                        </td>
                         </tr>
                     </tbody>
                 </table>
@@ -166,7 +187,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table
-                            class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
+                            class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="bg-secondary text-white sticky-top">
                             <tr>
                                         <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox" 

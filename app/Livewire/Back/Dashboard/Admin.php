@@ -17,11 +17,16 @@ use App\Repositories\CandidateRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Response;
+
 class Admin extends Component
 {
     use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
     public $search = '';
+    public $company = '';
+    public $cv = '';
+    public $cre_ref = '';   
     public $nbPaginate = 30;
     public $candidate_statut_id = '';
     public $candidateStatuses;
@@ -42,6 +47,8 @@ class Admin extends Component
     public $created_by;
     public $certifiedCandidatesCount;
     public $uncertifiedCandidatesCount;
+    public $cvFileExists = '';
+    public $creFileExists = '';
 
     public function selectCandidate($id, $page)
     {
@@ -51,6 +58,7 @@ class Admin extends Component
         session(['dash_base_cdt_nb_paginate' => $this->nbPaginate]);
         return redirect()->route('candidates.show', $id);
     }
+
     public function selectCandidateGoToCre($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -59,6 +67,7 @@ class Admin extends Component
         session(['base_cdt_nb_paginate' => $this->nbPaginate]);
         return redirect()->route('candidate.cre', $id);
     }
+
     public function selectCandidateGoToCv($id, $page)
     {
         $this->selectedCandidateId = $id;
@@ -67,7 +76,8 @@ class Admin extends Component
         session(['base_cdt_nb_paginate' => $this->nbPaginate]);
         return redirect()->route('candidate.cv', $id);
     }
-    #[On('delete')]// modified
+
+    #[On('delete')]
     public function deleteData($id)
     {
         $candidateRepository = new CandidateRepository();
@@ -80,42 +90,26 @@ class Admin extends Component
             }
             
             DB::commit();
-            $this->dispatch('alert', type: 'success', message: "Les candidats sont supprimés avec succès" );
+            $this->dispatch('alert', type: 'success', message: "Les candidats sont supprimés avec succès");
             $this->checkboxes = [];
             $this->selectAll = false;
 
         } catch (\Throwable $th) {
             DB::rollBack();
             $ids = implode(', ', $id);
-    
             $this->dispatch('alert', type: 'error', message: "Impossible de supprimer les candidats");
         }
-        /*
-        }else
-        {
-            $candidate = $candidateRepository->find($id);
-            try {
-                $candidateRepository->delete($candidate->id);
-                DB::commit();
-                $this->dispatch('alert', type: 'success', message: 'le candidat est supprimé avec succès');
-            } catch (\Throwable $th) {
-                DB::rollBack();
-                $this->dispatch('alert', type: 'error', message: "Impossible de supprimer le candidat $candidate->first_name. $candidate->laste_name");
-            }
-        }
-        */
     }
 
     public function updatedSelectAll($value)
-{
-    if ($value) {
-        // If the select all box is checked, check all checkboxes
-        $this->checkboxes = Candidate::pluck('id')->toArray();
-    } else {
-        // If the select all box is unchecked, uncheck all checkboxes
-        $this->checkboxes = [];
+    {
+        if ($value) {
+            $this->checkboxes = Candidate::pluck('id')->toArray();
+        } else {
+            $this->checkboxes = [];
+        }
     }
-}
+
     public function sortBy($column)
     {
         $this->sortDirection = $this->sortColumn === $column
@@ -124,11 +118,12 @@ class Admin extends Component
     
         $this->sortColumn = $column;
     }
+
     public function searchCandidates()
     {
         \Log::info('searchCandidates method called with search: ' . $this->search);
         $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country'];
-    
+
         return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur'])
             ->where(function ($query) use ($searchFields) {
                 $query
@@ -177,26 +172,44 @@ class Admin extends Component
             ->when($this->cp, function ($query) {
                 $query->where('postal_code', 'like', '%' . $this->cp . '%');
             })
+            ->when($this->company, function ($query) {
+                $query->whereHas('compagny', function ($query) {
+                    $query->where('name', 'like', '%' . $this->company . '%');
+                });
+            })
+            ->when($this->cvFileExists !== '', function ($query) {
+                if ($this->cvFileExists) {
+                    return $query->whereHas('files', function ($query) {
+                        $query->where('file_type', 'cv');
+                    });
+                } else {
+                    return $query->whereDoesntHave('files', function ($query) {
+                        $query->where('file_type', 'cv');
+                    });
+                }
+            })
+            ->when($this->creFileExists !== '', function ($query) {
+                if ($this->creFileExists) {
+                    return $query->whereHas('cres');
+                } else {
+                    return $query->whereDoesntHave('cres');
+                }
+            })
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate($this->nbPaginate);
     }
-    
-    
+
     public function confirmDelete($nom, $id)
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);
     }
 
-     //
-     public function confirmDeleteChecked($id)
-     {
-         $idsArray = explode(",", $id); // transform the string set passed by JS into an array
-         //idsString = implode(", ", $idsArray);
-         $this->dispatch('swal:confirm', title: 'Suppression', 
-         text: "Vous-êtes sur le point de supprimer le(s) candidat(s) séléctionné(s)", type: 'warning', method: 'delete', id: $idsArray);
-        
-     }
-     //
+    public function confirmDeleteChecked($id)
+    {
+        $idsArray = explode(",", $id);
+        $this->dispatch('swal:confirm', title: 'Suppression', 
+        text: "Vous-êtes sur le point de supprimer le(s) candidat(s) séléctionné(s)", type: 'warning', method: 'delete', id: $idsArray);
+    }
 
     public function mount()
     {
@@ -218,6 +231,7 @@ class Admin extends Component
             $this->nbPaginate = session('dash_base_cdt_nb_paginate');
         }
     }
+
     public function downloadExcel()
     {
         try {
@@ -228,7 +242,29 @@ class Admin extends Component
             $sheet->fromArray([$headers], null, 'A1');
             $row = 2;
             foreach ($candidates as $candidate) {
-                $rowData = [$candidate->source ?? '', $candidate->code_cdt ?? '', $candidate->auteur->trigramme ?? '', $candidate->civ->name ?? '', $candidate->first_name ?? '', $candidate->last_name ?? '', $candidate->position->name ?? '', $candidate->speciality->name ?? '', $candidate->field->name ?? '', $candidate->compagny->name ?? '', $candidate->email ?? '', $candidate->phone ?? '', $candidate->phone2 ?? '', $candidate->url_ctc ?? '', $candidate->postal_code ?? '', $candidate->city ?? '', $candidate->region ?? '', $candidate->disponibility->name ?? '', $candidate->candidateStatut->name ?? '', $candidate->nextStep->name ?? '', $candidate->nsDate->name ?? ''];
+                $rowData = [
+                    $candidate->source ?? '',
+                    $candidate->code_cdt ?? '',
+                    $candidate->auteur->trigramme ?? '',
+                    $candidate->civ->name ?? '',
+                    $candidate->first_name ?? '',
+                    $candidate->last_name ?? '',
+                    $candidate->position->name ?? '',
+                    $candidate->speciality->name ?? '',
+                    $candidate->field->name ?? '',
+                    $candidate->compagny->name ?? '',
+                    $candidate->email ?? '',
+                    $candidate->phone ?? '',
+                    $candidate->phone2 ?? '',
+                    $candidate->url_ctc ?? '',
+                    $candidate->postal_code ?? '',
+                    $candidate->city ?? '',
+                    $candidate->region ?? '',
+                    $candidate->disponibility->name ?? '',
+                    $candidate->candidateStatut->name ?? '',
+                    $candidate->nextStep->name ?? '',
+                    $candidate->nsDate->name ?? ''
+                ];
                 $sheet->fromArray([$rowData], null, 'A' . $row);
                 $row++;
             }
@@ -242,6 +278,7 @@ class Admin extends Component
             $this->dispatch('alert', type: 'error', message: "Une erreure est survenu, veuillez réessayez ou contacter l'administrateur");
         }
     }
+
     public function resetFilters()
     {
         $this->search = '';
@@ -251,26 +288,32 @@ class Admin extends Component
         $this->candidate_statut_id = '';
         $this->position_id = '';
         $this->users_id = '';
+        $this->cp = '';
+        $this->cvFileExists = ''; 
+        $this->creFileExists = ''; 
     }
+
     public function countCertifiedCandidates()
     {
         return Candidate::whereHas('candidateState', function ($query) {
             $query->where('name', 'Certifié');
         })->count();
     }
-    public function countUncertifiedCandidates()
-{
-    return Candidate::whereHas('candidateState', function ($query) {
-        $query->where('name', 'Attente');
-    })->count();
-}
-    public function render()
-{
-    $users = User::all();
 
-    return view('livewire.back.dashboard.admin')->with([
-        'candidates' => $this->searchCandidates(),
-        'users' => $users,
-    ]);
-}
+    public function countUncertifiedCandidates()
+    {
+        return Candidate::whereHas('candidateState', function ($query) {
+            $query->where('name', 'Attente');
+        })->count();
+    }
+
+    public function render()
+    {
+        $users = User::all();
+
+        return view('livewire.back.dashboard.admin')->with([
+            'candidates' => $this->searchCandidates(),
+            'users' => $users,
+        ]);
+    }
 }

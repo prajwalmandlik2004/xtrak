@@ -24,17 +24,19 @@
             <div class="table-responsive">
                 <h5 class="mb-0">Paramètres de tri des candidats</h5>
                 <table class="table table-bordered border-secondary table-nowrap">
-                    <thead>
+                <thead>
                         <tr class="text-center">
-                            <th scope="col" style="width:100px">Effacer les filtres</th>
+                            <th scope="col" style="width:100px">Effacer</th>
                             <th scope="col">Recherche</th>
                             <th scope="col">N lignes</th>
-                            <!-- <th scope="col">Nom</th>
-                            <th scope="col">Date</th> -->
+                            <!-- <th scope="col">Auteur</th> -->
                             <th scope="col">Etat</th>
                             <th scope="col">Statut</th>
+                            <th scope="col">Société</th>
                             <th scope="col">Fonction</th>
                             <th scope="col">CP/Dpt</th>
+                            <th scope="col">CV</th> 
+                            <th scope="col">CRE</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -57,25 +59,7 @@
                                     <option value="100">100</option>
                                 </select>
                             </td>
-
-                            <!-- <td>
-                                <select class="form-control w-md" wire:model.live='filterName'>
-                                    <option value="" class="bg-secondary text-white" selected>
-                                        Selectionner
-                                    </option>
-                                    <option value="asc">A -> Z</option>
-                                    <option value="desc">Z -> A</option>
-                                </select>
-                            </td> -->
-                            <!-- <td>
-                                <select class="form-control w-md" wire:model.live='filterDate'>
-                                    <option value="" class="bg-secondary text-white" selected>
-                                        Selectionner
-                                    </option>
-                                    <option value="asc">Plus récent en haut</option>
-                                    <option value="desc">Plus ancien en haut</option>
-                                </select>
-                            </td> -->
+                            <!--  -->
                             <td>
                                 <select class="form-control w-md" wire:model.live='candidate_state_id'>
                                     <option value="" class="bg-secondary text-white" selected>
@@ -100,6 +84,10 @@
                                 </select>
                             </td>
                             <td>
+                                <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+                               
+                            </td>
+                            <td>
                                 <select class="form-control w-md" wire:model.live='position_id'>
                                     <option value="" selected>Fonction</option>
                                     @foreach ($positions as $position)
@@ -111,6 +99,20 @@
                                 <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
 
                             </td>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                    <option value="" selected>Selectionner</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </td>
+                            <td> 
+                            <select class="form-control w-md" wire:model.live='creFileExists'>
+                                <option value="" selected>Selectionner</option>
+                                <option value="1">Oui</option>
+                                <option value="0">Non</option>
+                            </select>
+                        </td>
                         </tr>
                     </tbody>
                 </table>
@@ -163,7 +165,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table
-                            class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
+                            class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="bg-secondary text-white sticky-top">
                             <tr>
                                         <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox" 
@@ -171,8 +173,8 @@
                                         <th scope="col" wire:click="sortBy('updated_at')">
                                             Date MAJ
                                         </th>
-                                        <th scope="col">Aut</th>
-                                        <th scope="col">Civ</th>
+                                        <th scope="col">Aut.</th>
+                                        <th scope="col">Civ.</th>
                                         <th scope="col" wire:click="sortBy('first_name')">
                                             Prénom
                                         </th>
@@ -322,7 +324,7 @@
                 }
             }
         </script>
-        <script>
+     <script>
          document.addEventListener('DOMContentLoaded', function() {
                 var selectionButton = document.getElementById('selectionButton');
                 selectionButton.addEventListener('click', toggleCheckboxes);
@@ -348,20 +350,40 @@
                         e.stopPropagation(); // Prevent the row click event from firing
                     });
 
-                  
                     row.addEventListener('click', function() {
                         clearTimeout(clickTimeout); // Clear previous timeout
 
                         clickTimeout = setTimeout(function() {
                             var checkbox = row.querySelector('.candidate-checkbox');
-                            if (checkbox.style.display === 'none' || !checkbox.checked) {
-                                checkbox.style.display = 'block'; // Show the checkbox of the clicked row
-                                checkbox.checked = true; // Check the checkbox of the clicked row
-                                row.classList.add('table-info');
+                            if (checkbox && checkbox.style.display === 'block') {
+                                // If checkboxes are visible, just toggle the checkbox and remove 'table-info' class from all rows
+                                checkbox.checked = !checkbox.checked;
+                                document.querySelectorAll('tr[data-id]').forEach(function(otherRow) {
+                                    otherRow.classList.remove('table-info');
+                                });
                             } else {
-                                checkbox.style.display = 'none'; // Hide the checkbox of the clicked row
-                                checkbox.checked = false; // Uncheck the checkbox of the clicked row
-                                row.classList.remove('table-info');
+                                // If the clicked row already has the 'table-info' class, remove it, otherwise add it
+                                if (row.classList.contains('table-info')) {
+                                    row.classList.remove('table-info');
+                                    if (checkbox) { // Check if the checkbox exists
+                                        checkbox.checked = false;
+                                    }
+                                } else {
+                                    // Remove 'table-info' class and uncheck all other rows
+                                    document.querySelectorAll('tr[data-id]').forEach(function(otherRow) {
+                                        otherRow.classList.remove('table-info');
+                                        var otherCheckbox = otherRow.querySelector('.candidate-checkbox');
+                                        if (otherCheckbox) { // Check if the checkbox exists
+                                            otherCheckbox.checked = false;
+                                        }
+                                    });
+
+                                    // Add 'table-info' class and check the clicked row
+                                    row.classList.add('table-info');
+                                    if (checkbox) { // Check if the checkbox exists
+                                        checkbox.checked = true;
+                                    }
+                                }
                             }
 
                             // Check if any checkbox is checked and toggle the buttons
@@ -374,14 +396,13 @@
 
                         }, doubleClickDelay);
                     });
-
-                        var checkbox = row.querySelector('.candidate-checkbox');
+                    var checkbox = row.querySelector('.candidate-checkbox');
                         checkbox.addEventListener('change', function(e) {
                             // Check if any checkbox is checked and toggle the buttons
                             toggleButtons();
                             deleteSelectedCandidates();
                         });
-                });
+                    });
 
                // check & uncheck all checkboxes
             document.getElementById('select-all-checkbox').addEventListener('change', function(e) {
@@ -407,7 +428,7 @@
 });
 
 /*************************************************************************************/
-  // Toggle selection checkboxes
+            // Toggle selection checkboxes
             function toggleCheckboxes() {
                 let areCheckboxesVisible = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.style.display === 'block');
                 document.querySelectorAll('.candidate-checkbox').forEach(function(checkbox) {
@@ -439,18 +460,18 @@
                     deleteButtonContainer.style.display = 'none';
                 }
             }
-                //function to toggle the buttons
+            //function to toggle the buttons
             function toggleButtons() {
                 var anyChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked);
                 var deleteButtonContainer = document.getElementById('delete-button-container');
-                // var exporter = document.getElementById('exporter');
+                var exporter = document.getElementById('exporter');
 
                 if (anyChecked) {
                     deleteButtonContainer.style.display = 'block';
-                    // exporter.style.display = 'none';
+                    exporter.style.display = 'none';
                 } else {
                     deleteButtonContainer.style.display = 'none';
-                    // exporter.style.display = 'block';
+                    exporter.style.display = 'block';
                 }
             }
 

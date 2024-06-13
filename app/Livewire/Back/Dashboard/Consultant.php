@@ -29,10 +29,15 @@ class Consultant extends Component
     public $candidate_statut_id = '';
     public $candidateStatuses;
     public $cp;
+    public $users_id;
+    public $users;
     public $sortColumn = 'last_name';
     public $sortDirection = 'desc';
     public $checkboxes = [];
     public $selectAll = false;
+    public $cvFileExists = '';
+    public $creFileExists = '';
+    public $company = '';
 
     public function selectCandidate($id, $page)
     {
@@ -135,6 +140,29 @@ class Consultant extends Component
             ->when($this->cp, function ($query) {
                 $query->where('postal_code', 'like', '%' . $this->cp . '%');
             })
+            ->when($this->company, function ($query) {
+                $query->whereHas('compagny', function ($query) {
+                    $query->where('name', 'like', '%' . $this->company . '%');
+                });
+            })
+            ->when($this->cvFileExists !== '', function ($query) {
+                if ($this->cvFileExists) {
+                    return $query->whereHas('files', function ($query) {
+                        $query->where('file_type', 'cv');
+                    });
+                } else {
+                    return $query->whereDoesntHave('files', function ($query) {
+                        $query->where('file_type', 'cv');
+                    });
+                }
+            })
+            ->when($this->creFileExists !== '', function ($query) {
+                if ($this->creFileExists) {
+                    return $query->whereHas('cres');
+                } else {
+                    return $query->whereDoesntHave('cres');
+                }
+            })
             ->where('created_by', Auth::id())
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate($this->nbPaginate);
@@ -180,6 +208,10 @@ class Consultant extends Component
         $this->candidate_state_id = '';
         $this->candidate_statut_id = '';
         $this->position_id = '';
+        // $this->users_id = '';
+        $this->cp = '';
+        $this->cvFileExists = ''; 
+        $this->creFileExists = ''; 
     }
     
     public function selectCandidateGoToCre($id, $page)

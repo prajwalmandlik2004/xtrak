@@ -315,7 +315,7 @@
                 }
             }
         </script>
-        <script>
+       <script>
          document.addEventListener('DOMContentLoaded', function() {
                 var selectionButton = document.getElementById('selectionButton');
                 selectionButton.addEventListener('click', toggleCheckboxes);
@@ -341,20 +341,40 @@
                         e.stopPropagation(); // Prevent the row click event from firing
                     });
 
-                  
                     row.addEventListener('click', function() {
                         clearTimeout(clickTimeout); // Clear previous timeout
 
                         clickTimeout = setTimeout(function() {
                             var checkbox = row.querySelector('.candidate-checkbox');
-                            if (checkbox.style.display === 'none' || !checkbox.checked) {
-                                checkbox.style.display = 'block'; // Show the checkbox of the clicked row
-                                checkbox.checked = true; // Check the checkbox of the clicked row
-                                row.classList.add('table-info');
+                            if (checkbox && checkbox.style.display === 'block') {
+                                // If checkboxes are visible, just toggle the checkbox and remove 'table-info' class from all rows
+                                checkbox.checked = !checkbox.checked;
+                                document.querySelectorAll('tr[data-id]').forEach(function(otherRow) {
+                                    otherRow.classList.remove('table-info');
+                                });
                             } else {
-                                checkbox.style.display = 'none'; // Hide the checkbox of the clicked row
-                                checkbox.checked = false; // Uncheck the checkbox of the clicked row
-                                row.classList.remove('table-info');
+                                // If the clicked row already has the 'table-info' class, remove it, otherwise add it
+                                if (row.classList.contains('table-info')) {
+                                    row.classList.remove('table-info');
+                                    if (checkbox) { // Check if the checkbox exists
+                                        checkbox.checked = false;
+                                    }
+                                } else {
+                                    // Remove 'table-info' class and uncheck all other rows
+                                    document.querySelectorAll('tr[data-id]').forEach(function(otherRow) {
+                                        otherRow.classList.remove('table-info');
+                                        var otherCheckbox = otherRow.querySelector('.candidate-checkbox');
+                                        if (otherCheckbox) { // Check if the checkbox exists
+                                            otherCheckbox.checked = false;
+                                        }
+                                    });
+
+                                    // Add 'table-info' class and check the clicked row
+                                    row.classList.add('table-info');
+                                    if (checkbox) { // Check if the checkbox exists
+                                        checkbox.checked = true;
+                                    }
+                                }
                             }
 
                             // Check if any checkbox is checked and toggle the buttons
@@ -367,14 +387,13 @@
 
                         }, doubleClickDelay);
                     });
-
-                        var checkbox = row.querySelector('.candidate-checkbox');
+                    var checkbox = row.querySelector('.candidate-checkbox');
                         checkbox.addEventListener('change', function(e) {
                             // Check if any checkbox is checked and toggle the buttons
                             toggleButtons();
                             deleteSelectedCandidates();
                         });
-                });
+                    });
 
                // check & uncheck all checkboxes
             document.getElementById('select-all-checkbox').addEventListener('change', function(e) {
