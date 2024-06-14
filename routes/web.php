@@ -66,4 +66,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('nsdates', NsDateController::class);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
-    Route::get('commandes/{param}', [DasboardController::class, 'commande']);
+    // Route::get('commandes/{param}', [DasboardController::class, 'commande']);
