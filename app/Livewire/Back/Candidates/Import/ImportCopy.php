@@ -30,8 +30,17 @@ class Import extends Component
     public $fileData;
     public $rejected = [];
     public $accepted = [];
+
     public function storeData()
     {
+        // Configuration des paramètres PHP pour augmenter le temps d'exécution et la mémoire
+        ini_set('max_execution_time',43200); 
+        ini_set('memory_limit', '10G'); 
+
+        // Configuration des paramètres de session MySQL
+        DB::statement('SET SESSION wait_timeout = 38800;');
+        DB::statement('SET SESSION interactive_timeout = 38800;');
+
         try {
             $path = Storage::putFile('/public/files', $this->file);
             $filepath = Storage::path($path);
@@ -41,7 +50,7 @@ class Import extends Component
             $worksheet->removeRow(1);
             $usagers = $worksheet->toArray();
             $fileData = [];
-             foreach ($usagers as $usager) {
+            foreach ($usagers as $usager) {
                 // Skip empty rows
                 if (array_filter($usager)) {
                     $cell = [];
@@ -56,28 +65,44 @@ class Import extends Component
                 }
             }
         } catch (\Throwable $th) {
-            return $this->dispatch('alert', type: 'error', message: 'Une erreure est survenu lors de l\'analyse de votre fichier, merci de réessayez');
+            return $this->dispatch('alert', type: 'error', message: 'Une erreur est survenue lors de l\'analyse de votre fichier, merci de réessayer.');
         }
-        DB::beginTransaction();
-        foreach ($fileData as $key => $value) {
-            $checkExistingCandidate = $this->checkExistingCandidate($value);
-            if ($checkExistingCandidate == false) {
-                $newCandidate = $this->addCandidate($value, 'Attente');
-                if ($newCandidate) {
-                    $this->accepted[$newCandidate->id] = $newCandidate;
-                } else {
-                    $this->rejected[$key] = $value;
+
+        // Traitaiment des données par lots pour éviter les timeouts
+        $batchSize = 100; 
+        $totalBatches = ceil(count($fileData) / $batchSize);
+
+        for ($batch = 0; $batch < $totalBatches; $batch++) {
+            $start = $batch * $batchSize;
+            $currentBatch = array_slice($fileData, $start, $batchSize);
+
+            DB::beginTransaction();
+            try {
+                foreach ($currentBatch as $key => $value) {
+                    $checkExistingCandidate = $this->checkExistingCandidate($value);
+                    if ($checkExistingCandidate == false) {
+                        $newCandidate = $this->addCandidate($value, 'Attente');
+                        if ($newCandidate) {
+                            $this->accepted[$newCandidate->id] = $newCandidate;
+                        } else {
+                            $this->rejected[$key] = $value;
+                        }
+                    } else {
+                        $this->rejected[$key] = $value;
+                    }
                 }
-            } else {
-                // $doublon = $this->addCandidate($value, 'Doublon');
-                $this->rejected[$key] = $value;
+                DB::commit();
+            } catch (\Throwable $th) {
+                DB::rollback();
+                return $this->dispatch('alert', type: 'error', message: 'Une erreur est survenue lors de l\'importation des données.');
             }
         }
-        DB::commit();
+
         $this->dispatch('data-from-import', accepted: $this->accepted, rejected: $this->rejected);
-        $this->dispatch('alert', type: 'success', message: 'Opération reusie avec succès');
+        $this->dispatch('alert', type: 'success', message: 'Opération réussie avec succès.');
         $this->reset(['file']);
     }
+
     public function addCandidate($data, $stateName)
     {
         try {
@@ -131,23 +156,13 @@ class Import extends Component
                 }
             }
             if (!empty($data['Spécialité'])) {
-                $speciality =
-                    Speciality::where('name', $data['Spécialité'])->first() ??
-                    Speciality::create([
-                        'name' => $data['Spécialité'],
-                        'position_id' => $newCandidate['position_id'] ?? null,
-                    ]);
+                $speciality = Speciality::where('name', $data['Spécialité'])->first() ?? Speciality::create(['name' => $data['Spécialité'], 'position_id' => $newCandidate['position_id'] ?? null]);
                 if ($speciality) {
                     $newCandidate['speciality_id'] = $speciality->id;
                 }
             }
             if (!empty($data['Domaine'])) {
-                $field =
-                    Field::where('name', $data['Domaine'])->first() ??
-                    Field::create([
-                        'name' => $data['Domaine'],
-                        'speciality_id' => $newCandidate['speciality_id'] ?? null,
-                    ]);
+                $field = Field::where('name', $data['Domaine'])->first() ?? Field::create(['name' => $data['Domaine'], 'speciality_id' => $newCandidate['speciality_id'] ?? null]);
                 if ($field) {
                     $newCandidate['field_id'] = $field->id;
                 }
@@ -170,7 +185,6 @@ class Import extends Component
 
             return $candidate;
         } catch (\Throwable $th) {
-           
             return null;
         }
     }
@@ -178,40 +192,25 @@ class Import extends Component
     public function checkExistingCandidate($data)
     {
         try {
-            $firsName = $data['Prénom'] ?? '';
+            $firstName = $data['Prénom'] ?? '';
             $lastName = $data['Nom'] ?? '';
             $phone = $data['Tél1'] ?? '';
             $email = $data['Mail'] ?? '';
-            $existingCandidate = Candidate::when($firsName, function ($query) use ($firsName) {
-                $query->where('first_name', $firsName);
-            })
-                ->when($email, function ($query) use ($email) {
-                    $query->where('email', $email);
-                })
-                ->when($phone, function ($query) use ($phone) {
-                    $query->where('phone', $phone);
-                })
-                ->where('last_name', $lastName)
-                ->exists();
-            if ($existingCandidate) {
-                return true;
-            }
-
-            return false;
+            $existingCandidate = Candidate::when($firstName, function ($query) use ($firstName) {
+                return $query->where('first_name', $firstName);
+            })->when($lastName, function ($query) use ($lastName) {
+                return $query->where('last_name', $lastName);
+            })->when($phone, function ($query) use ($phone) {
+                return $query->orWhere('phone', $phone);
+            })->when($email, function ($query) use ($email) {
+                return $query->orWhere('email', $email);
+            })->exists();
+            return $existingCandidate;
         } catch (\Throwable $th) {
-            return true;
+            return null;
         }
     }
-    public function downloadFile()
-    {
-        $filePath = public_path('storage/files/caneva.xlsx');
 
-        if (file_exists($filePath)) {
-            return response()->download($filePath, 'caneva.xlsx');
-        } else {
-            $this->dispatch('alert', type: 'error', message: 'Le fichier n\'existe pas');
-        }
-    }
     public function render()
     {
         return view('livewire.back.candidates.import.import');
