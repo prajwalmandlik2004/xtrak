@@ -61,10 +61,11 @@
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a wire:click="confirmDelete('{{ $candidateStatut->name }}', '{{ $candidateStatut->id }}')" class="text-danger d-inline-block remove-item-btn">
+                                        <a wire:click="confirmDelete('{{ addslashes($candidateStatut->name) }}', '{{ $candidateStatut->id }}')" class="text-danger d-inline-block remove-item-btn">
                                             <i class="ri-delete-bin-5-fill fs-16"></i>
                                         </a>
                                     </li>
+                                </ul>
                                 </ul>
                             </td>
                         </tr>
