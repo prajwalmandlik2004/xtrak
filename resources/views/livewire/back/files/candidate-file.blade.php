@@ -77,6 +77,11 @@
                                         wire:click="downloadFile('{{ $file->path }}','{{ $file->name }}')">
                                         <i class="ri-download-2-line"></i>
                                     </a>
+                                    <a wire:click="confirmDelete('{{ $file->name }}', '{{ $file->id }}')"
+                                        class="btn btn-icon text-danger btn-sm fs-18">
+                                        <i class="ri-delete-bin-fill align-bottom"></i>
+                                    </a>
+                                                                
                                     <div class="dropdown">
                                         <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button"
                                             data-bs-toggle="dropdown" aria-expanded="false">
