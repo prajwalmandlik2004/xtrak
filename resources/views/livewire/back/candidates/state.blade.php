@@ -1,7 +1,7 @@
 <div>
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'BaseCDT ' . $state . 's',
+        'title' => 'BaseCDT ' . ($state === 'Attente' ? 'en ' . $state : $state . 's'),
         'breadcrumbItems' => [
             ['text' => 'Candidats', 'url' => '#'],
             ['text' => 'Listes', 'url' => Route('candidates.index')],
@@ -46,18 +46,20 @@
 
         <div class="col-md-12 mt-4 mb-3">
             <div class="table-responsive">
-                <h5 class="mb-0">Paramètres de tri des candidats</h5>
+                <h5 class="mb-0">Filtrage</h5>
                 <table class="table table-bordered border-secondary table-nowrap">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col" style="width:100px">Effacer les filtres</th>
+                            <th scope="col" style="width:100px">Effacer</th>
                             <th scope="col">Recherche</th>
                             <th scope="col">N lignes</th>
-                            <!-- <th scope="col">Etat</th> -->
-                            <!-- <th scope="col">Auteur</th> -->
+                            <th scope="col">Auteur</th>
                             <th scope="col">Statut</th>
+                            <th scope="col">Société</th>
                             <th scope="col">Fonction</th>
                             <th scope="col">CP/Dpt</th>
+                            <th scope="col">CV</th> 
+                            <th scope="col">CRE</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -80,7 +82,18 @@
                                     <option value="100">100</option>
                                 </select>
                             </td>
-                            
+                            <td>
+                                <select class="form-control w-md" wire:model.live='users_id'>
+                                    <option value="" class="bg-secondary text-white" selected>
+                                       Auteur
+                                    </option>
+                                    <option value="" selected>Tous</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}"> {{ $user->trigramme }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
                             <td>
                                 <select class="form-control w-md" wire:model.live='candidate_statut_id'>
                                     <option value="" selected> Statut</option>
@@ -91,6 +104,10 @@
                                     @endforeach
 
                                 </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+                               
                             </td>
                             <td>
                                 <select class="form-control w-md" wire:model.live='position_id'>
@@ -104,6 +121,20 @@
                                 <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
 
                             </td>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                    <option value="" selected>Selectionner</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </td>
+                            <td> 
+                            <select class="form-control w-md" wire:model.live='creFileExists'>
+                                <option value="" selected>Selectionner</option>
+                                <option value="1">Oui</option>
+                                <option value="0">Non</option>
+                            </select>
+                        </td>
                         </tr>
                     </tbody>
                 </table>
@@ -131,9 +162,12 @@
                             <i class="bi bi-check-square"></i> Désélection
                             </button>
                         </div> -->
-                         <div class="flex-grow-1 text-center">
+                        <div class="flex-grow-1 text-center">
                             <h4 class="card-title fw-bold fs-2">
-                                BaseCDT {{ $state }}s
+                                BaseCDT 
+                                @if($state === 'Attente') en attente 
+                                @else {{ $state }}s
+                                @endif
                             </h4>
                         </div>
                         

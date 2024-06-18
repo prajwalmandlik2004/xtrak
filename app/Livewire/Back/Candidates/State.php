@@ -33,6 +33,10 @@ class State extends Component
     public $position_id;
     public $users;
     public $user_id;
+    public $users_id;
+    public $company;
+    public $cvFileExists = '';
+    public $creFileExists = '';
     public $cp; public $sortColumn = 'last_name';
     public $sortDirection = 'desc';
     public $checkboxes = [];
@@ -121,32 +125,35 @@ class State extends Component
     }
     public function searchCandidates()
     {
-        $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country'];
+        \Log::info('searchCandidates method called with search: ' . $this->search);
+        $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country', 'commentaire', 'description', 'suivi'];
 
-        return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field'])
+        return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur'])
             ->where(function ($query) use ($searchFields) {
-                $query
-                    ->where(function ($query) use ($searchFields) {
-                        foreach ($searchFields as $field) {
-                            $query->orWhere($field, 'like', '%' . $this->search . '%');
-                        }
-                    })
-
-                    ->orWhereHas('disponibility', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('civ', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('compagny', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('speciality', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('field', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    });
+            $query
+                ->where(function ($query) use ($searchFields) {
+                foreach ($searchFields as $field) {
+                    $query->orWhere($field, 'like', '%' . $this->search . '%');
+                }
+                })
+                ->orWhereHas('disponibility', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('civ', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('compagny', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('speciality', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('field', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('auteur', function ($query) {
+                $query->where('trigramme', 'like', '%' . $this->search . '%');
+                });
             })
             ->when($this->filterName, function ($query) {
                 return $query->orderBy('last_name', $this->filterName);
@@ -163,8 +170,34 @@ class State extends Component
             ->when($this->position_id, function ($query) {
                 $query->where('position_id', $this->position_id);
             })
+            ->when($this->users_id, function ($query) {
+                $query->where('created_by', $this->users_id);
+            })
             ->when($this->cp, function ($query) {
                 $query->where('postal_code', 'like', '%' . $this->cp . '%');
+            })
+            ->when($this->company, function ($query) {
+                $query->whereHas('compagny', function ($query) {
+                    $query->where('name', 'like', '%' . $this->company . '%');
+                });
+            })
+            ->when($this->cvFileExists !== '', function ($query) {
+                if ($this->cvFileExists) {
+                    return $query->whereHas('files', function ($query) {
+                        $query->where('file_type', 'cv');
+                    });
+                } else {
+                    return $query->whereDoesntHave('files', function ($query) {
+                        $query->where('file_type', 'cv');
+                    });
+                }
+            })
+            ->when($this->creFileExists !== '', function ($query) {
+                if ($this->creFileExists) {
+                    return $query->whereHas('cres');
+                } else {
+                    return $query->whereDoesntHave('cres');
+                }
             })
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate($this->nbPaginate);
