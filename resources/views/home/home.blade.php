@@ -28,10 +28,10 @@
         .header-container img {
             height: 50px;
             width: 180px;
-            margin-right: 80px;
+            margin-right: 84px;
         }
         .header-container .separator {
-            margin-right: 80px;
+            margin-right: 83px;
             font-size: 50px;
             color: white;
         }
@@ -40,15 +40,16 @@
         }
         .circle {
             position: absolute;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             text-align: center;
             line-height: 60px;
             color: black;
             border: none;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 24px;
+            
         }
         #EVT1:hover {
             border: 2px solid #FFC0CB;
@@ -100,14 +101,16 @@
         }
         #container {
             position: absolute;
-            width: 200px;
-            height: 200px;
-            bottom: 300px;
-            right: 300px;
+            width: 300px;
+            height: 300px;
+            bottom: 330px;
+            right: 100px;
+            /* top:500px; */
         }
         #xtrak {
-            width: 130px;
-            height: 30px;
+            width:185px;
+            height:45px;
+            margin-top:-18px;
         }
         @media (max-width: 767px) {
             .header-container {
@@ -140,6 +143,17 @@
                 font-size: 16px;
                 line-height: 50px;
             }
+            .header-container {
+                flex-direction: row;
+                align-items: center;
+            }
+            .header-container a img, #xtrak {
+                width: 50%;
+                max-width: 100px;
+            }
+            .header-container .separator {
+                display: none;
+            }
         }
         @media (max-width: 400px) {
             .circle {
@@ -152,6 +166,7 @@
                 width: 150px;
                 height: 150px;
             }
+            
         }
     </style>
 </head>
@@ -166,12 +181,12 @@
         </div>
         <div id="container">
             <button class="circle" style="background-color: #FFC0CB;" id="EVT1">EVT</button>
-            <button class="circle" style="background-color: #FFA500;" id="EVT2">EVT</button>
+            <button class="circle" style="background-color: #FFA500;" id="EVT2">XTK</button>
             <button class="circle" style="background-color: #FF0000;" id="CPN">CPN</button>
             <button class="circle" style="background-color: #800080;" id="OPP">OPP</button>
-            <button class="circle" style="background-color: #00FFFF;" id="ANN">ANN</button>
             <button class="circle" style="background-color: #808080;" id="TRG">TRG</button>
             <button class="circle" style="background-color: #FFFF00;" id="CDT">CDT</button>
+            <button class="circle" style="background-color: #00FFFF;" id="ANN">ANN</button>
             <button class="circle" style="background-color: #00FF00;" id="CTC">CTC</button>
         </div>
     </div>
@@ -191,7 +206,7 @@
     <!-- password-addon init -->
     <script src="{{ asset('assets/js/pages/password-addon.init.js') }}"></script>
     <script>
-        const radius = 100;
+        const radius = 120;
         const container = document.getElementById('container');
         const circles = document.getElementsByClassName('circle');
         const angleStep = 360 / circles.length;
