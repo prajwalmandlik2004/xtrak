@@ -76,7 +76,7 @@
                                             @endif
                                         </a> --}}
                                         <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5"><i
-                                                class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Retour en arrirère' : 'Retour en arrirère et terminer' }}</a>
+                                                class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Base' : 'Base et terminer' }}</a>
                                     </div>
 
                                 </div>

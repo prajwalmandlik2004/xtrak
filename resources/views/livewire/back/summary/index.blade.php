@@ -19,8 +19,7 @@
     <div class="card mt-5">
         <div class="card-body">
             <div class="card-header">
-                <h4 class="card-title
-                ">Nombre de connexion par utilisateur</h4>
+                <h4 class="card-title">Nombre de connexion par utilisateur</h4>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -48,7 +47,12 @@
                                 <td>{{ gmdate('H:i:s', $userData['login_time_this_week']) }}</td>
                                 <td>{{ gmdate('H:i:s', $userData['login_time_this_month']) }}</td>
                                 <td style="width: 50px;">
-                                    {{ Carbon\Carbon::parse($userData['user']->last_seen)->diffForHumans() }}</td>
+                                    @if ($userData['user']->last_seen)
+                                        {{ Carbon\Carbon::parse($userData['user']->last_seen)->diffForHumans() }}
+                                    @else
+                                        Jamais connecté
+                                    @endif
+                                </td>
                                 <td style="width: 50px;" class="py-3 px-6 text-center">
                                     @if ($userData['user']->is_connect)
                                         <span class="badge border border-light rounded-circle bg-success p-2 fs-4">

@@ -60,6 +60,11 @@
                     </button>
                 </div>
                 --}}
+                <div class="ms-1 header-item">
+                    <a href="{{ route('chat') }}" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle">
+                        <i class="mdi mdi-chat"></i>
+                    </a>
+                </div>
 
                 <div class="ms-1 header-item d-sm-flex text-danger ">
                     <button type="button"

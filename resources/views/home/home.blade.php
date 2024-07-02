@@ -13,165 +13,129 @@
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        .login_bg {
-            background-image: url('{{ asset('assets/images/landing.jpg') }}');
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
+    /* Styles for large screens */
+    .login_bg {
+        background-image: url('{{ asset('assets/images/landing.jpg') }}');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .header-container {
+        position: absolute;
+        top: 2%;
+        left: 8%;
+        display: flex;
+        align-items: center;
+    }
+    .header-container img {
+        height:100%;
+        width: 13%;
+    }
+    .header-container .separator {
+        margin-left: -72%;
+        font-size: 50px;
+        color: white;
+        margin-right:4%;
+    }
+    .circle {
+        width:35%;
+        height:35%;
+        border-radius: 50%;
+        text-align: center;
+        line-height:100%;
+        color: black;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        position: absolute;
+        transition: background-color 0.1s ease, border 0.1s ease;
+    }
+    .circle:hover {
+        background-color: white !important;
+        border: 2px solid;
+    }
+    #EVT1:hover { border-color: #FFC0CB; color: #FFC0CB; }
+    #EVT2:hover { border-color: #FFA500; color: #FFA500; }
+    #CPN:hover { border-color: #FF0000; color: #FF0000; }
+    #OPP:hover { border-color: #800080; color: #800080; }
+    #TRG:hover { border-color: #808080; color: #808080; }
+    #CDT:hover { border-color: #FFFF00; color: #FFFF00; }
+    #ANN:hover { border-color: #00FFFF; color: #00FFFF; }
+    #CTC:hover { border-color: #00FF00; color: #00FF00; }
+    #container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 10%;
+        height:18%;
+        bottom: 45%;
+        right: 10%;
+    }
+    #xtrak {
+        width:50%;
+        height:60%;
+        margin-top:2%;
+    }
+    /* @media (max-width: 767px) {
         .header-container {
-            position: absolute;
-            top: 20px;
-            left: 200px;
-            display: flex;
-            align-items: center;
+            top: 10px;
+            left: 10px;
+            flex-direction: column;
+            align-items: flex-start;
         }
         .header-container img {
-            height: 50px;
-            width: 180px;
-            margin-right: 84px;
+            height: 40px;
+            width: 140px;
+            margin-right: 20px;
         }
         .header-container .separator {
-            margin-right: 83px;
-            font-size: 50px;
-            color: white;
+            margin-right: 20px;
+            font-size: 30px;
         }
         .header-container h1 {
-            margin-top: 20px;
-        }
-        .circle {
-            position: absolute;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 60px;
-            color: black;
-            border: none;
-            cursor: pointer;
-            font-size: 24px;
-            
-        }
-        #EVT1:hover {
-            border: 2px solid #FFC0CB;
-            background-color: white !important;
-            transition: background-color 0.1s ease, border 0.1s ease;
-            color: #FFC0CB;
-        }
-        #EVT2:hover {
-            border: 2px solid #FFA500;
-            background-color: white !important;
-            transition: background-color 0.1s ease, border 0.1s ease;
-            color: #FFA500;
-        }
-        #CPN:hover {
-            border: 2px solid #FF0000;
-            background-color: white !important;
-            transition: background-color 0.1s ease, border 0.1s ease;
-            color: #FF0000;
-        }
-        #OPP:hover {
-            border: 2px solid #800080;
-            background-color: white !important;
-            transition: background-color 0.1s ease, border 0.1s ease;
-            color: #800080;
-        }
-        #ANN:hover {
-            border: 2px solid #00FFFF;
-            background-color: white !important;
-            transition: background-color 0.1s ease, border 0.1s ease;
-            color: #00FFFF;
-        }
-        #TRG:hover {
-            border: 2px solid #808080;
-            background-color: white !important;
-            transition: background-color 0.1s ease, border 0.1s ease;
-            color: #808080;
-        }
-        #CDT:hover {
-            border: 2px solid #FFFF00;
-            background-color: white !important;
-            transition: background-color 0.1s ease, border 0.1s ease;
-            color: #FFFF00;
-        }
-        #CTC:hover {
-            border: 2px solid #00FF00;
-            background-color: white !important;
-            transition: background-color 0.1s ease, border 0.1s ease;
-            color: #00FF00;
+            margin-top: 10px;
         }
         #container {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            bottom: 330px;
-            right: 100px;
-            /* top:500px; */
+            bottom: 150px;
+            right: 10px;
         }
+    }
+    @media (max-width: 576px) {
+        .circle {
+            width: 50px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+        }
+        .header-container {
+            flex-direction: row;
+            align-items: center;
+        }
+        .header-container a img,
         #xtrak {
-            width:185px;
-            height:45px;
-            margin-top:-18px;
+            width: 50%;
+            max-width: 100px;
         }
-        @media (max-width: 767px) {
-            .header-container {
-                top: 10px;
-                left: 10px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .header-container img {
-                height: 40px;
-                width: 140px;
-                margin-right: 20px;
-            }
-            .header-container .separator {
-                margin-right: 20px;
-                font-size: 30px;
-            }
-            .header-container h1 {
-                margin-top: 10px;
-            }
-            #container {
-                bottom: 150px;
-                right: 10px;
-            }
+        .header-container .separator {
+            display: none;
         }
-        @media (max-width: 576px) {
-            .circle {
-                width: 50px;
-                height: 50px;
-                font-size: 16px;
-                line-height: 50px;
-            }
-            .header-container {
-                flex-direction: row;
-                align-items: center;
-            }
-            .header-container a img, #xtrak {
-                width: 50%;
-                max-width: 100px;
-            }
-            .header-container .separator {
-                display: none;
-            }
+    }
+    @media (max-width: 400px) {
+        .circle {
+            width: 40px;
+            height: 40px;
+            font-size: 12px;
+            line-height: 40px;
         }
-        @media (max-width: 400px) {
-            .circle {
-                width: 40px;
-                height: 40px;
-                font-size: 12px;
-                line-height: 40px;
-            }
-            #container {
-                width: 150px;
-                height: 150px;
-            }
-            
+        #container {
+            width: 150px;
+            height: 150px;
         }
+    } */
     </style>
 </head>
 <body class="login_bg">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex justify-content-center align-items-center">
         <div class="header-container">
             <a href="https://www.harmen-botts.com/">
                 <img src="{{ asset('assets/images/logo.jpg') }}" alt="Harmen & Botts Logo">
@@ -206,7 +170,7 @@
     <!-- password-addon init -->
     <script src="{{ asset('assets/js/pages/password-addon.init.js') }}"></script>
     <script>
-        const radius = 120;
+        const radius = 70;
         const container = document.getElementById('container');
         const circles = document.getElementsByClassName('circle');
         const angleStep = 360 / circles.length;
@@ -217,8 +181,8 @@
                 const x = radius * Math.cos(angle * Math.PI / 180);
                 const y = radius * Math.sin(angle * Math.PI / 180);
 
-                circles[i].style.left = `${container.offsetWidth / 2 + x - circles[i].offsetWidth / 2}px`;
-                circles[i].style.top = `${container.offsetHeight / 2 + y - circles[i].offsetHeight / 2}px`;
+                circles[i].style.left = `${container.offsetWidth / 2 + x - circles[i].offsetWidth / 2}%`;
+                circles[i].style.top = `${container.offsetHeight / 2 + y - circles[i].offsetHeight / 2}%`;
             }
         }
 

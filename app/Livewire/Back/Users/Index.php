@@ -73,6 +73,7 @@ class Index extends Component
         $this->phone = '';
         $this->email = '';
         $this->trigramme = '';
+        $this->password = '';
         if ($id) {
             $this->isUpdate = true;
             $this->user = User::find($id);
@@ -82,8 +83,10 @@ class Index extends Component
             $this->email = $this->user->email ?? '';
             $this->role_id = $this->user->roles->pluck('id')->first() ?? null;
             $this->trigramme = $this->user->trigramme ?? '';
+            $this->password = '********';
         }
     }
+    
     public function storeData()
     {
         $validateData = $this->validate(
@@ -106,10 +109,10 @@ class Index extends Component
                 'email.unique' => 'L\'email est déjà utilisé',
             ],
         );
-
+    
         DB::beginTransaction();
         $validateData['uuid'] = Str::uuid();
-
+    
         if ($this->isUpdate) {
             if ($validateData['trigramme']) {
                 $trigrammeExist = User::where('trigramme', $validateData['trigramme'])
@@ -121,23 +124,17 @@ class Index extends Component
                 }
                 $validateData['trigramme'] = $validateData['trigramme'];
             }
-            if (!empty($validateData['password'])) {
+            if ($validateData['password'] !== '********' && !empty($validateData['password'])) {
                 $validateData['password'] = Hash::make($validateData['password']);
+            } else {
+                unset($validateData['password']);
             }
-            $this->user->update([
-                'first_name' => $validateData['first_name'],
-                'last_name' => $validateData['last_name'],
-                'phone' => $validateData['phone'],
-                'email' => $validateData['email'],
-                'trigramme' => $validateData['trigramme'],
-                'password' => $validateData['password'] ?? $this->user->password,
-            ]);
+            $this->user->update(array_filter($validateData));
             $roleId = Role::where('id', $validateData['role_id'])->first()->id;
             $this->user->syncRoles($roleId);
         } else {
-            // $password = Str::random(8);
             $validateData['password'] = Hash::make($validateData['password']);
-
+    
             if ($validateData['trigramme']) {
                 $trigrammeExist = User::where('trigramme', $validateData['trigramme'])->exists();
                 if ($trigrammeExist) {
@@ -154,17 +151,10 @@ class Index extends Component
                 } while ($trigrammeExist);
                 $validateData['trigramme'] = $trigramme;
             }
-
+    
             $user = User::create($validateData);
             $roleId = Role::where('id', $validateData['role_id'])->first()->id;
             $user->assignRole($roleId);
-            // try {
-            //     Mail::to($user->email)->send(new GeneralMail($user, $password));
-            // } catch (\Throwable $th) {
-            //     DB::commit();
-            //     $this->dispatch('close:modal');
-            //     $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success ' : 'l\'utilisateur est ajouté avec succès mais ses identifiants n\'ont pas été envoyé à son adresse email');
-            // }
         }
         DB::commit();
         $this->dispatch('close:modal');
@@ -175,6 +165,7 @@ class Index extends Component
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter l\'utilisateur');
         }
     }
+    
     public function mount()
     {
         $this->roles = Role::all();

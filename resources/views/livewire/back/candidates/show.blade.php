@@ -90,8 +90,9 @@
                                         type="button" class="btn py-0 fs-16 text-body">
                                         Supprimer
                                     </button>
-                                    <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5  mt-3"><i
-                                            class="mdi mdi-arrow-left me-1"></i>Base</a>
+                                    <a href="{{ route('dashboard') }}" class="btn btn-secondary me-1 ms-5 mt-3">
+                                        <i class="mdi mdi-arrow-left me-1"></i>Base
+                                    </a>
                                 </div>
 
                             </div>

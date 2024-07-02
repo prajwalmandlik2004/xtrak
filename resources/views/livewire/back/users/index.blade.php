@@ -163,22 +163,22 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-md-6  mt-3">
-
-                            <label class="form-label" for="password-input">Mot de passe</label>
-                            <div class="position-relative auth-pass-inputgroup mb-3">
-                                <input type="password" wire:model.live='password'
-                                    class="form-control pe-5 password-input @error('password') is-invalid @enderror"
-                                    placeholder="Entrez votre mot de passe" id="password-input">
-                                <button
-                                    class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
-                                    type="button" id="password-addon"><i
-                                        class="ri-eye-fill align-middle"></i></button>
-                                @error('password')
-                                    <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <div class="col-md-6">
+                        <label class="form-label" for="password-input">Mot de passe</label>
+                        <div class="position-relative auth-pass-inputgroup mb-3">
+                            <input type="password" wire:model.live='password'
+                                class="form-control pe-5 password-input @error('password') is-invalid @enderror"
+                                placeholder="Entrez votre mot de passe" id="password-input">
+                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
+                                    type="button" id="password-addon">
+                                <i class="ri-eye-fill align-middle"></i>
+                            </button>
+                            @error('password')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
                         </div>
+                    </div>
+
                         <div class="col-md-6 mt-3">
                             <label for="role_id" class="form-label">Rôles
                             </label>

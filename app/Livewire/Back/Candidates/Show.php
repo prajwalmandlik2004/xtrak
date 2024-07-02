@@ -149,7 +149,7 @@ class Show extends Component
                 'field_id' => 'nullable',
                 'phone_2' => 'nullable',
                 'commentaire' => 'nullable',
-                'description' => 'nullable',  // Corrected spelling
+                'description' => 'nullable',
                 'suivi' => 'nullable',
                 'origine' => 'nullable',
                 'ns_date_id' => 'nullable',

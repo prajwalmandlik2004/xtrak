@@ -39,8 +39,10 @@
                          <span data-key="t-dashboards">
                              @if (auth()->user()->hasRole('Administrateur'))
                                  ESPACE ADMINISTATEUR
-                             @else
-                                 ESPACE CONSULTANT
+                             @elseif (auth()->user()->hasRole('Manager'))
+                                 ESPACE MANAGER
+                            @else
+                                ESPACE CONSULTANT
                              @endIF
                          </span>
                      </a>

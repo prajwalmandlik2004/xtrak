@@ -1,4 +1,6 @@
+
 <div>
+    
     {{-- créer par MAHAMADOU ALI AdbDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
@@ -33,7 +35,7 @@
 
         <div class="col-md-12 mt-4 mb-3">
             <div class="table-responsive">
-                <h5 class="mb-0">Paramètres de tri des candidats</h5>
+                <h5 class="mb-0">Filtrage</h5>
                 <table class="table table-bordered border-secondary table-nowrap">
                     <thead>
                         <tr class="text-center">
