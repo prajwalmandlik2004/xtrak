@@ -46,8 +46,8 @@ class DasboardController extends Controller
             \Artisan::call('storage:link');
         }
 
-        elseif ($param == 'migrate-no-seed') {
-            \Artisan::call('migrate');
-        }
+        // elseif ($param == 'migrate-no-seed') {
+        //     \Artisan::call('migrate');
+        // }
     }
 }

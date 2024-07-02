@@ -70,4 +70,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // Route::get('/user', CreateChat::class)->name('user');
     Route::get('/chat{key?}', Main::class)->name('chat');
 });
-    Route::get('commandes/{param}', [DasboardController::class, 'commande']);
+   // Route::get('commandes/{param}', [DasboardController::class, 'commande']);
