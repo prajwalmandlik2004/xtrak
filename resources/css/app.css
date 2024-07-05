@@ -127,6 +127,9 @@ background-color: #6699FF !important;
       border-radius: 11px;
       padding: 5px 6px;
       margin-left:7%;
+      max-width: 70%; 
+      max-height: 80%;
+      overflow: hidden; 
       
   }
   
@@ -134,7 +137,7 @@ background-color: #6699FF !important;
   /******************************* Chat List Container **************************/
   .chat_list_container {
       border-right: 1px solid gray;
-      width: 30%;
+      max-width: 30%;
       height: 100%;
       border-radius: inherit;
   }
@@ -306,7 +309,7 @@ background-color: #6699FF !important;
     width: 100%;
     position:relative;
     top: 60px;
-    height: 660px;
+    max-height:640px;
     bottom: 60px;
     padding: 17px 11px;
     overflow: auto;
