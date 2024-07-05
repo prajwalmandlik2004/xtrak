@@ -19,8 +19,14 @@ class ChatList extends Component
     public $auth_last_name;
     public $auth_trigram;
     
-    protected $listeners = ['chatUserSelected', 'refresh', 'messageSent'];
+    protected $listeners = ['chatUserSelected', 'refresh', 'messageSent','resetComponent'];
 
+    public function resetComponent()
+    {
+        $this->selectedConversation = null;
+        $this->receiverInstance = null;
+        // dd('reset');
+    }
     public function chatUserSelected($conversationId, $receiverId)
     {
         $conversation = Conversation::find($conversationId);
@@ -38,11 +44,14 @@ class ChatList extends Component
         } else {
             $this->receiverInstance = User::firstWhere('id', $conversation->sender_id);
         }
-
-        if (isset($request)) {
+    
+        if (isset($request) && $this->receiverInstance) {
             return $this->receiverInstance->$request;
         }
+    
+        return null;
     }
+    
 
     public function openModal()
     {
@@ -87,11 +96,13 @@ class ChatList extends Component
 
     public function refresh()
     {
+        info('Refresh called');
         $this->mount();
     }
 
     public function mount()
     {
+        info('ChatList mount called');
         $this->auth_id = auth()->id();
         $user = auth()->user();
         $this->auth_first_name = $user->first_name;
@@ -99,20 +110,24 @@ class ChatList extends Component
         $this->auth_trigram = $user->trigramme;
         $this->conversations = Conversation::where(function($query) {
             $query->where('sender_id', $this->auth_id)
-                  ->orWhere('receiver_id', $this->auth_id);
+                ->orWhere('receiver_id', $this->auth_id);
         })->whereHas('messages') 
-          ->orderBy('last_time_message', 'DESC')
-          ->get();
+        ->orderBy('last_time_message', 'DESC')
+        ->get();
+    
+        info('Conversations loaded', ['conversations' => $this->conversations->toArray()]);
     }
+    
 
     public function hasUnreadMessages($conversation)
     {
         return $conversation->messages->where('receiver_id', $this->auth_id)->where('read', false)->count() > 0;
     }
-
     public function render()
     {
+        info('ChatList render called');
         return view('livewire.chat.chat-list')
             ->extends('layouts.app');
     }
+
 }

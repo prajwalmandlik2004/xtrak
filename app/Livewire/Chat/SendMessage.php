@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Chat;
 
+use App\Events\MessageSent;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Conversation;
@@ -16,9 +17,16 @@ class SendMessage extends Component
     public $receiverInstance;
     public $body;
     public $attachment;
+    public $createdMessage;
 
-    protected $listeners = ['updateSendMessage'];
+    protected $listeners = ['updateSendMessage','dispatchMessageSent','resetComponent'];
 
+    public function resetComponent()
+    {
+        $this->selectedConversation = null;
+        $this->receiverInstance = null;
+        // dd('reset');
+    }
     public function updateSendMessage($conversationId, $receiverData)
     {
         $conversation = Conversation::find($conversationId);
@@ -46,7 +54,7 @@ class SendMessage extends Component
             $attachmentPath = $this->attachment->storeAs('attachments', $originalName, 'public');
         }
 
-        $createdMessage = Message::create([
+        $this->createdMessage = Message::create([
             'conversation_id' => $this->selectedConversation->id,
             'sender_id' => auth()->id(),
             'receiver_id' => $this->receiverInstance->id,
@@ -54,13 +62,20 @@ class SendMessage extends Component
             'attachment' => $attachmentPath,
         ]);
 
-        $this->selectedConversation->last_time_message = $createdMessage->created_at;
+        $this->selectedConversation->last_time_message = $this->createdMessage->created_at;
         $this->selectedConversation->save();
 
-        $this->dispatch('pushMessage', $createdMessage->id);
+        $this->dispatch('pushMessage', $this->createdMessage->id);
         $this->dispatch('messageSent');
 
         $this->reset('body', 'attachment');
+        
+        $this->dispatch('dispatchMessageSent');
+    }
+
+    public function dispatchMessageSent()
+    {
+        broadcast(new MessageSent(Auth()->user(),$this->createdMessage, $this->selectedConversation, $this->receiverInstance));
     }
 
     public function removeAttachment()

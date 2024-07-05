@@ -12,21 +12,21 @@
                     {{$receiverInstance->first_name}}
                 </div>
                 <div class="info">
-                    <div class="info_item">
+                    <!-- <div class="info_item">
                         <i class="bi bi-telephone-fill"></i>
-                    </div>
+                    </div> -->
                     <div class="info_item" id="attachmentsIcon">
                         <i class="bi bi-image"></i>
                     </div>
-                    <div class="info_item">
+                    <!-- <div class="info_item">
                         <i class="bi bi-info-circle-fill"></i>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
             <div class="chatbox_body" id="chatbox_body">
                 @foreach ($messages as $message)
-                    <div wire:key='{{$message->id}}' class="msg_body {{auth()->id() == $message->sender_id ? 'msg_body_me' : 'msg_body_receiver'}}">
+                    <div wire:key='{{$message->id}}' class="msg_body {{auth()->id() == $message->sender_id ? 'msg_body_me' : 'msg_body_receiver'}}" style="width:80%;max-width:80%;max-width:max-content;">
                         {{$message->body}}
                         @if ($message->attachment)
                             <div class="msg_attachment">
@@ -41,7 +41,7 @@
                         @endif
                         <div class="msg_body_footer">
                             <div class="date">
-                                {{$message->created_at->format('m: i a')}}
+                                {{$message->created_at->format('h: i a')}}
                             </div>
                             <div class="read">
                                 <i class="bi bi-check"></i>
@@ -90,10 +90,12 @@
             </div>
         @else
             <div class="fs-4 text-center text-primary mt-5">
-                no conversation selected
+                Pas de conversation sélectionnée
             </div>
         @endif
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+   
 
     <script defer>
         document.addEventListener('DOMContentLoaded', function() {
@@ -162,5 +164,14 @@
         //     const modal = document.getElementById('imageModal');
         //     modal.style.display = 'none';
         // }
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            $(document).on('click', '#return-btn', function() {
+                Livewire.dispatch('resetComponent');
+            });
+        });
+
     </script>
     </div>

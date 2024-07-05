@@ -77,6 +77,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Candidate::class, 'created_by', 'id');
     }
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class, 'conversation_user');
+    }
     public function userLogins()
     {
         return $this->hasMany(UserLogin::class);

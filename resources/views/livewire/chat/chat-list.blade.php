@@ -12,18 +12,46 @@
         </div>
         @if(count($conversations) > 0)
             @foreach ($conversations as $conversation)
-                <div class="chatlist_item {{ $this->hasUnreadMessages($conversation) ? 'unread-message' : '' }}" wire:key="{{$conversation->id}}" wire:click="chatUserSelected({{ $conversation->id }}, {{ $this->getChatUserInstance($conversation, 'id') }})">
+                @php
+                    $lastMessage = $conversation->messages->last();
+                    $receiverId = $this->getChatUserInstance($conversation, 'id');
+                    $receiverUser = $this->receiverInstance; // Utiliser directement receiverInstance
+                    $hasUnreadMessages = $this->hasUnreadMessages($conversation);
+                @endphp
+                <div class="chatlist_item {{ $hasUnreadMessages ? 'unread-message' : '' }}" wire:key="{{$conversation->id}}" wire:click="chatUserSelected({{ $conversation->id }}, {{ $receiverId }})">
                     <div class="chatlist_img_container">
-                        <img src="https://picsum.photos/id/{{ $this->getChatUserInstance($conversation, 'id') }}/200/300" alt="">
+                        @if($receiverUser)
+                            <img src="https://picsum.photos/id/{{ $receiverId }}/200/300" alt="">
+                        @endif
                     </div>
                     <div class="chatlist_info">
                         <div class="top_row">
-                            <div class="list_username">{{ $this->getChatUserInstance($conversation, 'first_name') }}</div>
-                            <span class="date">{{ $conversation->messages->last()?->created_at->shortAbsoluteDiffForHumans() }}</span>
+                        <div class="list_username">
+                            @if($receiverUser)
+                                {{ $receiverUser->first_name }}
+                                @if($receiverUser->is_connect)
+                                    <span class="badge bg-success" style="width: 10px; height: 10px; border-radius: 50%; padding: 0;">&nbsp;</span>
+                                @else
+                                    <span class="badge bg-danger" style="width: 10px; height: 10px; border-radius: 50%; padding: 0;">&nbsp;</span>
+                                @endif
+                            @endif
+                        </div>
+
+                            <span class="date">{{ $lastMessage ? $lastMessage->created_at->shortAbsoluteDiffForHumans() : '' }}</span>
                         </div>
                         <div class="bottom_row">
-                            <div class="message_body text-truncate">{{ $conversation->messages->last()->body }}</div>
-                            <!-- <div class="unread_count">56</div> -->
+                            <div class="message_body text-truncate">
+                                @if ($lastMessage)
+                                    @if ($lastMessage->attachment)
+                                        @php
+                                            $senderName = $lastMessage->user->first_name;
+                                        @endphp
+                                        {{ $lastMessage->sender_id == auth()->id() ? 'Vous avez envoyé une pièce-jointe' : $senderName . ' a envoyé une pièce-jointe' }}
+                                    @else
+                                        {{ $lastMessage->body }}
+                                    @endif
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -32,16 +60,24 @@
             Vous n'avez pas de conversation
         @endif
     </div>
+
     <!-- Modal -->
     <div x-data="{ open: @entangle('isModalOpen') }">
         <div x-show="open" class="modale">
             <div class="modale-content">
-                <span class="close" wire:click="closeModal">&times;</span>
+                <span class="close" @click="open = false" wire:click="closeModal">&times;</span>
                 <h2>Créer un nouveau message</h2>
                 @if ($users)
                     <ul>
                         @foreach ($users as $user)
-                            <li wire:click="startConversation({{ $user->id }})">{{ $user->trigramme }}</li>
+                            <li wire:click="startConversation({{ $user->id }})">
+                                {{ $user->first_name }} {{ $user->last_name }} -- {{ $user->trigramme }}
+                                @if($user->is_connect)
+                                    <span class="badge bg-success" style="width: 10px; height: 10px; border-radius: 50%; padding: 0;">&nbsp;</span>
+                                @else
+                                    <span class="badge bg-danger" style="width: 10px; height: 10px; border-radius: 50%; padding: 0;">&nbsp;</span>
+                                @endif
+                            </li>
                         @endforeach
                     </ul>
                 @else
@@ -52,16 +88,6 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const closeModalButtons = document.querySelectorAll('.modal-content .close');
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const modal = button.closest('.modale');
-                    if (modal) {
-                        modal.style.display = 'none';
-                    }
-                });
-            });
-
             window.onclick = function(event) {
                 const modal = document.querySelector('.modale');
                 if (event.target === modal) {
