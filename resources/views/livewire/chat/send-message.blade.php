@@ -1,19 +1,18 @@
 <div>
     @if ($selectedConversation)
-        <form wire:submit.prevent='sendMessage' enctype="multipart/form-data">
+        <form wire:submit.prevent='sendMessage' enctype="multipart/form-data" id="messageForm">
             <div class="chatbox_footer">
                 <div class="custom_form_group">
 
-                    <!-- Display selected attachment -->
                     @if ($attachment)
                         <div class="attachment-preview">
                             @if (in_array($attachment->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif']))
-                                <!-- Display image as thumbnail -->
+                               
                                 <div class="attachment-thumbnail">
                                     <img src="{{ $attachment->temporaryUrl() }}" alt="Image preview">
                                 </div>
                             @else
-                                <!-- Display file icon and name for other types -->
+                               
                                 <div class="attachment-icon">
                                     <i class="bi bi-file-earmark"></i>
                                 </div>
@@ -26,8 +25,7 @@
                             </button>
                         </div>
                     @endif
-
-                    <input wire:model='body' type="text" class="control" placeholder="Ecrire le message">
+                    <textarea wire:model='body' class="control" placeholder="Écrire le message" rows="3" id="messageInput"></textarea>
 
                     <input wire:model='attachment' type="file" id="fileInput" style="display: none;">
                     <label for="fileInput" style="font-size: 24px; margin-right: 10px;">
@@ -43,4 +41,12 @@
     @endif
 </div>
 
-
+<script>
+    document.getElementById('messageInput').addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            document.getElementById('messageForm').submit();
+        }
+    });
+    
+</script>

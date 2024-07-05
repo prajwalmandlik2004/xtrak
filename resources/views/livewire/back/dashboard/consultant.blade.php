@@ -2,8 +2,8 @@
     {{-- créer par MAHAMADOU ALI AdbDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'Espace administrateur',
-        'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
+        'title' => 'Espace consultant',
+        'breadcrumbItems' => [['text' => 'BaseCST', 'url' => '#']],
     ])
     <div class="row">
         <div class="col-md-6">

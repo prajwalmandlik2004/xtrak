@@ -1,4 +1,5 @@
-<div>
+<div class="parent-container">
+
     <div class="chat_container">
 
         <div class="chat_list_container">

@@ -2,14 +2,14 @@
     <div>
         @if ($selectedConversation)
             <div class="chatbox_header">
-                <div class="return" id="return-btn">
+                <div class="return hide-on-large-screens" id="return-btn">
                     <i class="bi bi-arrow-left"></i>
                 </div>
                 <div class="img_container">
                     <img src="https://picsum.photos/id/{{$receiverInstance->id}}/200/300" alt="">
                 </div>
                 <div class="name">
-                    {{$receiverInstance->first_name}}
+                    {{$receiverInstance->first_name}}  {{$receiverInstance->last_name}}
                 </div>
                 <div class="info">
                     <!-- <div class="info_item">
@@ -35,7 +35,10 @@
                                         <img src="{{ asset('storage/' . $message->attachment) }}" alt="Attachment" style="max-width: 100%; height: auto; cursor: pointer;" onclick="openImageModal('{{ asset('storage/' . $message->attachment) }}')">
                                     </a>
                                 @else
-                                    <a href="{{ asset('storage/' . $message->attachment) }}" target="_blank" download>{{ basename($message->attachment) }}</a>
+                                <a href="{{ asset('storage/' . $message->attachment) }}" target="_blank" download>
+                                            <i class="attachment-link bi bi-paperclip"></i>
+                                            <span class="attachment-link">{{ basename($message->attachment) }}</span>
+                                        </a>
                                 @endif
                             </div>
                         @endif

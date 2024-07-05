@@ -26,16 +26,16 @@
                     </div>
                     <div class="chatlist_info">
                         <div class="top_row">
-                        <div class="list_username">
-                            @if($receiverUser)
-                                {{ $receiverUser->first_name }}
-                                @if($receiverUser->is_connect)
-                                    <span class="badge bg-success" style="width: 10px; height: 10px; border-radius: 50%; padding: 0;">&nbsp;</span>
-                                @else
-                                    <span class="badge bg-danger" style="width: 10px; height: 10px; border-radius: 50%; padding: 0;">&nbsp;</span>
+                            <div class="list_username">
+                                @if($receiverUser)
+                                    {{ $receiverUser->first_name }} {{ $receiverUser->last_name }}
+                                    @if($receiverUser->is_connect)
+                                        <span class="badge bg-success" style="width: 10px; height: 10px; border-radius: 50%; padding: 0;">&nbsp;</span>
+                                    @else
+                                        <span class="badge bg-danger" style="width: 10px; height: 10px; border-radius: 50%; padding: 0;">&nbsp;</span>
+                                    @endif
                                 @endif
-                            @endif
-                        </div>
+                            </div>
 
                             <span class="date">{{ $lastMessage ? $lastMessage->created_at->shortAbsoluteDiffForHumans() : '' }}</span>
                         </div>
