@@ -115,8 +115,7 @@ background-color: #6699FF !important;
     --vz-table-striped-bg: #00a2ff !important;
     --vz-table-hover-bg: #3d78e3!important;
   }
-
-  /******************************* Chat Container **************************/
+/******************************* Chat Container **************************/
   .chat_container {
       position: fixed;
       width: 70%;
@@ -309,7 +308,7 @@ background-color: #6699FF !important;
     width: 100%;
     position:relative;
     top: 60px;
-    max-height:640px;
+    max-height:550px;
     bottom: 60px;
     padding: 17px 11px;
     overflow: auto;
@@ -366,7 +365,7 @@ background-color: #6699FF !important;
 
   .chatbox_footer {
       background-color: white;
-      height: 100px;
+      /* height: 100px; */
       border-top: 1px solid rgb(233, 233, 233);
       position: absolute;
       bottom: 0;
@@ -425,6 +424,7 @@ background-color: #6699FF !important;
 .submit:hover {
     background-color: #0056b3;
 }
+
   .modal-attachments {
       display: none;
       position: fixed;
