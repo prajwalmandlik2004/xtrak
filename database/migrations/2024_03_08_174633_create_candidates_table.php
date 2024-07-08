@@ -34,7 +34,7 @@ return new class extends Migration {
             $table->foreignUuid('position_id')->nullable()->references('id')->on('positions');
             $table->foreignUuid('field_id')->nullable()->references('id')->on('fields');
             $table->foreignUuid('speciality_id')->nullable()->references('id')->on('specialities');
-            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null'); 
             $table->foreignUuid('candidate_state_id')->nullable()->references('id')->on('candidate_states');
             $table->foreignUuid('next_step_id')->nullable()->references('id')->on('next_steps');
             $table->foreignUuid('ns_date_id')->nullable()->references('id')->on('ns_dates');
