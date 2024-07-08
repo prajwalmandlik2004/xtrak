@@ -126,8 +126,8 @@ background-color: #6699FF !important;
       border-radius: 11px;
       padding: 5px 6px;
       margin-left:7%;
-      max-width: 70%; 
-      max-height: 80%;
+      /* max-width: 70%; 
+      max-height: 80%; */
       overflow: hidden; 
       
   }
@@ -258,6 +258,7 @@ background-color: #6699FF !important;
     border-bottom: 1px solid gray;
     display: flex;
     flex-wrap: nowrap;
+    justify-content: space-between;
 }
 
 .chatbox_header .img_container {
@@ -280,7 +281,12 @@ background-color: #6699FF !important;
 }
 
 .chatbox_header .name {
-    margin: auto 5px;
+    margin: auto;
+    font-size: 18px;
+    font-weight: bold;
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: center;
 }
 
 .chatbox_header .info {
