@@ -20,7 +20,7 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\CandidateStatutController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\HomeController;
-use App\Livewire\Chat\CreateChat; 
+use App\Livewire\Chat\CreateChat;
 use App\Livewire\Chat\Main;
 
 /*
@@ -70,4 +70,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // Route::get('/user', CreateChat::class)->name('user');
     Route::get('/chat{key?}', Main::class)->name('chat');
 });
-   // Route::get('commandes/{param}', [DasboardController::class, 'commande']);
+   Route::get('commandes/{param}', [DasboardController::class, 'commande']);
