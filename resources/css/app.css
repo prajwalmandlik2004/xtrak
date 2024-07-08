@@ -131,8 +131,6 @@ background-color: #6699FF !important;
       overflow: hidden; 
       
   }
-  
-  
   /******************************* Chat List Container **************************/
   .chat_list_container {
       border-right: 1px solid gray;
@@ -248,7 +246,7 @@ background-color: #6699FF !important;
   /******************************* Chat Box Container **************************/
   .chat_box_container {
     position: relative;
-    width: 75%;
+    width: 70%;
     height: 100%;
 }
 

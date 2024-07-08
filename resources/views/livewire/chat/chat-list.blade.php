@@ -66,7 +66,7 @@
         <div x-show="open" class="modale">
             <div class="modale-content">
                 <span class="close" @click="open = false" wire:click="closeModal">&times;</span>
-                <h2>Créer un nouveau message</h2>
+                <h2>Nouvelle discussion - Nouveau contact</h2>
                 @if ($users)
                     <ul>
                         @foreach ($users as $user)
