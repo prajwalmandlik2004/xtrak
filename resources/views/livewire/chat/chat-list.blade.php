@@ -2,7 +2,11 @@
     <div class="chatlist_header">
         <div class="title">{{ $auth_first_name }} {{ $auth_last_name }} -- {{ $auth_trigram }}</div>
         <div class="img_container">
-            <img src="https://picsum.photos/id/237/200/300" alt="">
+            @if(auth()->user()->profile_photo_path)
+                <img src="{{ asset('storage/' . auth()->user()->profile_photo_path) }}" alt="">
+            @else
+                <img src="assets/images/logo.png" alt="">
+            @endif
         </div>
     </div>
 
@@ -21,7 +25,11 @@
                 <div class="chatlist_item {{ $hasUnreadMessages ? 'unread-message' : '' }}" wire:key="{{$conversation->id}}" wire:click="chatUserSelected({{ $conversation->id }}, {{ $receiverId }})">
                     <div class="chatlist_img_container">
                         @if($receiverUser)
-                            <img src="https://picsum.photos/id/{{ $receiverId }}/200/300" alt="">
+                            @if($receiverUser->profile_photo_path)
+                                <img src="{{ asset('storage/' . $receiverUser->profile_photo_path) }}" alt="">
+                            @else
+                                <img src="assets/images/logo.png" alt="">
+                            @endif
                         @endif
                     </div>
                     <div class="chatlist_info">

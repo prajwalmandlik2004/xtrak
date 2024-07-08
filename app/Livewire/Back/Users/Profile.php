@@ -31,7 +31,7 @@ class Profile extends Component
         $this->user = Auth::user();
         $this->first_name = $this->user->first_name ?? '';
         $this->last_name = $this->user->last_name ?? '';
-        $this->phone = $this->user->profile_photo_path ?? '';
+        $this->phone = $this->user->phone ?? '';
         $this->email = $this->user->email ?? '';
     }
     public function openModal($id = null)
@@ -44,7 +44,7 @@ class Profile extends Component
             $this->user = User::find($id);
             $this->first_name = $this->user->first_name ?? '';
             $this->last_name = $this->user->last_name ?? '';
-            $this->phone = $this->user->profile_photo_path ?? '';
+            $this->phone = $this->user->phone ?? '';
             $this->email = $this->user->email ?? '';
         }
     }

@@ -6,8 +6,12 @@
                     <i class="bi bi-arrow-left"></i>
                 </div>
                 <div class="img_container">
-                    <img src="https://picsum.photos/id/{{$receiverInstance->id}}/200/300" alt="">
-                </div>
+                            @if($receiverInstance->profile_photo_path)
+                                <img src="{{ asset('storage/' . $receiverInstance->profile_photo_path) }}" alt="">
+                            @else
+                                <img src="assets/images/logo.png" alt="">
+                            @endif
+                    </div>
                 <div class="name">
                     {{$receiverInstance->first_name}}  {{$receiverInstance->last_name}}
                 </div>

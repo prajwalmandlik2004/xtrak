@@ -170,8 +170,16 @@ background-color: #6699FF !important;
       width: 100%;
       border-radius: 50%;
       border: 1px solid gray;
+      object-fit: cover;
   }
-  
+  .chatlist_img_container img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    border: 1px solid gray;
+    object-fit: cover;
+}
+
   .chatlist_body .chatlist_item {
       display: flex;
       flex-wrap: nowrap;
