@@ -20,11 +20,14 @@ class Form extends Component
     public $response7;
     public $response8;
     public $candidate;
+
     public function mount()
     {
         $this->candidate = Candidate::find($this->candidate);
+
         if ($this->action == 'update') {
             $this->cre = Cre::where('candidate_id', $this->candidate->id)->get();
+
             $this->response1 = $this->getResponseByNumber(1);
             $this->response2 = $this->getResponseByNumber(2);
             $this->response3 = $this->getResponseByNumber(3);
@@ -41,6 +44,7 @@ class Form extends Component
         $cre = $this->cre->where('number', $number)->first();
         return $cre ? $cre->response : null;
     }
+
     public function storeData()
     {
         $questions = [
@@ -57,7 +61,7 @@ class Form extends Component
         $validatedData = $this->validate([
             'response1' => 'nullable',
             'response2' => 'nullable',
-            'response3' => 'nullable',  
+            'response3' => 'nullable',
             'response4' => 'nullable',
             'response5' => 'nullable',
             'response6' => 'nullable',
@@ -67,9 +71,21 @@ class Form extends Component
 
         try {
             DB::beginTransaction();
-            if ($this->action == 'create') {
-                foreach ($validatedData as $key => $value) {
-                    $number = substr($key, strlen('response'));
+
+            foreach ($validatedData as $key => $value) {
+                $number = substr($key, strlen('response'));
+                $cre = Cre::where('candidate_id', $this->candidate->id)
+                    ->where('number', $number)
+                    ->first();
+
+                if ($cre) {
+                    // Si le CRE existe, le mettre à jour
+                    $cre->update([
+                        'response' => $value,
+                        'question' => $questions[$number],
+                    ]);
+                } else {
+                    // Si le CRE n'existe pas, le créer
                     Cre::create([
                         'response' => $value,
                         'number' => $number,
@@ -77,28 +93,22 @@ class Form extends Component
                         'question' => $questions[$number],
                     ]);
                 }
+            }
+
+            // Mettre à jour les informations supplémentaires du candidat si nécessaire
+            if ($this->action == 'create') {
                 $this->candidate->update([
                     'cre_ref' => 'CRE' . rand(1, 99999),
                     'cre_created_at' => now(),
                 ]);
-            } else {
-                foreach ($validatedData as $key => $value) {
-                    $number = substr($key, strlen('response'));
-                    $cre = Cre::where('candidate_id', $this->candidate->id)
-                        ->where('number', $number)
-                        ->firstOrFail();
-                    $cre->update([
-                        'response' => $value,
-                        'question' => $questions[$number],
-                    ]);
-                }
             }
 
             DB::commit();
             return redirect()->route('candidates.show', $this->candidate->id);
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: $this->action == 'create' ? 'Erreur lors de la création du c.r.e' : 'Erreur lors de la modification du c.r.e');
+            $this->dispatch('alert', type: 'error', message: $this->action == 'create' ? 'Erreur lors de la création du c.r.e' : 'Erreur lors de la modification du c.r.e' . $th->getMessage());
+
         }
     }
 

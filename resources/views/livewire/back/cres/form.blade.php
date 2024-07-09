@@ -21,7 +21,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <a href="#" onclick="goBack()" class="btn btn-secondary me-2"><i class="mdi mdi-arrow-left me-1"></i>Retour</a>
-                                <button type="submit" class="btn btn-primary">{{ $action == 'create' ? 'Enregistrer' : 'Modifier' }}</button>
+                                <button type="submit" class="btn btn-primary">{{ $action == 'create' ? 'Enregistrer' : 'Enregistrer les modifications' }}</button>
                             </div>
 
                         </div>
@@ -99,7 +99,7 @@
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
                             <button type="submit"
-                                class="btn btn-primary">{{ $action == 'create' ? 'Enregistrer' : 'Modifier' }}</button>
+                                class="btn btn-primary">{{ $action == 'create' ? 'Enregistrer' : 'Enregistrer les modifications' }}</button>
                         </div>
                     </div>
 
@@ -126,4 +126,5 @@
             });
         });
     </script>
+    
 @endpush

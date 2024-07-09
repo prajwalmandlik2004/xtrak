@@ -22,6 +22,7 @@ use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\HomeController;
 use App\Livewire\Chat\CreateChat; 
 use App\Livewire\Chat\Main;
+use App\Livewire\Back\Cres\ShowPdf;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,5 +70,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     // Route::get('/user', CreateChat::class)->name('user');
     Route::get('/chat{key?}', Main::class)->name('chat');
+    Route::get('/cre/{candidate}/pdf', ShowPdf::class)->name('showPdf');
 });
    // Route::get('commandes/{param}', [DasboardController::class, 'commande']);
