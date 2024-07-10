@@ -18,7 +18,7 @@ class Consultant extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $nbPaginate =  30;
+    public $nbPaginate = 100;
     public $filterName = '';
     public $filterDate = '';
     public $candidate_state_id = '';
@@ -188,6 +188,16 @@ class Consultant extends Component
         $this->positions= Position::all();
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidateStates = CandidateState::all();
+        $this->search = session()->get('search', '');
+        $this->nbPaginate = session()->get('nbPaginate', 30);
+        $this->users_id = session()->get('users_id', '');
+        $this->candidate_state_id = session()->get('candidate_state_id', '');
+        $this->candidate_statut_id = session()->get('candidate_statut_id', '');
+        $this->company = session()->get('company', '');
+        $this->position_id = session()->get('position_id', '');
+        $this->cp = session()->get('cp', '');
+        $this->cvFileExists = session()->get('cvFileExists', '');
+        $this->creFileExists = session()->get('creFileExists', '');
 
         if (session()->has('cte_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('cte_base_cdt_selected_candidate_id');
@@ -202,16 +212,46 @@ class Consultant extends Component
     }
     public function resetFilters()
     {
-        $this->search = '';
-        $this->filterName = '';
-        $this->filterDate = '';
-        $this->candidate_state_id = '';
-        $this->candidate_statut_id = '';
-        $this->position_id = '';
-        // $this->users_id = '';
-        $this->cp = '';
-        $this->cvFileExists = ''; 
-        $this->creFileExists = ''; 
+        // $this->search = '';
+        // $this->filterName = '';
+        // $this->filterDate = '';
+        // $this->candidate_state_id = '';
+        // $this->candidate_statut_id = '';
+        // $this->position_id = '';
+        // // $this->users_id = '';
+        // $this->cp = '';
+        // $this->cvFileExists = ''; 
+        // $this->creFileExists = ''; 
+
+        $this->reset([
+            'search', 
+            'nbPaginate',
+            'users_id', 
+            'candidate_state_id', 
+            'candidate_statut_id',
+            'company', 
+            'position_id',
+            'cp', 
+            'cvFileExists',
+            'creFileExists'
+            ]);
+    
+            session()->forget([
+                'search', 
+                'nbPaginate', 
+                'users_id', 
+                'candidate_state_id', 
+                'candidate_statut_id', 
+                'company', 
+                'position_id', 
+                'cp', 
+                'cvFileExists', 
+                'creFileExists'
+            ]);
+    }
+    public function updated($propertyName)
+    {
+        session()->put($propertyName, $this->{$propertyName});
     }
     
     public function selectCandidateGoToCre($id, $page)

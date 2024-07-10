@@ -19,6 +19,7 @@ class Form extends Component
     public $response6;
     public $response7;
     public $response8;
+    public $response9;
     public $candidate;
 
     public function mount()
@@ -36,6 +37,7 @@ class Form extends Component
             $this->response6 = $this->getResponseByNumber(6);
             $this->response7 = $this->getResponseByNumber(7);
             $this->response8 = $this->getResponseByNumber(8);
+            $this->response9 = $this->getResponseByNumber(9);
         }
     }
 
@@ -48,14 +50,15 @@ class Form extends Component
     public function storeData()
     {
         $questions = [
-            1 => 'Statut professionnel',
+            1 => ' Statut professionnel',
             2 => 'Statut personnel',
             3 => 'Situation professionnelle',
             4 => 'Points incontournables',
-            5 => 'Résumé du parcours professionnel',
-            6 => 'Savoir-être', 
+            5 => 'Savoir-être du candidat',
+            6 => 'Prise de référence(s)', 
             7 => 'Prétentions salariales',
-            8 => 'Disponibilités',
+            8 => 'Disponibilités candidat',
+            9 => 'Résumé du parcours professionnel',
         ];
 
         $validatedData = $this->validate([
@@ -67,6 +70,7 @@ class Form extends Component
             'response6' => 'nullable',
             'response7' => 'nullable',
             'response8' => 'nullable',
+            'response9' => 'nullable',
         ]);
 
         try {

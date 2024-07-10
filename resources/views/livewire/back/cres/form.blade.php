@@ -65,7 +65,7 @@
                         
                             <div class="col-md-12 mt-3">
                                 <div>
-                                    <label for="response5" class="form-label">5. Résumé du parcours professionnel :
+                                    <label for="response5" class="form-label">5. Savoir-être du candidat : 
                                     </label>
                                     <textarea wire:model='response5' class="form-control auto-resize" id="response5" 
                                         style="resize: none; overflow-y: hidden;"></textarea>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="col-md-12 mt-3">
                                 <div>
-                                    <label for="response6" class="form-label">6. Savoir-être  :</label>
+                                    <label for="response6" class="form-label">6. Prise de référence(s) :</label>
                                     <textarea wire:model='response6' class="form-control auto-resize" id="response6" 
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
@@ -88,8 +88,15 @@
                             </div>
                             <div class="col-md-12 mt-3">
                                 <div>
-                                    <label for="response8" class="form-label">8. Disponibilités  :</label>
+                                    <label for="response8" class="form-label">8. Disponibilités candidat :</label>
                                     <textarea wire:model='response8' class="form-control auto-resize" id="response8" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response7" class="form-label">9. Résumé du parcours professionnel :</label>
+                                    <textarea wire:model='response9' class="form-control auto-resize" id="response9" 
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>

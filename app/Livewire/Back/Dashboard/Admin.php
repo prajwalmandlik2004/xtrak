@@ -27,7 +27,7 @@ class Admin extends Component
     public $company = '';
     public $cv = '';
     public $cre_ref = '';   
-    public $nbPaginate = 30;
+    public $nbPaginate = 100;
     public $candidate_statut_id = '';
     public $candidateStatuses;
     public $filterName = '';
@@ -121,7 +121,7 @@ class Admin extends Component
 
     public function searchCandidates()
     {
-        \Log::info('searchCandidates method called with search: ' . $this->search);
+        // \Log::info('searchCandidates method called with search: ' . $this->search);
         $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country', 'commentaire', 'description', 'suivi'];
 
         return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur'])
@@ -219,6 +219,16 @@ class Admin extends Component
         $this->users = User::all();
         $this->certifiedCandidatesCount = $this->countCertifiedCandidates();
         $this->uncertifiedCandidatesCount = $this->countUncertifiedCandidates();
+        $this->search = session()->get('search', '');
+        $this->nbPaginate = session()->get('nbPaginate', 30);
+        $this->users_id = session()->get('users_id', '');
+        $this->candidate_state_id = session()->get('candidate_state_id', '');
+        $this->candidate_statut_id = session()->get('candidate_statut_id', '');
+        $this->company = session()->get('company', '');
+        $this->position_id = session()->get('position_id', '');
+        $this->cp = session()->get('cp', '');
+        $this->cvFileExists = session()->get('cvFileExists', '');
+        $this->creFileExists = session()->get('creFileExists', '');
 
         if (session()->has('dash_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('dash_base_cdt_selected_candidate_id');
@@ -279,18 +289,33 @@ class Admin extends Component
         }
     }
 
-    public function resetFilters()
+   public function resetFilters()
     {
-        $this->search = '';
-        $this->filterName = '';
-        $this->filterDate = '';
-        $this->candidate_state_id = '';
-        $this->candidate_statut_id = '';
-        $this->position_id = '';
-        $this->users_id = '';
-        $this->cp = '';
-        $this->cvFileExists = ''; 
-        $this->creFileExists = ''; 
+        $this->reset([
+        'search', 
+        'nbPaginate',
+        'users_id', 
+        'candidate_state_id', 
+        'candidate_statut_id',
+        'company', 
+        'position_id',
+        'cp', 
+        'cvFileExists',
+        'creFileExists'
+        ]);
+
+        session()->forget([
+            'search', 
+            'nbPaginate', 
+            'users_id', 
+            'candidate_state_id', 
+            'candidate_statut_id', 
+            'company', 
+            'position_id', 
+            'cp', 
+            'cvFileExists', 
+            'creFileExists'
+        ]);
     }
 
     public function countCertifiedCandidates()
@@ -305,6 +330,10 @@ class Admin extends Component
         return Candidate::whereHas('candidateState', function ($query) {
             $query->where('name', 'Attente');
         })->count();
+    }
+    public function updated($propertyName)
+    {
+        session()->put($propertyName, $this->{$propertyName});
     }
 
     public function render()
