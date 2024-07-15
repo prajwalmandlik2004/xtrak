@@ -50,6 +50,7 @@ class Index extends Component
             $this->disponibility = Disponibility::find($id);
             $this->name = $this->disponibility->name ?? '';
         }
+        $this->dispatch('openModal');
     }
     public function storeData()
     {

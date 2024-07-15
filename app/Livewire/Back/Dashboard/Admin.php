@@ -25,6 +25,7 @@ class Admin extends Component
     protected $paginationTheme = 'bootstrap';
     public $search = '';
     public $company = '';
+    public $position = '';
     public $cv = '';
     public $cre_ref = '';   
     public $nbPaginate = 100;
@@ -172,6 +173,11 @@ class Admin extends Component
             ->when($this->cp, function ($query) {
                 $query->where('postal_code', 'like', '%' . $this->cp . '%');
             })
+            ->when($this->position, function ($query) {
+                $query->whereHas('position', function ($query) {
+                    $query->where('name', 'like', '%' . $this->position . '%');
+                });
+            })
             ->when($this->company, function ($query) {
                 $query->whereHas('compagny', function ($query) {
                     $query->where('name', 'like', '%' . $this->company . '%');
@@ -220,7 +226,7 @@ class Admin extends Component
         $this->certifiedCandidatesCount = $this->countCertifiedCandidates();
         $this->uncertifiedCandidatesCount = $this->countUncertifiedCandidates();
         $this->search = session()->get('search', '');
-        $this->nbPaginate = session()->get('nbPaginate', 30);
+        $this->nbPaginate = session()->get('nbPaginate', 100);
         $this->users_id = session()->get('users_id', '');
         $this->candidate_state_id = session()->get('candidate_state_id', '');
         $this->candidate_statut_id = session()->get('candidate_statut_id', '');
@@ -229,6 +235,7 @@ class Admin extends Component
         $this->cp = session()->get('cp', '');
         $this->cvFileExists = session()->get('cvFileExists', '');
         $this->creFileExists = session()->get('creFileExists', '');
+        $this->position = session()->get('position', '');
 
         if (session()->has('dash_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('dash_base_cdt_selected_candidate_id');
@@ -301,7 +308,8 @@ class Admin extends Component
         'position_id',
         'cp', 
         'cvFileExists',
-        'creFileExists'
+        'creFileExists',
+        'position'
         ]);
 
         session()->forget([
@@ -314,7 +322,8 @@ class Admin extends Component
             'position_id', 
             'cp', 
             'cvFileExists', 
-            'creFileExists'
+            'creFileExists',
+            'position'
         ]);
     }
 

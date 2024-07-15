@@ -88,13 +88,8 @@
                                
                             </td>
                             <td>
-                                <select class="form-control w-md" wire:model.live='position_id'>
-                                    <option value="" selected>Fonction</option>
-                                    @foreach ($positions as $position)
-                                        <option value="{{ $position->id }}">{{ $position->name }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
+                                <input type="text" class="form-control" placeholder="Fonction..." wire:model.live='position'>
+                            </td> 
                             <td>
                                 <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
 

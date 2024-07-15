@@ -314,7 +314,7 @@
                                                                                 @enderror
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-lg-auto mt-4">
+                                                                        <div class="col-lg-2 mt-4">
                                                                             <div>
                                                                                 <label for="disponibility"
                                                                                     class="form-label">Disponibilité
@@ -337,7 +337,7 @@
                                                                                 @enderror
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-lg-auto mt-4">
+                                                                        <div class="col-lg-2 mt-4">
                                                                             <div>
                                                                                 <label for="candidate_statut_id"
                                                                                     class="form-label">Statut </label>

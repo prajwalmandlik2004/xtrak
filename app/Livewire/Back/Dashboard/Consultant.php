@@ -38,6 +38,7 @@ class Consultant extends Component
     public $cvFileExists = '';
     public $creFileExists = '';
     public $company = '';
+    public $position = '';
 
     public function selectCandidate($id, $page)
     {
@@ -140,6 +141,11 @@ class Consultant extends Component
             ->when($this->cp, function ($query) {
                 $query->where('postal_code', 'like', '%' . $this->cp . '%');
             })
+            ->when($this->position, function ($query) {
+                $query->whereHas('position', function ($query) {
+                    $query->where('name', 'like', '%' . $this->position . '%');
+                });
+            })
             ->when($this->company, function ($query) {
                 $query->whereHas('compagny', function ($query) {
                     $query->where('name', 'like', '%' . $this->company . '%');
@@ -189,7 +195,7 @@ class Consultant extends Component
         $this->candidateStatuses = CandidateStatut::all();
         $this->candidateStates = CandidateState::all();
         $this->search = session()->get('search', '');
-        $this->nbPaginate = session()->get('nbPaginate', 30);
+        $this->nbPaginate = session()->get('nbPaginate', 100);
         $this->users_id = session()->get('users_id', '');
         $this->candidate_state_id = session()->get('candidate_state_id', '');
         $this->candidate_statut_id = session()->get('candidate_statut_id', '');
@@ -198,6 +204,7 @@ class Consultant extends Component
         $this->cp = session()->get('cp', '');
         $this->cvFileExists = session()->get('cvFileExists', '');
         $this->creFileExists = session()->get('creFileExists', '');
+        $this->position = session()->get('position', '');
 
         if (session()->has('cte_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('cte_base_cdt_selected_candidate_id');
@@ -233,7 +240,8 @@ class Consultant extends Component
             'position_id',
             'cp', 
             'cvFileExists',
-            'creFileExists'
+            'creFileExists',
+            'position'
             ]);
     
             session()->forget([
@@ -246,7 +254,8 @@ class Consultant extends Component
                 'position_id', 
                 'cp', 
                 'cvFileExists', 
-                'creFileExists'
+                'creFileExists',
+                'position'
             ]);
     }
     public function updated($propertyName)
