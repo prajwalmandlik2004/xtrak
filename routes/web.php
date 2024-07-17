@@ -71,5 +71,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // Route::get('/user', CreateChat::class)->name('user');
     Route::get('/chat{key?}', Main::class)->name('chat');
     Route::get('/cre/{candidate}/pdf', ShowPdf::class)->name('showPdf');
+    Route::get('/autocomplete/positions', [PositionController::class, 'autocomplete'])->name('autocomplete.positions');
 });
    // Route::get('commandes/{param}', [DasboardController::class, 'commande']);

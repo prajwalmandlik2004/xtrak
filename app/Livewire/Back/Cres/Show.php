@@ -3,32 +3,40 @@
 namespace App\Livewire\Back\Cres;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Http;
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Storage;
 
 class Show extends Component
 {
     public $candidate;
+
     public function generatePdf()
     {
         $html = view('livewire.back.cres.pdf', [
             'cres' => $this->candidate->cres,
             'candidate' => $this->candidate,
         ])->render();
-        $response = Http::post('https://api.tailwindstream.io/public', [
-            'html' => $html,
-            'format' => 'a4',
-        ]);
-        if ($response->successful()) {
-            $pdfFileName = uniqid('pdf_') . '.pdf';
-            File::put(public_path($pdfFileName), $response->body());
-            $pdfName = 'CRE ' . $this->candidate->first_name . '_' . $this->candidate->last_name . '.pdf';
-            return response()->download(public_path($pdfFileName), $pdfName)->deleteFileAfterSend(true);
-        } else {
-            return response()->json(['error' => 'Une erreur est survenue la génération du PDF'], 500);
-        }
+
+        $dompdf = new Dompdf();
+        
+        $dompdf->set_option('isHtml5ParserEnabled', true);
+        $dompdf->set_option('isRemoteEnabled', true);
+
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'portrait');
+
+        $dompdf->render();
+
+        $pdfFileName = uniqid('pdf_') . '.pdf';
+        Storage::put('public/'.$pdfFileName, $dompdf->output());
+
+       
+        $pdfName = 'CRE ' . $this->candidate->first_name . '_' . $this->candidate->last_name . '.pdf';
+
+        return response()->download(storage_path('app/public/'.$pdfFileName), $pdfName)->deleteFileAfterSend(true);
     }
+
     public function render()
     {
         $cres = $this->candidate->cres;
