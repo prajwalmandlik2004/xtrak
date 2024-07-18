@@ -16,10 +16,10 @@
                     class="btn btn-info ms-2">
                     <i class="ri-add-line align-bottom me-1"></i> Modifier
                 </a>
-                <a type="button" href="#" wire:click.prevent="deleteCre('{{ $candidate->id }}')"
-                    class="btn btn-danger ms-2">
-                    <i class="ri-delete-bin-line align-bottom me-1"></i> Supprimer
-                </a>
+                <a type="button" href="#" wire:click.prevent="confirmDelete('{{ $candidate->id }}')" class="btn btn-danger ms-2">
+    <i class="ri-delete-bin-line align-bottom me-1"></i> Supprimer
+</a>
+
             @else
                 <a type="button" href="{{ route('add.cre', ['candidate' => $candidate, 'action' => 'create']) }}"
                     class="btn btn-primary">
