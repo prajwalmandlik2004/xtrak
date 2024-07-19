@@ -118,14 +118,14 @@ background-color: #6699FF !important;
 /******************************* Chat Container **************************/
   .chat_container {
       position: fixed;
-      width: 70%;
+      width: 65%;
       height: 80%;
       border: 1px solid gray;
       display: flex;
       flex-wrap: nowrap;
       border-radius: 11px;
       padding: 5px 6px;
-      margin-left:7%;
+      margin-left:10%;
       /* max-width: 70%; 
       max-height: 80%; */
       overflow: hidden; 
@@ -134,7 +134,7 @@ background-color: #6699FF !important;
   /******************************* Chat List Container **************************/
   .chat_list_container {
       border-right: 1px solid gray;
-      max-width: 30%;
+      Width: 40%;
       height: 100%;
       border-radius: inherit;
   }
@@ -254,7 +254,7 @@ background-color: #6699FF !important;
   /******************************* Chat Box Container **************************/
   .chat_box_container {
     position: relative;
-    width: 70%;
+    width: 100%;
     height: 100%;
 }
 
@@ -318,12 +318,12 @@ background-color: #6699FF !important;
 .chatbox_body {
     overflow-y: auto;
     width: 100%;
-    position:relative;
+    position:absolute;
     top: 60px;
-    max-height:550px;
-    bottom: 60px;
+    /* bottom: 60px; */
     padding: 17px 11px;
-    overflow: auto;
+    /* overflow: hidden; */
+    height: 75%;
 }
 
 .msg_body {
