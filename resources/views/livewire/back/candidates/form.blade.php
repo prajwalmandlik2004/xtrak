@@ -745,7 +745,7 @@
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#modal"><i
                                                                                 class="ri-pencil-fill align-bottom me-2 text-muted"></i>
-                                                                            Rénomer</a>
+                                                                            Renommer</a>
                                                                     </li>
                                                                     <li><a wire:click="confirmDeleteFile('{{ $file->name }}', '{{ $file->id }}')"
                                                                             class="dropdown-item"><i

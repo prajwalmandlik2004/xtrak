@@ -166,17 +166,14 @@
                         </div>
                         
                         <div id="exporter">
-                            <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel"
-                                type="button" class="btn btn-primary position-relative">
-                                <i class="ri-file-download-line me-1"></i>
-                                <span class="download-text">Exporter</span>
-                                <span wire:loading wire:target="downloadExcel"
-                                    class="position-absolute top-50 start-50 translate-middle">
-                                    <span class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true"></span>
-                                    <span class="visually-hidden">Exportation...</span>
-                                </span>
-                            </button>
+                        <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
+    <i class="ri-file-download-line me-1"></i>
+    <span class="download-text">Exporter</span>
+    <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="visually-hidden">Exportation...</span>
+    </span>
+</button>
 
                         </div>
                     </div>
@@ -359,6 +356,15 @@
                         block: 'nearest'
                     });
                 }
+                // MAJ selection apres export
+                Livewire.on('exportCompleted', () => {
+                document.querySelectorAll('.candidate-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+
+                toggleButtons();
+                updateSelectionButtonAndSelectAllCheckbox();
+            });
 
                 document.querySelectorAll('tr[data-id]').forEach(function(row) {
                     var candidateId = row.getAttribute('data-id');
@@ -487,10 +493,10 @@
 
                 if (anyChecked) {
                     deleteButtonContainer.style.display = 'block';
-                    exporter.style.display = 'none';
+                    // exporter.style.display = 'none';
                 } else {
                     deleteButtonContainer.style.display = 'none';
-                    exporter.style.display = 'block';
+                    // exporter.style.display = 'block';
                 }
             }
 
@@ -567,7 +573,15 @@
                 }
             });
         });
-
+/***********************************************************************************************/
+function exportSelectedCandidates() {
+        let selectedCandidateIds = Array.from(document.querySelectorAll('.candidate-checkbox:checked'))
+            .map(checkbox => checkbox.closest('tr').getAttribute('data-id'))
+            .filter(id => id !== null && id !== '');
+        
+        // Appeler la méthode Livewire avec les IDs sélectionnés
+        @this.call('downloadExcel', selectedCandidateIds);
+    }
     </script>
     @endpush
 </div>

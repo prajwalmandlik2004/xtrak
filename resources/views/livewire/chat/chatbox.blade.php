@@ -43,7 +43,7 @@
                     @endif
 
                     <div wire:key='{{$message->id}}' class="msg_body {{auth()->id() == $message->sender_id ? 'msg_body_me' : 'msg_body_receiver'}}" style="width:80%;max-width:80%;max-width:max-content;">
-                        {{$message->body}}
+                        {!! nl2br(e($message->body)) !!}
                         @if ($message->attachment)
                             <div class="msg_attachment">
                                 @if ($message->isImageAttachment())
