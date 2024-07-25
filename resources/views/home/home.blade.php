@@ -13,11 +13,12 @@
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-    /* Styles for large screens */
     .login_bg {
         background-image: url('{{ asset('assets/images/landing.jpg') }}');
         background-size: cover;
         background-repeat: no-repeat;
+        height: 100vh;
+        width: 100vw;
     }
     .header-container {
         position: absolute;
@@ -27,25 +28,25 @@
         align-items: center;
     }
     .header-container img {
-        height:100%;
+        height: 100%;
         width: 13%;
     }
     .header-container .separator {
         margin-left: -72%;
         font-size: 50px;
         color: white;
-        margin-right:4%;
+        margin-right: 4%;
     }
     .circle {
-        width:35%;
-        height:35%;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         text-align: center;
-        line-height:100%;
+        line-height: 60px;
         color: black;
         border: none;
         cursor: pointer;
-        font-size: 18px;
+        font-size: 14px;
         position: absolute;
         transition: background-color 0.1s ease, border 0.1s ease;
     }
@@ -66,72 +67,31 @@
         justify-content: center;
         align-items: center;
         position: absolute;
-        width: 10%;
-        height:18%;
-        bottom: 45%;
-        right: 10%;
+        width: 100vw;
+        height: 100vh;
+        margin-top: 60%;
+        margin-left: 75%;
     }
     #xtrak {
-        width:50%;
-        height:60%;
-        margin-top:2%;
+        width: 50%;
+        height: 60%;
+        margin-top: 2%;
     }
-    /* @media (max-width: 767px) {
-        .header-container {
-            top: 10px;
-            left: 10px;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .header-container img {
-            height: 40px;
-            width: 140px;
-            margin-right: 20px;
-        }
-        .header-container .separator {
-            margin-right: 20px;
-            font-size: 30px;
-        }
-        .header-container h1 {
-            margin-top: 10px;
-        }
+
+    @media (max-width: 768px) {
         #container {
-            bottom: 150px;
-            right: 10px;
-        }
-    }
-    @media (max-width: 576px) {
-        .circle {
-            width: 50px;
-            height: 50px;
-            font-size: 16px;
-            line-height: 50px;
-        }
-        .header-container {
-            flex-direction: row;
+            margin-top: 200%;
+            margin-left: 0;
+            justify-content: center;
             align-items: center;
         }
-        .header-container a img,
-        #xtrak {
-            width: 50%;
-            max-width: 100px;
-        }
-        .header-container .separator {
-            display: none;
-        }
-    }
-    @media (max-width: 400px) {
-        .circle {
+        /* .circle {
             width: 40px;
             height: 40px;
-            font-size: 12px;
             line-height: 40px;
-        }
-        #container {
-            width: 150px;
-            height: 150px;
-        }
-    } */
+            font-size: 12px;
+        } */
+    }
     </style>
 </head>
 <body class="login_bg">
@@ -170,7 +130,7 @@
     <!-- password-addon init -->
     <script src="{{ asset('assets/js/pages/password-addon.init.js') }}"></script>
     <script>
-        const radius = 70;
+        const radius = 120;
         const container = document.getElementById('container');
         const circles = document.getElementsByClassName('circle');
         const angleStep = 360 / circles.length;
@@ -181,8 +141,9 @@
                 const x = radius * Math.cos(angle * Math.PI / 180);
                 const y = radius * Math.sin(angle * Math.PI / 180);
 
-                circles[i].style.left = `${container.offsetWidth / 2 + x - circles[i].offsetWidth / 2}%`;
-                circles[i].style.top = `${container.offsetHeight / 2 + y - circles[i].offsetHeight / 2}%`;
+                circles[i].style.left = `calc(50% + ${x}px)`;
+                circles[i].style.top = `calc(50% + ${y}px)`;
+                circles[i].style.transform = `translate(-50%, -50%)`;
             }
         }
 
