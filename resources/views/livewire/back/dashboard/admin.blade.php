@@ -112,13 +112,8 @@
                                
                             </td>
                             <td>
-                                <select class="form-control w-md" wire:model.live='position_id'>
-                                    <option value="" selected>Fonction</option>
-                                    @foreach ($positions as $position)
-                                        <option value="{{ $position->id }}">{{ $position->name }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
+                                <input type="text" class="form-control" placeholder="Fonction..." wire:model.live='position'>
+                            </td> 
                             <td>
                                 <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
 
@@ -171,17 +166,14 @@
                         </div>
                         
                         <div id="exporter">
-                            <button wire:click="downloadExcel" wire:loading.attr="disabled" wire:target="downloadExcel"
-                                type="button" class="btn btn-primary position-relative">
-                                <i class="ri-file-download-line me-1"></i>
-                                <span class="download-text">Exporter</span>
-                                <span wire:loading wire:target="downloadExcel"
-                                    class="position-absolute top-50 start-50 translate-middle">
-                                    <span class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true"></span>
-                                    <span class="visually-hidden">Exportation...</span>
-                                </span>
-                            </button>
+                        <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
+    <i class="ri-file-download-line me-1"></i>
+    <span class="download-text">Exporter</span>
+    <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="visually-hidden">Exportation...</span>
+    </span>
+</button>
 
                         </div>
                     </div>
@@ -364,6 +356,15 @@
                         block: 'nearest'
                     });
                 }
+                // MAJ selection apres export
+                Livewire.on('exportCompleted', () => {
+                document.querySelectorAll('.candidate-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+
+                toggleButtons();
+                updateSelectionButtonAndSelectAllCheckbox();
+            });
 
                 document.querySelectorAll('tr[data-id]').forEach(function(row) {
                     var candidateId = row.getAttribute('data-id');
@@ -492,10 +493,10 @@
 
                 if (anyChecked) {
                     deleteButtonContainer.style.display = 'block';
-                    exporter.style.display = 'none';
+                    // exporter.style.display = 'none';
                 } else {
                     deleteButtonContainer.style.display = 'none';
-                    exporter.style.display = 'block';
+                    // exporter.style.display = 'block';
                 }
             }
 
@@ -552,6 +553,35 @@
             // Update select-all checkbox visibility
             document.getElementById('select-all-checkbox').style.display = anyVisible ? 'block' : 'none';
         }
+
+        //filtrage
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterInputs = document.querySelectorAll('input[wire:model.live], select[wire:model.live]');
+            
+            filterInputs.forEach(input => {
+                input.addEventListener('change', function () {
+                    sessionStorage.setItem(input.getAttribute('wire:model.live'), input.value);
+                });
+            });
+
+            // Charger les valeurs des filtres depuis le stockage de session
+            filterInputs.forEach(input => {
+                const storedValue = sessionStorage.getItem(input.getAttribute('wire:model.live'));
+                if (storedValue !== null) {
+                    input.value = storedValue;
+                    input.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+/***********************************************************************************************/
+function exportSelectedCandidates() {
+        let selectedCandidateIds = Array.from(document.querySelectorAll('.candidate-checkbox:checked'))
+            .map(checkbox => checkbox.closest('tr').getAttribute('data-id'))
+            .filter(id => id !== null && id !== '');
+        
+        // Appeler la méthode Livewire avec les IDs sélectionnés
+        @this.call('downloadExcel', selectedCandidateIds);
+    }
     </script>
     @endpush
 </div>

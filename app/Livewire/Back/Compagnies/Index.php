@@ -50,6 +50,7 @@ class Index extends Component
             $this->compagny = Compagny::find($id);
             $this->name = $this->compagny->name ?? '';
         }
+        $this->dispatch('openModal');
     }
     public function storeData()
     {

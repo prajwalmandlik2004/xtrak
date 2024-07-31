@@ -58,6 +58,7 @@ class Index extends Component
             $this->name = $this->field->name ?? '';
             $this->speciality_id = $this->field->speciality_id ?? '';
         }
+        $this->dispatch('openModal');
     }
     public function storeData()
     {

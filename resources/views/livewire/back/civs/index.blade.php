@@ -49,17 +49,17 @@
                     </thead>
                     <tbody>
                         @forelse ($civs as $civ)
-                        <tr>
+                        <tr wire:dblclick.prevent="openModal('{{ $civ->id }}')">
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $civ->name }}</td>
                             <td>{{ $civ->created_at->format('d/m/Y')}}</td>
                             <td>
                                 <ul class="list-inline hstack gap-2 mb-0">
-                                    <li class="list-inline-item edit">
+                                    <!-- <li class="list-inline-item edit">
                                         <a wire:click="openModal('{{ $civ->id }}')" data-bs-toggle="modal" data-bs-target="#modal" class="text-primary d-inline-block edit-item-btn">
                                             <i class="ri-pencil-fill fs-16"></i>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li class="list-inline-item">
                                         <a wire:click="confirmDelete('{{ $civ->name }}', '{{ $civ->id }}')" class="text-danger d-inline-block remove-item-btn">
                                             <i class="ri-delete-bin-5-fill fs-16"></i>
@@ -121,3 +121,11 @@
         </x-slot>
     </x-modal>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        window.addEventListener('openModal', event => {
+            var myModal = new bootstrap.Modal(document.getElementById('modal'));
+            myModal.show();
+        });
+    });
+</script>

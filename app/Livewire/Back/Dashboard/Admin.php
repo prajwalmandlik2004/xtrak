@@ -25,9 +25,10 @@ class Admin extends Component
     protected $paginationTheme = 'bootstrap';
     public $search = '';
     public $company = '';
+    public $position = '';
     public $cv = '';
     public $cre_ref = '';   
-    public $nbPaginate = 30;
+    public $nbPaginate = 100;
     public $candidate_statut_id = '';
     public $candidateStatuses;
     public $filterName = '';
@@ -84,7 +85,7 @@ class Admin extends Component
         DB::beginTransaction();
     
         try {
-            foreach($id as $idc){ // $id is an array
+            foreach($id as $idc){ 
                 $candidate = $candidateRepository->find($idc);
                 $candidateRepository->delete($candidate->id);
             }
@@ -121,7 +122,7 @@ class Admin extends Component
 
     public function searchCandidates()
     {
-        \Log::info('searchCandidates method called with search: ' . $this->search);
+        // \Log::info('searchCandidates method called with search: ' . $this->search);
         $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country', 'commentaire', 'description', 'suivi'];
 
         return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur'])
@@ -172,6 +173,11 @@ class Admin extends Component
             ->when($this->cp, function ($query) {
                 $query->where('postal_code', 'like', '%' . $this->cp . '%');
             })
+            ->when($this->position, function ($query) {
+                $query->whereHas('position', function ($query) {
+                    $query->where('name', 'like', '%' . $this->position . '%');
+                });
+            })
             ->when($this->company, function ($query) {
                 $query->whereHas('compagny', function ($query) {
                     $query->where('name', 'like', '%' . $this->company . '%');
@@ -219,6 +225,17 @@ class Admin extends Component
         $this->users = User::all();
         $this->certifiedCandidatesCount = $this->countCertifiedCandidates();
         $this->uncertifiedCandidatesCount = $this->countUncertifiedCandidates();
+        $this->search = session()->get('search', '');
+        $this->nbPaginate = session()->get('nbPaginate', 100);
+        $this->users_id = session()->get('users_id', '');
+        $this->candidate_state_id = session()->get('candidate_state_id', '');
+        $this->candidate_statut_id = session()->get('candidate_statut_id', '');
+        $this->company = session()->get('company', '');
+        $this->position_id = session()->get('position_id', '');
+        $this->cp = session()->get('cp', '');
+        $this->cvFileExists = session()->get('cvFileExists', '');
+        $this->creFileExists = session()->get('creFileExists', '');
+        $this->position = session()->get('position', '');
 
         if (session()->has('dash_base_cdt_selected_candidate_id')) {
             $this->selectedCandidateId = session('dash_base_cdt_selected_candidate_id');
@@ -232,14 +249,37 @@ class Admin extends Component
         }
     }
 
-    public function downloadExcel()
+    public function downloadExcel(array $selectedCandidateIds = [])
     {
         try {
-            $candidates = Candidate::with(['position', 'nextStep', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur', 'cres', 'candidateStatut', 'candidateState', 'nsDate'])->get();
+            // Initialisez la requête
+            $query = Candidate::with([
+                'position', 'nextStep', 'disponibility', 'civ', 'compagny', 
+                'speciality', 'field', 'auteur', 'cres', 'candidateStatut', 
+                'candidateState', 'nsDate'
+            ]);
+            
+            // Appliquez les filtres
+            $query = $this->applyFilters($query);
+    
+            // Si des lignes sont sélectionnées, filtrez par les IDs sélectionnés
+            if (!empty($selectedCandidateIds)) {
+                $query->whereIn('id', $selectedCandidateIds);
+            }
+    
+            $candidates = $query->get();
+    
+            // Générer et télécharger le fichier Excel
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
-            $headers = ['Source', 'CodeCDT', 'Auteur', 'Civ', 'Prénom', 'Nom', 'Poste', 'Spécialité', 'Domaine', 'Société', 'Mail', 'Tél1', 'Tél2', 'UrlCTC', 'CP/Dpt', 'Ville', 'Région', 'Disponibilité', 'Statut CDT', 'NextStep', 'NSDate'];
+            $headers = [
+                'Source', 'CodeCDT', 'Auteur', 'Civ', 'Prénom', 'Nom', 
+                'Poste', 'Spécialité', 'Domaine', 'Société', 'Mail', 
+                'Tél1', 'Tél2', 'UrlCTC', 'CP/Dpt', 'Ville', 'Région', 
+                'Disponibilité', 'Statut CDT', 'NextStep', 'NSDate'
+            ];
             $sheet->fromArray([$headers], null, 'A1');
+    
             $row = 2;
             foreach ($candidates as $candidate) {
                 $rowData = [
@@ -268,29 +308,130 @@ class Admin extends Component
                 $sheet->fromArray([$rowData], null, 'A' . $row);
                 $row++;
             }
+    
             $writer = new Xlsx($spreadsheet);
             $fileName = 'base_candidats.xlsx';
             $writer->save($fileName);
-            $this->dispatch('alert', type: 'success', message: 'Base candidats, exporter avec succèss');
+    
+            $this->dispatch('alert', type: 'success', message: 'Base candidats exportée avec succès');
+            $this->dispatch('exportCompleted'); 
             return response()->download($fileName)->deleteFileAfterSend(true);
         } catch (\Throwable $th) {
-            DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: "Une erreure est survenu, veuillez réessayez ou contacter l'administrateur");
+            $this->dispatch('alert', type: 'error', message: "Une erreur est survenue, veuillez réessayer ou contacter l'administrateur");
         }
     }
-
-    public function resetFilters()
+    
+ 
+    protected function applyFilters($query)
     {
-        $this->search = '';
-        $this->filterName = '';
-        $this->filterDate = '';
-        $this->candidate_state_id = '';
-        $this->candidate_statut_id = '';
-        $this->position_id = '';
-        $this->users_id = '';
-        $this->cp = '';
-        $this->cvFileExists = ''; 
-        $this->creFileExists = ''; 
+        return $query->where(function ($query) {
+            $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country', 'commentaire', 'description', 'suivi'];
+    
+            $query->where(function ($query) use ($searchFields) {
+                foreach ($searchFields as $field) {
+                    $query->orWhere($field, 'like', '%' . $this->search . '%');
+                }
+            })
+            ->orWhereHas('disponibility', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->orWhereHas('civ', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->orWhereHas('compagny', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->orWhereHas('speciality', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->orWhereHas('field', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->orWhereHas('auteur', function ($query) {
+                $query->where('trigramme', 'like', '%' . $this->search . '%');
+            });
+        })
+        ->when($this->filterName, function ($query) {
+            return $query->orderBy('last_name', $this->filterName);
+        })
+        ->when($this->filterDate, function ($query) {
+            return $query->orderBy('created_at', $this->filterDate);
+        })
+        ->when($this->candidate_state_id, function ($query) {
+            $query->where('candidate_state_id', $this->candidate_state_id);
+        })
+        ->when($this->candidate_statut_id, function ($query) {
+            $query->where('candidate_statut_id', $this->candidate_statut_id);
+        })
+        ->when($this->position_id, function ($query) {
+            $query->where('position_id', $this->position_id);
+        })
+        ->when($this->users_id, function ($query) {
+            $query->where('created_by', $this->users_id);
+        })
+        ->when($this->cp, function ($query) {
+            $query->where('postal_code', 'like', '%' . $this->cp . '%');
+        })
+        ->when($this->position, function ($query) {
+            $query->whereHas('position', function ($query) {
+                $query->where('name', 'like', '%' . $this->position . '%');
+            });
+        })
+        ->when($this->company, function ($query) {
+            $query->whereHas('compagny', function ($query) {
+                $query->where('name', 'like', '%' . $this->company . '%');
+            });
+        })
+        ->when($this->cvFileExists !== '', function ($query) {
+            if ($this->cvFileExists) {
+                return $query->whereHas('files', function ($query) {
+                    $query->where('file_type', 'cv');
+                });
+            } else {
+                return $query->whereDoesntHave('files', function ($query) {
+                    $query->where('file_type', 'cv');
+                });
+            }
+        })
+        ->when($this->creFileExists !== '', function ($query) {
+            if ($this->creFileExists) {
+                return $query->whereHas('cres');
+            } else {
+                return $query->whereDoesntHave('cres');
+            }
+        })
+        ->orderBy($this->sortColumn, $this->sortDirection);
+    }
+
+   public function resetFilters()
+    {
+        $this->reset([
+        'search', 
+        'nbPaginate',
+        'users_id', 
+        'candidate_state_id', 
+        'candidate_statut_id',
+        'company', 
+        'position_id',
+        'cp', 
+        'cvFileExists',
+        'creFileExists',
+        'position'
+        ]);
+
+        session()->forget([
+            'search', 
+            'nbPaginate', 
+            'users_id', 
+            'candidate_state_id', 
+            'candidate_statut_id', 
+            'company', 
+            'position_id', 
+            'cp', 
+            'cvFileExists', 
+            'creFileExists',
+            'position'
+        ]);
     }
 
     public function countCertifiedCandidates()
@@ -305,6 +446,10 @@ class Admin extends Component
         return Candidate::whereHas('candidateState', function ($query) {
             $query->where('name', 'Attente');
         })->count();
+    }
+    public function updated($propertyName)
+    {
+        session()->put($propertyName, $this->{$propertyName});
     }
 
     public function render()

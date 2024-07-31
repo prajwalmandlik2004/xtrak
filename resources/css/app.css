@@ -118,23 +118,23 @@ background-color: #6699FF !important;
 /******************************* Chat Container **************************/
   .chat_container {
       position: fixed;
-      width: 70%;
+      width: 65%;
       height: 80%;
       border: 1px solid gray;
       display: flex;
       flex-wrap: nowrap;
       border-radius: 11px;
       padding: 5px 6px;
-      margin-left:7%;
-      max-width: 70%; 
-      max-height: 80%;
+      margin-left:10%;
+      /* max-width: 70%; 
+      max-height: 80%; */
       overflow: hidden; 
       
   }
   /******************************* Chat List Container **************************/
   .chat_list_container {
       border-right: 1px solid gray;
-      max-width: 30%;
+      Width: 40%;
       height: 100%;
       border-radius: inherit;
   }
@@ -170,8 +170,16 @@ background-color: #6699FF !important;
       width: 100%;
       border-radius: 50%;
       border: 1px solid gray;
+      object-fit: cover;
   }
-  
+  .chatlist_img_container img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    border: 1px solid gray;
+    object-fit: cover;
+}
+
   .chatlist_body .chatlist_item {
       display: flex;
       flex-wrap: nowrap;
@@ -246,7 +254,7 @@ background-color: #6699FF !important;
   /******************************* Chat Box Container **************************/
   .chat_box_container {
     position: relative;
-    width: 70%;
+    width: 100%;
     height: 100%;
 }
 
@@ -258,6 +266,7 @@ background-color: #6699FF !important;
     border-bottom: 1px solid gray;
     display: flex;
     flex-wrap: nowrap;
+    justify-content: space-between;
 }
 
 .chatbox_header .img_container {
@@ -280,7 +289,12 @@ background-color: #6699FF !important;
 }
 
 .chatbox_header .name {
-    margin: auto 5px;
+    margin: auto;
+    font-size: 18px;
+    font-weight: bold;
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: center;
 }
 
 .chatbox_header .info {
@@ -304,12 +318,12 @@ background-color: #6699FF !important;
 .chatbox_body {
     overflow-y: auto;
     width: 100%;
-    position:relative;
+    position:absolute;
     top: 60px;
-    max-height:550px;
-    bottom: 60px;
+    /* bottom: 60px; */
     padding: 17px 11px;
-    overflow: auto;
+    /* overflow: hidden; */
+    height: 65%;
 }
 
 .msg_body {

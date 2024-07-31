@@ -38,7 +38,7 @@
     <div class="card mt-5">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
+                <table class="table table-striped table-hover table-hover-primary align-middle table-nowrap mb-0">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -49,20 +49,18 @@
                     </thead>
                     <tbody>
                         @forelse ($nsDates as $nsDate)
-                            <tr>
-
+                            <tr wire:dblclick.prevent="openModal('{{ $nsDate->id }}')">
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $nsDate->name }}</td>
                                 <td>{{ $nsDate->created_at->format('d/m/Y')  }}</td>                                
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
-
-                                        <li class="list-inline-item edit">
+                                        <!-- <li class="list-inline-item edit">
                                             <a wire:click="openModal('{{ $nsDate->id }}')" data-bs-toggle="modal" data-bs-target="#modal"
                                                 class="text-primary d-inline-block edit-item-btn">
                                                 <i class="ri-pencil-fill fs-16"></i>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         <li class="list-inline-item">
                                             <a wire:click="confirmDelete('{{ $nsDate->name }}', '{{ $nsDate->id }}')"
                                                 class="text-danger d-inline-block remove-item-btn">
@@ -72,14 +70,11 @@
                                     </ul>
                                 </td>
                             </tr>
-
                         @empty
                             <tr>
                                 <td colspan="4" class="text-center">
-                                   
                                     <h5 class="mt-4">Aucun résultat trouvé</h5>
                                 </td>
-
                             </tr>
                         @endforelse
                     </tbody>
@@ -94,22 +89,18 @@
         {{ $nsDates->links() }}
     </div><!-- end row -->
 
-
     <x-modal>
         <x-slot name="title">
             {{ $isUpdate ? 'Modification du nsDate' : 'Ajout du nsDate' }}
         </x-slot>
         <x-slot name="body">
-
             <form wire:submit.prevent="storeData()">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-2 mt-2">
                         <label for="name" class="form-label">Nom <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror "
-                            wire:model.live='name' placeholder="Veuillez entrer le nom " />
-
-
+                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                            wire:model.live='name' placeholder="Veuillez entrer le nom" />
                         @error('name')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -117,10 +108,18 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
-                    <button type="submit" class="btn btn-primary ">{{ $isUpdate ? 'Modifier' : 'Ajouter' }}</button>
+                    <button type="submit" class="btn btn-primary">{{ $isUpdate ? 'Modifier' : 'Ajouter' }}</button>
                 </div>
-
             </form>
         </x-slot>
     </x-modal>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        window.addEventListener('openModal', event => {
+            var myModal = new bootstrap.Modal(document.getElementById('modal'));
+            myModal.show();
+        });
+    });
+</script>

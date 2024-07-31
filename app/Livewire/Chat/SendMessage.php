@@ -48,6 +48,8 @@ class SendMessage extends Component
             return null;
         }
 
+        $formattedBody = nl2br(e($this->body));
+        
         $attachmentPath = null;
         if ($this->attachment) {
             $originalName = $this->attachment->getClientOriginalName();

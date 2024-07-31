@@ -49,7 +49,7 @@
                     </thead>
                     <tbody>
                         @forelse ($positions as $position)
-                            <tr>
+                        <tr id="position-{{ $position->id }}" ondblclick="openModal('{{ $position->id }}')">
 
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $position->name }}</td>
@@ -57,14 +57,14 @@
 
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
-
+<!-- 
                                         <li class="list-inline-item edit">
                                             <a wire:click="openModal('{{ $position->id }}')" data-bs-toggle="modal"
                                                 data-bs-target="#modalform"
                                                 class="text-primary d-inline-block edit-item-btn">
                                                 <i class="ri-pencil-fill fs-16"></i>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         <li class="list-inline-item">
                                             <a wire:click="confirmDelete('{{ $position->name }}', '{{ $position->id }}')"
                                                 class="text-danger d-inline-block remove-item-btn">
@@ -126,3 +126,12 @@
         </x-slot>
     </x-modalform>
 </div>
+<script>
+    function openModal(id) {
+        @this.openModal(id);
+        var myModal = new bootstrap.Modal(document.getElementById('modalform'), {
+            keyboard: false
+        });
+        myModal.show();
+    }
+</script>

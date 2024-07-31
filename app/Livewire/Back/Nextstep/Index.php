@@ -17,6 +17,7 @@ class Index extends Component
     public $nbPaginate = 10;
     public $name;
     public $isUpdate = false;
+
     #[On('delete')]
     public function deleteData($id)
     {
@@ -38,10 +39,12 @@ class Index extends Component
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer nextstep $nom", type: 'warning', method: 'delete', id: $id);
     }
+
     public function searchFiles()
     {
         return NextStep::where('name', 'like', '%' . $this->search . '%')->paginate($this->nbPaginate);
     }
+
     public function openModal($id = null)
     {
         $this->name = '';
@@ -51,7 +54,10 @@ class Index extends Component
             $this->nextstep = NextStep::find($id);
             $this->name = $this->nextstep->name ?? '';
         }
+
+        $this->dispatch('openModal');
     }
+
     public function storeData()
     {
         $validateData = $this->validate(
@@ -63,22 +69,22 @@ class Index extends Component
             ],
         );
         try {
-        DB::beginTransaction();
+            DB::beginTransaction();
 
-        if ($this->isUpdate) {
-            $this->nextstep->update($validateData);
-        } else {
-            NextStep::create($validateData);
-        }
-        DB::commit();
-        $this->dispatch('close:modal');
-        $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'NextStep est ajouté avec succès');
-       
+            if ($this->isUpdate) {
+                $this->nextstep->update($validateData);
+            } else {
+                NextStep::create($validateData);
+            }
+            DB::commit();
+            $this->dispatch('close:modal');
+            $this->dispatch('alert', type: 'success', message: $this->isUpdate ? 'le nom est modifié avec success' : 'NextStep est ajouté avec succès');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: $this->isUpdate ? 'Impossible de modifier le nom' : 'Impossible d\'ajouter NextStep');
         }
     }
+
     public function render()
     {
         return view('livewire.back.nextstep.index')->with([
@@ -86,3 +92,4 @@ class Index extends Component
         ]);
     }
 }
+

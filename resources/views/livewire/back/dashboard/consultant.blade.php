@@ -88,13 +88,8 @@
                                
                             </td>
                             <td>
-                                <select class="form-control w-md" wire:model.live='position_id'>
-                                    <option value="" selected>Fonction</option>
-                                    @foreach ($positions as $position)
-                                        <option value="{{ $position->id }}">{{ $position->name }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
+                                <input type="text" class="form-control" placeholder="Fonction..." wire:model.live='position'>
+                            </td> 
                             <td>
                                 <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
 
@@ -528,6 +523,25 @@
             // Update select-all checkbox visibility
             document.getElementById('select-all-checkbox').style.display = anyVisible ? 'block' : 'none';
         }
+         //filtrage
+         document.addEventListener('DOMContentLoaded', function () {
+            const filterInputs = document.querySelectorAll('input[wire:model.live], select[wire:model.live]');
+            
+            filterInputs.forEach(input => {
+                input.addEventListener('change', function () {
+                    sessionStorage.setItem(input.getAttribute('wire:model.live'), input.value);
+                });
+            });
+
+            // Charger les valeurs des filtres depuis le stockage de session
+            filterInputs.forEach(input => {
+                const storedValue = sessionStorage.getItem(input.getAttribute('wire:model.live'));
+                if (storedValue !== null) {
+                    input.value = storedValue;
+                    input.dispatchEvent(new Event('change'));
+                }
+            });
+        });
     </script>
     @endpush
 </div>
