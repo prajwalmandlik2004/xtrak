@@ -1,18 +1,16 @@
 <div>
     @if ($selectedConversation)
         <form wire:submit.prevent='sendMessage' enctype="multipart/form-data" id="messageForm">
-            <div class="chatbox_footer">
+            <div class="chatbox_footer" x-data @keydown.enter.prevent="if (!event.shiftKey) { $el.closest('form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true })); } else { event.target.value += '\n'; }">
                 <div class="custom_form_group">
 
                     @if ($attachment)
                         <div class="attachment-preview">
                             @if (in_array($attachment->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif']))
-                               
                                 <div class="attachment-thumbnail">
                                     <img src="{{ $attachment->temporaryUrl() }}" alt="Image preview">
                                 </div>
                             @else
-                               
                                 <div class="attachment-icon">
                                     <i class="bi bi-file-earmark"></i>
                                 </div>
@@ -40,13 +38,3 @@
         </form>
     @endif
 </div>
-
-<script>
-    document.getElementById('messageInput').addEventListener('keydown', function (event) {
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            document.getElementById('messageForm').submit();
-        }
-    });
-    
-</script>

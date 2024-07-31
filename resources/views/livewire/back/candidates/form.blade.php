@@ -245,7 +245,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-auto mt-4">
+                                                <div class="col-lg-2 mt-4">
                                                     <div>
                                                         <label for="disponibility" class="form-label">Disponibilité
                                                         </label>
@@ -264,7 +264,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-auto mt-4">
+                                                <div class="col-md-2 mt-4">
                                                     <div>
                                                         <label for="candidate_statut_id" class="form-label">Statut
                                                         </label>
@@ -745,7 +745,7 @@
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#modal"><i
                                                                                 class="ri-pencil-fill align-bottom me-2 text-muted"></i>
-                                                                            Rénomer</a>
+                                                                            Renommer</a>
                                                                     </li>
                                                                     <li><a wire:click="confirmDeleteFile('{{ $file->name }}', '{{ $file->id }}')"
                                                                             class="dropdown-item"><i
@@ -895,78 +895,78 @@
                                 <div class="card-body">
 
 
-                                    <div class="row">
-                                        <div class="col-md-12 mt-3">
-                                            <div>
-                                                <label for="response1" class="form-label">1. Statut professionnel
-                                                    :</label>
-                                                <textarea wire:model='response1' class="form-control auto-resize" id="response1"
-                                                    style="resize: none; overflow-y: hidden;"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mt-3">
-                                            <div>
-                                                <label for="response2" class="form-label">2. Statut personnel
-                                                    :</label>
-                                                <textarea wire:model='response2' class="form-control auto-resize" id="response2"
-                                                    style="resize: none; overflow-y: hidden;"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 mt-3">
-                                            <div>
-                                                <label for="response3" class="form-label">3. Situation professionnelle
-                                                    :</label>
-                                                <textarea wire:model='response3' class="form-control auto-resize" id="response3"
-                                                    style="resize: none; overflow-y: hidden;"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mt-3">
-                                            <div>
-                                                <label for="response4" class="form-label">4. Points incontournables :
-                                                </label>
-                                                <textarea wire:model='response4' class="form-control auto-resize" id="response4"
-                                                    style="resize: none; overflow-y: hidden;"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 mt-3">
-                                            <div>
-                                                <label for="response5" class="form-label">5. Résumé du parcours
-                                                    professionnel :
-                                                </label>
-                                                <textarea wire:model='response5' class="form-control auto-resize" id="response5"
-                                                    style="resize: none; overflow-y: hidden;"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mt-3">
-                                            <div>
-                                                <label for="response6" class="form-label">6. Savoir-être
-                                                    :</label>
-                                                <textarea wire:model='response6' class="form-control auto-resize" id="response6"
-                                                    style="resize: none; overflow-y: hidden;"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 mt-3">
-                                            <div>
-                                                <label for="response7" class="form-label">7. Prétentions salariales
-                                                    :</label>
-                                                <textarea wire:model='response7' class="form-control auto-resize" id="response7"
-                                                    style="resize: none; overflow-y: hidden;"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mt-3">
-                                            <div>
-                                                <label for="response8" class="form-label">8. Disponibilités
-                                                    :</label>
-                                                <textarea wire:model='response8' class="form-control auto-resize" id="response8"
-                                                    style="resize: none; overflow-y: hidden;"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                <div class="row">
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response1" class="form-label">1. Statut professionnel :</label>
+                                    <textarea wire:model='response1' class="form-control auto-resize" id="response1" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response2" class="form-label">2. Statut personnel :</label>
+                                    <textarea wire:model='response2' class="form-control auto-resize" id="response2" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
+                                </div>
+                            </div>
+                       
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response3" class="form-label">3. Situation professionnelle :</label>
+                                    <textarea wire:model='response3' class="form-control auto-resize" id="response3" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response4" class="form-label">4. Points incontournables :
+                                    </label>
+                                    <textarea wire:model='response4' class="form-control auto-resize" id="response4" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response5" class="form-label">5. Savoir-être du candidat : 
+                                    </label>
+                                    <textarea wire:model='response5' class="form-control auto-resize" id="response5" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response6" class="form-label">6. Prise de référence(s) :</label>
+                                    <textarea wire:model='response6' class="form-control auto-resize" id="response6" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response7" class="form-label">7. Prétentions salariales :</label>
+                                    <textarea wire:model='response7' class="form-control auto-resize" id="response7" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response8" class="form-label">8. Disponibilités candidat :</label>
+                                    <textarea wire:model='response8' class="form-control auto-resize" id="response8" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div>
+                                    <label for="response7" class="form-label">9. Résumé du parcours professionnel :</label>
+                                    <textarea wire:model='response9' class="form-control auto-resize" id="response9" 
+                                        style="resize: none; overflow-y: hidden;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
                                 <div class="card-footer">
 
                                     <div class="d-flex justify-content-between">

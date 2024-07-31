@@ -53,6 +53,7 @@ class Index extends Component
             $this->position = Position::find($id);
             $this->name = $this->position->name ?? '';
         }
+        $this->dispatch('open:modal'); 
     }
     public function storeData()
     {

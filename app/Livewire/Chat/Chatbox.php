@@ -7,6 +7,7 @@ use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\User;
 use Livewire\Component;
+use Carbon\Carbon; 
 
 class Chatbox extends Component
 {
@@ -64,6 +65,28 @@ class Chatbox extends Component
         $newMessage = Message::find($messageId);
         $this->messages->push($newMessage);
         $this->dispatch('rowChatToBottom');
+    }
+    public function formatDate($date)
+    {
+        $carbonDate = Carbon::parse($date);
+        
+        if ($carbonDate->isToday()) {
+            return 'Aujourd\'hui';
+        } elseif ($carbonDate->isYesterday()) {
+            return 'Hier';
+        } elseif ($carbonDate->isCurrentWeek()) {
+            return $carbonDate->translatedFormat('l'); 
+        } else {
+            return $carbonDate->format('d/m/y');
+        }
+    }
+    public function isCurrentWeek($date)
+    {
+        $carbonDate = Carbon::parse($date);
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        return $carbonDate->between($startOfWeek, $endOfWeek);
     }
 
     public function loadMore()

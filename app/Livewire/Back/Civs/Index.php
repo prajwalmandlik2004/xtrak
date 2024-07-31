@@ -51,6 +51,7 @@ class Index extends Component
             $this->civ = Civ::find($id);
             $this->name = $this->civ->name ?? '';
         }
+        $this->dispatch('openModal');
     }
     public function storeData()
     {

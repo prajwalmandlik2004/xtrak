@@ -51,6 +51,7 @@ class Index extends Component
             $this->state = CandidateState::find($id);
             $this->name = $this->state->name ?? '';
         }
+        $this->dispatch('openModal');
     }
     public function storeData()
     {

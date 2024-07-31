@@ -19,25 +19,25 @@ class Index extends Component
     public $response;
     public $isUpdate = false;
     #[On('deletecre')]
-    public function deleteCre($id)
+    
+    public function deleteCre($candidateId)
     {
         DB::beginTransaction();
-        $cre = Cre::find($id);
         try {
-            if ($cre) {
-                $cre->delete($cre->id);
+            $cres = Cre::where('candidate_id', $candidateId);
+            if ($cres->exists()) {
+                $cres->delete();
                 DB::commit();
-                $this->dispatch('alert', type: 'success', message: 'Le C.R.E est supprimé avec succès');
+                $this->dispatch('alert', type: 'success', message: 'Les C.R.E sont supprimés avec succès');
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer Le C.R.E $cre->name");
+            $this->dispatch('alert', type: 'error', message: "Impossible de supprimer les C.R.E pour le candidat $candidateId");
         }
     }
-
-    public function confirmDelete($nom, $id)
+    public function confirmDelete( $candidateId)
     {
-        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer la reponse $nom", type: 'warning', method: 'deletecre', id: $id);
+        $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer la reponse", type: 'warning', method: 'deletecre', id: $candidateId);
     }
     public function searchFiles()
     {

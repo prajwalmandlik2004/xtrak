@@ -51,7 +51,9 @@
                     </thead>
                     <tbody>
                         @forelse ($fields as $field)
-                            <tr>
+                            <tr wire:click="openModal('{{ $field->id }}')" data-bs-toggle="modal"
+                                                data-bs-target="#modalforme"
+                                                class="edit-item-btn">
 
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $field->speciality->position->name ?? '---' }}</td>
@@ -62,13 +64,13 @@
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
 
-                                        <li class="list-inline-item edit">
+                                        <!-- <li class="list-inline-item edit">
                                             <a wire:click="openModal('{{ $field->id }}')" data-bs-toggle="modal"
                                                 data-bs-target="#modalforme"
                                                 class="text-primary d-inline-block edit-item-btn">
                                                 <i class="ri-pencil-fill fs-16"></i>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         <li class="list-inline-item">
                                             <a wire:click="confirmDelete('{{ $field->name }}', '{{ $field->id }}')"
                                                 class="text-danger d-inline-block remove-item-btn">
