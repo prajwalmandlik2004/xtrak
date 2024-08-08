@@ -240,10 +240,9 @@ class Form extends Component
     $candidateRepository = new CandidateRepository();
     $fileRepository = new FileRepository();
 
-    // Assurez-vous que la position existe
     $this->ensurePositionExists($validatedData);
 
-    // Assurez-vous que la compagnie existe
+    
     if ($validatedData['compagny_id']) {
         $companyName = $validatedData['compagny_id'];
         $company = Compagny::firstOrCreate(['name' => $companyName]);
