@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('conversations', function (Blueprint $table) {
-            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -23,11 +23,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('conversations', function (Blueprint $table) {
-            $table->dropForeign(['sender_id']);
-            $table->dropForeign(['receiver_id']);
+            // $table->dropForeign(['sender_id']);
+            // $table->dropForeign(['receiver_id']);
 
-            $table->foreign('sender_id')->references('id')->on('users');
-            $table->foreign('receiver_id')->references('id')->on('users');
+            // $table->foreign('sender_id')->references('id')->on('users');
+            // $table->foreign('receiver_id')->references('id')->on('users');
         });
     }
 };

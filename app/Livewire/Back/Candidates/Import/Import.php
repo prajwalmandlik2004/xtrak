@@ -32,13 +32,12 @@ class Import extends Component
     public $accepted = [];
     public function storeData()
     {
-        // Configuration des paramètres PHP pour augmenter le temps d'exécution et la mémoire
         ini_set('max_execution_time',43200); 
         ini_set('memory_limit', '10G'); 
 
-        // Configuration des paramètres de session MySQL
         DB::statement('SET SESSION wait_timeout = 38800;');
         DB::statement('SET SESSION interactive_timeout = 38800;');
+        
         
         try {
             $path = Storage::putFile('/public/files', $this->file);
@@ -64,7 +63,13 @@ class Import extends Component
                 }
             }
         } catch (\Throwable $th) {
-            return $this->dispatch('alert', type: 'error', message: 'Une erreure est survenu lors de l\'analyse de votre fichier, merci de réessayez');
+        //    return $this->dispatch('alert', type: 'error', message: 'Une erreur est survenu lors de l\'analyse de votre fichier, merci de réessayez'); 
+        \Log::error($th->getMessage());
+
+        // Dispatch the alert with the specific error message
+        return $this->dispatch('alert', type: 'error', message: 'Une erreur est survenue: ' . $th->getMessage());
+    
+        
         }
         DB::beginTransaction();
         foreach ($fileData as $key => $value) {

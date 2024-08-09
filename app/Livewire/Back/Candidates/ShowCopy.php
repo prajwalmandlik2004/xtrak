@@ -34,7 +34,6 @@ class Show extends Component
     public $postal_code;
     public $candidate_statut_id;
     public $position_id;
-    public $position_name; // Pour afficher et modifier le nom de la position
     public $positions;
     public $created_by;
     public $city;
@@ -59,7 +58,6 @@ class Show extends Component
     public $nsDates;
 
     public $candidateStatuses;
-
     #[On('deleteCandidate')]
     public function deleteData($id)
     {
@@ -77,21 +75,18 @@ class Show extends Component
             // return redirect()->route('candidates.index')->with('success', 'le candidat est supprimé avec succès');
         } catch (\Throwable $th) {
             DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: "Impossible de modifier l'état du candidat sans Cv$candidate->first_name. $candidate->last_name");
+            $this->dispatch('alert', type: 'error', message: "Impossible de modifier l'état du candidat sans Cv$candidate->first_name. $candidate->laste_name");
         }
     }
-
     public function confirmDelete($nom, $id)
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de modifier l'état du candidat sans Cv$nom", type: 'warning', method: 'deleteCandidate', id: $id);
     }
-
     #[On('showsuccess')]
     public function showSuccess($candidate)
     {
         $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification du candidat');
     }
-
     public function mount()
     {
         $this->candidateStates = CandidateState::all();
@@ -103,7 +98,6 @@ class Show extends Component
         $this->disponibilities = Disponibility::all();
         $this->positions = Position::orderBy('name', 'asc')->get();
         $this->compagnies = Compagny::orderBy('name', 'asc')->get();
-
         if ($this->candidate && $this->candidate->exists) {
             $this->civ_id = $this->candidate->civ->id ?? null;
             $this->first_name = $this->candidate->first_name;
@@ -114,7 +108,6 @@ class Show extends Component
             $this->postal_code = $this->candidate->postal_code;
             $this->candidate_statut_id = $this->candidate->candidateStatut->id ?? null;
             $this->position_id = $this->candidate->position->id ?? null;
-            $this->position_name = $this->candidate->position->name ?? ''; // Initialiser le nom de la position
             $this->city = $this->candidate->city;
             $this->address = $this->candidate->address;
             $this->region = $this->candidate->region;
@@ -133,10 +126,10 @@ class Show extends Component
             $this->fields = $this->candidate->speciality->fields ?? null;
         }
     }
-
     public function storeData()
-    {
-        $validatedData = $this->validate([
+{
+    $validatedData = $this->validate(
+        [
             'civ_id' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
@@ -145,7 +138,7 @@ class Show extends Component
             'compagny_id' => 'nullable',
             'postal_code' => 'nullable',
             'candidate_statut_id' => 'nullable',
-            'position_name' => 'required', 
+            'position_id' => 'required',
             'city' => 'nullable',
             'address' => 'nullable',
             'region' => 'nullable',
@@ -161,75 +154,88 @@ class Show extends Component
             'origine' => 'nullable',
             'ns_date_id' => 'nullable',
             'next_step_id' => 'nullable',
-        ], [
+        ],
+        [
             'first_name.required' => 'Le prénom est obligatoire',
             'last_name.required' => 'Le nom est obligatoire',
             'email.required' => 'L\'email est obligatoire',
             'email.email' => 'L\'email doit être une adresse email valide',
-            'position_name.required' => 'Le poste est obligatoire',
+            'position_id.required' => 'Le poste est obligatoire',
             'civ_id.required' => 'La civilité est obligatoire',
-        ]);
+        ],
+    );
 
-        try {
-            DB::beginTransaction();
+    try {
+        DB::beginTransaction();
 
-            // Vérifiez et ajoutez la position si elle n'existe pas
-            $position = Position::firstOrCreate(['name' => $validatedData['position_name']]);
+        // Vérifiez et ajoutez la position si elle n'existe pas
+        if ($validatedData['position_id']) {
+            $positionName = $validatedData['position_id'];
+            $position = Position::firstOrCreate(['name' => $positionName]);
             $validatedData['position_id'] = $position->id;
-
-            if ($validatedData['compagny_id']) {
-                $companyName = $validatedData['compagny_id'];
-                $company = Compagny::firstOrCreate(['name' => $companyName]);
-                $validatedData['compagny_id'] = $company->id;
-            } else {
-                $validatedData['compagny_id'] = null;
-            }
-
-            $candidateRepository = new CandidateRepository();
-            if ($this->candidate) {
-                $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
-            } else {
-                $this->candidate = $candidateRepository->create($validatedData);
-            }
-
-            $stateId = CandidateState::where('name', 'Certifié')->first()->id;
-            if ($stateId != $this->candidate->candidate_state_id && $this->candidate->files()->exists()) {
-                $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
-                $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->last_name && $this->candidate->civ_id && $this->candidate->email && $this->candidate->position_id;
-                if ($cvFile && $additionalFieldsFilled) {
-                    $certificate = Helper::generateCandidateCertificate();
-                    $this->candidate->update([
-                        'certificate' => $certificate,
-                        'candidate_state_id' => $stateId,
-                    ]);
-                }
-            }
-
-            DB::commit();
-            $this->mount();
-            $this->dispatch('alert', type: 'success', message: 'Candidat enregistré ou modifié avec succès');
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification ou de la création du candidat');
         }
-    }
 
+        if ($validatedData['compagny_id']) {
+            $companyName = $validatedData['compagny_id'];
+            $company = Compagny::firstOrCreate(['name' => $companyName]);
+            $validatedData['compagny_id'] = $company->id;
+        } else {
+            $validatedData['compagny_id'] = null;
+        }
+
+        $candidateRepository = new CandidateRepository();
+        if ($this->candidate) {
+            $this->candidate = $candidateRepository->update($this->candidate->id, $validatedData);
+        } else {
+            $this->candidate = $candidateRepository->create($validatedData);
+        }
+
+        $stateId = CandidateState::where('name', 'Certifié')->first()->id;
+        if ($stateId != $this->candidate->candidate_state_id && $this->candidate->files()->exists()) {
+            $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
+            $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->last_name && $this->candidate->civ_id && $this->candidate->email && $this->candidate->position_id;
+            if ($cvFile && $additionalFieldsFilled) {
+                $certificate = Helper::generateCandidateCertificate();
+                $this->candidate->update([
+                    'certificate' => $certificate,
+                    'candidate_state_id' => $stateId,
+                ]);
+            }
+        }
+
+        DB::commit();
+        $this->mount();
+        $this->dispatch('alert', type: 'success', message: 'Candidat enregistré ou modifié avec succès');
+    } catch (\Throwable $th) {
+        DB::rollBack();
+        $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification ou de la création du candidat');
+    }
+}
+
+    
     public function updatedPositionId($value)
     {
-        $position = Position::find($value);
-
-        if ($position) {
-            $this->position_name = $position->name;
-        } else {
-            $this->position_name = ''; // Clear the position name if not found
-        }
+        // $this->specialities = Position::find($value)->specialities;
+        // Récupérer la position par son ID
+    $position = Position::find($value);
+    
+    // Vérifier si la position existe
+    if ($position) {
+        $this->specialities = $position->specialities;
+    } else {
+        // Réinitialiser les spécialités si la position n'existe pas
+        $this->specialities = [];
     }
-
+    
+    }
     public function updatedSpecialityId($value)
     {
         $this->fields = Speciality::find($value)->fields;
     }
-
+    public function render()
+    {
+        return view('livewire.back.candidates.show');
+    }
     public function updatedCandidateStateId($id)
     {
         try {
@@ -277,10 +283,5 @@ class Show extends Component
             DB::rollBack();
             $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification de l\'état du candidat');
         }
-    }
-    
-    public function render()
-    {
-        return view('livewire.back.candidates.show');
     }
 }
