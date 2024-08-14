@@ -4,9 +4,10 @@
     {{-- créer par MAHAMADOU ALI AdbDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'Espace administrateur',
-        'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
-    ])
+    'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
+    'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
+])
+
     <div class="row">
         <div class="col-md-6">
             <div class="d-flex">

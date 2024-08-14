@@ -43,7 +43,7 @@
                                  ESPACE MANAGER
                             @else
                                 ESPACE CONSULTANT
-                             @endIF
+                             @endif
                          </span>
                      </a>
 
