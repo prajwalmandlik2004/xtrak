@@ -31,48 +31,48 @@ class Import extends Component
     public $rejected = [];
     public $accepted = [];
     public function storeData()
-{
-    ini_set('max_execution_time', 43200); 
-    ini_set('memory_limit', '10G'); 
+    {
+        ini_set('max_execution_time',43200); 
+        ini_set('memory_limit', '10G'); 
 
-    DB::statement('SET SESSION wait_timeout = 38800;');
-    DB::statement('SET SESSION interactive_timeout = 38800;');
-    
-    try {
-        $path = Storage::putFile('/public/files', $this->file);
-        $filepath = Storage::path($path);
-        $spreadsheet = IOFactory::load($filepath);
-        $worksheet = $spreadsheet->getActiveSheet();
-        $headers = $worksheet->toArray()[0];
-        $worksheet->removeRow(1);
-        $usagers = $worksheet->toArray();
-        $fileData = [];
-        foreach ($usagers as $usager) {
-            if (array_filter($usager)) {
-                $cell = [];
-                foreach ($headers as $index => $header) {
-                    $cell[$header] = $usager[$index] ?? null;
+        DB::statement('SET SESSION wait_timeout = 38800;');
+        DB::statement('SET SESSION interactive_timeout = 38800;');
+        
+        
+        try {
+            $path = Storage::putFile('/public/files', $this->file);
+            $filepath = Storage::path($path);
+            $spreadsheet = IOFactory::load($filepath);
+            $worksheet = $spreadsheet->getActiveSheet();
+            $headers = $worksheet->toArray()[0];
+            $worksheet->removeRow(1);
+            $usagers = $worksheet->toArray();
+            $fileData = [];
+             foreach ($usagers as $usager) {
+                // Skip empty rows
+                if (array_filter($usager)) {
+                    $cell = [];
+                    foreach ($headers as $index => $header) {
+                        if (isset($usager[$index])) {
+                            $cell[$header] = $usager[$index];
+                        } else {
+                            $cell[$header] = null;
+                        }
+                    }
+                    array_push($fileData, $cell);
                 }
-                array_push($fileData, $cell);
             }
-        }
-    } catch (\Throwable $th) {
+        } catch (\Throwable $th) {
+        //    return $this->dispatch('alert', type: 'error', message: 'Une erreur est survenu lors de l\'analyse de votre fichier, merci de réessayez'); 
         \Log::error($th->getMessage());
-        return $this->dispatch('alert', type: 'error', message: 'Une erreur est survenue: ' . $th->getMessage());
-    }
 
-    DB::beginTransaction();
-    foreach ($fileData as $key => $value) {
-        // Vérifiez si l'utilisateur est administrateur
-        if (auth()->user()->hasRole('Administrateur')) {
-            $newCandidate = $this->addCandidate($value, 'Attente');
-            if ($newCandidate) {
-                $this->accepted[$newCandidate->id] = $newCandidate;
-            } else {
-                $this->rejected[$key] = $value;
-            }
-        } else {
-            // Si l'utilisateur n'est pas administrateur, effectuez la vérification de l'existence
+        // Dispatch the alert with the specific error message
+        return $this->dispatch('alert', type: 'error', message: 'Une erreur est survenue: ' . $th->getMessage());
+    
+        
+        }
+        DB::beginTransaction();
+        foreach ($fileData as $key => $value) {
             $checkExistingCandidate = $this->checkExistingCandidate($value);
             if ($checkExistingCandidate == false) {
                 $newCandidate = $this->addCandidate($value, 'Attente');
@@ -82,22 +82,21 @@ class Import extends Component
                     $this->rejected[$key] = $value;
                 }
             } else {
+                // $doublon = $this->addCandidate($value, 'Doublon');
                 $this->rejected[$key] = $value;
             }
         }
+        DB::commit();
+        $this->dispatch('data-from-import', accepted: $this->accepted, rejected: $this->rejected);
+        $this->dispatch('alert', type: 'success', message: 'Opération reusie avec succès');
+        $this->reset(['file']);
     }
-    DB::commit();
-    $this->dispatch('data-from-import', accepted: $this->accepted, rejected: $this->rejected);
-    $this->dispatch('alert', type: 'success', message: 'Opération réussie avec succès');
-    $this->reset(['file']);
-}
     public function addCandidate($data, $stateName)
     {
         try {
             $candidateRepository = new CandidateRepository();
             $newCandidate = [];
             $newCandidate['created_by'] = auth()->user()->id;
-            $newCandidate['created_at'] = $data['Date Saisie'] ?? '';
             $newCandidate['origine'] = $data['Source'] ?? '';
             $newCandidate['first_name'] = $data['Prénom'] ?? '';
             $newCandidate['last_name'] = $data['Nom'] ?? '';
@@ -113,7 +112,6 @@ class Import extends Component
             $newCandidate['region'] = $data['Région'] ?? '';
             $newCandidate['country'] = $data['Pays'] ?? '';
             $newCandidate['candidate_state_id'] = CandidateState::where('name', $stateName)->first()->id ?? null;
-            $newCandidate['commentaire'] = $data['COmmentaire'] ?? '';
 
             if (!empty($data['Statut CDT'])) {
                 $cdtStatus = CandidateStatut::where('name', $data['Statut CDT'])->first() ?? CandidateStatut::create(['name' => $data['Statut CDT']]);
