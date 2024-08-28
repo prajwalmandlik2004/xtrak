@@ -34,7 +34,7 @@ class Show extends Component
     public $postal_code;
     public $candidate_statut_id;
     public $position_id;
-    public $position_name; // Pour afficher et modifier le nom de la position
+    public $position_name; 
     public $positions;
     public $created_by;
     public $city;

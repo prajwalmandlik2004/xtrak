@@ -8,78 +8,6 @@ use Carbon\Carbon;
 
 class Index extends Component
 {
-    public $usersWithLoginTimes;
-    public $users;
-    public $user_id;
-
-    public function mount()
-    {
-        $this->fetchUsersWithLoginTimes();
-    }
-
-    public function updatedUserId($id)
-    {
-        if ($id == null) {
-            $this->fetchUsersWithLoginTimes();
-        } else {
-            $this->fetchUserWithLoginTimes($id);
-        }
-    }
-
-    private function fetchUsersWithLoginTimes()
-    {
-        $this->users = User::orderBy('last_name')->get();
-        $this->usersWithLoginTimes = collect();
-
-        foreach ($this->users as $user) {
-            $this->calculateLoginTimes($user);
-        }
-    }
-
-    private function fetchUserWithLoginTimes($id)
-    {
-        $user = User::findOrFail($id);
-        $this->usersWithLoginTimes = collect();
-        $this->calculateLoginTimes($user);
-    }
-
-    private function calculateLoginTimes($user)
-    {
-        $totalLoginTime = $user->userLogins->sum('duration');
-        $loginsToday = $user->userLogins->where('login_at', '>=', Carbon::today())->sum('duration');
-        $loginsThisWeek = $user->userLogins->whereBetween('login_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('duration');
-        $loginsThisMonth = $user->userLogins()->whereMonth('login_at', Carbon::now()->month)->get()->sum('duration');
-
-        $this->usersWithLoginTimes->push([
-            'user' => $user,
-            'total_login_time' => $totalLoginTime,
-            'login_time_today' => $loginsToday,
-            'login_time_this_week' => $loginsThisWeek,
-            'login_time_this_month' => $loginsThisMonth,
-        ]);
-    }
-
-    public function render()
-    {
-        return view('livewire.back.summary.index', [
-            'usersWithLoginTimes' => $this->usersWithLoginTimes,
-            'users' => $this->users
-        ]);
-    }
-}
-
-
-// COPIE 2  
-
-<?php
-
-namespace App\Livewire\Back\Summary;
-
-use App\Models\User;
-use Livewire\Component;
-use Carbon\Carbon;
-class Index extends Component
-{
     public $usersWithLoginCounts;
     public $users;
     public $user_id;
@@ -88,21 +16,43 @@ class Index extends Component
     public function mount()
     {
         $this->users = User::orderBy('last_name')->get();
+        $this->calculateLoginTimes();
+    }
 
+    public function calculateLoginTimes()
+    {
         $this->usersWithLoginTimes = collect();
 
         foreach ($this->users as $user) {
-            $totalLoginTime = $user->userLogins->sum('duration');
+            $totalLoginTime = $user->userLogins->reduce(function ($carry, $login) {
+                $logoutAt = $login->logout_at ? Carbon::parse($login->logout_at) : Carbon::now();
+                $loginAt = Carbon::parse($login->login_at);
+                return $carry + $logoutAt->diffInSeconds($loginAt);
+            }, 0);
 
-            $loginsToday = $user->userLogins->where('login_at', '>=', Carbon::today())->sum('duration');
+            $loginsToday = $user->userLogins->filter(function ($login) {
+                return $login->login_at >= Carbon::today();
+            })->reduce(function ($carry, $login) {
+                $logoutAt = $login->logout_at ? Carbon::parse($login->logout_at) : Carbon::now();
+                $loginAt = Carbon::parse($login->login_at);
+                return $carry + $logoutAt->diffInSeconds($loginAt);
+            }, 0);
 
-            $loginsThisWeek = $user->userLogins->whereBetween('login_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('duration');
+            $loginsThisWeek = $user->userLogins->filter(function ($login) {
+                return $login->login_at >= Carbon::now()->startOfWeek() && $login->login_at <= Carbon::now()->endOfWeek();
+            })->reduce(function ($carry, $login) {
+                $logoutAt = $login->logout_at ? Carbon::parse($login->logout_at) : Carbon::now();
+                $loginAt = Carbon::parse($login->login_at);
+                return $carry + $logoutAt->diffInSeconds($loginAt);
+            }, 0);
 
-            $loginsThisMonth = $user
-                ->userLogins()
-                ->whereMonth('login_at', Carbon::now()->month)
-                ->get()
-                ->sum('duration');
+            $loginsThisMonth = $user->userLogins->filter(function ($login) {
+                return $login->login_at >= Carbon::now()->startOfMonth() && $login->login_at <= Carbon::now()->endOfMonth();
+            })->reduce(function ($carry, $login) {
+                $logoutAt = $login->logout_at ? Carbon::parse($login->logout_at) : Carbon::now();
+                $loginAt = Carbon::parse($login->login_at);
+                return $carry + $logoutAt->diffInSeconds($loginAt);
+            }, 0);
 
             $this->usersWithLoginTimes->push([
                 'user' => $user,
@@ -113,58 +63,45 @@ class Index extends Component
             ]);
         }
     }
-    //         'userLogins as logins_today' => function ($query) {
-    //             $query->whereDate('login_at', Carbon::today());
-    //         },
-    //         'userLogins as logins_this_week' => function ($query) {
-    //             $query->whereBetween('login_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-    //         },
-    //         'userLogins as logins_this_month' => function ($query) {
-    //             $query->whereMonth('login_at', Carbon::now()->month);
-    //         },
-    //         'userLogins as total_logins',
-    //     ])->get();
-    // }
+
     public function updatedUserId($id)
     {
         if ($id == null) {
-            $this->usersWithLoginTimes = collect();
-
-            foreach ($this->users as $user) {
-                $totalLoginTime = $user->userLogins->sum('duration');
-
-                $loginsToday = $user->userLogins->where('login_at', '>=', Carbon::today())->sum('duration');
-
-                $loginsThisWeek = $user->userLogins->whereBetween('login_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('duration');
-
-                $loginsThisMonth = $user
-                    ->userLogins()
-                    ->whereMonth('login_at', Carbon::now()->month)
-                    ->get()
-                    ->sum('duration');
-
-                $this->usersWithLoginTimes->push([
-                    'user' => $user,
-                    'total_login_time' => $totalLoginTime,
-                    'login_time_today' => $loginsToday,
-                    'login_time_this_week' => $loginsThisWeek,
-                    'login_time_this_month' => $loginsThisMonth,
-                ]);
-            }
+            $this->calculateLoginTimes();
             return;
         }
+
         $user = User::findOrFail($id);
 
-        $loginsToday = $user->userLogins->where('login_at', '>=', Carbon::today())->sum('duration');
+        $totalLoginTime = $user->userLogins->reduce(function ($carry, $login) {
+            $logoutAt = $login->logout_at ? Carbon::parse($login->logout_at) : Carbon::now();
+            $loginAt = Carbon::parse($login->login_at);
+            return $carry + $logoutAt->diffInSeconds($loginAt);
+        }, 0);
 
-        $loginsThisWeek = $user->userLogins->whereBetween('login_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('duration');
+        $loginsToday = $user->userLogins->filter(function ($login) {
+            return $login->login_at >= Carbon::today();
+        })->reduce(function ($carry, $login) {
+            $logoutAt = $login->logout_at ? Carbon::parse($login->logout_at) : Carbon::now();
+            $loginAt = Carbon::parse($login->login_at);
+            return $carry + $logoutAt->diffInSeconds($loginAt);
+        }, 0);
 
-        $loginsThisMonth = $user
-            ->userLogins()
-            ->whereMonth('login_at', Carbon::now()->month)
-            ->sum('duration');
+        $loginsThisWeek = $user->userLogins->filter(function ($login) {
+            return $login->login_at >= Carbon::now()->startOfWeek() && $login->login_at <= Carbon::now()->endOfWeek();
+        })->reduce(function ($carry, $login) {
+            $logoutAt = $login->logout_at ? Carbon::parse($login->logout_at) : Carbon::now();
+            $loginAt = Carbon::parse($login->login_at);
+            return $carry + $logoutAt->diffInSeconds($loginAt);
+        }, 0);
 
-        $totalLoginTime = $user->userLogins->sum('duration');
+        $loginsThisMonth = $user->userLogins->filter(function ($login) {
+            return $login->login_at >= Carbon::now()->startOfMonth() && $login->login_at <= Carbon::now()->endOfMonth();
+        })->reduce(function ($carry, $login) {
+            $logoutAt = $login->logout_at ? Carbon::parse($login->logout_at) : Carbon::now();
+            $loginAt = Carbon::parse($login->login_at);
+            return $carry + $logoutAt->diffInSeconds($loginAt);
+        }, 0);
 
         $this->usersWithLoginTimes = collect([
             [
@@ -177,40 +114,6 @@ class Index extends Component
         ]);
     }
 
-    // public function updatedUserId($id)
-    // {
-    //     if ($id) {
-    //         $this->usersWithLoginCounts = User::where('id', $id)
-    //             ->withCount([
-    //                 'userLogins',
-    //                 'userLogins as logins_today' => function ($query) {
-    //                     $query->whereDate('login_at', Carbon::today());
-    //                 },
-    //                 'userLogins as logins_this_week' => function ($query) {
-    //                     $query->whereBetween('login_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-    //                 },
-    //                 'userLogins as logins_this_month' => function ($query) {
-    //                     $query->whereMonth('login_at', Carbon::now()->month);
-    //                 },
-    //                 'userLogins as total_logins',
-    //             ])
-    //             ->get();
-    //     } else {
-    //         $this->usersWithLoginCounts = User::withCount([
-    //             'userLogins',
-    //             'userLogins as logins_today' => function ($query) {
-    //                 $query->whereDate('login_at', Carbon::today());
-    //             },
-    //             'userLogins as logins_this_week' => function ($query) {
-    //                 $query->whereBetween('login_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-    //             },
-    //             'userLogins as logins_this_month' => function ($query) {
-    //                 $query->whereMonth('login_at', Carbon::now()->month);
-    //             },
-    //             'userLogins as total_logins',
-    //         ])->get();
-    //     }
-    // }
     public function render()
     {
         return view('livewire.back.summary.index');

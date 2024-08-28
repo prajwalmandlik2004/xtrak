@@ -52,12 +52,28 @@ class ChatList extends Component
         return null;
     }
     
-
+    // public function openModal()
+    // {
+    //     $this->isModalOpen = true;
+    //     $this->users = User::where('id', '!=', $this->auth_id)->get();
+    // }
     public function openModal()
-    {
-        $this->isModalOpen = true;
+{
+    $this->isModalOpen = true;
+
+    if (auth()->user()->hasRole('Consultant')) {
+
+        $this->users = User::where('id', '!=', $this->auth_id)
+                           ->whereHas('roles', function($query) {
+                               $query->where('name', 'Manager');
+                           })
+                           ->get();
+    } else {
+
         $this->users = User::where('id', '!=', $this->auth_id)->get();
     }
+}
+
 
     public function closeModal()
     {
