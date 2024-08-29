@@ -33,7 +33,7 @@ class Import extends Component
     public function storeData()
     {
         ini_set('max_execution_time',43200); 
-        ini_set('memory_limit', '10G'); 
+        ini_set('memory_limit', '20G'); 
 
         DB::statement('SET SESSION wait_timeout = 38800;');
         DB::statement('SET SESSION interactive_timeout = 38800;');
@@ -72,7 +72,21 @@ class Import extends Component
         
         }
         DB::beginTransaction();
-        foreach ($fileData as $key => $value) {
+        $user = auth()->user();
+        // $isConsultant = $user->name === 'Consultant'; 
+        $isAdmin = $user->hasRole('Administrateur');
+
+    foreach ($fileData as $key => $value) {
+        if ($isAdmin) {
+            $newCandidate = $this->addCandidate($value, 'Attente');
+            if ($newCandidate) {
+                $this->accepted[$newCandidate->id] = $newCandidate;
+            } else {
+                $this->rejected[$key] = $value;
+            }
+        }
+        else
+       {
             $checkExistingCandidate = $this->checkExistingCandidate($value);
             if ($checkExistingCandidate == false) {
                 $newCandidate = $this->addCandidate($value, 'Attente');
@@ -82,9 +96,9 @@ class Import extends Component
                     $this->rejected[$key] = $value;
                 }
             } else {
-                // $doublon = $this->addCandidate($value, 'Doublon');
                 $this->rejected[$key] = $value;
             }
+        }
         }
         DB::commit();
         $this->dispatch('data-from-import', accepted: $this->accepted, rejected: $this->rejected);
@@ -97,6 +111,11 @@ class Import extends Component
             $candidateRepository = new CandidateRepository();
             $newCandidate = [];
             $newCandidate['created_by'] = auth()->user()->id;
+            // if (!empty($data['Date Saisie'])) {
+            //     $newCandidate['created_at'] = Carbon::parse($data['Date Saisie'])->format('Y-m-d H:i:s');
+            // } else {
+            //     $newCandidate['created_at'] = now();
+            // }
             $newCandidate['origine'] = $data['Source'] ?? '';
             $newCandidate['first_name'] = $data['Prénom'] ?? '';
             $newCandidate['last_name'] = $data['Nom'] ?? '';
@@ -111,6 +130,7 @@ class Import extends Component
             $newCandidate['city'] = $data['Ville'] ?? '';
             $newCandidate['region'] = $data['Région'] ?? '';
             $newCandidate['country'] = $data['Pays'] ?? '';
+            $newCandidate['commentaire'] = $data['Commentaire'] ?? '';
             $newCandidate['candidate_state_id'] = CandidateState::where('name', $stateName)->first()->id ?? null;
 
             if (!empty($data['Statut CDT'])) {
