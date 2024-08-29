@@ -24,16 +24,16 @@
                     <form wire:submit.prevent="storeFileData()">
                         @csrf
                         <div class="input-group">
-                            <input type="file" class="form-control @error('file') is-invalid @enderror"
-                                wire:model.live="file">
+                            <input type="file" class="form-control @error('fileData') is-invalid @enderror"
+                                wire:model.live="fileData">
                             <button wire:loading.remove wire:target="storeFileData" type="submit"
                                 class="btn btn-outline-primary">UPLOAD</button>
-                            <button wire:loading wire:target="storeFileData" type="button" class="btn btn-outline-primary"
-                                disabled>
+                            <button wire:loading wire:target="storeFileData" type="button"
+                                class="btn btn-outline-primary" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 UPLOAD...
                             </button>
-                            @error('file')
+                            @error('fileData')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>

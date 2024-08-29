@@ -14,22 +14,21 @@ use Illuminate\Support\Facades\Storage;
 class Import extends Component
 {
     use WithFileUploads;
-    public $file;
     public $fileData;
 
     public function storeFileData()
     {
         $validateData = $this->validate(
             [
-                'file' => 'required|mimes:xls,xlsx|max:10240',
+                'fileData' => 'required|mimes:xls,xlsx|max:10240',
             ],
             [
-                'file.required' => 'Le fichier est obligatoire',
-                'file.mimes' => 'Le fichier doit être un fichier excel',
+                'fileData.required' => 'Le fichier est obligatoire',
+                'fileData.mimes' => 'Le fichier doit être un fichier excel',
             ],
         );
 
-        $path = Storage::putFile('/public/files', $validateData['file']);
+        $path = Storage::putFile('/public/files', $validateData['fileData']);
         $filepath = Storage::path($path);
         if (file_exists($filepath)) {
             try {
