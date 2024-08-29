@@ -21,10 +21,11 @@ class Import extends Component
     {
         $validateData = $this->validate(
             [
-                'file' => 'required',
+                'file' => 'required|mimes:xls,xlsx',
             ],
             [
                 'file.required' => 'Le fichier est obligatoire',
+                'file.mimes' => 'Le fichier doit être un fichier excel',
             ],
         );
         $path = Storage::putFile('/public/files', $validateData['file']);
@@ -51,7 +52,16 @@ class Import extends Component
 
         // $this->reset(['file']);
     }
+    public function downloadFile()
+    {
+        $filePath = public_path('storage/files/caneva.xlsx');
 
+        if (file_exists($filePath)) {
+            return response()->download($filePath, 'caneva.xlsx');
+        } else {
+            $this->dispatch('alert', type: 'error', message: 'Le fichier n\'existe pas');
+        }
+    }
     public function render()
     {
         return view('livewire.back.candidates.import.import');
