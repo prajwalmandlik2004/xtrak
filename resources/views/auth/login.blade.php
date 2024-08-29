@@ -52,12 +52,12 @@
                                         </a>
                                     </div>
                                     <H2 class="mt-3 fw-bold text-secondary">XTRAK</H2>
-                                    {{-- <p>Consultant : 
+                                    {{-- <p>Consultant :
                                         <br>
-                                        Login : consultant@local.com 
+                                        Login : consultant@local.com
                                         <br>
                                     Password : consultant@2024 </p> --}}
-                                      
+
                                 </div>
                                 <div class="p-2 ">
                                     @if (session()->has('error'))
@@ -80,7 +80,7 @@
                                     <form method="POST" action="{{ route('connexion') }}">
                                             @csrf
                                         <div class="row">
-                                    
+
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" name="email"
@@ -98,7 +98,7 @@
 
                                             <label class="form-label" for="password-input">Mot de passe</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" name="password" 
+                                                <input type="password" name="password"
                                                     class="form-control pe-5 password-input @error('password') border-danger @enderror"
                                                     placeholder="Entrez votre mot de passe" id="password-input">
                                                 <button

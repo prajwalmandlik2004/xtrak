@@ -50,7 +50,7 @@ class Import extends Component
             $this->dispatch('alert', type: 'error', message: 'Le fichier n\'existe pas');
         }
 
-        $this->reset(['file']);
+        $this->reset(['fileData']);
     }
     public function downloadFile()
     {
@@ -61,6 +61,10 @@ class Import extends Component
         } else {
             $this->dispatch('alert', type: 'error', message: 'Le fichier n\'existe pas');
         }
+    }
+    public function mount()
+    {
+        $this->fileData = null;
     }
     public function render()
     {
