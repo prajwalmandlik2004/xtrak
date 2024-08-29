@@ -40,7 +40,7 @@
                             <div class="card-header">
                                 <div class="d-flex">
                                     <div class="p-2 flex-grow-1">
-                                        <h5 class="card-title mb-0 ">
+                                        <h5 class="mb-0 card-title ">
                                             {{ $action == 'create' ? "Formulaire de creation d'un candidat" : "Formulaire de modification d'un candidat" }}
                                         </h5>
 
@@ -55,8 +55,8 @@
                                     </div>
                                     <div class="p-2">
                                         <button wire:click.prevent="storeCandidateData2" wire:loading.remove wire:target="storeCandidateData2" type="button"
-                                            class="btn btn-success btn-label right ms-auto nexttab nexttab"><i
-                                                class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
+                                            class="btn btn-success btn-label right ms-auto nexttab"><i
+                                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
                                             {{ $action == 'create' ? 'Enregistrer' : 'Modifier et suivant' }}</button>
 
                                         <button wire:loading wire:target="storeCandidateData2" type="button"
@@ -107,22 +107,21 @@
 
                                 <div class="row g-4">
 
-                                    <div class="card mt-4">
+                                    <div class="mt-4 card">
                                         <div class="card-header">
-                                            <!-- <h5 class="card-title
-                                            mb-0">
+                                            <!-- <h5 class="mb-0 card-title">
                                                 Informations
                                                 personnelles</h5> -->
                                                 <div class="col-lg-3" style="margin-left:3%">
                                                 <div style="display: flex; align-items:center">
                                                     <label for="origine" class="form-label" style="margin-right:5%">Date</label>
-                                                    <input type="text" class="form-control form-control-custom @error('origine') is-invalid @enderror" 
-                                                        value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" disabled 
+                                                    <input type="text" class="form-control form-control-custom @error('origine') is-invalid @enderror"
+                                                        value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" disabled
                                                         style="width:40%; text-align:center"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-body"  style="margin-left:3%"> 
+                                        <div class="card-body"  style="margin-left:3%">
                                             <div class="row g-5">
                                                 <div class="col-lg-1">
                                                     <div>
@@ -219,7 +218,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-2 mt-4 ">
+                                                <div class="mt-4 col-md-2 ">
                                                     <div>
                                                         <label for="email" class="form-label">Email <span
                                                                 class="text-danger">*</span></label>
@@ -232,7 +231,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-2 mt-4 ">
+                                                <div class="mt-4 col-lg-2 ">
                                                     <div>
                                                         <label for="phone" class="form-label">Téléphone 1 </label>
                                                         <input type="text"
@@ -245,7 +244,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-2 mt-4">
+                                                <div class="mt-4 col-lg-2">
                                                     <div>
                                                         <label for="disponibility" class="form-label">Disponibilité
                                                         </label>
@@ -264,7 +263,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 mt-4">
+                                                <div class="mt-4 col-md-2">
                                                     <div>
                                                         <label for="candidate_statut_id" class="form-label">Statut
                                                         </label>
@@ -284,7 +283,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-2 mt-4">
+                                                <div class="mt-4 col-lg-2">
                                                     <div>
                                                         <label for="next_step_id" class="form-label">Next step </label>
                                                         <select
@@ -303,7 +302,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-2 mt-4">
+                                                <div class="mt-4 col-lg-2">
                                                     <div>
                                                         <label for="ns_date_id" class="form-label">NsDate </label>
                                                         <select
@@ -322,14 +321,13 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card ">
                                         <!-- <div class="card-header">
-                                            <h5 class="card-title
-                                            mb-0">
+                                            <h5 class="mb-0 card-title">
                                                 Coordonnées</h5>
                                         </div> -->
                                         <div class="card-body" style="margin-top:-2%;margin-left:3%">
@@ -339,7 +337,7 @@
                                                     <div>
                                                         <label for="phone_2" class="form-label">Téléphone 2</label>
                                                         <input type="text"
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('phone_2') is-invalid @enderror "
                                                             wire:model='phone_2'
                                                             placeholder="Entrez le numéro de télépone 2" />
@@ -353,7 +351,7 @@
                                                     <div>
                                                         <label for="vancancy-Input" class="form-label">CP/Dpt </label>
                                                         <input type="text"
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('postal_code') is-invalid @enderror "
                                                             min="0" wire:model='postal_code'
                                                             placeholder="CP/DPt"/>
@@ -366,7 +364,7 @@
                                                     <div>
                                                         <label for="country" class="form-label">Pays </label>
                                                         <input type="text"
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('country') is-invalid @enderror "
                                                             min="0" wire:model='country'
                                                             placeholder="Veuillez entrer le pays" />
@@ -379,7 +377,7 @@
                                                     <div>
                                                         <label for="region" class="form-label">Région </label>
                                                         <input type="text"
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('region') is-invalid @enderror "
                                                             min="0" wire:model='region'
                                                             placeholder="Veuillez  entrer la région" />
@@ -392,7 +390,7 @@
                                                     <div>
                                                         <label for="city" class="form-label">Ville </label>
                                                         <input type="text"
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('city') is-invalid @enderror "
                                                             min="0" wire:model='city'
                                                             placeholder="Entrez la ville" />
@@ -405,7 +403,7 @@
                                                     <div>
                                                         <label for="city" class="form-label">UrlCTC </label>
                                                         <input type="text"
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('url_ctc') is-invalid @enderror "
                                                             min="0" wire:model='url_ctc'
                                                             placeholder="Veuillez entrer l'UrlCTC" />
@@ -417,10 +415,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card mt-4">
+                                    <div class="mt-4 card">
                                         <div class="card-header" style="margin-top:-2%;" >
-                                            <h5 class="card-title
-                                            mb-0" style="margin-left:3%">
+                                            <h5 class="mb-0 card-title" style="margin-left:3%">
                                                 Dernier poste occupé</h5>
                                         </div>
                                         <div class="card-body" style="margin-left:3%" >
@@ -429,7 +426,7 @@
                                                     <div>
                                                         <label for="compagny_id" class="form-label">Societé </label>
                                                         <input type="text"
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('compagny_id') is-invalid @enderror "
                                                             wire:model='compagny_id'
                                                             placeholder="Veuillez  entrer la société" />
@@ -445,7 +442,7 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <select
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('position_id') is-invalid @enderror "
                                                             wire:model.live='position_id'>
                                                             <option value="" selected>Selectionner</option>
@@ -466,7 +463,7 @@
                                                         <label for="speciality_id" class="form-label">Spécialité
                                                             (Fonction2)</label>
                                                         <select
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('speciality_id') is-invalid @enderror "
                                                             wire:model.live='speciality_id'>
                                                             @if ($specialities)
@@ -499,7 +496,7 @@
                                                         <label for="field_id" class="form-label">Domaine
                                                             (Fonction3)</label>
                                                         <select
-                                                            class="form-control  
+                                                            class="form-control
                                     form-control-custom  @error('field_id') is-invalid @enderror "
                                                             wire:model.live='field_id'>
                                                             @if ($fields)
@@ -532,10 +529,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card mt-4">
+                                    <div class="mt-4 card">
                                         <!-- <div class="card-header">
-                                            <h5 class="card-title
-                                            mb-0">
+                                            <h5 class="mb-0 card-title">
                                                 Commentaire et
                                                 Documents</h5>
                                         </div> -->
@@ -565,7 +561,7 @@
                                                         <textarea wire:model='suivi' class="form-control form-control-custom " rows="3"></textarea>
                                                     </div>
                                                 </div>
-                                                {{--  
+                                                {{--
                                                 <div class="col-md-4">
 
                                                     <div>
@@ -604,8 +600,8 @@
                             <div class="card-footer">
                                 <div class="d-flex justify-content-end">
                                     <button wire:loading.remove wire:target="storeCandidateData" type="submit"
-                                        class="btn btn-success btn-label right ms-auto nexttab nexttab"><i
-                                            class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
+                                        class="btn btn-success btn-label right ms-auto nexttab"><i
+                                            class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
                                         {{ $action == 'create' ? 'Enregistrer et suivant' : 'Modifier et suivant' }}</button>
 
                                     <button wire:loading wire:target="storeCandidateData" type="button"
@@ -647,14 +643,14 @@
                             <div>
 
                                 <div class="card-header align-items-center d-flex border-bottom-dashed">
-                                    <h4 class="card-title mb-0 flex-grow-1">Documents</h4>
+                                    <h4 class="mb-0 card-title flex-grow-1">Documents</h4>
 
                                     <div class="d-flex">
                                         <div class="p-2 flex-grow-1">
 
                                             <button type="button" wire:click='goToForm'
-                                                class="btn  btn-sm btn-label">
-                                                <i class="ri-arrow-left-line label-icon align-middle  ms-2"></i>Aller
+                                                class="btn btn-sm btn-label">
+                                                <i class="align-middle ri-arrow-left-line label-icon ms-2"></i>Aller
                                                 vers le
                                                 formulaire</button>
                                         </div>
@@ -662,7 +658,7 @@
                                             <button type="button" wire:click="openFileModal()"
                                                 data-bs-toggle="modal" data-bs-target="#modal"
                                                 class="btn btn-soft-info btn-sm"><i
-                                                    class="ri-upload-2-fill me-1 align-bottom"></i>
+                                                    class="align-bottom ri-upload-2-fill me-1"></i>
                                                 Nouveau</button>
                                         </div>
                                         <div class="p-2">
@@ -673,8 +669,8 @@
                                         </div>
                                         <div class="p-2">
                                             <button type="button" wire:click='goToCre'
-                                                class="btn  btn-sm btn-label">
-                                                <i class="ri-arrow-right-line label-icon align-middle  ms-2"></i>Aller
+                                                class="btn btn-sm btn-label">
+                                                <i class="align-middle ri-arrow-right-line label-icon ms-2"></i>Aller
                                                 vers
                                                 le CRE</button>
 
@@ -683,28 +679,27 @@
                                 </div>
 
 
-                                <div class="vstack gap-2">
+                                <div class="gap-2 vstack">
                                     @if ($files)
 
 
                                         @forelse ($files as $file)
-                                            <div class="border rounded border-dashed p-2">
+                                            <div class="p-2 border border-dashed rounded">
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar-sm">
                                                             <div
-                                                                class="avatar-title bg-light text-secondary rounded fs-24">
+                                                                class="rounded avatar-title bg-light text-secondary fs-24">
                                                                 <i class="ri-file-ppt-2-line"></i>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="flex-grow-1 overflow-hidden">
-                                                        <h5 class="fs-15 mb-1"><a href="#"
+                                                    <div class="overflow-hidden flex-grow-1">
+                                                        <h5 class="mb-1 fs-15"><a href="#"
                                                                 class="text-body text-truncate d-block">{{ $file->name ?? '---' }}</a>
                                                         </h5>
                                                         <p
-                                                            class="fw-medium badge rounded-pill bg-primary fs-10 
-                                                        mb-0">
+                                                            class="mb-0 fw-medium badge rounded-pill bg-primary fs-10">
                                                             @if ($file->file_type)
                                                                 @if ($file->file_type == 'cv')
                                                                     Curriculum Vitae
@@ -718,7 +713,7 @@
 
                                                     </div>
                                                     <div class="flex-shrink-0 ms-2">
-                                                        <div class="d-flex gap-1">
+                                                        <div class="gap-1 d-flex">
 
                                                             {{-- <a class=""
                                                                 href="{{ asset('storage') . '/' . $file->path }}"
@@ -744,12 +739,12 @@
                                                                             wire:click="openFileModal('{{ $file->id }}')"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#modal"><i
-                                                                                class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                                                                class="align-bottom ri-pencil-fill me-2 text-muted"></i>
                                                                             Renommer</a>
                                                                     </li>
                                                                     <li><a wire:click="confirmDeleteFile('{{ $file->name }}', '{{ $file->id }}')"
                                                                             class="dropdown-item"><i
-                                                                                class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                                                class="align-bottom ri-delete-bin-fill me-2 text-muted"></i>
                                                                             Supprimer</a></li>
                                                                 </ul>
                                                             </div>
@@ -872,13 +867,13 @@
                                 <div class="card-header">
                                     <div class="d-flex">
                                         <div class="p-2 flex-grow-1">
-                                            <h5 class="card-title mb-0 ">
+                                            <h5 class="mb-0 card-title ">
                                                 Formulaire de creation d'un C.R.E
                                             </h5>
                                         </div>
                                         <div class="p-2">
                                             <a wire:click='goToDoc' class="btn btn-label"><i
-                                                    class="ri-arrow-left-line label-icon align-middle ms-2"></i>Aller
+                                                    class="align-middle ri-arrow-left-line label-icon ms-2"></i>Aller
                                                 vers les documents</a>
                                         </div>
                                         <div class="p-2">
@@ -896,86 +891,86 @@
 
 
                                 <div class="row">
-                            <div class="col-md-12 mt-3">
+                            <div class="mt-3 col-md-12">
                                 <div>
                                     <label for="response1" class="form-label">1. Statut professionnel :</label>
-                                    <textarea wire:model='response1' class="form-control auto-resize" id="response1" 
+                                    <textarea wire:model='response1' class="form-control auto-resize" id="response1"
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-12 mt-3">
+                            <div class="mt-3 col-md-12">
                                 <div>
                                     <label for="response2" class="form-label">2. Statut personnel :</label>
-                                    <textarea wire:model='response2' class="form-control auto-resize" id="response2" 
+                                    <textarea wire:model='response2' class="form-control auto-resize" id="response2"
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>
-                       
-                            <div class="col-md-12 mt-3">
+
+                            <div class="mt-3 col-md-12">
                                 <div>
                                     <label for="response3" class="form-label">3. Situation professionnelle :</label>
-                                    <textarea wire:model='response3' class="form-control auto-resize" id="response3" 
+                                    <textarea wire:model='response3' class="form-control auto-resize" id="response3"
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-12 mt-3">
+                            <div class="mt-3 col-md-12">
                                 <div>
                                     <label for="response4" class="form-label">4. Points incontournables :
                                     </label>
-                                    <textarea wire:model='response4' class="form-control auto-resize" id="response4" 
+                                    <textarea wire:model='response4' class="form-control auto-resize" id="response4"
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>
-                        
-                            <div class="col-md-12 mt-3">
+
+                            <div class="mt-3 col-md-12">
                                 <div>
-                                    <label for="response5" class="form-label">5. Savoir-être du candidat : 
+                                    <label for="response5" class="form-label">5. Savoir-être du candidat :
                                     </label>
-                                    <textarea wire:model='response5' class="form-control auto-resize" id="response5" 
+                                    <textarea wire:model='response5' class="form-control auto-resize" id="response5"
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-12 mt-3">
+                            <div class="mt-3 col-md-12">
                                 <div>
                                     <label for="response6" class="form-label">6. Prise de référence(s) :</label>
-                                    <textarea wire:model='response6' class="form-control auto-resize" id="response6" 
+                                    <textarea wire:model='response6' class="form-control auto-resize" id="response6"
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>
-                        
-                            <div class="col-md-12 mt-3">
+
+                            <div class="mt-3 col-md-12">
                                 <div>
                                     <label for="response7" class="form-label">7. Prétentions salariales :</label>
-                                    <textarea wire:model='response7' class="form-control auto-resize" id="response7" 
+                                    <textarea wire:model='response7' class="form-control auto-resize" id="response7"
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-12 mt-3">
+                            <div class="mt-3 col-md-12">
                                 <div>
                                     <label for="response8" class="form-label">8. Disponibilités candidat :</label>
-                                    <textarea wire:model='response8' class="form-control auto-resize" id="response8" 
+                                    <textarea wire:model='response8' class="form-control auto-resize" id="response8"
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-12 mt-3">
+                            <div class="mt-3 col-md-12">
                                 <div>
                                     <label for="response7" class="form-label">9. Résumé du parcours professionnel :</label>
-                                    <textarea wire:model='response9' class="form-control auto-resize" id="response9" 
+                                    <textarea wire:model='response9' class="form-control auto-resize" id="response9"
                                         style="resize: none; overflow-y: hidden;"></textarea>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                                 <div class="card-footer">
 
                                     <div class="d-flex justify-content-between">
                                         <button type="button" wire:click='goToForm'
                                             class="btn btn-secondary btn-label nexttab"><i
-                                                class="ri-arrow-left-line label-icon align-middle fs-16 ms-2"></i>Aller
+                                                class="align-middle ri-arrow-left-line label-icon fs-16 ms-2"></i>Aller
                                             vers les documents</button>
                                         <button type="submit" wire:click='goToCre'
-                                            class="btn btn-success btn-label right ms-auto nexttab nexttab">Enregistrer
+                                            class="btn btn-success btn-label right ms-auto nexttab">Enregistrer
                                             et Terminer</button>
                                     </div>
                                 </div>

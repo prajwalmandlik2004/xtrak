@@ -54,21 +54,21 @@ max-width: 150px !important;
 background-color: #6699FF !important;
 }
 /* .cdtnonactiveontable{
---vz-table-bg-type: #dadeec !important; 
+--vz-table-bg-type: #dadeec !important;
 } */
 /* ROJO */
 /* Taille du tableau */
 .table-responsive {
     max-height:520px  !important;
-    overflow-y: auto !important; 
+    overflow-y: auto !important;
 }
 
 .nav-tabs-custom {
     display: flex !important;
     position: relative !important;
-    padding-left: 0 !important; 
-    list-style: none !important; 
-    margin-bottom: 1rem !important; 
+    padding-left: 0 !important;
+    list-style: none !important;
+    margin-bottom: 1rem !important;
 }
 
 .nav-tabs-custom .nav-item {
@@ -77,28 +77,28 @@ background-color: #6699FF !important;
 
 .nav-tabs-custom .nav-link {
     border: 1px solid #0d6efd !important;
-    border-bottom: none !important; 
+    border-bottom: none !important;
     border-top-left-radius: 0.25rem !important;
     border-top-right-radius: 0.25rem !important;
     color: #495057 !important;
     padding: 0.5rem 1rem !important;
-    margin-right: -1px !important; 
-    background-color: #f8f9fa !important; 
+    margin-right: -1px !important;
+    background-color: #f8f9fa !important;
     position: relative !important;
-    z-index: 1 !important; 
+    z-index: 1 !important;
 }
 
 .nav-tabs-custom .nav-link.active {
     color: #ffffff !important;
     background-color: #0d6efd !important;
-    border-color: #0d6efd #0d6efd transparent !important; 
+    border-color: #0d6efd #0d6efd transparent !important;
     font-weight: bold !important;
-    z-index: 2 !important; 
-    top: 0 !important; 
+    z-index: 2 !important;
+    top: 0 !important;
 }
 
 .nav-tabs-custom .nav-link:hover {
-    border-color: #0d6efd !important; 
+    border-color: #0d6efd !important;
 }
 
 .nav-tabs-custom::before {
@@ -107,9 +107,9 @@ background-color: #6699FF !important;
     bottom:-2px !important;
     left: 0 !important;
     width: 100% !important;
-    height: 1px !important; 
-    background-color: #0d6efd !important; 
-    z-index: 0 !important; 
+    height: 1px !important;
+    background-color: #0d6efd !important;
+    z-index: 0 !important;
 }
 .table-info {
     --vz-table-striped-bg: #00a2ff !important;
@@ -126,10 +126,10 @@ background-color: #6699FF !important;
       border-radius: 11px;
       padding: 5px 6px;
       margin-left:10%;
-      /* max-width: 70%; 
+      /* max-width: 70%;
       max-height: 80%; */
-      overflow: hidden; 
-      
+      overflow: hidden;
+
   }
   /******************************* Chat List Container **************************/
   .chat_list_container {
@@ -138,14 +138,14 @@ background-color: #6699FF !important;
       height: 100%;
       border-radius: inherit;
   }
-  
+
   .chatlist_header {
       height: 60px;
       border-bottom: 1px solid gray;
       display: flex;
       flex-wrap: nowrap;
   }
-  
+
   .chatlist_header .title {
       font-size: 19px;
       font-weight: bold;
@@ -156,7 +156,7 @@ background-color: #6699FF !important;
       justify-content: center;
       text-align: center;
   }
-  
+
   .chatlist_header .img_container {
       height: 39px;
       width: 39px;
@@ -164,7 +164,7 @@ background-color: #6699FF !important;
       margin-left: auto;
       margin-right: 2px;
   }
-  
+
   .img_container img {
       height: 100%;
       width: 100%;
@@ -189,32 +189,32 @@ background-color: #6699FF !important;
       margin-bottom: 5px;
       border-radius: 11px;
   }
-  
+
   .chatlist_body .chatlist_img_container {
       height: 47px;
       width: 47px;
       margin-left: auto;
       margin-right: 2px;
   }
-  
+
   .chatlist_body .chatlist_img_container img {
       border-radius: 50%;
       width: 100%;
       height: 100%;
   }
-  
+
   .chatlist_body .chatlist_info {
       width: 80%;
       display: block;
       padding: 2px 5px;
   }
-  
+
   .chatlist_info .top_row {
       display: flex;
       width: 100%;
       margin: 3px 0px;
   }
-  
+
   .chatlist_info .top_row {
       font-size: 16px;
       width: 80%;
@@ -229,18 +229,18 @@ background-color: #6699FF !important;
       font-size: 13px;
       margin-right: 1px;
   }
-  
+
   .chatlist_info .bottom_row {
       display: flex;
       width: 100%;
       flex-wrap: nowrap;
   }
-  
+
   .chatlist_info .bottom_row .message_body {
       width: 80%;
       font-weight: lighter;
   }
-  
+
   .chatlist_info .bottom_row .unread_count {
       margin-left: auto;
       font-size: 13px;
@@ -250,7 +250,7 @@ background-color: #6699FF !important;
       color: red;
       font-weight: lighter;
   }
-  
+
   /******************************* Chat Box Container **************************/
   .chat_box_container {
     position: relative;
@@ -331,11 +331,11 @@ background-color: #6699FF !important;
     display: block;
     margin-top: 11px;
     padding: 10px;
-    word-wrap: break-word; 
+    word-wrap: break-word;
     /* white-space: pre-wrap;  */
     background-color: #f0f0f0;
     max-width: 80%;
-    width: fit-content; 
+    width: fit-content;
 }
 
 .msg_body_me {
@@ -387,7 +387,7 @@ background-color: #6699FF !important;
       flex-direction: column;
       padding: 10px;
 }
-  
+
   .custom_form_group {
       display: flex;
       flex-wrap: nowrap;
@@ -396,7 +396,7 @@ background-color: #6699FF !important;
       padding: 2px 6px;
       align-items: center;
   }
-  
+
   .control {
     width: 90%;
     outline: 0;
@@ -412,13 +412,13 @@ background-color: #6699FF !important;
     height: auto;
     max-height: 240px;
   }
-  
+
   .control:focus {
     border-style: 0;
     outline: 0;
     box-shadow: 0;
   }
-  
+
   .submit {
       background-color: #007bff;
       color: white;
@@ -449,7 +449,7 @@ background-color: #6699FF !important;
       background-color: rgba(0,0,0,0.4);
       padding-top: 60px;
   }
-  
+
   .modal-attachments-content {
       background-color: #fefefe;
       margin: auto;
@@ -458,40 +458,40 @@ background-color: #6699FF !important;
       width: 40%;
       max-width: 600px;
   }
-  
+
   .close {
       color: #aaa;
       float: right;
       font-size: 28px;
       font-weight: bold;
   }
-  
+
   .close:hover,
   .close:focus {
       color: black;
       text-decoration: none;
       cursor: pointer;
   }
-  
+
   #attachmentsList {
       list-style-type: none;
-      padding: 20px; 
-      border: 1px solid #ddd; 
-      border-radius: 4px; 
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
       background-color: #f9f9f9;
   }
-  
+
   #attachmentsList li {
       display: inline-block;
       margin: 10px;
       text-align: center;
       padding: 10px;
-      border: 1px solid #ddd; 
-      border-radius: 4px; 
-      background-color: #ffffff; 
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #ffffff;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
+
   .attachment-icon {
       max-width: 100px;
       height: auto;
@@ -529,8 +529,8 @@ background-color: #6699FF !important;
         color: rgb(14, 14, 14);
         font-weight: bold;
     }
-  
-  
+
+
       .modale {
         position: fixed;
         z-index: 1;
@@ -542,7 +542,7 @@ background-color: #6699FF !important;
         background-color: rgb(0,0,0);
         background-color: rgba(0,0,0,0.4);
     }
-    
+
     .modale-content {
         background-color: #fefefe;
         margin: 5% auto;
@@ -552,26 +552,26 @@ background-color: #6699FF !important;
         max-width: 600px;
         border-radius: 10px;
     }
-    
+
     .modale-content .close {
         color: #aaa;
         float: right;
         font-size: 28px;
         font-weight: bold;
     }
-    
+
     .modale-content .close:hover,
     .modale-content .close:focus {
         color: black;
         text-decoration: none;
         cursor: pointer;
     }
-    
+
     .modale-content ul {
         list-style-type: none;
         padding: 0;
     }
-    
+
     .modale-content li {
         padding: 10px;
         margin-bottom: 10px;
@@ -580,46 +580,46 @@ background-color: #6699FF !important;
         cursor: pointer;
         transition: background-color 0.3s;
     }
-    
+
     .modale-content li:hover {
         background-color: #e0e0e0;
     }
-    
+
     .close {
         color: #aaa;
         float: right;
         font-size: 28px;
         font-weight: bold;
     }
-    
+
     .close:hover,
     .close:focus {
         color: black;
         text-decoration: none;
         cursor: pointer;
     }
-    
+
   .add_chat_container {
       position: absolute;
       bottom: 20px;
-      z-index: 1000; 
+      z-index: 1000;
   }
-  
+
   .add_chat_button {
       background-color: #007bff;
       color: white;
       border: none;
       border-radius: 50%;
       width: 50px;
-      height: 50px; 
+      height: 50px;
       font-size: 24px;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
+
   .btn-icon .mdi-chat {
-    font-size: 30px; 
-    color: blue; 
+    font-size: 30px;
+    color: blue;
 }
 .unread-message {
     background-color: #ffcccc;
