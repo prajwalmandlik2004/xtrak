@@ -21,14 +21,14 @@
                         téléchargeable.
                         .</p>
 
-                    <form wire:submit.prevent="storeData()">
+                    <form wire:submit.prevent="storeFileData()">
                         @csrf
                         <div class="input-group">
                             <input type="file" class="form-control @error('file') is-invalid @enderror"
                                 wire:model="file">
-                            <button wire:loading.remove wire:target="storeData" type="submit"
+                            <button wire:loading.remove wire:target="storeFileData" type="submit"
                                 class="btn btn-outline-primary">UPLOAD</button>
-                            <button wire:loading wire:target="storeData" type="button" class="btn btn-outline-primary"
+                            <button wire:loading wire:target="storeFileData" type="button" class="btn btn-outline-primary"
                                 disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 UPLOAD...

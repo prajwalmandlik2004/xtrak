@@ -17,7 +17,7 @@ class Import extends Component
     public $file;
     public $fileData;
 
-    public function storeData()
+    public function storeFileData()
     {
         $validateData = $this->validate(
             [
@@ -28,7 +28,7 @@ class Import extends Component
                 'file.mimes' => 'Le fichier doit être un fichier excel',
             ],
         );
-       
+
         $path = Storage::putFile('/public/files', $validateData['file']);
         $filepath = Storage::path($path);
         if (file_exists($filepath)) {
