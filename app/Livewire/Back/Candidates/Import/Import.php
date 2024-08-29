@@ -50,7 +50,7 @@ class Import extends Component
             $this->dispatch('alert', type: 'error', message: 'Le fichier n\'existe pas');
         }
 
-        // $this->reset(['file']);
+        $this->reset(['file']);
     }
     public function downloadFile()
     {
