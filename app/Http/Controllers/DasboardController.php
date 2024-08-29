@@ -11,7 +11,11 @@ class DasboardController extends Controller
     {
         if (auth()->user()->hasRole('Administrateur')) {
             return view('back.dashboard.admin');
-        } else {
+        } //vue manager à personnaliser plus tard
+        elseif (auth()->user()->hasRole('Manager')){
+            return view('back.dashboard.admin');
+        }
+        else {
             return view('back.dashboard.consultant');
         }
         //return view('back.dashboard.index');

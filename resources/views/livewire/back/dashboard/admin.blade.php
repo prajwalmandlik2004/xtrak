@@ -4,9 +4,10 @@
     {{-- créer par MAHAMADOU ALI AdbDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
-        'title' => 'Espace administrateur',
-        'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
-    ])
+    'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
+    'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
+])
+
     <div class="row">
         <div class="col-md-6">
             <div class="d-flex">
@@ -164,18 +165,19 @@
                                 BaseCDT
                             </h4>
                         </div>
-                        
-                        <div id="exporter">
-                        <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
-    <i class="ri-file-download-line me-1"></i>
-    <span class="download-text">Exporter</span>
-    <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        <span class="visually-hidden">Exportation...</span>
-    </span>
-</button>
-
-                        </div>
+                        <!-- verifier si la personne authentifiée n'est pas manager avant d'afficher le bouton -->
+                        @if (!auth()->user()->hasRole('Manager'))
+                            <div id="exporter">
+                                <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
+                                    <i class="ri-file-download-line me-1"></i>
+                                    <span class="download-text">Exporter</span>
+                                    <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Exportation...</span>
+                                    </span>
+                                </button>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">

@@ -19,7 +19,7 @@
                 @php
                     $lastMessage = $conversation->messages->last();
                     $receiverId = $this->getChatUserInstance($conversation, 'id');
-                    $receiverUser = $this->receiverInstance; // Utiliser directement receiverInstance
+                    $receiverUser = $this->receiverInstance; 
                     $hasUnreadMessages = $this->hasUnreadMessages($conversation);
                 @endphp
                 <div class="chatlist_item {{ $hasUnreadMessages ? 'unread-message' : '' }}" wire:key="{{$conversation->id}}" wire:click="chatUserSelected({{ $conversation->id }}, {{ $receiverId }})">

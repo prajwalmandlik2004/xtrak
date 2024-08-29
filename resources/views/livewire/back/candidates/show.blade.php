@@ -533,27 +533,20 @@
                                                                                 @enderror
                                                                             </div>
                                                                         </div>
+                                                                        
                                                                         <div class="col-lg-3">
-                                                                            <div>
-                                                                                <label for="position_id" class="form-label">Poste (Fonction1)  <span
-                                                                                    class="text-danger">*</span></label>
-                                                                                <select
-                                                                                    class="form-control  
-                                form-control-custom  @error('position_id') is-invalid @enderror "
-                                                                                    wire:model.live='position_id'>
-                                                                                    <option value="" selected>Selectionner</option>
-                                                                                    @foreach ($positions as $position)
-                                                                                        <option value="{{ $position->id }}"
-                                                                                            @if ( $position->id == $position_id) selected @endif>
-                                                                                            {{ $position->name }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                                @error('position_id')
-                                                                                    <span class="invalid-feedback">{{ $message }}</span>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
+    <div>
+        <label for="position_id" class="form-label">Poste (Fonction1) <span class="text-danger">*</span></label>
+        <input type="text"
+               class="form-control form-control-custom @error('position_name') is-invalid @enderror"
+               wire:model.lazy="position_name"
+               placeholder="Veuillez entrer le poste" />
+        @error('position_name')
+            <span class="invalid-feedback">{{ $message }}</span>
+        @enderror
+    </div>    
+</div>
+
                                                                         <div class="col-lg-3">
                                                                             <div>
                                                                                 <label for="speciality_id" class="form-label">Spécialité

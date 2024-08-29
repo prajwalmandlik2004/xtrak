@@ -86,11 +86,13 @@
                         aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center text-white">
 
-                            @if (auth()->user()->hasRole('Administrateur'))
-                                ESPACE ADMIN
+                             @if (auth()->user()->hasRole('Administrateur'))
+                                 ESPACE ADMINISTATEUR
+                             @elseif (auth()->user()->hasRole('Manager'))
+                                 ESPACE MANAGER
                             @else
                                 ESPACE CONSULTANT
-                            @endIF
+                             @endif
                             {{-- @php
                                 $user = \Illuminate\Support\Facades\Auth::user();
                             @endphp
