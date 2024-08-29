@@ -9,14 +9,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->string('attachment')->nullable();
+            // $table->string('attachment')->nullable();
         });
     }
 
     public function down()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->dropColumn('attachment');
+            // $table->dropColumn('attachment');
         });
     }
 };
