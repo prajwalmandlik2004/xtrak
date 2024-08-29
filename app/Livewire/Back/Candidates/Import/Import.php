@@ -21,7 +21,7 @@ class Import extends Component
     {
         $validateData = $this->validate(
             [
-                'file' => 'required|mimes:xls,xlsx',
+                'file' => 'required|mimes:xls,xlsx|max:10240',
             ],
             [
                 'file.required' => 'Le fichier est obligatoire',
