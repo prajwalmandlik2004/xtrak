@@ -28,6 +28,7 @@ class Import extends Component
                 'file.mimes' => 'Le fichier doit être un fichier excel',
             ],
         );
+       
         $path = Storage::putFile('/public/files', $validateData['file']);
         $filepath = Storage::path($path);
         if (file_exists($filepath)) {
