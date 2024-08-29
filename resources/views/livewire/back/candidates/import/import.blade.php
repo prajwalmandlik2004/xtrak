@@ -25,7 +25,7 @@
                         @csrf
                         <div class="input-group">
                             <input type="file" class="form-control @error('file') is-invalid @enderror"
-                                wire:model="file">
+                                wire:model.live="file">
                             <button wire:loading.remove wire:target="storeFileData" type="submit"
                                 class="btn btn-outline-primary">UPLOAD</button>
                             <button wire:loading wire:target="storeFileData" type="button" class="btn btn-outline-primary"
