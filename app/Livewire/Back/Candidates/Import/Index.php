@@ -6,12 +6,9 @@ use Livewire\Component;
 use App\Models\ImportLog;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
-use App\Imports\CandidatesImport;
 use App\Jobs\ImportCandidatesJob;
 use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
-use Livewire\Attributes\Validate;
 class Index extends Component
 {
     use WithFileUploads;
