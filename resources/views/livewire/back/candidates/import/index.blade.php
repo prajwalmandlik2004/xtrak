@@ -43,7 +43,7 @@
                             wire:loading.target="fileData">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                 style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                Chargement...
+                                Chargement du fichier...
                             </div>
                         </div>
                     </form>

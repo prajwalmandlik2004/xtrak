@@ -15,17 +15,6 @@ use Livewire\Attributes\Validate;
 class Index extends Component
 {
     use WithFileUploads;
-    #[
-        Validate(
-            [
-                'fileData' => 'required|mimes:xls,xlsx',
-            ],
-            message: [
-                'fileData.required' => 'Le fichier est obligatoire',
-                'fileData.mimes' => 'Le fichier doit être un fichier excel',
-            ],
-        ),
-    ]
     public $fileData;
     public $rejected = [];
     public $accepted = [];
@@ -37,19 +26,16 @@ class Index extends Component
     }
     public function storeFileData()
     {
-        // $validateData = $this->validate(
-        //     [
-        //         'fileData' => 'required|mimes:xls,xlsx',
-        //     ],
-        //     [
-        //         'fileData.required' => 'Le fichier est obligatoire',
-        //         'fileData.mimes' => 'Le fichier doit être un fichier excel',
-        //     ],
-        // );
-
-        $this->validate();
-        dd($this->fileData);
-        $path = Storage::putFile('/public/files', $this->fileData);
+        $validateData = $this->validate(
+            [
+                'fileData' => 'required|mimes:xls,xlsx',
+            ],
+            [
+                'fileData.required' => 'Le fichier est obligatoire',
+                'fileData.mimes' => 'Le fichier doit être un fichier excel',
+            ],
+        );
+        $path = Storage::putFile('/public/files', $validateData['fileData']);
         $filepath = Storage::path($path);
         if (file_exists($filepath)) {
             try {
