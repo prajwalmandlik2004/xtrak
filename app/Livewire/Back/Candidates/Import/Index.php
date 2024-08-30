@@ -35,7 +35,7 @@ class Index extends Component
         $path = Storage::putFile('/public/files', $validateData['fileData']);
         $filepath = Storage::path($path);
         if (file_exists($filepath)) {
-            try {
+            // try {
                 $user = Auth::user();
                 ImportCandidatesJob::dispatch($filepath, $user->id);
                 $result = ImportLog::where('file_path', $filepath)
@@ -47,9 +47,9 @@ class Index extends Component
                     $this->dispatch('data-from-import', accepted: $accepted, rejected: $rejected);
                 }
                 $this->dispatch('alert', type: 'success', message: 'Opération reusie avec succès');
-            } catch (\Exception $e) {
-                $this->dispatch('alert', type: 'error', message: 'Une erreure est survenu, merci de réessayez');
-            }
+            // } catch (\Exception $e) {
+            //     $this->dispatch('alert', type: 'error', message: 'Une erreure est survenu, merci de réessayez');
+            // }
         } else {
             $this->dispatch('alert', type: 'error', message: 'Le fichier n\'existe pas');
         }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('fields', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
+            $table->longText('name');
             $table->string('description')->nullable();
             $table->foreignUuid('speciality_id')->nullable()->constrained();
             $table->timestamps();
