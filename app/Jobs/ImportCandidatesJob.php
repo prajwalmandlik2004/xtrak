@@ -25,6 +25,8 @@ class ImportCandidatesJob implements ShouldQueue
 
     public function handle()
     {
+        dd($this->filePath);
+
         $spreadsheet = IOFactory::load($this->filePath);
         $worksheet = $spreadsheet->getActiveSheet();
         $headers = $worksheet->toArray()[0];

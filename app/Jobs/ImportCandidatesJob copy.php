@@ -37,6 +37,7 @@ class ImportCandidatesJob implements ShouldQueue
 
     public function handle()
     {
+        dd($this->filePath);
         $spreadsheet = IOFactory::load($this->filePath);
         $worksheet = $spreadsheet->getActiveSheet();
         $headers = $worksheet->toArray()[0];
@@ -55,6 +56,7 @@ class ImportCandidatesJob implements ShouldQueue
         }
         $accepted = [];
         $rejected = [];
+        dd($fileData);
         foreach ($fileData as $row) {
             $candidateRepository = new CandidateRepository();
             $existingCandidate = Candidate::when(!empty($row['Prénom']), fn($query) => $query->where('first_name', $row['Prénom']))

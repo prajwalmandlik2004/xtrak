@@ -20,32 +20,23 @@
                         colonnes suivent la structure du fichier "Matrice UploadCDT", disponible en exemple
                         téléchargeable.
                         .</p>
-                    <form wire:submit.prevent="storeFileData">
+                    <form wire:submit.prevent="storeFileData()">
                         @csrf
                         <div class="input-group">
                             <input type="file" class="form-control @error('fileData') is-invalid @enderror"
-                                wire:model.live="fileData">
-                            <button type="submit" class="btn btn-outline-primary" wire:loading.attr="disabled"
-                                wire:target="fileData">UPLOAD</button>
-                            <button type="button" class="btn btn-outline-primary" disabled wire:loading
-                                wire:target="storeFileData">
+                                wire:model="fileData">
+                            <button wire:loading.remove wire:target="storeFileData" type="submit"
+                                class="btn btn-outline-primary">UPLOAD</button>
+                            <button wire:loading wire:target="storeFileData" type="button"
+                                class="btn btn-outline-primary" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 UPLOAD...
                             </button>
                             @error('fileData')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
+                        </div>
 
-                        </div>
-                        <!-- Barre de progression -->
-                        <div class="mt-3 progress" style="height: 25px; display: none;"
-                            wire:loading.class.remove="d-none" wire:loading.class="d-block"
-                            wire:loading.target="fileData">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                Chargement...
-                            </div>
-                        </div>
                     </form>
                 </div>
                 <!-- end card body -->
@@ -82,13 +73,14 @@
                                 Téléchargement...
                             </a>
                         </div>
+
+
                     </div>
                 </div>
                 <!-- end card body -->
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="@if (!empty($accepted) && !empty($rejected)) col-md-6 @else col-md-12 @endif">
             @if (!empty($accepted))
@@ -315,4 +307,37 @@
             @endif
         </div>
     </div>
+
+    @push('page-script')
+        <script>
+            function toggleCertificate(index) {
+                var hiddenCertificate = document.getElementById('hidden-certificate-' + index);
+                var visibleCertificate = document.getElementById('visible-certificate-' + index);
+                var messageDiv = document.getElementById('message-' + index);
+
+                if (hiddenCertificate.style.display === "none") {
+                    hiddenCertificate.style.display = "inline";
+                    visibleCertificate.style.display = "none";
+                    messageDiv.style.display = "none";
+                } else {
+                    hiddenCertificate.style.display = "none";
+                    visibleCertificate.style.display = "inline";
+
+                    navigator.clipboard.writeText(visibleCertificate.textContent).then(function() {
+                        messageDiv.textContent = 'Copie réussie !';
+                        messageDiv.style.display = "block";
+                        setTimeout(function() {
+                            messageDiv.style.display = "none";
+                        }, 1000);
+                    }, function(err) {
+                        messageDiv.textContent = 'Erreur lors de la copie : ' + err;
+                        messageDiv.style.display = "block";
+                        setTimeout(function() {
+                            messageDiv.style.display = "none";
+                        }, 1000);
+                    });
+                }
+            }
+        </script>
+    @endpush
 </div>
