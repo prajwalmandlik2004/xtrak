@@ -25,6 +25,7 @@ class ImportCandidatesJob implements ShouldQueue
     public function handle()
     {
         $headers = [];
+        $fileData = [];
         $reader = ReaderEntityFactory::createXLSXReader();
         $reader->open($this->filePath);
 
@@ -36,10 +37,18 @@ class ImportCandidatesJob implements ShouldQueue
                     $headers = $rowData;
                     continue;
                 }
-                ProcessCandidateChunkJob::dispatch($rowData, $headers, $this->userId, $this->filePath);
+
+                $fileData[] = $rowData;
             }
         }
-
+        
         $reader->close();
+
+        $batchSize = 1000;
+        $chunks = array_chunk($fileData, $batchSize);
+
+        foreach ($chunks as $chunk) {
+            ProcessCandidateChunkJob::dispatch($chunk, $headers, $this->userId, $this->filePath);
+        }
     }
 }
