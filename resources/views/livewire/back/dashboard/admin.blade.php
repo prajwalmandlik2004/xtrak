@@ -243,10 +243,11 @@
                                             <td>{{ $candidate->country ?? '--' }}</td>
                                         @if($candidate->candidateState->name == 'Certifié')
                                             <td id="colState">
-                                                <span class="badge rounded-pill bg-success" id="certificate-{{ 0 }}" onclick="toggleCertificate({{ 0 }})">
-                                                    <span id="hidden-certificate-{{ 0 }}">Certifié</span>
-                                                    <span id="visible-certificate-{{ 0 }}" style="display: none;">{{ $candidate->certificate }}</span>
+                                                <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{ $index }})">
+                                                    <span id="hidden-certificate-{{ $index }}">Certifié</span>
+                                                    <span id="visible-certificate-{{ $index }}" style="display: none;">{{ $candidate->certificate }}</span>
                                                 </span>
+                                                <div id="message-{{ $index }}" class="copy-message" style="display: none;"></div>
                                             </td>
                                         @else
                                             <td>
@@ -312,19 +313,32 @@
     </div>
     @push('page-script')
         <script>
+            let currentlyVisibleCertificateIndex = null;
+
             function toggleCertificate(index) {
                 var hiddenCertificate = document.getElementById('hidden-certificate-' + index);
                 var visibleCertificate = document.getElementById('visible-certificate-' + index);
                 var messageDiv = document.getElementById('message-' + index);
 
+                if (currentlyVisibleCertificateIndex !== null && currentlyVisibleCertificateIndex !== index) {
+                    var previousHiddenCertificate = document.getElementById('hidden-certificate-' + currentlyVisibleCertificateIndex);
+                    var previousVisibleCertificate = document.getElementById('visible-certificate-' + currentlyVisibleCertificateIndex);
+                    var previousMessageDiv = document.getElementById('message-' + currentlyVisibleCertificateIndex);
+
+                    previousHiddenCertificate.style.display = "inline";
+                    previousVisibleCertificate.style.display = "none";
+                    previousMessageDiv.style.display = "none";
+                }
+
                 if (hiddenCertificate.style.display === "none") {
                     hiddenCertificate.style.display = "inline";
                     visibleCertificate.style.display = "none";
                     messageDiv.style.display = "none";
+                    currentlyVisibleCertificateIndex = null; 
                 } else {
                     hiddenCertificate.style.display = "none";
                     visibleCertificate.style.display = "inline";
-
+                    currentlyVisibleCertificateIndex = index;
 
                     navigator.clipboard.writeText(visibleCertificate.textContent).then(function() {
                         messageDiv.textContent = 'Copie réussie !';
@@ -341,6 +355,7 @@
                     });
                 }
             }
+
         </script>
         <script>
          document.addEventListener('DOMContentLoaded', function() {
@@ -349,7 +364,7 @@
                 // uncheckedButton.addEventListener('click', deleteAllCheckboxes) 
                 let selectedCandidateIds = [];
                 let candidateId;
-                const doubleClickDelay = 300; // Milliseconds
+                const doubleClickDelay = 300;
                 var clickTimeout; 
                 
                 let selectedRow = document.querySelector('.table-info');
