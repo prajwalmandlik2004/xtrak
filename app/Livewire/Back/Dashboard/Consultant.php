@@ -48,14 +48,14 @@ class Consultant extends Component
         session(['cte_base_cdt_nb_paginate' => $this->nbPaginate]);
         return redirect()->route('candidates.show', $id);
     }
-    #[On('delete')]// modified
+    #[On('delete')]
     public function deleteData($id)
     {
         $candidateRepository = new CandidateRepository();
         DB::beginTransaction();
     
         try {
-            foreach($id as $idc){ // $id is an array
+            foreach($id as $idc){ 
                 $candidate = $candidateRepository->find($idc);
                 $candidateRepository->delete($candidate->id);
             }

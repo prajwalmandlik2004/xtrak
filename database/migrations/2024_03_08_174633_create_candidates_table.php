@@ -14,11 +14,11 @@ return new class extends Migration {
             $table->foreignUuid('id')->primary();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('email')->nullable();
+            $table->longText('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('phone_2')->nullable();
             $table->string('city')->nullable();
-            $table->string('address')->nullable();
+            $table->longText('address')->nullable();
             $table->string('region')->nullable();
             $table->string('country')->nullable();
             $table->string('postal_code')->nullable();

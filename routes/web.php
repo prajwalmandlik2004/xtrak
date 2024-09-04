@@ -20,7 +20,7 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\CandidateStatutController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\HomeController;
-use App\Livewire\Chat\CreateChat; 
+use App\Livewire\Chat\CreateChat;
 use App\Livewire\Chat\Main;
 use App\Livewire\Back\Cres\ShowPdf;
 
@@ -73,4 +73,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/cre/{candidate}/pdf', ShowPdf::class)->name('showPdf');
     Route::get('/autocomplete/positions', [PositionController::class, 'autocomplete'])->name('autocomplete.positions');
 });
-   // Route::get('commandes/{param}', [DasboardController::class, 'commande']);
+   Route::get('commandes/{param}', [DasboardController::class, 'commande']);

@@ -9,14 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->json('attachments')->nullable(); // Ajoute la colonne attachments en JSON
+            // $table->json('attachments')->nullable(); // Ajoute la colonne attachments en JSON
         });
     }
 
     public function down(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->dropColumn('attachments'); // Supprime la colonne attachments
+            // $table->dropColumn('attachments'); // Supprime la colonne attachments
         });
     }
 };

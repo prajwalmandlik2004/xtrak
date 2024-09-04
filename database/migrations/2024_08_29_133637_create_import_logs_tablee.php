@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('disponibilities', function (Blueprint $table) {
+        Schema::create('import_logs', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->longText('name');
+            $table->json('accepted')->nullable();
+            $table->json('rejected')->nullable();
+            $table->foreignId('user_id')->constrained();
+            $table->string('file_path')->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('disponibilities');
+        Schema::dropIfExists('import_logs');
     }
 };
