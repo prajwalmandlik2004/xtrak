@@ -20,7 +20,7 @@ class State extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $nbPaginate = 30;
+    public $nbPaginate = 100;
     public $candidate_statut_id = '';
     public $filterName = '';
     public $filterDate = '';
@@ -127,33 +127,33 @@ class State extends Component
     {
         \Log::info('searchCandidates method called with search: ' . $this->search);
         $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country', 'commentaire', 'description', 'suivi'];
-
+    
         return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur'])
             ->where(function ($query) use ($searchFields) {
-            $query
-                ->where(function ($query) use ($searchFields) {
-                foreach ($searchFields as $field) {
-                    $query->orWhere($field, 'like', '%' . $this->search . '%');
-                }
-                })
-                ->orWhereHas('disponibility', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('civ', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('compagny', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('speciality', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('field', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('auteur', function ($query) {
-                $query->where('trigramme', 'like', '%' . $this->search . '%');
-                });
+                $query
+                    ->where(function ($query) use ($searchFields) {
+                        foreach ($searchFields as $field) {
+                            $query->orWhere($field, 'like', '%' . $this->search . '%');
+                        }
+                    })
+                    ->orWhereHas('disponibility', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('civ', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('compagny', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('speciality', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('field', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('auteur', function ($query) {
+                        $query->where('trigramme', 'like', '%' . $this->search . '%');
+                    });
             })
             ->when($this->filterName, function ($query) {
                 return $query->orderBy('last_name', $this->filterName);
@@ -199,9 +199,13 @@ class State extends Component
                     return $query->whereDoesntHave('cres');
                 }
             })
+            ->when(!auth()->user()->hasRole('Administrateur'), function ($query) {
+                $query->where('created_by', Auth::id());
+            })
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate($this->nbPaginate);
     }
+    
     public function confirmDelete($nom, $id)
     {
         $this->dispatch('swal:confirm', title: 'Suppression', text: "Vous-êtes sur le point de supprimer le candidat $nom", type: 'warning', method: 'delete', id: $id);

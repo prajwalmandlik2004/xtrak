@@ -89,4 +89,17 @@
             }, 500);
         </script>
     @endpush --}}
+    @push('scripts')
+    <script>
+        window.addEventListener('beforeunload', function (e) {
+            
+            Livewire.dispatch('userDisconnected');
+        });
+
+        window.addEventListener('unload', function (e) {
+            Livewire.dispatch('userDisconnected');
+        });
+    </script>
+@endpush
+
 </div>

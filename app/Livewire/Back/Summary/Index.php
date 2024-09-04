@@ -54,10 +54,19 @@ class Index extends Component
 
     private function calculateLoginTimes($user)
     {
+        // $totalLoginTime = $user->userLogins->sum('duration');
+        // $loginsToday = $user->userLogins->where('login_at', '>=', Carbon::today())->sum('duration');
+        // $loginsThisWeek = $user->userLogins->whereBetween('login_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('duration');
+        // $loginsThisMonth = $user->userLogins()->whereMonth('login_at', Carbon::now()->month)->get()->sum('duration');
+
+
         $totalLoginTime = $user->userLogins->sum('duration');
         $loginsToday = $user->userLogins->where('login_at', '>=', Carbon::today())->sum('duration');
-        $loginsThisWeek = $user->userLogins->whereBetween('login_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('duration');
-        $loginsThisMonth = $user->userLogins()->whereMonth('login_at', Carbon::now()->month)->get()->sum('duration');
+        // 7 derniers jours
+        $loginsThisWeek =  $user->userLogins->where('login_at', '>=', Carbon::now()->subDays(7))->sum('duration');
+        // 30 derniers jours
+        $loginsThisMonth =$user->userLogins->where('login_at', '>=', Carbon::now()->subDays(30))->sum('duration');
+
 
         $this->usersWithLoginTimes->push([
             'user' => $user,
@@ -75,7 +84,7 @@ class Index extends Component
             'users' => $this->users
         ])->extends('layouts.app')
           ->section('content')
-          ->with(['refreshInterval' => 3000]); // 5000ms = 5 secondes
+          ->with(['refreshInterval' => 3000]); 
     }
 }
 
