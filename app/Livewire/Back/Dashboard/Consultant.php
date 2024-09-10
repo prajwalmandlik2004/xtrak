@@ -266,18 +266,22 @@ class Consultant extends Component
     public function selectCandidateGoToCre($id, $page)
     {
         $this->selectedCandidateId = $id;
-        session(['base_cdt_selected_candidate_id' => $id]);
-        session(['base_cdt_current_page' => $page]);
-        session(['base_cdt_nb_paginate' => $this->nbPaginate]);
+        
+        session(['dash_base_cdt_selected_candidate_id' => $id]);
+        session(['dash_base_cdt_current_page' => $page]);
+        session(['dash_base_cdt_nb_paginate' => $this->nbPaginate]);
+
         return redirect()->route('candidate.cre', $id);
     }
     
     public function selectCandidateGoToCv($id, $page)
     {
         $this->selectedCandidateId = $id;
-        session(['base_cdt_selected_candidate_id' => $id]);
-        session(['base_cdt_current_page' => $page]);
-        session(['base_cdt_nb_paginate' => $this->nbPaginate]);
+
+        session(['dash_base_cdt_selected_candidate_id' => $id]);
+        session(['dash_base_cdt_current_page' => $page]);
+        session(['dash_base_cdt_nb_paginate' => $this->nbPaginate]);n
+
         return redirect()->route('candidate.cv', $id);
     }
 
