@@ -63,20 +63,25 @@ class Admin extends Component
     public function selectCandidateGoToCre($id, $page)
     {
         $this->selectedCandidateId = $id;
-        session(['base_cdt_selected_candidate_id' => $id]);
-        session(['base_cdt_current_page' => $page]);
-        session(['base_cdt_nb_paginate' => $this->nbPaginate]);
+
+        session(['dash_base_cdt_selected_candidate_id' => $id]);
+        session(['dash_base_cdt_current_page' => $page]);
+        session(['dash_base_cdt_nb_paginate' => $this->nbPaginate]);
+
         return redirect()->route('candidate.cre', $id);
     }
 
     public function selectCandidateGoToCv($id, $page)
     {
         $this->selectedCandidateId = $id;
-        session(['base_cdt_selected_candidate_id' => $id]);
-        session(['base_cdt_current_page' => $page]);
-        session(['base_cdt_nb_paginate' => $this->nbPaginate]);
+        
+        session(['dash_base_cdt_selected_candidate_id' => $id]);
+        session(['dash_base_cdt_current_page' => $page]);
+        session(['dash_base_cdt_nb_paginate' => $this->nbPaginate]);
+    
         return redirect()->route('candidate.cv', $id);
     }
+    
 
     #[On('delete')]
     public function deleteData($id)
@@ -217,7 +222,39 @@ class Admin extends Component
         text: "Vous-êtes sur le point de supprimer le(s) candidat(s) séléctionné(s)", type: 'warning', method: 'delete', id: $idsArray);
     }
 
-    public function mount()
+    // public function mount()
+    // {
+    //     $this->positions = Position::all();
+    //     $this->candidateStatuses = CandidateStatut::all();
+    //     $this->candidateStates = CandidateState::all();
+    //     $this->users = User::all();
+    //     $this->certifiedCandidatesCount = $this->countCertifiedCandidates();
+    //     $this->uncertifiedCandidatesCount = $this->countUncertifiedCandidates();
+    //     $this->search = session()->get('search', '');
+    //     $this->nbPaginate = session()->get('nbPaginate', 100);
+    //     $this->users_id = session()->get('users_id', '');
+    //     $this->candidate_state_id = session()->get('candidate_state_id', '');
+    //     $this->candidate_statut_id = session()->get('candidate_statut_id', '');
+    //     $this->company = session()->get('company', '');
+    //     $this->position_id = session()->get('position_id', '');
+    //     $this->cp = session()->get('cp', '');
+    //     $this->cvFileExists = session()->get('cvFileExists', '');
+    //     $this->creFileExists = session()->get('creFileExists', '');
+    //     $this->position = session()->get('position', '');
+
+    //     if (session()->has('dash_base_cdt_selected_candidate_id')) {
+    //         $this->selectedCandidateId = session('dash_base_cdt_selected_candidate_id');
+    //     }
+
+    //     if (session()->has('dash_base_cdt_current_page')) {
+    //         $this->setPage(session('dash_base_cdt_current_page'));
+    //     }
+    //     if (session()->has('dash_base_cdt_nb_paginate')) {
+    //         $this->nbPaginate = session('dash_base_cdt_nb_paginate');
+    //     }
+    // }
+
+        public function mount()
     {
         $this->positions = Position::all();
         $this->candidateStatuses = CandidateStatut::all();
@@ -237,16 +274,15 @@ class Admin extends Component
         $this->creFileExists = session()->get('creFileExists', '');
         $this->position = session()->get('position', '');
 
-        if (session()->has('dash_base_cdt_selected_candidate_id')) {
-            $this->selectedCandidateId = session('dash_base_cdt_selected_candidate_id');
-        }
+        // Récupération de l'ID du candidat sélectionné
+        $this->selectedCandidateId = session()->get('dash_base_cdt_selected_candidate_id', null);
 
+        // Récupération de la page actuelle
         if (session()->has('dash_base_cdt_current_page')) {
             $this->setPage(session('dash_base_cdt_current_page'));
         }
-        if (session()->has('dash_base_cdt_nb_paginate')) {
-            $this->nbPaginate = session('dash_base_cdt_nb_paginate');
-        }
+
+        $this->nbPaginate = session()->get('dash_base_cdt_nb_paginate', $this->nbPaginate);
     }
 
     public function downloadExcel(array $selectedCandidateIds = [])
