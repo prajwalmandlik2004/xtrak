@@ -280,7 +280,7 @@ class Consultant extends Component
 
         session(['dash_base_cdt_selected_candidate_id' => $id]);
         session(['dash_base_cdt_current_page' => $page]);
-        session(['dash_base_cdt_nb_paginate' => $this->nbPaginate]);n
+        session(['dash_base_cdt_nb_paginate' => $this->nbPaginate]);
 
         return redirect()->route('candidate.cv', $id);
     }
