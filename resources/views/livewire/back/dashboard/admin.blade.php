@@ -367,12 +367,14 @@
                 const doubleClickDelay = 300;
                 var clickTimeout; 
                 
+                // Scroll to the row with the table-info class if available
                 let selectedRow = document.querySelector('.table-info');
                 if (selectedRow) {
                     selectedRow.scrollIntoView({
                         block: 'nearest'
                     });
                 }
+
                 // MAJ selection apres export
                 Livewire.on('exportCompleted', () => {
                 document.querySelectorAll('.candidate-checkbox').forEach(checkbox => {

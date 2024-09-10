@@ -401,8 +401,13 @@ class Form extends Component
                 if ($this->candidate->files()->exists()) {
                     $stateId = CandidateState::where('name', 'Certifié')->first()->id;
                     $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
-                    $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->last_name && $this->candidate->civ_id && $this->candidate->email && $this->candidate->position_id;
-                    if ($cvFile && $stateId && $additionalFieldsFilled) {
+                    $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->last_name && $this->candidate->civ_id 
+                        && $this->candidate->email && $this->candidate->position_id && $this->candidate->phone && $this->candidate->compagny_id 
+                        && $this->candidate->postal_code && $this->candidate->candidate_statut_id &&  $this->candidate->city
+                        && $this->candidate->address && $this->candidate->region && $this->candidate->country && $this->candidate->disponibility_id 
+                        && $this->candidate->url_ctc && $this->candidate->speciality_id && $this->candidate->field_id && $this->candidate->field_id
+                        && $this->candidate->phone_2 && $this->candidate->commentaire ;
+             if ($cvFile && $stateId && $additionalFieldsFilled) {
                         $certificate = Helper::generateCandidateCertificate();
                         $this->candidate->update([
                             'certificate' => $certificate,
