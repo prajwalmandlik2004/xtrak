@@ -243,7 +243,7 @@
                                             <td>{{ $candidate->country ?? '--' }}</td>
                                         @if($candidate->candidateState->name == 'Certifié')
                                             <td id="colState">
-                                                <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{ $index }})">
+                                                <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{$index}})">
                                                     <span id="hidden-certificate-{{ $index }}">Certifié</span>
                                                     <span id="visible-certificate-{{ $index }}" style="display: none;">{{ $candidate->certificate }}</span>
                                                 </span>

@@ -59,6 +59,18 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('add-cre/{candidate}/{action}', [CreController::class, 'form'])->name('add.cre');
     Route::get('connexions', [DasboardController::class, 'summary'])->name('connexions');
     Route::get('detail', [DasboardController::class, 'detail'])->name('detail');
+
+    Route::get('tables', [DasboardController::class, 'tables'])->name('tables');
+    Route::get('filtrages', [DasboardController::class, 'filtrages'])->name('filtrages');
+    Route::get('vue', [DasboardController::class, 'vue'])->name('vue');
+    Route::get('uploads', [DasboardController::class, 'uploads'])->name('uploads');
+
+    Route::get('cdtvue', [DasboardController::class, 'cdtvue'])->name('cdtvue');
+    Route::get('oppvue', [DasboardController::class, 'oppvue'])->name('oppvue');
+    Route::get('trgvue', [DasboardController::class, 'trgvue'])->name('trgvue');
+    Route::get('facvue', [DasboardController::class, 'facvue'])->name('facvue');
+
+
     Route::get('state/{state}', [CandidateController::class, 'state'])->name('state');
     Route::resource('nextsteps', NextStepController::class);
     Route::get('candidate-cre/{candidate}', [CreController::class, 'candidateCre'])->name('candidate.cre');
@@ -73,4 +85,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/cre/{candidate}/pdf', ShowPdf::class)->name('showPdf');
     Route::get('/autocomplete/positions', [PositionController::class, 'autocomplete'])->name('autocomplete.positions');
 });
-   Route::get('commandes/{param}', [DasboardController::class, 'commande']);
+Route::get('commandes/{param}', [DasboardController::class, 'commande']);

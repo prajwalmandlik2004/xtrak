@@ -12,10 +12,9 @@ class DasboardController extends Controller
         if (auth()->user()->hasRole('Administrateur')) {
             return view('back.dashboard.admin');
         } //vue manager à personnaliser plus tard
-        elseif (auth()->user()->hasRole('Manager')){
+        elseif (auth()->user()->hasRole('Manager')) {
             return view('back.dashboard.admin');
-        }
-        else {
+        } else {
             return view('back.dashboard.consultant');
         }
         //return view('back.dashboard.index');
@@ -33,6 +32,47 @@ class DasboardController extends Controller
     {
         return view('back.dashboard.detail');
     }
+
+    public function tables()
+    {
+        return view('back.dashboard.tables');
+    }
+
+    public function filtrages()
+    {
+        return view('back.dashboard.filtrages');
+    }
+
+    public function vue()
+    {
+        return view('back.dashboard.vue');
+    }
+
+    public function uploads()
+    {
+        return view('back.dashboard.uploads');
+    }
+
+    public function cdtvue()
+    {
+        return view('back.dashboard.cdtvue');
+    }
+
+    public function oppvue()
+    {
+        return view('back.dashboard.oppvue');
+    }
+
+    public function trgvue()
+    {
+        return view('back.dashboard.trgvue');
+    }
+
+    public function facvue()
+    {
+        return view('back.dashboard.facvue');
+    }
+
 
     public function commande($param)
     {

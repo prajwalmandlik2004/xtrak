@@ -38,11 +38,11 @@
                          <i class="ri-dashboard-2-line"></i>
                          <span data-key="t-dashboards">
                              @if (auth()->user()->hasRole('Administrateur'))
-                                 ESPACE ADMINISTATEUR
+                             ADM WORKSPACE
                              @elseif (auth()->user()->hasRole('Manager'))
-                                 ESPACE MANAGER
-                            @else
-                                ESPACE CONSULTANT
+                             ESPACE MANAGER
+                             @else
+                             ESPACE CONSULTANT
                              @endif
                          </span>
                      </a>
@@ -52,267 +52,367 @@
                  {{-- @can(['Menu accès BaseCDT'])
                      <li class="nav-item">
                          <a class="nav-link menu-link {{ request()->routeIs('candidates.index') ? 'active' : '' }}"
-                             href="{{ route('candidates.index') }}">
-                             <i class="ri-apps-2-line"></i> <span data-key="t-apps">Accès BaseCDT</span>
-                         </a>
+                 href="{{ route('candidates.index') }}">
+                 <i class="ri-apps-2-line"></i> <span data-key="t-apps">Accès BaseCDT</span>
+                 </a>
 
-                     </li>
+                 </li>
                  @endcan --}}
+                 <!-- <a href="{{ route('cdtvue') }}" class="nav-link {{ request()->routeIs('cdtvue*') ? 'active' : '' }}" data-key="t-chat">CDTvue</a> -->
+
+                 <a class="nav-link"
+                     href="#">
+                     <i class="ri-apps-2-line"></i> <span data-key="t-vault" style="color:orange">LANDING</span>
+                 </a>
+
+
                  <!-- end   Accès BaseCDT Menu -->
                  @can('Menu activité')
-                     <li class="nav-item">
-                         <a class="nav-link menu-link {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'active' : '' }}"
-                             href="#activite" data-bs-toggle="collapse" role="button"
-                             aria-expanded="{{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'true' : 'false' }}"
-                             aria-controls="activite">
-                             <i class="ri-apps-2-line"></i> <span data-key="t-apps">Activité</span>
-                         </a>
-                         <div class="collapse menu-dropdown {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'show' : '' }}"
-                             id="activite">
-                             <ul class="nav nav-sm flex-column">
-                                 @can('Menu connexion')
-                                     <li class="nav-item">
-                                         <a href="{{ route('connexions') }}"
-                                             class="nav-link {{ request()->routeIs('connexions*') ? 'active' : '' }}"
-                                             data-key="t-chat">Connexions</a>
-                                     </li>
-                                 @endcan
-                                 @can('Menu Détails')
-                                     <li class="nav-item">
-                                         <a href="{{ route('detail') }}"
-                                             class="nav-link {{ request()->routeIs('detail*') ? 'active' : '' }}"
-                                             data-key="t-chat">Détails</a>
-                                     </li>
-                                 @endcan
-                             </ul>
-                         </div>
-                     </li>
-                 @endcan
-                 @can('Menu capture / gestion')
-                     <li class="nav-item">
-                         <a class="nav-link menu-link {{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'active' : '' }}"
-                             href="#sidebarApps" data-bs-toggle="collapse" role="button"
-                             aria-expanded="{{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'true' : 'false' }}"
-                             aria-controls="sidebarApps">
-                             <i class="ri-apps-2-line"></i> <span data-key="t-apps">Capture / Gestion</span>
-                         </a>
-                         <div class="collapse menu-dropdown {{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'show' : '' }}"
-                             id="sidebarApps">
-                             <ul class="nav nav-sm flex-column">
-                                 @can('Menu saisie')
-                                     <li class="nav-item">
-                                         <a href="#saisie" class="nav-link {{ request()->routeIs('candidates.create', 'import.candidat') ? 'active' : '' }} " data-bs-toggle="collapse" role="button"
-                                             aria-expanded="{{ request()->routeIs('candidates.create', 'import.candidat') ? 'true' : 'false' }}"
-                                             aria-controls="saisie" data-key="t-signin">
-                                             Saisie
-                                         </a>
-                                         
-                                         <div class="collapse menu-dropdown {{ request()->routeIs('candidates.create', 'import.candidat') ? 'show' : '' }}"
-                                             id="saisie">
-                                             <ul class="nav nav-sm flex-column">
-                                                 @can('Ajouter un candidat')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('candidates.create') }}"
-                                                             class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}"
-                                                             data-key="t-chat">Formulaire </a>
-                                                     </li>
-                                                 @endcan
-                                                 @can('Importer des candidats')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('import.candidat') }}"
-                                                             class="nav-link {{ request()->routeIs('import.candidat') ? 'active' : '' }}"
-                                                             data-key="t-chat">Upload </a>
-                                                     </li>
-                                                 @endcan
-                                             </ul>
-                                         </div>
-                                     </li>
-                                 @endcan
-                                 @can('Menu etats')
-                                     <li class="nav-item">
-                                         <a href="#etats" class="nav-link {{ request()->routeIs('state*') ? 'active' : '' }}" data-bs-toggle="collapse" role="button"
-                                             aria-expanded="{{ request()->routeIs('state*') ? 'true' : 'false' }}"
-                                             aria-controls="etats" data-key="t-signin">
-                                             Etats
-                                         </a>
-                                         <div class="collapse menu-dropdown {{ request()->routeIs('state*') ? 'show' : '' }}"
-                                             id="etats">
-                                             <ul class="nav nav-sm flex-column">
-                                                 <li class="nav-item">
-                                                     <a href="{{ route('state', 'Certifié') }}"
-                                                         class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Certifié' ? 'active' : '' }}"
-                                                         data-key="t-chat">Certifié </a>
-                                                 </li>
-                                                 <li class="nav-item">
-                                                     <a href="{{ route('state', 'Attente') }}"
-                                                         class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Attente' ? 'active' : '' }}"
-                                                         data-key="t-chat">En attente </a>
-                                                 </li>
-                                                 <!-- <li class="nav-item">
+                 <li class="nav-item">
+
+                     <a class="nav-link menu-link {{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'active' : '' }}"
+                         href="#vues" data-bs-toggle="collapse" role="button"
+                         aria-expanded="{{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'true' : 'false' }}"
+                         aria-controls="vues">
+                         <i class="ri-apps-2-line"></i> <span data-key="t-vues" style="color:orange">VUES</span>
+                     </a>
+
+                     <div class="collapse menu-dropdown {{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'show' : '' }}"
+                         id="vues">
+                         <ul class="nav nav-sm flex-column">
+                             <li class="nav-item">
+                                 <a href="{{ route('cdtvue') }}" class="nav-link {{ request()->routeIs('cdtvue*') ? 'active' : '' }}" data-key="t-chat">CDTvue</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('oppvue') }}" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat">OPPvue</a>
+
+                             </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('trgvue') }}" class="nav-link {{ request()->routeIs('trgvue*') ? 'active' : '' }}" data-key="t-chat">TRGvue</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('facvue') }}" class="nav-link {{ request()->routeIs('facvue*') ? 'active' : '' }}" data-key="t-chat">FACvue</a>
+
+                             </li>
+                         </ul>
+                     </div>
+
+
+                     @can('Menu capture / gestion')
+                 <li class="nav-item">
+                     <a class="nav-link menu-link {{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'active' : '' }}"
+                         href="#sidebarApps" data-bs-toggle="collapse" role="button"
+                         aria-expanded="{{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'true' : 'false' }}"
+                         aria-controls="sidebarApps">
+                         <i class="ri-apps-2-line"></i> <span style="color:#06D003" data-key="t-apps">GESTION</span>
+                     </a>
+                     <div class="collapse menu-dropdown {{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'show' : '' }}"
+                         id="sidebarApps">
+                         <ul class="nav nav-sm flex-column">
+                             @can('Menu saisie')
+                             <li class="nav-item">
+                                 <a href="#saisie" class="nav-link {{ request()->routeIs('candidates.create', 'import.candidat') ? 'active' : '' }} " data-bs-toggle="collapse" role="button"
+                                     aria-expanded="{{ request()->routeIs('candidates.create', 'import.candidat') ? 'true' : 'false' }}"
+                                     aria-controls="saisie" data-key="t-signin">
+                                     Saisie
+                                 </a>
+
+                                 <div class="collapse menu-dropdown {{ request()->routeIs('candidates.create', 'import.candidat') ? 'show' : '' }}"
+                                     id="saisie">
+                                     <ul class="nav nav-sm flex-column">
+                                         @can('Ajouter un candidat')
+                                         <li class="nav-item">
+                                             <a href="{{ route('candidates.create') }}"
+                                                 class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}"
+                                                 data-key="t-chat">Formulaire </a>
+                                         </li>
+                                         @endcan
+                                         @can('Importer des candidats')
+                                         <li class="nav-item">
+                                             <a href="{{ route('import.candidat') }}"
+                                                 class="nav-link {{ request()->routeIs('import.candidat') ? 'active' : '' }}"
+                                                 data-key="t-chat">Upload </a>
+                                         </li>
+                                         @endcan
+                                     </ul>
+                                 </div>
+                             </li>
+                             @endcan
+                             @can('Menu etats')
+                             <li class="nav-item">
+                                 <a href="#etats" class="nav-link {{ request()->routeIs('state*') ? 'active' : '' }}" data-bs-toggle="collapse" role="button"
+                                     aria-expanded="{{ request()->routeIs('state*') ? 'true' : 'false' }}"
+                                     aria-controls="etats" data-key="t-signin">
+                                     Etats
+                                 </a>
+                                 <div class="collapse menu-dropdown {{ request()->routeIs('state*') ? 'show' : '' }}"
+                                     id="etats">
+                                     <ul class="nav nav-sm flex-column">
+                                         <li class="nav-item">
+                                             <a href="{{ route('state', 'Certifié') }}"
+                                                 class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Certifié' ? 'active' : '' }}"
+                                                 data-key="t-chat">Certifié </a>
+                                         </li>
+                                         <li class="nav-item">
+                                             <a href="{{ route('state', 'Attente') }}"
+                                                 class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Attente' ? 'active' : '' }}"
+                                                 data-key="t-chat">En attente </a>
+                                         </li>
+                                         <!-- <li class="nav-item">
                                                      <a href="{{ route('state', 'Doublon') }}"
                                                          class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Doublon' ? 'active' : '' }}"
                                                          data-key="t-chat">Doublons </a>
                                                  </li> -->
-                                             </ul>
+                                     </ul>
 
-                                         </div>
-                                     </li>
-                                 @endcan
-                             </ul>
-                         </div>
-                     </li>
+                                 </div>
+                             </li>
+                             @endcan
+                         </ul>
+                     </div>
+                 </li>
                  @endcan
+
+
+
+
+                 <!-- Vault Dropdown -->
+
+                 <a class="nav-link menu-link {{ request()->is(['tables', 'filtrages', 'vue', 'uploads', 'tables/*', 'filtrages/*', 'vue/*', 'uploads/*']) ? 'active' : '' }}"
+                     href="#vault" data-bs-toggle="collapse" role="button"
+                     aria-expanded="{{ request()->is(['tables', 'filtrages', 'vue', 'uploads', 'tables/*', 'filtrages/*', 'vue/*', 'uploads/*']) ? 'true' : 'false' }}"
+                     aria-controls="vault">
+                     <i class="ri-apps-2-line"></i> <span data-key="t-vault" style="color:orange">VAULT</span>
+                 </a>
+
+                 <div class="collapse menu-dropdown {{ request()->is(['tables', 'filtrages', 'vue', 'uploads', 'tables/*', 'filtrages/*', 'vue/*', 'uploads/*']) ? 'show' : '' }}"
+                     id="vault">
+                     <ul class="nav nav-sm flex-column">
+                         <li class="nav-item">
+                             <!-- <a href="{{ route('tables') }}" class="nav-link {{ request()->routeIs('tables*') ? 'active' : '' }}" data-key="t-tables" style="color:orange">Tables</a> -->
+                             <a class="nav-link menu-dropdown"
+                                 href="#tables" data-bs-toggle="collapse" role="button"
+                                 aria-controls="tables">
+                                 <span data-key="t-tables" style="color:orange">Tables</span>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <!-- <a href="{{ route('filtrages') }}" class="nav-link {{ request()->routeIs('filtrages*') ? 'active' : '' }}" data-key="t-filtrages" style="color:orange">Filtrages</a> -->
+                             <a class="nav-link menu-dropdown"
+                                 href="#filtrages" data-bs-toggle="collapse" role="button"
+                                 aria-controls="filtrages">
+                                 <span data-key="t-filtrages" style="color:orange">Filtrages</span>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link menu-dropdown"
+                                 href="#vue" data-bs-toggle="collapse" role="button"
+                                 aria-controls="vue">
+                                 <span data-key="t-vue" style="color:orange">Vues</span>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <!-- <a href="{{ route('uploads') }}" class="nav-link {{ request()->routeIs('uploads*') ? 'active' : '' }}" data-key="t-uploads" style="color:orange">Uploads</a> -->
+                             <a class="nav-link menu-dropdown"
+                                 href="#uploads" data-bs-toggle="collapse" role="button"
+                                 aria-controls="uploads">
+                                 <span data-key="t-uploads" style="color:orange">Uploads</span>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
+
+
+
+                 <a class="nav-link menu-link {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'active' : '' }}"
+                     href="#activite" data-bs-toggle="collapse" role="button"
+                     aria-expanded="{{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'true' : 'false' }}"
+                     aria-controls="activite">
+                     <i class="ri-apps-2-line"></i> <span data-key="t-apps">Activité</span>
+                 </a>
+
+                 <div class="collapse menu-dropdown {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'show' : '' }}"
+                     id="activite">
+                     <ul class="nav nav-sm flex-column">
+                         @can('Menu connexion')
+                         <li class="nav-item">
+                             <a href="{{ route('connexions') }}"
+                                 class="nav-link {{ request()->routeIs('connexions*') ? 'active' : '' }}"
+                                 data-key="t-chat">Connexions</a>
+                         </li>
+                         @endcan
+                         @can('Menu Détails')
+                         <li class="nav-item">
+                             <a href="{{ route('detail') }}"
+                                 class="nav-link {{ request()->routeIs('detail*') ? 'active' : '' }}"
+                                 data-key="t-chat">Détails</a>
+                         </li>
+                         @endcan
+                     </ul>
+                 </div>
+
+
+
+                 </li>
+                 @endcan
+
+
+
+
+
+
+
                  @can('Menu paramètres')
-                     <li class="nav-item">
-                         <a class="nav-link menu-link {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}"
-                             href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                             aria-controls="sidebarAuth">
-                             <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Paramètres</span>
-                         </a>
-                         <div class="collapse menu-dropdown {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
-                             id="sidebarAuth">
-                             <ul class="nav nav-sm flex-column">
-                                 <li class="nav-item">
-                                     <a href="{{ route('user.profile') }}"
-                                         class="nav-link {{ request()->routeIs('user.profile') ? 'active' : '' }}"
-                                         data-key="t-signup"> Mon profil
-                                     </a>
-                                 </li>
-                                 @can('Menu utilisateur')
-                                     <li class="nav-item">
-                                         <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
-                                             role="button"  aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
-                                             data-key="t-signin">
-                                             Utilisateurs
-                                         </a>
-                                         <div class="collapse menu-dropdown {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'show' : '' }}"
-                                             id="sidebarSignInUsers">
-                                             <ul class="nav nav-sm flex-column">
-                                                 @can('Liste des utilisateurs')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('users.index') }}"
-                                                             class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Liste</a>
-                                                     </li>
-                                                 @endcan
-                                                 @can('Gestion des rôles')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('roles.index') }}"
-                                                             class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"
-                                                             data-key="t-signup">Rôles
-                                                         </a>
-                                                     </li>
-                                                 @endcan
-                                                 @can('Gestion des permissions')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('roles.permissions') }}"
-                                                             class="nav-link {{ request()->routeIs('roles.permissions') ? 'active' : '' }}"
-                                                             data-key="t-signup">Permissions
-                                                         </a>
-                                                     </li>
-                                                 @endcan
-                                             </ul>
-                                         </div>
-                                     </li>
-                                 @endcan
-                                 @can('Menu paramètre BaseCDT')
-                                     <li class="nav-item">
-                                         <a href="#sidebarSignInBaseCDT" class="nav-link {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}" data-bs-toggle="collapse"
-                                             role="button" aria-expanded="{{ request()->routeIs('nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
-                                             data-key="t-signin">
-                                             BaseCDT
-                                         </a>
-                                         <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
-                                             id="sidebarSignInBaseCDT">
-                                             <ul class="nav nav-sm flex-column">
-                                                 @can('nextStep')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('nextsteps.index') }}"
-                                                             class="nav-link {{ request()->routeIs('nextsteps.index') ? 'active' : '' }}"
-                                                             data-key="t-signup"> NextStep
-                                                         </a>
-                                                     </li>
-                                                 @endcan
-                                                 @can('nsDate')
-                                                 <li class="nav-item">
-                                                     <a href="{{ route('nsdates.index') }}"
-                                                         class="nav-link {{ request()->routeIs('nsdates.index') ? 'active' : '' }}"
-                                                         data-key="t-signup"> NsDate
-                                                     </a>
-                                                 </li>
-                                             @endcan
-                                                 @can('Gestion des sociétes')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('compagnies.index') }}"
-                                                             class="nav-link {{ request()->routeIs('compagnies.index') ? 'active' : '' }}"
-                                                             data-key="t-signup"> Sociétes
-                                                         </a>
-                                                     </li>
-                                                 @endcan
-                                                 {{-- @can('Gestion des Métier1')
+                 <li class="nav-item">
+                     <a class="nav-link menu-link {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}"
+                         href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                         aria-controls="sidebarAuth">
+                         <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Paramètres</span>
+                     </a>
+                     <div class="collapse menu-dropdown {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
+                         id="sidebarAuth">
+                         <ul class="nav nav-sm flex-column">
+                             <li class="nav-item">
+                                 <a href="{{ route('user.profile') }}"
+                                     class="nav-link {{ request()->routeIs('user.profile') ? 'active' : '' }}"
+                                     data-key="t-signup"> Mon profil
+                                 </a>
+                             </li>
+                             @can('Menu utilisateur')
+                             <li class="nav-item">
+                                 <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                     role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
+                                     data-key="t-signin">
+                                     Utilisateurs
+                                 </a>
+                                 <div class="collapse menu-dropdown {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'show' : '' }}"
+                                     id="sidebarSignInUsers">
+                                     <ul class="nav nav-sm flex-column">
+                                         @can('Liste des utilisateurs')
+                                         <li class="nav-item">
+                                             <a href="{{ route('users.index') }}"
+                                                 class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                                                 data-key="t-basic"> Liste</a>
+                                         </li>
+                                         @endcan
+                                         @can('Gestion des rôles')
+                                         <li class="nav-item">
+                                             <a href="{{ route('roles.index') }}"
+                                                 class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"
+                                                 data-key="t-signup">Rôles
+                                             </a>
+                                         </li>
+                                         @endcan
+                                         @can('Gestion des permissions')
+                                         <li class="nav-item">
+                                             <a href="{{ route('roles.permissions') }}"
+                                                 class="nav-link {{ request()->routeIs('roles.permissions') ? 'active' : '' }}"
+                                                 data-key="t-signup">Permissions
+                                             </a>
+                                         </li>
+                                         @endcan
+                                     </ul>
+                                 </div>
+                             </li>
+                             @endcan
+                             @can('Menu paramètre BaseCDT')
+                             <li class="nav-item">
+                                 <a href="#sidebarSignInBaseCDT" class="nav-link {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                     role="button" aria-expanded="{{ request()->routeIs('nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
+                                     data-key="t-signin">
+                                     BaseCDT
+                                 </a>
+                                 <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
+                                     id="sidebarSignInBaseCDT">
+                                     <ul class="nav nav-sm flex-column">
+                                         @can('nextStep')
+                                         <li class="nav-item">
+                                             <a href="{{ route('nextsteps.index') }}"
+                                                 class="nav-link {{ request()->routeIs('nextsteps.index') ? 'active' : '' }}"
+                                                 data-key="t-signup"> NextStep
+                                             </a>
+                                         </li>
+                                         @endcan
+                                         @can('nsDate')
+                                         <li class="nav-item">
+                                             <a href="{{ route('nsdates.index') }}"
+                                                 class="nav-link {{ request()->routeIs('nsdates.index') ? 'active' : '' }}"
+                                                 data-key="t-signup"> NsDate
+                                             </a>
+                                         </li>
+                                         @endcan
+                                         @can('Gestion des sociétes')
+                                         <li class="nav-item">
+                                             <a href="{{ route('compagnies.index') }}"
+                                                 class="nav-link {{ request()->routeIs('compagnies.index') ? 'active' : '' }}"
+                                                 data-key="t-signup"> Sociétes
+                                             </a>
+                                         </li>
+                                         @endcan
+                                         {{-- @can('Gestion des Métier1')
                                                      <li class="nav-item">
                                                          <a href="{{ route('positions.index') }}"
-                                                             class="nav-link {{ request()->routeIs('positions.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Métier1
-                                                            </a>
-                                                     </li>
-                                                 @endcan --}}
-                                                 @can('Gestion des Métier2')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('metiers') }}"
-                                                             class="nav-link {{ request()->routeIs('metiers') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Métiers </a>
-                                                     </li>
-                                                 @endcan
-                                                 {{-- @can('Gestion des Métier3')
+                                         class="nav-link {{ request()->routeIs('positions.index') ? 'active' : '' }}"
+                                         data-key="t-basic"> Métier1
+                                         </a>
+                             </li>
+                             @endcan --}}
+                             @can('Gestion des Métier2')
+                             <li class="nav-item">
+                                 <a href="{{ route('metiers') }}"
+                                     class="nav-link {{ request()->routeIs('metiers') ? 'active' : '' }}"
+                                     data-key="t-basic"> Métiers </a>
+                             </li>
+                             @endcan
+                             {{-- @can('Gestion des Métier3')
                                                      <li class="nav-item">
                                                          <a href="{{ route('fields.index') }}"
-                                                             class="nav-link {{ request()->routeIs('fields.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Métier3 </a>
-                                                     </li>
-                                                 @endcan --}}
-                                                 @can('Gestion des disponibilites')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('disponibilities.index') }}"
-                                                             class="nav-link {{ request()->routeIs('disponibilities.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Disponibilites </a>
-                                                     </li>
-                                                 @endcan
-                                                 @can('Gestion des civilites')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('civs.index') }}"
-                                                             class="nav-link {{ request()->routeIs('civs.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Civ. </a>
-                                                     </li>
-                                                 @endcan
-                                                 @can('Gestion des statuts')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('candidate_statuts.index') }}"
-                                                             class="nav-link {{ request()->routeIs('candidate_statuts.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Statut </a>
-                                                     </li>
-                                                 @endcan
-                                                 @can('Gestion des etats')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('candidate_states.index') }}"
-                                                             class="nav-link {{ request()->routeIs('candidate_states.index') ? 'active' : '' }}"
-                                                             data-key="t-basic"> Etat </a>
-                                                     </li>
-                                                 @endcan
-                                             </ul>
-                                         </div>
-                                     </li>
-                                 @endcan
-                             </ul>
-                         </div>
-                     </li>
+                             class="nav-link {{ request()->routeIs('fields.index') ? 'active' : '' }}"
+                             data-key="t-basic"> Métier3 </a>
+                 </li>
+                 @endcan --}}
+                 @can('Gestion des disponibilites')
+                 <li class="nav-item">
+                     <a href="{{ route('disponibilities.index') }}"
+                         class="nav-link {{ request()->routeIs('disponibilities.index') ? 'active' : '' }}"
+                         data-key="t-basic"> Disponibilites </a>
+                 </li>
+                 @endcan
+                 @can('Gestion des civilites')
+                 <li class="nav-item">
+                     <a href="{{ route('civs.index') }}"
+                         class="nav-link {{ request()->routeIs('civs.index') ? 'active' : '' }}"
+                         data-key="t-basic"> Civ. </a>
+                 </li>
+                 @endcan
+                 @can('Gestion des statuts')
+                 <li class="nav-item">
+                     <a href="{{ route('candidate_statuts.index') }}"
+                         class="nav-link {{ request()->routeIs('candidate_statuts.index') ? 'active' : '' }}"
+                         data-key="t-basic"> Statut </a>
+                 </li>
+                 @endcan
+                 @can('Gestion des etats')
+                 <li class="nav-item">
+                     <a href="{{ route('candidate_states.index') }}"
+                         class="nav-link {{ request()->routeIs('candidate_states.index') ? 'active' : '' }}"
+                         data-key="t-basic"> Etat </a>
+                 </li>
                  @endcan
              </ul>
          </div>
-         <!-- Sidebar -->
+         </li>
+         @endcan
+         </ul>
      </div>
+     </li>
+     @endcan
+     </ul>
+ </div>
+ <!-- Sidebar -->
+ </div>
 
-     <div class="sidebar-background"></div>
+ <div class="sidebar-background"></div>
  </div>
  <!-- Left Sidebar End -->
  <!-- Vertical Overlay-->

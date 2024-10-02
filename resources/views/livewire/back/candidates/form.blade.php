@@ -804,6 +804,7 @@
                                                             <input wire:model="newFile"
                                                                 class="form-control mt-4 @error('newFile') is-invalid @enderror"
                                                                 type="file">
+                                                            <p style="color:red; margin-top:4px;">Téléchargez un fichier de moins de 2 Mo</p>
                                                             @error('newFile')
                                                                 <span class="invalid-feedback">{{ $message }}</span>
                                                             @enderror
@@ -811,8 +812,8 @@
                                                         </div>
                                                     @endif
                                                 </div>
-
                                             </div>
+                                           
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-light"
                                                     data-bs-dismiss="modal">Fermer</button>
