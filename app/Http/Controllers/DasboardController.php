@@ -48,19 +48,37 @@ class DasboardController extends Controller
         return view('back.dashboard.vue');
     }
 
-    public function uploads()
+    public function upload()
     {
-        return view('back.dashboard.uploads');
+        return view('back.dashboard.upload');
     }
 
     public function cdtvue()
     {
         return view('back.dashboard.cdtvue');
+
+        // if (auth()->user()->hasRole('Administrateur')) {
+        //     return view('back.dashboard.cdtvue');
+        // } //vue manager à personnaliser plus tard
+        // elseif (auth()->user()->hasRole('Manager')) {
+        //     return view('back.dashboard.cdtvue');
+        // } else {
+        //     return view('back.dashboard.cdtvue');
+        // }
     }
 
     public function oppvue()
     {
         return view('back.dashboard.oppvue');
+
+        // if (auth()->user()->hasRole('Administrateur')) {
+        //     return view('back.dashboard.oppvue');
+        // } //vue manager à personnaliser plus tard
+        // elseif (auth()->user()->hasRole('Manager')) {
+        //     return view('back.dashboard.oppvue');
+        // } else {
+        //    return view('back.dashboard.oppvue');
+        // }
     }
 
     public function trgvue()
@@ -71,6 +89,26 @@ class DasboardController extends Controller
     public function facvue()
     {
         return view('back.dashboard.facvue');
+    }
+
+    public function formcdt()
+    {
+        return view('back.dashboard.formcdt');
+    }
+
+    public function formopp()
+    {
+        return view('back.dashboard.formopp');
+    }
+
+    public function canevascdt()
+    {
+        return view('back.dashboard.canevascdt');
+    }
+
+    public function canevasann()
+    {
+        return view('back.dashboard.canevasann');
     }
 
 

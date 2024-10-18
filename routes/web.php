@@ -63,12 +63,19 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('tables', [DasboardController::class, 'tables'])->name('tables');
     Route::get('filtrages', [DasboardController::class, 'filtrages'])->name('filtrages');
     Route::get('vue', [DasboardController::class, 'vue'])->name('vue');
-    Route::get('uploads', [DasboardController::class, 'uploads'])->name('uploads');
+    Route::get('upload', [DasboardController::class, 'upload'])->name('upload');
 
     Route::get('cdtvue', [DasboardController::class, 'cdtvue'])->name('cdtvue');
     Route::get('oppvue', [DasboardController::class, 'oppvue'])->name('oppvue');
     Route::get('trgvue', [DasboardController::class, 'trgvue'])->name('trgvue');
     Route::get('facvue', [DasboardController::class, 'facvue'])->name('facvue');
+
+    Route::get('formcdt', [DasboardController::class, 'formcdt'])->name('formcdt');
+    Route::get('formopp', [DasboardController::class, 'formopp'])->name('formopp');
+
+
+    Route::get('canevascdt', [DasboardController::class, 'canevascdt'])->name('canevascdt');
+    Route::get('canevasann', [DasboardController::class, 'canevasann'])->name('canevasann');
 
 
     Route::get('state/{state}', [CandidateController::class, 'state'])->name('state');

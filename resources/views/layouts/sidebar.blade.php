@@ -66,45 +66,52 @@
                  </a>
 
 
-                 <!-- end   Accès BaseCDT Menu -->
-                 @can('Menu activité')
-                 <li class="nav-item">
 
+
+                 <!-- Vues -->
+
+                 @can('Menu etats')
+                 <li class="nav-item">
                      <a class="nav-link menu-link {{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'active' : '' }}"
                          href="#vues" data-bs-toggle="collapse" role="button"
                          aria-expanded="{{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'true' : 'false' }}"
                          aria-controls="vues">
                          <i class="ri-apps-2-line"></i> <span data-key="t-vues" style="color:orange">VUES</span>
                      </a>
-
                      <div class="collapse menu-dropdown {{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'show' : '' }}"
                          id="vues">
                          <ul class="nav nav-sm flex-column">
                              <li class="nav-item">
-                                 <a href="{{ route('cdtvue') }}" class="nav-link {{ request()->routeIs('cdtvue*') ? 'active' : '' }}" data-key="t-chat">CDTvue</a>
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
                              </li>
                              <li class="nav-item">
-                                 <a href="{{ route('oppvue') }}" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat">OPPvue</a>
+                                 <a href="{{ route('oppvue') }}" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
+                             </li>
+                             @if (auth()->user()->hasRole('Administrateur'))
+                             <li class="nav-item">
+                                 <a href="{{ route('trgvue') }}" class="nav-link {{ request()->routeIs('trgvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">TRGvue</span></a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('facvue') }}" class="nav-link {{ request()->routeIs('facvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">FACvue</span></a>
+                             </li>
+                             @endif
 
-                             </li>
-                             <li class="nav-item">
-                                 <a href="{{ route('trgvue') }}" class="nav-link {{ request()->routeIs('trgvue*') ? 'active' : '' }}" data-key="t-chat">TRGvue</a>
-                             </li>
-                             <li class="nav-item">
-                                 <a href="{{ route('facvue') }}" class="nav-link {{ request()->routeIs('facvue*') ? 'active' : '' }}" data-key="t-chat">FACvue</a>
-
-                             </li>
                          </ul>
                      </div>
+                 </li>
+                 @endcan
 
 
-                     @can('Menu capture / gestion')
+
+                 <!-- Gestion -->
+
+                 @can('Menu capture / gestion')
                  <li class="nav-item">
                      <a class="nav-link menu-link {{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'active' : '' }}"
                          href="#sidebarApps" data-bs-toggle="collapse" role="button"
                          aria-expanded="{{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'true' : 'false' }}"
                          aria-controls="sidebarApps">
-                         <i class="ri-apps-2-line"></i> <span style="color:#06D003" data-key="t-apps">GESTION</span>
+                         <i class="ri-apps-2-line"></i> <span style="color:#09ff00" data-key="t-apps">GESTION</span>
                      </a>
                      <div class="collapse menu-dropdown {{ request()->routeIs(['candidates.create', 'import.candidat', 'state*']) ? 'show' : '' }}"
                          id="sidebarApps">
@@ -114,36 +121,70 @@
                                  <a href="#saisie" class="nav-link {{ request()->routeIs('candidates.create', 'import.candidat') ? 'active' : '' }} " data-bs-toggle="collapse" role="button"
                                      aria-expanded="{{ request()->routeIs('candidates.create', 'import.candidat') ? 'true' : 'false' }}"
                                      aria-controls="saisie" data-key="t-signin">
-                                     Saisie
+                                     <span style="color:#09ff00">SAISIE</span>
                                  </a>
 
                                  <div class="collapse menu-dropdown {{ request()->routeIs('candidates.create', 'import.candidat') ? 'show' : '' }}"
                                      id="saisie">
                                      <ul class="nav nav-sm flex-column">
-                                         @can('Ajouter un candidat')
+                                         @can('Menu etats')
                                          <li class="nav-item">
-                                             <a href="{{ route('candidates.create') }}"
-                                                 class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}"
-                                                 data-key="t-chat">Formulaire </a>
-                                         </li>
-                                         @endcan
-                                         @can('Importer des candidats')
+                                             <a class="nav-link menu-link {{ request()->is(['formcdt', 'formopp', 'formcdt/*', 'formopp/*']) ? 'active' : '' }}"
+                                                 href="#formulaires" data-bs-toggle="collapse" role="button"
+                                                 aria-expanded="{{ request()->is(['formcdt', 'formopp', 'formcdt/*', 'formopp/*']) ? 'true' : 'false' }}"
+                                                 aria-controls="formulaires">
+                                                 <span data-key="t-formulaires" style="color:#09ff00">Formulaires</span>
+                                             </a>
+
+                                             <div class="collapse menu-dropdown {{ request()->is(['formcdt', 'formopp', 'formcdt/*', 'formopp/*']) ? 'show' : '' }}"
+                                                 id="formulaires">
+                                                 <ul class="nav nav-sm flex-column">
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('candidates.create') }}" class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormCDT</span></a>
+                                                     </li>
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('formopp') }}" class="nav-link {{ request()->routeIs('formopp*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">FormOPP</span></a>
+
+                                                     </li>
+                                                 </ul>
+                                             </div>
+                                             @endcan
+
+                                             @can('Menu etats')
                                          <li class="nav-item">
-                                             <a href="{{ route('import.candidat') }}"
-                                                 class="nav-link {{ request()->routeIs('import.candidat') ? 'active' : '' }}"
-                                                 data-key="t-chat">Upload </a>
-                                         </li>
-                                         @endcan
+                                             <a class="nav-link menu-link {{ request()->is(['canevascdt', 'canevasann', 'canevascdt/*', 'canevasann/*']) ? 'active' : '' }}"
+                                                 href="#uploads" data-bs-toggle="collapse" role="button"
+                                                 aria-expanded="{{ request()->is(['canevascdt', 'canevasann', 'canevascdt/*', 'canevasann/*']) ? 'true' : 'false' }}"
+                                                 aria-controls="uploads">
+                                                 <span data-key="t-uploads" style="color:#09ff00">Uploads</span>
+                                             </a>
+
+                                             <div class="collapse menu-dropdown {{ request()->is(['canevascdt', 'canevasann', 'canevascdt/*', 'canevasann/*']) ? 'show' : '' }}"
+                                                 id="uploads">
+                                                 <ul class="nav nav-sm flex-column">
+                                                     @if (auth()->user()->hasRole('Administrateur'))
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('import.candidat') }}" class="nav-link {{ request()->routeIs('import.candidat') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">uploadCDT</span></a>
+                                                     </li>
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('canevasann') }}" class="nav-link {{ request()->routeIs('canevasann*') ? 'active' : '' }}" data-key="t-chat"><span style="color:white">uploadANN</span></a>
+
+                                                     </li>
+                                                     @endif
+                                                 </ul>
+                                             </div>
+                                             @endcan
                                      </ul>
                                  </div>
                              </li>
                              @endcan
+
                              @can('Menu etats')
                              <li class="nav-item">
                                  <a href="#etats" class="nav-link {{ request()->routeIs('state*') ? 'active' : '' }}" data-bs-toggle="collapse" role="button"
                                      aria-expanded="{{ request()->routeIs('state*') ? 'true' : 'false' }}"
                                      aria-controls="etats" data-key="t-signin">
-                                     Etats
+                                     <span style="color:#09ff00">STATUT</span>
                                  </a>
                                  <div class="collapse menu-dropdown {{ request()->routeIs('state*') ? 'show' : '' }}"
                                      id="etats">
@@ -151,20 +192,14 @@
                                          <li class="nav-item">
                                              <a href="{{ route('state', 'Certifié') }}"
                                                  class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Certifié' ? 'active' : '' }}"
-                                                 data-key="t-chat">Certifié </a>
+                                                 data-key="t-chat"><span style="color:#09ff00">Certifiés</span></a>
                                          </li>
                                          <li class="nav-item">
                                              <a href="{{ route('state', 'Attente') }}"
                                                  class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Attente' ? 'active' : '' }}"
-                                                 data-key="t-chat">En attente </a>
+                                                 data-key="t-chat"><span style="color:#09ff00">Attente</span></a>
                                          </li>
-                                         <!-- <li class="nav-item">
-                                                     <a href="{{ route('state', 'Doublon') }}"
-                                                         class="nav-link {{ request()->route()->named('state') && request()->route('state') === 'Doublon' ? 'active' : '' }}"
-                                                         data-key="t-chat">Doublons </a>
-                                                 </li> -->
                                      </ul>
-
                                  </div>
                              </li>
                              @endcan
@@ -176,15 +211,18 @@
 
 
 
+
+
+
                  <!-- Vault Dropdown -->
 
+                 @can('Menu etats')
                  <a class="nav-link menu-link {{ request()->is(['tables', 'filtrages', 'vue', 'uploads', 'tables/*', 'filtrages/*', 'vue/*', 'uploads/*']) ? 'active' : '' }}"
                      href="#vault" data-bs-toggle="collapse" role="button"
                      aria-expanded="{{ request()->is(['tables', 'filtrages', 'vue', 'uploads', 'tables/*', 'filtrages/*', 'vue/*', 'uploads/*']) ? 'true' : 'false' }}"
                      aria-controls="vault">
                      <i class="ri-apps-2-line"></i> <span data-key="t-vault" style="color:orange">VAULT</span>
                  </a>
-
                  <div class="collapse menu-dropdown {{ request()->is(['tables', 'filtrages', 'vue', 'uploads', 'tables/*', 'filtrages/*', 'vue/*', 'uploads/*']) ? 'show' : '' }}"
                      id="vault">
                      <ul class="nav nav-sm flex-column">
@@ -212,47 +250,48 @@
                              </a>
                          </li>
                          <li class="nav-item">
-                             <!-- <a href="{{ route('uploads') }}" class="nav-link {{ request()->routeIs('uploads*') ? 'active' : '' }}" data-key="t-uploads" style="color:orange">Uploads</a> -->
                              <a class="nav-link menu-dropdown"
-                                 href="#uploads" data-bs-toggle="collapse" role="button"
-                                 aria-controls="uploads">
-                                 <span data-key="t-uploads" style="color:orange">Uploads</span>
+                                 href="#upload" data-bs-toggle="collapse" role="button"
+                                 aria-controls="upload">
+                                 <span data-key="t-upload" style="color:orange">Uploads</span>
                              </a>
                          </li>
                      </ul>
                  </div>
+                 @endcan
 
 
 
-                 <a class="nav-link menu-link {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'active' : '' }}"
-                     href="#activite" data-bs-toggle="collapse" role="button"
-                     aria-expanded="{{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'true' : 'false' }}"
-                     aria-controls="activite">
-                     <i class="ri-apps-2-line"></i> <span data-key="t-apps">Activité</span>
-                 </a>
+                 <!-- Activity -->
 
-                 <div class="collapse menu-dropdown {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'show' : '' }}"
-                     id="activite">
-                     <ul class="nav nav-sm flex-column">
-                         @can('Menu connexion')
-                         <li class="nav-item">
-                             <a href="{{ route('connexions') }}"
-                                 class="nav-link {{ request()->routeIs('connexions*') ? 'active' : '' }}"
-                                 data-key="t-chat">Connexions</a>
-                         </li>
-                         @endcan
-                         @can('Menu Détails')
-                         <li class="nav-item">
-                             <a href="{{ route('detail') }}"
-                                 class="nav-link {{ request()->routeIs('detail*') ? 'active' : '' }}"
-                                 data-key="t-chat">Détails</a>
-                         </li>
-                         @endcan
-                     </ul>
-                 </div>
+                 @can('Menu activité')
+                 <li class="nav-item">
+                     <a class="nav-link menu-link {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'active' : '' }}"
+                         href="#activite" data-bs-toggle="collapse" role="button"
+                         aria-expanded="{{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'true' : 'false' }}"
+                         aria-controls="activite">
+                         <i class="ri-apps-2-line"></i> <span style="color:#09ff00" data-key="t-apps">Activité</span>
+                     </a>
 
-
-
+                     <div class="collapse menu-dropdown {{ request()->is(['connexions', 'connexions/*', 'detail', 'detail/*']) ? 'show' : '' }}"
+                         id="activite">
+                         <ul class="nav nav-sm flex-column">
+                             @can('Menu connexion')
+                             <li class="nav-item">
+                                 <a href="{{ route('connexions') }}"
+                                     class="nav-link {{ request()->routeIs('connexions*') ? 'active' : '' }}"
+                                     data-key="t-chat"><span style="color:#09ff00">Connexions</span></a>
+                             </li>
+                             @endcan
+                             @can('Menu Détails')
+                             <li class="nav-item">
+                                 <a href="{{ route('detail') }}"
+                                     class="nav-link {{ request()->routeIs('detail*') ? 'active' : '' }}"
+                                     data-key="t-chat"><span style="color:#09ff00">Détails</span> </a>
+                             </li>
+                             @endcan
+                         </ul>
+                     </div>
                  </li>
                  @endcan
 
@@ -260,30 +299,24 @@
 
 
 
-
+                 <!-- Parameters -->
 
                  @can('Menu paramètres')
                  <li class="nav-item">
                      <a class="nav-link menu-link {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}"
                          href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false"
                          aria-controls="sidebarAuth">
-                         <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Paramètres</span>
+                         <i class="ri-settings-3-line"></i> <span style="color:#09ff00" data-key="t-authentication">Paramètres</span>
                      </a>
                      <div class="collapse menu-dropdown {{ request()->routeIs(['user.profile', 'users.index', 'roles.index', 'roles.permissions', 'nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
                          id="sidebarAuth">
                          <ul class="nav nav-sm flex-column">
-                             <li class="nav-item">
-                                 <a href="{{ route('user.profile') }}"
-                                     class="nav-link {{ request()->routeIs('user.profile') ? 'active' : '' }}"
-                                     data-key="t-signup"> Mon profil
-                                 </a>
-                             </li>
                              @can('Menu utilisateur')
                              <li class="nav-item">
                                  <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                      role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                      data-key="t-signin">
-                                     Utilisateurs
+                                     <span style="color:#09ff00; font-size:16px">Utilisateurs</span>
                                  </a>
                                  <div class="collapse menu-dropdown {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'show' : '' }}"
                                      id="sidebarSignInUsers">
@@ -292,14 +325,14 @@
                                          <li class="nav-item">
                                              <a href="{{ route('users.index') }}"
                                                  class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
-                                                 data-key="t-basic"> Liste</a>
+                                                 data-key="t-basic"> <span style="color:#09ff00">Liste</span></a>
                                          </li>
                                          @endcan
                                          @can('Gestion des rôles')
                                          <li class="nav-item">
                                              <a href="{{ route('roles.index') }}"
                                                  class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"
-                                                 data-key="t-signup">Rôles
+                                                 data-key="t-signup"><span style="color:#09ff00">Rôles</span>
                                              </a>
                                          </li>
                                          @endcan
@@ -307,7 +340,7 @@
                                          <li class="nav-item">
                                              <a href="{{ route('roles.permissions') }}"
                                                  class="nav-link {{ request()->routeIs('roles.permissions') ? 'active' : '' }}"
-                                                 data-key="t-signup">Permissions
+                                                 data-key="t-signup"><span style="color:#09ff00">Permissions</span>
                                              </a>
                                          </li>
                                          @endcan
@@ -315,104 +348,147 @@
                                  </div>
                              </li>
                              @endcan
-                             @can('Menu paramètre BaseCDT')
+
+                             @can('Menu utilisateur')
                              <li class="nav-item">
-                                 <a href="#sidebarSignInBaseCDT" class="nav-link {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}" data-bs-toggle="collapse"
-                                     role="button" aria-expanded="{{ request()->routeIs('nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
+                                 <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                     role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                      data-key="t-signin">
-                                     BaseCDT
+                                     DONNEES
                                  </a>
-                                 <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
-                                     id="sidebarSignInBaseCDT">
+                                 <div class="collapse menu-dropdown {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'show' : '' }}"
+                                     id="sidebarSignInUsers">
                                      <ul class="nav nav-sm flex-column">
-                                         @can('nextStep')
+                                         @can('Menu paramètre BaseCDT')
                                          <li class="nav-item">
-                                             <a href="{{ route('nextsteps.index') }}"
-                                                 class="nav-link {{ request()->routeIs('nextsteps.index') ? 'active' : '' }}"
-                                                 data-key="t-signup"> NextStep
+                                             <a href="#sidebarSignInBaseCDT" class="nav-link {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                                 role="button" aria-expanded="{{ request()->routeIs('nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index') ? 'true' : 'false' }}" aria-controls="sidebarSignInBaseCDT"
+                                                 data-key="t-signin">
+                                                 <span style="color:#09ff00; font-size:16px;"> CDT_table </span>
                                              </a>
-                                         </li>
-                                         @endcan
-                                         @can('nsDate')
-                                         <li class="nav-item">
-                                             <a href="{{ route('nsdates.index') }}"
-                                                 class="nav-link {{ request()->routeIs('nsdates.index') ? 'active' : '' }}"
-                                                 data-key="t-signup"> NsDate
-                                             </a>
-                                         </li>
-                                         @endcan
-                                         @can('Gestion des sociétes')
-                                         <li class="nav-item">
-                                             <a href="{{ route('compagnies.index') }}"
-                                                 class="nav-link {{ request()->routeIs('compagnies.index') ? 'active' : '' }}"
-                                                 data-key="t-signup"> Sociétes
-                                             </a>
-                                         </li>
-                                         @endcan
-                                         {{-- @can('Gestion des Métier1')
+                                             <div class="collapse menu-dropdown {{ request()->routeIs(['nextsteps.index','nsdates.index', 'compagnies.index', 'metiers', 'disponibilities.index', 'civs.index','candidate_statuts.index','candidate_states.index']) ? 'show' : '' }}"
+                                                 id="sidebarSignInBaseCDT">
+                                                 <ul class="nav nav-sm flex-column">
+                                                     @can('nextStep')
                                                      <li class="nav-item">
-                                                         <a href="{{ route('positions.index') }}"
-                                         class="nav-link {{ request()->routeIs('positions.index') ? 'active' : '' }}"
-                                         data-key="t-basic"> Métier1
-                                         </a>
-                             </li>
-                             @endcan --}}
-                             @can('Gestion des Métier2')
-                             <li class="nav-item">
-                                 <a href="{{ route('metiers') }}"
-                                     class="nav-link {{ request()->routeIs('metiers') ? 'active' : '' }}"
-                                     data-key="t-basic"> Métiers </a>
+                                                         <a href="{{ route('nextsteps.index') }}"
+                                                             class="nav-link {{ request()->routeIs('nextsteps.index') ? 'active' : '' }}"
+                                                             data-key="t-signup"> <span style="color:#09ff00"> NextStep </span>
+                                                         </a>
+                                                     </li>
+                                                     @endcan
+                                                     @can('nsDate')
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('nsdates.index') }}"
+                                                             class="nav-link {{ request()->routeIs('nsdates.index') ? 'active' : '' }}"
+                                                             data-key="t-signup"> <span style="color:#09ff00"> NsDate </span>
+                                                         </a>
+                                                     </li>
+                                                     @endcan
+                                                     @can('Gestion des sociétes')
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('compagnies.index') }}"
+                                                             class="nav-link {{ request()->routeIs('compagnies.index') ? 'active' : '' }}"
+                                                             data-key="t-signup"> <span style="color:#09ff00">Sociétes</span>
+                                                         </a>
+                                                     </li>
+                                                     @endcan
+
+                                                     @can('Gestion des Métier2')
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('metiers') }}"
+                                                             class="nav-link {{ request()->routeIs('metiers') ? 'active' : '' }}"
+                                                             data-key="t-basic"><span style="color:#09ff00">Métiers</span></a>
+                                                     </li>
+                                                     @endcan
+
+                                                     @can('Gestion des disponibilites')
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('disponibilities.index') }}"
+                                                             class="nav-link {{ request()->routeIs('disponibilities.index') ? 'active' : '' }}"
+                                                             data-key="t-basic"> <span style="color:#09ff00"> Disponibilites</span></a>
+                                                     </li>
+                                                     @endcan
+                                                     @can('Gestion des civilites')
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('civs.index') }}"
+                                                             class="nav-link {{ request()->routeIs('civs.index') ? 'active' : '' }}"
+                                                             data-key="t-basic"> <span style="color:#09ff00"> Civ.</span></a>
+                                                     </li>
+                                                     @endcan
+                                                     @can('Gestion des statuts')
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('candidate_statuts.index') }}"
+                                                             class="nav-link {{ request()->routeIs('candidate_statuts.index') ? 'active' : '' }}"
+                                                             data-key="t-basic"> <span style="color:#09ff00"> Statut</span> </a>
+                                                     </li>
+                                                     @endcan
+                                                     @can('Gestion des etats')
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('candidate_states.index') }}"
+                                                             class="nav-link {{ request()->routeIs('candidate_states.index') ? 'active' : '' }}"
+                                                             data-key="t-basic"> <span style="color:#09ff00">Etat </span> </a>
+                                                     </li>
+                                                     @endcan
+                                                 </ul>
+                                             </div>
+                                         </li>
+                                         @endcan
+
+
+                                         @can('Gestion des rôles')
+                                         <li class="nav-item">
+                                             <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                                 role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
+                                                 data-key="t-signin">
+                                                 <span style="color:#09ff00; font-size:16px;"> TRG_table</span>
+                                             </a>
+                                             @endcan
+                                             @can('Gestion des permissions')
+                                         <li class="nav-item">
+                                             <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                                 role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
+                                                 data-key="t-signin">
+                                                 CTC_table
+                                             </a>
+                                         </li>
+                                         @endcan
+                                         @can('Gestion des rôles')
+                                         <li class="nav-item">
+                                             <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                                 role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
+                                                 data-key="t-signin">
+                                                 <span style="color:#09ff00; font-size:16px;"> OOP_table </span>
+                                             </a>
+                                             @endcan
+                                             @can('Gestion des rôles')
+                                         <li class="nav-item">
+                                             <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                                 role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
+                                                 data-key="t-signin">
+                                                 FAC_table
+                                             </a>
+                                             @endcan
+                                     </ul>
+                                 </div>
                              </li>
                              @endcan
-                             {{-- @can('Gestion des Métier3')
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('fields.index') }}"
-                             class="nav-link {{ request()->routeIs('fields.index') ? 'active' : '' }}"
-                             data-key="t-basic"> Métier3 </a>
-                 </li>
-                 @endcan --}}
-                 @can('Gestion des disponibilites')
-                 <li class="nav-item">
-                     <a href="{{ route('disponibilities.index') }}"
-                         class="nav-link {{ request()->routeIs('disponibilities.index') ? 'active' : '' }}"
-                         data-key="t-basic"> Disponibilites </a>
-                 </li>
-                 @endcan
-                 @can('Gestion des civilites')
-                 <li class="nav-item">
-                     <a href="{{ route('civs.index') }}"
-                         class="nav-link {{ request()->routeIs('civs.index') ? 'active' : '' }}"
-                         data-key="t-basic"> Civ. </a>
-                 </li>
-                 @endcan
-                 @can('Gestion des statuts')
-                 <li class="nav-item">
-                     <a href="{{ route('candidate_statuts.index') }}"
-                         class="nav-link {{ request()->routeIs('candidate_statuts.index') ? 'active' : '' }}"
-                         data-key="t-basic"> Statut </a>
-                 </li>
-                 @endcan
-                 @can('Gestion des etats')
-                 <li class="nav-item">
-                     <a href="{{ route('candidate_states.index') }}"
-                         class="nav-link {{ request()->routeIs('candidate_states.index') ? 'active' : '' }}"
-                         data-key="t-basic"> Etat </a>
+                             <li class="nav-item">
+                                 <a href="{{ route('user.profile') }}"
+                                     class="nav-link {{ request()->routeIs('user.profile') ? 'active' : '' }}"
+                                     data-key="t-signup"> <span style="color:#09ff00; font-size:16px;"> Mon profil </span>
+                                 </a>
+                             </li>
+                         </ul>
+                     </div>
                  </li>
                  @endcan
              </ul>
          </div>
-         </li>
-         @endcan
-         </ul>
+         <!-- Sidebar -->
      </div>
-     </li>
-     @endcan
-     </ul>
- </div>
- <!-- Sidebar -->
- </div>
 
- <div class="sidebar-background"></div>
+     <div class="sidebar-background"></div>
  </div>
  <!-- Left Sidebar End -->
  <!-- Vertical Overlay-->
