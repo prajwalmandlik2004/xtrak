@@ -70,6 +70,8 @@
 
                  <!-- Vues -->
 
+                 <!-- Vues Section -->
+
                  @can('Menu etats')
                  <li class="nav-item">
                      <a class="nav-link menu-link {{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'active' : '' }}"
