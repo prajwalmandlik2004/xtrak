@@ -35,6 +35,8 @@
 
 <body class="login_bg ">
 
+    <div id="particles-js"></div>
+
     <div class="auth-page-wrapper">
         <!-- auth page content -->
         <div class="auth-page-content">
@@ -61,70 +63,70 @@
                                 </div>
                                 <div class="p-2 ">
                                     @if (session()->has('error'))
-                                        <div class="alert alert-danger alert-dismissible alert-label-icon label-arrow show"
-                                            role="alert">
-                                            <i class="ri-error-warning-line label-icon"></i><strong>Erreur</strong> -
-                                            {{ session('error') }}
-                                            <button type="button" class="btn-close" data-bs-dismiss=" alert"
-                                                aria-label="Close"></button>
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible alert-label-icon label-arrow show"
+                                        role="alert">
+                                        <i class="ri-error-warning-line label-icon"></i><strong>Erreur</strong> -
+                                        {{ session('error') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss=" alert"
+                                            aria-label="Close"></button>
+                                    </div>
                                     @endif
                                     <x-validation-errors class="mb-4" />
 
                                     @if (session('status'))
-                                        <div class="mb-4 font-medium text-sm text-green-600">
-                                            {{ session('status') }}
-                                        </div>
+                                    <div class="mb-4 font-medium text-sm text-green-600">
+                                        {{ session('status') }}
+                                    </div>
                                     @endif
 
                                     <form method="POST" action="{{ route('connexion') }}">
-                                            @csrf
+                                        @csrf
                                         <div class="row">
 
-                                        <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" name="email"
-                                                class="form-control @error('email') is-invalid @enderror" id="email"
-                                               placeholder="Entrez votre adresse email"
-                                                value="{{ old('email') }}">
-                                            @error('email')
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" name="email"
+                                                    class="form-control @error('email') is-invalid @enderror" id="email"
+                                                    placeholder="Entrez votre adresse email"
+                                                    value="{{ old('email') }}">
+                                                @error('email')
                                                 <small class="text-danger">
                                                     {{ $message }}
                                                 </small>
-                                            @enderror
-                                            {{-- value="admin@local.com" --}}
-                                        </div>
-                                        <div class="mb-3">
+                                                @enderror
+                                                {{-- value="admin@local.com" --}}
+                                            </div>
+                                            <div class="mb-3">
 
-                                            <label class="form-label" for="password-input">Mot de passe</label>
-                                            <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" name="password"
-                                                    class="form-control pe-5 password-input @error('password') border-danger @enderror"
-                                                    placeholder="Entrez votre mot de passe" id="password-input">
-                                                <button
-                                                    class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
-                                                    type="button" id="password-addon"><i
-                                                        class="ri-eye-fill align-middle"></i></button>
-                                                @error('password')
+                                                <label class="form-label" for="password-input">Mot de passe</label>
+                                                <div class="position-relative auth-pass-inputgroup mb-3">
+                                                    <input type="password" name="password"
+                                                        class="form-control pe-5 password-input @error('password') border-danger @enderror"
+                                                        placeholder="Entrez votre mot de passe" id="password-input">
+                                                    <button
+                                                        class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
+                                                        type="button" id="password-addon"><i
+                                                            class="ri-eye-fill align-middle"></i></button>
+                                                    @error('password')
                                                     <small class="text-danger">
                                                         {{ $message }}
                                                     </small>
-                                                @enderror
-                                                {{-- value="admin@2024" --}}
+                                                    @enderror
+                                                    {{-- value="admin@2024" --}}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="remember_me" type="checkbox"
+                                                    value="true" id="auth-remember-check">
+                                                <label class="form-check-label" for="auth-remember-check">Se souvenir de moi
+                                                </label>
+                                            </div>
+
+                                            <div class="mt-4">
+                                                <button class="btn btn-secondary w-100" type="submit">Connexion</button>
                                             </div>
                                         </div>
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" name="remember_me" type="checkbox"
-                                                value="true" id="auth-remember-check">
-                                            <label class="form-check-label" for="auth-remember-check">Se souvenir de moi
-                                            </label>
-                                        </div>
-
-                                        <div class="mt-4">
-                                            <button class="btn btn-secondary w-100" type="submit">Connexion</button>
-                                        </div>
-                                    </div>
                                     </form>
                                 </div>
                             </div>

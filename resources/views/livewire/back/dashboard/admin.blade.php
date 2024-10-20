@@ -5,7 +5,7 @@
     <!-- start page title -->
     @include('components.breadcrumb', [
     'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
-    'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
+    'breadcrumbItems' => [['text' => 'CDTvue', 'url' => '#']],
 ])
 
     <div class="row">
@@ -42,6 +42,7 @@
                         <tr class="text-center">
                             <th scope="col" style="width:100px">Effacer</th>
                             <th scope="col">Recherche</th>
+                            <th scope="col">Select</th>
                             <th scope="col">N lignes</th>
                             <th scope="col">Auteur</th>
                             <th scope="col">Etat</th>
@@ -61,7 +62,11 @@
                                 </button>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Rechercher..." wire:model.live='search'>
+                                <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
+                               
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="Select" wire:model.live='search'>
                                
                             </td>
                             <td>
@@ -162,7 +167,7 @@
                         </div> -->
                          <div class="flex-grow-1 text-center">
                             <h4 class="card-title fw-bold fs-2">
-                                BaseCDT
+                                CDTvue
                             </h4>
                         </div>
                         <!-- verifier si la personne authentifiée n'est pas manager avant d'afficher le bouton -->
@@ -243,7 +248,7 @@
                                             <td>{{ $candidate->country ?? '--' }}</td>
                                         @if($candidate->candidateState->name == 'Certifié')
                                             <td id="colState">
-                                                <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{ $index }})">
+                                                <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{$index}})">
                                                     <span id="hidden-certificate-{{ $index }}">Certifié</span>
                                                     <span id="visible-certificate-{{ $index }}" style="display: none;">{{ $candidate->certificate }}</span>
                                                 </span>
