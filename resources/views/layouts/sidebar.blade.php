@@ -85,7 +85,7 @@
                                  <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
                              </li>
                              <li class="nav-item">
-                                 <a href="{{ route('oppvue') }}" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
+                                 <a href="{{ route('oppvue') }}" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">OPPvue</span></a>
                              </li>
                              @if (auth()->user()->hasRole('Administrateur'))
                              <li class="nav-item">
