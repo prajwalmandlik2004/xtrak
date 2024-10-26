@@ -804,6 +804,7 @@
                                                 <input wire:model="newFile"
                                                     class="form-control mt-4 @error('newFile') is-invalid @enderror"
                                                     type="file">
+                                                            <p style="color:red; margin-top:5px;">Téléchargez un fichier de moins de 2 Mo</p>
                                                 <p style="color:red; margin-top:4px;">Téléchargez un fichier de moins de 2 Mo</p>
                                                 <p style="color:red; margin-top:5px;">Téléchargez un fichier de moins de 2 Mo</p>
                                                 @error('newFile')
