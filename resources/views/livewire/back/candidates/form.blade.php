@@ -789,11 +789,34 @@
                                                     wire:model.live='name'
                                                     placeholder="Veuillez entrer le nom du document" />
 
+                                                        </div>
+                                                    @endif
+                                                    @if (!$isUpdateFile)
+                                                        <div class="col-md-12 ">
 
+                                                            <label for="newFile"
+                                                                class="form-label ">Documents</label>
+                                                            <input wire:model="newFile"
+                                                                class="form-control mt-4 @error('newFile') is-invalid @enderror"
+                                                                type="file">
+                                                            @error('newFile')
+                                                                <span class="invalid-feedback">{{ $message }}</span>
+                                                            @enderror
+
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light"
+                                                    data-bs-dismiss="modal">Fermer</button>
+                                                <button type="submit"
+                                                    class="btn btn-primary ">{{ $isUpdateFile ? 'Modifier' : 'Ajouter' }}
+                                                 </button>
                                                 @error('name')
                                                 <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
-
                                             </div>
                                             @endif
                                             @if (!$isUpdateFile)
