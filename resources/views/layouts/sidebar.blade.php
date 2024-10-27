@@ -76,7 +76,7 @@
                          href="#vues" data-bs-toggle="collapse" role="button"
                          aria-expanded="{{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'true' : 'false' }}"
                          aria-controls="vues">
-                         <i class="ri-apps-2-line"></i> <span data-key="t-vues" style="color:orange">VUES</span>
+                         <i class="ri-apps-2-line"></i> <span data-key="t-vues" style="color:#09ff00">VUES</span>
                      </a>
                      <div class="collapse menu-dropdown {{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'show' : '' }}"
                          id="vues">
@@ -85,14 +85,14 @@
                                  <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
                              </li>
                              <li class="nav-item">
-                                 <a href="{{ route('oppvue') }}" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">OPPvue</span></a>
+                                 <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
                              </li>
                              @if (auth()->user()->hasRole('Administrateur'))
                              <li class="nav-item">
-                                 <a href="{{ route('trgvue') }}" class="nav-link {{ request()->routeIs('trgvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">TRGvue</span></a>
+                                 <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('trgvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">TRGvue</span></a>
                              </li>
                              <li class="nav-item">
-                                 <a href="{{ route('facvue') }}" class="nav-link {{ request()->routeIs('facvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">FACvue</span></a>
+                                 <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('facvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">FACvue</span></a>
                              </li>
                              @endif
 
@@ -354,7 +354,7 @@
                                  <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                      role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                      data-key="t-signin">
-                                     DONNEES
+                                     <span style="color:#09ff00; "> DONNEES </span>
                                  </a>
                                  <div class="collapse menu-dropdown {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'show' : '' }}"
                                      id="sidebarSignInUsers">
@@ -441,7 +441,7 @@
                                              <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                                  role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                                  data-key="t-signin">
-                                                 <span style="color:#09ff00; font-size:16px;"> TRG_table</span>
+                                                 <span style="color:orange; font-size:16px;"> TRG_table</span>
                                              </a>
                                              @endcan
                                              @can('Gestion des permissions')
@@ -449,7 +449,7 @@
                                              <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                                  role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                                  data-key="t-signin">
-                                                 CTC_table
+                                                 <span style="color:orange; font-size:16px;"> CTC_table</span>
                                              </a>
                                          </li>
                                          @endcan
@@ -458,7 +458,7 @@
                                              <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                                  role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                                  data-key="t-signin">
-                                                 <span style="color:#09ff00; font-size:16px;"> OOP_table </span>
+                                                 <span style="color:orange; font-size:16px;"> OOP_table </span>
                                              </a>
                                              @endcan
                                              @can('Gestion des rôles')
@@ -466,7 +466,7 @@
                                              <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                                  role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                                  data-key="t-signin">
-                                                 FAC_table
+                                                 <span style="color:orange; font-size:16px;"> FAC_table</span>
                                              </a>
                                              @endcan
                                      </ul>

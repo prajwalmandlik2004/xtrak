@@ -42,7 +42,7 @@
                         <tr class="text-center">
                             <th scope="col" style="width:100px">Effacer</th>
                             <th scope="col">Recherche</th>
-                            <th scope="col">Select</th>
+                            <!-- <th scope="col">Select</th> -->
                             <th scope="col">N lignes</th>
                             <th scope="col">Auteur</th>
                             <th scope="col">Etat</th>
@@ -65,10 +65,10 @@
                                 <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
                                
                             </td>
-                            <td>
+                            <!-- <td>
                                 <input type="text" class="form-control" placeholder="Select" wire:model.live='search'>
                                
-                            </td>
+                            </td> -->
                             <td>
                                 <select class="form-control w-md" wire:model.live='nbPaginate'>
                                     <option value="10">10</option>
