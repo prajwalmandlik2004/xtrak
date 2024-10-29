@@ -10,7 +10,7 @@ cursor: pointer;
 
 .navbar-menu .navbar-nav .nav-link.active {
 color: #ffffff !important;
-background-color: #6699FF !important;
+/* background-color: #6699FF !important; */
 }
 .sidebar-background {
 background-color: #010066 !important;
