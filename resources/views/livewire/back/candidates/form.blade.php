@@ -192,7 +192,7 @@
                                                 </div>
                                                 <div class="col-lg-auto">
                                                     <div>
-                                                        <label for="cv_status" class="form-label">CV</label>
+                                                        <label for="cv_status" class="form-label">CVP</label>
                                                             @php
                                                                 $cvFile = $candidate->files()->where('file_type', 'cv')->first();
                                                                 $cvStatus = $cvFile ? ' OK ' : 'N/A';
