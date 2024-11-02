@@ -81,14 +81,6 @@
                      <div class="collapse menu-dropdown {{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'show' : '' }}"
                          id="vues">
                          <ul class="nav nav-sm flex-column">
-                             <!-- @if (auth()->user()->hasRole('Consultant')) -->
-                             <li class="nav-item">
-                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CSTvue</span></a>
-                             </li>
-                             <li class="nav-item">
-                                 <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPP_CSTvue</span></a>
-                             </li>
-                             <!-- @endif -->
                              @if (auth()->user()->hasRole('Administrateur'))
                              <li class="nav-item">
                                  <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
@@ -102,16 +94,21 @@
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('facvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">FACvue</span></a>
                              </li>
-                             @endif
-                             @if (auth()->user()->hasRole('Manager'))
+                             @elseif (auth()->user()->hasRole('Manager'))
                              <li class="nav-item">
                                  <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
                              </li>
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
                              </li>
+                             @else
+                             <li class="nav-item">
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CSTvue</span></a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPP_CSTvue</span></a>
+                             </li>
                              @endif
-
                          </ul>
                      </div>
                  </li>
