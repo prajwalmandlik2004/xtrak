@@ -70,6 +70,8 @@
 
                  <!-- Vues -->
 
+
+
                  @can('Menu etats')
                  <li class="nav-item">
                      <a class="nav-link menu-link {{ request()->is(['cdtvue', 'oppvue', 'trgvue', 'facvue', 'cdtvue/*', 'oppvue/*', 'trgvue/*', 'facvue/*']) ? 'active' : '' }}"
@@ -83,7 +85,7 @@
                          <ul class="nav nav-sm flex-column">
                              @if (auth()->user()->hasRole('Administrateur'))
                              <li class="nav-item">
-                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
                              </li>
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
@@ -96,14 +98,14 @@
                              </li>
                              @elseif (auth()->user()->hasRole('Manager'))
                              <li class="nav-item">
-                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
                              </li>
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
                              </li>
                              @else
                              <li class="nav-item">
-                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CSTvue</span></a>
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CSTvue</span></a>
                              </li>
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPP_CSTvue</span></a>
@@ -113,7 +115,6 @@
                      </div>
                  </li>
                  @endcan
-
 
 
                  <!-- Gestion -->
@@ -156,7 +157,7 @@
                                                          <a href="{{ route('candidates.create') }}" class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormCDT</span></a>
                                                      </li>
                                                      <li class="nav-item">
-                                                         <a href="{{ route('formopp') }}" class="nav-link {{ request()->routeIs('formopp*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">FormOPP</span></a>
+                                                         <a href="{{ route('candidates.create') }}" class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormOPP</span></a>
 
                                                      </li>
                                                  </ul>
@@ -242,7 +243,7 @@
                          <li class="nav-item">
                              <!-- <a href="{{ route('tables') }}" class="nav-link {{ request()->routeIs('tables*') ? 'active' : '' }}" data-key="t-tables" style="color:orange">Tables</a> -->
                              <a class="nav-link menu-dropdown"
-                                 href="#tables" data-bs-toggle="collapse" role="button"
+                                 href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" data-bs-toggle="collapse" role="button"
                                  aria-controls="tables">
                                  <span data-key="t-tables" style="color:orange">Tables</span>
                              </a>
@@ -250,21 +251,21 @@
                          <li class="nav-item">
                              <!-- <a href="{{ route('filtrages') }}" class="nav-link {{ request()->routeIs('filtrages*') ? 'active' : '' }}" data-key="t-filtrages" style="color:orange">Filtrages</a> -->
                              <a class="nav-link menu-dropdown"
-                                 href="#filtrages" data-bs-toggle="collapse" role="button"
+                                 href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" data-bs-toggle="collapse" role="button"
                                  aria-controls="filtrages">
                                  <span data-key="t-filtrages" style="color:orange">Filtrages</span>
                              </a>
                          </li>
                          <li class="nav-item">
                              <a class="nav-link menu-dropdown"
-                                 href="#vue" data-bs-toggle="collapse" role="button"
+                                 href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" data-bs-toggle="collapse" role="button"
                                  aria-controls="vue">
                                  <span data-key="t-vue" style="color:orange">Vues</span>
                              </a>
                          </li>
                          <li class="nav-item">
                              <a class="nav-link menu-dropdown"
-                                 href="#upload" data-bs-toggle="collapse" role="button"
+                                 href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" data-bs-toggle="collapse" role="button"
                                  aria-controls="upload">
                                  <span data-key="t-upload" style="color:orange">Uploads</span>
                              </a>
@@ -451,7 +452,7 @@
 
                                          @can('Gestion des rôles')
                                          <li class="nav-item">
-                                             <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                             <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                                  role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                                  data-key="t-signin">
                                                  <span style="color:orange; font-size:16px;"> TRG_table</span>
@@ -459,7 +460,7 @@
                                              @endcan
                                              @can('Gestion des permissions')
                                          <li class="nav-item">
-                                             <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                             <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                                  role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                                  data-key="t-signin">
                                                  <span style="color:orange; font-size:16px;"> CTC_table</span>
@@ -468,7 +469,7 @@
                                          @endcan
                                          @can('Gestion des rôles')
                                          <li class="nav-item">
-                                             <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                             <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                                  role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                                  data-key="t-signin">
                                                  <span style="color:orange; font-size:16px;"> OOP_table </span>
@@ -476,7 +477,7 @@
                                              @endcan
                                              @can('Gestion des rôles')
                                          <li class="nav-item">
-                                             <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
+                                             <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                                  role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                                  data-key="t-signin">
                                                  <span style="color:orange; font-size:16px;"> FAC_table</span>
