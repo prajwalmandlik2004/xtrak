@@ -41,6 +41,8 @@
                              ADM WORKSPACE
                              @elseif (auth()->user()->hasRole('Manager'))
                              ESPACE MANAGER
+                             @elseif (auth()->user()->hasRole('CST+'))
+                             ESPACE CONSULTANT+
                              @else
                              ESPACE CONSULTANT
                              @endif
@@ -100,6 +102,16 @@
                              </li>
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
+                             </li>
+                             @elseif (auth()->user()->hasRole('CST+'))
+                             <li class="nav-item">
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CST+vue</span></a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CSTvue</span></a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPP_CSTvue</span></a>
                              </li>
                              @else
                              <li class="nav-item">
