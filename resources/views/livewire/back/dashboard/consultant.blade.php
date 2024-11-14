@@ -3,7 +3,7 @@
     <!-- start page title -->
     @include('components.breadcrumb', [
         'title' => 'Espace consultant',
-        'breadcrumbItems' => [['text' => 'BaseCST', 'url' => '#']],
+        'breadcrumbItems' => [['text' => 'CDT_CSTvue', 'url' => '#']],
     ])
     <div class="row">
         <div class="col-md-6">
