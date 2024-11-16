@@ -20,7 +20,7 @@
                         <table
                             class="table table-striped  table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="bg-secondary text-white">
-                        <thead>
+                        <thead class="bg-white text-black sticky-top">
                             <tr>
                                 <th scope="col">Autorisations</th>
                                 @foreach ($roles as $role)
