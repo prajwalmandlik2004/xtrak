@@ -178,8 +178,8 @@
                                         </th>
                                         <th scope="col">Fonction</th>
                                         <th scope="col">Société</th>
-                                        <th scope="col">Tél</th>
-                                        <th scope="col">Email</th>
+<!--                                         <th scope="col">Tél</th>
+                                        <th scope="col">Email</th> -->
                                         <th scope="col">CP/Dpt</th>
                                         <th scope="col">Ville</th>
                                         <th scope="col">Pays</th>
@@ -213,8 +213,8 @@
                                             <td id="Lcol">{{ $candidate->last_name ?? '--' }}</td>
                                             <td id="Lcol">{{ $candidate->position->name ?? '--' }}</td>
                                             <td>{{ $candidate->compagny->name ?? '--' }}</td>
-                                            <td>{{ $candidate->phone ?? '--' }}</td>
-                                            <td>{{ $candidate->email ?? '--' }}</td>
+<!--                                             <td>{{ $candidate->phone ?? '--' }}</td>
+                                            <td>{{ $candidate->email ?? '--' }}</td> -->
                                             <td>{{ $candidate->postal_code ?? '--' }}</td>
                                             <td>{{ $candidate->city ?? '--' }}</td>
                                             <td>{{ $candidate->country ?? '--' }}</td>
