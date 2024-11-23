@@ -104,7 +104,7 @@
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
                              </li>
                              @elseif (auth()->user()->hasRole('CST+'))
-<!--                              <li class="nav-item">
+<!--                         <li class="nav-item">
                                  <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CST+vue</span></a>
                              </li>
                              <li class="nav-item">
@@ -112,12 +112,12 @@
                              </li> -->
                              <li class="nav-item">
                                 <a href="{{ route('dashboard') }}" class="nav-link {{ !request()->query('dashboard') ? 'active' : '' }}" data-key="t-chat">
-                                    <span style="color:#09ff00">CST+ Dashboard</span>
+                                    <span style="color:#09ff00">CDT_CST+vue</span>
                                 </a>
                              </li>
                              <li class="nav-item">
                                 <a href="{{ route('dashboard', ['dashboard' => 'consultant']) }}" class="nav-link {{ request()->query('dashboard') === 'consultant' ? 'active' : '' }}" data-key="t-chat">
-                                        <span style="color:#09ff00">Consultant Dashboard</span>
+                                        <span style="color:#09ff00">CDT_CSTvue</span>
                                 </a>
                              </li>
                              <li class="nav-item">
