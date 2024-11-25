@@ -116,12 +116,10 @@
                                 </a>
                              </li>
                              <li class="nav-item">
-                                <a href="{{ route('dashboard', ['dashboard' => 'CST']) }}" class="nav-link {{ request()->query('dashboard') === 'CST' ? 'active' : '' }}" data-key="t-chat">
+                                <a href="{{ route('dashboard', ['dashboard' => 'consultant']) }}" class="nav-link {{ request()->query('dashboard') === 'consultant' ? 'active' : '' }}" data-key="t-chat">
                                         <span style="color:#09ff00">CDT_CSTvue</span>
                                 </a>
-                                   <a href="{{ route('dashboard', ['dashboard' => 'CST']) }}">View CST Dashboard</a>
-
-                             </li>
+                            </li>
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPP_CSTvue</span></a>
                              </li>
