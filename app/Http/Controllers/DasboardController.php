@@ -15,12 +15,10 @@ class DasboardController extends Controller
         elseif (auth()->user()->hasRole('Manager')) {
             return view('back.dashboard.admin');
         } elseif (auth()->user()->hasRole('CST+')) {
-            if (auth()->user()->hasRole('CST')){
-                if (request()->query('dashboard') === 'consultant') {
-                    return view('back.dashboard.consultant');
-                }
-            }
-            return view('back.dashboard.cstplus');
+            // if (request()->query('dashboard') === 'consultant') {
+            //     return view('back.dashboard.consultant');
+            // }
+            return view('back.dashboard.consultant');
         } else {
             return view('back.dashboard.consultant');
         }
