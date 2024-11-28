@@ -18,7 +18,7 @@ class DasboardController extends Controller
             if (request()->query('dashboard') === 'consultant') {
                 return view('back.dashboard.consultant');
             }
-            return view('back.dashboard.admin');
+            return view('back.dashboard.trunc');
         } else {
             return view('back.dashboard.consultant');
         }
