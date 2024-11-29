@@ -110,11 +110,13 @@
                              <li class="nav-item">
                                  <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CSTvue</span></a>
                              </li> -->
+                             @can('CST+ Vue')
                              <li class="nav-item">
-                                <a href="{{ route('dashboard') }}" class="nav-link {{ !request()->query('dashboard') ? 'active' : '' }}" data-key="t-chat">
-                                    <span style="color:#09ff00">CDT_CST+vue</span>
-                                </a>
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ !request()->query('dashboard') ? 'active' : '' }}" data-key="t-chat">
+                                     <span style="color:#09ff00">CDT_CST+vue</span>
+                                 </a>
                              </li>
+                             @endcan
                              <li class="nav-item">
                                 <a href="{{ route('dashboard', ['dashboard' => 'consultant']) }}" class="nav-link {{ request()->query('dashboard') === 'consultant' ? 'active' : '' }}" data-key="t-chat">
                                         <span style="color:#09ff00">CDT_CSTvue</span>
