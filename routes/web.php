@@ -59,6 +59,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('add-cre/{candidate}/{action}', [CreController::class, 'form'])->name('add.cre');
     Route::get('connexions', [DasboardController::class, 'summary'])->name('connexions');
     Route::get('detail', [DasboardController::class, 'detail'])->name('detail');
+    Route::get('landings', [DasboardController::class, 'landings'])->name('landings');
+
     
     Route::get('tables', [DasboardController::class, 'tables'])->name('tables');
     Route::get('filtrages', [DasboardController::class, 'filtrages'])->name('filtrages');
