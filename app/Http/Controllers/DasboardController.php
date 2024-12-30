@@ -38,6 +38,11 @@ class DasboardController extends Controller
         return view('back.dashboard.detail');
     }
 
+    public function landings()
+    {
+        return view('back.dashboard.landings');
+    }
+
     public function tables()
     {
         return view('back.dashboard.tables');
