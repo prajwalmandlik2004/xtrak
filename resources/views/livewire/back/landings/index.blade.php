@@ -49,8 +49,8 @@
             $rightSections = [
             'KPIs' => ['CDT appelés' => '/kpis/cdt-called', 'CDT mailés' => '/kpis/cdt-mailed', 'TRG appelés' => '/kpis/trg-called', 'TRG mailés' => '/kpis/trg-mailed', 'STATS' => '/kpis/stats'],
             'Queries' => ['Generator' => '/queries/generator', 'Query1' => '/queries/query1', 'Query2' => '/queries/query2'],
-            'Activity' => ['Connection' => '/connexions', 'Upload' => '/import-candidat'],
-            'Parameters' => ['Presentation' => '/parameters/presentation', 'Profile' => '/parameters/profile']
+            'Activity' => ['Connection' => '/connexions', 'Uploaded CV' => '/import-candidat'],
+            'Parameters' => ['Presentation' => '/parameters/presentation', 'Profile' => '/user-profile']
             ];
             @endphp
 
