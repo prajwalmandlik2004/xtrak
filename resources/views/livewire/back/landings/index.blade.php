@@ -102,9 +102,153 @@
         });
     </script>
 
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+<style>
+.min-h-screen {
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.btn-green {
+    background-color: #38a169;
+}
+
+.btn-red {
+    background-color: #e53e3e;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.space-y-6 > div {
+    border: 1px solid rgb(142, 143, 143);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 0px 10px 0px;
+}
+
+.bg-blue-50 {
+    background-color: #e9f1fb;
+}
+
+.bg-green-50 {
+    background-color: #f0fff4;
+}
+
+.shadow {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.text-lg {
+    font-size: 1.4rem;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.text-blue-800 {
+    color: #2b6cb0;
+}
+
+.text-green-800 {
+    color: #2f855a;
+}
+
+a {
+    font-size: 1rem;
+}
+
+.text-blue-500 {
+    color: #2b6cb0;
+}
+
+.text-green-500 {
+    color: #38a169;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .flex {
+        justify-content: space-between;
+    }
+}
+
+.headings{
+    background: #D9EAFD;
+    width: 30%;
+    padding:10px 15px 10px;
+    border-radius: 7px;
+}
+
+.btn-green {
+    background-color: green;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.btn-red {
+    background-color: red;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-icon {
+    font-size: 1.5rem;
+}
+</style>
 </div>
