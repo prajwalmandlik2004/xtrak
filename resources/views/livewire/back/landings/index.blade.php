@@ -7,9 +7,9 @@
     'breadcrumbItems' => [['text' => 'Landing', 'url' => '#']],
     ])
 
-    <h1 class="headings">Welcome to Xtrak</h1>
+    <!-- <h3 class="headings">Welcome to Xtrak</h3> -->
 
-    <div class="flex justify-end gap-4 mb-6">
+    <div class="button-container">
         <button id="openAllBtn" class="btn-green text-white px-4 py-2 rounded hover:bg-green-600 transition-all">Open all</button>
         <button id="closeAllBtn" class="btn-red text-white px-4 py-2 rounded hover:bg-red-600 transition-all">Close all</button>
     </div>
@@ -26,12 +26,12 @@
             @endphp
 
             @foreach ($leftSections as $title => $items)
-            <div class="bg-blue-50 shadow rounded-lg">
-                <div class="p-4 flex justify-between items-center">
-                    <h2 class="font-semibold text-lg text-blue-800">{{ $title }}</h2>
+            <div class="bg-blue-50 rounded-lg">
+                <div class="hack">
                     <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($title) }}">
                         <span class="toggle-icon">+</span>
                     </button>
+                    <h2 class="font-semibold text-lg text-blue-800">{{ $title }}</h2>
                 </div>
                 <div id="{{ Str::slug($title) }}" class="dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2">
@@ -55,12 +55,12 @@
             @endphp
 
             @foreach ($rightSections as $title => $items)
-            <div class="bg-blue-50 shadow rounded-lg">
-                <div class="p-4 flex justify-between items-center">
-                    <h2 class="font-semibold text-lg text-blue-800">{{ $title }}</h2>
+            <div class="bg-blue-50 rounded-lg">
+                <div class="hack">
                     <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($title) }}">
                         <span class="toggle-icon">+</span>
                     </button>
+                    <h2 class="font-semibold text-lg text-blue-800">{{ $title }}</h2>
                 </div>
                 <div id="{{ Str::slug($title) }}" class="dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2">
@@ -102,7 +102,27 @@
         });
     </script>
 
- <style>
+    <style>
+        body {
+            background: white;
+        }
+
+        .hack {
+            display: flex;
+            padding: 15px;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            margin-top: 1rem;
+        }
+
         .min-h-screen {
             min-height: 100vh;
         }
@@ -142,15 +162,11 @@
         }
 
         .space-y-6>div {
-            border: 1px solid rgb(142, 143, 143);
             border-radius: 5px;
             overflow: hidden;
             margin: 10px 0px 10px 0px;
         }
 
-        .shadow {
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-        }
 
         .p-4 {
             padding: 1rem;
@@ -162,6 +178,7 @@
 
         .font-semibold {
             font-weight: 600;
+            margin-top: 6px;
         }
 
         a {
@@ -194,9 +211,9 @@
 
         .headings {
             background: #010066;
-            color:white;
-            width: 25%;
-            padding: 10px 20px 10px;
+            color: white;
+            width: 19%;
+            padding: 7px 15px 7px;
             border-radius: 7px;
         }
 
