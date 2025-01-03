@@ -33,7 +33,7 @@
                     </button>
                     <h2 class="font-semibold text-lg text-blue-800">{{ $title }}</h2>
                 </div>
-                <div id="{{ Str::slug($title) }}" class="dropdown hidden">
+                <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2">
                         @foreach ($items as $itemName => $itemUrl)
                         <li><a href="{{ $itemUrl }}" class="text-blue-500 hover:underline">{{ $itemName }}</a></li>
@@ -62,7 +62,7 @@
                     </button>
                     <h2 class="font-semibold text-lg text-blue-800">{{ $title }}</h2>
                 </div>
-                <div id="{{ Str::slug($title) }}" class="dropdown hidden">
+                <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2">
                         @foreach ($items as $itemName => $itemUrl)
                         <li><a href="{{ $itemUrl }}" class="text-blue-500 hover:underline">{{ $itemName }}</a></li>
@@ -112,6 +112,11 @@
             padding: 15px;
             gap: 1rem;
             align-items: center;
+            margin-left:12rem;
+        }
+
+        .hack1 {
+            margin-left:15rem;
         }
 
         .button-container {
@@ -200,7 +205,7 @@
         .flex {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: rem;
         }
 
         @media (min-width: 768px) {
@@ -221,7 +226,7 @@
             background-color: green;
             border: none;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.8rem;
             margin-bottom: 2px;
         }
 
@@ -229,21 +234,13 @@
             background-color: red;
             border: none;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.8rem;
             margin-bottom: 2px;
         }
 
         .toggle-btn {
             background: none;
-            border: none;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-btn {
-            background: none;
-            border: none;
+            border: 1px solid black;
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -251,6 +248,7 @@
 
         .toggle-icon {
             font-size: 1.5rem;
+            padding:3px;
         }
     </style>
 </div>
