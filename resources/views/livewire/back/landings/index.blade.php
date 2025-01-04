@@ -18,10 +18,10 @@
         <div class="space-y-6">
             @php
             $leftSections = [
-            'Tables' => ['CDTtable' => '/tables/cdt', 'TRGtable' => '/tables/trg', 'OPPtable' => '/tables/opp', 'CTCtable' => '/tables/ctc', 'PREFtable' => '/tables/pref', 'ANNtable' => '/tables/ann', 'CAMtable' => '/tables/cam', 'MAItable' => '/tables/mai'],
             'Views' => ['CDTvue' => '/dashboard', 'CDT_CST+' => '/views/cdt-cst-plus', 'CDT_CST' => '/views/cdt-cst', 'TRGvue' => '/views/trg', 'OPPvue' => '/views/opp', 'CTCvue' => '/views/ctc', 'PREFvue' => '/views/pref', 'ANNvue' => '/views/ann', 'CAMvue' => '/views/cam', 'MAIvue' => '/views/mai'],
-            'Forms' => ['CDTform' => '/candidates/create', 'TRGform' => '/forms/trg', 'OPPform' => '/forms/opp', 'CTCform' => '/forms/ctc', 'PREFform' => '/forms/pref', 'ANNform' => '/forms/ann', 'CAMform' => '/forms/cam', 'MAIform' => '/forms/mai'],
+            'Queries' => ['Generator' => '/queries/generator', 'Query1' => '/queries/query1', 'Query2' => '/queries/query2'],
             'Vaults' => ['BackUp1' => '/vaults/backup1', 'BackUp2' => '/vaults/backup2'],
+            'Dashboard' => ['KPIs' => '/kpi' , 'Plateform' => '/plateform' , 'Commercial' => '/commercial' , 'Head hunt' => '/head' , 'Statistics' => '/statistics' , 'Map' => '/map']
             ];
             @endphp
 
@@ -47,10 +47,11 @@
         <div class="space-y-6">
             @php
             $rightSections = [
-            'KPIs' => ['CDT appelés' => '/kpis/cdt-called', 'CDT mailés' => '/kpis/cdt-mailed', 'TRG appelés' => '/kpis/trg-called', 'TRG mailés' => '/kpis/trg-mailed', 'STATS' => '/kpis/stats'],
-            'Queries' => ['Generator' => '/queries/generator', 'Query1' => '/queries/query1', 'Query2' => '/queries/query2'],
-            'Activity' => ['Connection' => '/connexions', 'Uploaded CV' => '/import-candidat'],
-            'Parameters' => ['Presentation' => '/parameters/presentation', 'Profile' => '/user-profile']
+            'Forms' => ['CDTform' => '/candidates/create', 'TRGform' => '/forms/trg', 'OPPform' => '/forms/opp', 'CTCform' => '/forms/ctc', 'PREFform' => '/forms/pref', 'ANNform' => '/forms/ann', 'CAMform' => '/forms/cam', 'MAIform' => '/forms/mai'],
+            'Tables' => ['CDTtable' => '/tables/cdt', 'TRGtable' => '/tables/trg', 'OPPtable' => '/tables/opp', 'CTCtable' => '/tables/ctc', 'PREFtable' => '/tables/pref', 'ANNtable' => '/tables/ann', 'CAMtable' => '/tables/cam', 'MAItable' => '/tables/mai'],
+            'Activity' => ['Connection' => '/connexions', 'Upload' => '/import-candidat'],
+            'Parameters' => ['Presentation' => '/parameters/presentation', 'Profile' => '/user-profile'],
+            'Technics' => ['Technical Reference book' => '/book', 'DtoD Reporting' => '/reporting', 'SGPD' => '/sgpd'],
             ];
             @endphp
 
@@ -112,11 +113,11 @@
             padding: 15px;
             gap: 1rem;
             align-items: center;
-            margin-left:12rem;
+            margin-left: 12rem;
         }
 
         .hack1 {
-            margin-left:15rem;
+            margin-left: 15rem;
         }
 
         .button-container {
@@ -248,7 +249,7 @@
 
         .toggle-icon {
             font-size: 1.5rem;
-            padding:3px;
+            padding: 3px;
         }
     </style>
 </div>
