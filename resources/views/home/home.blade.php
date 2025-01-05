@@ -151,7 +151,7 @@
         positionCircles();
 
         document.getElementById('CDT').addEventListener('click', function() {
-            window.location.href = '{{ route('landings') }}';
+            window.location.href = '{{ route('landing') }}';
         });
     </script>
 </body>
