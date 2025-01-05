@@ -13,12 +13,12 @@ class LandingController extends Controller
             return view('back.landing.admin');
         } //vue manager à personnaliser plus tard
         elseif (auth()->user()->hasRole('Manager')) {
-            return view('back.landing.admin');
+            return view('back.landing.manager');
         } elseif (auth()->user()->hasRole('CST+')) {
-            if (request()->query('dashboard') === 'consultant') {
-                return view('back.landing.cstplus');
-            }
-            return view('back.landing.trunc');
+            // if (request()->query('dashboard') === 'consultant') {
+            //     return view('back.landing.cstplus');
+            // }
+            return view('back.landing.cstplus');
         } else {
             return view('back.landing.consultant');
         }
