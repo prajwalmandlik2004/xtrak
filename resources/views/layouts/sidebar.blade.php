@@ -31,9 +31,9 @@
              </div>
               <ul class="navbar-nav" id="navbar-nav">
                  <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-                 <li class="nav-item {{ request()->routeIs('landings') ? 'bg-dash-sidebar' : '' }}">
-                     <a class="nav-link menu-link  {{ request()->routeIs('landings') ? '' : '' }}   {{ request()->routeIs('lanings') ? 'active' : '' }}"
-                         href="{{ route('landings') }}">
+                 <li class="nav-item {{ request()->routeIs('landing') ? 'bg-dash-sidebar' : '' }}">
+                     <a class="nav-link menu-link  {{ request()->routeIs('landing') ? '' : '' }}   {{ request()->routeIs('laning') ? 'active' : '' }}"
+                         href="{{ route('landing') }}">
                          <i class="ri-dashboard-2-line"></i>
                          <span data-key="t-dashboards">
                              @if (auth()->user()->hasRole('Administrateur'))
@@ -62,7 +62,7 @@
                  <!-- <a href="{{ route('cdtvue') }}" class="nav-link {{ request()->routeIs('cdtvue*') ? 'active' : '' }}" data-key="t-chat">CDTvue</a> -->
 
                  <a class="nav-link"
-                     href="/landings">
+                     href="/landing">
                      <i class="ri-apps-2-line"></i> <span data-key="t-vault" style="color:orange">LANDING</span>
                  </a>
 
