@@ -13,6 +13,7 @@ use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\NextStepController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\DisponibilityController;
 use App\Http\Controllers\CandidateStateController;
@@ -60,6 +61,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('connexions', [DasboardController::class, 'summary'])->name('connexions');
     Route::get('detail', [DasboardController::class, 'detail'])->name('detail');
     Route::get('landings', [DasboardController::class, 'landings'])->name('landings');
+    Route::get('/landing', [LandingController::class, 'index'])->name('landing');
+    
 
     
     Route::get('tables', [DasboardController::class, 'tables'])->name('tables');
