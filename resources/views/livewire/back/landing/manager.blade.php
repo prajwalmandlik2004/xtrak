@@ -15,13 +15,24 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="space-y-6">
+       <div class="space-y-6">
             @php
             $leftSections = [
             'Views' => ['CDTvue' => '/dashboard', 'CDT_CST+ vue' => '/views/cdt-cst-plus', 'CDT_CSTvue' => '/views/cdt-cst','OPPvue' => '/views/opp'],
             'Queries' => ['Generator' => '/queries/generator', 'Query1' => '/queries/query1', 'Query2' => '/queries/query2'],
             'Vaults' => ['BackUp1' => '/vaults/backup1', 'BackUp2' => '/vaults/backup2'],
-            'Dashboard' => ['KPIs' => '/kpi' , 'Plateform' => '/plateform']
+            'Dashboard' => [
+            'KPIs' => '/kpi',
+            'Plateform' => [
+            'url' => '#',
+            'subItems' => [
+            'Activity' => [
+            'Connection' => '/connexions',
+            'Upload' => '/import-candidat',
+            ]
+            ]
+            ],
+            ],
             ];
             @endphp
 
@@ -35,8 +46,37 @@
                 </div>
                 <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2">
-                        @foreach ($items as $itemName => $itemUrl)
-                        <li><a href="{{ $itemUrl }}" class="text-blue-500 hover:underline">{{ $itemName }}</a></li>
+                        @foreach ($items as $itemName => $itemData)
+                        @if(is_array($itemData) && isset($itemData['subItems']))
+                        <li>
+                            <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($itemName) }}">
+                                <!-- <span class="toggle-icon">+</span> -->
+                                <span class="text-blue-800">{{ $itemName }}</span>
+                            </button>
+                            <ul id="{{ Str::slug($itemName) }}" class="pl-6 pb-4 space-y-2 hidden">
+                                @foreach ($itemData['subItems'] as $subItemName => $subItemUrl)
+                                @if(is_array($subItemUrl))
+                                <p></p>
+                                <li>
+                                    <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($subItemName) }}">
+                                        <!-- <span class="toggle-icon">+</span> -->
+                                        <span class="text-blue-800">{{ $subItemName }}</span>
+                                    </button>
+                                    <ul id="{{ Str::slug($subItemName) }}" class="pl-6 pb-4 space-y-2 hidden">
+                                        @foreach ($subItemUrl as $subSubItemName => $subSubItemUrl)
+                                        <li><a href="{{ $subSubItemUrl }}" class="text-blue-500 hover:underline">{{ $subSubItemName }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                                @else
+                                <li><a href="{{ $subItemUrl }}" class="text-blue-500 hover:underline">{{ $subItemName }}</a></li>
+                                @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                        @else
+                        <li><a href="{{ $itemData }}" class="text-blue-500 hover:underline">{{ $itemName }}</a></li>
+                        @endif
                         @endforeach
                     </ul>
                 </div>
