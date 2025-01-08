@@ -92,7 +92,7 @@
             @php
             $rightSections = [
             'Forms' => ['CDTform' => '/candidates/create', 'TRGform' => '/forms/trg', 'OPPform' => '/forms/opp', 'CTCform' => '/forms/ctc', 'PREFform' => '/forms/pref', 'ANNform' => '/forms/ann', 'CAMform' => '/forms/cam', 'MAIform' => '/forms/mai'],
-            'Tables' => ['CDTtable' => '/tables/cdt', 'TRGtable' => '/tables/trg', 'OPPtable' => '/tables/opp', 'CTCtable' => '/tables/ctc', 'PREFtable' => '/tables/pref', 'ANNtable' => '/tables/ann', 'CAMtable' => '/tables/cam', 'MAItable' => '/tables/mai'],
+            'Tables' => ['CDTtable' => '/tables/cdt', 'TRGtable' => '/tables/trg', 'OPPtable' => '/tables/opp', 'CTCtable' => '/tables/ctc', 'EVTtable' => '/tables/evt', 'PREFtable' => '/tables/pref', 'ANNtable' => '/tables/ann', 'CAMtable' => '/tables/cam', 'MAItable' => '/tables/mai'],
             // 'Activity' => ['Connection' => '/connexions', 'Upload' => '/import-candidat'],
             'Parameters' => ['Presentation' => '/parameters/presentation', 'Profile' => '/user-profile'],
             'Technics' => ['Technical Reference book' => '/book', 'DtoD Reporting' => '/reporting', 'SGPD' => '/sgpd'],
