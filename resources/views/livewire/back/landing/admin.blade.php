@@ -14,12 +14,41 @@
         <button id="closeAllBtn" class="btn-red text-white px-4 py-2 rounded hover:bg-red-600 transition-all">Close all</button>
     </div>
 
+    <div id="popupForm" class="popup-form">
+        <div class="popup-content">
+            <h3>Add Query</h3>
+            <form id="addQueryForm">
+                <label for="table">Table :</label>
+                <select id="table" name="table" required>
+                    <option value="table1">CDT</option>
+                    <option value="table2">TRG</option>
+                    <option value="table3">OPP</option>
+                </select><br>
+
+                <label for="author">Author :</label>
+                <select id="author" name="author" required>
+                    <option value="author1">BGS</option>
+                    <option value="author2">PH</option>
+                    <option value="author3">ADF</option>
+                </select><br>
+
+                <label for="description">Short Description :</label><br>
+                <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
+
+                <button type="button" id="cancelButton" class="cancel-button">Cancel</button>
+                <button type="submit" class="save-button">Save</button>
+            </form>
+        </div>
+    </div>
+
+
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-       <div class="space-y-6">
+        <div class="space-y-6">
             @php
             $leftSections = [
             'Views' => ['CDTvue' => '/dashboard', 'CDT_CST+' => '/views/cdt-cst-plus', 'CDT_CST' => '/views/cdt-cst', 'TRGvue' => '/views/trg', 'OPPvue' => '/views/opp', 'CTCvue' => '/views/ctc', 'PREFvue' => '/views/pref', 'ANNvue' => '/views/ann', 'CAMvue' => '/views/cam', 'MAIvue' => '/views/mai'],
-            'Queries' => ['Generator' => '/queries/generator', 'Query1' => '/queries/query1', 'Query2' => '/queries/query2'],
+            'Queries' => [],
             'Vaults' => ['BackUp1' => '/vaults/backup1', 'BackUp2' => '/vaults/backup2'],
             'Dashboard' => [
             'KPIs' => '/kpi',
@@ -53,16 +82,15 @@
                         @foreach ($items as $itemName => $itemData)
                         @if(is_array($itemData) && isset($itemData['subItems']))
                         <li>
-                            <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($itemName) }}">
+                            <button class="toggle-btn1 text-blue-500 transition-all" data-target="#{{ Str::slug($itemName) }}">
                                 <!-- <span class="toggle-icon">+</span> -->
-                                <span class="text-blue-800">{{ $itemName }}</span>                          
+                                <span class="text-blue-800">{{ $itemName }}</span>
                             </button>
                             <ul id="{{ Str::slug($itemName) }}" class="pl-6 pb-4 space-y-2 hidden">
                                 @foreach ($itemData['subItems'] as $subItemName => $subItemUrl)
                                 @if(is_array($subItemUrl))
-                                <p></p>
                                 <li>
-                                    <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($subItemName) }}">
+                                    <button class="toggle-btn1 text-blue-500 transition-all" data-target="#{{ Str::slug($subItemName) }}">
                                         <!-- <span class="toggle-icon">+</span> -->
                                         <span class="text-blue-800">{{ $subItemName }}</span>
                                     </button>
@@ -82,12 +110,20 @@
                         <li><a href="{{ $itemData }}" class="text-blue-500 hover:underline">{{ $itemName }}</a></li>
                         @endif
                         @endforeach
+
+                        @if ($title == 'Queries')
+                        <!-- <li> -->
+                        <button id="newButton" class="new-button text-blue-500 hover:underline">
+                            New
+                        </button>
+                        <!-- </li> -->
+                        @endif
                     </ul>
                 </div>
             </div>
             @endforeach
         </div>
-        
+
         <div class="space-y-6">
             @php
             $rightSections = [
@@ -122,11 +158,21 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggleButtons = document.querySelectorAll('.toggle-btn');
+            const toggleButtons1 = document.querySelectorAll('.toggle-btn1');
             const openAllBtn = document.getElementById('openAllBtn');
             const closeAllBtn = document.getElementById('closeAllBtn');
             const dropdowns = document.querySelectorAll('.dropdown');
 
             toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const target = document.querySelector(button.getAttribute('data-target'));
+                    const icon = button.querySelector('.toggle-icon');
+                    target.classList.toggle('hidden');
+                    icon.textContent = target.classList.contains('hidden') ? '+' : '-';
+                });
+            });
+
+            toggleButtons1.forEach(button => {
                 button.addEventListener('click', () => {
                     const target = document.querySelector(button.getAttribute('data-target'));
                     const icon = button.querySelector('.toggle-icon');
@@ -144,6 +190,36 @@
                 dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
                 toggleButtons.forEach(button => button.querySelector('.toggle-icon').textContent = '+');
             });
+
+            openAllBtn.addEventListener('click', () => {
+                dropdowns.forEach(dropdown => dropdown.classList.remove('hidden'));
+                toggleButtons1.forEach(button => button.querySelector('.toggle-icon').textContent = '-');
+            });
+
+            closeAllBtn.addEventListener('click', () => {
+                dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
+                toggleButtons1.forEach(button => button.querySelector('.toggle-icon').textContent = '+');
+            });
+
+            const newButton = document.getElementById('newButton');
+            const popupForm = document.getElementById('popupForm');
+            const cancelButton = document.getElementById('cancelButton');
+            const addQueryForm = document.getElementById('addQueryForm');
+
+            newButton.addEventListener('click', function() {
+                popupForm.style.display = 'flex';
+            });
+
+            cancelButton.addEventListener('click', function() {
+                popupForm.style.display = 'none';
+            });
+
+            addQueryForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                console.log('Form Submitted!');
+                popupForm.style.display = 'none';
+            });
+
         });
     </script>
 
@@ -291,9 +367,92 @@
             transition: all 0.3s ease;
         }
 
+        .toggle-btn1 {
+            background: none;
+            border: 1px solid white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
         .toggle-icon {
             font-size: 1.5rem;
             padding: 3px;
+        }
+
+        .new-button {
+            padding: 3px 12px;
+            font-size: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .new-button:hover {
+            background-color: #45a049;
+        }
+
+        .popup-form {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 400px;
+        }
+
+        .popup-content h3 {
+            margin-bottom: 15px;
+        }
+
+        .popup-content label {
+            font-size: 14px;
+        }
+
+        .popup-content select,
+        .popup-content textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .popup-content button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .save-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .save-button:hover {
+            background-color: #45a049;
+        }
+
+        .cancel-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .cancel-button:hover {
+            background-color: #da190b;
         }
     </style>
 </div>
