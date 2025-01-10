@@ -14,6 +14,7 @@
         <button id="closeAllBtn" class="btn-red text-white px-4 py-2 rounded hover:bg-red-600 transition-all">Close all</button>
     </div>
 
+
     <div id="popupForm" class="popup-form">
         <div class="popup-content">
             <h3>Add Query</h3>
@@ -112,11 +113,25 @@
                         @endforeach
 
                         @if ($title == 'Queries')
-                        <!-- <li> -->
+                        <div id="savedQueriesContainer" class="saved-queries-container">
+                            <table id="savedQueriesTable" class="saved-queries-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Table</th>
+                                        <th>Aut.</th>
+                                        <th>Short Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
                         <button id="newButton" class="new-button text-blue-500 hover:underline">
                             New
                         </button>
-                        <!-- </li> -->
                         @endif
                     </ul>
                 </div>
@@ -205,6 +220,8 @@
             const popupForm = document.getElementById('popupForm');
             const cancelButton = document.getElementById('cancelButton');
             const addQueryForm = document.getElementById('addQueryForm');
+            const savedQueriesContainer = document.getElementById('savedQueriesContainer');
+            const savedQueriesTable = document.getElementById('savedQueriesTable').querySelector('tbody');
 
             newButton.addEventListener('click', function() {
                 popupForm.style.display = 'flex';
@@ -214,11 +231,122 @@
                 popupForm.style.display = 'none';
             });
 
+
+
+            // function loadSavedQueries() {
+            //     const queries = JSON.parse(localStorage.getItem('queries')) || [];
+            //     savedQueriesTable.innerHTML = '';
+
+            //     if (queries.length > 0) {
+            //         savedQueriesContainer.style.display = 'block';
+
+            //         const lastFiveQueries = queries.slice(-5);
+
+            //         lastFiveQueries.forEach((query) => {
+            //             const row = document.createElement('tr');
+            //             row.innerHTML = `
+            //     <td>${query.date}</td>
+            //     <td>${query.table}</td>
+            //     <td>${query.author}</td>
+            //     <td>${query.description}</td>
+            // `;
+            //             savedQueriesTable.appendChild(row);
+            //         });
+            //     } else {
+            //         savedQueriesContainer.style.display = 'none';
+            //     }
+            // }
+
+            function loadSavedQueries(showAll = false) {
+                const queries = JSON.parse(localStorage.getItem('queries')) || [];
+                const savedQueriesContainer = document.getElementById('savedQueriesContainer');
+                const savedQueriesTable = document.getElementById('savedQueriesTable').querySelector('tbody');
+
+                savedQueriesTable.innerHTML = '';
+
+                if (queries.length > 0) {
+                    savedQueriesContainer.style.display = 'block';
+
+                    const queriesToDisplay = showAll ? queries.slice(-5) : queries ;
+
+                    queriesToDisplay.forEach((query) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                <td>${query.date}</td>
+                <td>${query.table}</td>
+                <td>${query.author}</td>
+                <td>${query.description}</td>
+            `;
+                        savedQueriesTable.appendChild(row);
+                    });
+
+                    const toggleRow = document.createElement('tr');
+                    toggleRow.innerHTML = `
+            <td colspan="4" style="text-align:center;background: #4CAF50; font-size:1rem; cursor:pointer; color:white; text-decoration: none;" id="toggleButton">
+                ${showAll ? 'See All' : 'Close All'}
+            </td>
+        `;
+                    savedQueriesTable.appendChild(toggleRow);
+
+                    const toggleButton = document.getElementById('toggleButton');
+                    toggleButton.addEventListener('click', function() {
+                        loadSavedQueries(!showAll); 
+                    });
+
+                    if (showAll) {
+                        removeTableScroll();
+                    } else {
+                        addTableScroll();
+                    }
+                } else {
+                    savedQueriesContainer.style.display = 'none';
+                }
+            }
+
+            function addTableScroll() {
+                const savedQueriesContainer = document.getElementById('savedQueriesContainer');
+                savedQueriesContainer.style.maxHeight = '300px';
+                savedQueriesContainer.style.overflowY = 'scroll';
+            }
+
+            function removeTableScroll() {
+                const savedQueriesContainer = document.getElementById('savedQueriesContainer');
+                savedQueriesContainer.style.maxHeight = ''; 
+                savedQueriesContainer.style.overflowY = ''; 
+            }
+
+            loadSavedQueries();
+
+
+
             addQueryForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-                console.log('Form Submitted!');
+
+                const table = addQueryForm.table.options[addQueryForm.table.selectedIndex].text;
+                const author = addQueryForm.author.options[addQueryForm.author.selectedIndex].text;
+                const description = addQueryForm.description.value;
+                const date = new Date().toLocaleDateString();
+
+                const query = {
+                    date,
+                    table,
+                    author,
+                    description
+                };
+
+                const queries = JSON.parse(localStorage.getItem('queries')) || [];
+                queries.push(query);
+
+                localStorage.setItem('queries', JSON.stringify(queries));
+
+                loadSavedQueries();
+
                 popupForm.style.display = 'none';
+                addQueryForm.reset();
             });
+
+            window.onload = loadSavedQueries;
+
 
         });
     </script>
@@ -454,5 +582,63 @@
         .cancel-button:hover {
             background-color: #da190b;
         }
+
+        .saved-queries-container {
+            max-width: 100%;
+            overflow-x: auto;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 8px;
+        }
+
+        .saved-queries-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .saved-queries-table thead th {
+            background-color: #0073e6;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 8px;
+            border-bottom: 2px solid #005bb5;
+            width: 25%;
+        }
+
+        .saved-queries-table tbody td {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .saved-queries-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .saved-queries-table tbody tr:hover {
+            background-color: #e8f4fd;
+            transition: background-color 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .saved-queries-container {
+                padding: 5px;
+            }
+
+            .saved-queries-table thead th,
+            .saved-queries-table tbody td {
+                padding: 8px;
+                font-size: 12px;
+            }
+        }
+
     </style>
 </div>
+
+
