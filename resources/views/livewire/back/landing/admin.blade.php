@@ -4,10 +4,8 @@
     'title' => auth()->user()->hasRole('Administrateur') ? 'Espace Administrateur' : (
     auth()->user()->hasRole('Manager') ? 'Espace Manager' : (
     auth()->user()->hasRole('CST+') ? 'Espace Consultant+' : 'Espace Consultant')),
-    'breadcrumbItems' => [['text' => 'Landing', 'url' => '#']],
+    'breadcrumbItems' => [['text' => 'Landing', 'url' => '/landing']],
     ])
-
-    <!-- <h3 class="headings">Welcome to Xtrak</h3> -->
 
     <div class="button-container">
         <button id="openAllBtn" class="btn-green text-white px-4 py-2 rounded hover:bg-green-600 transition-all">Open all</button>
@@ -24,6 +22,8 @@
                     <option value="table1">CDT</option>
                     <option value="table2">TRG</option>
                     <option value="table3">OPP</option>
+                    <option value="table4">CTC</option>
+                    <option vlaue="table5">EVT</option>
                 </select><br>
 
                 <label for="author">Author :</label>
@@ -31,6 +31,8 @@
                     <option value="author1">BGS</option>
                     <option value="author2">PH</option>
                     <option value="author3">ADF</option>
+                    <option value="author4">PMK</option>
+                    <option value="author5">CS+</option>
                 </select><br>
 
                 <label for="description">Short Description :</label><br>
@@ -48,7 +50,7 @@
         <div class="space-y-6">
             @php
             $leftSections = [
-            'Views' => ['CDTvue' => '/dashboard', 'CDT_CST+' => '/views/cdt-cst-plus', 'CDT_CST' => '/views/cdt-cst', 'TRGvue' => '/views/trg', 'OPPvue' => '/views/opp', 'CTCvue' => '/views/ctc', 'PREFvue' => '/views/pref', 'ANNvue' => '/views/ann', 'CAMvue' => '/views/cam', 'MAIvue' => '/views/mai'],
+            'Views' => ['CDTvue' => '/dashboard','TRGvue' => '/views/trg', 'OPPvue' => '/views/opp', 'CTCvue' => '/views/ctc', 'PREFvue' => '/views/pref', 'ANNvue' => '/views/ann', 'CAMvue' => '/views/cam', 'MAIvue' => '/views/mai'],
             'Queries' => [],
             'Vaults' => ['BackUp1' => '/vaults/backup1', 'BackUp2' => '/vaults/backup2'],
             'Dashboard' => [
@@ -129,9 +131,14 @@
                             </table>
                         </div>
                         <br>
-                        <button id="newButton" class="new-button text-blue-500 hover:underline">
-                            New
-                        </button>
+                        <div class="tb">
+                            <button id="newButton" class="new-button text-blue-500 hover:underline">
+                                New Query
+                            </button>
+                            <button id="seeAllButton" class="see-button text-blue-500 hover:underline">
+                                See All
+                            </button>
+                        </div>
                         @endif
                     </ul>
                 </div>
@@ -233,41 +240,17 @@
 
 
 
-            // function loadSavedQueries() {
-            //     const queries = JSON.parse(localStorage.getItem('queries')) || [];
-            //     savedQueriesTable.innerHTML = '';
 
-            //     if (queries.length > 0) {
-            //         savedQueriesContainer.style.display = 'block';
-
-            //         const lastFiveQueries = queries.slice(-5);
-
-            //         lastFiveQueries.forEach((query) => {
-            //             const row = document.createElement('tr');
-            //             row.innerHTML = `
-            //     <td>${query.date}</td>
-            //     <td>${query.table}</td>
-            //     <td>${query.author}</td>
-            //     <td>${query.description}</td>
-            // `;
-            //             savedQueriesTable.appendChild(row);
-            //         });
-            //     } else {
-            //         savedQueriesContainer.style.display = 'none';
-            //     }
-            // }
 
             function loadSavedQueries(showAll = false) {
+                const seeAllButton = document.getElementById('seeAllButton');
                 const queries = JSON.parse(localStorage.getItem('queries')) || [];
-                const savedQueriesContainer = document.getElementById('savedQueriesContainer');
-                const savedQueriesTable = document.getElementById('savedQueriesTable').querySelector('tbody');
-
                 savedQueriesTable.innerHTML = '';
 
                 if (queries.length > 0) {
                     savedQueriesContainer.style.display = 'block';
 
-                    const queriesToDisplay = showAll ? queries.slice(-5) : queries ;
+                    const queriesToDisplay = showAll ? queries.slice(-5) : queries;
 
                     queriesToDisplay.forEach((query) => {
                         const row = document.createElement('tr');
@@ -280,19 +263,7 @@
                         savedQueriesTable.appendChild(row);
                     });
 
-                    const toggleRow = document.createElement('tr');
-                    toggleRow.innerHTML = `
-            <td colspan="4" style="text-align:center;background: #4CAF50; font-size:1rem; cursor:pointer; color:white; text-decoration: none;" id="toggleButton">
-                ${showAll ? 'See All' : 'Close All'}
-            </td>
-        `;
-                    savedQueriesTable.appendChild(toggleRow);
-
-                    const toggleButton = document.getElementById('toggleButton');
-                    toggleButton.addEventListener('click', function() {
-                        loadSavedQueries(!showAll); 
-                    });
-
+                    seeAllButton.textContent = showAll ? 'See All' : 'Close All';
                     if (showAll) {
                         removeTableScroll();
                     } else {
@@ -303,19 +274,25 @@
                 }
             }
 
+            seeAllButton.addEventListener('click', () => {
+                const isShowingAll = seeAllButton.textContent === 'See All';
+                loadSavedQueries(!isShowingAll);
+            });
+
+
             function addTableScroll() {
                 const savedQueriesContainer = document.getElementById('savedQueriesContainer');
-                savedQueriesContainer.style.maxHeight = '300px';
+                savedQueriesContainer.style.maxHeight = '250px';
                 savedQueriesContainer.style.overflowY = 'scroll';
             }
 
             function removeTableScroll() {
                 const savedQueriesContainer = document.getElementById('savedQueriesContainer');
-                savedQueriesContainer.style.maxHeight = ''; 
-                savedQueriesContainer.style.overflowY = ''; 
+                savedQueriesContainer.style.maxHeight = '';
+                savedQueriesContainer.style.overflowY = '';
             }
 
-            loadSavedQueries();
+            loadSavedQueries(false);
 
 
 
@@ -325,7 +302,11 @@
                 const table = addQueryForm.table.options[addQueryForm.table.selectedIndex].text;
                 const author = addQueryForm.author.options[addQueryForm.author.selectedIndex].text;
                 const description = addQueryForm.description.value;
-                const date = new Date().toLocaleDateString();
+                const date = new Date().toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: '2-digit'
+                });
 
                 const query = {
                     date,
@@ -511,14 +492,26 @@
         .new-button {
             padding: 3px 12px;
             font-size: 1rem;
-            background-color: #4CAF50;
-            color: white;
+            margin-left: -65px;
+            /* background-color: white; */
+            color: black;
             border: none;
             cursor: pointer;
         }
 
-        .new-button:hover {
-            background-color: #45a049;
+        .see-button {
+            padding: 3px 8px;
+            font-size: 1rem;
+            /* background-color: white; */
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+
+        .tb {
+            display: flex;
+            gap: 145px;
+            margin-top: -15px;
         }
 
         .popup-form {
@@ -588,9 +581,10 @@
             overflow-x: auto;
             background-color: #f9f9f9;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 8px;
+            border-radius: 5px;
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+            margin-left: -65px;
+            padding: 5px;
         }
 
         .saved-queries-table {
@@ -601,20 +595,28 @@
         }
 
         .saved-queries-table thead th {
-            background-color: #0073e6;
+            background-color: #010066;
             color: #fff;
             font-weight: bold;
             text-transform: uppercase;
             padding: 8px;
-            border-bottom: 2px solid #005bb5;
+            border: 1px solid black;
             width: 25%;
         }
 
         .saved-queries-table tbody td {
             padding: 5px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid black;
             color: #333;
             font-size: 14px;
+        }
+
+        .saved-queries-table th {
+            border: 1px solid white;
+        }
+
+        .saved-queries-table td {
+            border: 1px solid black;
         }
 
         .saved-queries-table tbody tr:nth-child(even) {
@@ -631,14 +633,17 @@
                 padding: 5px;
             }
 
-            .saved-queries-table thead th,
+            .saved-queries-table thead th {
+                border: 1px solid white;
+                padding: 8px;
+                font-size: 12px;
+            }
+
             .saved-queries-table tbody td {
+                border: 1px solid black;
                 padding: 8px;
                 font-size: 12px;
             }
         }
-
     </style>
 </div>
-
-
