@@ -18,7 +18,7 @@
        <div class="space-y-6">
             @php
             $leftSections = [
-            'Views' => ['CDTvue' => '/dashboard', 'CDT_CST+ vue' => '/views/cdt-cst-plus', 'CDT_CSTvue' => '/views/cdt-cst','OPPvue' => '/views/opp'],
+            'Views' => ['CDTvue' => '/dashboard','OPPvue' => '/views/opp'],
             'Queries' => ['Generator' => '/queries/generator', 'Query1' => '/queries/query1', 'Query2' => '/queries/query2'],
             'Vaults' => ['BackUp1' => '/vaults/backup1', 'BackUp2' => '/vaults/backup2'],
             'Dashboard' => [
