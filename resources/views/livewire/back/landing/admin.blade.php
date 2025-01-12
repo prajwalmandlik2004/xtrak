@@ -45,6 +45,16 @@
     </div>
 
 
+    <div id="queryModal" class="popup-form">
+        <div class="popup-content">
+            <h3>Query Details</h3>
+            <div id="queryDetails"></div>
+            <button id="editButton" class="edit-button">Edit</button>
+            <button id="deleteButton" class="delete-button">Delete</button>
+            <button id="closeQueryModal" class="close-button">Close</button>
+        </div>
+    </div>
+
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="space-y-6">
@@ -177,6 +187,7 @@
         </div>
     </div>
 
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggleButtons = document.querySelectorAll('.toggle-btn');
@@ -229,30 +240,35 @@
             const addQueryForm = document.getElementById('addQueryForm');
             const savedQueriesContainer = document.getElementById('savedQueriesContainer');
             const savedQueriesTable = document.getElementById('savedQueriesTable').querySelector('tbody');
+            const seeAllButton = document.getElementById('seeAllButton');
 
-            newButton.addEventListener('click', function() {
+            const queryModal = document.getElementById('queryModal');
+            const queryDetails = document.getElementById('queryDetails');
+            const editButton = document.getElementById('editButton');
+            const deleteButton = document.getElementById('deleteButton');
+            const closeQueryModal = document.getElementById('closeQueryModal');
+            let selectedQueryIndex = null;
+
+            newButton.addEventListener('click', () => {
                 popupForm.style.display = 'flex';
+                addQueryForm.dataset.mode = 'add';
+                addQueryForm.reset();
             });
 
-            cancelButton.addEventListener('click', function() {
+            cancelButton.addEventListener('click', () => {
                 popupForm.style.display = 'none';
             });
 
-
-
-
-
             function loadSavedQueries(showAll = false) {
-                const seeAllButton = document.getElementById('seeAllButton');
                 const queries = JSON.parse(localStorage.getItem('queries')) || [];
                 savedQueriesTable.innerHTML = '';
 
                 if (queries.length > 0) {
                     savedQueriesContainer.style.display = 'block';
 
-                    const queriesToDisplay = showAll ? queries.slice(-5) : queries;
+                    const queriesToDisplay = showAll ? queries : queries.slice(Math.max(queries.length - 5, 0));
 
-                    queriesToDisplay.forEach((query) => {
+                    queriesToDisplay.forEach((query, index) => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
                 <td>${query.date}</td>
@@ -260,12 +276,13 @@
                 <td>${query.author}</td>
                 <td>${query.description}</td>
             `;
+                        row.addEventListener('click', () => openQueryModal(query, showAll ? index : queries.length - 5 + index));
                         savedQueriesTable.appendChild(row);
                     });
 
-                    seeAllButton.textContent = showAll ? 'See All' : 'Close All';
+                    seeAllButton.textContent = showAll ? 'Close All' : 'Show All';
                     if (showAll) {
-                        removeTableScroll();
+                        addTableScroll();
                     } else {
                         addTableScroll();
                     }
@@ -274,64 +291,109 @@
                 }
             }
 
-            seeAllButton.addEventListener('click', () => {
-                const isShowingAll = seeAllButton.textContent === 'See All';
-                loadSavedQueries(!isShowingAll);
+            function openQueryModal(query, index) {
+                selectedQueryIndex = index;
+                queryDetails.innerHTML = `
+        <p><strong>Date:</strong> ${query.date}</p>
+        <p><strong>Table:</strong> ${query.table}</p>
+        <p><strong>Author:</strong> ${query.author}</p>
+        <p><strong>Description:</strong> ${query.description}</p>
+    `;
+                queryModal.style.display = 'flex';
+            }
+
+            editButton.addEventListener('click', () => {
+                const queries = JSON.parse(localStorage.getItem('queries')) || [];
+                const query = queries[selectedQueryIndex];
+
+                addQueryForm.dataset.mode = 'edit';
+                addQueryForm.dataset.editIndex = selectedQueryIndex;
+
+                Array.from(addQueryForm.table.options).forEach(option => {
+                    if (option.text === query.table) option.selected = true;
+                });
+
+                Array.from(addQueryForm.author.options).forEach(option => {
+                    if (option.text === query.author) option.selected = true;
+                });
+
+                addQueryForm.description.value = query.description;
+
+                queryModal.style.display = 'none';
+                popupForm.style.display = 'flex';
             });
 
+            deleteButton.addEventListener('click', () => {
+                if (confirm('Are you sure you want to delete this query?')) {
+                    const queries = JSON.parse(localStorage.getItem('queries')) || [];
+                    queries.splice(selectedQueryIndex, 1);
+                    localStorage.setItem('queries', JSON.stringify(queries));
+
+                    queryModal.style.display = 'none';
+                    loadSavedQueries(seeAllButton.textContent === 'Close All');
+                }
+            });
+
+            closeQueryModal.addEventListener('click', () => {
+                queryModal.style.display = 'none';
+            });
+
+            seeAllButton.addEventListener('click', () => {
+                const isShowingAll = seeAllButton.textContent === 'Show All';
+                loadSavedQueries(isShowingAll);
+            });
+
+            addQueryForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const table = this.table.options[this.table.selectedIndex].text;
+                const author = this.author.options[this.author.selectedIndex].text;
+                const description = this.description.value;
+                const queries = JSON.parse(localStorage.getItem('queries')) || [];
+
+                if (this.dataset.mode === 'edit') {
+                    const editIndex = parseInt(this.dataset.editIndex);
+                    queries[editIndex] = {
+                        ...queries[editIndex],
+                        table,
+                        author,
+                        description
+                    };
+                } else {
+                    const date = new Date().toLocaleDateString('en-GB', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: '2-digit'
+                    });
+                    queries.push({
+                        date,
+                        table,
+                        author,
+                        description
+                    });
+                }
+
+                localStorage.setItem('queries', JSON.stringify(queries));
+                loadSavedQueries(seeAllButton.textContent === 'Close All');
+
+                popupForm.style.display = 'none';
+                this.reset();
+            });
 
             function addTableScroll() {
-                const savedQueriesContainer = document.getElementById('savedQueriesContainer');
                 savedQueriesContainer.style.maxHeight = '250px';
                 savedQueriesContainer.style.overflowY = 'scroll';
             }
 
             function removeTableScroll() {
-                const savedQueriesContainer = document.getElementById('savedQueriesContainer');
                 savedQueriesContainer.style.maxHeight = '';
                 savedQueriesContainer.style.overflowY = '';
             }
 
-            loadSavedQueries(false);
-
-
-
-            addQueryForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const table = addQueryForm.table.options[addQueryForm.table.selectedIndex].text;
-                const author = addQueryForm.author.options[addQueryForm.author.selectedIndex].text;
-                const description = addQueryForm.description.value;
-                const date = new Date().toLocaleDateString('en-GB', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: '2-digit'
-                });
-
-                const query = {
-                    date,
-                    table,
-                    author,
-                    description
-                };
-
-                const queries = JSON.parse(localStorage.getItem('queries')) || [];
-                queries.push(query);
-
-                localStorage.setItem('queries', JSON.stringify(queries));
-
-                loadSavedQueries();
-
-                popupForm.style.display = 'none';
-                addQueryForm.reset();
-            });
-
-            window.onload = loadSavedQueries;
-
+            window.onload = () => loadSavedQueries(false);
 
         });
     </script>
-
     <style>
         body {
             background: white;
@@ -401,7 +463,6 @@
             overflow: hidden;
             margin: 10px 0px 10px 0px;
         }
-
 
         .p-4 {
             padding: 1rem;
@@ -559,7 +620,7 @@
         }
 
         .save-button {
-            background-color: #4CAF50;
+            background-color: #4caf50;
             color: white;
         }
 
@@ -591,7 +652,7 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            font-family: 'Arial', sans-serif;
+            font-family: "Arial", sans-serif;
         }
 
         .saved-queries-table thead th {
@@ -644,6 +705,40 @@
                 padding: 8px;
                 font-size: 12px;
             }
+        }
+
+        #queryModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #queryDetails p {
+            margin: 10px 0;
+            font-size: 1em;
+            color: #555;
+        }
+
+        .edit-button {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .close-button {
+            background-color: #007bff;
+            color: #fff;
         }
     </style>
 </div>
