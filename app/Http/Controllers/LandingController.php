@@ -25,6 +25,11 @@ class LandingController extends Controller
         //return view('back.dashboard.index');
     }
 
+    public function kpis()
+    {
+        return view('back.landing.kpis');
+    }
+
 
     public function commande($param)
     {
