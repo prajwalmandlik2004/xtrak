@@ -64,7 +64,7 @@
             'Queries' => [],
             'Vaults' => ['BackUp1' => '/vaults/backup1', 'BackUp2' => '/vaults/backup2'],
             'Dashboard' => [
-            'KPIs' => '/kpi',
+            'KPIs' => '/kpis',
             'Plateform' => [
             'url' => '#',
             'subItems' => [
