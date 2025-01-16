@@ -61,6 +61,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('connexions', [DasboardController::class, 'summary'])->name('connexions');
     Route::get('detail', [DasboardController::class, 'detail'])->name('detail');
     Route::get('landings', [DasboardController::class, 'landings'])->name('landings');
+    Route::get('kpis', [LandingController::class, 'kpis'])->name('kpis');
     Route::get('/landing', [LandingController::class, 'index'])->name('landing');
     
 
