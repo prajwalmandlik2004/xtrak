@@ -20,7 +20,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2">N of</th>
-                        <th colspan="3">Last capt : (date : dd/mm/yy)</th>
+                        <th colspan="3">Last day : <span id="dateTRG"></span></th>
                         <th colspan="3">Last 7 days</th>
                         <th colspan="3">Last 30 days</th>
                         <th colspan="3">Last 12 months</th>
@@ -202,7 +202,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2">N</th>
-                        <th colspan="3">Last capt : (date : dd/mm/yy)</th>
+                        <th colspan="3">Last day : <span id="dateCDT"></span></th>
                         <th colspan="3">Last 7 days</th>
                         <th colspan="3">Last 30 days</th>
                         <th colspan="3">Last 12 months</th>
@@ -589,6 +589,9 @@
     <script>
         const todaysDate = new Date().toLocaleDateString();
         document.getElementById("date").innerText = todaysDate;
+        document.getElementById("dateTRG").innerText = todaysDate;
+        document.getElementById("dateCDT").innerText = todaysDate;
+
 
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
