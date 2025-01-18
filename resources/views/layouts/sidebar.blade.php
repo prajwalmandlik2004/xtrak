@@ -180,7 +180,7 @@
                                                          <a href="{{ route('candidates.create') }}" class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormCDT</span></a>
                                                      </li>
                                                      <li class="nav-item">
-                                                         <a href="{{ route('formopp') }}" class="nav-link {{ request()->routeIs('formopp*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">FormOPP</span></a>
+                                                         <a href="{{ route('opportunity.create') }}" class="nav-link {{ request()->routeIs('opportunity.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormOPP</span></a>
 
                                                      </li>
                                                  </ul>
