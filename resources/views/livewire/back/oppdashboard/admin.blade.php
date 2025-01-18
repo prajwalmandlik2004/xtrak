@@ -193,6 +193,15 @@
 
 
 
+        <!-- end row -->
+        <div class="row g-0 text-center text-sm-start align-items-center mb-4">
+            <!-- end col -->
+            {{ $candidates->links() }}
+        </div><!-- end row -->
+
+
+        
+
         <div class="card-footer">
             <div class="d-flex justify-content-end">
 
@@ -231,11 +240,7 @@
 
 
 
-        <!-- end row -->
-        <div class="row g-0 text-center text-sm-start align-items-center mb-4">
-            <!-- end col -->
-            {{ $candidates->links() }}
-        </div><!-- end row -->
+
     </div>
     @push('page-script')
     <script>
