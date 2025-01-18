@@ -88,7 +88,7 @@
                                  <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
                              </li>
                              <li class="nav-item">
-                                 <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
+                                 <a href="{{ route('oppdashboard') }}" class="nav-link {{ request()->routeIs('oppdashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">OPPvue</span></a>
                              </li>
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('trgvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">TRGvue</span></a>
