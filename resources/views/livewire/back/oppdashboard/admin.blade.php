@@ -529,6 +529,15 @@
         }
     </script>
     @endpush
+    <style>
+        .large-checkbox {
+            width: 45px;
+            height: 30px;
+            cursor: pointer;
+            margin-top: 3px;
+            margin-left: 15px;
+        }
+    </style>
 </div>
 
 
