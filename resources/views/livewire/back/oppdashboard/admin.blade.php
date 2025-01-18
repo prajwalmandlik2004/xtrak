@@ -5,7 +5,7 @@
     ])
 
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
                     <h4><strong>OPPvue</strong></h4>
@@ -536,6 +536,9 @@
             cursor: pointer;
             margin-top: 3px;
             margin-left: 15px;
+        }
+        .card-footer{
+            margin-top:-10px;
         }
     </style>
 </div>
