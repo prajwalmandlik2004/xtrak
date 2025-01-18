@@ -543,7 +543,8 @@
             margin-left: 15px;
         }
         .card-footer{
-            margin-top:-10px;
+            margin-top:-5px;
+            margin-bottom:10px;
         }
     </style>
 </div>
