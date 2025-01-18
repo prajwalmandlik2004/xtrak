@@ -9,6 +9,8 @@ use App\Http\Controllers\FieldController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NsDateController;
 use App\Http\Controllers\CompagnyController;
+use App\Http\Controllers\OppdashController;
+use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\NextStepController;
 use App\Http\Controllers\PositionController;
@@ -50,6 +52,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('roles-permissions', [RolePermissionController::class, 'index'])->name('roles.permissions');
     Route::resource('roles', RoleController::class);
     Route::resource('candidates', CandidateController::class);
+    Route::resource('opportunity', OpportunityController::class);
     Route::get('import-candidat', [CandidateController::class, 'import'])->name('import.candidat');
     Route::resource('positions', PositionController::class);
     Route::resource('specialities', SpecialityController::class);
