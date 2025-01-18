@@ -1074,6 +1074,13 @@
         </div>
     </div>
 </div>
+<style>
+    .form-control-custom-1 {
+        background-color: #f8fafc !important;
+        border: 1px solid #37afe1;
+        border-radius: none;
+    }
+</style>
 </div>
 @push('page-script')
 <script>
