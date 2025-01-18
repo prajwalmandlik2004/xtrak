@@ -60,7 +60,7 @@
         <div class="space-y-6">
             @php
             $leftSections = [
-            'Views' => ['CDTvue' => '/dashboard','TRGvue' => '/views/trg', 'OPPvue' => '/views/opp', 'CTCvue' => '/views/ctc', 'PREFvue' => '/views/pref', 'ANNvue' => '/views/ann', 'CAMvue' => '/views/cam', 'MAIvue' => '/views/mai'],
+            'Views' => ['CDTvue' => '/dashboard','TRGvue' => '/views/trg', 'OPPvue' => '/oppdashboard', 'CTCvue' => '/views/ctc', 'PREFvue' => '/views/pref', 'ANNvue' => '/views/ann', 'CAMvue' => '/views/cam', 'MAIvue' => '/views/mai'],
             'Queries' => [],
             'Vaults' => ['BackUp1' => '/vaults/backup1', 'BackUp2' => '/vaults/backup2'],
             'Dashboard' => [
@@ -159,7 +159,7 @@
         <div class="space-y-6">
             @php
             $rightSections = [
-            'Forms' => ['CDTform' => '/candidates/create', 'TRGform' => '/forms/trg', 'OPPform' => '/forms/opp', 'CTCform' => '/forms/ctc', 'PREFform' => '/forms/pref', 'ANNform' => '/forms/ann', 'CAMform' => '/forms/cam', 'MAIform' => '/forms/mai'],
+            'Forms' => ['CDTform' => '/candidates/create', 'TRGform' => '/forms/trg', 'OPPform' => '/opportunity/create', 'CTCform' => '/forms/ctc', 'PREFform' => '/forms/pref', 'ANNform' => '/forms/ann', 'CAMform' => '/forms/cam', 'MAIform' => '/forms/mai'],
             'Tables' => ['CDTtable' => '/tables/cdt', 'TRGtable' => '/tables/trg', 'OPPtable' => '/tables/opp', 'CTCtable' => '/tables/ctc', 'EVTtable' => '/tables/evt', 'PREFtable' => '/tables/pref', 'ANNtable' => '/tables/ann', 'CAMtable' => '/tables/cam', 'MAItable' => '/tables/mai'],
             // 'Activity' => ['Connection' => '/connexions', 'Upload' => '/import-candidat'],
             'Parameters' => ['Presentation' => '/parameters/presentation', 'Profile' => '/user-profile'],
