@@ -36,6 +36,20 @@ height: 50px !important;
 background-color: #e1e1e1 !important;
 }
 
+.form-control-custom-1 {
+    background-color: #f8fafc !important;
+    border: 1px solid #37afe1;
+    border-radius: none;
+}
+
+.large-checkbox {
+    width: 45px;
+    height: 30px;
+    cursor: pointer;
+    margin-top: 3px;
+    margin-left: 15px;
+}
+
 .table-responsive table td {
 max-width: 80px !important;
 overflow: hidden !important;
