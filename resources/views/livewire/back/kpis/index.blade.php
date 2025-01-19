@@ -759,7 +759,8 @@
         }
 
         .dark {
-            background-color: #f5f5f5;
+/*             background-color: #f5f5f5; */
+             background-color:#D8D9DA;
         }
 
         .kpi-section {
@@ -794,7 +795,7 @@
 
         .kpi-table th,
         .kpi-table td {
-            border: 1px solid black;
+            border: 2px solid black;
             padding: 8px;
             text-align: center;
         }
