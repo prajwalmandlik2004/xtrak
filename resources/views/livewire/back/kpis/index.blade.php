@@ -24,7 +24,7 @@
                         <th style="border-right:2px solid black;" colspan="3">Last 7 days</th>
                         <th style="border-right:2px solid black;" colspan="3">Last 30 days</th>
                         <th style="border-right:2px solid black;" colspan="3">Last 12 months</th>
-                        <th style="border-right:2px solid black;" colspan="3">Overall</th>
+                        <th colspan="3">Overall</th>
                     </tr>
                     <tr>
                         <th>Done</th>
@@ -41,7 +41,7 @@
                         <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th style="border-right:2px solid black;">Gap</th>
+                        <th>Gap</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +61,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>WN</td>
@@ -79,7 +79,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>NRP</td>
@@ -97,7 +97,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>CTC</td>
@@ -115,7 +115,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>RV</td>
@@ -133,7 +133,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>BQF</td>
@@ -151,7 +151,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>KLF</td>
@@ -169,7 +169,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>HRD</td>
@@ -187,7 +187,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                 </tbody>
             </table>
@@ -206,7 +206,7 @@
                         <th style="border-right:2px solid black;" colspan="3">Last 7 days</th>
                         <th style="border-right:2px solid black;" colspan="3">Last 30 days</th>
                         <th style="border-right:2px solid black;" colspan="3">Last 12 months</th>
-                        <th style="border-right:2px solid black;" colspan="3">Overall</th>
+                        <th colspan="3">Overall</th>
                     </tr>
                     <tr>
                         <th>Done</th>
@@ -223,7 +223,7 @@
                         <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th style="border-right:2px solid black;">Gap</th>
+                        <th>Gap</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -243,7 +243,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>CTC</td>
@@ -261,7 +261,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>REFS</td>
@@ -279,7 +279,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>CV</td>
@@ -297,7 +297,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>Push</td>
@@ -315,7 +315,7 @@
                         <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                     </tr>
                 </tbody>
             </table>
