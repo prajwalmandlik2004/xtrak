@@ -20,28 +20,28 @@
                 <thead>
                     <tr>
                         <th rowspan="2">N of</th>
-                        <th colspan="3">Last day : <span id="dateTRG"></span></th>
-                        <th colspan="3">Last 7 days</th>
-                        <th colspan="3">Last 30 days</th>
-                        <th colspan="3">Last 12 months</th>
-                        <th colspan="3">Overall</th>
+                        <th style="border-right:2px solid black;" colspan="3">Last day : <span id="dateTRG"></span></th>
+                        <th style="border-right:2px solid black;" colspan="3">Last 7 days</th>
+                        <th style="border-right:2px solid black;" colspan="3">Last 30 days</th>
+                        <th style="border-right:2px solid black;" colspan="3">Last 12 months</th>
+                        <th style="border-right:2px solid black;" colspan="3">Overall</th>
                     </tr>
                     <tr>
                         <th>Done</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,145 +49,145 @@
                         <td>Calls</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>WN</td>
                         <td contenteditable="true"></td>
                         <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td class="dark" contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td class="dark" contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td class="dark" contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>NRP</td>
                         <td contenteditable="true"></td>
                         <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td class="dark" contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td class="dark" contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td class="dark" contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>CTC</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>RV</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>BQF</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>KLF</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>HRD</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                 </tbody>
             </table>
@@ -202,28 +202,28 @@
                 <thead>
                     <tr>
                         <th rowspan="2">N</th>
-                        <th colspan="3">Last day : <span id="dateCDT"></span></th>
-                        <th colspan="3">Last 7 days</th>
-                        <th colspan="3">Last 30 days</th>
-                        <th colspan="3">Last 12 months</th>
-                        <th colspan="3">Overall</th>
+                        <th style="border-right:2px solid black;" colspan="3">Last day : <span id="dateCDT"></span></th>
+                        <th style="border-right:2px solid black;" colspan="3">Last 7 days</th>
+                        <th style="border-right:2px solid black;" colspan="3">Last 30 days</th>
+                        <th style="border-right:2px solid black;" colspan="3">Last 12 months</th>
+                        <th style="border-right:2px solid black;" colspan="3">Overall</th>
                     </tr>
                     <tr>
                         <th>Done</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                         <th>Avg</th>
                         <th>Obj</th>
-                        <th>Gap</th>
+                        <th style="border-right:2px solid black;">Gap</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -231,91 +231,91 @@
                         <td>Calls</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>CTC</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>REFS</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>CV</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                     <tr>
                         <td>Push</td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                         <td contenteditable="true"></td>
                         <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td style="border-right:2px solid black;" contenteditable="true"></td>
                     </tr>
                 </tbody>
             </table>
@@ -592,7 +592,6 @@
         document.getElementById("dateTRG").innerText = todaysDate;
         document.getElementById("dateCDT").innerText = todaysDate;
 
-
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.style.display = "block";
@@ -759,8 +758,8 @@
         }
 
         .dark {
-/*             background-color: #f5f5f5; */
-             background-color:#D8D9DA;
+            /* background-color: #f5f5f5; */
+            background-color: #D8D9DA;
         }
 
         .kpi-section {
@@ -795,7 +794,7 @@
 
         .kpi-table th,
         .kpi-table td {
-            border: 2px solid black;
+            border: 1px solid black;
             padding: 8px;
             text-align: center;
         }
