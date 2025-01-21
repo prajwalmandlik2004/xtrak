@@ -1270,7 +1270,7 @@
         flex-grow: 1;
         padding: 3px 6px;
         border: 1px solid #999;
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .cdt-ok-btn {
@@ -1278,7 +1278,7 @@
         border: 1px solid #999;
         padding: 2px 8px;
         cursor: pointer;
-        font-size: 15px;
+        font-size: 13px;
         color: white;
     }
 
