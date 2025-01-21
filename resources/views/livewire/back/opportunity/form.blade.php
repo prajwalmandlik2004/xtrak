@@ -83,23 +83,29 @@
                     </div>
                     <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'disabled' : '' }}"
+                            <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 1 ? '#info' : '' }}" role="tab">
                                 Description
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'disabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#documents' }}" role="tab">
-                                Documents
+                        <li class="nav-item">
+                            <a wire:click="goToDoc" class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
+                                data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#management' }}" role="tab">
+                                Management
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'disabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#cre' }}" role="tab">
-                                C.R.E
+                            <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
+                                data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
+                                Invoicement
                             </a>
-                        </li> -->
+                        </li>
+                        <li class="nav-item">
+                            <a wire:click="goToForm" class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                data-bs-toggle="tab" href="{{ $step != 4 ? '#' : '#evts' }}" role="tab">
+                                EVTS Records
+                            </a>
+                        </li>
                     </ul>
                     <div class="card-body">
 
@@ -587,7 +593,7 @@
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div>
-                                                <label for="annual_gross_two" class="form-label">Brut annuel<span class="text-danger">*</span></label>
+                                                <label for="cc" class="form-label">Brut annuel<span class="text-danger">*</span></label>
                                                 <input type="number"
                                                     class="form-control form-control-custom-1 @error('annual_gross_two') is-invalid @enderror"
                                                     wire:model='annual_gross_two'
@@ -704,24 +710,33 @@
                     </form>
                 </div>
                 <!-- end tab pane -->
-                <div class="tab-pane fade {{ $step == 2 ? 'show active' : '' }}" id="documents" role="tabpanel">
+
+
+
+                <div class="tab-pane fade {{ $step == 2 ? 'show active' : '' }}" id="management" role="tabpanel">
                     <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'disabled' : '' }}"
+                            <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 1 ? '#info' : '' }}" role="tab">
-                                Informations
+                                Description
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'disabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#documents' }}" role="tab">
-                                Documents
+                            <a wire:click="goToDoc" class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
+                                data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#management' }}" role="tab">
+                                Management
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'disabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#cre' }}" role="tab">
-                                C.R.E
+                            <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
+                                data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
+                                Invoicement
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a wire:click="goToForm" class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                data-bs-toggle="tab" href="{{ $step != 4 ? '#' : '#evts' }}" role="tab">
+                                EVTS Records
                             </a>
                         </li>
                     </ul>
@@ -730,127 +745,161 @@
                         <div>
 
                             <div class="card-header align-items-center d-flex border-bottom-dashed">
-                                <h4 class="mb-0 card-title flex-grow-1">Documents</h4>
-
-                                <div class="d-flex">
-                                    <div class="p-2 flex-grow-1">
-
-                                        <button type="button" wire:click='goToForm'
-                                            class="btn btn-sm btn-label">
-                                            <i class="align-middle ri-arrow-left-line label-icon ms-2"></i>Aller
-                                            vers le
-                                            formulaire</button>
+                                <div class="recruitment-container">
+                                    <div class="table-container">
+                                        <table class="recruitment-table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="with-border">Date</th>
+                                                    <th class="with-border">CodeCDT</th>
+                                                    <th class="with-border">Civ.</th>
+                                                    <th class="with-border">Prénom</th>
+                                                    <th class="with-border">Nom</th>
+                                                    <th class="with-border">Fonction</th>
+                                                    <th class="with-border">Dispo.</th>
+                                                    <th class="with-border">Délai</th>
+                                                    <th class="with-border">Statut</th>
+                                                    <th class="with-border">Next step</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="with-border">10/10/24</td>
+                                                    <td class="with-border">GRTHKUX</td>
+                                                    <td class="with-border">MME</td>
+                                                    <td class="with-border">Aurélie</td>
+                                                    <td class="with-border">MONFION</td>
+                                                    <td class="with-border">Resp. Sureté Nucléaire</td>
+                                                    <td class="with-border">Préavis négo.</td>
+                                                    <td class="with-border">3 mois</td>
+                                                    <td class="with-border">
+                                                        <select class="status-select">
+                                                            <option>Linké</option>
+                                                            <option>Validé</option>
+                                                            <option>Présenté</option>
+                                                            <option>RV tél OK</option>
+                                                            <option>RV phys. prévu</option>
+                                                            <option>Prom. acceptée</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="with-border">
+                                                        <select class="status-select">
+                                                            <option>A valider</option>
+                                                            <option>Présenter</option>
+                                                            <option>RV tél prévu</option>
+                                                            <option>RV phy prévu</option>
+                                                            <option>Non retenu</option>
+                                                            <option>Promesse emb.</option>
+                                                            <option>Non retenu</option>
+                                                            <option>Embauché</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="with-border">09/10/24</td>
+                                                    <td class="with-border">ADTGFHU</td>
+                                                    <td class="with-border">M</td>
+                                                    <td class="with-border">Chboub</td>
+                                                    <td class="with-border">SCHBOUBA</td>
+                                                    <td class="with-border">Chef d'équipe</td>
+                                                    <td class="with-border">Immédiate</td>
+                                                    <td class="with-border">1 mois</td>
+                                                    <td class="with-border">
+                                                        <select class="status-select">
+                                                            <option>Validé</option>
+                                                            <option>Linké</option>
+                                                            <option>Présenté</option>
+                                                            <option>RV tél OK</option>
+                                                            <option>RV phys. prévu</option>
+                                                            <option>Prom. acceptée</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="with-border">
+                                                        <select class="status-select">
+                                                            <option>Présenter</option>
+                                                            <option>A valider</option>
+                                                            <option>RV tél prévu</option>
+                                                            <option>RV phy prévu</option>
+                                                            <option>Non retenu</option>
+                                                            <option>Promesse emb.</option>
+                                                            <option>Non retenu</option>
+                                                            <option>Embauché</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border">
+                                                        <select class="status-select">
+                                                            <!-- <option>Select</option>  -->
+                                                        </select>
+                                                    </td>
+                                                    <td class="with-border">
+                                                        <select class="status-select">
+                                                            <!-- <option>Select</option> -->
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border"></td>
+                                                    <td class="with-border">
+                                                        <select class="status-select">
+                                                            <!-- <option>Select</option> -->
+                                                        </select>
+                                                    </td>
+                                                    <td class="with-border">
+                                                        <select class="status-select">
+                                                            <!-- <option>Select</option> -->
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="p-2 ">
-                                        <button type="button" wire:click="openFileModal()"
-                                            data-bs-toggle="modal" data-bs-target="#modal"
-                                            class="btn btn-soft-info btn-sm"><i
-                                                class="align-bottom ri-upload-2-fill me-1"></i>
-                                            Nouveau</button>
-                                    </div>
-                                    <div class="p-2">
-                                        <button type="button" wire:click='endCreate'
-                                            class="btn btn-info btn-sm">
-                                            Ignorer et Terminer</button>
 
-                                    </div>
-                                    <div class="p-2">
-                                        <button type="button" wire:click='goToCre'
-                                            class="btn btn-sm btn-label">
-                                            <i class="align-middle ri-arrow-right-line label-icon ms-2"></i>Aller
-                                            vers
-                                            le CRE</button>
-
+                                    <div class="button-container">
+                                        <button class="link-btn" id="linkNewCDT">LINK NEW CDT</button>
+                                        <button class="unlink-btn" id="unlinkBtn">UNLINK</button>
                                     </div>
                                 </div>
+
+                                <div class="modal fade" id="cdtModal" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
+                                        <div class="modal-content cdt-modal-content">
+                                            <div class="cdt-modal-header">
+                                                <span>Enter CDT code:</span>
+                                                <button type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+                                            </div>
+                                            <div class="cdt-modal-body">
+                                                <div class="cdt-input-group">
+                                                    <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                                                    <button class="cdt-ok-btn" id="okButton">OK</button>
+                                                </div>
+                                                <div class="cdt-message">("message")</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
 
 
-                            <div class="gap-2 vstack">
-                                @if ($files)
 
-
-                                @forelse ($files as $file)
-                                <div class="p-2 border border-dashed rounded">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0 me-3">
-                                            <div class="avatar-sm">
-                                                <div
-                                                    class="rounded avatar-title bg-light text-secondary fs-24">
-                                                    <i class="ri-file-ppt-2-line"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="overflow-hidden flex-grow-1">
-                                            <h5 class="mb-1 fs-15"><a href="#"
-                                                    class="text-body text-truncate d-block">{{ $file->name ?? '---' }}</a>
-                                            </h5>
-                                            <p
-                                                class="mb-0 fw-medium badge rounded-pill bg-primary fs-10">
-                                                @if ($file->file_type)
-                                                @if ($file->file_type == 'cv')
-                                                Curriculum Vitae
-                                                @elseif($file->file_type == 'cover letter')
-                                                Lettre de motivation
-                                                @else
-                                                Autre
-                                                @endif
-                                                @endif
-                                            </p>
-
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <div class="gap-1 d-flex">
-
-                                                {{-- <a class=""
-                                                                href="{{ asset('storage') . '/' . $file->path }}"
-                                                download="{{ $file->name }}">
-                                                <i class=""></i>
-                                                </a> --}}
-                                                {{-- <a class="btn btn-icon text-muted btn-sm fs-18"
-                                                                wire:click="downloadFile('{{ $file->path }}','{{ $file->name }}')">
-                                                <i class="ri-download-2-line"></i>
-                                                </a> --}}
-                                                <div class="dropdown">
-                                                    <button
-                                                        class="btn btn-icon text-muted btn-sm fs-18 dropdown"
-                                                        type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        <i class="ri-more-fill"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-
-                                                        <li>
-
-                                                            <a class="dropdown-item"
-                                                                wire:click="openFileModal('{{ $file->id }}')"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modal"><i
-                                                                    class="align-bottom ri-pencil-fill me-2 text-muted"></i>
-                                                                Renommer</a>
-                                                        </li>
-                                                        <li><a wire:click="confirmDeleteFile('{{ $file->name }}', '{{ $file->id }}')"
-                                                                class="dropdown-item"><i
-                                                                    class="align-bottom ri-delete-bin-fill me-2 text-muted"></i>
-                                                                Supprimer</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @empty
-                                <div class="py-4 mt-4 text-center" id="noresult">
-                                    <h5 class="mt-4">Aucun document trouvé</h5>
-                                </div>
-                                @endforelse
-                                @else
-                                <div class="py-4 mt-4 text-center" id="noresult">
-                                    <h5 class="mt-4">Aucun document trouvé</h5>
-                                </div>
-                                @endif
-
-                            </div>
 
 
                             <x-modal>
@@ -927,24 +976,30 @@
                     </div>
                 </div>
                 <!-- end tab pane -->
-                <div class="tab-pane fade {{ $step == 3 ? 'show active' : '' }}" id="cre" role="tabpanel">
+                <div class="tab-pane fade {{ $step == 3 ? 'show active' : '' }}" id="invoicement" role="tabpanel">
                     <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'disabled' : '' }}"
+                            <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 1 ? '#info' : '' }}" role="tab">
-                                Informations
+                                Description
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'disabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#documents' }}" role="tab">
-                                Documents
+                            <a wire:click="goToDoc" class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
+                                data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#management' }}" role="tab">
+                                Management
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'disabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#cre' }}" role="tab">
-                                C.R.E
+                            <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
+                                data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
+                                Invoicement
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a wire:click="goToForm" class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                data-bs-toggle="tab" href="{{ $step != 4 ? '#' : '#evts' }}" role="tab">
+                                EVTS Records
                             </a>
                         </li>
                     </ul>
@@ -1080,6 +1135,158 @@
         border: 1px solid #37afe1;
         border-radius: none;
     }
+
+    .recruitment-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin-bottom: 15px;
+    }
+
+    .recruitment-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: white;
+    }
+
+    .recruitment-table th {
+        padding: 12px 15px;
+        text-align: left;
+        background: #D8D9DA;
+        color: #495057;
+        font-weight: 500;
+        font-size: 14px;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .recruitment-table td {
+        padding: 12px 15px;
+        font-size: 14px;
+        color: #495057;
+        background: white;
+    }
+
+    .with-border {
+        border-right: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .recruitment-table tr:nth-child(even) td {
+        background: #f8f9fa;
+    }
+
+    .recruitment-table tr:hover td {
+        background-color: #f1f3f5;
+    }
+
+    .status-select {
+        width: 100%;
+        padding: 4px 8px;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #495057;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .link-btn {
+        background-color: #ffc107;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        color: #000;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .unlink-btn {
+        background-color: #dc3545;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .cdt-modal-dialog {
+        max-width: 300px;
+    }
+
+    .cdt-modal-content {
+        border: 1px solid #999;
+        border-radius: 0;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        background: #f0f0f0;
+    }
+
+    .cdt-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 8px;
+        background: linear-gradient(to bottom, #fff, #e4e4e4);
+        /* border-bottom: 1px solid #999; */
+    }
+
+    .cdt-modal-header span {
+        font-size: 15px;
+        color: #000;
+    }
+
+    .cdt-close-btn {
+        background: red;
+        border: none;
+        font-size: 18px;
+        line-height: 1;
+        padding: 0 4px;
+        cursor: pointer;
+        color: white;
+    }
+
+    .cdt-modal-body {
+        padding: 10px;
+        background: #f0f0f0;
+    }
+
+    .cdt-input-group {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 6px;
+    }
+
+    .cdt-input {
+        flex-grow: 1;
+        padding: 3px 6px;
+        border: 1px solid #999;
+        font-size: 15px;
+    }
+
+    .cdt-ok-btn {
+        background: #118B50;
+        border: 1px solid #999;
+        padding: 2px 8px;
+        cursor: pointer;
+        font-size: 15px;
+        color: white;
+    }
+
+    .cdt-message {
+        font-size: 15px;
+        color: #666;
+        padding: 2px 0;
+    }
 </style>
 </div>
 @push('page-script')
@@ -1095,9 +1302,47 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
+
+        const linkNewCDT = document.getElementById('linkNewCDT');
+        const cdtModal = new bootstrap.Modal(document.getElementById('cdtModal'));
+        const okButton = document.getElementById('okButton');
+        const cdtCodeInput = document.getElementById('cdtCode');
+
+        linkNewCDT.addEventListener('click', function() {
+            cdtModal.show();
+        });
+
+        okButton.addEventListener('click', function() {
+            const code = cdtCodeInput.value.trim();
+            if (code) {
+                console.log('CDT Code submitted:', code);
+                cdtModal.hide();
+                cdtCodeInput.value = '';
+            }
+        });
+
+        const tableRows = document.querySelectorAll('.recruitment-table tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('dblclick', function() {
+                console.log('Row double-clicked:', this);
+            });
+        });
+
+
         document.querySelectorAll('.auto-resize').forEach(function(textarea) {
             autoResize(textarea);
         });
+
+        var triggerTabList = [].slice.call(document.querySelectorAll('a[data-bs-toggle="tab"]'))
+        triggerTabList.forEach(function(triggerEl) {
+            new bootstrap.Tab(triggerEl)
+        })
+
+        var tabEl = document.querySelector('a[data-bs-toggle="tab"]')
+        tabEl.addEventListener('shown.bs.tab', function(event) {
+            event.target
+            event.relatedTarget
+        })
     });
 </script>
 @endpush
