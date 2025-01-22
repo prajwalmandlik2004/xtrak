@@ -971,7 +971,6 @@
 
                         </div>
 
-
                         <!-- end card -->
                     </div>
                 </div>
@@ -1007,115 +1006,251 @@
                         <form wire:submit.prevent="storeCre()">
                             @csrf
                             <div class="card-header">
-                                <div class="d-flex">
-                                    <div class="p-2 flex-grow-1">
-                                        <h5 class="mb-0 card-title ">
-                                            Formulaire de creation d'un C.R.E
-                                        </h5>
-                                    </div>
-                                    <div class="p-2">
-                                        <a wire:click='goToDoc' class="btn btn-label"><i
-                                                class="align-middle ri-arrow-left-line label-icon ms-2"></i>Aller
-                                            vers les documents</a>
-                                    </div>
-                                    <div class="p-2">
-                                        <button type="submit" class="btn btn-primary">Enregistrer et
-                                            terminer</button>
-                                    </div>
-                                    <div class="p-2">
-                                        <a wire:click='endCreate' class="btn btn-info"></i>Ignorer et Terminer</a>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="card-body">
-
-
-                                <div class="row">
-                                    <div class="mt-3 col-md-12">
-                                        <div>
-                                            <label for="response1" class="form-label">1. Statut professionnel :</label>
-                                            <textarea wire:model='response1' class="form-control auto-resize" id="response1"
-                                                style="resize: none; overflow-y: hidden;"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 col-md-12">
-                                        <div>
-                                            <label for="response2" class="form-label">2. Statut personnel :</label>
-                                            <textarea wire:model='response2' class="form-control auto-resize" id="response2"
-                                                style="resize: none; overflow-y: hidden;"></textarea>
+                                <div class="form-container">
+                                    <!-- Contact Section -->
+                                    <div class="section">
+                                        <div class="section-title">Accountancy Contact</div>
+                                        <div class="contact-grid">
+                                            <div class="field-group">
+                                                <label class="field-label">CTCcode</label>
+                                                <input type="text" class="field-input field-readonly" value="EFDGTHY" readonly>
+                                            </div>
+                                            <div class="field-group">
+                                                <label class="field-label">Title</label>
+                                                <select class="field-select">
+                                                    <option>Mme</option>
+                                                    <option>Mlle</option>
+                                                    <option>M.</option>
+                                                </select>
+                                            </div>
+                                            <div class="field-group">
+                                                <label class="field-label">First name</label>
+                                                <input type="text" class="field-input" value="Laura">
+                                            </div>
+                                            <div class="field-group">
+                                                <label class="field-label">Last name</label>
+                                                <input type="text" class="field-input" value="Faure">
+                                            </div>
+                                            <div class="field-group">
+                                                <label class="field-label">Position</label>
+                                                <input type="text" class="field-input" value="Accountant">
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="mt-3 col-md-12">
-                                        <div>
-                                            <label for="response3" class="form-label">3. Situation professionnelle :</label>
-                                            <textarea wire:model='response3' class="form-control auto-resize" id="response3"
-                                                style="resize: none; overflow-y: hidden;"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 col-md-12">
-                                        <div>
-                                            <label for="response4" class="form-label">4. Points incontournables :
-                                            </label>
-                                            <textarea wire:model='response4' class="form-control auto-resize" id="response4"
-                                                style="resize: none; overflow-y: hidden;"></textarea>
-                                        </div>
-                                    </div>
+                                    <div class="main-layout">
+                                        <!-- Left Column -->
+                                        <div class="left-column">
+                                            <!-- Calculation Section -->
+                                            <div class="section">
+                                                <div class="section-title">Calc. Reference Base</div>
+                                                <div class="calc-grid">
+                                                    <div class="field-group">
+                                                        <label class="field-label">Gross sal.</label>
+                                                        <input type="text" class="field-input currency-input" value="150.236" id="grossSal">
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Advant. 1</label>
+                                                        <input type="text" class="field-input currency-input" value="12.000" id="advant1">
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Advant. 2</label>
+                                                        <input type="text" class="field-input currency-input" value="15.500" id="advant2">
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Advant. 3</label>
+                                                        <input type="text" class="field-input currency-input" value="7.500" id="advant3">
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Total base<span class="required">*</span></label>
+                                                        <input type="text" class="field-input currency-input field-readonly" id="totalBase" readonly>
+                                                    </div>
+                                                </div>
 
-                                    <div class="mt-3 col-md-12">
-                                        <div>
-                                            <label for="response5" class="form-label">5. Savoir-être du candidat :
-                                            </label>
-                                            <textarea wire:model='response5' class="form-control auto-resize" id="response5"
-                                                style="resize: none; overflow-y: hidden;"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 col-md-12">
-                                        <div>
-                                            <label for="response6" class="form-label">6. Prise de référence(s) :</label>
-                                            <textarea wire:model='response6' class="form-control auto-resize" id="response6"
-                                                style="resize: none; overflow-y: hidden;"></textarea>
-                                        </div>
-                                    </div>
+                                                <div class="calc-grid">
+                                                    <div class="field-group">
+                                                        <label class="field-label">Base hono.</label>
+                                                        <input type="text" class="field-input field-readonly" id="baseHono" readonly>
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Warant. ext.</label>
+                                                        <input type="text" class="field-input field-readonly" id="warantExt" readonly>
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Total HT</label>
+                                                        <input type="text" class="field-input field-readonly" id="totalHT" readonly>
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">VAT</label>
+                                                        <select class="field-select vat-select">
+                                                            <option>20%</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Total TTC<span class="required">*</span></label>
+                                                        <input type="text" class="field-input field-readonly" id="totalTTC" readonly>
+                                                    </div>
+                                                </div>
 
-                                    <div class="mt-3 col-md-12">
-                                        <div>
-                                            <label for="response7" class="form-label">7. Prétentions salariales :</label>
-                                            <textarea wire:model='response7' class="form-control auto-resize" id="response7"
-                                                style="resize: none; overflow-y: hidden;"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 col-md-12">
-                                        <div>
-                                            <label for="response8" class="form-label">8. Disponibilités candidat :</label>
-                                            <textarea wire:model='response8' class="form-control auto-resize" id="response8"
-                                                style="resize: none; overflow-y: hidden;"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 col-md-12">
-                                        <div>
-                                            <label for="response7" class="form-label">9. Résumé du parcours professionnel :</label>
-                                            <textarea wire:model='response9' class="form-control auto-resize" id="response9"
-                                                style="resize: none; overflow-y: hidden;"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
+                                                <!-- Invoice Details -->
+                                                <div class="payment-schedule">
+                                                    <div class="calc-grid">
+                                                        <div class="field-group">
+                                                            <label class="field-label">Inv. date</label>
+                                                            <input type="text" class="field-input" value="31/08/24">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Inv. ref.</label>
+                                                            <input type="text" class="field-input" value="874452">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Sent on:</label>
+                                                            <input type="text" class="field-input" value="31/08/24">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Remark(s)</label>
+                                                            <input type="text" class="field-input" value="---">
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                            </div>
-                            <div class="card-footer">
+                                                <!-- Payment Schedule -->
+                                                <div class="payment-schedule">
+                                                    <div class="payment-row">
+                                                        <div class="field-group">
+                                                            <label class="field-label">Due date 1</label>
+                                                            <input type="text" class="field-input" value="10/09/24">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Amount 1</label>
+                                                            <input type="text" class="field-input currency-input" value="xxx">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Paid 1</label>
+                                                            <input type="text" class="field-input currency-input" value="xxx">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">PayDate 1</label>
+                                                            <input type="text" class="field-input" value="10/09/24">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Balance 1</label>
+                                                            <input type="text" class="field-input currency-input field-readonly" value="0" readonly>
+                                                        </div>
+                                                    </div>
 
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" wire:click='goToForm'
-                                        class="btn btn-secondary btn-label nexttab"><i
-                                            class="align-middle ri-arrow-left-line label-icon fs-16 ms-2"></i>Aller
-                                        vers les documents</button>
-                                    <button type="submit" wire:click='goToCre'
-                                        class="btn btn-success btn-label right ms-auto nexttab">Enregistrer
-                                        et Terminer</button>
-                                </div>
-                            </div>
+                                                    <div class="payment-row">
+                                                        <div class="field-group">
+                                                            <label class="field-label">Due date 2</label>
+                                                            <input type="text" class="field-input" value="12/11/24">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Amount 2</label>
+                                                            <input type="text" class="field-input currency-input" value="xxx">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Paid 2</label>
+                                                            <input type="text" class="field-input currency-input" value="xxx">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">PayDate 2</label>
+                                                            <input type="text" class="field-input" value="12/11/24">
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Balance 2</label>
+                                                            <input type="text" class="field-input currency-input field-readonly" value="0" readonly>
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Total bal.:</label>
+                                                            <input type="text" class="field-input currency-input field-readonly" value="0" readonly>
+                                                        </div>
+                                                        <div class="field-group">
+                                                            <label class="field-label">Paym. status</label>
+                                                            <input type="text" class="field-input field-readonly status-paid" value="PAID" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Right Column -->
+                                        <div class="right-column">
+                                            <div class="section">
+                                                <div class="section-title">Fees</div>
+                                                <div class="fees-grid">
+                                                    <div class="field-group">
+                                                        <label class="field-label">Type</label>
+                                                        <select class="field-select" id="feeType">
+                                                            <option value="%">%</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Exec.</label>
+                                                        <input type="text" class="field-input" value="25.0" id="execFee">
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Non-exec.</label>
+                                                        <input type="text" class="field-input field-readonly" value="---" readonly>
+                                                    </div>
+                                                </div>
+
+                                                <div class="right-grid">
+                                                    <div class="field-group">
+                                                        <label class="field-label">Warant ext.</label>
+                                                        <select class="field-select">
+                                                            <option>Yes</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">%</label>
+                                                        <input type="text" class="field-input" value="5.0">
+                                                    </div>
+                                                </div>
+
+                                                <div class="right-grid">
+                                                    <div class="field-group">
+                                                        <label class="field-label">VAT</label>
+                                                        <select class="field-select">
+                                                            <option>20%</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">CST (TXT)</label>
+                                                        <input type="text" class="field-input" value="5.0">
+                                                    </div>
+                                                </div>
+
+                                                <div class="field-group">
+                                                    <label class="field-label">Total HT</label>
+                                                    <input type="text" class="field-input currency-input field-readonly" value="2.779" readonly>
+                                                </div>
+
+                                                <div class="right-grid">
+                                                    <div class="field-group">
+                                                        <label class="field-label">Invoicement term</label>
+                                                        <select class="field-select">
+                                                            <option>Promesse d'emb.</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Payment term</label>
+                                                        <select class="field-select">
+                                                            <option>10 JN DF, DF=DPE</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="field-group">
+                                                    <label class="field-label">Note(s)</label>
+                                                    <textarea class="field-input notes-field">---</textarea>
+                                                </div>
+
+                                                <div class="right-grid">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                         </form>
                         <!-- end card -->
@@ -1130,6 +1265,314 @@
     </div>
 </div>
 <style>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --primary-color: #2563eb;
+        --primary-light: #e0e7ff;
+        --border-color: #e2e8f0;
+        --text-color: #334155;
+        --text-light: #64748b;
+        --background-light: #f8fafc;
+        --success-color: #22c55e;
+        --input-focus: #e0e7ff;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    body {
+        color: var(--text-color);
+        background-color: #f9fafb;
+        line-height: 1.5;
+    }
+
+    .form-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .main-layout {
+        display: grid;
+        grid-template-columns: 70% 30%;
+        gap: 1.5rem;
+    }
+
+    .section {
+        background: white;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .section:hover {
+        box-shadow: var(--shadow-md);
+    }
+
+    .section-title {
+        color: var(--text-color);
+        font-size: 0.925rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 0.8fr 0.6fr 1fr 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .calc-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+
+    .field-group {
+        margin-bottom: 0.75rem;
+    }
+
+    .field-label {
+        display: block;
+        color: var(--text-light);
+        font-size: 0.813rem;
+        font-weight: 500;
+        margin-bottom: 0.375rem;
+    }
+
+
+    .field-input {
+        width: 100%;
+        padding: 0.625rem 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--text-color);
+        background-color: white;
+        transition: all 0.2s ease;
+    }
+
+    .field-input:hover {
+        border-color: var(--primary-color);
+    }
+
+    .field-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px var(--input-focus);
+    }
+
+
+    .field-select {
+        width: 100%;
+        padding: 0.625rem 2rem 0.625rem 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        background-color: white;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.25rem;
+        appearance: none;
+        transition: all 0.2s ease;
+    }
+
+    .field-select:hover {
+        border-color: var(--primary-color);
+    }
+
+    .field-select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px var(--input-focus);
+    }
+
+    .field-readonly {
+        background-color: var(--background-light);
+        cursor: not-allowed;
+        color: var(--text-light);
+    }
+
+    .field-readonly:hover {
+        border-color: var(--border-color);
+    }
+
+    .currency-input {
+        position: relative;
+    }
+
+    .currency-input::after {
+        content: '€';
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-light);
+        font-size: 0.875rem;
+    }
+
+    .payment-schedule {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .payment-row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background-color: var(--background-light);
+    }
+
+
+    .fees-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .right-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .status-paid {
+        color: var(--success-color);
+        font-weight: 600;
+    }
+
+    .required {
+        color: #ef4444;
+        margin-left: 0.25rem;
+    }
+
+    .notes-field {
+        min-height: 5rem;
+        resize: vertical;
+    }
+
+    .manual-note {
+        font-size: 0.75rem;
+        color: var(--text-light);
+        margin-top: 0.25rem;
+    }
+
+    .field-group:hover .field-label {
+        color: var(--primary-color);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .section {
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    @media (max-width: 1024px) {
+        .main-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-grid,
+        .calc-grid,
+        .payment-row {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .fees-grid,
+        .right-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--background-light);
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--text-light);
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-color);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+
+
+    ::placeholder {
+        color: var(--text-light);
+        opacity: 0.7;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* input[type="number"] {
+        -moz-appearance: textfield;
+    } */
+
+    .field-input:disabled,
+    .field-select:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .field-input.error {
+        border-color: #ef4444;
+    }
+
+    .error-message {
+        color: #ef4444;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    .field-input.success {
+        border-color: var(--success-color);
+    }
+
     .form-control-custom-1 {
         background-color: #f8fafc !important;
         border: 1px solid #37afe1;
