@@ -38,9 +38,9 @@
                             <div class="card-header">
                                 <div class="d-flex">
                                     <div class="p-2 flex-grow-1">
-                                        <h5 class="mb-0 card-title ">
+                                        <h2 class="mb-0 card-head">
                                             {{ $action == 'create' ? "FormOPP" : "FormOPP" }}
-                                        </h5>
+                                        </h2>
 
 
                                     </div>
@@ -1173,15 +1173,15 @@
                                             </div>
                                         </div>
 
-                                        <!-- Right Column -->
                                         <div class="right-column">
                                             <div class="section">
                                                 <div class="section-title">Fees</div>
                                                 <div class="fees-grid">
                                                     <div class="field-group">
                                                         <label class="field-label">Type</label>
-                                                        <select class="field-select" id="feeType">
+                                                        <select class="field-select" id="feeType" onchange="handleFeeTypeChange()">
                                                             <option value="%">%</option>
+                                                            <option value="Fee">Fee</option>
                                                         </select>
                                                     </div>
                                                     <div class="field-group">
@@ -1194,35 +1194,39 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="right-grid">
+                                                <div class="fees-grid">
                                                     <div class="field-group">
                                                         <label class="field-label">Warant ext.</label>
                                                         <select class="field-select">
-                                                            <option>Yes</option>
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
                                                         </select>
                                                     </div>
                                                     <div class="field-group">
                                                         <label class="field-label">%</label>
                                                         <input type="text" class="field-input" value="5.0">
                                                     </div>
-                                                </div>
-
-                                                <div class="right-grid">
                                                     <div class="field-group">
                                                         <label class="field-label">VAT</label>
                                                         <select class="field-select">
                                                             <option>20%</option>
                                                         </select>
                                                     </div>
-                                                    <div class="field-group">
-                                                        <label class="field-label">CST (TXT)</label>
-                                                        <input type="text" class="field-input" value="5.0">
-                                                    </div>
                                                 </div>
 
-                                                <div class="field-group">
-                                                    <label class="field-label">Total HT</label>
-                                                    <input type="text" class="field-input currency-input field-readonly" value="2.779" readonly>
+                                                <div class="fees-grid">
+                                                    <div class="field-group">
+                                                        <label class="field-label">CST</label>
+                                                        <input type="text" class="field-input field-readonly" value="(TXT)" readonly>
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">%</label>
+                                                        <input type="text" class="field-input" value="5.0">
+                                                    </div>
+                                                    <div class="field-group">
+                                                        <label class="field-label">Total HT</label>
+                                                        <input type="text" class="field-input currency-input field-readonly" value="2.779" readonly>
+                                                    </div>
                                                 </div>
 
                                                 <div class="right-grid">
@@ -1239,14 +1243,11 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
-                                                <div class="field-group">
-                                                    <label class="field-label">Note(s)</label>
-                                                    <textarea class="field-input notes-field">---</textarea>
-                                                </div>
-
                                                 <div class="right-grid">
-
+                                                    <div class="field-group">
+                                                        <label class="field-label">Note(s)</label>
+                                                        <textarea class="field-input notes-field">---</textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1265,6 +1266,10 @@
     </div>
 </div>
 <style>
+    .card-head {
+        font-size: 1.8rem;
+    }
+
     *,
     *::before,
     *::after {
@@ -1276,7 +1281,8 @@
     :root {
         --primary-color: #2563eb;
         --primary-light: #e0e7ff;
-        --border-color: #e2e8f0;
+        /* --border-color: #e2e8f0; */
+        --border-color: #98D8EF;
         --text-color: #334155;
         --text-light: #64748b;
         --background-light: #f8fafc;
@@ -1294,7 +1300,6 @@
 
     .form-container {
         max-width: 1200px;
-        margin: 2rem auto;
         padding: 0 1rem;
     }
 
@@ -1332,6 +1337,9 @@
         grid-template-columns: 0.8fr 0.6fr 1fr 1fr 1fr;
         gap: 1rem;
         margin-bottom: 1rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background-color: var(--background-light);
     }
 
     .calc-grid {
@@ -1339,6 +1347,9 @@
         grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
         margin-bottom: 1rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background-color: var(--background-light);
     }
 
 
@@ -1403,7 +1414,7 @@
     }
 
     .field-readonly {
-        background-color: var(--background-light);
+        /* background-color: var(--background-light); */
         cursor: not-allowed;
         color: var(--text-light);
     }
@@ -1446,6 +1457,9 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
         margin-bottom: 1rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background-color: var(--background-light);
     }
 
     .right-grid {
@@ -1453,6 +1467,9 @@
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
         margin-bottom: 1rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background-color: var(--background-light);
     }
 
     .status-paid {
@@ -1466,8 +1483,10 @@
     }
 
     .notes-field {
+        min-width: 17rem;
         min-height: 5rem;
         resize: vertical;
+
     }
 
     .manual-note {
@@ -1743,6 +1762,21 @@
         textarea.style.height = "auto";
         textarea.style.height = (textarea.scrollHeight) + "px";
     }
+
+
+    function handleFeeTypeChange() {
+        const feeType = document.getElementById('feeType').value;
+        const execFeeInput = document.getElementById('execFee');
+
+        if (feeType === '%') {
+            execFeeInput.type = 'text';
+            execFeeInput.value = parseFloat(execFeeInput.value).toFixed(1);
+        } else if (feeType === 'Fee') {
+            execFeeInput.type = 'number';
+            execFeeInput.value = parseInt(execFeeInput.value) || 0;
+        }
+    }
+
 
     document.addEventListener("DOMContentLoaded", function() {
 
