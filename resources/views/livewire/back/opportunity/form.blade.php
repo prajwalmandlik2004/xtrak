@@ -873,9 +873,42 @@
 
                                     <div class="button-container">
                                         <button class="link-btn" id="linkNewCDT">LINK NEW CDT</button>
-                                        <button class="unlink-btn" id="unlinkBtn">UNLINK</button>
+                                        <button class="unlink-btn" id="unlinkBtn" style="display:none;">UNLINK</button>
                                     </div>
                                 </div>
+
+
+                                <div id="editModal" class="modal-row">
+                                    <div class="modal-content-row">
+                                        <span class="close-row">&times;</span>
+                                        <h3>Edit Row</h3>
+                                        <form id="editForm">
+                                            <label>Date :</label>
+                                            <input type="text" id="editDate"><br>
+                                            <label>CodeCDT :</label>
+                                            <input type="text" id="editCode"><br>
+                                            <label>Civ :</label>
+                                            <input type="email" id="editCiv"><br>
+                                            <label>Prénom :</label>
+                                            <input type="text" id="editfirst"><br>
+                                            <label>Nom :</label>
+                                            <input type="text" id="editlast"><br>
+                                            <label>Fonction :</label>
+                                            <input type="text" id="editfunc"><br>
+                                            <label>Dispo :</label>
+                                            <input type="text" id="editdispo"><br>
+                                            <label>Délai :</label>
+                                            <input type="text" id="editdetail"><br>
+                                            <!-- <label>Statut :</label>
+                                            <input type="text" id="editstatut"><br>
+                                            <label>Next Step :</label>
+                                            <input type="text" id="editnext"><br> -->
+                                            <button type="button" id="saveBtn">Save</button>
+                                            <button type="button" id="cancelBtn">Cancel</button>
+                                        </form>
+                                    </div>
+                                </div>
+
 
                                 <div class="modal fade" id="cdtModal" tabindex="-1">
                                     <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
@@ -1749,6 +1782,137 @@
         color: #666;
         padding: 2px 0;
     }
+
+    .recruitment-table tbody tr.selected {
+        background-color: lightblue;
+        cursor: pointer;
+    }
+
+    .recruitment-table tbody tr {
+        background-color: lightblue;
+        cursor: pointer;
+    }
+
+    .unlink-btn {
+        margin-top: 10px;
+        background-color: red;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .modal-row {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content-row {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 40%;
+        max-width: 500px;
+        max-height: 70vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .close-row {
+        color: #aaa;
+        float: right;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close-row:hover,
+    .close-row:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-content-row form label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .modal-content-row form input[type="text"],
+    .modal-content-row form input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .modal-content-row form input[type="text"]:focus,
+    .modal-content-row form input[type="email"]:focus {
+        outline: none;
+        border-color: #4CAF50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+
+    #saveBtn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    #saveBtn:hover {
+        background-color: #45a049;
+    }
+
+    #cancelBtn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    #cancelBtn:hover {
+        background-color: #d32f2f;
+    }
+
+    @media (max-width: 768px) {
+        .modal-content-row {
+            width: 90%;
+            padding: 15px;
+        }
+
+        .modal-content-row form input[type="text"],
+        .modal-content-row form input[type="email"] {
+            font-size: 13px;
+        }
+
+        #saveBtn,
+        #cancelBtn {
+            font-size: 13px;
+            padding: 8px 15px;
+        }
+    }
 </style>
 </div>
 @push('page-script')
@@ -1779,6 +1943,88 @@
 
 
     document.addEventListener("DOMContentLoaded", function() {
+
+        const rows = document.querySelectorAll(".recruitment-table tbody tr");
+        const unlinkBtn = document.getElementById("unlinkBtn");
+        const modal = document.getElementById("editModal");
+        const closeBtn = document.querySelector(".close-row");
+        const saveBtn = document.getElementById("saveBtn");
+        const cancelBtn = document.getElementById("cancelBtn");
+
+        const editDate = document.getElementById("editDate");
+        const editCode = document.getElementById("editCode");
+        const editCiv = document.getElementById("editCiv");
+        const editfirst = document.getElementById("editfirst");
+        const editlast = document.getElementById("editlast");
+        const editfunc = document.getElementById("editfunc");
+        const editdispo = document.getElementById("editdispo");
+        const editdetail = document.getElementById("editdetail");
+        // const editstatut = document.getElementById("editstatut");
+        // const editnext = document.getElementById("editnext");
+
+
+        let selectedRow = null;
+
+        rows.forEach(row => {
+            row.addEventListener("dblclick", () => {
+                selectedRow = row;
+                const cells = row.querySelectorAll("td");
+                editDate.value = cells[0].innerText;
+                editCode.value = cells[1].innerText;
+                editCiv.value = cells[2].innerText;
+                editfirst.value = cells[3].innerText;
+                editlast.value = cells[4].innerText;
+                editfunc.value = cells[5].innerText;
+                editdispo.value = cells[6].innerText;
+                editdetail.value = cells[7].innerText;
+                // editstatut.value = cells[8].innerText;
+                // editnext.value = cells[9].innerText;
+
+                modal.style.display = "block";
+            });
+        });
+
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        cancelBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        saveBtn.addEventListener("click", () => {
+            if (selectedRow) {
+                const cells = selectedRow.querySelectorAll("td");
+                cells[1].innerText = editName.value;
+                cells[2].innerText = editEmail.value;
+                cells[3].innerText = editRole.value;
+            }
+
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        rows.forEach((row) => {
+            row.addEventListener("click", () => {
+
+                if (selectedRow) {
+                    selectedRow.classList.remove("selected");
+                }
+                if (selectedRow === row) {
+                    selectedRow = null;
+                    unlinkBtn.style.display = "none";
+                } else {
+                    row.classList.add("selected");
+                    selectedRow = row;
+                    unlinkBtn.style.display = "block";
+                }
+            });
+        });
 
         const linkNewCDT = document.getElementById('linkNewCDT');
         const cdtModal = new bootstrap.Modal(document.getElementById('cdtModal'));
