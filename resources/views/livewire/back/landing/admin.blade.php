@@ -38,8 +38,9 @@
                 <label for="description">Short Description :</label><br>
                 <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
 
-                <button type="button" id="cancelButton" class="cancel-button">Cancel</button>
                 <button type="submit" class="save-button">Save</button>
+                <button type="button" id="cancelButton" class="cancel-button">Cancel</button>
+
             </form>
         </div>
     </div>
@@ -56,28 +57,42 @@
     </div>
 
 
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="space-y-6">
             @php
             $leftSections = [
-            'Views' => ['CDTvue' => '/dashboard','TRGvue' => '/views/trg', 'OPPvue' => '/oppdashboard', 'CTCvue' => '/views/ctc', 'PREFvue' => '/views/pref', 'ANNvue' => '/views/ann', 'CAMvue' => '/views/cam', 'MAIvue' => '/views/mai'],
+            'Views' => [
+            'CDTvue' => ['url' => '/dashboard', 'disabled' => false],
+            'TRGvue' => ['url' => '/views/trg', 'disabled' => true],
+            'OPPvue' => ['url' => '/oppdashboard', 'disabled' => false],
+            'CTCvue' => ['url' => '/views/ctc', 'disabled' => true],
+            'PREFvue' => ['url' => '/views/pref', 'disabled' => true],
+            'ANNvue' => ['url' => '/views/ann', 'disabled' => true],
+            'CAMvue' => ['url' => '/views/cam', 'disabled' => true],
+            'MAIvue' => ['url' => '/views/mai', 'disabled' => true]
+            ],
             'Queries' => [],
-            'Vaults' => ['BackUp1' => '/vaults/backup1', 'BackUp2' => '/vaults/backup2'],
+            'Vaults' => [
+            'BackUp1' => ['url' => '/vaults/backup1', 'disabled' => true],
+            'BackUp2' => ['url' => '/vaults/backup2', 'disabled' => true]
+            ],
             'Dashboard' => [
-            'KPIs' => '/kpis',
+            'KPIs' => ['url' => '/kpis', 'disabled' => false],
             'Plateform' => [
             'url' => '#',
+            'disabled' => false,
             'subItems' => [
             'Activity' => [
-            'Connection' => '/connexions',
-            'Upload' => '/import-candidat',
+            'Connection' => ['url' => '/connexions', 'disabled' => false],
+            'Upload' => ['url' => '/import-candidat', 'disabled' => false]
             ]
             ]
             ],
-            'Commercial' => '/commercial',
-            'Head hunt' => '/head',
-            'Statistics' => '/statistics',
-            'Map' => '/map',
+            'Commercial' => ['url' => '/commercial', 'disabled' => true],
+            'Head hunt' => ['url' => '/head', 'disabled' => true],
+            'Statistics' => ['url' => '/statistics', 'disabled' => true],
+            'Map' => ['url' => '/map', 'disabled' => true],
             ],
             ];
             @endphp
@@ -91,36 +106,78 @@
                     <h2 class="font-semibold text-lg text-blue-800">{{ $title }}</h2>
                 </div>
                 <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
-                    <ul class="pl-6 pb-4 space-y-2">
+                    <ul class="pl-6 pb-4 space-y-2 left-section-subitems">
                         @foreach ($items as $itemName => $itemData)
+                        @php
+                        $isDisabled = is_array($itemData) ? ($itemData['disabled'] ?? false) : false;
+                        $url = is_array($itemData) ? $itemData['url'] : $itemData;
+                        $linkClass = $isDisabled
+                        ? 'text-black cursor-not-allowed'
+                        : 'text-blue-500 hover:underline';
+                        @endphp
+
                         @if(is_array($itemData) && isset($itemData['subItems']))
                         <li>
-                            <button class="toggle-btn1 text-blue-500 transition-all" data-target="#{{ Str::slug($itemName) }}">
-                                <!-- <span class="toggle-icon">+</span> -->
+                            <button class="toggle-btn1 {{ $linkClass }} transition-all"
+                                data-target="#{{ Str::slug($itemName) }}"
+                                {{ $isDisabled ? 'disabled' : '' }}>
                                 <span class="text-blue-800">{{ $itemName }}</span>
                             </button>
-                            <ul id="{{ Str::slug($itemName) }}" class="pl-6 pb-4 space-y-2 hidden">
+                            <ul id="{{ Str::slug($itemName) }}" class="pl-6 pb-4 space-y-2 hidden left-section-subitems">
                                 @foreach ($itemData['subItems'] as $subItemName => $subItemUrl)
                                 @if(is_array($subItemUrl))
                                 <li>
-                                    <button class="toggle-btn1 text-blue-500 transition-all" data-target="#{{ Str::slug($subItemName) }}">
-                                        <!-- <span class="toggle-icon">+</span> -->
+                                    @php
+                                    $isSubDisabled = $subItemUrl['disabled'] ?? false;
+                                    $subLinkClass = $isSubDisabled
+                                    ? 'text-black cursor-not-allowed'
+                                    : 'text-blue-500 hover:underline';
+                                    @endphp
+                                    <button class="toggle-btn1 {{ $subLinkClass }} transition-all"
+                                        data-target="#{{ Str::slug($subItemName) }}"
+                                        {{ $isSubDisabled ? 'disabled' : '' }}>
                                         <span class="text-blue-800">{{ $subItemName }}</span>
                                     </button>
-                                    <ul id="{{ Str::slug($subItemName) }}" class="pl-6 pb-4 space-y-2 hidden">
-                                        @foreach ($subItemUrl as $subSubItemName => $subSubItemUrl)
-                                        <li><a href="{{ $subSubItemUrl }}" class="text-blue-500 hover:underline">{{ $subSubItemName }}</a></li>
+                                    <ul id="{{ Str::slug($subItemName) }}" class="pl-6 pb-4 space-y-2 hidden left-section-subitems">
+                                        @foreach ($subItemUrl as $subSubItemName => $subSubItemData)
+                                        @php
+                                        $isSubSubDisabled = is_array($subSubItemData) ? ($subSubItemData['disabled'] ?? false) : false;
+                                        $subSubUrl = is_array($subSubItemData) ? $subSubItemData['url'] : $subSubItemData;
+                                        $subSubLinkClass = $isSubSubDisabled
+                                        ? 'text-black cursor-not-allowed'
+                                        : 'text-blue-500 hover:underline';
+                                        @endphp
+                                        @if($isSubSubDisabled)
+                                        <li><span class="{{ $subSubLinkClass }}">{{ $subSubItemName }}</span></li>
+                                        @else
+                                        <li><a href="{{ $subSubUrl }}" class="{{ $subSubLinkClass }}">{{ $subSubItemName }}</a></li>
+                                        @endif
                                         @endforeach
                                     </ul>
                                 </li>
                                 @else
-                                <li><a href="{{ $subItemUrl }}" class="text-blue-500 hover:underline">{{ $subItemName }}</a></li>
+                                @php
+                                $isSubDisabled = $subItemUrl['disabled'] ?? false;
+                                $subLinkClass = $isSubDisabled
+                                ? 'text-black cursor-not-allowed'
+                                : 'text-blue-500 hover:underline';
+                                $subUrl = $subItemUrl['url'] ?? $subItemUrl;
+                                @endphp
+                                @if($isSubDisabled)
+                                <li><span class="{{ $subLinkClass }}">{{ $subItemName }}</span></li>
+                                @else
+                                <li><a href="{{ $subUrl }}" class="{{ $subLinkClass }}">{{ $subItemName }}</a></li>
+                                @endif
                                 @endif
                                 @endforeach
                             </ul>
                         </li>
                         @else
-                        <li><a href="{{ $itemData }}" class="text-blue-500 hover:underline">{{ $itemName }}</a></li>
+                        @if($isDisabled)
+                        <li><span class="{{ $linkClass }}">{{ $itemName }}</span></li>
+                        @else
+                        <li><a href="{{ $url }}" class="{{ $linkClass }}">{{ $itemName }}</a></li>
+                        @endif
                         @endif
                         @endforeach
 
@@ -136,7 +193,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </div>
@@ -159,13 +215,34 @@
         <div class="space-y-6">
             @php
             $rightSections = [
-            'Forms' => ['CDTform' => '/candidates/create', 'TRGform' => '/forms/trg', 'OPPform' => '/opportunity/create', 'CTCform' => '/forms/ctc', 'PREFform' => '/forms/pref', 'ANNform' => '/forms/ann', 'CAMform' => '/forms/cam', 'MAIform' => '/forms/mai'],
-            'Tables' => ['CDTtable' => '/tables/cdt', 'TRGtable' => '/tables/trg', 'OPPtable' => '/tables/opp', 'CTCtable' => '/tables/ctc', 'EVTtable' => '/tables/evt', 'PREFtable' => '/tables/pref', 'ANNtable' => '/tables/ann', 'CAMtable' => '/tables/cam', 'MAItable' => '/tables/mai'],
-            // 'Activity' => ['Connection' => '/connexions', 'Upload' => '/import-candidat'],
-            'Parameters' => ['Presentation' => '/parameters/presentation', 'Profile' => '/user-profile'],
-            'Technics' => ['Technical Reference book' => '/book', 'DtoD Reporting' => '/reporting', 'SGPD' => '/sgpd'],
+            'Forms' => [
+            'CDTform' => ['url' => '/candidates/create', 'enabled' => true],
+            'TRGform' => ['url' => '/forms/trg', 'enabled' => false],
+            'OPPform' => ['url' => '/opportunity/create', 'enabled' => true],
+            'CTCform' => ['url' => '/forms/ctc', 'enabled' => false],
+            'PREFform' => ['url' => '/forms/pref', 'enabled' => false],
+            'ANNform' => ['url' => '/forms/ann', 'enabled' => false],
+            'CAMform' => ['url' => '/forms/cam', 'enabled' => false],
+            'MAIform' => ['url' => '/forms/mai', 'enabled' => false],
+            ],
+            'Tables' => [
+            'CDTtable' => ['url' => '/tables/cdt', 'enabled' => false],
+            'TRGtable' => ['url' => '/tables/trg', 'enabled' => false],
+            'OPPtable' => ['url' => '/tables/opp', 'enabled' => false],
+            ],
+            'Parameters' => [
+            'Presentation' => ['url' => '/parameters/presentation', 'enabled' => false],
+            'Profile' => ['url' => '/user-profile', 'enabled' => true],
+            ],
+            'Technics' => [
+            'Technical Reference book' => ['url' => '/book', 'enabled' => false],
+            'DtoD Reporting' => ['url' => '/reporting', 'enabled' => false],
+            'SGPD' => ['url' => '/sgpd', 'enabled' => false],
+            ],
             ];
             @endphp
+
+
 
             @foreach ($rightSections as $title => $items)
             <div class="bg-blue-50 rounded-lg">
@@ -177,8 +254,15 @@
                 </div>
                 <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2">
-                        @foreach ($items as $itemName => $itemUrl)
-                        <li><a href="{{ $itemUrl }}" class="text-blue-500 hover:underline">{{ $itemName }}</a></li>
+                        @foreach ($items as $itemName => $itemData)
+                        <li>
+                            <a
+                                href="{{ $itemData['enabled'] ? $itemData['url'] : '#' }}"
+                                class="{{ $itemData['enabled'] ? 'text-blue-500 right-section' : 'text-black right-bar' }}"
+                                {{ !$itemData['enabled'] ? 'aria-disabled="true"' : '' }}>
+                                {{ $itemName }}
+                            </a>
+                        </li>
                         @endforeach
                     </ul>
                 </div>
@@ -186,7 +270,6 @@
             @endforeach
         </div>
     </div>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -259,6 +342,8 @@
                 popupForm.style.display = 'none';
             });
 
+
+
             function loadSavedQueries(showAll = false) {
                 const queries = JSON.parse(localStorage.getItem('queries')) || [];
                 savedQueriesTable.innerHTML = '';
@@ -290,6 +375,8 @@
                     savedQueriesContainer.style.display = 'none';
                 }
             }
+
+
 
             function openQueryModal(query, index) {
                 selectedQueryIndex = index;
@@ -397,6 +484,31 @@
     <style>
         body {
             background: white;
+        }
+
+        .left-section-subitems {
+            font-size: 1rem;
+        }
+
+        .left-section-subitems li a {
+            text-decoration: none;
+        }
+
+        .left-section-subitems li a:hover {
+            text-decoration: underline;
+        }
+
+        .right-section{
+            text-decoration: none;
+        }
+
+        .right-section:hover{
+            text-decoration: underline;
+        }
+
+        .right-bar {
+            text-decoration:none;
+            cursor: text;
         }
 
         .hack {
@@ -741,4 +853,5 @@
             color: #fff;
         }
     </style>
+
 </div>
