@@ -112,8 +112,8 @@
                         $isDisabled = is_array($itemData) ? ($itemData['disabled'] ?? false) : false;
                         $url = is_array($itemData) ? $itemData['url'] : $itemData;
                         $linkClass = $isDisabled
-                        ? 'text-black cursor-not-allowed'
-                        : 'text-blue-500 hover:underline';
+                        ? 'main-black cursor-not-allowed'
+                        : 'main-blue hover:underline';
                         @endphp
 
                         @if(is_array($itemData) && isset($itemData['subItems']))
@@ -130,8 +130,8 @@
                                     @php
                                     $isSubDisabled = $subItemUrl['disabled'] ?? false;
                                     $subLinkClass = $isSubDisabled
-                                    ? 'text-black cursor-not-allowed'
-                                    : 'text-blue-500 hover:underline';
+                                    ? 'main-black cursor-not-allowed'
+                                    : 'main-blue hover:underline';
                                     @endphp
                                     <button class="toggle-btn1 {{ $subLinkClass }} transition-all"
                                         data-target="#{{ Str::slug($subItemName) }}"
@@ -144,8 +144,8 @@
                                         $isSubSubDisabled = is_array($subSubItemData) ? ($subSubItemData['disabled'] ?? false) : false;
                                         $subSubUrl = is_array($subSubItemData) ? $subSubItemData['url'] : $subSubItemData;
                                         $subSubLinkClass = $isSubSubDisabled
-                                        ? 'text-black cursor-not-allowed'
-                                        : 'text-blue-500 hover:underline';
+                                        ? 'main-black cursor-not-allowed'
+                                        : 'main-blue hover:underline';
                                         @endphp
                                         @if($isSubSubDisabled)
                                         <li><span class="{{ $subSubLinkClass }}">{{ $subSubItemName }}</span></li>
@@ -159,8 +159,8 @@
                                 @php
                                 $isSubDisabled = $subItemUrl['disabled'] ?? false;
                                 $subLinkClass = $isSubDisabled
-                                ? 'text-black cursor-not-allowed'
-                                : 'text-blue-500 hover:underline';
+                                ? 'main-black cursor-not-allowed'
+                                : 'main-blue hover:underline';
                                 $subUrl = $subItemUrl['url'] ?? $subItemUrl;
                                 @endphp
                                 @if($isSubDisabled)
@@ -258,7 +258,7 @@
                         <li>
                             <a
                                 href="{{ $itemData['enabled'] ? $itemData['url'] : '#' }}"
-                                class="{{ $itemData['enabled'] ? 'text-blue-500 right-section' : 'text-black right-bar' }}"
+                                class="{{ $itemData['enabled'] ? 'right-section' : 'right-bar' }}"
                                 {{ !$itemData['enabled'] ? 'aria-disabled="true"' : '' }}>
                                 {{ $itemName }}
                             </a>
@@ -486,6 +486,15 @@
             background: white;
         }
 
+        .main-black {
+            color: grey;
+        }
+
+        .main-blue {
+            color: #010066;
+            font-weight: bold;
+        }
+
         .left-section-subitems {
             font-size: 1rem;
         }
@@ -498,17 +507,20 @@
             text-decoration: underline;
         }
 
-        .right-section{
+        .right-section {
             text-decoration: none;
+            color: #010066;
+            font-weight: bold;
         }
 
-        .right-section:hover{
+        .right-section:hover {
             text-decoration: underline;
         }
 
         .right-bar {
-            text-decoration:none;
+            text-decoration: none;
             cursor: text;
+            color: grey;
         }
 
         .hack {
