@@ -89,8 +89,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a wire:click="goToDoc" class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#management' }}" role="tab">
+                            <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
+                                href="/management">
                                 Management
                             </a>
                         </li>
@@ -722,8 +722,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a wire:click="goToDoc" class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#management' }}" role="tab">
+                            <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
+                                href="/management">
                                 Management
                             </a>
                         </li>
@@ -1017,8 +1017,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a wire:click="goToDoc" class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 2 ? '#' : '#management' }}" role="tab">
+                            <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
+                                href="/management">
                                 Management
                             </a>
                         </li>
