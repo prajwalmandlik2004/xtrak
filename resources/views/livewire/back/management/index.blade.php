@@ -81,7 +81,7 @@
                                 <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                         style="display:none;" wire:model="selectAll"></th>
                                 <th scope="col" wire:click="sortBy('updated_at')">
-                                    Date MAJ
+                                    Date
                                 </th>
                                 <th scope="col">CodeCDT</th>
                                 <th scope="col">Civ</th>
