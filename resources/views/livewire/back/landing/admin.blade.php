@@ -492,7 +492,6 @@
 
         .main-blue {
             color: #010066;
-            font-weight: bold;
         }
 
         .left-section-subitems {
@@ -510,7 +509,6 @@
         .right-section {
             text-decoration: none;
             color: #010066;
-            font-weight: bold;
         }
 
         .right-section:hover {
