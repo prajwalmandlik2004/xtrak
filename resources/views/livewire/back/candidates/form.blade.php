@@ -586,7 +586,7 @@
                 </div>
 
 
-                <div id="evtModal" class="modal">
+<!--                 <div id="evtModal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2>FormCDT_EVT</h2>
@@ -681,7 +681,7 @@
                         </form>
                     </div>
                 </div>
-
+ -->
 
 
                 <div class="card-footer">
