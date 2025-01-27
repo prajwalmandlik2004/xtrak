@@ -586,7 +586,7 @@
                 </div>
 
 
-<!--                 <div id="evtModal" class="modal">
+                 <div id="evtModal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2>FormCDT_EVT</h2>
@@ -617,7 +617,7 @@
                             <button class="status-btn">NHS</button>
                         </div>
 
-                        <form id="evtForm">
+                        <div id="evtForm">
                             <div class="form-row">
                                 <div class="form-group date-field">
                                     <label>Date</label>
@@ -678,10 +678,10 @@
                                     <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
- -->
+
 
 
                 <div class="card-footer">
