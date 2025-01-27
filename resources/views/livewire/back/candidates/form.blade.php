@@ -684,29 +684,8 @@
 
 
 
-                <div class="card-footer">
+               <div class="card-footer">
                     <div class="d-flex justify-content-end">
-                        <button style="background:black; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                            class="btn btn-success btn-label right ms-auto nexttab"><i
-                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                            {{ $action == 'create' ? 'Call' : 'Call' }}</button>
-
-                        <button style="background:white; border:1px solid black; color:black;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                            class="btn btn-success btn-label right ms-auto nexttab"><i
-                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                            {{ $action == 'create' ? 'Send Mail' : 'Send Mail' }}</button>
-
-                        <button style="background:#F93827; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                            class="btn btn-success btn-label right ms-auto nexttab" onclick="openModal()"><i
-                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                            {{ $action == 'create' ? 'New EVT' : 'New EVT' }}</button>
-
-                        <button style="background:#6F61C0; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                            class="btn btn-success btn-label right ms-auto nexttab"><i
-                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                            {{ $action == 'create' ? 'Link OPP' : 'Link OPP' }}</button>
-
-
                         <button wire:loading.remove wire:target="storeCandidateData" type="submit"
                             class="btn btn-success btn-label right ms-auto nexttab"><i
                                 class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
@@ -719,10 +698,31 @@
                             Enregistrement...
                         </button>
                     </div>
+                </div>
+                </form>
+                <div style="margin-right:30%; margin-top:-4%; margin-bottom:10px;" class="d-flex justify-content-end">
+                    <button style="background:black; border:none;" wire:loading.remove wire:target="" type="submit"
+                        class="btn btn-success btn-label right ms-auto nexttab"><i
+                            class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                        {{ $action == 'create' ? 'Call' : 'Call' }}</button>
 
+                    <button style="background:white; border:1px solid black; color:black;" wire:loading.remove wire:target="" type="submit"
+                        class="btn btn-success btn-label right ms-auto nexttab"><i
+                            class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                        {{ $action == 'create' ? 'Send Mail' : 'Send Mail' }}</button>
+
+                    <button style="background:#F93827; border:none;" wire:loading.remove wire:target="" type="submit"
+                        class="btn btn-success btn-label right ms-auto nexttab" onclick="openModal()"><i
+                            class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                        {{ $action == 'create' ? 'New EVT' : 'New EVT' }}</button>
+
+                    <button style="background:#6F61C0; border:none;" wire:loading.remove wire:target="" type="submit"
+                        class="btn btn-success btn-label right ms-auto nexttab"><i
+                            class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                        {{ $action == 'create' ? 'Link OPP' : 'Link OPP' }}</button>
                 </div>
 
-                </form>
+
             </div>
             <!-- end tab pane -->
             <div class="tab-pane fade {{ $step == 2 ? 'show active' : '' }}" id="documents" role="tabpanel">
