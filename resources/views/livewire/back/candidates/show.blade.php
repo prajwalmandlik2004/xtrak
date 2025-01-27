@@ -97,6 +97,20 @@
 
                             </div>
                         </div>
+                        <form wire:submit.prevent="storeData()">
+                            <div class="d-flex justify-content-end">
+                                <button wire:loading.remove wire:target="storeData"
+                                    type="submit" class="btn btn-success">
+                                    Enregistrer
+                                </button>
+                                <button wire:loading wire:target="storeData"
+                                    type="button" class="btn btn-success" disabled>
+                                    <span class="spinner-border spinner-border-sm"
+                                        role="status" aria-hidden="true"></span>
+                                    Enregistrement...
+                                </button>
+                            </div>
+                        </form>
                             <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active fw-bold" data-bs-toggle="tab" href="#info" role="tab">
@@ -653,7 +667,7 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="card-footer" style="margin-top:-3%">
+<!--                                                     <div class="card-footer" style="margin-top:-3%">
                                                         <div class="d-flex justify-content-end">
                                                             <button wire:loading.remove wire:target="storeData"
                                                                 type="submit" class="btn btn-success">
@@ -666,7 +680,7 @@
                                                                 Enregistrement...
                                                             </button>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
 
                                                 </form>
 
