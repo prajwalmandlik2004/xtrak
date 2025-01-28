@@ -103,7 +103,7 @@
                     <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($title) }}">
                         <span class="toggle-icon">+</span>
                     </button>
-                    <h2 class="font-semibold text-lg text-blue-800">{{ $title }}</h2>
+                    <h2 class="land-title font-semibold text-lg text-blue-800">{{ $title }}</h2>
                 </div>
                 <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2 left-section-subitems">
@@ -250,7 +250,7 @@
                     <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($title) }}">
                         <span class="toggle-icon">+</span>
                     </button>
-                    <h2 class="font-semibold text-lg text-blue-800">{{ $title }}</h2>
+                    <h2 class="land-title font-semibold text-lg text-blue-800">{{ $title }}</h2>
                 </div>
                 <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2">
@@ -486,6 +486,14 @@
             background: white;
         }
 
+        .land-title {
+            color: #010066;
+        }
+
+        .land-title:hover {
+            text-decoration: underline;
+        }
+
         .main-black {
             color: grey;
         }
@@ -668,8 +676,9 @@
         }
 
         .toggle-icon {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             padding: 3px;
+            color: #010066;
         }
 
         .new-button {
