@@ -3,8 +3,8 @@
     {{-- créer par MAHAMADOU ALI AdbDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
-    'title' => auth()->user()->hasRole('Manager') ? 'Nouvelle saisie' : 'Nouvelle saisie',
-    'breadcrumbItems' => [['text' => 'Management', 'url' => '#']],
+    'title' => auth()->user()->hasRole('Manager') ? 'FormOPP' : 'FormOPP',
+    'breadcrumbItems' => [['text' => 'Views', 'url' => '#'] , ['text' => 'OPPvue', 'url' => '#'] , ['text' => 'OPPform', 'url' => '#']],
     ])
 
     <div class="row">
@@ -21,19 +21,19 @@
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="/management" role="tab">
-                                Management
+                                CDT mgt
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                                 href="/opportunity/create#invoicement">
-                                Invoicement
+                                Facturation
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                 href="/opportunity/create">
-                                EVTS Records
+                                EVT log
                             </a>
                         </li>
                     </ul>
@@ -81,7 +81,7 @@
                                 <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                         style="display:none;" wire:model="selectAll"></th>
                                 <th scope="col" wire:click="sortBy('updated_at')">
-                                    Date
+                                    Date MAJ
                                 </th>
                                 <th scope="col">CodeCDT</th>
                                 <th scope="col">Civ</th>
@@ -165,20 +165,17 @@
             <button style="background:#ffc107; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success link-btn" id="linkNewCDT">
                 LINK NEW CDT</button>
-            <button style="background:#F5F7F8; color:#F5F7F8; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-success btn-label right ms-auto nexttab"><i
-                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                Link CDT</button>
+            <button style="background:#FC7300; color:white; border:none; padding-left:3%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                class="btn btn-success btn-label right ms-auto nexttab">
+                Erase</button>
 
-            <button style="background:#F5F7F8; color:#F5F7F8; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-success btn-label right ms-auto nexttab"><i
-                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+            <button style="background:#D2665A; color:white; border:none;padding-left:3%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                class="btn btn-success btn-label right ms-auto nexttab">
                 New EVT</button>
 
-            <button style="background:#F5F7F8; color:#F5F7F8; border:none; margin-right:25%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-success btn-label right ms-auto nexttab"><i
-                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                Save Selec.</button>
+            <button style="background:#010066; color:white; border:none; padding-left:3%; margin-right:25%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                class="btn btn-success btn-label right ms-auto nexttab">
+                Close</button>
             <button wire:click="" class="btn btn-danger" id="delete-button-container" style="display: none; background-color:red; margin-right:1%;">
                 UNLINK
             </button>
