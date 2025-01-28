@@ -3,7 +3,7 @@
     @include('components.breadcrumb', [
     'title' => 'Nouvelle saisie',
     'breadcrumbItems' => [
-    ['text' => 'BaseCDT', 'url' => '#']
+    ['text' => 'FormOPP', 'url' => '#']
     ],
     ])
     <div class="row">
@@ -91,19 +91,19 @@
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                 href="/management">
-                                Management
+                                CDT mgt
                             </a>
                         </li>
                         <li class="nav-item">
                             <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
-                                Invoicement
+                                Facturation
                             </a>
                         </li>
                         <li class="nav-item">
                             <a wire:click="goToForm" class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 4 ? '#' : '#evts' }}" role="tab">
-                                EVTS Records
+                                EVT log
                             </a>
                         </li>
                     </ul>
@@ -724,19 +724,19 @@
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                 href="/management">
-                                Management
+                                CDT mgt
                             </a>
                         </li>
                         <li class="nav-item">
                             <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
-                                Invoicement
+                                Facturation
                             </a>
                         </li>
                         <li class="nav-item">
                             <a wire:click="goToForm" class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 4 ? '#' : '#evts' }}" role="tab">
-                                EVTS Records
+                                EVT log
                             </a>
                         </li>
                     </ul>
@@ -1019,19 +1019,19 @@
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                 href="/management">
-                                Management
+                                CDT mgt
                             </a>
                         </li>
                         <li class="nav-item">
                             <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
-                                Invoicement
+                                Facturation
                             </a>
                         </li>
                         <li class="nav-item">
                             <a wire:click="goToForm" class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 4 ? '#' : '#evts' }}" role="tab">
-                                EVTS Records
+                                EVT log
                             </a>
                         </li>
                     </ul>
