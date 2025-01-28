@@ -103,7 +103,7 @@
                     <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($title) }}">
                         <span class="toggle-icon">+</span>
                     </button>
-                    <h2 class="land-title font-semibold text-lg text-blue-800">{{ $title }}</h2>
+                    <h2 class="land-title font-semibold text-lg text-blue-800" data-target="#{{ Str::slug($title) }}">{{ $title }}</h2>
                 </div>
                 <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2 left-section-subitems">
@@ -250,7 +250,7 @@
                     <button class="toggle-btn text-blue-500 transition-all" data-target="#{{ Str::slug($title) }}">
                         <span class="toggle-icon">+</span>
                     </button>
-                    <h2 class="land-title font-semibold text-lg text-blue-800">{{ $title }}</h2>
+                    <h2 class="land-title font-semibold text-lg text-blue-800" data-target="#{{ Str::slug($title) }}">{{ $title }}</h2>
                 </div>
                 <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
                     <ul class="pl-6 pb-4 space-y-2">
@@ -274,12 +274,23 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggleButtons = document.querySelectorAll('.toggle-btn');
+            const landTitles = document.querySelectorAll('.land-title');
             const toggleButtons1 = document.querySelectorAll('.toggle-btn1');
             const openAllBtn = document.getElementById('openAllBtn');
             const closeAllBtn = document.getElementById('closeAllBtn');
             const dropdowns = document.querySelectorAll('.dropdown');
 
             toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const target = document.querySelector(button.getAttribute('data-target'));
+                    const icon = button.querySelector('.toggle-icon');
+                    target.classList.toggle('hidden');
+                    icon.textContent = target.classList.contains('hidden') ? '+' : '-';
+                });
+            });
+
+
+            landTitles.forEach(button => {
                 button.addEventListener('click', () => {
                     const target = document.querySelector(button.getAttribute('data-target'));
                     const icon = button.querySelector('.toggle-icon');
@@ -488,6 +499,7 @@
 
         .land-title {
             color: #010066;
+            cursor: pointer;
         }
 
         .land-title:hover {
