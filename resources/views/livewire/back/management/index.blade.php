@@ -165,10 +165,7 @@
             <button style="background:#ffc107; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success link-btn" id="linkNewCDT">
                 LINK NEW CDT</button>
-            <button style="background:#FC7300; color:white; border:none; padding-left:3%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-success btn-label right ms-auto nexttab">
-                Erase</button>
-
+            
             <button style="background:#D2665A; color:white; border:none;padding-left:3%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success btn-label right ms-auto nexttab">
                 New EVT</button>
@@ -176,7 +173,7 @@
             <button style="background:#010066; color:white; border:none; padding-left:3%; margin-right:25%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success btn-label right ms-auto nexttab">
                 Close</button>
-            <button wire:click="" class="btn btn-danger" id="delete-button-container" style="display: none; background-color:red; margin-right:1%;">
+            <button wire:click="" class="btn btn-danger" id="delete-button-container" style="background-color:red; margin-right:1%;">
                 UNLINK
             </button>
         </div>
