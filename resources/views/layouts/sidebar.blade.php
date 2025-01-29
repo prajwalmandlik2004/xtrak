@@ -63,7 +63,7 @@
 
                  <a class="nav-link"
                      href="/landing">
-                     <i class="ri-apps-2-line"></i> <span data-key="t-vault" style="color:orange">LANDING</span>
+                     <i class="ri-apps-2-line"></i> <span data-key="t-vault" style="color:#09ff00">LANDING</span>
                  </a>
 
 
