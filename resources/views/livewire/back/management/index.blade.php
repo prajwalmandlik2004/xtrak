@@ -161,22 +161,22 @@
     </div>
 
     <div class="card-footer mb-4">
-        <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end">
             <button style="background:#ffc107; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success link-btn" id="linkNewCDT">
                 LINK NEW CDT</button>
-            
-            <button style="background:#D2665A; color:white; border:none;padding-left:3%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-success btn-label right ms-auto nexttab">
-                New EVT</button>
-
-            <button style="background:#010066; color:white; border:none; padding-left:3%; margin-right:25%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-success btn-label right ms-auto nexttab">
-                Close</button>
-            <button wire:click="" class="btn btn-danger" id="delete-button-container" style="background-color:red; margin-right:1%;">
+            <button style="background-color:red; margin-left:5%;" wire:click="" class="btn btn-danger" id="delete-button-container">
                 UNLINK
             </button>
+            <button style="background:#D2665A; color:white; border:none;margin-left:5%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                class="btn btn-danger">
+                New EVT</button>
+            <button style="background:#010066; color:white; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                class="btn btn-success btn-label right ms-auto nexttab"><i
+                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                Close</button>
         </div>
+
 
     </div>
 
