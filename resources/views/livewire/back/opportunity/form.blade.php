@@ -669,30 +669,31 @@
                         </div>
                     </div>
 
+                    <div class="modal fade" id="cdtModal" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
+                            <div class="modal-content cdt-modal-content">
+                                <div class="cdt-modal-header">
+                                    <span>Enter CDT code:</span>
+                                    <button type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+                                </div>
+                                <div class="cdt-modal-body">
+                                    <div class="cdt-input-group">
+                                        <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                                        <button class="cdt-ok-btn" id="okButton">OK</button>
+                                    </div>
+                                    <div class="cdt-message">("message")</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="card-footer" style="margin-top: -3%;">
                         <div class="d-flex justify-content-end">
-
-                            <button style="background:#3D3BF3; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                                class="btn btn-success btn-label right ms-auto nexttab"><i
-                                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                                {{ $action == 'create' ? 'Link CST' : 'Link CST' }}</button>
-
-                            <button style="background:#FFB534; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                                class="btn btn-success btn-label right ms-auto nexttab"><i
-                                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                                {{ $action == 'create' ? 'Gestion CDT' : 'Gestion CDT' }}</button>
-
-                            <button style="background:#FF77B7; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                                class="btn btn-success btn-label right ms-auto nexttab"><i
-                                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                                {{ $action == 'create' ? 'New EVT' : 'New EVT' }}</button>
-
                             <button style="background:green; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                                 class="btn btn-success btn-label right ms-auto nexttab"><i
                                     class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
                                 {{ $action == 'create' ? 'Facturation' : 'Facturation' }}</button>
-
 
                             <button wire:loading wire:target="storeCandidateData" type="button"
                                 class="btn btn-primary" disabled>
@@ -700,15 +701,31 @@
                                     aria-hidden="true"></span>
                                 Enregistrement...
                             </button>
-
-
-
                         </div>
 
                     </div>
 
                     </form>
+
+                    <div style="margin-right:30%; margin-top:-4%; margin-bottom:10px;" class="d-flex justify-content-end">
+                        <button id="linkNewCDT" style="background:#3D3BF3; border:none;" type="submit"
+                            class="btn btn-success btn-label right ms-auto nexttab"><i
+                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                            {{ $action == '' ? 'Link CST' : 'Link CST' }}</button>
+
+                        <button style="background:#FFB534; border:none;" type="submit"
+                            class="btn btn-success btn-label right ms-auto nexttab"><i
+                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                            {{ $action == '' ? 'Gestion CDT' : 'Gestion CDT' }}</button>
+
+                        <button style="background:#FF77B7; border:none;" type="submit"
+                            class="btn btn-success btn-label right ms-auto nexttab"><i
+                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                            {{ $action == '' ? 'New EVT' : 'New EVT' }}</button>
+                    </div>
                 </div>
+
+
                 <!-- end tab pane -->
 
 
