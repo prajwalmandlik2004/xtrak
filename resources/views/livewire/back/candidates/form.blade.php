@@ -720,6 +720,11 @@
                         class="btn btn-success btn-label right ms-auto nexttab"><i
                             class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
                         {{ $action == 'create' ? 'Link OPP' : 'Link OPP' }}</button>
+                    
+                    <button style="background:#0D92F4; border:none;" wire:loading.remove wire:target="" type="submit"
+                        class="btn btn-success btn-label right ms-auto nexttab"><i
+                            class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                        {{ $action == 'create' ? 'Historique' : 'Historique' }}</button>
                 </div>
 
 
