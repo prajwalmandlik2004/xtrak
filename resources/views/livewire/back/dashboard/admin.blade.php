@@ -315,6 +315,12 @@
             <!-- end col -->
             {{ $candidates->links() }}
         </div><!-- end row -->
+         <div style="margin-right:30%;margin-top:-2%; margin-bottom:15px;" class="d-flex justify-content-end">
+            <button style="background:#0D92F4; border:none;" wire:loading.remove wire:target="" type="submit"
+                class="btn btn-success btn-label right ms-auto nexttab"><i
+                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                Historique</button>
+        </div>
     </div>
     @push('page-script')
         <script>
