@@ -507,7 +507,7 @@
         }
 
         .main-black {
-            color: grey;
+            color:#a6a6a6;
         }
 
         .main-blue {
@@ -538,7 +538,7 @@
         .right-bar {
             text-decoration: none;
             cursor: text;
-            color: grey;
+            color:#a6a6a6;
         }
 
         .hack {
@@ -688,8 +688,8 @@
         }
 
         .toggle-icon {
-            font-size: 1.1rem;
-            padding: 3px;
+            font-size: 1rem;
+            padding: 1px;
             color: #010066;
         }
 
