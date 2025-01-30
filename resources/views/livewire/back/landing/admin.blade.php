@@ -106,7 +106,7 @@
                     <h2 class="land-title font-semibold text-lg text-blue-800" data-target="#{{ Str::slug($title) }}">{{ $title }}</h2>
                 </div>
                 <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
-                    <ul class="pl-6 pb-4 space-y-2 left-section-subitems">
+                    <ul style="color:#a6a6a6;" class="pl-6 pb-4 space-y-2 left-section-subitems">
                         @foreach ($items as $itemName => $itemData)
                         @php
                         $isDisabled = is_array($itemData) ? ($itemData['disabled'] ?? false) : false;
@@ -123,7 +123,7 @@
                                 {{ $isDisabled ? 'disabled' : '' }}>
                                 <span class="text-blue-800">{{ $itemName }}</span>
                             </button>
-                            <ul id="{{ Str::slug($itemName) }}" class="pl-6 pb-4 space-y-2 hidden left-section-subitems">
+                            <ul style="color:#a6a6a6;" id="{{ Str::slug($itemName) }}" class="pl-6 pb-4 space-y-2 hidden left-section-subitems">
                                 @foreach ($itemData['subItems'] as $subItemName => $subItemUrl)
                                 @if(is_array($subItemUrl))
                                 <li>
@@ -138,7 +138,7 @@
                                         {{ $isSubDisabled ? 'disabled' : '' }}>
                                         <span class="text-blue-800">{{ $subItemName }}</span>
                                     </button>
-                                    <ul id="{{ Str::slug($subItemName) }}" class="pl-6 pb-4 space-y-2 hidden left-section-subitems">
+                                    <ul style="color:#a6a6a6;" id="{{ Str::slug($subItemName) }}" class="pl-6 pb-4 space-y-2 hidden left-section-subitems">
                                         @foreach ($subItemUrl as $subSubItemName => $subSubItemData)
                                         @php
                                         $isSubSubDisabled = is_array($subSubItemData) ? ($subSubItemData['disabled'] ?? false) : false;
@@ -253,7 +253,7 @@
                     <h2 class="land-title font-semibold text-lg text-blue-800" data-target="#{{ Str::slug($title) }}">{{ $title }}</h2>
                 </div>
                 <div id="{{ Str::slug($title) }}" class="hack1 dropdown hidden">
-                    <ul class="pl-6 pb-4 space-y-2">
+                    <ul style="color:#a6a6a6;" class="pl-6 pb-4 space-y-2">
                         @foreach ($items as $itemName => $itemData)
                         <li>
                             <a
