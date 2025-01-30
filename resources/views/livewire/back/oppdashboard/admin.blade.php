@@ -34,13 +34,13 @@
                 <table class="table table-bordered border-secondary table-nowrap">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col">Select</th>
+                            <th class="select-filter" cope="col">Select</th>
                             <th scope="col">Recherche</th>
                             <th scope="col">CodeOPP</th>
-                            <th scope="col">Libéllé poste</th>
+                            <th scope="col">Libellé poste</th>
                             <th scope="col">Société</th>
-                            <th scope="col">Statu</th>
-                            <th scope="col">CP/Dpt</th>
+                            <th class="select-statut" scope="col">Statut</th>
+                            <th class="select-cpdpt" scope="col">CP/Dpt</th>
                             <th scope="col">Remarque(s)</th>
                             <th scope="col" style="width:100px">Effacer</th>
                         </tr>
@@ -59,7 +59,7 @@
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder=" Libéllé poste" wire:model.live='libelle'>
+                                <input type="text" class="form-control" placeholder=" Libellé poste" wire:model.live='libelle'>
 
                             </td>
                             <td>
@@ -140,20 +140,20 @@
                                 <tr>
                                     <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
-                                    <th scope="col" wire:click="sortBy('updated_at')">
+                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')">
                                         Date
                                     </th>
-                                    <th scope="col">Référence</th>
-                                    <th scope="col">LibelléPoste</th>
-                                    <th scope="col" wire:click="sortBy('first_name')">
-                                        Employeur
+                                    <th class="ref_col" scope="col">Référence</th>
+                                    <th class="libe_col" scope="col">LibelléPoste</th>
+                                    <th class="soci_col" scope="col" wire:click="sortBy('first_name')">
+                                        Société
                                     </th>
-                                    <th scope="col">CP</th>
-                                    <th scope="col">Ville</th>
-                                    <th scope="col">Statut</th>
-                                    <th scope="col">Remarque(s)</th>
-                                    <th scope="col">CDTs</th>
-                                    <th scope="col">Règlt.</th>
+                                    <th class="cpdpt_col" scope="col">CP/Dpt</th>
+                                    <th class="ville_col" scope="col">Ville</th>
+                                    <th class="statut_col" scope="col">Statut</th>
+                                    <th class="remark_col" scope="col">Remarque(s)</th>
+                                    <th class="cdt_col" scope="col">CDTs</th>
+                                    <th class="reg_col" scope="col">Règlt.</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -172,8 +172,8 @@
                                     <td>{{ $candidate->postal_code?? '--' }}</td>
                                     <td>{{ $candidate->city ?? '--' }}</td>
                                     <td>{{ $candidate->compagny->name ?? '--' }}</td>
-                                    <td>{{ $candidate->phone ?? '--' }}</td>
                                     <td>{{ $candidate->email ?? '--' }}</td>
+                                    <td>{{ $candidate->phone ?? '--' }}</td>
                                     <td>{{ $candidate->compagny->name ?? '--' }}</td>
                                 </tr>
 
@@ -191,26 +191,42 @@
             </div>
         </div>
 
-
-
         <!-- end row -->
-        <div class="row g-0 text-center text-sm-start align-items-center mb-4">
+        <div class="row g-0 text-center text-sm-start align-items-center mb-2">
             <!-- end col -->
             {{ $candidates->links() }}
         </div><!-- end row -->
 
 
-        
+        <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
+                <div class="modal-content cdt-modal-content">
+                    <div class="cdt-modal-header">
+                        <span>Enter CDT code:</span>
+                        <button id="closeModal" type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+                    </div>
+                    <div class="cdt-modal-body">
+                        <div class="cdt-input-group">
+                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                            <button class="cdt-ok-btn" id="okButton">OK</button>
+                        </div>
+                        <div class="cdt-message">("message")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
         <div class="card-footer">
             <div class="d-flex justify-content-end">
-
-                <button style="background:#6F61C0; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab"><i
-                        class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                    New OPP</button>
-
-                <button style="background:#FFB534; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                <a style="margin-left:5%; margin-top:3px;" href="/opportunity/create">
+                    <button style="background:#6F61C0; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                        class="btn btn-success btn-label right ms-auto nexttab"><i
+                            class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                        New OPP</button>
+                </a>
+                <button id="linkNewCDT" style="background:#FFB534; border:none;" type="submit"
                     class="btn btn-success btn-label right ms-auto nexttab"><i
                         class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
                     Link CDT</button>
@@ -237,13 +253,158 @@
 
         </div>
 
+        <style>
+            .cdt-modal-dialog {
+                max-width: 300px;
+            }
+
+            .cdt-modal-content {
+                border: 1px solid #999;
+                border-radius: 0;
+                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+                background: #f0f0f0;
+            }
+
+            .cdt-modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 6px 8px;
+                background: linear-gradient(to bottom, #fff, #e4e4e4);
+                /* border-bottom: 1px solid #999; */
+            }
+
+            .cdt-modal-header span {
+                font-size: 15px;
+                color: #000;
+            }
+
+            .cdt-close-btn {
+                background: red;
+                border: none;
+                font-size: 18px;
+                line-height: 1;
+                padding: 0 4px;
+                cursor: pointer;
+                color: white;
+            }
+
+            .cdt-modal-body {
+                padding: 10px;
+                background: #f0f0f0;
+            }
+
+            .cdt-input-group {
+                display: flex;
+                gap: 4px;
+                margin-bottom: 6px;
+            }
+
+            .cdt-input {
+                flex-grow: 1;
+                padding: 3px 6px;
+                border: 1px solid #999;
+                font-size: 13px;
+            }
+
+            .cdt-ok-btn {
+                background: #118B50;
+                border: 1px solid #999;
+                padding: 2px 8px;
+                cursor: pointer;
+                font-size: 13px;
+                color: white;
+            }
+
+            .cdt-message {
+                font-size: 15px;
+                color: #666;
+                padding: 2px 0;
+            }
 
 
+            .large-checkbox {
+                width: 20px;
+                height: 30px;
+                cursor: pointer;
+                margin-top: 3px;
+                margin-left: 10px;
+            }
 
+            .select-filter {
+                width: 10px;
+            }
+
+            .select-statut {
+                width: 125px;
+            }
+
+            .select-cpdpt {
+                width: 100px;
+            }
+
+            .card-footer {
+                margin-top: -5px;
+                margin-bottom: 10px;
+            }
+
+            .date_col {
+                width: 70px;
+            }
+
+            .ref_col {
+                width: 70px;
+            }
+
+            .cdt_col {
+                width: 70px;
+            }
+
+            .reg_col {
+                width: 70px;
+            }
+
+            .soci_col {
+                width: 150px;
+            }
+
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1;
+            }
+
+            .modal-content {
+                background: none;
+                border-radius: 8px;
+                width: 300px;
+                text-align: left;
+            }
+        </style>
 
     </div>
     @push('page-script')
     <script>
+        document.getElementById("linkNewCDT").addEventListener("click", function() {
+            document.getElementById("customModal").style.display = "flex";
+        });
+
+        document.getElementById("closeModal").addEventListener("click", function() {
+            document.getElementById("customModal").style.display = "none";
+        });
+
+        document.getElementById("okButton").addEventListener("click", function() {
+            document.getElementById("customModal").style.display = "none";
+        });
+
+
         let currentlyVisibleCertificateIndex = null;
 
         function toggleCertificate(index) {
@@ -534,21 +695,4 @@
         }
     </script>
     @endpush
-    <style>
-        .large-checkbox {
-            width: 45px;
-            height: 30px;
-            cursor: pointer;
-            margin-top: 3px;
-            margin-left: 15px;
-        }
-        .card-footer{
-            margin-top:-5px;
-            margin-bottom:10px;
-        }
-    </style>
 </div>
-
-
-
-
