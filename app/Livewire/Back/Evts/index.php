@@ -12,6 +12,7 @@ class index extends Component
     public $usersWithCandidateCounts;
     public $users;
     public $user_id;
+    public $step = 4;
     public function mount()
     {
         $this->users = User::orderBy('last_name')->get();
