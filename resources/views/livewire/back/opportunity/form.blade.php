@@ -101,8 +101,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a wire:click="goToForm" class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 4 ? '#' : '#evts' }}" role="tab">
+                           <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                href="/evts">
                                 EVT log
                             </a>
                         </li>
@@ -751,8 +751,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a wire:click="goToForm" class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 4 ? '#' : '#evts' }}" role="tab">
+                           <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                href="/evts">
                                 EVT log
                             </a>
                         </li>
@@ -1046,8 +1046,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a wire:click="goToForm" class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                data-bs-toggle="tab" href="{{ $step != 4 ? '#' : '#evts' }}" role="tab">
+                           <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                href="/evts">
                                 EVT log
                             </a>
                         </li>
