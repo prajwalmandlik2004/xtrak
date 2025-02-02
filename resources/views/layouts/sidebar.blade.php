@@ -391,7 +391,7 @@
                                  <a href="#sidebarSignInUsers" class="nav-link {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'active' : '' }}" data-bs-toggle="collapse"
                                      role="button" aria-expanded="{{ request()->routeIs('users.index', 'roles.index', 'roles.permissions') ? 'true' : 'false' }}" aria-controls="sidebarSignInUsers"
                                      data-key="t-signin">
-                                     <span style="color:#09ff00; "> Données </span>
+                                     <span style="color:#09ff00;font-size:16px;"> Données </span>
                                  </a>
                                  <div class="collapse menu-dropdown {{ request()->routeIs(['users.index', 'roles.index', 'roles.permissions']) ? 'show' : '' }}"
                                      id="sidebarSignInUsers">
