@@ -95,17 +95,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                href="/evts">
+                                Hiring Process
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
                                 Facturation
                             </a>
                         </li>
-                        <li class="nav-item">
-                           <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                href="/evts">
-                                EVT log
-                            </a>
-                        </li>
+
                     </ul>
                     <div class="card-body">
 
@@ -745,17 +746,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                href="/evts">
+                                Hiring Process
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
                                 Facturation
                             </a>
                         </li>
-                        <li class="nav-item">
-                           <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                href="/evts">
-                                EVT log
-                            </a>
-                        </li>
+
                     </ul>
                     <div class="col-sm-12">
 
@@ -1040,17 +1042,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                href="/evts">
+                                Hiring Process
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
                                 Facturation
                             </a>
                         </li>
-                        <li class="nav-item">
-                           <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                href="/evts">
-                                EVT log
-                            </a>
-                        </li>
+                       
                     </ul>
                     <div class="col-sm-12">
                         <form wire:submit.prevent="storeCre()">
