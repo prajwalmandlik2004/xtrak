@@ -306,7 +306,7 @@
                 .form-input,
                 .form-select {
                     background-color: #f9fafb;
-                    border: 1px solid #e5e7eb;
+                    border: 1px solid #006BFF;
                     border-radius: 8px;
                     padding: 0.75rem 1rem;
                     font-size: 0.875rem;
