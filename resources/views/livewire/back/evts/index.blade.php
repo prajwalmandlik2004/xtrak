@@ -22,21 +22,22 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                            data-bs-toggle="tab" href="/evts" role="tab">
+                            Hiring Process
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                             href="/opportunity/create#invoicement">
                             Facturation
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                            data-bs-toggle="tab" href="/evts" role="tab">
-                            EVT log
-                        </a>
-                    </li>
+
                 </ul>
             </div>
 
-            
+
 
             <div class="interview-form">
                 <!-- PUSCH CV Section -->
@@ -58,19 +59,20 @@
                         </div>
                         <div class="form-group">
                             <label>Debrief TRG</label>
-                            <input type="text" class="form-input wide" value="Souhaite le voir rapidement">
+                            <input type="text" class="form-input wide" value="">
                         </div>
                         <div class="form-group">
-                            <label>Rémunération</label>
+                            <label>Rém. souhaitée</label>
                             <input type="text" class="form-input">
                         </div>
                         <div class="form-group">
-                            <label>Géographie</label>
+                            <label>Préf. géo</label>
                             <input type="text" class="form-input">
                         </div>
                         <div class="form-group">
                             <label>Mobilité</label>
                             <select class="form-select">
+                                <option value="">Select</option>
                                 <option value="non">Non</option>
                                 <option value="regionale">Régionale</option>
                                 <option value="nationale">Nationale</option>
@@ -89,11 +91,11 @@
                         </div>
                         <div class="form-group">
                             <label>Statut</label>
-                            <input type="text" class="form-input" value="Effectué">
+                            <input type="text" class="form-input" value="">
                         </div>
                         <div class="form-group">
                             <label>Avec</label>
-                            <input type="text" class="form-input" value="Part 1">
+                            <input type="text" class="form-input" value="">
                         </div>
                         <div class="form-group">
                             <label>Fonction</label>
@@ -101,7 +103,7 @@
                         </div>
                         <div class="form-group">
                             <label>Comment./Debrief</label>
-                            <input type="text" class="form-input extra-wide" value="Très bon contact, bla bla">
+                            <input type="text" class="form-input extra-wide" value="">
                         </div>
                         <div class="form-group">
                             <label>Retour</label>
@@ -125,11 +127,11 @@
                         </div>
                         <div class="form-group">
                             <label>Statut</label>
-                            <input type="text" class="form-input" value="Reporté">
+                            <input type="text" class="form-input" value="">
                         </div>
                         <div class="form-group">
                             <label>Avec</label>
-                            <input type="text" class="form-input" value="Part 1">
+                            <input type="text" class="form-input" value="">
                         </div>
                         <div class="form-group">
                             <label>Fonction</label>
@@ -161,14 +163,14 @@
                             </div>
                             <div class="form-group">
                                 <label>Statut</label>
-                                <input type="text" class="form-input" value="OK">
+                                <input type="text" class="form-input" value="">
                             </div>
                             <div class="participant-column">
                                 <label>Avec</label>
                                 <div class="stacked-inputs">
-                                    <input type="text" class="form-input" value="Part 1">
-                                    <input type="text" class="form-input" value="Part 2">
-                                    <input type="text" class="form-input" value="Part 3">
+                                    <input type="text" class="form-input" value="">
+                                    <input type="text" class="form-input" value="">
+                                    <input type="text" class="form-input" value="">
                                 </div>
                             </div>
                             <div class="function-column">
@@ -212,14 +214,14 @@
                             </div>
                             <div class="form-group">
                                 <label>Statut</label>
-                                <input type="text" class="form-input" value="OK">
+                                <input type="text" class="form-input" value="">
                             </div>
                             <div class="participant-column">
                                 <label>Avec</label>
                                 <div class="stacked-inputs">
-                                    <input type="text" class="form-input" value="Part 1">
-                                    <input type="text" class="form-input" value="Part 2">
-                                    <input type="text" class="form-input" value="Part 3">
+                                    <input type="text" class="form-input" value="">
+                                    <input type="text" class="form-input" value="">
+                                    <input type="text" class="form-input" value="">
                                 </div>
                             </div>
                             <div class="function-column">
@@ -254,6 +256,21 @@
 
                 </div>
             </div>
+            <script>
+                document.querySelectorAll('.form-select').forEach(select => {
+                    if (select.value) {
+                        select.setAttribute('data-selected', select.value);
+                    }
+
+                    select.addEventListener('change', function() {
+                        if (this.value) {
+                            this.setAttribute('data-selected', this.value);
+                        } else {
+                            this.removeAttribute('data-selected');
+                        }
+                    });
+                })
+            </script>
             <style>
                 .interview-form {
                     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -381,19 +398,53 @@
                     width: 100%;
                 }
 
-                .form-select option[value="positif"] {
+                /* Base styles for both inputs and selects */
+                .form-input,
+                .form-select {
+                    background-color: #f9fafb;
+                    border: 1px solid #006BFF;
+                    border-radius: 8px;
+                    padding: 0.75rem 1rem;
+                    font-size: 0.875rem;
+                    width: 120px;
+                    transition: all 0.2s ease-in-out;
+                }
+
+                .form-select {
+                    cursor: pointer;
+                    appearance: none;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23006BFF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: right 0.75rem center;
+                    background-size: 1rem;
+                    padding-right: 2.5rem;
+                }
+
+                .form-select option {
+                    padding: 0.75rem 1rem;
+                }
+
+                .form-select option[value="positif"],
+                .form-select[data-selected="positif"] {
                     color: #047857;
                     background-color: #ecfdf5;
                 }
 
-                .form-select option[value="en-cours"] {
+                .form-select option[value="en-cours"],
+                .form-select[data-selected="en-cours"] {
                     color: #b45309;
                     background-color: #fffbeb;
                 }
 
-                .form-select option[value="negatif"] {
+                .form-select option[value="negatif"],
+                .form-select[data-selected="negatif"] {
                     color: #b91c1c;
                     background-color: #fef2f2;
+                }
+
+                .form-select:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 2px rgba(0, 107, 255, 0.2);
                 }
 
                 /* Modern custom scrollbar */
