@@ -25,15 +25,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
-                                href="/opportunity/create#invoicement">
-                                Facturation
+                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                href="/opportunity/create">
+                                Hiring Process
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                href="/opportunity/create">
-                                EVT log
+                            <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
+                                href="/opportunity/create#invoicement">
+                                Facturation
                             </a>
                         </li>
                     </ul>
