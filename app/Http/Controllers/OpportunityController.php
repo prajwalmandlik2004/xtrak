@@ -54,6 +54,11 @@ class OpportunityController extends Controller
         return view('back.opportunity.management');
     }
 
+    public function evts()
+    {
+        return view('back.opportunity.evts');
+    }
+
     public function import()
     {
         $this->authorize('Importer des candidats');
