@@ -589,7 +589,7 @@
                  <div id="evtModal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h2>FormCDT_EVT</h2>
+                            <h2>CDT_EVTform</h2>
                         </div>
 
                         <div class="icons-row">
@@ -621,15 +621,15 @@
                             <div class="form-row">
                                 <div class="form-group date-field">
                                     <label>Date</label>
-                                    <input type="text" class="form-control1">
+                                    <input type="date" class="form-control1" value="">
                                 </div>
                                 <div class="form-group type-field">
                                     <label>Type</label>
-                                    <input type="text" class="form-control1">
+                                    <input type="text" class="form-control1" value="Call">
                                 </div>
                                 <div class="form-group io-field">
                                     <label>I/O</label>
-                                    <input type="text" class="form-control1">
+                                    <input type="text" class="form-control1" value="Out">
                                 </div>
                                 <div class="form-group objet-field">
                                     <label>Objet</label>
@@ -671,6 +671,7 @@
                             <div class="button-group">
                                 <div class="button-group-left">
                                     <button type="button" class="btn btn-input">Input</button>
+                                    <button type="button" class="btn btn-valid">Valid</button>
                                     <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
                                     <button type="button" class="btn btn-historique">Historique</button>
                                 </div>
@@ -1159,7 +1160,7 @@
         gap: 20px;
         margin-top: -5px;
         margin-bottom: 20px;
-        font-size: 1.2rem;
+        font-size: 1rem;
         justify-content: flex-end;
     }
 
@@ -1187,16 +1188,16 @@
         flex-direction: column;
     }
 
-    .date-field {
-        width: 90px;
-    }
-
     .type-field {
-        width: 120px;
+        width: 60px;
     }
 
     .io-field {
         width: 60px;
+    }
+
+    .date-field {
+        width: 115px;
     }
 
     .objet-field {
@@ -1311,6 +1312,16 @@
         color: white;
     }
 
+    .btn-valid {
+        background-color:#6F61C0;
+        color: white;
+    }
+
+    .btn-valid:hover {
+        background-color:#6F61C0;
+        color: white;
+    }
+
     .btn-erase:hover {
         background-color: #ff5722;
         color: white;
@@ -1358,6 +1369,7 @@
 </div>
 @push('page-script')
 <script>
+    document.querySelector('.date-field input').valueAsDate = new Date();
     document.addEventListener("input", function(event) {
         if (event.target.tagName.toLowerCase() !== "textarea") return;
         autoResize(event.target);
