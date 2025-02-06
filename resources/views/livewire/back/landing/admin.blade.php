@@ -64,9 +64,9 @@
             $leftSections = [
             'Views' => [
             'CDTvue' => ['url' => '/dashboard', 'disabled' => false],
-            'TRGvue' => ['url' => '/views/trg', 'disabled' => true],
+            'TRGvue' => ['url' => '/trgdashboard', 'disabled' => false],
             'OPPvue' => ['url' => '/oppdashboard', 'disabled' => false],
-            'CTCvue' => ['url' => '/views/ctc', 'disabled' => true],
+            'CTCvue' => ['url' => '/ctcdashboard', 'disabled' => false],
             'PREFvue' => ['url' => '/views/pref', 'disabled' => true],
             'ANNvue' => ['url' => '/views/ann', 'disabled' => true],
             'CAMvue' => ['url' => '/views/cam', 'disabled' => true],
