@@ -10,6 +10,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NsDateController;
 use App\Http\Controllers\CompagnyController;
 use App\Http\Controllers\OppdashController;
+use App\Http\Controllers\TrgdashController;
+use App\Http\Controllers\CtcdashController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\NextStepController;
@@ -48,6 +50,8 @@ Route::post('/deconnexion', [AuthenticatedSessionController::class, 'logOut'])->
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', [DasboardController::class, 'index'])->name('dashboard');
     Route::get('/oppdashboard', [OppdashController::class, 'index'])->name('oppdashboard');
+    Route::get('/trgdashboard', [TrgdashController::class, 'index'])->name('trgdashboard');
+    Route::get('/ctcdashboard', [CtcdashController::class, 'index'])->name('ctcdashboard');
     Route::resource('users', UserController::class);
     Route::get('roles-permissions', [RolePermissionController::class, 'index'])->name('roles.permissions');
     Route::resource('roles', RoleController::class);
