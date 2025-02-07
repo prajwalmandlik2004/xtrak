@@ -217,9 +217,9 @@
             $rightSections = [
             'Forms' => [
             'CDTform' => ['url' => '/candidates/create', 'enabled' => true],
-            'TRGform' => ['url' => '/forms/trg', 'enabled' => false],
+            'TRGform' => ['url' => '/trgform', 'enabled' => true],
             'OPPform' => ['url' => '/opportunity/create', 'enabled' => true],
-            'CTCform' => ['url' => '/forms/ctc', 'enabled' => false],
+            'CTCform' => ['url' => '/ctcform', 'enabled' => true],
             'PREFform' => ['url' => '/forms/pref', 'enabled' => false],
             'ANNform' => ['url' => '/forms/ann', 'enabled' => false],
             'CAMform' => ['url' => '/forms/cam', 'enabled' => false],
