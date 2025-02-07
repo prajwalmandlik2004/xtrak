@@ -52,6 +52,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/oppdashboard', [OppdashController::class, 'index'])->name('oppdashboard');
     Route::get('/trgdashboard', [TrgdashController::class, 'index'])->name('trgdashboard');
     Route::get('/ctcdashboard', [CtcdashController::class, 'index'])->name('ctcdashboard');
+    Route::get('trgform', [LandingController::class, 'trgform'])->name('trgform');
+    Route::get('ctcform', [LandingController::class, 'ctcform'])->name('ctcform');
     Route::resource('users', UserController::class);
     Route::get('roles-permissions', [RolePermissionController::class, 'index'])->name('roles.permissions');
     Route::resource('roles', RoleController::class);
