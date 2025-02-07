@@ -30,6 +30,16 @@ class LandingController extends Controller
         return view('back.landing.kpis');
     }
 
+    public function trgform()
+    {
+        return view('back.landing.trgform');
+    }
+
+    public function ctcform()
+    {
+        return view('back.landing.ctcform');
+    }
+
 
     public function commande($param)
     {
