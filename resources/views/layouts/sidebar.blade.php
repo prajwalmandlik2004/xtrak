@@ -94,6 +94,9 @@
                                  <a href="{{ route('trgdashboard') }}" class="nav-link {{ request()->routeIs('trgdashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">TRGvue</span></a>
                              </li>
                              <li class="nav-item">
+                                 <a href="{{ route('ctcdashboard') }}" class="nav-link {{ request()->routeIs('ctcdashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CTCvue</span></a>
+                             </li>
+                             <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('facvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">FACvue</span></a>
                              </li>
                              @elseif (auth()->user()->hasRole('Manager'))
@@ -181,7 +184,12 @@
                                                      </li>
                                                      <li class="nav-item">
                                                          <a href="{{ route('opportunity.create') }}" class="nav-link {{ request()->routeIs('opportunity.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormOPP</span></a>
-
+                                                     </li>
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('trgform') }}" class="nav-link {{ request()->routeIs('trgform') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormTRG</span></a>
+                                                     </li>
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('ctcform') }}" class="nav-link {{ request()->routeIs('ctcform') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormCTC</span></a>
                                                      </li>
                                                  </ul>
                                              </div>
