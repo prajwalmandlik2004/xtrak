@@ -227,7 +227,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="card-header" style="margin-top:0%;">
+                                        <div class="card-header" style="margin-top:1%;">
                                             <h5 class="mb-0 card-title">
                                                 Contact de référence</h5>
                                         </div>
@@ -312,7 +312,7 @@
                                 </div>
                             </div>
                             <div class="card">
-                                <div class="card-header" style="margin-top:-5%;">
+                                <div class="card-header" style="margin-top:-3%;">
                                     <h5 class="mb-0 card-title" style="margin-left:3%">
                                         Poste and Location</h5>
                                 </div>
@@ -404,7 +404,7 @@
                                 </div>
                             </div>
                             <div class="mt-2 card">
-                                <div class="card-header" style="margin-top:-4%;">
+                                <div class="card-header" style="margin-top:-2%;">
                                     <h5 class="mb-0 card-title" style="margin-left:3%">
                                         Attendus</h5>
                                 </div>
@@ -515,7 +515,7 @@
                                 </div>
                             </div>
                             <div class="mt-4 card">
-                                <div class="card-header" style="margin-top:-5%;">
+                                <div class="card-header" style="margin-top:-3%;">
                                     <h5 class="mb-0 card-title" style="margin-left:3%">
                                         Compétences</h5>
                                 </div>
@@ -587,7 +587,7 @@
 
 
                             <div class="mt-4 card">
-                                <div class="card-header" style="margin-top:-5%;">
+                                <div class="card-header" style="margin-top:-3%;">
                                     <h5 class="mb-0 card-title" style="margin-left:3%">Package</h5>
                                 </div>
                                 <div class="card-body" style="margin-top:-1%; margin-left:3%">
