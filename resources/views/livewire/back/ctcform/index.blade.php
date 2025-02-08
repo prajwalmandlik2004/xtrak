@@ -19,7 +19,7 @@
                             <label>TRGcode</label>
                             <input type="text" class="form-control1">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group company-field">
                             <label>Company</label>
                             <input type="text" class="form-control1">
                         </div>
@@ -37,7 +37,7 @@
                             <label>Last Name</label>
                             <input type="text" class="form-control1">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group company-field">
                             <label>Position</label>
                             <input type="text" class="form-control1">
                         </div>
@@ -79,11 +79,17 @@
 
                     <div class="button-group">
                         <div class="button-group-left">
-                            <button type="button" class="btn btn-valid">Valid</button>
-                            <button type="button" class="btn btn-input">Input</button>
-                            <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
-                            <button type="button" class="btn btn-list">List</button>
-                            <button type="button" class="btn btn-historique">New</button>
+                            <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
+                                <button type="button" class="btn btn-evt"> > New</button>
+                            </div>
+                            <div class="two">
+                                <button type="button" class="btn btn-input">CTClist</button>
+                                <button type="button" class="btn btn-input"> > New</button>
+                            </div>
+                            <div class="three"><button type="button" class="btn btn-valid">Valid</button>
+                                <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                                <button type="button" class="btn btn-inputmain">Input</button>
+                            </div>
                             <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
                         </div>
                     </div>
@@ -204,6 +210,10 @@
             width: 200px;
         }
 
+        .company-field{
+            width:380px;
+        }
+
         .mail-field {
             width: 330px;
         }
@@ -260,7 +270,8 @@
         }
 
         .form-control2 {
-            width: 100%;
+            margin-left: 20px;
+            width: 95%;
             padding: 6px 8px;
             border: 1px solid #ddd;
             border-radius: 8px;
