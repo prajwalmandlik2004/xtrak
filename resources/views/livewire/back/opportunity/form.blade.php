@@ -113,13 +113,12 @@
                         <div class="row g-4">
 
                             <div class="mt-2 card">
-                                <div class="card-header">
-                                    <!-- <h5 class="mb-0 card-title">
+                                <!-- <div class="card-header"> -->
+                                <!-- <h5 class="mb-0 card-title">
                                                 Informations
                                                 personnelles</h5> -->
-                                    <div class="col-lg-8" style="margin-left:3%">
+                                <!-- <div class="col-lg-8" style="margin-left:3%">
                                         <div style="display: flex; align-items:center">
-                                            <!-- <label for="origine" class="form-label" style="margin-right:5%">Date</label> -->
                                             <input style="background:#D4EBF8;border:none;" type="text" class="form-control"
                                                 value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" disabled
                                                 style="text-align:center" />
@@ -133,14 +132,9 @@
                                                 value="EIFFAGE CLEMESSY" disabled
                                                 style="text-align:center" />
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="card-body" style="margin-left:3%; margin-top: -1%;">
-
-                                    <h5 class="mb-0 card-title">
-                                        Source and Employeur</h5>
-                                    <hr>
-
+                                    </div> -->
+                                <!-- </div> -->
+                                <div class="card-body" style="margin-top: 1%;">
                                     <div class="row g-2">
                                         <div class="col-lg-2">
                                             <div>
@@ -308,15 +302,28 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="mt-2 col-lg-2 ">
+                                            <div>
+                                                <label for="remarkque" class="form-label">Remarque(s)</label>
+                                                <input type="text"
+                                                    class="form-control form-control-custom-1  @error('remarkque') is-invalid @enderror "
+                                                    wire:model='remarkque'
+                                                    placeholder="Remarkque(s)" />
+
+                                                @error('remarkque')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-header" style="margin-top:-3%;">
-                                    <h5 class="mb-0 card-title" style="margin-left:3%">
+                                    <h5 class="mb-0 card-title">
                                         Poste and Location</h5>
                                 </div>
-                                <div class="card-body" style="margin-top:-1%;margin-left:3%">
+                                <div class="card-body" style="margin-top:-1%;">
                                     <div class="row">
                                         <div class="col-lg-2 ">
                                             <div>
@@ -393,8 +400,8 @@
                                                 <input type="text"
                                                     class="form-control
                                     form-control-custom-1  @error('country') is-invalid @enderror "
-                                                    min="0" wire:model='country'
-                                                    placeholder="Country" />
+                                                    min="0" wire:model='France'
+                                                    value="France" readonly />
                                                 @error('country')
                                                 <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
@@ -405,10 +412,10 @@
                             </div>
                             <div class="mt-2 card">
                                 <div class="card-header" style="margin-top:-2%;">
-                                    <h5 class="mb-0 card-title" style="margin-left:3%">
+                                    <h5 class="mb-0 card-title">
                                         Attendus</h5>
                                 </div>
-                                <div class="card-body" style="margin-top:-1%; margin-left:3%">
+                                <div class="card-body" style="margin-top:-1%;">
                                     <div class="row">
                                         <div class="col-lg-1">
                                             <div>
@@ -500,7 +507,7 @@
 
                                         <div class="col-lg-2">
                                             <div>
-                                                <label for="date_emb" class="form-label">Date emb.
+                                                <label for="date_emb" class="form-label">Job offer letter
                                                 </label>
                                                 <input
                                                     type="date"
@@ -516,10 +523,10 @@
                             </div>
                             <div class="mt-4 card">
                                 <div class="card-header" style="margin-top:-3%;">
-                                    <h5 class="mb-0 card-title" style="margin-left:3%">
+                                    <h5 class="mb-0 card-title">
                                         Compétences</h5>
                                 </div>
-                                <div class="card-body" style="margin-top:-1%; margin-left:3%">
+                                <div class="card-body" style="margin-top:-1%;">
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div>
@@ -581,6 +588,28 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="col-md-2">
+                                            <div>
+                                                <label for="onboarding_term" class="form-label">Onboarding term</label>
+                                                <input type="date"
+                                                    class="form-control form-control-custom-1 @error('onboarding_term') is-invalid @enderror"
+                                                    wire:model='onboarding_term'
+                                                    placeholder="Onboarding term" />
+                                                @error('onboarding_term')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="invo">
+                                                <label for="invoicement_date" class="mt-3 form-label">Invoicement date</label>
+                                                <input type="date"
+                                                    class="form-control form-control-custom-1 @error('invoicement_date') is-invalid @enderror"
+                                                    wire:model='invoicement_date'
+                                                    placeholder="Invoicement date" />
+                                                @error('invoicement_date')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -588,9 +617,9 @@
 
                             <div class="mt-4 card">
                                 <div class="card-header" style="margin-top:-3%;">
-                                    <h5 class="mb-0 card-title" style="margin-left:3%">Package</h5>
+                                    <h5 class="mb-0 card-title">Package</h5>
                                 </div>
-                                <div class="card-body" style="margin-top:-1%; margin-left:3%">
+                                <div class="card-body" style="margin-top:-1%;">
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div>
@@ -652,16 +681,16 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-lg-2">
                                             <div>
-                                                <label for="remarks_two" class="form-label">Remarque(s)</label>
-                                                <input type="text"
-                                                    class="form-control form-control-custom-1 @error('remarks_two') is-invalid @enderror"
-                                                    wire:model='remarks_two'
-                                                    placeholder="Remarque(s)" />
-                                                @error('remarks_two')
-                                                <span class="invalid-feedback">{{ $message }}</span>
-                                                @enderror
+                                                <label for="date_emb" class="form-label">Date emb.
+                                                </label>
+                                                <input
+                                                    type="date"
+                                                    class="form-control form-control-custom-1 @error('date_emb') is-invalid @enderror"
+                                                    name="date_emb"
+                                                    value="{{ old('date_emb') ?? now()->format('Y-m-d') }}"
+                                                    placeholder="Select a date" />
                                             </div>
                                         </div>
                                     </div>
@@ -1053,7 +1082,7 @@
                                 Facturation
                             </a>
                         </li>
-                       
+
                     </ul>
                     <div class="col-sm-12">
                         <form wire:submit.prevent="storeCre()">
@@ -1330,6 +1359,7 @@
         margin: 0;
         padding: 0;
     }
+
 
     :root {
         --primary-color: #2563eb;
