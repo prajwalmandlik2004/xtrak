@@ -273,6 +273,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
             const toggleButtons = document.querySelectorAll('.toggle-btn');
             const landTitles = document.querySelectorAll('.land-title');
             const toggleButtons1 = document.querySelectorAll('.toggle-btn1');
@@ -280,22 +281,49 @@
             const closeAllBtn = document.getElementById('closeAllBtn');
             const dropdowns = document.querySelectorAll('.dropdown');
 
+            function saveDropdownStates() {
+                const states = {};
+                dropdowns.forEach(dropdown => {
+                    states[dropdown.id] = !dropdown.classList.contains('hidden');
+                });
+                localStorage.setItem('dropdownStates', JSON.stringify(states));
+            }
+
+            function loadDropdownStates() {
+                const states = JSON.parse(localStorage.getItem('dropdownStates'));
+                if (states) {
+                    dropdowns.forEach(dropdown => {
+                        const isOpen = states[dropdown.id];
+                        dropdown.classList.toggle('hidden', !isOpen);
+
+                        const button = document.querySelector(`[data-target="#${dropdown.id}"]`);
+                        if (button) {
+                            const icon = button.querySelector('.toggle-icon');
+                            if (icon) {
+                                icon.textContent = isOpen ? '-' : '+';
+                            }
+                        }
+                    });
+                }
+            }
+
             toggleButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const target = document.querySelector(button.getAttribute('data-target'));
                     const icon = button.querySelector('.toggle-icon');
                     target.classList.toggle('hidden');
                     icon.textContent = target.classList.contains('hidden') ? '+' : '-';
+                    saveDropdownStates();
                 });
             });
-
 
             landTitles.forEach(button => {
                 button.addEventListener('click', () => {
                     const target = document.querySelector(button.getAttribute('data-target'));
-                    const icon = button.querySelector('.toggle-icon');
+                    const icon = button.previousElementSibling.querySelector('.toggle-icon');
                     target.classList.toggle('hidden');
                     icon.textContent = target.classList.contains('hidden') ? '+' : '-';
+                    saveDropdownStates();
                 });
             });
 
@@ -305,28 +333,88 @@
                     const icon = button.querySelector('.toggle-icon');
                     target.classList.toggle('hidden');
                     icon.textContent = target.classList.contains('hidden') ? '+' : '-';
+                    saveDropdownStates();
                 });
             });
 
             openAllBtn.addEventListener('click', () => {
                 dropdowns.forEach(dropdown => dropdown.classList.remove('hidden'));
                 toggleButtons.forEach(button => button.querySelector('.toggle-icon').textContent = '-');
+                toggleButtons1.forEach(button => {
+                    const icon = button.querySelector('.toggle-icon');
+                    if (icon) icon.textContent = '-';
+                });
+                saveDropdownStates();
             });
+
 
             closeAllBtn.addEventListener('click', () => {
                 dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
                 toggleButtons.forEach(button => button.querySelector('.toggle-icon').textContent = '+');
+                toggleButtons1.forEach(button => {
+                    const icon = button.querySelector('.toggle-icon');
+                    if (icon) icon.textContent = '+';
+                });
+                localStorage.removeItem('dropdownStates');
             });
 
-            openAllBtn.addEventListener('click', () => {
-                dropdowns.forEach(dropdown => dropdown.classList.remove('hidden'));
-                toggleButtons1.forEach(button => button.querySelector('.toggle-icon').textContent = '-');
-            });
+            loadDropdownStates();
 
-            closeAllBtn.addEventListener('click', () => {
-                dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
-                toggleButtons1.forEach(button => button.querySelector('.toggle-icon').textContent = '+');
-            });
+            
+            // const toggleButtons = document.querySelectorAll('.toggle-btn');
+            // const landTitles = document.querySelectorAll('.land-title');
+            // const toggleButtons1 = document.querySelectorAll('.toggle-btn1');
+            // const openAllBtn = document.getElementById('openAllBtn');
+            // const closeAllBtn = document.getElementById('closeAllBtn');
+            // const dropdowns = document.querySelectorAll('.dropdown');
+
+            // toggleButtons.forEach(button => {
+            //     button.addEventListener('click', () => {
+            //         const target = document.querySelector(button.getAttribute('data-target'));
+            //         const icon = button.querySelector('.toggle-icon');
+            //         target.classList.toggle('hidden');
+            //         icon.textContent = target.classList.contains('hidden') ? '+' : '-';
+            //     });
+            // });
+
+
+            // landTitles.forEach(button => {
+            //     button.addEventListener('click', () => {
+            //         const target = document.querySelector(button.getAttribute('data-target'));
+            //         const icon = button.querySelector('.toggle-icon');
+            //         target.classList.toggle('hidden');
+            //         icon.textContent = target.classList.contains('hidden') ? '+' : '-';
+            //     });
+            // });
+
+            // toggleButtons1.forEach(button => {
+            //     button.addEventListener('click', () => {
+            //         const target = document.querySelector(button.getAttribute('data-target'));
+            //         const icon = button.querySelector('.toggle-icon');
+            //         target.classList.toggle('hidden');
+            //         icon.textContent = target.classList.contains('hidden') ? '+' : '-';
+            //     });
+            // });
+
+            // openAllBtn.addEventListener('click', () => {
+            //     dropdowns.forEach(dropdown => dropdown.classList.remove('hidden'));
+            //     toggleButtons.forEach(button => button.querySelector('.toggle-icon').textContent = '-');
+            // });
+
+            // closeAllBtn.addEventListener('click', () => {
+            //     dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
+            //     toggleButtons.forEach(button => button.querySelector('.toggle-icon').textContent = '+');
+            // });
+
+            // openAllBtn.addEventListener('click', () => {
+            //     dropdowns.forEach(dropdown => dropdown.classList.remove('hidden'));
+            //     toggleButtons1.forEach(button => button.querySelector('.toggle-icon').textContent = '-');
+            // });
+
+            // closeAllBtn.addEventListener('click', () => {
+            //     dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
+            //     toggleButtons1.forEach(button => button.querySelector('.toggle-icon').textContent = '+');
+            // });
 
             const newButton = document.getElementById('newButton');
             const popupForm = document.getElementById('popupForm');
