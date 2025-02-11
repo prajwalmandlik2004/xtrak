@@ -361,11 +361,18 @@
 
                     <div class="button-group">
                         <div class="button-group-left">
-                            <button type="button" class="btn btn-valid">Valid</button>
-                            <button type="button" class="btn btn-input">Input</button>
-                            <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
-                            <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
-                            <button type="button" class="btn btn-historique">Logs</button>
+                            <div class="one">
+                                <button type="button" class="btn btn-evt">EVTlist</button>
+                                <button type="button" class="btn btn-evt"> > New</button>
+                            </div>
+                            <div class="two">
+                                <button type="button" class="btn btn-valid">Valid</button>
+                                <button type="button" class="btn btn-inputmain">Input</button>
+                            </div>
+                            <div class="three">
+                                <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                                <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -414,6 +421,28 @@
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+
+            .btn-evt {
+                background-color: #F9C0AB;
+                color: black;
+            }
+
+            .btn-evt:hover {
+                background-color: #F9C0AB;
+                color: black;
+            }
+
+            .btn-inputmain {
+                background-color: #06D001;
+                color: white;
+            }
+
+            .btn-inputmain:hover {
+                background-color: #06D001;
+                color: white;
+            }
+
+            
             .modal-content {
                 background: none;
                 border-radius: 8px;
