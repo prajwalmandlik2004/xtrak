@@ -1343,7 +1343,7 @@
 
     .button-group-left {
         display: flex;
-        gap: 30px;
+        gap: 20px;
     }
 
     .button-group-right {
