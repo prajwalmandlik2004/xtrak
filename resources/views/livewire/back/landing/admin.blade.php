@@ -916,7 +916,7 @@
         }
 
         .saved-queries-table tbody tr:hover {
-            background-color: #e8f4fd;
+            background-color: #578FCA;
             transition: background-color 0.3s ease;
         }
 
