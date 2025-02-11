@@ -325,17 +325,21 @@
                     class="btn btn-success btn-label right ms-auto nexttab">
                     New CTC</button>
                 <button style="background:#F9C0AB;color:black; border:none;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab" onclick="openModal()">
-                    New EVT</button>
-                <button style="background:#578FCA;border:none;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                     class="btn btn-success btn-label right ms-auto nexttab">
-                    Historique</button>
+                    EVTlist</button>
+                <button style="background:#F9C0AB;color:black;margin-left:-3%; border:none;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                    class="btn btn-success btn-label right ms-auto nexttab" onclick="openModal()">
+                    > New</button>
                 <button style="background:#3D3BF3; border:none;padding:0px;width:110px;" type="submit"
                     class="btn btn-success btn-label right ms-auto nexttab">
                     Save Selection</button>
                 <button style="background:red; border:none; margin-right:25%;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                     class="btn btn-success btn-label right ms-auto nexttab">
                     Suppress</button>
+
+                <button style="margin-right:3%; border:none;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                    class="btn btn-primary btn-label right ms-auto nexttab">
+                    Close</button>
 
 
                 <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative" style="margin-right:1%;">
