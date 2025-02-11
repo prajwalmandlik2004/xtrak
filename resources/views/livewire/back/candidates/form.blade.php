@@ -586,12 +586,11 @@
                 </div>
 
 
-                 <div id="evtModal" class="modal">
+                <div id="evtModal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h2>CDT_EVTform</h2>
+                            <h2>CTC_EVTform</h2>
                         </div>
-
                         <div class="icons-row">
                             <div class="icon-item">
                                 <i class="fas fa-phone"></i>
@@ -625,22 +624,26 @@
                                 </div>
                                 <div class="form-group type-field">
                                     <label>Type</label>
-                                    <input type="text" class="form-control1" value="Call">
+                                    <input type="text" class="form-control1">
                                 </div>
                                 <div class="form-group io-field">
                                     <label>I/O</label>
-                                    <input type="text" class="form-control1" value="Out">
+                                    <input type="text" class="form-control1">
                                 </div>
                                 <div class="form-group objet-field">
                                     <label>Objet</label>
                                     <input type="text" class="form-control1">
                                 </div>
+                                <div class="form-group statut-field">
+                                    <label>EVTStatus</label>
+                                    <input type="text" class="form-control1">
+                                </div>
                                 <div class="form-group retour-field">
-                                    <label>Retour</label>
+                                    <label>Feed</label>
                                     <input type="text" class="form-control1">
                                 </div>
                                 <div class="form-group statut-field">
-                                    <label>Statut</label>
+                                    <label>Temper</label>
                                     <input type="text" class="form-control1">
                                 </div>
                             </div>
@@ -648,40 +651,77 @@
                             <div class="comment-section">
                                 <div class="form-group comment-field">
                                     <label>Comment</label>
-                                    <textarea class="form-control2"></textarea>
+                                    <!-- <textarea class="form-control2"></textarea> -->
+                                    <input type="text" class="form-control1">
                                 </div>
                                 <div class="right-section">
                                     <div class="next-ech-row">
                                         <div class="form-group next-field">
-                                            <label>Next1</label>
+                                            <label>Next</label>
                                             <input type="text" class="form-control1">
                                         </div>
                                         <div class="form-group ech-field">
-                                            <label>Ech1</label>
+                                            <label>Ech</label>
+                                            <input type="text" class="form-control1">
+                                        </div>
+                                        <div class="form-group ech-field">
+                                            <label>Priority</label>
                                             <input type="text" class="form-control1">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Note1</label>
-                                        <textarea class="form-control1"></textarea>
+                                </div>
+                            </div>
+
+
+
+                            <div class="comment-section">
+                                <div class="form-group retour-field">
+                                    <label>Last Comment</label>
+                                    <input type="text" class="form-control1">
+                                </div>
+                                <div class="right-section">
+                                    <div class="next-ech-row">
+                                        <div class="form-group last-field">
+                                            <label>Date Last Com.</label>
+                                            <input type="text" class="form-control1">
+                                        </div>
                                     </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Other Comment</label>
+                                    <textarea class="form-control1"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Note1</label>
+                                    <textarea class="form-control1"></textarea>
                                 </div>
                             </div>
 
                             <div class="button-group">
                                 <div class="button-group-left">
-                                    <button type="button" class="btn btn-input">Input</button>
-                                    <button type="button" class="btn btn-valid">Valid</button>
-                                    <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
-                                    <button type="button" class="btn btn-historique">Historique</button>
-                                </div>
-                                <div class="button-group-right">
-                                    <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                                    <div class="one">
+                                        <button type="button" class="btn btn-evt">EVTlist</button>
+                                        <button type="button" class="btn btn-evt"> > New</button>
+                                    </div>
+                                    <div class="two">
+                                        <button type="button" class="btn btn-valid">Valid</button>
+                                        <button type="button" class="btn btn-inputmain">Input</button>
+                                    </div>
+                                    <div class="three">
+                                        <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                                        <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
+
+               
 
 
 
@@ -1102,6 +1142,29 @@
 </div>
 </div>
 <style>
+
+    .btn-evt {
+        background-color: #F9C0AB;
+        color: black;
+    }
+
+    .btn-evt:hover {
+        background-color: #F9C0AB;
+        color: black;
+    }
+
+    .btn-inputmain {
+        background-color: #06D001;
+        color: white;
+    }
+
+    .btn-inputmain:hover {
+        background-color: #06D001;
+        color: white;
+    }
+
+
+    
     .modal {
         display: none;
         position: fixed;
@@ -1273,7 +1336,8 @@
     .button-group {
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
+        margin-top: -30px;
+        margin-left:-20px;
         padding: 0 20px;
     }
 
