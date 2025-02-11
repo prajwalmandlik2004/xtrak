@@ -163,14 +163,20 @@
     <div class="card-footer mb-4">
           <div class="d-flex justify-content-end">
             <button style="background:#ffc107; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                class="btn btn-success link-btn">
+                CDTlist</button>
+            <button style="background:#ffc107; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success link-btn" id="linkNewCDT">
-                LINK NEW CDT</button>
+                > New </button>
             <button style="background-color:red; margin-left:5%;" wire:click="" class="btn btn-danger" id="delete-button-container">
                 UNLINK
             </button>
             <button style="background:#D2665A; color:white; border:none;margin-left:5%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-danger">
-                New EVT</button>
+                EVTlist</button>
+            <button style="background:#D2665A; color:white; border:none;margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                class="btn btn-danger">
+                > New</button>
             <button style="background:#010066; color:white; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success btn-label right ms-auto nexttab"><i
                     class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
