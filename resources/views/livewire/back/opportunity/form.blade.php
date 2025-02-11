@@ -1339,6 +1339,19 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="button-group">
+                                            <div class="button-group-left">
+                                                <div class="one">
+                                                    <button type="button" class="btn btn-evt">EVTlist</button>
+                                                    <button type="button" class="btn btn-evt"> > New</button>
+                                                </div>
+                                                <div class="three">
+                                                    <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                                                    <button type="button" class="btn btn-valid">Valid</button>
+                                                    <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                         </form>
