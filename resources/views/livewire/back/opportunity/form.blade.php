@@ -718,13 +718,16 @@
                     </div>
 
 
-                    <div class="card-footer" style="margin-top: -3%;">
+                    <!-- <div class="card-footer" style="margin-top: -3%;">
                         <div class="d-flex justify-content-end">
                             <button style="background:green; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                                 class="btn btn-success btn-label right ms-auto nexttab"><i
                                     class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
                                 {{ $action == 'create' ? 'Facturation' : 'Facturation' }}</button>
-
+                                <button style="background:green; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                                class="btn btn-success btn-label right ms-auto nexttab"><i
+                                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
+                                {{ $action == 'create' ? 'Facturation' : 'Facturation' }}</button>
                             <button wire:loading wire:target="storeCandidateData" type="button"
                                 class="btn btn-primary" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status"
@@ -732,26 +735,29 @@
                                 Enregistrement...
                             </button>
                         </div>
-
-                    </div>
+                    </div> -->
 
                     </form>
 
-                    <div style="margin-right:30%; margin-top:-4%; margin-bottom:10px;" class="d-flex justify-content-end">
-                        <button id="linkNewCDT" style="background:#3D3BF3; border:none;" type="submit"
-                            class="btn btn-success btn-label right ms-auto nexttab"><i
-                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                            {{ $action == '' ? 'Link CST' : 'Link CST' }}</button>
-
-                        <button style="background:#FFB534; border:none;" type="submit"
-                            class="btn btn-success btn-label right ms-auto nexttab"><i
-                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                            {{ $action == '' ? 'Gestion CDT' : 'Gestion CDT' }}</button>
-
-                        <button style="background:#FF77B7; border:none;" type="submit"
-                            class="btn btn-success btn-label right ms-auto nexttab"><i
-                                class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                            {{ $action == '' ? 'New EVT' : 'New EVT' }}</button>
+                    <div class="button-group">
+                        <div class="button-group-left">
+                            <div class="two">
+                                <button type="button" class="btn btn-inputmain">CSTlist</button>
+                                <button type="button" class="btn btn-inputmain"> > New</button>
+                            </div>
+                            <div class="two">
+                                <button type="button" class="btn btn-cdt">CDTlist</button>
+                                <button type="button" class="btn btn-cdt"> > New</button>
+                            </div>
+                            <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
+                                <button type="button" class="btn btn-evt"> > New</button>
+                            </div>
+                            <div class="three">
+                                <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                                <button type="button" class="btn btn-valid">Valid</button>
+                                <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1348,6 +1354,88 @@
     </div>
 </div>
 <style>
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2%;
+        padding: 0 20px;
+    }
+
+    .button-group-left {
+        display: flex;
+        gap: 150px;
+    }
+
+    .btn-close1 {
+        background-color: #000080;
+        color: white;
+    }
+
+    .btn-close1:hover {
+        background-color: #000080;
+        color: white;
+    }
+
+    .btn-cdt {
+        background-color: #FFEB00;
+        color: black;
+    }
+
+    .btn-cdt:hover {
+        background-color: #FFEB00;
+        color: black;
+    }
+
+    .btn-list {
+        background-color: blue;
+        color: white;
+    }
+
+    .btn-list:hover {
+        background-color: blue;
+        color: white;
+    }
+
+    .btn-inputmain {
+        background-color: #4635B1;
+        color: white;
+    }
+
+    .btn-inputmain:hover {
+        background-color: #4635B1;
+        color: white;
+    }
+
+    .btn-erase {
+        background-color: #ff5722;
+        color: white;
+    }
+
+    .btn-valid {
+        background-color: #6F61C0;
+        color: white;
+    }
+
+    .btn-evt {
+        background-color: #F9C0AB;
+        color: black;
+    }
+
+    .btn-evt:hover {
+        background-color: #F9C0AB;
+        color: black;
+    }
+
+    .btn-valid:hover {
+        background-color: #6F61C0;
+        color: white;
+    }
+
+    .btn-erase:hover {
+        background-color: #ff5722;
+        color: white;
+    }
+
     .card-head {
         font-size: 1.8rem;
     }
