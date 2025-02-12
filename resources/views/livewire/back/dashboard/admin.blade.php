@@ -62,7 +62,6 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
-
                             </td>
                             <!-- <td>
                                 <input type="text" class="form-control" placeholder="Select" wire:model.live='search'>
@@ -154,11 +153,7 @@
                                 <i class="bi bi-check-square-fill"></i> Sélection
                             </button>
                         </div>
-<!--                         <div>
-                            <button wire:click="" class="btn btn-danger" id="delete-button-container" style="display: none;">
-                                <i class="bi bi-trash-fill"></i>Supprimer
-                            </button>
-                        </div> -->
+
                         <!-- <div class="me-3">
                             <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
                             <i class="bi bi-check-square"></i> Désélection
@@ -188,7 +183,7 @@
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
-                            <thead class="bg-secondary text-white sticky-top">
+                            <thead style="background:yellow;" class="text-black sticky-top">
                                 <tr>
                                     <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
@@ -204,23 +199,24 @@
                                         Nom
                                     </th>
                                     <th scope="col">Fonction</th>
-                                    <th scope="col">Société</th>
+                                    <!-- <th scope="col">Société</th> -->
                                     <th scope="col">Tél</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">CP/Dpt</th>
-                                    <th scope="col">Ville</th>
-                                    <th scope="col">Pays</th>
+                                    <!-- <th scope="col">Ville</th>
+                                    <th scope="col">Pays</th> -->
                                     <th scope="col">Etat</th>
-                                    <th scope="col">Statut</th>
+
                                     <th scope="col">Disponibilité</th>
                                     <!-- <th scope="col">Etat</th> -->
                                     <th scope="col">Next step</th>
-                                    <th scope="col">NSdate</th>
+                                    <!-- <th scope="col">NSdate</th> -->
                                     <th scope="col">CV</th>
                                     <th scope="col">CRE</th>
+                                    <th scope="col">Statut</th>
                                     <th scope="col">Commentaire</th>
                                     <th scope="col">Description</th>
-                                    <th scope="col">Suivi</th>
+                                    <!-- <th scope="col">Suivi</th> -->
                                     <!-- <th scope="col">Action</th> -->
                                 </tr>
                             </thead>
@@ -239,12 +235,12 @@
                                     <td>{{ $candidate->first_name ?? '--' }}</td>
                                     <td id="Lcol">{{ $candidate->last_name ?? '--' }}</td>
                                     <td id="Lcol">{{ $candidate->position->name ?? '--' }}</td>
-                                    <td>{{ $candidate->compagny->name ?? '--' }}</td>
+                                    <!-- <td>{{ $candidate->compagny->name ?? '--' }}</td> -->
                                     <td>{{ $candidate->phone ?? '--' }}</td>
                                     <td>{{ $candidate->email ?? '--' }}</td>
                                     <td>{{ $candidate->postal_code ?? '--' }}</td>
-                                    <td>{{ $candidate->city ?? '--' }}</td>
-                                    <td>{{ $candidate->country ?? '--' }}</td>
+                                    <!-- <td>{{ $candidate->city ?? '--' }}</td>
+                                    <td>{{ $candidate->country ?? '--' }}</td> -->
                                     @if($candidate->candidateState->name == 'Certifié')
                                     <td id="colState">
                                         <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{$index}})">
@@ -258,11 +254,11 @@
                                         {{ $candidate->candidateState->name }}
                                     </td>
                                     @endif
-                                    <td>{{ $candidate->candidateStatut->name ?? '--' }}</td>
+
                                     <td>{{ $candidate->disponibility->name ?? '--' }}</td>
                                     <!-- <td>{{ $candidate->candidateState->name ?? '--' }}</td> -->
                                     <td>{{ $candidate->nextStep->name ?? '--' }}</td>
-                                    <td>{{ $candidate->nsDate->name ?? '--' }}</td>
+                                    <!-- <td>{{ $candidate->nsDate->name ?? '--' }}</td> -->
                                     <td>
                                         @if ($candidate->files()->exists())
                                         @php
@@ -290,9 +286,10 @@
 
 
                                     </td>
+                                    <td>{{ $candidate->candidateStatut->name ?? '--' }}</td>
                                     <td>{{ $candidate->commentaire ?? '--' }}</td>
                                     <td>{{ $candidate->description ?? '--' }}</td>
-                                    <td>{{ $candidate->suivi ?? '--' }}</td>
+                                    <!-- <td>{{ $candidate->suivi ?? '--' }}</td> -->
                                 </tr>
 
                                 @empty
@@ -318,24 +315,30 @@
 
         <div class="button-group">
             <div class="button-group-left">
-                <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
-                    <button type="button" class="btn btn-evt"> > New</button>
+                <div class="one">
+                    <a href="{{ route('candidates.create') }}">
+                        <button type="button" class="btn btn-cdt">NewCDT</button>
+                    </a>
                 </div>
                 <div class="two">
                     <button type="button" class="btn btn-input">OPPlist</button>
                     <button type="button" class="btn btn-input"> > New</button>
                 </div>
-                <div class="three">
+                <div class="one">
+                    <button type="button" class="btn btn-evt">EVTlist</button>
+                    <button type="button" class="btn btn-evt"> > New</button>
                 </div>
-                <div>
-                    <button wire:click="" class="btn btn-danger" id="delete-button-container">
-                        <i class="bi bi-trash-fill"></i> Supprimer
+                <div class="three">
+                    <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
+                        Supprimer
                     </button>
                 </div>
-                <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                <div class="four">
+                    <button type="button" class="btn btn-save">Save</button>
+                    <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                </div>
             </div>
         </div>
-
 
     </div>
     @push('page-script')
@@ -631,7 +634,6 @@
     </script>
     @endpush
 
-    
     <style>
         .button-group {
             display: flex;
@@ -649,6 +651,7 @@
         .btn-evt {
             background-color: #F9C0AB;
             color: black;
+            margin-left: 10px;
         }
 
         .btn-evt:hover {
@@ -656,9 +659,34 @@
             color: black;
         }
 
+        .btn-cdt {
+            background-color: yellow;
+            color: black;
+            margin-left: 10px;
+        }
+
+        .btn-cdt:hover {
+            background-color: yellow;
+            color: black;
+        }
+
+        .btn-save {
+            background-color: #4CC9FE;
+            color: black;
+            margin-left: 10px;
+        }
+
+        .btn-save:hover {
+            background-color: #4CC9FE;
+            color: black;
+        }
+
+
+
         .btn-input {
             background-color: #6F61C0;
             color: white;
+            margin-left: 10px;
         }
 
         .btn-input:hover {
@@ -670,6 +698,7 @@
         .btn-close1 {
             background-color: #000080;
             color: white;
+            margin-left: 10px;
         }
 
         .btn-close1:hover {
@@ -677,5 +706,4 @@
             color: white;
         }
     </style>
-    
 </div>
