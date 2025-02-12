@@ -636,7 +636,7 @@
         .button-group {
             display: flex;
             justify-content: space-between;
-            margin-top: 1%;
+            margin-top: -1%;
             margin-bottom: 1%;
             padding: 0 20px;
         }
