@@ -154,11 +154,11 @@
                                 <i class="bi bi-check-square-fill"></i> Sélection
                             </button>
                         </div>
-                        <div>
+<!--                         <div>
                             <button wire:click="" class="btn btn-danger" id="delete-button-container" style="display: none;">
                                 <i class="bi bi-trash-fill"></i>Supprimer
                             </button>
-                        </div>
+                        </div> -->
                         <!-- <div class="me-3">
                             <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
                             <i class="bi bi-check-square"></i> Désélection
@@ -316,11 +316,24 @@
             {{ $candidates->links() }}
         </div><!-- end row -->
 
-        <div style="margin-top:-1%; margin-bottom:10px;" class="d-flex justify-content-end">
-            <button style="background:#0D92F4; border:none;" wire:loading.remove wire:target="" type="submit"
-                class="btn btn-success btn-label right ms-auto nexttab"><i
-                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                Historique</button>
+        <div class="button-group">
+            <div class="button-group-left">
+                <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
+                    <button type="button" class="btn btn-evt"> > New</button>
+                </div>
+                <div class="two">
+                    <button type="button" class="btn btn-input">OPPlist</button>
+                    <button type="button" class="btn btn-input"> > New</button>
+                </div>
+                <div class="three">
+                </div>
+                <div>
+                    <button wire:click="" class="btn btn-danger" id="delete-button-container">
+                        <i class="bi bi-trash-fill"></i> Supprimer
+                    </button>
+                </div>
+                <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+            </div>
         </div>
 
 
@@ -617,4 +630,52 @@
         }
     </script>
     @endpush
+
+    
+    <style>
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3%;
+            margin-bottom: 2%;
+            padding: 0 20px;
+        }
+
+        .button-group-left {
+            display: flex;
+            gap: 100px;
+        }
+
+        .btn-evt {
+            background-color: #F9C0AB;
+            color: black;
+        }
+
+        .btn-evt:hover {
+            background-color: #F9C0AB;
+            color: black;
+        }
+
+        .btn-input {
+            background-color: #6F61C0;
+            color: white;
+        }
+
+        .btn-input:hover {
+            background-color: #6F61C0;
+            color: white;
+        }
+
+
+        .btn-close1 {
+            background-color: #000080;
+            color: white;
+        }
+
+        .btn-close1:hover {
+            background-color: #000080;
+            color: white;
+        }
+    </style>
+    
 </div>
