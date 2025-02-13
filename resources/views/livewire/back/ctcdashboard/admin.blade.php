@@ -210,7 +210,7 @@
         <div id="evtModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>CTC_EVTform</h2>
+                    <h2 style="background:#14f83f;width:18%;padding:7px;text-align:center">CTC_EVTform</h2>
                 </div>
                 <div class="icons-row">
                     <div class="icon-item">
@@ -322,8 +322,8 @@
                     <div class="button-group">
                         <div class="button-group-left">
                             <div class="one">
-                                <button type="button" class="btn btn-evt">EVTlist</button>
-                                <button type="button" class="btn btn-evt"> > New</button>
+                                <button type="button" class="btn btn-evt-modal">EVTlist</button>
+                                <button type="button" class="btn btn-evt-modal"> > New</button>
                             </div>
                             <div class="two">
                                 <button type="button" class="btn btn-valid">Valid</button>
@@ -406,6 +406,16 @@
             }
 
             .btn-evt:hover {
+                background-color: #F9C0AB;
+                color: black;
+            }
+
+            .btn-evt-modal {
+                background-color: #F9C0AB;
+                color: black;
+            }
+
+            .btn-evt-modal:hover {
                 background-color: #F9C0AB;
                 color: black;
             }
@@ -616,6 +626,7 @@
                 display: flex;
                 justify-content: space-between;
                 margin-top: -30px;
+                margin-left:-2%;
                 padding: 0 20px;
             }
 
