@@ -102,11 +102,11 @@
                                 <i class="bi bi-check-square-fill"></i> Sélection
                             </button>
                         </div> -->
-                        <div>
+                        <!-- <div>
                             <button wire:click="" class="btn btn-danger" id="delete-button-container" style="display: none;">
                                 <i class="bi bi-trash-fill"></i>Supprimer
                             </button>
-                        </div>
+                        </div> -->
                         <!-- <div class="me-3">
                             <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
                             <i class="bi bi-check-square"></i> Désélection
@@ -136,7 +136,7 @@
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
-                            <thead class="bg-secondary text-white sticky-top">
+                            <thead style="background:#6F61C0;" class="text-white sticky-top">
                                 <tr>
                                     <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
@@ -219,41 +219,84 @@
 
 
         <div class="card-footer">
-            <div class="d-flex justify-content-end">
-                <a style="margin-left:5%; margin-top:3px;" href="/opportunity/create">
-                    <button style="background:#6F61C0; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                        class="btn btn-success btn-label right ms-auto nexttab"><i
-                            class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                        New OPP</button>
-                </a>
-                <button id="linkNewCDT" style="background:#FFB534; border:none;" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab"><i
-                        class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                    Link CDT</button>
-
-                <button style="background:#FF8383; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab"><i
-                        class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                    New EVT</button>
-
-                <button style="background:#3D3BF3; border:none; margin-right:25%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab"><i
-                        class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                    Save Selec.</button>
-
-                <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative" style="margin-right:1%;">
-                    <i class="ri-file-download-line me-1"></i>
-                    <span class="download-text">Exporter</span>
-                    <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        <span class="visually-hidden">Exportation...</span>
-                    </span>
-                </button>
+            <div class="button-group-main">
+                <div class="button-group-left-main">
+                    <a href="/opportunity/create">
+                        <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">NewOPP</button>
+                    </a>
+                    <div class="one">
+                        <button type="button" class="btn btn-inputmain">CDTlist</button>
+                        <button type="button" class="btn btn-inputmain" onclick="openModal()"> > New</button>
+                    </div>
+                    <div class="one">
+                        <button type="button" class="btn btn-evt">EVTlist</button>
+                        <button type="button" class="btn btn-evt" onclick="openModal()"> > New</button>
+                    </div>
+                    <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                        Suppress
+                    </button>
+                    <div class="three">
+                        <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
+                        <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                        <button id="export-button" onclick="exportSelectedCandidates()" type="button" class="btn btn-close1" onclick="closeModal()"> <i class="ri-file-download-line me-1"></i>Exporter <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span class="visually-hidden">Exportation...</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
             </div>
-
         </div>
 
         <style>
+            .button-group-main {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 15px;
+                margin-bottom: 10px;
+                padding: 0 20px;
+            }
+
+            .button-group-left-main {
+                display: flex;
+                gap: 100px;
+            }
+
+            .btn-evt {
+                background-color: #F9C0AB;
+                color: black;
+                margin-left: 10px;
+            }
+
+            .btn-evt:hover {
+                background-color: #F9C0AB;
+                color: black;
+            }
+
+            .btn-inputmain {
+                background-color: yellow;
+                color: black;
+                margin-left: 10px;
+            }
+
+            .btn-inputmain:hover {
+                background-color: yellow;
+                color: black;
+            }
+
+
+            .btn-close1 {
+                background-color: #000080;
+                color: white;
+                margin-left: 10px;
+            }
+
+            .btn-close1:hover {
+                background-color: #000080;
+                color: white;
+            }
+
+
             .cdt-modal-dialog {
                 max-width: 300px;
             }
