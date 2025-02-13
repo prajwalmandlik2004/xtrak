@@ -19,37 +19,56 @@
                 <table class="table table-bordered border-secondary table-nowrap">
                     <thead>
                         <tr class="text-center">
-                            <th style="width:110px;" class="select-cpdpt" cope="col">Effacer</th>
+                            <th class="select-filter" cope="col">Select</th>
                             <th scope="col">Recherche</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Company</th>
-                            <th class="select-cpdpt" scope="col">CTC last name</th>
+                            <th scope="col">CodeOPP</th>
+                            <th scope="col">Libellé poste</th>
+                            <th scope="col">Société</th>
+                            <th class="select-statut" scope="col">Statut</th>
+                            <th class="select-cpdpt" scope="col">CP/Dpt</th>
+                            <th scope="col">Remarque(s)</th>
+                            <th scope="col" style="width:100px">Effacer</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <!-- <td>
-                                <input id="selectionButton" type="checkbox" wire:model.live='select' class="large-checkbox" id="searchCheckbox">
-                            </td> -->
                             <td>
-                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
+                                <input id="selectionButton" type="checkbox" wire:model.live='select' class="large-checkbox" id="searchCheckbox">
                             </td>
 
                             <td>
                                 <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
                             </td>
-
                             <td>
-                                <input style="width:auto;" type="date" class="form-control" placeholder="date" wire:model.live='date'>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="Company" wire:model.live='company'>
+                                <input type="text" class="form-control" placeholder="CodeOPP" wire:model.live='codeopp'>
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="CTC" wire:model.live='ctc'>
+                                <input type="text" class="form-control" placeholder=" Libellé poste" wire:model.live='libelle'>
+
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+
+                            </td>
+                            <td>
+                                <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                    <option value="" selected>Selectionner</option>
+                                    <option value="1">Opened</option>
+                                    <option value="0">Closed</option>
+                                    <option value="1">Filled</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='position'>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="Remarque(s)" wire:model.live='remarks'>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -57,9 +76,10 @@
             </div>
         </div>
 
+
         <!-- end page title -->
 
-        <div class="col-md-12">
+        <div style="margin-top:-2%;" class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
@@ -68,11 +88,11 @@
                                 <i class="bi bi-check-square-fill"></i> Sélection
                             </button>
                         </div> -->
-                        <div>
+                        <!-- <div>
                             <button wire:click="" class="btn btn-danger" id="delete-button-container" style="display: none;">
                                 <i class="bi bi-trash-fill"></i>Supprimer
                             </button>
-                        </div>
+                        </div> -->
                         <!-- <div class="me-3">
                             <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
                             <i class="bi bi-check-square"></i> Désélection
@@ -98,31 +118,31 @@
                         @endif
                     </div>
                 </div>
-                <div class="card-body">
+                <div style="margin-top:-3%;" class="card-body">
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            style="display:none;" wire:model="selectAll"></th>
-                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #16C47F;">
+                                    <th style="width:30px;background-color: #06D001;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                            wire:model="selectAll"></th>
+                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #06D001;">
                                         Date
                                     </th>
-                                    <th class="libe_col" scope="col" style="background-color: #D0DDD0;">Company</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #16C47F;">Civ</th>
-                                    <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #16C47F;">
-                                        Prenom
+                                    <th class="libe_col" scope="col" style="background-color: #06D001;">Company</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #06D001;">Civ</th>
+                                    <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #06D001;">
+                                        First Name
                                     </th>
-                                    <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #16C47F;">
-                                        Nom
+                                    <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #06D001;">
+                                        Last Name
                                     </th>
-                                    <th class="ville_col" scope="col" style="background-color: #16C47F;">Fonction</th>
-                                    <th class="ref_col" scope="col" style="background-color: #16C47F;">STD</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #16C47F;">Ext</th>
-                                    <th class="reg_col" scope="col" style="background-color:#16C47F;">LD</th>
-                                    <th class="remark_col" scope="col" style="background-color: #16C47F;">Cell</th>
-                                    <th class="statut_col" scope="col" style="background-color: #16C47F;">Mail</th>
+                                    <th class="ville_col" scope="col" style="background-color: #06D001;">Title</th>
+                                    <th class="ref_col" scope="col" style="background-color: #06D001;">Standard</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #06D001;">Ext</th>
+                                    <th class="reg_col" scope="col" style="background-color:#06D001;">DL</th>
+                                    <th class="remark_col" scope="col" style="background-color: #06D001;">Cell</th>
+                                    <th class="statut_col" scope="col" style="background-color: #06D001;">Mail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -300,7 +320,7 @@
                     </div>
 
                     <div class="button-group">
-                       <div class="button-group-left">
+                        <div class="button-group-left">
                             <div class="one">
                                 <button type="button" class="btn btn-evt">EVTlist</button>
                                 <button type="button" class="btn btn-evt"> > New</button>
@@ -320,44 +340,69 @@
         </div>
 
         <div class="card-footer mb-2">
-            <div class="d-flex justify-content-end">
-                <button style="background:#16C47F;color:black; border:none;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab">
-                    New CTC</button>
-                <button style="background:#F9C0AB;color:black; border:none;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab">
-                    EVTlist</button>
-                <button style="background:#F9C0AB;color:black;margin-left:-3%; border:none;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab" onclick="openModal()">
-                    > New</button>
-                <button style="background:#3D3BF3; border:none;padding:0px;width:110px;" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab">
-                    Save Selection</button>
-                <button style="background:red; border:none; margin-right:25%;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                    class="btn btn-success btn-label right ms-auto nexttab">
-                    Suppress</button>
 
-                <button style="margin-right:3%; border:none;padding:0px;width:100px;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                    class="btn btn-primary btn-label right ms-auto nexttab">
-                    Close</button>
-
-
-                <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative" style="margin-right:1%;">
-                    <i class="ri-file-download-line me-1"></i>
-                    <span class="download-text">Exporter</span>
-                    <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        <span class="visually-hidden">Exportation...</span>
-                    </span>
-                </button>
+            <div class="button-group-main">
+                <div class="button-group-left-main">
+                    <a href="/ctcform">
+                        <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">NewCTC</button>
+                    </a>
+                    <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
+                        <button type="button" class="btn btn-evt" onclick="openModal()"> > New</button>
+                    </div>
+                    <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                        Suppress
+                    </button>
+                    <div class="three">
+                        <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
+                        <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                        <button id="export-button" onclick="exportSelectedCandidates()" type="button" class="btn btn-close1" onclick="closeModal()"> <i class="ri-file-download-line me-1"></i>Exporter <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span class="visually-hidden">Exportation...</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
             </div>
-
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            .button-group-main {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 15px;
+                margin-bottom: 10px;
+                padding: 0 20px;
+            }
+
+            .button-group-left-main {
+                display: flex;
+                gap: 190px;
+            }
+
+            .large-checkbox {
+                width: 20px;
+                height: 30px;
+                cursor: pointer;
+                margin-top: 3px;
+                margin-left: 10px;
+            }
+
+            .select-filter {
+                width: 10px;
+            }
+
+            .select-statut {
+                width: 125px;
+            }
+
+            .select-cpdpt {
+                width: 100px;
+            }
+
             .btn-evt {
                 background-color: #F9C0AB;
                 color: black;
+                margin-left: 10px;
             }
 
             .btn-evt:hover {
@@ -368,13 +413,14 @@
             .btn-inputmain {
                 background-color: #06D001;
                 color: white;
+                margin-left: 10px;
             }
 
             .btn-inputmain:hover {
                 background-color: #06D001;
                 color: white;
             }
-            
+
             .modal-content {
                 background: none;
                 border-radius: 8px;
@@ -625,6 +671,7 @@
             .btn-close1 {
                 background-color: #000080;
                 color: white;
+                margin-left: 10px;
             }
 
             .btn-close1:hover {
