@@ -589,7 +589,7 @@
                 <div id="evtModal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h2>CDT_EVTform</h2>
+                            <h2 style="background:yellow;width:18%;padding:7px;text-align:center">CDT_EVTform</h2>
                         </div>
                         <div class="icons-row">
                             <div class="icon-item">
