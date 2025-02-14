@@ -19,15 +19,15 @@
                             <label>Company</label>
                             <input type="text" class="form-control1">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group date-field">
                             <label>Std</label>
                             <input type="text" class="form-control1">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group date-field">
                             <label>Url</label>
                             <input type="text" class="form-control1">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group date-field">
                             <label>TRGcode</label>
                             <input type="text" class="form-control1">
                         </div>
@@ -45,15 +45,15 @@
                             <label>CP/Dpt</label>
                             <input type="text" class="form-control1" value="">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group date-field">
                             <label>Area</label>
                             <input type="text" class="form-control1">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group date-field">
                             <label>Town</label>
                             <input type="text" class="form-control1">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group date-field">
                             <label>Country</label>
                             <input type="text" class="form-control1">
                         </div>
@@ -67,7 +67,7 @@
                             <label>Staff</label>
                             <input type="text" class="form-control1" value="">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group date-field">
                             <label>Activity</label>
                             <input type="text" class="form-control1">
                         </div>
@@ -90,7 +90,7 @@
                             <label>Filiation</label>
                             <input type="text" class="form-control1" value="">
                         </div>
-                        <div class="form-group objet-field">
+                        <div class="form-group date-field">
                             <label>OF</label>
                             <input type="text" class="form-control1">
                         </div>
@@ -134,6 +134,9 @@
 
                     <div class="button-group">
                         <div class="button-group-left">
+                            <a href="/trgform">
+                                <button style="background:#999;color:white;" type="button" class="btn btn-evt">New TRG</button>
+                            </a>
                             <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
                                 <button type="button" class="btn btn-evt"> > New</button>
                             </div>
@@ -141,7 +144,7 @@
                                 <button type="button" class="btn btn-input">CTClist</button>
                                 <button type="button" class="btn btn-input"> > New</button>
                             </div>
-                            <div class="three"><button type="button" class="btn btn-valid">Valid</button>
+                            <div class="three"><button style="background:#4CC9FE; color:black;" type="button" class="btn btn-valid">Save</button>
                                 <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
                                 <button type="button" class="btn btn-inputmain">Input</button>
                             </div>
@@ -262,7 +265,7 @@
         }
 
         .objet-field {
-            width: 200px;
+            width: 170px;
         }
 
         .retour-field {
@@ -300,11 +303,13 @@
 
         .next-field,
         .ech-field {
-            flex: 1;
+            /* flex: 1; */
+            width: 80px;
         }
 
         label {
             color: black;
+            margin-left: 2px;
         }
 
         .form-control1 {
@@ -344,7 +349,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 100px;
+            gap: 50px;
         }
 
         .button-group-right {
