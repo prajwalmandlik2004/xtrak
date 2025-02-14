@@ -27,7 +27,7 @@
                             <th style="width:150px;" scope="col">Date</th>
                             <th class="select-statut" scope="col">Statut EVT</th>
                             <th scope="col">NextStep</th>
-                            <th scope="col">NextEch</th>
+                            <th scope="col">Prio</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +70,7 @@
                                 <input type="text" class="form-control" placeholder="NextStep" wire:model.live='nextstep'>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="NextEch" wire:model.live='nextech'>
+                                <input type="text" class="form-control" placeholder="Prio" wire:model.live='nextech'>
                             </td>
                         </tr>
                     </tbody>
@@ -224,7 +224,7 @@
         <div id="evtModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>TRG_EVTform</h2>
+                    <h2 style="background:#FFB4A2;width:18%;padding:7px;text-align:center">TRG_EVTform</h2>
                 </div>
                 <div class="icons-row">
                     <div class="icon-item">
@@ -384,7 +384,9 @@
 
             <div class="button-group-main">
                 <div class="button-group-left-main">
-                    <button style="background:#999;color:white;" type="button" class="btn btn-close1">New TRG</button>
+                    <a href="/trgform">
+                        <button style="background:#999;color:white;" type="button" class="btn btn-close1">New TRG</button>
+                    </a>
                     <div class="two">
                         <button type="button" class="btn btn-opp">OPPlist</button>
                         <button type="button" class="btn btn-opp">New</button>
