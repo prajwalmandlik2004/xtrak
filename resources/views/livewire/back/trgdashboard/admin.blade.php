@@ -80,7 +80,7 @@
 
         <!-- end page title -->
 
-        <div style="margin-top:-2%;" class="col-md-12">
+        <div style="margin-top:-1%;" class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
@@ -119,7 +119,7 @@
                         @endif
                     </div>
                 </div>
-                <div style="margin-top:-3%;" class="card-body">
+                <div style="margin-top:-1%;" class="card-body">
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
