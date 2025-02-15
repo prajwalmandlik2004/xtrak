@@ -67,15 +67,27 @@
         justify-content: center;
         align-items: center;
         position: absolute;
-        width: 100vw;
-        height: 100vh;
-        margin-top: 60%;
-        margin-left: 75%;
+        width: 40vw;
+        height: 40vh;
+        margin-top: 52%;
+        margin-left: 45%;
     }
     #xtrak {
         width: 50%;
         height: 60%;
-        margin-top: 2%;
+        margin-top: 28%;
+        margin-left:100%;
+    }
+
+    #TRG{
+        color:white;
+    }
+
+    #OPP{
+        color:white;
+    }
+    #CPN{
+        color:white;
     }
 
     @media (max-width: 768px) {
@@ -97,21 +109,21 @@
 <body class="login_bg">
     <div class="container-fluid d-flex justify-content-center align-items-center">
         <div class="header-container">
-            <a href="https://www.harmen-botts.com/">
+            <!-- <a href="https://www.harmen-botts.com/">
                 <img src="{{ asset('assets/images/logo.jpg') }}" alt="Harmen & Botts Logo">
-            </a>
-            <span class="separator">|</span>
+            </a> -->
+            <!-- <span class="separator">|</span> -->
             <h1><img src="{{ asset('assets/images/xtrak.png') }}" alt="XTrak Logo" id="xtrak"></h1>
         </div>
         <div id="container">
-            <button class="circle" style="background-color: #FFC0CB;" id="EVT1">EVT</button>
-            <button class="circle" style="background-color: #FFA500;" id="EVT2">XTK</button>
-            <button class="circle" style="background-color: #FF0000;" id="CPN">CPN</button>
-            <button class="circle" style="background-color: #800080;" id="OPP">OPP</button>
-            <button class="circle" style="background-color: #808080;" id="TRG">TRG</button>
-            <button class="circle" style="background-color: #FFFF00;" id="CDT">CDT</button>
-            <button class="circle" style="background-color: #00FFFF;" id="ANN">ANN</button>
-            <button class="circle" style="background-color: #00FF00;" id="CTC">CTC</button>
+            <button class="circle" style="font-size:1rem; background-color: #FFC0CB;" id="EVT1">EVT</button>
+            <button class="circle" style="font-size:1rem; background-color: #FFA500;" id="EVT2">XTK</button>
+            <button class="circle" style="font-size:1rem; background-color: #FF0000;" id="CPN">CPM</button>
+            <button class="circle" style="font-size:1rem; background-color: #800080;" id="OPP">OPP</button>
+            <button class="circle" style="font-size:1rem; background-color: #808080;" id="TRG">TRG</button>
+            <button class="circle" style="font-size:1rem; background-color: #FFFF00;" id="CDT">CDT</button>
+            <button class="circle" style="font-size:1rem; background-color: #00FFFF;" id="ANN">ANN</button>
+            <button class="circle" style="font-size:1rem; background-color: #00FF00;" id="CTC">CTC</button>
         </div>
     </div>
 
