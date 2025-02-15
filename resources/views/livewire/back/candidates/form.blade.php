@@ -40,9 +40,9 @@
                             <div class="card-header">
                                 <div class="d-flex">
                                     <div class="p-2 flex-grow-1">
-                                        <h5 class="mb-0 card-title ">
-                                            {{ $action == 'create' ? "Formulaire de creation d'un candidat" : "Formulaire de modification d'un candidat" }}
-                                        </h5>
+                                        <h1 style="font-size:1.5rem;background:yellow;width:18%;padding:10px;text-align:center" class="mb-0 card-title ">
+                                            {{ $action == 'create' ? "CDTform" : "CDTform" }}
+                                        </h1>
 
                                     </div>
                                     {{-- @if (!$action == 'update')
