@@ -183,7 +183,7 @@
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
-                            <thead style="background:yellow;" class="text-black sticky-top">
+                            <thead style="background:yellow;z-index: 1; opacity: 1;" class="text-black sticky-top">
                                 <tr>
                                     <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
