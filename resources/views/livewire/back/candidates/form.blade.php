@@ -40,6 +40,7 @@
                             <div class="card-header">
                                 <div class="d-flex">
                                     <div class="p-2 flex-grow-1">
+
                                         <h1 style="font-size:1.5rem;background:yellow;width:18%;padding:10px;text-align:center" class="mb-0 card-title ">
                                             {{ $action == 'create' ? "CDTform" : "CDTform" }}
                                         </h1>
@@ -55,15 +56,15 @@
                                 </div>
                                 <div class="p-2">
                                     <button wire:click.prevent="storeCandidateData2" wire:loading.remove wire:target="storeCandidateData2" type="button"
-                                        class="btn btn-success btn-label right ms-auto nexttab"><i
+                                        class="save btn btn-success btn-label right ms-auto nexttab"><i
                                             class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                                        {{ $action == 'create' ? 'Enregistrer' : 'Modifier et suivant' }}</button>
+                                        {{ $action == 'create' ? 'Save' : 'Save' }}</button>
 
                                     <button wire:loading wire:target="storeCandidateData2" type="button"
-                                        class="btn btn-primary" disabled>
+                                        class="save btn btn-primary" disabled>
                                         <span class="spinner-border spinner-border-sm" role="status"
                                             aria-hidden="true"></span>
-                                        Enregistrement...
+                                        Saving...
                                     </button>
                                 </div>
                                 <div class="p-2">
@@ -586,6 +587,102 @@
                 </div>
 
 
+                <!-- <div id="evtModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>CDT_EVTform</h2>
+                        </div>
+                        <div class="icons-row">
+                            <div class="icon-item">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="icon-item">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="icon-item">
+                                <i class="fas fa-pen"></i>
+                            </div>
+                            <div class="icon-item">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div class="icon-item">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="status-buttons">
+                            <button class="status-btn">OCC</button>
+                            <button class="status-btn">NRP</button>
+                            <button class="status-btn">NRJ</button>
+                            <button class="status-btn">WRN</button>
+                            <button class="status-btn">NHS</button>
+                        </div>
+
+                        <div id="evtForm">
+                            <div class="form-row">
+                                <div class="form-group date-field">
+                                    <label>Date</label>
+                                    <input type="date" class="form-control1" value="">
+                                </div>
+                                <div class="form-group type-field">
+                                    <label>Type</label>
+                                    <input type="text" class="form-control1" value="Call">
+                                </div>
+                                <div class="form-group io-field">
+                                    <label>I/O</label>
+                                    <input type="text" class="form-control1" value="Out">
+                                </div>
+                                <div class="form-group objet-field">
+                                    <label>Objet</label>
+                                    <input type="text" class="form-control1">
+                                </div>
+                                <div class="form-group retour-field">
+                                    <label>Retour</label>
+                                    <input type="text" class="form-control1">
+                                </div>
+                                <div class="form-group statut-field">
+                                    <label>Statut</label>
+                                    <input type="text" class="form-control1">
+                                </div>
+                            </div>
+
+                            <div class="comment-section">
+                                <div class="form-group comment-field">
+                                    <label>Comment</label>
+                                    <textarea class="form-control2"></textarea>
+                                </div>
+                                <div class="right-section">
+                                    <div class="next-ech-row">
+                                        <div class="form-group next-field">
+                                            <label>Next1</label>
+                                            <input type="text" class="form-control1">
+                                        </div>
+                                        <div class="form-group ech-field">
+                                            <label>Ech1</label>
+                                            <input type="text" class="form-control1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Note1</label>
+                                        <textarea class="form-control1"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="button-group">
+                                <div class="button-group-left">
+                                    <button type="button" class="btn btn-input">Input</button>
+                                    <button type="button" class="btn btn-valid">Valid</button>
+                                    <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                                    <button type="button" class="btn btn-historique">Historique</button>
+                                </div>
+                                <div class="button-group-right">
+                                    <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
                 <div id="evtModal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -721,27 +818,48 @@
 
 
 
-               
 
 
-
-               <div class="card-footer">
+                <div class="card-footer">
                     <div class="d-flex justify-content-end">
                         <button wire:loading.remove wire:target="storeCandidateData" type="submit"
-                            class="btn btn-success btn-label right ms-auto nexttab"><i
+                            class="save btn btn-success btn-label right ms-auto nexttab"><i
                                 class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                            {{ $action == 'create' ? 'Enregistrer et suivant' : 'Modifier et suivant' }}</button>
+                            {{ $action == 'create' ? 'Save' : 'Save' }}</button>
 
                         <button wire:loading wire:target="storeCandidateData" type="button"
-                            class="btn btn-primary" disabled>
+                            class="save btn btn-primary" disabled>
                             <span class="spinner-border spinner-border-sm" role="status"
                                 aria-hidden="true"></span>
-                            Enregistrement...
+                            Saving...
                         </button>
                     </div>
                 </div>
                 </form>
-                <div style="margin-right:30%; margin-top:-4%; margin-bottom:10px;" class="d-flex justify-content-end">
+                <div class="button-group-main">
+                    <div class="button-group-left-main">
+                        <div class="four">
+                            <button type="button" class="btn btn-call">Call</button>
+                            <button type="button" class="btn btn-sendmail">Send Mail</button>
+                        </div>
+                        <div class="one">
+                            <button type="button" class="btn btn-evtmain">EVTlist</button>
+                            <button type="button" class="btn btn-evtmain" onclick="openModal()"> > New</button>
+                        </div>
+                        <div class="two">
+                            <button type="button" class="btn btn-validmain">OPPlist</button>
+                            <a href="/opportunity/create">
+                            <button type="button" class="btn btn-validmain"> > New</button>
+                            </a>
+                        </div>
+                        <div class="three">
+                            <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                            <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div style="margin-right:30%; margin-top:-4%; margin-bottom:10px;" class="d-flex justify-content-end">
                     <button style="background:black; border:none;" wire:loading.remove wire:target="" type="submit"
                         class="btn btn-success btn-label right ms-auto nexttab"><i
                             class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
@@ -761,12 +879,14 @@
                         class="btn btn-success btn-label right ms-auto nexttab"><i
                             class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
                         {{ $action == 'create' ? 'Link OPP' : 'Link OPP' }}</button>
-                    
+
                     <button style="background:#0D92F4; border:none;" wire:loading.remove wire:target="" type="submit"
                         class="btn btn-success btn-label right ms-auto nexttab"><i
                             class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
                         {{ $action == 'create' ? 'Historique' : 'Historique' }}</button>
-                </div>
+                </div> -->
+
+
 
 
             </div>
@@ -1143,6 +1263,21 @@
 </div>
 <style>
 
+    .save{
+        background-color: #06D001;
+    }
+    .btn-evtmain {
+        background-color: #F9C0AB;
+        color: black;
+        margin-left: 10px;
+    }
+
+    .btn-evtmain:hover {
+        background-color: #F9C0AB;
+        color: black;
+    }
+
+
     .btn-evt {
         background-color: #F9C0AB;
         color: black;
@@ -1152,6 +1287,34 @@
         background-color: #F9C0AB;
         color: black;
     }
+
+    .btn-call {
+        background-color: black;
+        color: white;
+        margin-left: 10px;
+    }
+
+    .btn-call:hover {
+        background-color: black;
+        color: white;
+
+    }
+
+    .btn-sendmail {
+        background-color: white;
+        color: black;
+        margin-left: 10px;
+        border: 1px solid black;
+
+    }
+
+    .btn-sendmail:hover {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+    }
+
+
 
     .btn-inputmain {
         background-color: #06D001;
@@ -1164,7 +1327,6 @@
     }
 
 
-    
     .modal {
         display: none;
         position: fixed;
@@ -1251,6 +1413,10 @@
         flex-direction: column;
     }
 
+    .date-field {
+        width: 90px;
+    }
+
     .type-field {
         width: 60px;
     }
@@ -1333,11 +1499,25 @@
         resize: vertical;
     }
 
+    .button-group-main {
+        display: flex;
+        justify-content: space-between;
+        margin-top: -55px;
+        margin-bottom: 20px;
+        margin-left: 50px;
+        padding: 0 20px;
+    }
+
+    .button-group-left-main {
+        display: flex;
+        gap: 80px;
+    }
+
     .button-group {
         display: flex;
         justify-content: space-between;
         margin-top: -30px;
-        margin-left:-20px;
+        margin-left: -20px;
         padding: 0 20px;
     }
 
@@ -1377,12 +1557,23 @@
     }
 
     .btn-valid {
-        background-color:#6F61C0;
+        background-color: #6F61C0;
         color: white;
     }
 
     .btn-valid:hover {
-        background-color:#6F61C0;
+        background-color: #6F61C0;
+        color: white;
+    }
+
+    .btn-validmain {
+        background-color: #6F61C0;
+        color: white;
+        margin-left: 10px;
+    }
+
+    .btn-validmain:hover {
+        background-color: #6F61C0;
         color: white;
     }
 
