@@ -675,7 +675,7 @@
             }
 
             .btn-valid {
-                background-color: #6F61C0;
+                background-color: #69247C;
                 color: white;
             }
 
