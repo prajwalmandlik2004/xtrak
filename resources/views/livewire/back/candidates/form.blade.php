@@ -587,7 +587,7 @@
                 </div>
 
 
-                <!-- <div id="evtModal" class="modal">
+                <!-- <div id="evtModal" class="modal-one">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2>CDT_EVTform</h2>
@@ -1327,7 +1327,7 @@
     }
 
 
-/*     .modal {
+    .modal-one {
         display: none;
         position: fixed;
         top: 0;
@@ -1336,7 +1336,7 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 1000;
-    } */
+    }
 
     .modal-content {
         position: relative;
