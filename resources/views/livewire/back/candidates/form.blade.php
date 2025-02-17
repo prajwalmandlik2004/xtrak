@@ -587,7 +587,7 @@
                 </div>
 
 
-                <!-- <div id="evtModal" class="modal-one">
+                <!-- <div id="evtModal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2>CDT_EVTform</h2>
@@ -683,7 +683,7 @@
                     </div>
                 </div> -->
 
-                <div id="evtModal" class="modal">
+                <div id="evtModal" class="modal-one">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2 style="background:yellow;width:18%;padding:7px;text-align:center">CDT_EVTform</h2>
