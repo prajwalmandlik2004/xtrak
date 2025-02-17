@@ -1327,7 +1327,7 @@
     }
 
 
-    .modal {
+/*     .modal {
         display: none;
         position: fixed;
         top: 0;
@@ -1336,7 +1336,7 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 1000;
-    }
+    } */
 
     .modal-content {
         position: relative;
