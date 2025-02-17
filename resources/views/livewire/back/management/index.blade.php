@@ -55,6 +55,12 @@
                                 Description
                             </a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                href="/job">
+                                F.P.
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="/management" role="tab">
@@ -65,12 +71,6 @@
                             <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                 href="/opportunity/create">
                                 Hiring Process
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                href="/job">
-                                Job Descr.
                             </a>
                         </li>
                         <li class="nav-item">
