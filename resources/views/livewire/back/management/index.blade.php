@@ -9,6 +9,43 @@
 
     <div class="row">
         <div class="col-md-12">
+
+              <div class="table-responsive">
+                <table class="table table-nowrap">
+                    <thead>
+                        <tr class="text-left">
+                            <th style="width:80px;" scope="col">Civ.</th>
+                            <th style="width:150px;" aria-activedescendant="" scope="col">First Name</th>
+                            <th style="width:150px;" class="select-cpdpt" scope="col">Last Name</th>
+                            <th style="width:200px;" aria-controls="" scope="col">Title</th>
+                            <th style="width:150px;" scope="col">CDT Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" placeholder="" wire:model.live='civ'>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="" wire:model.live='first_name'>
+
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="" wire:model.live='last_name'>
+
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="" wire:model.live='fonction'>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="" wire:model.live='cdt_code'>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            
             <div class="card">
                 <div class="card-header">
                     <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
@@ -28,6 +65,12 @@
                             <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                 href="/opportunity/create">
                                 Hiring Process
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                                href="/job">
+                                Job Descr.
                             </a>
                         </li>
                         <li class="nav-item">
@@ -88,7 +131,7 @@
                                 <th scope="col" wire:click="sortBy('first_name')">
                                     Prénom
                                 </th>
-                                <th scope="col" wire:click="sortBy('last_name')">
+                                <th style="width:150px;" scope="col" wire:click="sortBy('last_name')">
                                     Nom
                                 </th>
                                 <th scope="col">Fonction</th>
@@ -162,19 +205,19 @@
 
     <div class="card-footer mb-4">
           <div class="d-flex justify-content-end">
-            <button style="background:#ffc107; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+            <button style="background:yellow; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success link-btn">
                 CDTlist</button>
-            <button style="background:#ffc107; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+            <button style="background:yellow; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success link-btn" id="linkNewCDT">
                 > New </button>
             <button style="background-color:red; margin-left:5%;" wire:click="" class="btn btn-danger" id="delete-button-container">
                 UNLINK
             </button>
-            <button style="background:#D2665A; color:white; border:none;margin-left:5%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+            <button style="background:#F9C0AB; color:black; border:none;margin-left:5%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-danger">
                 EVTlist</button>
-            <button style="background:#D2665A; color:white; border:none;margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+            <button style="background:#F9C0AB; color:black; border:none;margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-danger">
                 > New</button>
             <button style="background:#010066; color:white; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
