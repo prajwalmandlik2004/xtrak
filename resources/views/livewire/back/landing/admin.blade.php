@@ -184,12 +184,12 @@
                         @if ($title == 'Queries')
                         <div id="savedQueriesContainer" class="saved-queries-container">
                             <table id="savedQueriesTable" class="saved-queries-table">
-                                <thead>
+                                <thead class="sticky-top">
                                     <tr>
                                         <th>Date</th>
                                         <th>Table</th>
                                         <th>Aut.</th>
-                                        <th>Short Description</th>
+                                        <th>Description</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -816,7 +816,7 @@
             background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
-            z-index: 1;
+            z-index: 1050;
         }
 
         .popup-content {
@@ -900,10 +900,12 @@
             padding: 5px;
             border-bottom: 1px solid black;
             color: #333;
-            font-size: 14px;
+            font-size: 0.8rem;
         }
 
         .saved-queries-table th {
+            font-size: 0.8rem;
+            padding: 3px;
             border: 1px solid white;
         }
 
