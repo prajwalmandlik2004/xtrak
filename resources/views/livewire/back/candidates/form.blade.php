@@ -41,7 +41,7 @@
                                 <div class="d-flex">
                                     <div class="p-2 flex-grow-1">
 
-                                        <h1 style="font-size:1.5rem;background:yellow;width:18%;padding:10px;text-align:center" class="mb-0 card-title ">
+                                        <h1 style="margin-left:38px; font-size:1.5rem;background:yellow;width:18%;padding:10px;text-align:center" class="mb-0 card-title ">
                                             {{ $action == 'create' ? "CDTform" : "CDTform" }}
                                         </h1>
 
@@ -84,7 +84,7 @@
 
 
                     </div>
-                    <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
+                    <ul style="margin-left:5%;" class="nav nav-tabs-custom border-bottom-0" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'disabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 1 ? '#info' : '' }}" role="tab">
