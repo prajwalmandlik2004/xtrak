@@ -186,9 +186,9 @@
                             <table id="savedQueriesTable" class="saved-queries-table">
                                 <thead class="sticky-top">
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Table</th>
-                                        <th>Aut.</th>
+                                        <th style="width:10px;">Date</th>
+                                        <th style="width:3px;">Table</th>
+                                        <th style="width:5px;">Aut.</th>
                                         <th>Description</th>
                                     </tr>
                                 </thead>
@@ -891,9 +891,8 @@
             color: #fff;
             font-weight: bold;
             text-transform: uppercase;
-            padding: 8px;
+            padding: 5px;
             border: 1px solid black;
-            width: 25%;
         }
 
         .saved-queries-table tbody td {
