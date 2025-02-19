@@ -207,7 +207,7 @@
                                         <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="img-fluid">
                                     </a>
                                 </div> -->
-                                <h2 class="mt-3 fw-bold text-secondary">XTRAK</h2>
+                                <h2 style="color:#010066;" class="mt-3 fw-bold text-secondary">XTRAK</h2>
                             </div>
                             <div class="p-2">
                                 @if (session()->has('error'))
