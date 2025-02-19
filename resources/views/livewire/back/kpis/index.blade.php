@@ -44,150 +44,150 @@
                         <th>Gap</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="kpiTableBody">
                     <tr>
                         <td>Calls</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>WN</td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>NRP</td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td class="dark" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>CTC</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>RV</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>BQF</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>KLF</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>HRD</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                 </tbody>
             </table>
@@ -226,96 +226,96 @@
                         <th>Gap</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="kpiTableBodyCDT">
                     <tr>
                         <td>Calls</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>CTC</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td class="darkCDT" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>REFS</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td class="darkCDT" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>CV</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                     <tr>
                         <td>Push</td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td style="border-right:2px solid black;" contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                     </tr>
                 </tbody>
             </table>
@@ -328,7 +328,7 @@
             <div class="modal-header">
                 <div class="date-section">
                     <label>Date:</label>
-                    <input type="text" id="trgDate">
+                    <input style="width:115px;" type="date" id="trgDate">
                 </div>
                 <!-- <div class="obj-section">
                     <label>Obj</label>
@@ -337,7 +337,7 @@
             </div>
             <h2 class="modal-title">TRG CAPTION REPORT</h2>
             <div class="modal-body">
-                <div class="metrics-grid">
+                <div class="metrics-grid" id="metricsForm">
                     <div class="column-labels">
                         <div class="label-data">Data</div>
                         <div class="label-obj">Obj</div>
@@ -345,57 +345,57 @@
                     <div class="metric-row">
                         <label>Calls :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <input type="text">
+                            <input type="number" name="calls_done" placeholder="">
+                            <input type="number" name="calls_obj" placeholder="">
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>N.I. :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <!-- <input type="text"> -->
+                            <input type="number" name="wn_done" placeholder="">
+                            <!-- <input type="number" name="wn_obj" placeholder=""> -->
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>NRP :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <!-- <input type="text"> -->
+                            <input type="number" name="nrp_done" placeholder="">
+                            <!-- <input type="number" name="nrp_obj" placeholder=""> -->
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>CTC :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <input type="text">
+                            <input type="number" name="ctc_done" placeholder="">
+                            <input type="number" name="ctc_obj" placeholder="">
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>RV :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <input type="text">
+                            <input type="number" name="rv_done" placeholder="">
+                            <input type="number" name="rv_obj" placeholder="">
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>BQF :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <input type="text">
+                            <input type="number" name="bqf_done" placeholder="">
+                            <input type="number" name="bqf_obj" placeholder="">
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>KLF :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <input type="text">
+                            <input type="number" name="klf_done" placeholder="">
+                            <input type="number" name="klf_obj" placeholder="">
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>HRD :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <input type="text">
+                            <input type="number" name="hrd_done" placeholder="">
+                            <input type="number" name="hrd_obj" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -419,7 +419,7 @@
             <div class="modal-header">
                 <div class="date-section">
                     <label>Date :</label>
-                    <input type="text" id="trgDate">
+                    <input style="width:115px;" type="date" id="cdtDate">
                 </div>
                 <!-- <div class="obj-section">
                     <label>Obj</label>
@@ -428,7 +428,7 @@
             </div>
             <h2 class="modal-title">CDT CAPTION REPORT</h2>
             <div class="modal-body">
-                <div class="metrics-grid">
+                <div class="metrics-grid" id="metricsFormCDT">
                     <div class="column-labels">
                         <div class="label-data">Data</div>
                         <div class="label-obj">Obj</div>
@@ -436,36 +436,36 @@
                     <div class="metric-row">
                         <label>Calls :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <input type="text">
+                            <input type="number" name="calls_done_cdt" placeholder="">
+                            <input type="number" name="calls_obj_cdt" placeholder="">
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>CTC :</label>
                         <div class="input-pair">
-                            <input type="text">
+                            <input type="number" name="ctc_done_cdt" placeholder="">
                             <!-- <input type="text"> -->
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>REFS :</label>
                         <div class="input-pair">
-                            <input type="text">
+                            <input type="number" name="refs_done_cdt" placeholder="">
                             <!-- <input type="text"> -->
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>CV :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <input type="text">
+                            <input type="number" name="cv_done_cdt" placeholder="">
+                            <input type="number" name="cv_obj_cdt" placeholder="">
                         </div>
                     </div>
                     <div class="metric-row">
                         <label>Push :</label>
                         <div class="input-pair">
-                            <input type="text">
-                            <input type="text">
+                            <input type="number" name="push_done_cdt" placeholder="">
+                            <input type="number" name="push_obj_cdt" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -475,7 +475,7 @@
                 </div> -->
                 <div class="modal-buttons">
                     <button class="btn btn-erase" onclick="eraseModalDataCDT()">Clear All</button>
-                    <button class="btn btn-save" onclick="saveModalData()">Capture</button>
+                    <button class="btn btn-save" onclick="saveModalDataCDT()">Capture</button>
                     <button class="btn btn-end" onclick="closeModal('cdtModal')">Close</button>
                 </div>
             </div>
@@ -607,16 +607,6 @@
             modal.style.display = "none";
         }
 
-        function saveModalData() {
-            const formData = {
-                date: document.getElementById('trgDate').value,
-                obj: document.getElementById('trgObj').value,
-                notes: document.getElementById('trgNotes').value,
-
-            };
-            console.log('Data saved:', formData);
-            alert('Data saved successfully!');
-        }
 
         function eraseModalData() {
             const modal = document.getElementById('trgModal');
@@ -656,83 +646,178 @@
         }
 
 
-        document.querySelectorAll('.kpi-table td[contenteditable="true"]').forEach(cell => {
-            cell.addEventListener('input', function() {
-                const row = this.parentElement;
-                const cells = row.cells;
+        // Local Storage Setup for Target :
 
-                calculateGap(cells, 1, 2, 3, );
-                calculateGap(cells, 4, 5, 6, );
-                calculateGap(cells, 7, 8, 9, );
-                calculateGap(cells, 10, 11, 12, );
-                calculateGap(cells, 13, 14, 15);
+        if (!localStorage.getItem('kpiData')) {
+            localStorage.setItem('kpiData', JSON.stringify([]));
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.getElementById('trgDate').valueAsDate = new Date();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function eraseModalData() {
+            const form = document.getElementById('metricsForm');
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => input.value = '');
+        }
+
+        function calculateGap(done, objective) {
+            const mainGap = (done / objective) * 100;
+            const gaps = Math.round(mainGap);
+            const gap = Math.abs(done && objective ? gaps : '');
+            return `${gap} %`;
+        }
+
+        function saveModalData() {
+            const date = document.getElementById('trgDate').value;
+            const metrics = ['calls', 'wn', 'nrp', 'ctc', 'rv', 'bqf', 'klf', 'hrd'];
+            const data = {
+                date: date,
+                metrics: {}
+            };
+
+            metrics.forEach(metric => {
+                const done = document.querySelector(`[name="${metric}_done"]`)?.value || '';
+                const obj = document.querySelector(`[name="${metric}_obj"]`)?.value || '';
+                data.metrics[metric] = {
+                    done: done,
+                    objective: obj,
+                    gap: calculateGap(Number(done), Number(obj))
+                };
             });
-        });
 
-        function calculateGap(cells, AvgIndex, objIndex, gapIndex) {
-            const Avg = parseFloat(cells[AvgIndex].textContent) || 0;
-            const obj = parseFloat(cells[objIndex].textContent) || 0;
+            let kpiData = JSON.parse(localStorage.getItem('kpiData'));
+            const existingIndex = kpiData.findIndex(item => item.date === date);
 
-            if (Avg && obj) {
-                const gap = Avg - obj;
-                cells[gapIndex].textContent = gap.toFixed(1);
-
-                if (gap >= 0) {
-                    cells[gapIndex].style.color = '#48bb78';
-                } else {
-                    cells[gapIndex].style.color = '#f56565';
-                }
+            if (existingIndex !== -1) {
+                kpiData[existingIndex] = data;
+            } else {
+                kpiData.push(data);
             }
+
+            localStorage.setItem('kpiData', JSON.stringify(kpiData));
+
+            updateTable(data);
+
+            closeModal('trgModal');
         }
 
-        function handleModalSubmit(modalId) {
-            const modal = document.getElementById(modalId);
-            const inputs = modal.querySelectorAll('input');
-            const data = {};
+        function updateTable(data) {
+            // document.getElementById('dateTRG').textContent = new Date(data.date).toLocaleDateString();
 
-            inputs.forEach(input => {
-                data[input.id] = input.value;
+            const tbody = document.getElementById('kpiTableBody');
+            const metrics = ['calls', 'wn', 'nrp', 'ctc', 'rv', 'bqf', 'klf', 'hrd'];
+
+            metrics.forEach((metric, index) => {
+                const row = tbody.rows[index];
+                const metricData = data.metrics[metric];
+
+                row.cells[1].textContent = metricData.done;
+                row.cells[2].textContent = metricData.objective;
+                row.cells[3].textContent = metricData.gap;
             });
-
-            console.log('Form data:', data);
-
-            closeModal(modalId);
         }
 
-        document.querySelectorAll('.modal input').forEach(input => {
-            input.addEventListener('input', function() {
-                if (this.id.includes('Date')) {
-                    const datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
-                    if (!datePattern.test(this.value)) {
-                        this.setCustomValidity('Please enter date in DD/MM/YYYY format');
-                    } else {
-                        this.setCustomValidity('');
-                    }
-                } else if (!this.id.includes('Notes')) {
 
-                    const numValue = parseFloat(this.value);
-                    if (isNaN(numValue) && this.value !== '') {
-                        this.setCustomValidity('Please enter a valid number');
-                    } else {
-                        this.setCustomValidity('');
-                    }
-                }
-            });
-        });
 
-        document.querySelectorAll('.kpi-table td[contenteditable="true"]').forEach(cell => {
-            cell.addEventListener('keydown', function(e) {
-                if (e.key === 'Tab' || e.key === 'Enter') {
-                    e.preventDefault();
-                    const nextCell = e.shiftKey ?
-                        this.previousElementSibling :
-                        this.nextElementSibling;
-                    if (nextCell) {
-                        nextCell.focus();
-                    }
-                }
+
+        // Local Storage Setup for Candidate :
+
+
+        if (!localStorage.getItem('kpiDataCDT')) {
+            localStorage.setItem('kpiDataCDT', JSON.stringify([]));
+        }
+
+        function openModalCDT(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.getElementById('cdtDate').valueAsDate = new Date();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function eraseModalDataCDT() {
+            const form = document.getElementById('metricsFormCDT');
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => input.value = '');
+        }
+
+        function calculateGapCDT(done, objective) {
+            const mainGap = (done / objective) * 100;
+            const gaps = Math.round(mainGap);
+            const gap = Math.abs(done && objective ? gaps : '');
+            return `${gap}%`;
+        }
+
+        function saveModalDataCDT() {
+            const date = document.getElementById('cdtDate').value;
+            const metrics = ['calls', 'ctc', 'refs', 'cv', 'push'];
+            const data = {
+                date: date,
+                metrics: {}
+            };
+
+            metrics.forEach(metric => {
+                const done = document.querySelector(`[name="${metric}_done_cdt"]`)?.value || '';
+                const obj = document.querySelector(`[name="${metric}_obj_cdt"]`)?.value || '';
+                data.metrics[metric] = {
+                    done: done,
+                    objective: obj,
+                    gap: calculateGapCDT(Number(done), Number(obj))
+                };
             });
-        });
+
+            let kpiDataCDT = JSON.parse(localStorage.getItem('kpiDataCDT'));
+            const existingIndex = kpiDataCDT.findIndex(item => item.date === date);
+
+            if (existingIndex !== -1) {
+                kpiDataCDT[existingIndex] = data;
+            } else {
+                kpiDataCDT.push(data);
+            }
+
+            localStorage.setItem('kpiDataCDT', JSON.stringify(kpiDataCDT));
+
+            updateTableCDT(data);
+
+            closeModal('cdtModal');
+        }
+
+        function updateTableCDT(data) {
+            // document.getElementById('dateTRG').textContent = new Date(data.date).toLocaleDateString();
+
+            const tbody = document.getElementById('kpiTableBodyCDT');
+            const metrics = ['calls', 'ctc', 'refs', 'cv', 'push'];
+            metrics.forEach((metric, index) => {
+                const row = tbody.rows[index];
+                const metricDataCDT = data.metrics[metric];
+
+                row.cells[1].textContent = metricDataCDT.done;
+                row.cells[2].textContent = metricDataCDT.objective;
+                row.cells[3].textContent = metricDataCDT.gap;
+            });
+        }
+
+        window.onload = function() {
+            const kpiDataCDT = JSON.parse(localStorage.getItem('kpiDataCDT'));
+            const kpiData = JSON.parse(localStorage.getItem('kpiData'));
+            if (kpiDataCDT && kpiDataCDT.length > 0) {
+                const mostRecent = kpiDataCDT[kpiDataCDT.length - 1];
+                updateTableCDT(mostRecent);
+            }
+
+            if (kpiData && kpiData.length > 0) {
+                const mostRecent = kpiData[kpiData.length - 1];
+                updateTable(mostRecent);
+            }
+        };
     </script>
 
 
@@ -760,6 +845,10 @@
         .dark {
             /* background-color: #f5f5f5; */
             background-color: #D8D9DA;
+        }
+
+        .darkCDT {
+            background-color: #D1F8EF;
         }
 
         .kpi-section {
@@ -804,13 +893,13 @@
             font-weight: bold;
         }
 
-        .kpi-table td[contenteditable="true"] {
+        .kpi-table td[contenteditable="false"] {
             /* background-color: #fff; */
             cursor: text;
             min-width: 60px;
         }
 
-        .kpi-table td[contenteditable="true"]:focus {
+        .kpi-table td[contenteditable="false"]:focus {
             outline: 2px solid #4299e1;
             outline-offset: -2px;
         }
