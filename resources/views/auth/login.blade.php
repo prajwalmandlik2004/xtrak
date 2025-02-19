@@ -80,7 +80,7 @@
             .auth-form-container {
                 margin-left: 60%;
                 margin-right: 30%;
-                margin-top: 13%;
+                margin-top: 15%;
                 width: 100%;
                 max-width: 380px;
             }
@@ -202,11 +202,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="text-center">
-                                <div>
+<!--                                 <div>
                                     <a href="index.html" class="d-inline-block auth-logo">
                                         <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="img-fluid">
                                     </a>
-                                </div>
+                                </div> -->
                                 <h2 class="mt-3 fw-bold text-secondary">XTRAK</h2>
                             </div>
                             <div class="p-2">
