@@ -78,11 +78,11 @@
             }
 
             .auth-form-container {
-                margin-left: 60%;
+                margin-left: 64%;
                 margin-right: 30%;
-                margin-top: 15%;
-                width: 100%;
-                max-width: 380px;
+                margin-top: 22%;
+                width: 80%;
+                max-width: 320px;
             }
         }
 
@@ -132,6 +132,7 @@
             flex-direction: column;
             min-height: calc(100vh - 60px);
             padding-top: 2rem;
+            
         }
 
         .container {
@@ -145,10 +146,11 @@
 
         .card {
             margin: 1rem 0;
+            background:white;
         }
 
         .card-body {
-            padding: 1.25rem;
+            padding: 0.5rem;
         }
 
         .auth-logo img {
@@ -201,13 +203,13 @@
                 <div class="auth-form-container">
                     <div class="card">
                         <div class="card-body">
-                            <div class="text-center">
-<!--                                 <div>
+                            <div class="text-">
+                                <!-- <div>
                                     <a href="index.html" class="d-inline-block auth-logo">
                                         <img src="{{ asset('assets/images/logo.jpg') }}" alt="" class="img-fluid">
                                     </a>
                                 </div> -->
-                                <h2 style="color:#010066;" class="mt-3 fw-bold">XTRAK</h2>
+                                <h2 style="color:#010066;" class="ms-2 fw-bold">XTRAK</h2>
                             </div>
                             <div class="p-2">
                                 @if (session()->has('error'))
@@ -231,21 +233,21 @@
                                     @csrf
                                     <div class="row">
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
+                                            <label for="email" class="form-label">Log In</label>
                                             <input type="email" name="email"
                                                 class="form-control @error('email') is-invalid @enderror" id="email"
-                                                placeholder="Entrez votre adresse email"
+                                                placeholder=""
                                                 value="{{ old('email') }}">
                                             @error('email')
                                             <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label" for="password-input">Mot de passe</label>
+                                            <label class="form-label" for="password-input">Password</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
                                                 <input type="password" name="password"
                                                     class="form-control pe-5 password-input @error('password') border-danger @enderror"
-                                                    placeholder="Entrez votre mot de passe" id="password-input">
+                                                    placeholder="" id="password-input">
                                                 <button
                                                     class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
                                                     type="button" id="password-addon"><i
@@ -256,14 +258,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-check mb-2 ms-3">
+                                        <!-- <div class="form-check mb-2 ms-3">
                                             <input class="form-check-input" name="remember_me" type="checkbox"
                                                 value="true" id="auth-remember-check">
                                             <label class="form-check-label" for="auth-remember-check">Se souvenir de moi</label>
-                                        </div>
+                                        </div> -->
 
-                                        <div class="mt-3">
-                                            <button class="btn btn-secondary w-100" type="submit">Connexion</button>
+                                        <div class="mt-1">
+                                            <button class="btn btn-secondary w-100" type="submit">Connect</button>
                                         </div>
                                     </div>
                                 </form>
