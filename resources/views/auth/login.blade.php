@@ -80,7 +80,7 @@
             .auth-form-container {
                 margin-left: 64%;
                 margin-right: 30%;
-                margin-top: 22%;
+                margin-top: 20%;
                 width: 80%;
                 max-width: 320px;
             }
