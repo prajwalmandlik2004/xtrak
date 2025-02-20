@@ -536,7 +536,7 @@
                         </div>
                     </div>
                     <div class="metric-row">
-                        <label>CTC :</label>
+                        <label>BQF :</label>
                         <div class="input-pair">
                             <input class="objinput" type="text">
                             <label>CV :</label>
@@ -544,25 +544,11 @@
                         </div>
                     </div>
                     <div class="metric-row">
-                        <label>RV :</label>
+                        <label>KLF :</label>
                         <div class="input-pair">
                             <input class="objinput" type="text">
                             <label>Push :</label>
                             <input class="objinput" type="text">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>BQF :</label>
-                        <div class="input-pair">
-                            <input type="text">
-                            <!-- <input type="text"> -->
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>KLF :</label>
-                        <div class="input-pair">
-                            <input type="text">
-                            <!-- <input type="text"> -->
                         </div>
                     </div>
                     <div class="metric-row">
