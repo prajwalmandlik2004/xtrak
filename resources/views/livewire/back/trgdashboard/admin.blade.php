@@ -186,6 +186,10 @@
             </div>
         </div>
 
+        <div class="d-flex justify-content-end mt-3">
+            {{ $data->links() }}
+        </div>
+
 
 
         <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
