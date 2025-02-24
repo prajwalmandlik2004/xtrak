@@ -152,51 +152,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($candidates as $index => $candidate)
-                                <tr data-id="{{ $candidate->id }}"
-                                    class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}"
-                                    wire:dblclick.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
-                                    <!-- <td class="checkbox-cell">
-                                        <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}"
-                                            style="display:none;pointer-events: none;" wire:model="checkboxes.{{ $candidate->id }}">
-                                    </td> -->
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                @empty
+                                @if(!empty($data) && (is_array($data) || is_object($data)) && count($data) > 0)
+                                @foreach($data as $item)
                                 <tr>
-                                    <td colspan="50" class="text-center">
-                                        <h5 class="mt-4">Aucun résultat trouvé</h5>
-                                    </td>
+                                    <td>{{ $item->creation_date }}</td>
+                                    <td>{{ $item->company }}</td>
+                                    <td>{{ $item->standard_phone }}</td>
+                                    <td>{{ $item->postal_code_department }}</td>
+                                    <td>{{ $item->title }}</td>
+                                    <td>{{ $item->first_name }}</td>
+                                    <td>{{ $item->last_name }}</td>
+                                    <td>{{ $item->position }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->mobile }}</td>
+                                    <td>{{ $item->event_date }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->subject }}</td>
+                                    <td>{{ $item->event_status }}</td>
+                                    <td>{{ $item->comment_trg }}</td>
+                                    <td>{{ $item->next_step }}</td>
                                 </tr>
-                                @endforelse
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="16" class="text-center">No data available</td>
+                                </tr>
+                                @endif
                             </tbody>
+
                         </table>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- end row -->
-        <div class="row g-0 text-center text-sm-start align-items-center mb-2">
-            <!-- end col -->
-            {{ $candidates->links() }}
-        </div><!-- end row -->
 
 
         <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
@@ -216,9 +205,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
 
         <div id="evtModal" class="modal">
@@ -1053,14 +1039,6 @@
             });
         });
         /***********************************************************************************************/
-        function exportSelectedCandidates() {
-            let selectedCandidateIds = Array.from(document.querySelectorAll('.candidate-checkbox:checked'))
-                .map(checkbox => checkbox.closest('tr').getAttribute('data-id'))
-                .filter(id => id !== null && id !== '');
-
-            // Appeler la méthode Livewire avec les IDs sélectionnés
-            @this.call('downloadExcel', selectedCandidateIds);
-        }
     </script>
     @endpush
 </div>
