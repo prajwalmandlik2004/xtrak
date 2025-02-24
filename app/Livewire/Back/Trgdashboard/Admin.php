@@ -2,29 +2,37 @@
 
 namespace App\Livewire\Back\Trgdashboard;
 
+use App\Models\Trgdashboard;
 use Livewire\Component;
-use \App\Models\Trgdashboard;
 use Livewire\WithPagination;
 
 class Admin extends Component
 {
     use WithPagination;
-
     protected $paginationTheme = 'bootstrap';
+    public $sortField = 'updated_at';
+    public $sortDirection = 'desc';
+    public $selectAll = false;
 
-    public $data;
-
-    public function mount()
+    public function sortBy($field)
     {
-        $this->data = Trgdashboard::all();
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+
+        $this->resetPage();
     }
 
     public function render()
     {
-        return view('livewire.back.trgdashboard.admin');
+        $data = Trgdashboard::orderBy($this->sortField, $this->sortDirection)
+            ->paginate(100);
+
+        return view('livewire.back.trgdashboard.admin', [
+            'data' => $data
+        ]);
     }
 }
-
-
-
-
