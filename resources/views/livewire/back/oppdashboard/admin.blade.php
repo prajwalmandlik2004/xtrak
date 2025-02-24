@@ -10,19 +10,19 @@
                 <div class="p-1 flex-grow-1">
                     <h4><strong>OPPvue</strong></h4>
                     <span class="font-size-20 me-5">
-                        Période : <strong> {{ $candidates->total() }} {{ $candidates->total() > 1 ? 'mois' : 'moi' }} </strong>
+                        Période : <strong> XXXX </strong>
                     </span>
                     <span class="font-size-20 me-5">
-                        Total OPP en cours : <strong> {{ $candidates->total() }} </strong>
+                        Total OPP en cours : <strong> 170 </strong>
                     </span>
                     <span class="font-size-20 ms-5">
-                        N cdt Présentés : <strong> {{ $certifiedCandidatesCount }} </strong>
+                        N cdt Présentés : <strong> XXXX </strong>
                     </span>
                     <span class="font-size-20 ms-5">
-                        N cdt en cours : <strong> {{ $uncertifiedCandidatesCount }} </strong>
+                        N cdt en cours : <strong> XXXX </strong>
                     </span>
                     <span class="font-size-20 ms-5">
-                        N cdt embauchés : <strong> {{ $uncertifiedCandidatesCount }} </strong>
+                        N cdt embauchés : <strong> XXXX </strong>
                     </span>
                 </div>
             </div>
@@ -157,33 +157,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($candidates as $index => $candidate)
-                                <tr data-id="{{ $candidate->id }}"
-                                    class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}"
-                                    wire:dblclick.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
-                                    <td class="checkbox-cell">
-                                        <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}"
-                                            style="display:none;pointer-events: none;" wire:model="checkboxes.{{ $candidate->id }}">
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($candidate->updated_at)->format('d/m/y') ?? '--' }}</td>
-                                    <td>{{ $candidate->auteur->trigramme ?? '--' }}</td>
-                                    <td>{{ $candidate->civ->name ?? '--' }}</td>
-                                    <td>{{ $candidate->first_name ?? '--' }}</td>
-                                    <td>{{ $candidate->postal_code?? '--' }}</td>
-                                    <td>{{ $candidate->city ?? '--' }}</td>
-                                    <td>{{ $candidate->compagny->name ?? '--' }}</td>
-                                    <td>{{ $candidate->email ?? '--' }}</td>
-                                    <td>{{ $candidate->phone ?? '--' }}</td>
-                                    <td>{{ $candidate->compagny->name ?? '--' }}</td>
-                                </tr>
-
-                                @empty
+                                @if(!empty($data) && (is_array($data) || is_object($data)) && count($data) > 0)
+                                @foreach($data as $item)
                                 <tr>
-                                    <td colspan="50" class="text-center">
-                                        <h5 class="mt-4">Aucun résultat trouvé</h5>
+                                    <td class="checkbox-cell">
+                                        <input type="checkbox" class="candidate-checkbox"
+                                            style="display:none;pointer-events: none;">
                                     </td>
+                                    <td>{{ $item->opportunity_date }}</td>
+                                    <td>{{ $item->opp_code }}</td>
+                                    <td>{{ $item->job_titles }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->postal_code_1 }}</td>
+                                    <td>{{ $item->site_city }}</td>
+                                    <td>{{ $item->opportunity_status }}</td>
+                                    <td>{{ $item->remarks }}</td>
+                                    <td>{{ $item->trg_code }}</td>
+                                    <td>{{ $item->total_paid }}</td>
                                 </tr>
-                                @endforelse
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="16" class="text-center">No data available</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -191,11 +188,9 @@
             </div>
         </div>
 
-        <!-- end row -->
-        <div class="row g-0 text-center text-sm-start align-items-center mb-2">
-            <!-- end col -->
-            {{ $candidates->links() }}
-        </div><!-- end row -->
+        <div class="d-flex justify-content-end mt-3">
+            {{ $data->links() }}
+        </div>
 
 
         <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
@@ -727,15 +722,6 @@
                 }
             });
         });
-        /***********************************************************************************************/
-        function exportSelectedCandidates() {
-            let selectedCandidateIds = Array.from(document.querySelectorAll('.candidate-checkbox:checked'))
-                .map(checkbox => checkbox.closest('tr').getAttribute('data-id'))
-                .filter(id => id !== null && id !== '');
-
-            // Appeler la méthode Livewire avec les IDs sélectionnés
-            @this.call('downloadExcel', selectedCandidateIds);
-        }
     </script>
     @endpush
 </div>
