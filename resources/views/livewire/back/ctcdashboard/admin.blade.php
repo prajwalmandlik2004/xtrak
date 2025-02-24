@@ -146,34 +146,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($candidates as $index => $candidate)
-                                <tr data-id="{{ $candidate->id }}"
-                                    class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}"
-                                    wire:dblclick.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
-                                    <td class="checkbox-cell">
-                                        <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}"
-                                            style="display:none;pointer-events: none;" wire:model="checkboxes.{{ $candidate->id }}">
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                @empty
+                                @if(!empty($data) && (is_array($data) || is_object($data)) && count($data) > 0)
+                                @foreach($data as $item)
                                 <tr>
-                                    <td colspan="50" class="text-center">
-                                        <h5 class="mt-4">Aucun résultat trouvé</h5>
+                                    <td class="checkbox-cell">
+                                        <input type="checkbox" class="candidate-checkbox"
+                                            style="display:none;pointer-events: none;">
                                     </td>
+                                    <td>{{ $item->date_ctc }}</td>
+                                    <td>{{ $item->company_ctc }}</td>
+                                    <td>{{ $item->civ }}</td>
+                                    <td>{{ $item->first_name }}</td>
+                                    <td>{{ $item->last_name }}</td>
+                                    <td>{{ $item->function_ctc }}</td>
+                                    <td>{{ $item->std_ctc }}</td>
+                                    <td>{{ $item->ext_ctc }}</td>
+                                    <td>{{ $item->ld }}</td>
+                                    <td>{{ $item->cell }}</td>
+                                    <td>{{ $item->mail }}</td>
                                 </tr>
-                                @endforelse
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="16" class="text-center">No data available</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -181,11 +178,11 @@
             </div>
         </div>
 
-        <!-- end row -->
-        <div class="row g-0 text-center text-sm-start align-items-center mb-2">
-            <!-- end col -->
-            {{ $candidates->links() }}
-        </div><!-- end row -->
+
+        <div class="d-flex justify-content-end mt-3">
+            {{ $data->links() }}
+        </div>
+
 
 
         <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
@@ -626,7 +623,7 @@
                 display: flex;
                 justify-content: space-between;
                 margin-top: -30px;
-                margin-left:-2%;
+                margin-left: -2%;
                 padding: 0 20px;
             }
 
@@ -1033,15 +1030,6 @@
                 }
             });
         });
-        /***********************************************************************************************/
-        function exportSelectedCandidates() {
-            let selectedCandidateIds = Array.from(document.querySelectorAll('.candidate-checkbox:checked'))
-                .map(checkbox => checkbox.closest('tr').getAttribute('data-id'))
-                .filter(id => id !== null && id !== '');
-
-            // Appeler la méthode Livewire avec les IDs sélectionnés
-            @this.call('downloadExcel', selectedCandidateIds);
-        }
     </script>
     @endpush
 </div>
