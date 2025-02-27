@@ -10,19 +10,19 @@
                 <div class="p-1 flex-grow-1">
                     <h4><strong>OPPvue</strong></h4>
                     <span class="font-size-20 me-5">
-                        Période : <strong> XXXX </strong>
+                        Période : <strong> {{ $data->total() }} </strong>
                     </span>
                     <span class="font-size-20 me-5">
-                        Total OPP en cours : <strong> 170 </strong>
+                        Total OPP en cours : <strong> {{ $data->total() }}</strong>
                     </span>
                     <span class="font-size-20 ms-5">
-                        N cdt Présentés : <strong> XXXX </strong>
+                        N cdt Présentés : <strong> {{ $presentedCount }} </strong>
                     </span>
                     <span class="font-size-20 ms-5">
-                        N cdt en cours : <strong> XXXX </strong>
+                        N cdt en cours : <strong> {{ $inprogressCount }} </strong>
                     </span>
                     <span class="font-size-20 ms-5">
-                        N cdt embauchés : <strong> XXXX </strong>
+                        N cdt embauchés : <strong> {{ $hiredCount }} </strong>
                     </span>
                 </div>
             </div>
