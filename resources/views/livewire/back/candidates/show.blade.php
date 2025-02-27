@@ -710,7 +710,7 @@
                                                                 @if($civ_id)
                                                                 @foreach ($civs as $civ)
                                                                 @if($civ->id == $civ_id)
-                                                                {{ $civ->name }}{{ "." }}
+                                                                {{ $civ->name }}
                                                                 @endif
                                                                 @endforeach
                                                                 @else
