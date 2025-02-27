@@ -705,8 +705,8 @@
                                                 <div id="evtModal" class="modal-one">
                                                     <div class="modal-content">
                                                         <div style="display: flex; align-items: center; gap: 13px;margin-bottom:3%;">
-                                                            <h3 style="background:yellow;width:23%;padding:7px;text-align:center;margin: 0;">CDT_EVTform</h3>
-                                                            <h2 style="margin-left:3%; margin-top:1%;" class="@error('civ_id') is-invalid @enderror">
+                                                            <h5 style="background:yellow;width:15%;padding:7px;text-align:center;margin: 0;">CDT_EVTform</h5>
+                                                            <h5 style="margin-left:3%; margin-top:1%;" class="@error('civ_id') is-invalid @enderror">
                                                                 @if($civ_id)
                                                                 @foreach ($civs as $civ)
                                                                 @if($civ->id == $civ_id)
@@ -716,13 +716,13 @@
                                                                 @else
                                                                 -
                                                                 @endif
-                                                            </h2>
-                                                            <h2 class="@error('first_name') is-invalid @enderror" style="margin: 0;">
+                                                            </h5>
+                                                            <h5 class="@error('first_name') is-invalid @enderror" style="margin: 0;">
                                                                 {{ $first_name }}
-                                                            </h2>
-                                                            <h2 class="@error('last_name') is-invalid @enderror" style="margin: 0;">
+                                                            </h5>
+                                                            <h5 class="@error('last_name') is-invalid @enderror" style="margin: 0;">
                                                                 {{ $last_name }}
-                                                            </h2>
+                                                            </h5>
                                                         </div>
 
                                                         <div class="icons-row">
