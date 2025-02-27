@@ -10,7 +10,7 @@
                 <div class="p-1 flex-grow-1">
                     <h4><strong>OPPvue</strong></h4>
                     <span class="font-size-20 me-5">
-                        Période : <strong> {{ $data->total() }} </strong>
+                        Période : <strong> Last 7 days </strong>
                     </span>
                     <span class="font-size-20 me-5">
                         Total OPP en cours : <strong> {{ $data->total() }}</strong>
@@ -67,11 +67,11 @@
 
                             </td>
                             <td>
-                                <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                <select class="form-control w-md" wire:model.live='statut'>
                                     <option value="" selected>Selectionner</option>
-                                    <option value="1">Opened</option>
-                                    <option value="0">Closed</option>
-                                    <option value="1">Filled</option>
+                                    <option value="Open">Open</option>
+                                    <option value="Closed">Closed</option>
+                                    <option value="Filled">Filled</option>
                                 </select>
                             </td>
                             <td>
@@ -93,7 +93,7 @@
 
         <!-- end page title -->
 
-        <div class="col-md-12">
+        <div style="margin-top:-2%;" class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
@@ -132,7 +132,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="card-body">
+                <div style="margin-top:-1%;" class="card-body">
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
