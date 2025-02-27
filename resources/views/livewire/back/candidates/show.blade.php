@@ -694,6 +694,203 @@
 
                                                 </form>
 
+
+
+
+
+
+
+
+
+                                                <div id="evtModal" class="modal-one">
+                                                    <div class="modal-content">
+                                                        <div style="display: flex; align-items: center; gap: 13px;margin-bottom:3%;">
+                                                            <h3 style="background:yellow;width:23%;padding:7px;text-align:center;margin: 0;">CDT_EVTform</h3>
+                                                            <h2 style="margin-left:3%; margin-top:1%;" class="@error('civ_id') is-invalid @enderror">
+                                                                @if($civ_id)
+                                                                @foreach ($civs as $civ)
+                                                                @if($civ->id == $civ_id)
+                                                                {{ $civ->name }}{{ "." }}
+                                                                @endif
+                                                                @endforeach
+                                                                @else
+                                                                -
+                                                                @endif
+                                                            </h2>
+                                                            <h2 class="@error('first_name') is-invalid @enderror" style="margin: 0;">
+                                                                {{ $first_name }}
+                                                            </h2>
+                                                            <h2 class="@error('last_name') is-invalid @enderror" style="margin: 0;">
+                                                                {{ $last_name }}
+                                                            </h2>
+                                                        </div>
+
+                                                        <div class="icons-row">
+                                                            <div class="icon-item">
+                                                                <i class="fas fa-phone"></i>
+                                                            </div>
+                                                            <div class="icon-item">
+                                                                <i class="fas fa-envelope"></i>
+                                                            </div>
+                                                            <div class="icon-item">
+                                                                <i class="fas fa-pen"></i>
+                                                            </div>
+                                                            <div class="icon-item">
+                                                                <i class="fas fa-desktop"></i>
+                                                            </div>
+                                                            <div class="icon-item">
+                                                                <i class="fas fa-users"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="status-buttons">
+                                                            <button class="status-btn">OCC</button>
+                                                            <button class="status-btn">NRP</button>
+                                                            <button class="status-btn">NRJ</button>
+                                                            <button class="status-btn">WRN</button>
+                                                            <button class="status-btn">NHS</button>
+                                                        </div>
+
+                                                        <div id="evtForm">
+                                                            <div class="form-row">
+                                                                <div class="form-group date-field">
+                                                                    <label>Date</label>
+                                                                    <input type="date" class="form-control1" value="">
+                                                                </div>
+                                                                <div class="form-group type-field">
+                                                                    <label>Type</label>
+                                                                    <input type="text" class="form-control1">
+                                                                </div>
+                                                                <div class="form-group io-field">
+                                                                    <label>I/O</label>
+                                                                    <input type="text" class="form-control1">
+                                                                </div>
+                                                                <div class="form-group objet-field">
+                                                                    <label>Objet</label>
+                                                                    <input type="text" class="form-control1">
+                                                                </div>
+                                                                <div class="form-group statut-field">
+                                                                    <label>EVTStatus</label>
+                                                                    <input type="text" class="form-control1">
+                                                                </div>
+                                                                <div class="form-group ech-field">
+                                                                    <label>Feed</label>
+                                                                    <input type="text" class="form-control1">
+                                                                </div>
+                                                                <div class="form-group statut-field">
+                                                                    <label>Temper</label>
+                                                                    <input type="text" class="form-control1">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="comment-section">
+                                                                <div class="form-group comment-field">
+                                                                    <label>Comment</label>
+                                                                    <!-- <textarea class="form-control2"></textarea> -->
+                                                                    <input type="text" class="form-control1">
+                                                                </div>
+                                                                <div class="right-section">
+                                                                    <div class="next-ech-row">
+                                                                        <div class="form-group next-field">
+                                                                            <label>Next</label>
+                                                                            <input type="text" class="form-control1">
+                                                                        </div>
+                                                                        <div class="form-group ech-field">
+                                                                            <label>Ech</label>
+                                                                            <input type="text" class="form-control1">
+                                                                        </div>
+                                                                        <div class="form-group ech-field">
+                                                                            <label>Priority</label>
+                                                                            <input type="text" class="form-control1">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            <div class="comment-section">
+                                                                <div class="form-group retour-field">
+                                                                    <label>Last Comment</label>
+                                                                    <input type="text" class="form-control1">
+                                                                </div>
+                                                                <div class="right-section">
+                                                                    <div class="next-ech-row">
+                                                                        <div class="form-group last-field">
+                                                                            <label>Date Last Com.</label>
+                                                                            <input type="text" class="form-control1">
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Other Comment</label>
+                                                                    <textarea class="form-control1"></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Note1</label>
+                                                                    <textarea class="form-control1"></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="button-group">
+                                                                <div class="button-group-left">
+                                                                    <div class="one">
+                                                                        <button type="button" class="btn btn-evt">EVTlist</button>
+                                                                        <button type="button" class="btn btn-evt"> > New</button>
+                                                                    </div>
+                                                                    <div class="two">
+                                                                        <button type="button" class="btn btn-valid">Valid</button>
+                                                                        <button type="button" class="btn btn-inputmain">Input</button>
+                                                                    </div>
+                                                                    <div class="three">
+                                                                        <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                                                                        <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                                <div class="button-group-main">
+                                                    <div class="button-group-left-main">
+                                                        <div class="four">
+                                                            <button type="button" class="btn btn-call">Call</button>
+                                                            <button type="button" class="btn btn-sendmail">Send Mail</button>
+                                                        </div>
+                                                        <div class="one">
+                                                            <button type="button" class="btn btn-evtmain">EVTlist</button>
+                                                            <button type="button" class="btn btn-evtmain" onclick="openModal()"> > New</button>
+                                                        </div>
+                                                        <div class="two">
+                                                            <button type="button" class="btn btn-validmain">OPPlist</button>
+                                                            <a href="/opportunity/create">
+                                                                <button type="button" class="btn btn-validmain"> > New</button>
+                                                            </a>
+                                                        </div>
+                                                        <div class="three">
+                                                            <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                                                            <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
                                             </div>
                                             <!-- end card body -->
                                         </div>
@@ -968,6 +1165,372 @@
                 </div>
             </div>
             <style>
+                .save {
+                    background-color: #06D001;
+                }
+
+                label {
+                    color: black;
+                }
+
+                .btn-evtmain {
+                    background-color: #F9C0AB;
+                    color: black;
+                    margin-left: 10px;
+                }
+
+                .btn-evtmain:hover {
+                    background-color: #F9C0AB;
+                    color: black;
+                }
+
+
+                .btn-evt {
+                    background-color: #F9C0AB;
+                    color: black;
+                }
+
+                .btn-evt:hover {
+                    background-color: #F9C0AB;
+                    color: black;
+                }
+
+                .btn-call {
+                    background-color: black;
+                    color: white;
+                    margin-left: 10px;
+                }
+
+                .btn-call:hover {
+                    background-color: black;
+                    color: white;
+
+                }
+
+                .btn-sendmail {
+                    background-color: white;
+                    color: black;
+                    margin-left: 10px;
+                    border: 1px solid black;
+
+                }
+
+                .btn-sendmail:hover {
+                    background-color: white;
+                    color: black;
+                    border: 1px solid black;
+                }
+
+
+
+                .btn-inputmain {
+                    background-color: #06D001;
+                    color: white;
+                }
+
+                .btn-inputmain:hover {
+                    background-color: #06D001;
+                    color: white;
+                }
+
+
+                .modal-one {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 1000;
+                }
+
+                .modal-content {
+                    position: relative;
+                    background-color: #fff;
+                    margin: 5% auto;
+                    padding: 20px 25px;
+                    width: 80%;
+                    max-width: 900px;
+                    border-radius: 2px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                }
+
+                .modal-header {
+                    margin-bottom: 5px;
+                    margin-left: -12px;
+                }
+
+                .modal-header h2 {
+                    color: #333;
+                    font-size: 1.4em;
+                    font-weight: 500;
+                    margin-right: 10px;
+                }
+
+                .icons-row {
+                    display: flex;
+                    gap: 25px;
+                    margin-top: 5px;
+                    margin-bottom: -20px;
+                    padding-left: 5px;
+                }
+
+                .icon-item {
+                    font-size: 18px;
+                    color: #555;
+                }
+
+                .divider {
+                    height: 1px;
+                    background-color: #ddd;
+                    margin: 12px 0;
+                }
+
+                .status-buttons {
+                    display: flex;
+                    gap: 20px;
+                    margin-top: -5px;
+                    margin-bottom: 20px;
+                    font-size: 1rem;
+                    justify-content: flex-end;
+                }
+
+                .status-btn {
+                    padding: 2px 8px;
+                    border: none;
+                    text-decoration: underline;
+                    background: none;
+                    cursor: pointer;
+                    font-weight: 500;
+                    color: #333;
+                    font-size: 0.9em;
+                }
+
+                .form-row {
+                    display: flex;
+                    gap: 15px;
+                    margin-top: 5px;
+                    margin-bottom: 15px;
+                    align-items: flex-start;
+                }
+
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .date-field {
+                    width: 90px;
+                }
+
+                .type-field {
+                    width: 60px;
+                }
+
+                .io-field {
+                    width: 60px;
+                }
+
+                .date-field {
+                    width: 115px;
+                }
+
+                .objet-field {
+                    width: 200px;
+                }
+
+                .retour-field {
+                    width: 200px;
+                }
+
+                .statut-field {
+                    width: 80px;
+                }
+
+                .comment-section {
+                    display: flex;
+                    gap: 15px;
+                }
+
+                .comment-field {
+                    flex: 1;
+                    max-width: 60%;
+                }
+
+                .right-section {
+                    flex: 1;
+                    max-width: 40%;
+                }
+
+                .next-ech-row {
+                    display: flex;
+                    gap: 15px;
+                    margin-bottom: 10px;
+                }
+
+                .next-field,
+                .ech-field {
+                    flex: 1;
+                }
+
+
+                .form-control1 {
+                    width: 100%;
+                    padding: 8px 10px;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    font-size: 13px;
+                    background-color: #f8f8f8;
+                }
+
+                .form-control5 {
+                    width: 50%;
+                    border: none;
+                    padding: 8px 10px;
+                    border: 1px solid white;
+                    border-radius: 8px;
+                    font-size: 20px;
+                    background-color: #f8f8f8;
+                }
+
+                .form-control2 {
+                    width: 100%;
+                    padding: 6px 8px;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    font-size: 13px;
+                    background-color: #f8f8f8;
+                }
+
+                textarea.form-control1 {
+                    min-height: 100px;
+                    resize: vertical;
+                }
+
+                textarea.form-control2 {
+                    min-height: 177px;
+                    resize: vertical;
+                }
+
+                .button-group-main {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: -20px;
+                    margin-bottom: 20px;
+                    margin-left: 50px;
+                    padding: 0 20px;
+                }
+
+                .button-group-left-main {
+                    display: flex;
+                    gap: 80px;
+                }
+
+                .button-group {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: -30px;
+                    margin-left: -20px;
+                    padding: 0 20px;
+                }
+
+                .button-group-left {
+                    display: flex;
+                    gap: 20px;
+                }
+
+                .button-group-right {
+                    display: flex;
+                }
+
+                .btn-input {
+                    background-color: #00c853;
+                    color: white;
+                }
+
+                .btn-input:hover {
+                    background-color: #00c853;
+                    color: white;
+                }
+
+                .btn-erase {
+                    background-color: #ff5722;
+                    color: white;
+                }
+
+                .btn-valid {
+                    background-color: #6F61C0;
+                    color: white;
+                }
+
+                .btn-valid:hover {
+                    background-color: #6F61C0;
+                    color: white;
+                }
+
+                .btn-validmain {
+                    background-color: #6F61C0;
+                    color: white;
+                    margin-left: 10px;
+                }
+
+                .btn-validmain:hover {
+                    background-color: #6F61C0;
+                    color: white;
+                }
+
+                .btn-erase:hover {
+                    background-color: #ff5722;
+                    color: white;
+                }
+
+                .btn-historique {
+                    background-color: #2196f3;
+                    color: white;
+                }
+
+                .btn-historique:hover {
+                    background-color: #2196f3;
+                    color: white;
+                }
+
+                .btn-close1 {
+                    background-color: #000080;
+                    color: white;
+                }
+
+                .btn-close1:hover {
+                    background-color: #000080;
+                    color: white;
+                }
+
+
+                .evt-button {
+                    background: #FF77B7;
+                    border: none;
+                    color: white;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    font-size: 14px;
+                }
+
+                .evt-button i {
+                    font-size: 14px;
+                }
+
+
+
+
+
+
+
+
+
                 .interview-form {
                     font-family: 'Inter', system-ui, -apple-system, sans-serif;
                     max-width: 1200px;
@@ -1002,18 +1565,6 @@
                     gap: 1.5rem;
                     margin-bottom: 1.5rem;
                     flex-wrap: wrap;
-                }
-
-                .form-group {
-                    margin-bottom: 1rem;
-                }
-
-                .form-group label {
-                    display: block;
-                    font-size: 0.875rem;
-                    margin-bottom: 0.5rem;
-                    color: #4b5563;
-                    font-weight: 500;
                 }
 
                 .form-input,
@@ -1236,7 +1787,7 @@
                 .button-container {
                     display: flex;
                     justify-content: center;
-                    margin: 20px 0;
+                    margin-top: 5%;
                 }
 
                 .modify-btn {
@@ -1262,8 +1813,10 @@
                     background-color: #1976D2;
                 }
 
-                /* Modal Styles */
-                .modal {
+
+
+
+                .modals {
                     display: none;
                     position: fixed;
                     top: 0;
@@ -1274,7 +1827,7 @@
                     z-index: 1000;
                 }
 
-                .modal-content {
+                .modal-contents {
                     position: absolute;
                     top: 50%;
                     left: 50%;
@@ -1310,10 +1863,48 @@
                     color: white;
                 }
             </style>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         </div>
 
         @push('page-script')
         <script>
+            document.querySelector('.date-field input').valueAsDate = new Date();
+            document.addEventListener("input", function(event) {
+                if (event.target.tagName.toLowerCase() !== "textarea") return;
+                autoResize(event.target);
+            }, false);
+
+            function autoResize(textarea) {
+                textarea.style.height = "auto";
+                textarea.style.height = (textarea.scrollHeight) + "px";
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                document.querySelectorAll('.auto-resize').forEach(function(textarea) {
+                    autoResize(textarea);
+                });
+
+            });
+
+            function openModal() {
+                document.getElementById('evtModal').style.display = 'block';
+            }
+
+            function closeModal() {
+                document.getElementById('evtModal').style.display = 'none';
+            }
+
+            function eraseForm() {
+                const modal = document.getElementById('evtForm');
+                const inputs = modal.querySelectorAll('input, textarea');
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+            }
+
+
+
+
             function toggleCertificate(index) {
                 var hiddenCertificate = document.getElementById('hidden-certificate-' + index);
                 var visibleCertificate = document.getElementById('visible-certificate-' + index);
@@ -1369,8 +1960,8 @@
 
 
             document.body.insertAdjacentHTML('beforeend', `
-    <div id="modifyModal" class="modal">
-        <div class="modal-content">
+    <div id="modifyModal" class="modals">
+        <div class="modal-contents">
             <h3>Do you want to modify this form?</h3>
             <div class="modal-buttons">
                 <button class="modal-btn confirm" id="confirmModify">Yes</button>
