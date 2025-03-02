@@ -188,9 +188,7 @@
                                                      <li class="nav-item">
                                                          <a href="{{ route('trgform') }}" class="nav-link {{ request()->routeIs('trgform') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormTRG</span></a>
                                                      </li>
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('ctcform') }}" class="nav-link {{ request()->routeIs('ctcform') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormCTC</span></a>
-                                                     </li>
+                                                     
                                                  </ul>
                                              </div>
                                              @endcan
