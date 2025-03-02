@@ -3,82 +3,212 @@
 namespace App\Livewire\Back\Trgform;
 
 use Livewire\Component;
-use App\Models\User;
-use App\Models\Candidate;
-use Carbon\Carbon;
+use App\Models\Trgdashboard;
 
-class index extends Component
+class Index extends Component
 {
-    public $usersWithCandidateCounts;
-    public $users;
-    public $user_id;
+    public $creation_date;
+    public $auth;
+    public $company;
+    public $standard_phone;
+    public $website_url;
+    public $trg_code;
+    public $address;
+    public $address_one;
+    public $postal_code_department;
+    public $region;
+    public $town;
+    public $country;
+    public $ca_k;
+    public $employees;
+    public $activity;
+    public $type;
+    public $siret;
+    public $rcs;
+    public $filiation;
+    public $off;
+    public $legal_form;
+    public $vat_number;
+    public $trg_status;
+    public $remarks;
+    public $notes;
+    public $last_modification_date;
+    public $priority;
+    public $editId;
+    public $isEditing = false;
+
+    public $entries;
+    protected $rules = [
+        'creation_date' => 'required|date',
+        'trg_code' => 'required|string|max:255',
+        'auth' => 'required|string|max:255',
+        'company' => 'required|string|max:255',
+    ];
+
     public function mount()
     {
-        $this->users = User::orderBy('last_name')->get();
-        $this->usersWithCandidateCounts = User::whereHas('candidates', function ($query) {
-            $query->whereHas('candidateState', function ($subQuery) {
-                $subQuery->where('name', '!=', 'Doublon');
-            });
-        })
-            ->withCount([
-                'candidates',
-                'candidates as candidates_today' => function ($query) {
-                    $query->whereDate('created_at', Carbon::today());
-                },
-                'candidates as candidates_this_week' => function ($query) {
-                    $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-                },
-                'candidates as candidates_this_month' => function ($query) {
-                    $query->whereMonth('created_at', Carbon::now()->month);
-                },
-                'candidates as total_candidates',
-            ])
-            ->get();
+        $this->loadEntries();
+        $this->creation_date = date('Y-m-d');
     }
-    public function updatedUserId($id)
+
+    public function loadEntries()
     {
-        if ($id) {
-            $this->usersWithCandidateCounts = User::where('id', $id)
-                ->whereHas('candidates', function ($query) {
-                    $query->whereHas('candidateState', function ($subQuery) {
-                        $subQuery->where('name', '!=', 'Doublon');
-                    });
-                })
-                ->withCount([
-                    'candidates',
-                    'candidates as candidates_today' => function ($query) {
-                        $query->whereDate('created_at', Carbon::today());
-                    },
-                    'candidates as candidates_this_week' => function ($query) {
-                        $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-                    },
-                    'candidates as candidates_this_month' => function ($query) {
-                        $query->whereMonth('created_at', Carbon::now()->month);
-                    },
-                    'candidates as total_candidates',
-                ])
-                ->get();
+        $this->entries = Trgdashboard::all();
+    }
+
+    public function save()
+    {
+        $this->validate();
+
+        if ($this->isEditing) {
+            $entry = Trgdashboard::find($this->editId);
+            if ($entry) {
+                $entry->update([
+                    'creation_date' => $this->creation_date,
+                    'auth' => $this->auth,
+                    'company' => $this->company,
+                    'standard_phone' => $this->standard_phone,
+                    'website_url' => $this->website_url,
+                    'trg_code' => $this->trg_code,
+                    'address' => $this->address,
+                    'address_one' => $this->address_one,
+                    'postal_code_department' => $this->postal_code_department,
+                    'region' => $this->region,
+                    'town' => $this->town,
+                    'country' => $this->country,
+                    'ca_k' => $this->ca_k,
+                    'employees' => $this->employees,
+                    'activity' => $this->activity,
+                    'type' => $this->type,
+                    'siret' => $this->siret,
+                    'rcs' => $this->rcs,
+                    'filiation' => $this->filiation,
+                    'off' => $this->off,
+                    'legal_form' => $this->legal_form,
+                    'vat_number' => $this->vat_number,
+                    'trg_status' => $this->trg_status,
+                    'remarks' => $this->remarks,
+                    'notes' => $this->notes,
+                    'last_modification_date' => $this->last_modification_date,
+                    'priority' => $this->priority
+                ]);
+
+                session()->flash('message', 'Record updated successfully!');
+            }
         } else {
-            $this->usersWithCandidateCounts = User::whereHas('candidates', function ($query) {
-                $query->whereHas('candidateState', function ($subQuery) {
-                    $subQuery->where('name', '!=', 'Doublon');
-                });
-            })
-                ->withCount([
-                    'candidates',
-                    'candidates as candidates_today' => function ($query) {
-                        $query->whereDate('created_at', Carbon::today());
-                    },
-                    'candidates as candidates_this_week' => function ($query) {
-                        $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-                    },
-                    'candidates as candidates_this_month' => function ($query) {
-                        $query->whereMonth('created_at', Carbon::now()->month);
-                    },
-                    'candidates as total_candidates',
-                ])
-                ->get();
+            Trgdashboard::create([
+                'creation_date' => $this->creation_date,
+                'auth' => $this->auth,
+                'company' => $this->company,
+                'standard_phone' => $this->standard_phone,
+                'website_url' => $this->website_url,
+                'trg_code' => $this->trg_code,
+                'address' => $this->address,
+                'address_one' => $this->address_one,
+                'postal_code_department' => $this->postal_code_department,
+                'region' => $this->region,
+                'town' => $this->town,
+                'country' => $this->country,
+                'ca_k' => $this->ca_k,
+                'employees' => $this->employees,
+                'activity' => $this->activity,
+                'type' => $this->type,
+                'siret' => $this->siret,
+                'rcs' => $this->rcs,
+                'filiation' => $this->filiation,
+                'off' => $this->off,
+                'legal_form' => $this->legal_form,
+                'vat_number' => $this->vat_number,
+                'trg_status' => $this->trg_status,
+                'remarks' => $this->remarks,
+                'notes' => $this->notes,
+                'last_modification_date' => $this->last_modification_date,
+                'priority' => $this->priority
+
+            ]);
+
+            session()->flash('message', 'Form Submitted Successfully!');
         }
+
+        $this->resetForm();
+        $this->loadEntries();
+    }
+
+    public function edit($id)
+    {
+        $this->isEditing = true;
+        $this->editId = $id;
+
+        $entry = Trgdashboard::find($id);
+
+        if ($entry) {
+            $this->creation_date = $entry->creation_date;
+            $this->auth = $entry->auth;
+            $this->company = $entry->company;
+            $this->standard_phone = $entry->standard_phone;
+            $this->website_url = $entry->website_url;
+            $this->trg_code = $entry->trg_code;
+            $this->address = $entry->address;
+            $this->address_one = $entry->address_one;
+            $this->postal_code_department = $entry->postal_code_department;
+            $this->region = $entry->region;
+            $this->town = $entry->town;
+            $this->country = $entry->country;
+            $this->ca_k = $entry->ca_k;
+            $this->employees = $entry->employees;
+            $this->activity = $entry->activity;
+            $this->type = $entry->type;
+            $this->siret = $entry->siret;
+            $this->rcs = $entry->rcs;
+            $this->filiation = $entry->filiation;
+            $this->off = $entry->off;
+            $this->legal_form = $entry->legal_form;
+            $this->vat_number = $entry->vat_number;
+            $this->trg_status = $entry->trg_status;
+            $this->remarks = $entry->remarks;
+            $this->notes = $entry->notes;
+            $this->last_modification_date = $entry->last_modification_date;
+            $this->priority = $entry->priority;
+        }
+    }
+
+    public function resetForm()
+    {
+        $this->reset(
+            [
+                'creation_date',
+                'auth',
+                'company',
+                'standard_phone',
+                'website_url',
+                'trg_code',
+                'address',
+                'address_one',
+                'postal_code_department',
+                'region',
+                'town',
+                'country',
+                'ca_k',
+                'employees',
+                'activity',
+                'type',
+                'siret',
+                'rcs',
+                'filiation',
+                'off',
+                'legal_form',
+                'vat_number',
+                'trg_status',
+                'remarks',
+                'notes',
+                'last_modification_date',
+                'priority'
+            ]
+        );
+
+        $this->isEditing = false;
+        $this->editId = null;
+        $this->creation_date = date('Y-m-d');
     }
 
     public function render()
@@ -86,5 +216,7 @@ class index extends Component
         return view('livewire.back.trgform.index');
     }
 }
+
+
 
 
