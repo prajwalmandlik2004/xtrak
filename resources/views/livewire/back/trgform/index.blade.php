@@ -1,160 +1,172 @@
 <div>
     <div class="row">
         <div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>TRGform</h2>
-                </div>
-                <div>
-                    <div class="form-row">
-                        <div class="form-group date-field">
-                            <label>Date</label>
-                            <input type="date" class="form-control1" value="">
-                        </div>
-                        <div class="form-group type-field">
-                            <label>Auth</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group objet-field">
-                            <label>Company</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>Std</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>Url</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>TRGcode</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group objet-field">
-                            <label>Address1</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group objet-field">
-                            <label>Address2</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>CP/Dpt</label>
-                            <input type="text" class="form-control1" value="">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>Area</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>Town</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>Country</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group date-field">
-                            <label>CA (K)</label>
-                            <input type="text" class="form-control1" value="">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>Staff</label>
-                            <input type="text" class="form-control1" value="">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>Activity</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>Type</label>
-                            <input type="text" class="form-control1" value="">
-                        </div>
-                        <div class="form-group objet-field">
-                            <label>SIRET</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group objet-field">
-                            <label>RCS</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group date-field">
-                            <label>Filiation</label>
-                            <input type="text" class="form-control1" value="">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>OF</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group date-field">
-                            <label>Form</label>
-                            <input type="text" class="form-control1" value="">
-                        </div>
-                        <div class="form-group objet-field">
-                            <label>VAT#</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                        <div class="form-group objet-field">
-                            <label>TRG Status</label>
-                            <input type="text" class="form-control1">
-                        </div>
-                    </div>
-
-                    <div class="comment-section">
-                        <div class="form-group comment-field">
-                            <label>Remark(s)</label>
-                            <textarea class="form-control2"></textarea>
-                        </div>
-                        <div class="form-group comment-field">
-                            <label>Note(s)</label>
-                            <textarea class="form-control2"></textarea>
-                        </div>
-                        <div class="right-section">
-                            <div class="next-ech-row">
-                                <div class="form-group next-field">
-                                    <label>LM Sent.</label>
-                                    <input type="text" class="form-control1">
-                                </div>
-                                <div class="form-group ech-field">
-                                    <label>Prio.</label>
-                                    <input type="text" class="form-control1">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="button-group">
-                        <div class="button-group-left">
-                            <a href="/trgform">
-                                <button style="background:#999;color:white;" type="button" class="btn btn-evt">New TRG</button>
-                            </a>
-                            <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
-                                <button type="button" class="btn btn-evt"> > New</button>
-                            </div>
-                            <div class="two">
-                                <button type="button" class="btn btn-input">CTClist</button>
-                                <button type="button" class="btn btn-input"> > New</button>
-                            </div>
-                            <div class="three"><button style="background:#4CC9FE; color:black;" type="button" class="btn btn-valid">Save</button>
-                                <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
-                                <button type="button" class="btn btn-inputmain">Input</button>
-                            </div>
-                            <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
-                        </div>
-                    </div>
+            @if (session()->has('message'))
+            <div style="margin-top:-2%;" class="d-flex justify-content-left">
+                <div class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
+                    {{ session()->get('message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
                 </div>
             </div>
-        </div>
+            @endif
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>{{ $isEditing ? 'Edit TRG Form' : 'TRGform' }}</h2>
+                </div>
+                <div>
+                    <form wire:submit.prevent="save">
+                        <div class="form-row">
+                            <div class="form-group date-field">
+                                <label>Date</label>
+                                <input type="date" class="form-control1" wire:model="creation_date">
+                            </div>
+                            <div class="form-group type-field">
+                                <label>Auth</label>
+                                <input type="text" class="form-control1" wire:model="auth">
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>Company</label>
+                                <input type="text" class="form-control1" wire:model="company">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Std</label>
+                                <input type="text" class="form-control1" wire:model="standard_phone">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Url</label>
+                                <input type="text" class="form-control1" wire:model="website_url">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>TRGcode</label>
+                                <input type="text" class="form-control1" wire:model="trg_code">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group objet-field">
+                                <label>Address1</label>
+                                <input type="text" class="form-control1" wire:model="address">
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>Address2</label>
+                                <input type="text" class="form-control1" wire:model="address_one">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>CP/Dpt</label>
+                                <input type="text" class="form-control1" wire:model="postal_code_department">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Area</label>
+                                <input type="text" class="form-control1" wire:model="region">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Town</label>
+                                <input type="text" class="form-control1" wire:model="town">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Country</label>
+                                <input type="text" class="form-control1" wire:model="country">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group date-field">
+                                <label>CA (K)</label>
+                                <input type="text" class="form-control1" wire:model="ca_k">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Staff</label>
+                                <input type="text" class="form-control1" wire:model="employees">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Activity</label>
+                                <input type="text" class="form-control1" wire:model="activity">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Type</label>
+                                <input type="text" class="form-control1" wire:model="type">
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>SIRET</label>
+                                <input type="text" class="form-control1" wire:model="siret">
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>RCS</label>
+                                <input type="text" class="form-control1" wire:model="rcs">
+                            </div>
+                        </div>
 
+                        <div class="form-row">
+                            <div class="form-group date-field">
+                                <label>Filiation</label>
+                                <input type="text" class="form-control1" wire:model="filiation">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>OF</label>
+                                <input type="text" class="form-control1" wire:model="off">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Form</label>
+                                <input type="text" class="form-control1" wire:model="legal_form">
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>VAT#</label>
+                                <input type="text" class="form-control1" wire:model="vat_number">
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>TRG Status</label>
+                                <input type="text" class="form-control1" wire:model="trg_status">
+                            </div>
+                        </div>
+
+                        <div class="comment-section">
+                            <div class="form-group comment-field">
+                                <label>Remark(s)</label>
+                                <textarea class="form-control2" wire:model="remarks"></textarea>
+                            </div>
+                            <div class="form-group comment-field">
+                                <label>Note(s)</label>
+                                <textarea class="form-control2" wire:model="notes"></textarea>
+                            </div>
+                            <div class="right-section">
+                                <div class="next-ech-row">
+                                    <div class="form-group next-field">
+                                        <label>LM Sent.</label>
+                                        <input type="text" class="form-control1" wire:model="last_modification_date">
+                                    </div>
+                                    <div class="form-group ech-field">
+                                        <label>Prio.</label>
+                                        <input type="text" class="form-control1" wire:model="priority">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="button-group">
+                            <div class="button-group-left">
+                                <a href="/trgform">
+                                    <button style="background:#999;color:white;" type="button" class="btn btn-evt">New TRG</button>
+                                </a>
+                                <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
+                                    <button type="button" class="btn btn-evt"> > New</button>
+                                </div>
+                                <div class="two">
+                                    <button type="button" class="btn btn-input">CTClist</button>
+                                    <button type="button" class="btn btn-input"> > New</button>
+                                </div>
+                                <div class="three">
+                                    <button style="background:#4CC9FE; color:black;" type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
+                                    <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
+                                    <button type="button" class="btn btn-inputmain">Input</button>
+                                </div>
+                                <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <script>
 
