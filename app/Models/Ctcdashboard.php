@@ -19,6 +19,10 @@ class Ctcdashboard extends Model
         'ext_ctc',
         'ld',
         'cell',
-        'mail'
+        'mail',
+        'ctc_code',
+        'trg_code',
+        'remarks',
+        'notes',
     ];
 }
