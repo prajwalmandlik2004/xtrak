@@ -24,7 +24,30 @@ class Trgdashboard extends Model
         'subject',
         'event_status',
         'comment_trg',
-        'next_step'
+        'next_step',
+        'auth',
+        'website_url',
+        'trg_code',
+        'address',
+        'address_one',
+        'region',
+        'town',
+        'country',
+        'ca_k',
+        'employees',
+        'activity',
+        'type',
+        'siret',
+        'rcs',
+        'filiation',
+        'off',
+        'legal_form',
+        'vat_number',
+        'trg_status',
+        'remarks',
+        'notes',
+        'last_modification_date',
+        'priority'
     ];
 }
 
