@@ -12,6 +12,7 @@ use App\Http\Controllers\CompagnyController;
 use App\Http\Controllers\OppdashController;
 use App\Http\Controllers\TrgdashController;
 use App\Http\Controllers\CtcdashController;
+use App\Http\Controllers\CtcController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\NextStepController;
@@ -53,7 +54,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/trgdashboard', [TrgdashController::class, 'index'])->name('trgdashboard');
     Route::get('/ctcdashboard', [CtcdashController::class, 'index'])->name('ctcdashboard');
     Route::get('trgform', [LandingController::class, 'trgform'])->name('trgform');
-    Route::get('ctcform', [LandingController::class, 'ctcform'])->name('ctcform');
+    // Route::get('ctcform', [LandingController::class, 'ctcform'])->name('ctcform');
+
+    Route::get('/ctcform', [App\Http\Controllers\CtcController::class, 'index'])->name('ctcform.index');
+    Route::get('/ctcform/{id}', [App\Http\Controllers\CtcController::class, 'show'])->name('ctcform.show');
+
+
+
+
+    
     Route::resource('users', UserController::class);
     Route::get('roles-permissions', [RolePermissionController::class, 'index'])->name('roles.permissions');
     Route::resource('roles', RoleController::class);
