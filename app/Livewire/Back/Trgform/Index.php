@@ -127,7 +127,7 @@ class Index extends Component
 
             ]);
 
-            session()->flash('message', 'Form Submitted Successfully!');
+            session()->flash('message', 'Form Submitted Successfully ✅');
         }
 
         $this->resetForm();
