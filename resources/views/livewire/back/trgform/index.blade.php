@@ -156,7 +156,7 @@
                                     <button type="button" class="btn btn-input"> > New</button>
                                 </div>
                                 <div class="three">
-                                    <button style="background:#4CC9FE; color:black;" type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
+                                    <button style="background:#4CC9FE; color:black;" type="submit" onclick="confirm()" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
                                     <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
                                     <button type="button" class="btn btn-inputmain">Input</button>
                                 </div>
@@ -456,5 +456,10 @@
             font-size: 14px;
         }
     </style>
+    <script>
+          function confirm(){
+              alert("Form Submitted Successfully ✅");
+          }
+    </script>
 
 </div>
