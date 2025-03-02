@@ -185,10 +185,7 @@
                                                      <li class="nav-item">
                                                          <a href="{{ route('opportunity.create') }}" class="nav-link {{ request()->routeIs('opportunity.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormOPP</span></a>
                                                      </li>
-                                                     <li class="nav-item">
-                                                         <a href="{{ route('trgform') }}" class="nav-link {{ request()->routeIs('trgform') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormTRG</span></a>
-                                                     </li>
-                                                     
+                                                 
                                                  </ul>
                                              </div>
                                              @endcan
