@@ -25,6 +25,29 @@ class trgdashboard extends Migration
             $table->string('event_status');
             $table->string('comment_trg');
             $table->string('next_step');
+            $table->string('auth');
+            $table->string('website_url');
+            $table->string('trg_code');
+            $table->string('address');
+            $table->string('address_one');
+            $table->string('region');
+            $table->string('town');
+            $table->string('country');
+            $table->string('ca_k');
+            $table->string('employees');
+            $table->string('activity');
+            $table->string('type');
+            $table->string('siret');
+            $table->string('rcs');
+            $table->string('filiation');
+            $table->string('off');
+            $table->string('legal_form');
+            $table->string('vat_number');
+            $table->string('trg_status');
+            $table->string('remarks');
+            $table->string('notes');
+            $table->string('last_modification_date');
+            $table->string('priority');
         });
     }
 
