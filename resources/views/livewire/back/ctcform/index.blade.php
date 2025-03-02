@@ -1,5 +1,5 @@
 <div>
-    <div class="row">
+    <!-- <div class="row">
         <div>
             <div class="modal-content">
                 <div class="modal-header">
@@ -86,7 +86,7 @@
                                 <button type="button" class="btn btn-input">CTClist</button>
                                 <button type="button" class="btn btn-input"> > New</button>
                             </div>
-                            <div class="three"><button type="button" class="btn btn-valid">Valid</button>
+                            <div class="three"><button type="button" class="btn btn-valid">Save</button>
                                 <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
                                 <button type="button" class="btn btn-inputmain">Input</button>
                             </div>
@@ -97,7 +97,124 @@
             </div>
         </div>
 
+    </div> -->
+
+
+    <div class="row">
+        <div>
+            @if (session()->has('message'))
+            <div style="margin-top:-2%;" class="d-flex justify-content-left">
+                <div class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
+                    {{ session()->get('message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>{{ $isEditing ? 'Edit CTC Form' : 'CTCform' }}</h2>
+                </div>
+                <div>
+                    <form wire:submit.prevent="save">
+                        <div class="form-row">
+                            <div class="form-group date-field">
+                                <label>Date</label>
+                                <input type="date" class="form-control1" wire:model="date_ctc">
+                                @error('date_ctc') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>CTCcode</label>
+                                <input type="text" class="form-control1" wire:model="ctc_code">
+                                @error('ctc_code') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>TRGcode</label>
+                                <input type="text" class="form-control1" wire:model="trg_code">
+                            </div>
+                            <div class="form-group company-field">
+                                <label>Company</label>
+                                <input type="text" class="form-control1" wire:model="company_ctc">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group date-field">
+                                <label>Civ</label>
+                                <input type="text" class="form-control1" wire:model="civ">
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>First Name</label>
+                                <input type="text" class="form-control1" wire:model="first_name">
+                                @error('first_name') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control1" wire:model="last_name">
+                                @error('last_name') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="form-group company-field">
+                                <label>Position</label>
+                                <input type="text" class="form-control1" wire:model="function_ctc">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group objet-field">
+                                <label>STD</label>
+                                <input type="text" class="form-control1" wire:model="std_ctc">
+                            </div>
+                            <div class="form-group date-field">
+                                <label>Ext</label>
+                                <input type="text" class="form-control1" wire:model="ext_ctc">
+                            </div>
+                            <div class="form-group objet-field">
+                                <label>LD</label>
+                                <input type="text" class="form-control1" wire:model="ld">
+                            </div>
+                            <div class="form-group comment-field">
+                                <label>Remark(s)</label>
+                                <textarea class="form-control2" wire:model="remarks"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group objet-field">
+                                <label>Cell</label>
+                                <input type="text" class="form-control1" wire:model="cell">
+                            </div>
+                            <div class="form-group mail-field">
+                                <label>Mail</label>
+                                <input type="text" class="form-control1" wire:model="mail">
+                            </div>
+                            <div class="form-group comment-field">
+                                <label>Note(s)</label>
+                                <textarea class="form-control2" wire:model="notes"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <div class="button-group-left">
+                                <div class="one">
+                                    <button type="button" class="btn btn-evt">EVTlist</button>
+                                    <button type="button" class="btn btn-evt"> > New</button>
+                                </div>
+                                <div class="two">
+                                    <button type="button" class="btn btn-input">CTClist</button>
+                                    <button type="button" class="btn btn-input"> > New</button>
+                                </div>
+                                <div class="three">
+                                    <button onclick="confirm()" type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
+                                    <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
+                                    <button type="button" class="btn btn-inputmain">Input</button>
+                                </div>
+                                <button type="button" class="btn btn-close1">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+
     <script>
 
     </script>
@@ -210,8 +327,8 @@
             width: 200px;
         }
 
-        .company-field{
-            width:380px;
+        .company-field {
+            width: 380px;
         }
 
         .mail-field {
@@ -403,5 +520,17 @@
             font-size: 14px;
         }
     </style>
+    <script>
+        setTimeout(function() {
+            var successAlert = document.getElementById('successAlert');
+            if (successAlert) {
+                successAlert.style.display = 'none';
+            }
+        }, 3000);
 
+        function confirm() {
+            alert("Form Submitted Successfully ✅");
+        }
+    </script>
 </div>
+
