@@ -20,6 +20,10 @@ class ctcdashboard extends Migration
             $table->string('ld');
             $table->string('cell');
             $table->string('mail');
+            $table->string('ctc_code');
+            $table->string('trg_code');
+            $table->string('remarks');
+            $table->string('notes');  
         });
     }
 
@@ -28,5 +32,4 @@ class ctcdashboard extends Migration
         Schema::dropIfExists('ctc_vue');
     }
 }
-
 
