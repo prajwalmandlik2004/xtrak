@@ -53,11 +53,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/oppdashboard', [OppdashController::class, 'index'])->name('oppdashboard');
     Route::get('/trgdashboard', [TrgdashController::class, 'index'])->name('trgdashboard');
     Route::get('/ctcdashboard', [CtcdashController::class, 'index'])->name('ctcdashboard');
-    Route::get('trgform', [LandingController::class, 'trgform'])->name('trgform');
+    // Route::get('trgform', [LandingController::class, 'trgform'])->name('trgform');
     // Route::get('ctcform', [LandingController::class, 'ctcform'])->name('ctcform');
 
     Route::get('/ctcform', [App\Http\Controllers\CtcController::class, 'index'])->name('ctcform.index');
     Route::get('/ctcform/{id}', [App\Http\Controllers\CtcController::class, 'show'])->name('ctcform.show');
+
+    Route::get('/trgform', [App\Http\Controllers\TrgController::class, 'index'])->name('trgform.index');
+    Route::get('/trgform/{id}', [App\Http\Controllers\TrgController::class, 'show'])->name('trgform.show');
+
 
 
 
