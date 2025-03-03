@@ -67,7 +67,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                         href="/evts">
-                                        Hiring Process
+                                        Hiring
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -736,7 +736,7 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                     href="/evts">
-                                    Hiring Process
+                                    Hiring
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -966,7 +966,7 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                     href="/evts">
-                                    Hiring Process
+                                    Hiring
                                 </a>
                             </li>
                             <li class="nav-item">
