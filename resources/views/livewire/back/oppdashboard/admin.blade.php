@@ -418,7 +418,7 @@
                 display: none;
                 justify-content: center;
                 align-items: center;
-                z-index: 1;
+                z-index: 1050;
             }
 
             .modal-content {
