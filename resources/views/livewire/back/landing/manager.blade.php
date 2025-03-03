@@ -218,7 +218,7 @@
             'Forms' => [
             'CDTform' => ['url' => '/candidates/create', 'enabled' => true],
             'TRGform' => ['url' => '/trgform', 'enabled' => true],
-            'OPPform' => ['url' => '/opportunity/create', 'enabled' => true],
+            'OPPform' => ['url' => '/oppform', 'enabled' => true],
             'CTCform' => ['url' => '/ctcform', 'enabled' => true],
             'PREFform' => ['url' => '/forms/pref', 'enabled' => false],
             'ANNform' => ['url' => '/forms/ann', 'enabled' => false],
