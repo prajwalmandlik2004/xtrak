@@ -64,12 +64,12 @@
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                 data-bs-toggle="tab" href="/management" role="tab">
-                                CDT mgt
+                                CDTlist
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                href="/opportunity/create">
+                                href="/evts">
                                 Hiring Process
                             </a>
                         </li>
