@@ -163,7 +163,19 @@
         positionCircles();
 
         document.getElementById('CDT').addEventListener('click', function() {
-            window.location.href = '{{ route('landing') }}';
+            window.location.href = '{{ route('dashboard') }}';
+        });
+
+        document.getElementById('OPP').addEventListener('click', function() {
+            window.location.href = '{{ route('oppdashboard') }}';
+        });
+
+        document.getElementById('TRG').addEventListener('click', function() {
+            window.location.href = '{{ route('trgdashboard') }}';
+        });
+
+        document.getElementById('CTC').addEventListener('click', function() {
+            window.location.href = '{{ route('ctcdashboard') }}';
         });
     </script>
 </body>
