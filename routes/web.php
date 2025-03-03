@@ -62,6 +62,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/trgform', [App\Http\Controllers\TrgController::class, 'index'])->name('trgform.index');
     Route::get('/trgform/{id}', [App\Http\Controllers\TrgController::class, 'show'])->name('trgform.show');
 
+    Route::get('/oppform', [App\Http\Controllers\OpportunityController::class, 'index'])->name('oppform.index');
+    Route::get('/oppform/{id}', [App\Http\Controllers\OpportunityController::class, 'show'])->name('oppform.show');
+
+
+
 
 
 
