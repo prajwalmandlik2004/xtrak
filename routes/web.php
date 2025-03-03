@@ -70,13 +70,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 
 
-
     
     Route::resource('users', UserController::class);
     Route::get('roles-permissions', [RolePermissionController::class, 'index'])->name('roles.permissions');
     Route::resource('roles', RoleController::class);
     Route::resource('candidates', CandidateController::class);
-    Route::resource('opportunity', OpportunityController::class);
+    // Route::resource('opportunity', OpportunityController::class);
     Route::get('import-candidat', [CandidateController::class, 'import'])->name('import.candidat');
     Route::resource('positions', PositionController::class);
     Route::resource('specialities', SpecialityController::class);
