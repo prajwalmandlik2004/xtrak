@@ -659,7 +659,7 @@
                                         <div class="cdt-modal-body">
                                             <div class="cdt-input-group">
                                                 <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
-                                                <button class="cdt-ok-btn" id="okButton">OK</button>
+                                                <button type="button" class="cdt-ok-btn" id="okButton">OK</button>
                                             </div>
                                             <div class="cdt-message">("message")</div>
                                         </div>
@@ -699,7 +699,7 @@
                                         <a href="/management">
                                             <button type="button" class="btn btn-cdt">CDTlist</button>
                                         </a>
-                                        <button type="button" class="btn btn-cdt"> > New</button>
+                                        <button id="linkNewCDT" type="button" class="btn btn-cdt"> > New</button>
                                     </div>
                                     <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
                                         <button type="button" class="btn btn-evt"> > New</button>
@@ -927,7 +927,7 @@
                                                 <div class="cdt-modal-body">
                                                     <div class="cdt-input-group">
                                                         <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
-                                                        <button class="cdt-ok-btn" id="okButton">OK</button>
+                                                        <button type="submit" class="cdt-ok-btn" id="okButton">OK</button>
                                                     </div>
                                                     <div class="cdt-message">("message")</div>
                                                 </div>
