@@ -2,77 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Candidate;
-use App\Http\Requests\StoreCandidateRequest;
-use App\Http\Requests\UpdateCandidateRequest;
+use Illuminate\Http\Request;
+use App\Models\Oppdashboard;
 
 class OpportunityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $this->authorize('Menu accès BaseCDT');
-        return view('back.opportunity.index');
+        $entries = Oppdashboard::all();
+        return view('back.oppform.index', compact('entries'));
     }
 
-    public function state($state)
+    public function edit($id)
     {
-        $this->authorize('Menu etats');
-        return view('back.opportunity.state', ['state' => $state]);
-    }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $this->authorize('Menu saisie');
-        return view('back.opportunity.form', [
-            'action' => 'create',
-            'candidate' => new Candidate(),
-        ]);
-    }
-    public function edit(Candidate $candidate)
-    {
-        
-        return view('back.opportunity.form', [
-            'action' => 'update',
-            'candidate' => $candidate,
-        ]);
-    }
-    public function show(Candidate $candidate)
-    {
-        // $this->authorize('Voir un candidat');
-        return view('back.opportunity.show', [
-            'candidate' => $candidate,
-        ]);
+        $entry = Oppdashboard::findOrFail($id);
+        return view('back.oppform.edit', compact('entry'));
     }
 
     public function management()
     {
-        return view('back.opportunity.management');
+        return view('back.oppform.management');
     }
 
     public function evts()
     {
-        return view('back.opportunity.evts');
+        return view('back.oppform.evts');
     }
-
-    public function import()
-    {
-        $this->authorize('Importer des candidats');
-        return view('back.opportunity.import');
-    }
-    public function candidateCv(Candidate $candidate)
-    {
-        return view('back.opportunity.cv', [
-            'candidate' => $candidate,
-        ]);
-    }
-    public function showFile(Candidate $candidate)
-{
-    $files = File::all();
-    return view('livewire.back.files.candidate-file', ['candidate' => $candidate]);}
 
 }
+
+
