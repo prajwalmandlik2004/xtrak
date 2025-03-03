@@ -81,7 +81,7 @@
                             <div class="card-body">
 
                                 @if (session()->has('message'))
-                                <div style="margin-top:-2%;" class="d-flex justify-content-left">
+                                <div style="margin-top:-1%;" class="d-flex justify-content-left">
                                     <div class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
                                         {{ session()->get('message') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
