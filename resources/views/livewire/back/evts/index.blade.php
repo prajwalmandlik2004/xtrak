@@ -30,7 +30,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                             data-bs-toggle="tab" href="/evts" role="tab">
-                            Hiring Process
+                            Hiring
                         </a>
                     </li>
                     <li class="nav-item">
