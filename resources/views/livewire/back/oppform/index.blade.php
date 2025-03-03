@@ -694,7 +694,7 @@
                                     </div>
                                     <div class="three">
                                         <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
-                                        <button type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
+                                        <button type="submit" onclick="confirm()" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
                                         <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
                                     </div>
                                 </div>
@@ -1953,6 +1953,9 @@
         textarea.style.height = (textarea.scrollHeight) + "px";
     }
 
+    function confirm(){
+        alert("Form Submitted Successfully ✅");
+    }
 
     function handleFeeTypeChange() {
         const feeType = document.getElementById('feeType').value;
