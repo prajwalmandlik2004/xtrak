@@ -70,7 +70,7 @@
                         <li class="nav-item">
                             <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                 href="/evts">
-                                Hiring Process
+                                Hiring
                             </a>
                         </li>
                         <li class="nav-item">
@@ -205,12 +205,12 @@
 
     <div class="card-footer mb-4">
           <div class="d-flex justify-content-end">
-            <button style="background:yellow; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+<!--             <button style="background:yellow; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success link-btn">
-                CDTlist</button>
+                CDTlist</button> -->
             <button style="background:yellow; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                 class="btn btn-success link-btn" id="linkNewCDT">
-                > New </button>
+                New </button>
             <button style="background-color:red; margin-left:5%;" wire:click="" class="btn btn-danger" id="delete-button-container">
                 UNLINK
             </button>
