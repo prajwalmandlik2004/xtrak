@@ -182,7 +182,15 @@
                                                      <li class="nav-item">
                                                          <a href="{{ route('candidates.create') }}" class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormCDT</span></a>
                                                      </li>
-                                                   
+                                                     <li class="nav-item">
+                                                         <a href="/opportunity" class="nav-link" data-key="t-chat"><span style="color:#09ff00">FormOPP</span></a>
+                                                     </li>
+                                                     <li class="nav-item">
+                                                         <a href="/trgform" class="nav-link" data-key="t-chat"><span style="color:#09ff00">FormTRG</span></a>
+                                                     </li>
+                                                     <li class="nav-item">
+                                                         <a href="/ctcform" class="nav-link" data-key="t-chat"><span style="color:#09ff00">FormCTC</span></a>
+                                                     </li>
                                                  
                                                  </ul>
                                              </div>
