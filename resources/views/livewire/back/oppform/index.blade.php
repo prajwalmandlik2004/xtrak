@@ -25,7 +25,7 @@
                                         <a style="background:#33BBC5; border:none;" wire:click='resetForm' class="btn btn-danger"></i>+ Nouveau</a>
                                     </div>
                                     <div class="p-2">
-                                        <button wire:click.prevent="storeCandidateData2" wire:loading.remove wire:target="storeCandidateData2" type="button"
+                                        <button wire:click.prevent="" wire:loading.remove wire:target="" type="button"
                                             class="btn btn-danger">
                                             {{ $action == 'create' ? 'Supprimer' : 'Supprimer' }}</button>
 
@@ -37,7 +37,7 @@
                                         </button>
                                     </div>
                                     <div class="p-2">
-                                        <a href="#" onclick="goBack()" class="btn btn-secondary me-1 ms-5"><i
+                                        <a href="/oppdashboard" class="btn btn-secondary me-1 ms-5"><i
                                                 class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Vue' : 'Vue' }}</a>
                                     </div>
 
@@ -61,7 +61,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                         href="/management">
-                                        CDT mgt
+                                        CDTlist
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -198,8 +198,18 @@
                                                     </div>
                                                 </div>
 
-
-
+                                                <div class="mt-2 col-md-2">
+                                                    <div>
+                                                        <label class="form-label">Civ</label>
+                                                        <input type="text"
+                                                            class="form-control form-control-custom-1  @error('civs') is-invalid @enderror "
+                                                            wire:model='civs'
+                                                            placeholder="Civ" />
+                                                        @error('civs')
+                                                        <span class="invalid-feedback">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
 
                                                 <div class="mt-2 col-lg-2 ">
                                                     <div>
@@ -686,7 +696,9 @@
                                         <button type="button" class="btn btn-inputmain"> > New</button>
                                     </div>
                                     <div class="two">
-                                        <button type="button" class="btn btn-cdt">CDTlist</button>
+                                        <a href="/management">
+                                            <button type="button" class="btn btn-cdt">CDTlist</button>
+                                        </a>
                                         <button type="button" class="btn btn-cdt"> > New</button>
                                     </div>
                                     <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
@@ -718,7 +730,7 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                     href="/management">
-                                    CDT mgt
+                                    CDTlist
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -948,7 +960,7 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                     href="/management">
-                                    CDT mgt
+                                    CDTlist
                                 </a>
                             </li>
                             <li class="nav-item">
