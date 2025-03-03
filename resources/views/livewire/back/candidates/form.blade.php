@@ -30,6 +30,12 @@
                             C.R.E
                         </a>
                     </li>
+                    <li class="nav-item">
+                            <a style="font-weight:bold;" class="nav-link"
+                                href="/evts">
+                                Hiring
+                            </a>
+                    </li>
                 </ul> -->
 
 
@@ -101,6 +107,12 @@
                             <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'disabled' : '' }}"
                                 data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#cre' }}" role="tab">
                                 C.R.E
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-weight:bold;" class="nav-link"
+                                href="/evts">
+                                Hiring
                             </a>
                         </li>
                     </ul>
@@ -911,6 +923,12 @@
                             C.R.E
                         </a>
                     </li>
+                    <li class="nav-item">
+                            <a style="font-weight:bold;" class="nav-link"
+                                href="/evts">
+                                Hiring
+                            </a>
+                    </li>
                 </ul>
                 <div class="col-sm-12">
 
@@ -1133,6 +1151,12 @@
                             data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#cre' }}" role="tab">
                             C.R.E
                         </a>
+                    </li>
+                    <li class="nav-item">
+                            <a style="font-weight:bold;" class="nav-link"
+                                href="/evts">
+                                Hiring
+                            </a>
                     </li>
                 </ul>
                 <div class="col-sm-12">
