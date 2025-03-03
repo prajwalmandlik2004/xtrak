@@ -11,7 +11,7 @@
                 <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'enabled' : '' }}"
-                            href="/opportunity/create">
+                            href="/opportunity">
                             Description
                         </a>
                     </li>
@@ -29,7 +29,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
-                            href="/opportunity/create#invoicement">
+                            href="/opportunity#invoicement">
                             Facturation
                         </a>
                     </li>
