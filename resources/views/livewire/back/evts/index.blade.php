@@ -16,9 +16,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
+                            href="/job">
+                            F.P.
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                             href="/management">
-                            CDT mgt
+                            CDTlist
                         </a>
                     </li>
                     <li class="nav-item">
