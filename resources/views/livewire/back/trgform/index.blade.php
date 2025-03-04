@@ -475,7 +475,7 @@
         }
 
          .cdt-modal-dialog {
-            max-width: 400px;
+            max-width: 300px;
         }
      
         .cdt-modal-content {
