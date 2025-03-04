@@ -192,17 +192,35 @@
 
 
 
-        <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
+        <div style="margin-top:-30%;display:none;" class="modal-overlay" id="customModal" tabindex="-1">
+            <div class="modal-dialog  cdt-modal-dialog">
                 <div class="modal-content cdt-modal-content">
                     <div class="cdt-modal-header">
-                        <span>Enter CDT code:</span>
+                        <span>Enter CTC code:</span>
                         <button id="closeModal" type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
                     </div>
                     <div class="cdt-modal-body">
                         <div class="cdt-input-group">
                             <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
                             <button class="cdt-ok-btn" id="okButton">OK</button>
+                        </div>
+                        <div class="cdt-message">("message")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:-30%;display:none;" class="modal-overlay" id="customModalOPP" tabindex="-1">
+            <div class="modal-dialog  cdt-modal-dialog">
+                <div class="modal-content cdt-modal-content">
+                    <div class="cdt-modal-header">
+                        <span>Enter OPP code:</span>
+                        <button id="closeModalOPP" type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+                    </div>
+                    <div class="cdt-modal-body">
+                        <div class="cdt-input-group">
+                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                            <button class="cdt-ok-btn" id="okButtonOPP">OK</button>
                         </div>
                         <div class="cdt-message">("message")</div>
                     </div>
@@ -378,12 +396,12 @@
                         <button style="background:#999;color:white;" type="button" class="btn btn-close1">New TRG</button>
                     </a>
                     <div class="two">
-                        <button type="button" class="btn btn-opp">OPPlist</button>
-                        <button type="button" class="btn btn-opp">New</button>
+                        <button onclick="coming()" type="button" class="btn btn-opp">OPPlist</button>
+                        <button id="linkNewOPP" type="button" class="btn btn-opp">New</button>
                     </div>
                     <div class="two">
-                        <button type="button" class="btn btn-input">CTClist</button>
-                        <button type="button" class="btn btn-input">New</button>
+                        <button onclick="coming()" type="button" class="btn btn-input">CTClist</button>
+                        <button id="linkNewCDT" type="button" class="btn btn-input">New</button>
                     </div>
                     <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
                         <button type="button" class="btn btn-evt" onclick="openModal()">New</button>
@@ -429,12 +447,12 @@
                 color: white;
             }
 
-            .modal-content {
+/*             .modal-content {
                 background: none;
                 border-radius: 8px;
                 width: 300px;
                 text-align: left;
-            }
+            } */
 
             .modal {
                 display: none;
@@ -452,7 +470,7 @@
                 background-color: #fff;
                 margin: 5% auto;
                 padding: 20px 25px;
-                width: 80%;
+                width: 100%;
                 max-width: 900px;
                 border-radius: 2px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -716,6 +734,77 @@
             .evt-button i {
                 font-size: 14px;
             }
+
+            
+            .cdt-modal-dialog {
+                max-width: 300px;
+                z-index: 1050;
+            }
+
+            .cdt-modal-content {
+                padding: 0;
+                border: 1px solid #999;
+                border-radius: 0;
+                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+                background: #f0f0f0;
+            }
+
+            .cdt-modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 6px 8px;
+                background: linear-gradient(to bottom, #fff, #e4e4e4);
+                /* border-bottom: 1px solid #999; */
+            }
+
+            .cdt-modal-header span {
+                font-size: 15px;
+                color: #000;
+            }
+
+            .cdt-close-btn {
+                background: red;
+                border: none;
+                font-size: 18px;
+                line-height: 1;
+                padding: 0 4px;
+                cursor: pointer;
+                color: white;
+            }
+
+            .cdt-modal-body {
+                padding: 10px;
+                background: #f0f0f0;
+            }
+
+            .cdt-input-group {
+                display: flex;
+                gap: 4px;
+                margin-bottom: 6px;
+            }
+
+            .cdt-input {
+                flex-grow: 1;
+                padding: 3px 6px;
+                border: 1px solid #999;
+                font-size: 13px;
+            }
+
+            .cdt-ok-btn {
+                background: #118B50;
+                border: 1px solid #999;
+                padding: 2px 8px;
+                cursor: pointer;
+                font-size: 13px;
+                color: white;
+            }
+
+            .cdt-message {
+                font-size: 15px;
+                color: #666;
+                padding: 2px 0;
+            }
         </style>
 
     </div>
@@ -732,6 +821,22 @@
         document.getElementById("okButton").addEventListener("click", function() {
             document.getElementById("customModal").style.display = "none";
         });
+
+        document.getElementById("linkNewOPP").addEventListener("click", function() {
+            document.getElementById("customModalOPP").style.display = "flex";
+        });
+
+        document.getElementById("closeModalOPP").addEventListener("click", function() {
+            document.getElementById("customModalOPP").style.display = "none";
+        });
+
+        document.getElementById("okButtonOPP").addEventListener("click", function() {
+            document.getElementById("customModalOPP").style.display = "none";
+        });
+
+        function coming() {
+            alert("CTClist Coming Soon 🛑");
+        }
 
 
         let currentlyVisibleCertificateIndex = null;
