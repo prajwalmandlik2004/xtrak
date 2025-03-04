@@ -343,7 +343,7 @@
                     <a href="/ctcform">
                         <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">NewCTC</button>
                     </a>
-                    <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
+                    <div class="one"> <button onclick="coming()" type="button" class="btn btn-evt">EVTlist</button>
                         <button type="button" class="btn btn-evt" onclick="openModal()"> > New</button>
                     </div>
                     <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
@@ -721,6 +721,9 @@
             document.getElementById("customModal").style.display = "none";
         });
 
+        function coming(){
+            alert("EVTlist Coming Soon 🛑");
+        }
 
         let currentlyVisibleCertificateIndex = null;
 
