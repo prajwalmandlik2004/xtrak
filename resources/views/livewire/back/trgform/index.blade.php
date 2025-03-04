@@ -141,6 +141,24 @@
                             </div>
                         </div>
 
+                        <div class="modal fade" id="cdtModal" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
+                                <div class="modal-content cdt-modal-content">
+                                    <div class="cdt-modal-header">
+                                        <span>Enter CTC code:</span>
+                                        <button type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+                                    </div>
+                                    <div class="cdt-modal-body">
+                                        <div class="cdt-input-group">
+                                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                                            <button type="button" class="cdt-ok-btn" id="okButton">OK</button>
+                                        </div>
+                                        <div class="cdt-message">("message CTC")</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
 
                         <div class="button-group">
@@ -152,8 +170,8 @@
                                     <button type="button" class="btn btn-evt"> > New</button>
                                 </div>
                                 <div class="two">
-                                    <button type="button" class="btn btn-input">CTClist</button>
-                                    <button type="button" class="btn btn-input"> > New</button>
+                                    <button onclick="coming()" type="button" class="btn btn-input">CTClist</button>
+                                    <button id="linkNewCDT" type="button" class="btn btn-input"> > New</button>
                                 </div>
                                 <div class="three">
                                     <button style="background:#4CC9FE; color:black;" type="submit" onclick="confirm()" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
@@ -455,11 +473,104 @@
         .evt-button i {
             font-size: 14px;
         }
+
+         .cdt-modal-dialog {
+            max-width: 400px;
+        }
+     
+        .cdt-modal-content {
+            padding: 0;
+            border: 1px solid #999;
+            border-radius: 0;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            background: #f0f0f0;
+        }
+
+        .cdt-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 8px;
+            background: linear-gradient(to bottom, #fff, #e4e4e4);
+            /* border-bottom: 1px solid #999; */
+        }
+
+        .cdt-modal-header span {
+            font-size: 15px;
+            color: #000;
+        }
+
+        .cdt-close-btn {
+            background: red;
+            border: none;
+            font-size: 18px;
+            line-height: 1;
+            padding: 0 4px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .cdt-modal-body {
+            padding: 10px;
+            background: #f0f0f0;
+        }
+
+        .cdt-input-group {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .cdt-input {
+            flex-grow: 1;
+            padding: 3px 6px;
+            border: 1px solid #999;
+            font-size: 13px;
+        }
+
+        .cdt-ok-btn {
+            background: #118B50;
+            border: 1px solid #999;
+            padding: 2px 8px;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+        }
+
+        .cdt-message {
+            font-size: 15px;
+            color: #666;
+            padding: 2px 0;
+        }
     </style>
     <script>
-          function confirm(){
-              alert("Form Submitted Successfully ✅");
-          }
+        function confirm() {
+            alert("Form Submitted Succefully ✅");
+        }
+
+        function coming() {
+            alert("CTClist Coming Soon 🛑");
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const linkNewCDT = document.getElementById('linkNewCDT');
+            const cdtModal = new bootstrap.Modal(document.getElementById('cdtModal'));
+            const okButton = document.getElementById('okButton');
+            const cdtCodeInput = document.getElementById('cdtCode');
+
+            linkNewCDT.addEventListener('click', function() {
+                cdtModal.show();
+            });
+
+            okButton.addEventListener('click', function() {
+                const code = cdtCodeInput.value.trim();
+                if (code) {
+                    console.log('CDT Code submitted:', code);
+                    cdtModal.hide();
+                    cdtCodeInput.value = '';
+                }
+            });
+        });
     </script>
 
 </div>
