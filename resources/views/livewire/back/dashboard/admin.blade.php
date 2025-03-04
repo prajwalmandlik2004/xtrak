@@ -313,6 +313,27 @@
             {{ $candidates->links() }}
         </div><!-- end row -->
 
+
+         <div style="margin-top:-30%;" class="modal fade" id="cdtModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
+                <div class="modal-content cdt-modal-content">
+                    <div class="cdt-modal-header">
+                        <span>Enter OPP code:</span>
+                        <button type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+                    </div>
+                    <div class="cdt-modal-body">
+                        <div class="cdt-input-group">
+                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                            <button type="button" class="cdt-ok-btn" id="okButton">OK</button>
+                        </div>
+                        <div class="cdt-message">("message OPP")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
         <div class="button-group">
             <div class="button-group-left">
                 <div class="one">
@@ -321,8 +342,8 @@
                     </a>
                 </div>
                 <div class="two">
-                    <button type="button" class="btn btn-input">OPPlist</button>
-                    <button type="button" class="btn btn-input"> > New</button>
+                    <button onclick="coming()" type="button" class="btn btn-input">OPPlist</button>
+                    <button id="linkNewCDT" type="button" class="btn btn-input"> > New</button>
                 </div>
                 <div class="one">
                     <button type="button" class="btn btn-evt">EVTlist</button>
@@ -344,6 +365,31 @@
     @push('page-script')
     <script>
         let currentlyVisibleCertificateIndex = null;
+
+        function coming() {
+            alert("OPPlist Coming Soon 🛑");
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const linkNewCDT = document.getElementById('linkNewCDT');
+            const cdtModal = new bootstrap.Modal(document.getElementById('cdtModal'));
+            const okButton = document.getElementById('okButton');
+            const cdtCodeInput = document.getElementById('cdtCode');
+
+            linkNewCDT.addEventListener('click', function() {
+                cdtModal.show();
+            });
+
+            okButton.addEventListener('click', function() {
+                const code = cdtCodeInput.value.trim();
+                if (code) {
+                    console.log('CDT Code submitted:', code);
+                    cdtModal.hide();
+                    cdtCodeInput.value = '';
+                }
+            });
+        });
+
 
         function toggleCertificate(index) {
             var hiddenCertificate = document.getElementById('hidden-certificate-' + index);
@@ -704,6 +750,75 @@
         .btn-close1:hover {
             background-color: #000080;
             color: white;
+        }
+
+         .cdt-modal-dialog {
+            max-width: 300px;
+        }
+
+        .cdt-modal-content {
+            padding: 0;
+            border: 1px solid #999;
+            border-radius: 0;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            background: #f0f0f0;
+        }
+
+        .cdt-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 8px;
+            background: linear-gradient(to bottom, #fff, #e4e4e4);
+            /* border-bottom: 1px solid #999; */
+        }
+
+        .cdt-modal-header span {
+            font-size: 15px;
+            color: #000;
+        }
+
+        .cdt-close-btn {
+            background: red;
+            border: none;
+            font-size: 18px;
+            line-height: 1;
+            padding: 0 4px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .cdt-modal-body {
+            padding: 10px;
+            background: #f0f0f0;
+        }
+
+        .cdt-input-group {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .cdt-input {
+            flex-grow: 1;
+            padding: 3px 6px;
+            border: 1px solid #999;
+            font-size: 13px;
+        }
+
+        .cdt-ok-btn {
+            background: #118B50;
+            border: 1px solid #999;
+            padding: 2px 8px;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+        }
+
+        .cdt-message {
+            font-size: 15px;
+            color: #666;
+            padding: 2px 0;
         }
     </style>
 </div>
