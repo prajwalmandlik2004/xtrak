@@ -403,7 +403,7 @@
                         <button onclick="coming()" type="button" class="btn btn-input">CTClist</button>
                         <button id="linkNewCDT" type="button" class="btn btn-input">New</button>
                     </div>
-                    <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
+                    <div class="one"> <button onclick="coming()" type="button" class="btn btn-evt">EVTlist</button>
                         <button type="button" class="btn btn-evt" onclick="openModal()">New</button>
                     </div>
                     <button style="background:#F93827;" wire:click="" class="btn btn-danger" id="delete-button-container">
@@ -835,7 +835,7 @@
         });
 
         function coming() {
-            alert("CTClist Coming Soon 🛑");
+            alert("Coming Soon 🛑");
         }
 
 
