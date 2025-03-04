@@ -692,7 +692,7 @@
                             <div class="button-group">
                                 <div class="button-group-left">
                                     <div class="two">
-                                        <button type="button" class="btn btn-inputmain">CSTlist</button>
+                                        <button onclick="coming()" type="button" class="btn btn-inputmain">CSTlist</button>
                                         <button type="button" class="btn btn-inputmain"> > New</button>
                                     </div>
                                     <div class="two">
@@ -1967,6 +1967,10 @@
 
     function confirm(){
         alert("Form Submitted Successfully ✅");
+    }
+
+    function coming() {
+        alert("CSTlist Coming Soon 🛑")
     }
 
     function handleFeeTypeChange() {
