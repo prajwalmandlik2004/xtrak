@@ -116,8 +116,8 @@
                                     <button type="button" class="btn btn-evt"> > New</button>
                                 </div>
                                 <div class="two">
-                                    <button type="button" class="btn btn-input">CTClist</button>
-                                    <button type="button" class="btn btn-input"> > New</button>
+                                    <button onclick="coming()" type="button" class="btn btn-input">CTClist</button>
+                                    <button id="linkNewCDT" type="button" class="btn btn-input"> > New</button>
                                 </div>
                                 <div class="three">
                                     <button type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
