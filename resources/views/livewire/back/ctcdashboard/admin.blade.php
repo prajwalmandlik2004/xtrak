@@ -33,7 +33,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input id="selectionButton" type="checkbox" wire:model.live='select' class="large-checkbox" id="searchCheckbox">
+                                <input id="selectionButton" type="checkbox" wire:model='selectAll' class="large-checkbox" id="searchCheckbox">
                             </td>
 
                             <td>
@@ -79,7 +79,7 @@
 
         <!-- end page title -->
 
-        <div style="margin-top:-2%;" class="col-md-12">
+        <div style="margin-top:-1%;" class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
@@ -118,7 +118,7 @@
                         @endif
                     </div>
                 </div>
-                <div style="margin-top:-3%;" class="card-body">
+                <div style="margin-top:-2%;" class="card-body">
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -351,12 +351,14 @@
                     </button>
                     <div class="three">
                         <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
-                        <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
-                        <button id="export-button" onclick="exportSelectedCandidates()" type="button" class="btn btn-close1" onclick="closeModal()"> <i class="ri-file-download-line me-1"></i>Exporter <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+                        <a href="/landing">
+                            <button type="button" class="btn btn-close1">Close</button>
+                        </a>
+<!--                         <button id="export-button" onclick="exportSelectedCandidates()" type="button" class="btn btn-close1" onclick="closeModal()"> <i class="ri-file-download-line me-1"></i>Exporter <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <span class="visually-hidden">Exportation...</span>
                             </span>
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
