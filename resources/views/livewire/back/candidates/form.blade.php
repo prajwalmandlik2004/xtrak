@@ -860,13 +860,15 @@
                         </div>
                         <div class="two">
                             <button type="button" class="btn btn-validmain">OPPlist</button>
-                            <a href="/opportunity/create">
-                            <button type="button" class="btn btn-validmain"> > New</button>
+                            <a href="/opportunity">
+                                <button type="button" class="btn btn-validmain"> > New</button>
                             </a>
                         </div>
                         <div class="three">
-                            <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
-                            <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                            <button type="button" class="btn btn-erase" wire:click='resetForm'>Erase</button>
+                            <a href="/landing">
+                                <button type="button" class="btn btn-close1">Close</button>
+                            </a>
                         </div>
                     </div>
                 </div>
