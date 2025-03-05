@@ -194,10 +194,10 @@
                 </div>
                 <div class="cdt-modal-body">
                     <div class="cdt-input-group">
-                        <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                        <input type="text" class="cdt-input" id="cdtCode" value="">
                         <button class="cdt-ok-btn" id="okButton">OK</button>
                     </div>
-                    <div class="cdt-message">("message")</div>
+                    <div class="cdt-message"></div>
                 </div>
             </div>
         </div>
