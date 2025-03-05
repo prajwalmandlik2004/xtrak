@@ -707,7 +707,9 @@
                                     <div class="three">
                                         <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
                                         <button type="submit" onclick="confirm()" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
-                                        <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                                        <a href="/landing">
+                                            <button type="button" class="btn btn-close1">Close</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -1235,7 +1237,9 @@
                                                     <div class="three">
                                                         <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
                                                         <button type="button" class="btn btn-valid">Valid</button>
-                                                        <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                                                        <a href="/landing">
+                                                            <button type="button" class="btn btn-close1">Close</button>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
