@@ -323,10 +323,10 @@
                     </div>
                     <div class="cdt-modal-body">
                         <div class="cdt-input-group">
-                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                            <input type="text" class="cdt-input" id="cdtCode" value="">
                             <button type="button" class="cdt-ok-btn" id="okButton">OK</button>
                         </div>
-                        <div class="cdt-message">("message OPP")</div>
+                        <div class="cdt-message"></div>
                     </div>
                 </div>
             </div>
@@ -356,7 +356,9 @@
                 </div>
                 <div class="four">
                     <button type="button" class="btn btn-save">Save</button>
-                    <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                    <a href="/landing">
+                        <button type="button" class="btn btn-close1">Close</button>
+                    </a>
                 </div>
             </div>
         </div>
