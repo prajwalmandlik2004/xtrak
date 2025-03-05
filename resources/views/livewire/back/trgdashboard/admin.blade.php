@@ -192,7 +192,7 @@
 
 
 
-        <div style="margin-top:-30%;display:none;" class="modal-overlay" id="customModal" tabindex="-1">
+        <div style="margin-top:-15%;display:none;" class="modal-overlay" id="customModal" tabindex="-1">
             <div class="modal-dialog  cdt-modal-dialog">
                 <div class="modal-content cdt-modal-content">
                     <div class="cdt-modal-header">
@@ -201,16 +201,16 @@
                     </div>
                     <div class="cdt-modal-body">
                         <div class="cdt-input-group">
-                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                            <input type="text" class="cdt-input" id="cdtCode" value="">
                             <button class="cdt-ok-btn" id="okButton">OK</button>
                         </div>
-                        <div class="cdt-message">("message")</div>
+                        <div class="cdt-message"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div style="margin-top:-30%;display:none;" class="modal-overlay" id="customModalOPP" tabindex="-1">
+        <div style="margin-top:-15%;display:none;" class="modal-overlay" id="customModalOPP" tabindex="-1">
             <div class="modal-dialog  cdt-modal-dialog">
                 <div class="modal-content cdt-modal-content">
                     <div class="cdt-modal-header">
@@ -219,10 +219,10 @@
                     </div>
                     <div class="cdt-modal-body">
                         <div class="cdt-input-group">
-                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                            <input type="text" class="cdt-input" id="cdtCode" value="">
                             <button class="cdt-ok-btn" id="okButtonOPP">OK</button>
                         </div>
-                        <div class="cdt-message">("message")</div>
+                        <div class="cdt-message"></div>
                     </div>
                 </div>
             </div>
@@ -410,7 +410,9 @@
                         Supprimer
                     </button>
                     <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
-                    <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                    <a href="/landing">
+                        <button type="button" class="btn btn-close1">Close</button>
+                    </a>
                 </div>
             </div>
 
