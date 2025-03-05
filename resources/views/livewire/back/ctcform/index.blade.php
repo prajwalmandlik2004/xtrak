@@ -100,10 +100,10 @@
                                     </div>
                                     <div class="cdt-modal-body">
                                         <div class="cdt-input-group">
-                                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
+                                            <input type="text" class="cdt-input" id="cdtCode" value="">
                                             <button type="button" class="cdt-ok-btn" id="okButton">OK</button>
                                         </div>
-                                        <div class="cdt-message">("message CTC")</div>
+                                        <div class="cdt-message"></div>
                                     </div>
                                 </div>
                             </div>
@@ -120,11 +120,12 @@
                                     <button id="linkNewCDT" type="button" class="btn btn-input"> > New</button>
                                 </div>
                                 <div class="three">
-                                    <button type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
                                     <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
-                                    <button type="button" class="btn btn-inputmain">Input</button>
+                                    <button onclick="confirm()" type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
                                 </div>
-                                <button type="button" class="btn btn-close1">Close</button>
+                                <a href="/landing">
+                                    <button type="button" class="btn btn-close1">Close</button>
+                                </a>
                             </div>
                         </div>
                     </form>
