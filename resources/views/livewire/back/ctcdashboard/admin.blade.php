@@ -119,6 +119,12 @@
                     </div>
                 </div>
                 <div style="margin-top:-2%;" class="card-body">
+                    @if (session()->has('message'))
+                    <div style="width:23%;" class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -148,7 +154,11 @@
                             <tbody>
                                 @if(!empty($data) && (is_array($data) || is_object($data)) && count($data) > 0)
                                 @foreach($data as $item)
-                                <tr>
+                                <tr wire:key="row-{{ $item->id }}"
+                                    wire:click="toggleSelect({{ $item->id }})"
+                                    wire:dblclick="editRow({{ $item->id }})"
+                                    class="{{ in_array($item->id, $selectedRows) ? 'table-primary' : '' }}"
+                                    style="cursor: pointer;">
                                     <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
                                             style="display:none;pointer-events: none;">
@@ -346,9 +356,16 @@
                     <div class="one"> <button onclick="coming()" type="button" class="btn btn-evt">EVTlist</button>
                         <button type="button" class="btn btn-evt" onclick="openModal()"> > New</button>
                     </div>
-                    <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+<!--                     <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
                         Suppress
-                    </button>
+                    </button> -->
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
+                            {{ empty($selectedRows) ? 'disabled' : '' }}>
+                            Suppress
+                            <span class="badge bg-light text-dark ms-1">{{ count($selectedRows) }}</span>
+                        </button>
+                    </div>
                     <div class="three">
                         <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
                         <a href="/landing">
