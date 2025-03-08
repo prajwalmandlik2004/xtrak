@@ -48,7 +48,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input id="selectionButton" type="checkbox" wire:model.live='select' class="large-checkbox" id="searchCheckbox">
+                                <input id="selectionButton" type="checkbox"  class="large-checkbox">
                             </td>
 
                             <td>
