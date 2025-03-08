@@ -423,7 +423,7 @@
                     <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
                         {{ empty($selectedRows) ? 'disabled' : '' }}>
                         Suppress
-                        <span class="badge bg-light text-dark ms-1">{{ count($selectedRows) }}</span>
+<!--                         <span class="badge bg-light text-dark ms-1">{{ count($selectedRows) }}</span> -->
                     </button>
                     <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
                     <a href="/landing">
