@@ -104,6 +104,21 @@
             font-size: 12px;
         } */
     }
+
+        .center-link {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        .center-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="login_bg">
@@ -124,6 +139,9 @@
             <button class="circle" style="font-size:1rem; background-color: #FFFF00;" id="CDT">CDT</button>
             <button class="circle" style="font-size:1rem; background-color: #00FFFF;" id="ANN">ANN</button>
             <button class="circle" style="font-size:1rem; background-color: #00FF00;" id="CTC">CTC</button>
+            
+            <div id="land" class="center-circle"></div>
+            
         </div>
     </div>
 
@@ -176,6 +194,10 @@
 
         document.getElementById('CTC').addEventListener('click', function() {
             window.location.href = '{{ route('ctcdashboard') }}';
+        });
+
+        document.getElementById('land').addEventListener('click', function() {
+            window.location.href = '{{ route('landing') }}';
         });
     </script>
 </body>
