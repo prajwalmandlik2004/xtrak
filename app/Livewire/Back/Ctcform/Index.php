@@ -26,12 +26,12 @@ class Index extends Component
     public $isEditing = false;
 
     public $entries;
-    protected $rules = [
-        'date_ctc' => 'required|date',
-        'ctc_code' => 'required|string|max:255',
-        'first_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
-    ];
+    // protected $rules = [
+    //     'date_ctc' => 'required|date',
+    //     'ctc_code' => 'required|string|max:255',
+    //     'first_name' => 'required|string|max:255',
+    //     'last_name' => 'required|string|max:255',
+    // ];
 
     public function mount()
     {
@@ -46,7 +46,7 @@ class Index extends Component
 
     public function save()
     {
-        $this->validate();
+        // $this->validate();
 
         if ($this->isEditing) {
             $entry = Ctcdashboard::find($this->editId);
