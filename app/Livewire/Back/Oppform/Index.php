@@ -56,12 +56,12 @@ class Index extends Component
     {
         $this->step = 3;
     }
-    protected $rules = [
-        'opportunity_date' => 'required|date',
-        'opp_code' => 'required|string|max:255',
-        'auth' => 'required|string|max:255',
-        'name' => 'required|string|max:255',
-    ];
+    // protected $rules = [
+    //     'opportunity_date' => 'required|date',
+    //     'opp_code' => 'required|string|max:255',
+    //     'auth' => 'required|string|max:255',
+    //     'name' => 'required|string|max:255',
+    // ];
 
     public function mount()
     {
@@ -76,7 +76,7 @@ class Index extends Component
 
     public function save()
     {
-        $this->validate();
+        // $this->validate();
 
         if ($this->isEditing) {
             $entry = Oppdashboard::find($this->editId);
