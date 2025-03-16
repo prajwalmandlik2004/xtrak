@@ -38,12 +38,12 @@ class Index extends Component
     public $isEditing = false;
 
     public $entries;
-    protected $rules = [
-        'creation_date' => 'required|date',
-        'trg_code' => 'required|string|max:255',
-        'auth' => 'required|string|max:255',
-        'company' => 'required|string|max:255',
-    ];
+    // protected $rules = [
+    //     'creation_date' => 'required|date',
+    //     'trg_code' => 'required|string|max:255',
+    //     'auth' => 'required|string|max:255',
+    //     'company' => 'required|string|max:255',
+    // ];
 
     public function mount()
     {
@@ -58,7 +58,7 @@ class Index extends Component
 
     public function save()
     {
-        $this->validate();
+        // $this->validate();
 
         if ($this->isEditing) {
             $entry = Trgdashboard::find($this->editId);
