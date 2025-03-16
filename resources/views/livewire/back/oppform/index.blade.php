@@ -82,7 +82,7 @@
 
                                 @if (session()->has('message'))
                                 <div style="margin-top:-1%;" class="d-flex justify-content-left">
-                                    <div class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
+                                    <div style="font-weight:bold;" class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
                                         {{ session()->get('message') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Close"></button>
@@ -1959,6 +1959,13 @@
 </div>
 @push('page-script')
 <script>
+    setTimeout(function() {
+            var successAlert = document.getElementById('successAlert');
+            if (successAlert) {
+                successAlert.style.display = 'none';
+            }
+    }, 5000);
+    
     document.addEventListener("input", function(event) {
         if (event.target.tagName.toLowerCase() !== "textarea") return;
         autoResize(event.target);
