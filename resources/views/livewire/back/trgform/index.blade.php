@@ -3,7 +3,7 @@
         <div>
             @if (session()->has('message'))
             <div style="margin-top:-2%;" class="d-flex justify-content-left">
-                <div class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
+                <div style="font-weight:bold;" class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
                     {{ session()->get('message') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                         aria-label="Close"></button>
@@ -545,6 +545,13 @@
         }
     </style>
     <script>
+        setTimeout(function() {
+            var successAlert = document.getElementById('successAlert');
+            if (successAlert) {
+                successAlert.style.display = 'none';
+            }
+        }, 5000);
+        
         function confirm() {
             alert("Form Submitted Succefully ✅");
         }
