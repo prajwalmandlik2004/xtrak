@@ -256,7 +256,7 @@
 
     <div class="kpi-section">
         <h6 class="section-title">CANDIDATES</h6>
-        <!-- @if (session()->has('message'))
+        @if (session()->has('message'))
         <div class="d-flex justify-content-left">
             <div style="font-weight:bold;" class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
                 {{ session()->get('message') }}
@@ -264,7 +264,7 @@
                     aria-label="Close"></button>
             </div>
         </div>
-        @endif -->
+        @endif
         @if($latestCdtDoneEntry && $latestCdtObjEntry)
         <div class="table-container">
             @php
