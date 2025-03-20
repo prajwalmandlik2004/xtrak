@@ -10,17 +10,70 @@
 
     <div class="heading">
         <h4 class="headDate">KPIs - <span id="date"></span></h4>
-        <h5 class="tableHead">Table - Graphs <span class="objectives" onclick="openModal('objModal')"> Objectives </span></h5>
+        <h5 class="tableHead">Table - Graphs <span wire:click="toggleFormOBJ" class="objectives"> Objectives </span></h5>
     </div>
 
     <div class="kpi-section">
         <h6 class="section-title">TARGETS</h6>
+        @if (session()->has('message'))
+        <div class="d-flex justify-content-left">
+            <div style="font-weight:bold;" class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
+                {{ session()->get('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+        @endif
+        @if($latestTrgDoneEntry && $latestTrgObjEntry)
         <div class="table-container">
+            @php
+
+            $trgCallsPerformance = 0;
+            if ($latestTrgDoneEntry && $latestTrgObjEntry && $latestTrgObjEntry->trg_calls_obj > 0) {
+            $trgCallsPerformance = round(($latestTrgDoneEntry->trg_calls_done / $latestTrgObjEntry->trg_calls_obj) * 100);
+            }
+
+            $trgWnPerformance = 0;
+            if ($latestTrgDoneEntry && $latestTrgObjEntry && $latestTrgObjEntry->trg_wn_obj > 0) {
+            $trgWnPerformance = round(($latestTrgDoneEntry->trg_wn_done / $latestTrgObjEntry->trg_wn_obj) * 100);
+            }
+
+            $trgNrpPerformance = 0;
+            if ($latestTrgDoneEntry && $latestTrgObjEntry && $latestTrgObjEntry->trg_nrp_obj > 0) {
+            $trgNrpPerformance = round(($latestTrgDoneEntry->trg_nrp_done / $latestTrgObjEntry->trg_nrp_obj) * 100);
+            }
+
+            $trgCtcPerformance = 0;
+            if ($latestTrgDoneEntry && $latestTrgObjEntry && $latestTrgObjEntry->trg_ctc_obj > 0) {
+            $trgCtcPerformance = round(($latestTrgDoneEntry->trg_ctc_done / $latestTrgObjEntry->trg_ctc_obj) * 100);
+            }
+
+            $trgRvPerformance = 0;
+            if ($latestTrgDoneEntry && $latestTrgObjEntry && $latestTrgObjEntry->trg_rv_obj > 0) {
+            $trgRvPerformance = round(($latestTrgDoneEntry->trg_rv_done / $latestTrgObjEntry->trg_rv_obj) * 100);
+            }
+
+            $trgBqfPerformance = 0;
+            if ($latestTrgDoneEntry && $latestTrgObjEntry && $latestTrgObjEntry->trg_bqf_obj > 0) {
+            $trgBqfPerformance = round(($latestTrgDoneEntry->trg_bqf_done / $latestTrgObjEntry->trg_bqf_obj) * 100);
+            }
+
+            $trgKlfPerformance = 0;
+            if ($latestTrgDoneEntry && $latestTrgObjEntry && $latestTrgObjEntry->trg_klf_obj > 0) {
+            $trgKlfPerformance = round(($latestTrgDoneEntry->trg_klf_done / $latestTrgObjEntry->trg_klf_obj) * 100);
+            }
+
+            $trgHrdPerformance = 0;
+            if ($latestTrgDoneEntry && $latestTrgObjEntry && $latestTrgObjEntry->trg_hrd_obj > 0) {
+            $trgHrdPerformance = round(($latestTrgDoneEntry->trg_hrd_done / $latestTrgObjEntry->trg_hrd_obj) * 100);
+            }
+
+            @endphp
             <table class="kpi-table">
                 <thead>
                     <tr>
                         <th rowspan="2">N of</th>
-                        <th style="border-right:2px solid black;" colspan="3">Last day : <span id="dateTRG"></span></th>
+                        <th style="border-right:2px solid black;" colspan="3">Last day : <span>{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_date : '0' }}</span></th>
                         <th style="border-right:2px solid black;" colspan="3">Last 7 days</th>
                         <th style="border-right:2px solid black;" colspan="3">Last 30 days</th>
                         <th style="border-right:2px solid black;" colspan="3">Last 12 months</th>
@@ -47,9 +100,9 @@
                 <tbody id="kpiTableBody">
                     <tr>
                         <td>Calls</td>
-                        <td></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_calls_done : '0' }}</td>
+                        <td contenteditable="false"> {{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_calls_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCallsPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -65,9 +118,9 @@
                     </tr>
                     <tr>
                         <td>WN</td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_wn_done : '0' }}</td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgWnPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -83,9 +136,9 @@
                     </tr>
                     <tr>
                         <td>NRP</td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_nrp_done : '0' }}</td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgNrpPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -101,9 +154,9 @@
                     </tr>
                     <tr>
                         <td>CTC</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_ctc_done : '0' }}</td>
+                        <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_ctc_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCtcPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -119,9 +172,9 @@
                     </tr>
                     <tr>
                         <td>RV</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_rv_done : '0' }}</td>
+                        <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_rv_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgRvPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -137,9 +190,9 @@
                     </tr>
                     <tr>
                         <td>BQF</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_bqf_done : '0' }}</td>
+                        <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_bqf_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgBqfPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -155,9 +208,9 @@
                     </tr>
                     <tr>
                         <td>KLF</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_klf_done : '0' }}</td>
+                        <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_klf_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgKlfPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -173,9 +226,9 @@
                     </tr>
                     <tr>
                         <td>HRD</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false">{{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_hrd_done : '0' }}</td>
+                        <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_hrd_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgHrdPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -191,18 +244,67 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="capture-btn" onclick="openModal('trgModal')">Capture</button>
+            <button wire:click="toggleFormTRG" class="capture-btn">Capture</button>
         </div>
+        @else
+        <div class="mt-8 bg-yellow-50 p-4 rounded-md">
+            <h5 class="text-yellow-800">No KPI data available yet. Please submit your first entry.</h5>
+        </div>
+        <button wire:click="toggleFormTRG" class="capture-btn">Capture</button>
+        @endif
     </div>
 
     <div class="kpi-section">
         <h6 class="section-title">CANDIDATES</h6>
+        <!-- @if (session()->has('message'))
+        <div class="d-flex justify-content-left">
+            <div style="font-weight:bold;" class="alert alert-success alert-dismissible fade show " role="alert" id="successAlert">
+                {{ session()->get('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+        @endif -->
+        @if($latestCdtDoneEntry && $latestCdtObjEntry)
         <div class="table-container">
+            @php
+
+            $cdtCallsPerformance = 0;
+            if ($latestCdtDoneEntry && $latestCdtObjEntry && $latestCdtObjEntry->cdt_calls_obj > 0) {
+            $cdtCallsPerformance = round(($latestCdtDoneEntry->cdt_calls_done / $latestCdtObjEntry->cdt_calls_obj) * 100);
+            }
+
+            $cdtCtcPerformance = 0;
+            if ($latestCdtDoneEntry && $latestCdtObjEntry && $latestCdtObjEntry->cdt_ctc_obj > 0) {
+            $cdtCtcPerformance = round(($latestCdtDoneEntry->cdt_ctc_done / $latestCdtObjEntry->cdt_ctc_obj) * 100);
+            }
+
+            $cdtRefsPerformance = 0;
+            if ($latestCdtDoneEntry && $latestCdtObjEntry && $latestCdtObjEntry->cdt_refs_obj > 0) {
+            $cdtRefsPerformance = round(($latestCdtDoneEntry->cdt_refs_done / $latestCdtObjEntry->cdt_refs_obj) * 100);
+            }
+
+            $cdtCvPerformance = 0;
+            if ($latestCdtDoneEntry && $latestCdtObjEntry && $latestCdtObjEntry->cdt_cv_obj > 0) {
+            $cdtCvPerformance = round(($latestCdtDoneEntry->cdt_cv_done / $latestCdtObjEntry->cdt_cv_obj) * 100);
+            }
+
+            $cdtPushPerformance = 0;
+            if ($latestCdtDoneEntry && $latestCdtObjEntry && $latestCdtObjEntry->cdt_push_obj > 0) {
+            $cdtPushPerformance = round(($latestCdtDoneEntry->cdt_push_done / $latestCdtObjEntry->cdt_push_obj) * 100);
+            }
+
+            $cdtCrePerformance = 0;
+            if ($latestCdtDoneEntry && $latestCdtObjEntry && $latestCdtObjEntry->cdt_cre_obj > 0) {
+            $cdtCrePerformance = round(($latestCdtDoneEntry->cdt_cre_done / $latestCdtObjEntry->cdt_cre_obj) * 100);
+            }
+
+            @endphp
             <table class="kpi-table">
                 <thead>
                     <tr>
                         <th rowspan="2">N</th>
-                        <th style="border-right:2px solid black;" colspan="3">Last day : <span id="dateCDT"></span></th>
+                        <th style="border-right:2px solid black;" colspan="3">Last day : <span>{{ $latestCdtObjEntry ? $latestCdtObjEntry->ctc_date : '0' }}</span></th>
                         <th style="border-right:2px solid black;" colspan="3">Last 7 days</th>
                         <th style="border-right:2px solid black;" colspan="3">Last 30 days</th>
                         <th style="border-right:2px solid black;" colspan="3">Last 12 months</th>
@@ -229,9 +331,9 @@
                 <tbody id="kpiTableBodyCDT">
                     <tr>
                         <td>Calls</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_calls_done : '0' }}</td>
+                        <td contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_calls_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCallsPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -247,9 +349,27 @@
                     </tr>
                     <tr>
                         <td>CTC</td>
+                        <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_ctc_done : '0' }}</td>
+                        <td class="" contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_ctc_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCtcPerformance }}%</td>
                         <td contenteditable="false"></td>
-                        <td class="darkCDT" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                        <td contenteditable="false"></td>
+                    </tr>
+                    <tr>
+                        <td>CRE</td>
+                        <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_cre_done : '0' }}</td>
+                        <td class="" contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_cre_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCrePerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -265,9 +385,9 @@
                     </tr>
                     <tr>
                         <td>REFS</td>
-                        <td contenteditable="false"></td>
-                        <td class="darkCDT" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_refs_done : '0' }}</td>
+                        <td class="" contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_refs_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtRefsPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -283,9 +403,9 @@
                     </tr>
                     <tr>
                         <td>CV</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false">{{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_cv_done : '0' }}</td>
+                        <td contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_cv_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCvPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -301,9 +421,9 @@
                     </tr>
                     <tr>
                         <td>Push</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_push_done : '0' }}</td>
+                        <td contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_push_obj : '0' }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtPushPerformance }}%</td>
                         <td contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
@@ -319,260 +439,281 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="capture-btn" onclick="openModal('cdtModal')">Capture</button>
+            <button wire:click="toggleForm" class="capture-btn">Capture</button>
         </div>
-    </div>
+        @else
+        <div class="mt-8 bg-yellow-50 p-4 rounded-md">
+            <h5 class="text-yellow-800">No KPI data available yet. Please submit your first entry.</h5>
+        </div>
+        <button wire:click="toggleForm" class="capture-btn">Capture</button>
+        @endif
 
-    <div id="trgModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="date-section">
-                    <label>Date:</label>
-                    <input style="width:115px;" type="date" id="trgDate">
-                </div>
-                <!-- <div class="obj-section">
-                    <label>Obj</label>
-                    <input type="text" id="trgObj">
-                </div> -->
-            </div>
-            <h2 class="modal-title">TRG CAPTION REPORT</h2>
-            <div class="modal-body">
-                <div class="metrics-grid" id="metricsForm">
-                    <div class="column-labels">
-                        <div class="label-data">Data</div>
-                        <div class="label-obj">Obj</div>
-                    </div>
-                    <div class="metric-row">
-                        <label>Calls :</label>
-                        <div class="input-pair">
-                            <input type="number" name="calls_done" placeholder="">
-                            <input type="number" name="calls_obj" placeholder="">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>N.I. :</label>
-                        <div class="input-pair">
-                            <input type="number" name="wn_done" placeholder="">
-                            <!-- <input type="number" name="wn_obj" placeholder=""> -->
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>NRP :</label>
-                        <div class="input-pair">
-                            <input type="number" name="nrp_done" placeholder="">
-                            <!-- <input type="number" name="nrp_obj" placeholder=""> -->
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>CTC :</label>
-                        <div class="input-pair">
-                            <input type="number" name="ctc_done" placeholder="">
-                            <input type="number" name="ctc_obj" placeholder="">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>RV :</label>
-                        <div class="input-pair">
-                            <input type="number" name="rv_done" placeholder="">
-                            <input type="number" name="rv_obj" placeholder="">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>BQF :</label>
-                        <div class="input-pair">
-                            <input type="number" name="bqf_done" placeholder="">
-                            <input type="number" name="bqf_obj" placeholder="">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>KLF :</label>
-                        <div class="input-pair">
-                            <input type="number" name="klf_done" placeholder="">
-                            <input type="number" name="klf_obj" placeholder="">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>HRD :</label>
-                        <div class="input-pair">
-                            <input type="number" name="hrd_done" placeholder="">
-                            <input type="number" name="hrd_obj" placeholder="">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-buttons">
-                    <button class="btn btn-erase" onclick="eraseModalData()">Clear All</button>
-                    <button class="btn btn-save" onclick="saveModalData()">Capture</button>
-                    <button class="btn btn-end" onclick="closeModal('trgModal')">Close</button>
-                    <!-- <button class="btn btn-close" onclick="closeModal('trgModal')">Close</button> -->
-                </div>
-                <!-- <div class="notes-section">
-                    <label>Note(s):</label>
-                    <textarea id="trgNotes"></textarea>
-                </div> -->
-            </div>
-        </div>
     </div>
 
 
-    <div id="cdtModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="date-section">
-                    <label>Date :</label>
-                    <input style="width:115px;" type="date" id="cdtDate">
-                </div>
-                <!-- <div class="obj-section">
-                    <label>Obj</label>
-                    <input type="text" id="trgObj">
-                </div> -->
-            </div>
-            <h2 class="modal-title">CDT CAPTION REPORT</h2>
-            <div class="modal-body">
-                <div class="metrics-grid" id="metricsFormCDT">
-                    <div class="column-labels">
-                        <div class="label-data">Data</div>
-                        <div class="label-obj">Obj</div>
-                    </div>
-                    <div class="metric-row">
-                        <label>Calls :</label>
-                        <div class="input-pair">
-                            <input type="number" name="calls_done_cdt" placeholder="">
-                            <input type="number" name="calls_obj_cdt" placeholder="">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>CTC :</label>
-                        <div class="input-pair">
-                            <input type="number" name="ctc_done_cdt" placeholder="">
-                            <!-- <input type="text"> -->
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>REFS :</label>
-                        <div class="input-pair">
-                            <input type="number" name="refs_done_cdt" placeholder="">
-                            <!-- <input type="text"> -->
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>CV :</label>
-                        <div class="input-pair">
-                            <input type="number" name="cv_done_cdt" placeholder="">
-                            <input type="number" name="cv_obj_cdt" placeholder="">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>Push :</label>
-                        <div class="input-pair">
-                            <input type="number" name="push_done_cdt" placeholder="">
-                            <input type="number" name="push_obj_cdt" placeholder="">
-                        </div>
+    @if($showFormTRG)
+    <form wire:submit.prevent="save">
+        <div id="trgModal" class="modal" style="display:block;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="date-section">
+                        <label>Date:</label>
+                        <input style="width:115px;" wire:model="trg_date" type="date" id="trgDate">
                     </div>
                 </div>
-                <!-- <div class="notes-section">
-                    <label>Note(s):</label>
-                    <textarea id="trgNotes"></textarea>
-                </div> -->
-                <div class="modal-buttons">
-                    <button class="btn btn-erase" onclick="eraseModalDataCDT()">Clear All</button>
-                    <button class="btn btn-save" onclick="saveModalDataCDT()">Capture</button>
-                    <button class="btn btn-end" onclick="closeModal('cdtModal')">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div id="objModal" class="modal">
-        <div class="modal-content">
-            <h2 class="modal-titleObj">OBJECTIVES DEFINITION</h2>
-            <hr>
-            <div class="date-sectionObj">
-                <label>Last definition date :</label>
-                <input type="text" id="trgDate">
-            </div>
-            <div class="obj-sectionObj">
-                <label>Last frequency :</label>
-                <input type="text" id="trgObj">
-            </div>
-            <div class="modal-body">
-                <div class="metrics-grid">
-                    <div class="column-labelsObj">
-                        <div class="label-dataObj">TRG</div>
-                        <div class="label-objObj">CDT</div>
-                    </div>
-                    <div class="metric-row">
-                        <label>Calls :</label>
-                        <div class="input-pair">
-                            <input class="objinput" type="text">
+                <h2 class="modal-title">TRG CAPTION REPORT</h2>
+                <div class="modal-body">
+                    <div class="metrics-grid" id="metricsForm">
+                        <div class="column-labels">
+                            <div class="label-data">Data</div>
+                            <div class="label-obj">Obj</div>
+                        </div>
+                        <div class="metric-row">
                             <label>Calls :</label>
-                            <input class="objinput" type="text">
+                            <div class="input-pair">
+                                <input type="number" wire:model="trg_calls_done" name="calls_done" placeholder="">
+                                <input type="number" wire:model="trg_calls_obj" name="calls_obj" placeholder="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>CTC :</label>
-                        <div class="input-pair">
-                            <input class="objinput" type="text">
+                        <div class="metric-row">
+                            <label>WN :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="trg_wn_done" name="wn_done" placeholder="">
+                                <!-- <input type="number" name="wn_obj" placeholder=""> -->
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>NRP :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="trg_nrp_done" name="nrp_done" placeholder="">
+                                <!-- <input type="number" name="nrp_obj" placeholder=""> -->
+                            </div>
+                        </div>
+                        <div class="metric-row">
                             <label>CTC :</label>
-                            <input class="objinput" type="text">
+                            <div class="input-pair">
+                                <input type="number" wire:model="trg_ctc_done" name="ctc_done" placeholder="">
+                                <input type="number" wire:model="trg_ctc_obj" name="ctc_obj" placeholder="">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>RV :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="trg_rv_done" name="rv_done" placeholder="">
+                                <input type="number" wire:model="trg_rv_obj" name="rv_obj" placeholder="">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>BQF :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="trg_bqf_done" name="bqf_done" placeholder="">
+                                <input type="number" wire:model="trg_bqf_obj" name="bqf_obj" placeholder="">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>KLF :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="trg_klf_done" name="klf_done" placeholder="">
+                                <input type="number" wire:model="trg_klf_obj" name="klf_obj" placeholder="">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>HRD :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="trg_hrd_done" name="hrd_done" placeholder="">
+                                <input type="number" wire:model="trg_hrd_obj" name="hrd_obj" placeholder="">
+                            </div>
                         </div>
                     </div>
-                    <div class="metric-row">
-                        <label>RV:</label>
-                        <div class="input-pair">
-                            <input class="objinput" type="text">
-                            <label>CRE :</label>
-                            <input class="objinput" type="text">
-                        </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn btn-erase" onclick="eraseModalData()">Clear All</button>
+                        <button type="submit" class="btn btn-save">Capture</button>
+                        <button type="button" class="btn btn-end" onclick="closeModal('trgModal')">Close</button>
                     </div>
-                    <div class="metric-row">
-                        <label>Calls :</label>
-                        <div class="input-pair">
-                            <input class="objinput" type="text">
-                            <label>REFS :</label>
-                            <input class="objinput" type="text">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>BQF :</label>
-                        <div class="input-pair">
-                            <input class="objinput" type="text">
-                            <label>CV :</label>
-                            <input class="objinput" type="text">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>KLF :</label>
-                        <div class="input-pair">
-                            <input class="objinput" type="text">
-                            <label>Push :</label>
-                            <input class="objinput" type="text">
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <label>HRD :</label>
-                        <div class="input-pair">
-                            <input type="text">
-                            <!-- <input type="text"> -->
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="notes-section">
-                    <label>Note(s):</label>
-                    <textarea id="trgNotes"></textarea>
-                </div> -->
-                <div class="modal-buttons">
-                    <button class="btn btn-erase" onclick="eraseModalDataOBJ()">Clear All</button>
-                    <button class="btn btn-save" onclick="saveModalData()">Capture</button>
-                    <button class="btn btn-end" onclick="closeModal('objModal')">Close</button>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
+    @endif
+
+
+    @if($showForm)
+    <form wire:submit.prevent="save">
+        <div id="cdtModal" class="modal" style="display: block;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="date-section">
+                        <label>Date :</label>
+                        <input style="width:115px;" type="date" id="cdtDate" wire:model="ctc_date">
+                    </div>
+                    <!-- <div class="obj-section">
+                    <label>Obj</label>
+                    <input type="text" id="trgObj">
+                </div> -->
+                </div>
+                <h2 class="modal-title">CDT CAPTION REPORT</h2>
+                <div class="modal-body">
+                    <div class="metrics-grid" id="metricsFormCDT">
+                        <div class="column-labels">
+                            <div class="label-data">Done</div>
+                            <div class="label-obj">Obj</div>
+                        </div>
+                        <div class="metric-row">
+                            <label>Calls :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="cdt_calls_done" name="calls_done_cdt" placeholder="">
+                                <input type="number" wire:model="cdt_calls_obj" name="calls_obj_cdt" placeholder="">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>CTC :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="cdt_ctc_done" name="ctc_done_cdt" placeholder="">
+                                <input type="number" wire:model="cdt_ctc_obj">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>CRE :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="cdt_cre_done" name="ctc_done_cdt" placeholder="">
+                                <input type="number" wire:model="cdt_cre_obj">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>REFS :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="cdt_refs_done" name="refs_done_cdt" placeholder="">
+                                <input type="number" wire:model="cdt_refs_obj">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>CV :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="cdt_cv_done" name="cv_done_cdt" placeholder="">
+                                <input type="number" wire:model="cdt_cv_obj" name="cv_obj_cdt" placeholder="">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>Push :</label>
+                            <div class="input-pair">
+                                <input type="number" wire:model="cdt_push_done" name="push_done_cdt" placeholder="">
+                                <input type="number" wire:model="cdt_push_obj" name="push_obj_cdt" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn btn-erase" onclick="eraseModalDataCDT()">Clear All</button>
+                        <button type="submit" class="btn btn-save">Capture</button>
+                        <button type="button" class="btn btn-end" onclick="closeModal('cdtModal')">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    @endif
+
+
+    @if($showFormOBJ)
+    <form wire:submit.prevent="save">
+        <div id="objModal" class="modal" style="display:block;">
+            <div class="modal-content">
+                <h2 class="modal-titleObj">OBJECTIVES DEFINITION</h2>
+                <hr>
+                <div class="date-sectionObj">
+                    <label>Last definition date :</label>
+                    <input style="width:115px;" type="date" wire:model="trg_date">
+                </div>
+                <div class="obj-sectionObj">
+                    <label>Last frequency :</label>
+                    <input class="darkCDT" style="width:115px;" type="text" id="trgObj" readonly>
+                </div>
+                <div class="modal-body">
+                    <div class="metrics-grid">
+                        <div class="column-labelsObj">
+                            <div class="label-dataObj">TRG</div>
+                            <div class="label-objObj">CDT</div>
+                        </div>
+                        <div class="metric-row">
+                            <label>Calls :</label>
+                            <div class="input-pair">
+                                <input class="objinput" wire:model="trg_calls_obj" type="number">
+                                <label>Calls :</label>
+                                <input class="objinput" wire:model="cdt_calls_obj" type="number">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>CTC :</label>
+                            <div class="input-pair">
+                                <input class="objinput" wire:model="trg_ctc_obj" type="number">
+                                <label>CTC :</label>
+                                <input class="objinput" wire:model="cdt_ctc_obj" type="number">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>RV :</label>
+                            <div class="input-pair">
+                                <input class="objinput" wire:model="trg_rv_obj" type="number">
+                                <label>CRE :</label>
+                                <input class="objinput" wire:model="cdt_cre_obj" type="number">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>BQF :</label>
+                            <div class="input-pair">
+                                <input class="objinput" wire:model="trg_bqf_obj" type="number">
+                                <label>REFS :</label>
+                                <input class="objinput" wire:model="cdt_refs_obj" type="number">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>KLF :</label>
+                            <div class="input-pair">
+                                <input class="objinput" wire:model="trg_klf_obj" type="number">
+                                <label>CV :</label>
+                                <input class="objinput" wire:model="cdt_cv_obj" type="number">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>HRD :</label>
+                            <div class="input-pair">
+                                <input class="objinput" wire:model="trg_hrd_obj" type="number">
+                                <label>Push :</label>
+                                <input class="objinput" wire:model="cdt_push_obj" type="text">
+                            </div>
+                        </div>
+                        <!-- <div class="metric-row">
+                            <label>KLF :</label>
+                            <div class="input-pair">
+                                <input wire:model="trg_klf_obj" type="number">
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <label>HRD :</label>
+                            <div class="input-pair">
+                                <input wire:model="trg_hrd_obj" type="number">
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn btn-erase" onclick="eraseModalDataOBJ()">Clear All</button>
+                        <button type="submit" class="btn btn-save">Capture</button>
+                        <button type="button" class="btn btn-end" onclick="closeModal('objModal')">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    @endif
+
 
     <script>
+        // setTimeout(function() {
+        //     var successAlert = document.getElementById('successAlert');
+        //     if (successAlert) {
+        //         successAlert.style.display = 'none';
+        //     }
+        // }, 3000);
+
         const todaysDate = new Date().toLocaleDateString();
         document.getElementById("date").innerText = todaysDate;
         document.getElementById("dateTRG").innerText = todaysDate;
@@ -592,7 +733,6 @@
             const modal = document.getElementById(modalId);
             modal.style.display = "none";
         }
-
 
         function eraseModalData() {
             const modal = document.getElementById('trgModal');
@@ -617,6 +757,7 @@
             });
         }
 
+
         function eraseModalDataOBJ() {
             const modal = document.getElementById('objModal');
             const inputs = modal.querySelectorAll('input, textarea');
@@ -624,186 +765,6 @@
                 input.value = '';
             });
         }
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = "none";
-            }
-        }
-
-
-        // Local Storage Setup for Target :
-
-        if (!localStorage.getItem('kpiData')) {
-            localStorage.setItem('kpiData', JSON.stringify([]));
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'block';
-            document.getElementById('trgDate').valueAsDate = new Date();
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function eraseModalData() {
-            const form = document.getElementById('metricsForm');
-            const inputs = form.querySelectorAll('input');
-            inputs.forEach(input => input.value = '');
-        }
-
-        function calculateGap(done, objective) {
-            const mainGap = (done / objective) * 100;
-            const gaps = Math.round(mainGap);
-            const gap = Math.abs(done && objective ? gaps : '');
-            return `${gap} %`;
-        }
-
-        function saveModalData() {
-            const date = document.getElementById('trgDate').value;
-            const metrics = ['calls', 'wn', 'nrp', 'ctc', 'rv', 'bqf', 'klf', 'hrd'];
-            const data = {
-                date: date,
-                metrics: {}
-            };
-
-            metrics.forEach(metric => {
-                const done = document.querySelector(`[name="${metric}_done"]`)?.value || '';
-                const obj = document.querySelector(`[name="${metric}_obj"]`)?.value || '';
-                data.metrics[metric] = {
-                    done: done,
-                    objective: obj,
-                    gap: calculateGap(Number(done), Number(obj))
-                };
-            });
-
-            let kpiData = JSON.parse(localStorage.getItem('kpiData'));
-            const existingIndex = kpiData.findIndex(item => item.date === date);
-
-            if (existingIndex !== -1) {
-                kpiData[existingIndex] = data;
-            } else {
-                kpiData.push(data);
-            }
-
-            localStorage.setItem('kpiData', JSON.stringify(kpiData));
-
-            updateTable(data);
-
-            closeModal('trgModal');
-        }
-
-        function updateTable(data) {
-            // document.getElementById('dateTRG').textContent = new Date(data.date).toLocaleDateString();
-
-            const tbody = document.getElementById('kpiTableBody');
-            const metrics = ['calls', 'wn', 'nrp', 'ctc', 'rv', 'bqf', 'klf', 'hrd'];
-
-            metrics.forEach((metric, index) => {
-                const row = tbody.rows[index];
-                const metricData = data.metrics[metric];
-
-                row.cells[1].textContent = metricData.done;
-                row.cells[2].textContent = metricData.objective;
-                row.cells[3].textContent = metricData.gap;
-            });
-        }
-
-
-
-
-        // Local Storage Setup for Candidate :
-
-
-        if (!localStorage.getItem('kpiDataCDT')) {
-            localStorage.setItem('kpiDataCDT', JSON.stringify([]));
-        }
-
-        function openModalCDT(modalId) {
-            document.getElementById(modalId).style.display = 'block';
-            document.getElementById('cdtDate').valueAsDate = new Date();
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function eraseModalDataCDT() {
-            const form = document.getElementById('metricsFormCDT');
-            const inputs = form.querySelectorAll('input');
-            inputs.forEach(input => input.value = '');
-        }
-
-        function calculateGapCDT(done, objective) {
-            const mainGap = (done / objective) * 100;
-            const gaps = Math.round(mainGap);
-            const gap = Math.abs(done && objective ? gaps : '');
-            return `${gap}%`;
-        }
-
-        function saveModalDataCDT() {
-            const date = document.getElementById('cdtDate').value;
-            const metrics = ['calls', 'ctc', 'refs', 'cv', 'push'];
-            const data = {
-                date: date,
-                metrics: {}
-            };
-
-            metrics.forEach(metric => {
-                const done = document.querySelector(`[name="${metric}_done_cdt"]`)?.value || '';
-                const obj = document.querySelector(`[name="${metric}_obj_cdt"]`)?.value || '';
-                data.metrics[metric] = {
-                    done: done,
-                    objective: obj,
-                    gap: calculateGapCDT(Number(done), Number(obj))
-                };
-            });
-
-            let kpiDataCDT = JSON.parse(localStorage.getItem('kpiDataCDT'));
-            const existingIndex = kpiDataCDT.findIndex(item => item.date === date);
-
-            if (existingIndex !== -1) {
-                kpiDataCDT[existingIndex] = data;
-            } else {
-                kpiDataCDT.push(data);
-            }
-
-            localStorage.setItem('kpiDataCDT', JSON.stringify(kpiDataCDT));
-
-            updateTableCDT(data);
-
-            closeModal('cdtModal');
-        }
-
-        function updateTableCDT(data) {
-            // document.getElementById('dateTRG').textContent = new Date(data.date).toLocaleDateString();
-
-            const tbody = document.getElementById('kpiTableBodyCDT');
-            const metrics = ['calls', 'ctc', 'refs', 'cv', 'push'];
-            metrics.forEach((metric, index) => {
-                const row = tbody.rows[index];
-                const metricDataCDT = data.metrics[metric];
-
-                row.cells[1].textContent = metricDataCDT.done;
-                row.cells[2].textContent = metricDataCDT.objective;
-                row.cells[3].textContent = metricDataCDT.gap;
-            });
-        }
-
-        window.onload = function() {
-            const kpiDataCDT = JSON.parse(localStorage.getItem('kpiDataCDT'));
-            const kpiData = JSON.parse(localStorage.getItem('kpiData'));
-            if (kpiDataCDT && kpiDataCDT.length > 0) {
-                const mostRecent = kpiDataCDT[kpiDataCDT.length - 1];
-                updateTableCDT(mostRecent);
-            }
-
-            if (kpiData && kpiData.length > 0) {
-                const mostRecent = kpiData[kpiData.length - 1];
-                updateTable(mostRecent);
-            }
-        };
     </script>
 
 
