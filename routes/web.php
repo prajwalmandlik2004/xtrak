@@ -17,6 +17,7 @@ use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\NextStepController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\KpisController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\SpecialityController;
@@ -65,6 +66,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/oppform', [App\Http\Controllers\OpportunityController::class, 'index'])->name('oppform.index');
     Route::get('/oppform/{id}', [App\Http\Controllers\OpportunityController::class, 'show'])->name('oppform.show');
 
+    Route::get('/kpis', [App\Http\Controllers\KpisController::class, 'index'])->name('kpis.index');
+    Route::get('/kpis/{id}', [App\Http\Controllers\KpisController::class, 'show'])->name('kpis.show');
+
+
 
 
 
@@ -88,7 +93,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('connexions', [DasboardController::class, 'summary'])->name('connexions');
     Route::get('detail', [DasboardController::class, 'detail'])->name('detail');
     Route::get('landings', [DasboardController::class, 'landings'])->name('landings');
-    Route::get('kpis', [LandingController::class, 'kpis'])->name('kpis');
+    // Route::get('kpis', [LandingController::class, 'kpis'])->name('kpis');
     Route::get('management', [OpportunityController::class, 'management'])->name('management');
     Route::get('evts', [OpportunityController::class, 'evts'])->name('evts');
     Route::get('/landing', [LandingController::class, 'index'])->name('landing');
