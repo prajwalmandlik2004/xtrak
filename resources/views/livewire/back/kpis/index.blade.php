@@ -10,7 +10,7 @@
 
     <div class="heading">
         <h4 class="headDate">KPIs - <span id="date"></span></h4>
-        <h5 class="tableHead">Table - Graphs -<span wire:click="toggleFormOBJ" class="objectives"> Objectives </span></h5>
+        <h5 class="tableHead">Table - Graphs -<span wire:click="toggleFormOBJ" class="objectives">Objectives </span></h5>
     </div>
 
     <div class="kpi-section">
