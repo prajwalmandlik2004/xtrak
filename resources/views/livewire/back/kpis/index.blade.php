@@ -99,7 +99,7 @@
                 </thead>
                 <tbody id="kpiTableBody">
                     <tr>
-                        <td>Calls</td>
+                        <td class="aspect">Calls</td>
                         <td> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_calls_done : '0' }}</td>
                         <td contenteditable="false"> {{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_calls_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCallsPerformance }}%</td>
@@ -117,43 +117,43 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>WN</td>
+                        <td class="aspect">WN</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_wn_done : '0' }}</td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgWnPerformance }}%</td>
+                        <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>NRP</td>
+                        <td class="aspect">NRP</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_nrp_done : '0' }}</td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgNrpPerformance }}%</td>
+                        <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
+                        <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
                         <td contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td class="dark" contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>CTC</td>
+                        <td class="aspect">CTC</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_ctc_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_ctc_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCtcPerformance }}%</td>
@@ -171,7 +171,7 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>RV</td>
+                        <td class="aspect">RV</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_rv_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_rv_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgRvPerformance }}%</td>
@@ -189,7 +189,7 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>BQF</td>
+                        <td class="aspect">BQF</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_bqf_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_bqf_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgBqfPerformance }}%</td>
@@ -207,7 +207,7 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>KLF</td>
+                        <td class="aspect">KLF</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_klf_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_klf_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgKlfPerformance }}%</td>
@@ -225,7 +225,7 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>HRD</td>
+                        <td class="aspect">HRD</td>
                         <td contenteditable="false">{{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_hrd_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_hrd_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgHrdPerformance }}%</td>
@@ -330,7 +330,7 @@
                 </thead>
                 <tbody id="kpiTableBodyCDT">
                     <tr>
-                        <td>Calls</td>
+                        <td class="aspect">Calls</td>
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_calls_done : '0' }}</td>
                         <td contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_calls_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCallsPerformance }}%</td>
@@ -348,7 +348,7 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>CTC</td>
+                        <td class="aspect">CTC</td>
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_ctc_done : '0' }}</td>
                         <td class="" contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_ctc_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCtcPerformance }}%</td>
@@ -366,7 +366,7 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>CRE</td>
+                        <td class="aspect">CRE</td>
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_cre_done : '0' }}</td>
                         <td class="" contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_cre_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCrePerformance }}%</td>
@@ -384,7 +384,7 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>REFS</td>
+                        <td class="aspect">REFS</td>
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_refs_done : '0' }}</td>
                         <td class="" contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_refs_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtRefsPerformance }}%</td>
@@ -402,7 +402,7 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>CV</td>
+                        <td class="aspect">CV</td>
                         <td contenteditable="false">{{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_cv_done : '0' }}</td>
                         <td contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_cv_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCvPerformance }}%</td>
@@ -420,7 +420,7 @@
                         <td contenteditable="false"></td>
                     </tr>
                     <tr>
-                        <td>Push</td>
+                        <td class="aspect">Push</td>
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_push_done : '0' }}</td>
                         <td contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_push_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtPushPerformance }}%</td>
@@ -838,6 +838,10 @@
         .kpi-table th {
             background-color: #f5f5f5;
             font-weight: bold;
+        }
+
+        .aspect {
+            background-color: #f5f5f5;
         }
 
         .kpi-table td[contenteditable="false"] {
