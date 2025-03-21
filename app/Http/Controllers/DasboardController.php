@@ -10,6 +10,9 @@ class DasboardController extends Controller
     public function index()
     {
         if (auth()->user()->hasRole('Administrateur')) {
+            if (request()->query('dashboard') === 'consultant') {
+                return view('back.dashboard.consultant');
+            }
             return view('back.dashboard.admin');
         } //vue manager à personnaliser plus tard
         elseif (auth()->user()->hasRole('Manager')) {
