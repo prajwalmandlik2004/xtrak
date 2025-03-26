@@ -94,6 +94,10 @@
             'Statistics' => ['url' => '/statistics', 'disabled' => true],
             'Map' => ['url' => '/map', 'disabled' => true],
             ],
+            'Tools' => [
+            'MCM' => ['url' => 'https://xtk-mcmgit-email.streamlit.app/', 'disabled' => false],
+            'PraseRez' => ['url' => '/parserez', 'disabled' => true]
+            ],
             ];
             @endphp
 
