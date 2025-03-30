@@ -68,6 +68,41 @@
             $trgHrdPerformance = round(($latestTrgDoneEntry->trg_hrd_done / $latestTrgObjEntry->trg_hrd_obj) * 100);
             }
 
+            // Gap Calculation of Lats 7 days, 30 days, 12 months and Overall :
+
+            // Last 7 days :
+            $trgCallsGap_7 = round(($averages['7_days']['trg_calls_done'] / $averages['7_days']['trg_calls_obj']) * 100);
+            $trgCtcGap_7 = round(($averages['7_days']['trg_ctc_done'] / $averages['7_days']['trg_ctc_obj']) * 100);
+            $trgRvGap_7 = round(($averages['7_days']['trg_rv_done'] / $averages['7_days']['trg_rv_obj']) * 100);
+            $trgBqfGap_7 = round(($averages['7_days']['trg_bqf_done'] / $averages['7_days']['trg_bqf_obj']) * 100);
+            $trgKlfGap_7 = round(($averages['7_days']['trg_klf_done'] / $averages['7_days']['trg_klf_obj']) * 100);
+            $trgHrdGap_7 = round(($averages['7_days']['trg_hrd_done'] / $averages['7_days']['trg_hrd_obj']) * 100);
+
+            // Last 30 days :
+            $trgCallsGap_30 = round(($averages['30_days']['trg_calls_done'] / $averages['30_days']['trg_calls_obj']) * 100);
+            $trgCtcGap_30 = round(($averages['30_days']['trg_ctc_done'] / $averages['30_days']['trg_ctc_obj']) * 100);
+            $trgRvGap_30 = round(($averages['30_days']['trg_rv_done'] / $averages['30_days']['trg_rv_obj']) * 100);
+            $trgBqfGap_30 = round(($averages['30_days']['trg_bqf_done'] / $averages['30_days']['trg_bqf_obj']) * 100);
+            $trgKlfGap_30 = round(($averages['30_days']['trg_klf_done'] / $averages['30_days']['trg_klf_obj']) * 100);
+            $trgHrdGap_30 = round(($averages['30_days']['trg_hrd_done'] / $averages['30_days']['trg_hrd_obj']) * 100);
+
+            // Last 12 months:
+            $trgCallsGap_12 = round(($averages['12_months']['trg_calls_done'] / $averages['12_months']['trg_calls_obj']) * 100);
+            $trgCtcGap_12 = round(($averages['12_months']['trg_ctc_done'] / $averages['12_months']['trg_ctc_obj']) * 100);
+            $trgRvGap_12 = round(($averages['12_months']['trg_rv_done'] / $averages['12_months']['trg_rv_obj']) * 100);
+            $trgBqfGap_12 = round(($averages['12_months']['trg_bqf_done'] / $averages['12_months']['trg_bqf_obj']) * 100);
+            $trgKlfGap_12 = round(($averages['12_months']['trg_klf_done'] / $averages['12_months']['trg_klf_obj']) * 100);
+            $trgHrdGap_12 = round(($averages['12_months']['trg_hrd_done'] / $averages['12_months']['trg_hrd_obj']) * 100);
+
+            // Overall:
+            $trgCallsGap_overall = round(($averages['overall']['trg_calls_done'] / $averages['overall']['trg_calls_obj']) * 100);
+            $trgCtcGap_overall = round(($averages['overall']['trg_ctc_done'] / $averages['overall']['trg_ctc_obj']) * 100);
+            $trgRvGap_overall = round(($averages['overall']['trg_rv_done'] / $averages['overall']['trg_rv_obj']) * 100);
+            $trgBqfGap_overall = round(($averages['overall']['trg_bqf_done'] / $averages['overall']['trg_bqf_obj']) * 100);
+            $trgKlfGap_overall = round(($averages['overall']['trg_klf_done'] / $averages['overall']['trg_klf_obj']) * 100);
+            $trgHrdGap_overall = round(($averages['overall']['trg_hrd_done'] / $averages['overall']['trg_hrd_obj']) * 100);
+
+
             @endphp
             <table class="kpi-table">
                 <thead>
@@ -83,16 +118,16 @@
                         <th>Done</th>
                         <th>Obj</th>
                         <th style="border-right:2px solid black;">Gap</th>
-                        <th>Avg</th>
+                        <th>Done</th>
                         <th>Obj</th>
                         <th style="border-right:2px solid black;">Gap</th>
-                        <th>Avg</th>
+                        <th>Done</th>
                         <th>Obj</th>
                         <th style="border-right:2px solid black;">Gap</th>
-                        <th>Avg</th>
+                        <th>Done</th>
                         <th>Obj</th>
                         <th style="border-right:2px solid black;">Gap</th>
-                        <th>Avg</th>
+                        <th>Done</th>
                         <th>Obj</th>
                         <th>Gap</th>
                     </tr>
@@ -103,34 +138,34 @@
                         <td> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_calls_done : '0' }}</td>
                         <td contenteditable="false"> {{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_calls_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCallsPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false"> {{ number_format($averages['7_days']['trg_calls_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_calls_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCallsGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_calls_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_calls_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCallsGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_calls_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_calls_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCallsGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_calls_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_calls_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $trgCallsGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">WN</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_wn_done : '0' }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_wn_done'], 0) }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_wn_done'], 0) }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_wn_done'], 0) }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_wn_done'], 0) }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
                     </tr>
@@ -139,16 +174,16 @@
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_nrp_done : '0' }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_nrp_done'], 0) }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_nrp_done'], 0) }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_nrp_done'], 0) }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_nrp_done'], 0) }}</td>
                         <td class="dark" contenteditable="false"></td>
                         <td class="dark" contenteditable="false"></td>
                     </tr>
@@ -157,90 +192,90 @@
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_ctc_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_ctc_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCtcPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_ctc_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_ctc_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCtcGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_ctc_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_ctc_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCtcGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_ctc_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_ctc_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgCtcGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_ctc_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_ctc_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $trgCtcGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">RV</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_rv_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_rv_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgRvPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_rv_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_rv_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgRvGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_rv_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_rv_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgRvGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_rv_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_rv_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgRvGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_rv_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_rv_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $trgRvGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">BQF</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_bqf_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_bqf_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgBqfPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_bqf_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_bqf_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{$trgBqfGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_bqf_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_bqf_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgBqfGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_bqf_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_bqf_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgBqfGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_bqf_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_bqf_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $trgBqfGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">KLF</td>
                         <td contenteditable="false"> {{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_klf_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_klf_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgKlfPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_klf_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_klf_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgKlfGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_klf_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_klf_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgKlfGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_klf_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_klf_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgKlfGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_klf_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_klf_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $trgKlfGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">HRD</td>
                         <td contenteditable="false">{{ $latestTrgDoneEntry ? $latestTrgDoneEntry->trg_hrd_done : '0' }}</td>
                         <td contenteditable="false">{{ $latestTrgObjEntry ? $latestTrgObjEntry->trg_hrd_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgHrdPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_hrd_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['trg_hrd_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgHrdGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_hrd_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['trg_hrd_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgHrdGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_hrd_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['trg_hrd_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $trgHrdGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_hrd_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['trg_hrd_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $trgHrdGap_overall }}%</td>
                     </tr>
                 </tbody>
             </table>
@@ -299,6 +334,41 @@
             $cdtCrePerformance = round(($latestCdtDoneEntry->cdt_cre_done / $latestCdtObjEntry->cdt_cre_obj) * 100);
             }
 
+
+        
+            // Last 7 days:
+            $cdtCallsGap_7 = round(($averages['7_days']['cdt_calls_done'] / $averages['7_days']['cdt_calls_obj']) * 100);
+            $cdtCtcGap_7 = round(($averages['7_days']['cdt_ctc_done'] / $averages['7_days']['cdt_ctc_obj']) * 100);
+            $cdtCreGap_7 = round(($averages['7_days']['cdt_cre_done'] / $averages['7_days']['cdt_cre_obj']) * 100);
+            $cdtRefsGap_7 = round(($averages['7_days']['cdt_refs_done'] / $averages['7_days']['cdt_refs_obj']) * 100);
+            $cdtCvGap_7 = round(($averages['7_days']['cdt_cv_done'] / $averages['7_days']['cdt_cv_obj']) * 100);
+            $cdtPushGap_7 = round(($averages['7_days']['cdt_push_done'] / $averages['7_days']['cdt_push_obj']) * 100);
+
+            // Last 30 days:
+            $cdtCallsGap_30 = round(($averages['30_days']['cdt_calls_done'] / $averages['30_days']['cdt_calls_obj']) * 100);
+            $cdtCtcGap_30 = round(($averages['30_days']['cdt_ctc_done'] / $averages['30_days']['cdt_ctc_obj']) * 100);
+            $cdtCreGap_30 = round(($averages['30_days']['cdt_cre_done'] / $averages['30_days']['cdt_cre_obj']) * 100);
+            $cdtRefsGap_30 = round(($averages['30_days']['cdt_refs_done'] / $averages['30_days']['cdt_refs_obj']) * 100);
+            $cdtCvGap_30 = round(($averages['30_days']['cdt_cv_done'] / $averages['30_days']['cdt_cv_obj']) * 100);
+            $cdtPushGap_30 = round(($averages['30_days']['cdt_push_done'] / $averages['30_days']['cdt_push_obj']) * 100);
+
+            // Last 12 months:
+            $cdtCallsGap_12 = round(($averages['12_months']['cdt_calls_done'] / $averages['12_months']['cdt_calls_obj']) * 100);
+            $cdtCtcGap_12 = round(($averages['12_months']['cdt_ctc_done'] / $averages['12_months']['cdt_ctc_obj']) * 100);
+            $cdtCreGap_12 = round(($averages['12_months']['cdt_cre_done'] / $averages['12_months']['cdt_cre_obj']) * 100);
+            $cdtRefsGap_12 = round(($averages['12_months']['cdt_refs_done'] / $averages['12_months']['cdt_refs_obj']) * 100);
+            $cdtCvGap_12 = round(($averages['12_months']['cdt_cv_done'] / $averages['12_months']['cdt_cv_obj']) * 100);
+            $cdtPushGap_12 = round(($averages['12_months']['cdt_push_done'] / $averages['12_months']['cdt_push_obj']) * 100);
+
+            // Overall:
+            $cdtCallsGap_overall = round(($averages['overall']['cdt_calls_done'] / $averages['overall']['cdt_calls_obj']) * 100);
+            $cdtCtcGap_overall = round(($averages['overall']['cdt_ctc_done'] / $averages['overall']['cdt_ctc_obj']) * 100);
+            $cdtCreGap_overall = round(($averages['overall']['cdt_cre_done'] / $averages['overall']['cdt_cre_obj']) * 100);
+            $cdtRefsGap_overall = round(($averages['overall']['cdt_refs_done'] / $averages['overall']['cdt_refs_obj']) * 100);
+            $cdtCvGap_overall = round(($averages['overall']['cdt_cv_done'] / $averages['overall']['cdt_cv_obj']) * 100);
+            $cdtPushGap_overall = round(($averages['overall']['cdt_push_done'] / $averages['overall']['cdt_push_obj']) * 100);
+
+
             @endphp
             <table class="kpi-table">
                 <thead>
@@ -314,16 +384,16 @@
                         <th>Done</th>
                         <th>Obj</th>
                         <th style="border-right:2px solid black;">Gap</th>
-                        <th>Avg</th>
+                        <th>Done</th>
                         <th>Obj</th>
                         <th style="border-right:2px solid black;">Gap</th>
-                        <th>Avg</th>
+                        <th>Done</th>
                         <th>Obj</th>
                         <th style="border-right:2px solid black;">Gap</th>
-                        <th>Avg</th>
+                        <th>Done</th>
                         <th>Obj</th>
                         <th style="border-right:2px solid black;">Gap</th>
-                        <th>Avg</th>
+                        <th>Done</th>
                         <th>Obj</th>
                         <th>Gap</th>
                     </tr>
@@ -334,108 +404,108 @@
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_calls_done : '0' }}</td>
                         <td contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_calls_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCallsPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_calls_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_calls_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCallsGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_calls_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_calls_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCallsGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_calls_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_calls_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCallsGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_calls_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_calls_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $cdtCallsGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">CTC</td>
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_ctc_done : '0' }}</td>
                         <td class="" contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_ctc_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCtcPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_ctc_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_ctc_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCtcGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_ctc_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_ctc_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCtcGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_ctc_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_ctc_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCtcGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_ctc_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_ctc_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $cdtCtcGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">CRE</td>
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_cre_done : '0' }}</td>
                         <td class="" contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_cre_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCrePerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_cre_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_cre_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCreGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_cre_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_cre_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCreGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_cre_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_cre_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCreGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_cre_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_cre_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $cdtCreGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">REFS</td>
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_refs_done : '0' }}</td>
                         <td class="" contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_refs_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtRefsPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_refs_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_refs_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtRefsGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_refs_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_refs_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtRefsGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_refs_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_refs_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtRefsGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_refs_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_refs_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $cdtRefsGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">CV</td>
                         <td contenteditable="false">{{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_cv_done : '0' }}</td>
                         <td contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_cv_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtCvPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_cv_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_cv_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCvGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_cv_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_cv_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCvGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_cv_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_cv_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtCvGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_cv_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_cv_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $cdtCvGap_overall }}%</td>
                     </tr>
                     <tr>
                         <td class="aspect">Push</td>
                         <td contenteditable="false"> {{ $latestCdtDoneEntry ? $latestCdtDoneEntry->cdt_push_done : '0' }}</td>
                         <td contenteditable="false"> {{ $latestCdtObjEntry ? $latestCdtObjEntry->cdt_push_obj : '0' }}</td>
                         <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{ $cdtPushPerformance }}%</td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
-                        <td contenteditable="false"></td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_push_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['7_days']['cdt_push_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtPushGap_7 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_push_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['30_days']['cdt_push_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtPushGap_30 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_push_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['12_months']['cdt_push_obj'], 0) }}</td>
+                        <td style="font-weight:bold; border-right:2px solid black;" contenteditable="false">{{  $cdtPushGap_12 }}%</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_push_done'], 0) }}</td>
+                        <td contenteditable="false">{{ number_format($averages['overall']['cdt_push_obj'], 0) }}</td>
+                        <td style="font-weight:bold;" contenteditable="false">{{ $cdtPushGap_overall }}%</td>
                     </tr>
                 </tbody>
             </table>
