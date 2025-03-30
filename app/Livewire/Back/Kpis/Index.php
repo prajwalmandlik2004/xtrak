@@ -4,6 +4,7 @@ namespace App\Livewire\Back\Kpis;
 
 use Livewire\Component;
 use App\Models\Kpisdashboard;
+use Carbon\Carbon;
 
 class Index extends Component
 {
@@ -52,6 +53,14 @@ class Index extends Component
     public $showFormTRG = false;
     public $showFormOBJ = false;
 
+    public $averages = [
+        '7_days' => [],
+        '30_days' => [],
+        '12_months' => [],
+        'overall' => []
+    ];
+
+
     // public function toggleForm()
     // {
     //     $this->showForm = !$this->showForm;
@@ -73,7 +82,6 @@ class Index extends Component
         if ($this->showForm) {
             $this->loadFormWithLatestData();
             $this->ctc_date = now()->format('Y-m-d');
-            
         } else {
             $this->resetForm();
         }
@@ -89,7 +97,6 @@ class Index extends Component
         if ($this->showFormTRG) {
             $this->loadFormWithLatestData();
             $this->trg_date = now()->format('Y-m-d');
-            
         } else {
             $this->resetForm();
         }
@@ -105,7 +112,6 @@ class Index extends Component
         if ($this->showFormOBJ) {
             $this->loadFormWithLatestData();
             $this->trg_date = now()->format('Y-m-d');
-            
         } else {
             $this->resetForm();
         }
@@ -160,9 +166,94 @@ class Index extends Component
     {
         $this->loadEntries();
         $this->loadLatestEntry();
+        $this->calculateAverages();
         $this->ctc_date = date('Y-m-d');
         $this->trg_date = date('Y-m-d');
     }
+
+    public function calculateAverages()
+    {
+        $entries = Kpisdashboard::orderBy('created_at', 'desc')->get();
+        $this->calculatePeriodAverages($entries);
+    }
+
+    private function calculatePeriodAverages($entries)
+    {
+        $columns = [
+
+            'trg_calls_done',
+            'trg_wn_done',
+            'trg_nrp_done',
+            'trg_ctc_done',
+            'trg_rv_done',
+            'trg_bqf_done',
+            'trg_klf_done',
+            'trg_hrd_done',
+
+            'trg_calls_obj',
+            'trg_ctc_obj',
+            'trg_rv_obj',
+            'trg_bqf_obj',
+            'trg_klf_obj',
+            'trg_hrd_obj',
+
+            'cdt_calls_done',
+            'cdt_ctc_done',
+            'cdt_refs_done',
+            'cdt_cv_done',
+            'cdt_push_done',
+            'cdt_cre_done',
+
+            'cdt_calls_obj',
+            'cdt_cv_obj',
+            'cdt_push_obj',
+            'cdt_cre_obj',
+            'cdt_ctc_obj',
+            'cdt_refs_obj'
+        ];
+
+
+        $now = Carbon::now();
+
+
+        foreach ($columns as $column) {
+
+            $last7Days = $entries->filter(function ($entry) use ($now, $column) {
+                $entryDate = Carbon::parse($entry->created_at);
+                return $entryDate->diffInDays($now) <= 7 && $entry->$column !== null;
+            });
+            $this->averages['7_days'][$column] = $last7Days->count() > 0
+                ? $last7Days->avg($column)
+                : 0;
+
+
+            $last30Days = $entries->filter(function ($entry) use ($now, $column) {
+                $entryDate = Carbon::parse($entry->created_at);
+                return $entryDate->diffInDays($now) <= 30 && $entry->$column !== null;
+            });
+            $this->averages['30_days'][$column] = $last30Days->count() > 0
+                ? $last30Days->avg($column)
+                : 0;
+
+
+            $last12Months = $entries->filter(function ($entry) use ($now, $column) {
+                $entryDate = Carbon::parse($entry->created_at);
+                return $entryDate->diffInMonths($now) <= 12 && $entry->$column !== null;
+            });
+            $this->averages['12_months'][$column] = $last12Months->count() > 0
+                ? round($last12Months->avg($column))
+                : 0;
+
+
+            $overallEntries = $entries->filter(function ($entry) use ($column) {
+                return $entry->$column !== null;
+            });
+            $this->averages['overall'][$column] = $overallEntries->count() > 0
+                ? $overallEntries->avg($column)
+                : 0;
+        }
+    }
+
 
     public function loadEntries()
     {
@@ -421,8 +512,8 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.back.kpis.index');
+        return view('livewire.back.kpis.index', [
+            'averages' => $this->averages
+        ]);
     }
 }
-
-
