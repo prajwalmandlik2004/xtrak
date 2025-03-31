@@ -184,6 +184,7 @@
                                              <div class="collapse menu-dropdown {{ request()->is(['formcdt', 'formopp', 'formcdt/*', 'formopp/*']) ? 'show' : '' }}"
                                                  id="formulaires">
                                                  <ul class="nav nav-sm flex-column">
+                                                     @if (auth()->user()->hasRole('Administrateur'))
                                                      <li class="nav-item">
                                                          <a href="{{ route('candidates.create') }}" class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormCDT</span></a>
                                                      </li>
@@ -196,7 +197,11 @@
                                                      <li class="nav-item">
                                                          <a href="/ctcform" class="nav-link" data-key="t-chat"><span style="color:#09ff00">FormCTC</span></a>
                                                      </li>
-                                                 
+                                                     @else
+                                                     <li class="nav-item">
+                                                         <a href="{{ route('candidates.create') }}" class="nav-link {{ request()->routeIs('candidates.create') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">FormCDT</span></a>
+                                                     </li>
+                                                     @endif
                                                  </ul>
                                              </div>
                                              @endcan
