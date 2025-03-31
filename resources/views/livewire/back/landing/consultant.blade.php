@@ -18,7 +18,7 @@
         <div class="space-y-6">
             @php
             $leftSections = [
-            'Views' => ['CDT_CSTvue' => '/dashboard', 'OPP_CDTvue' => '/views/opp'],
+            'Views' => ['CDT_CSTvue' => '/dashboard', 'OPP_CSTvue' => '/views/opp'],
             'Queries' => ['Generator' => '/queries/generator', 'Query1' => '/queries/query1', 'Query2' => '/queries/query2'],
             'Vaults' => ['BackUp1' => '/vaults/backup1', 'BackUp2' => '/vaults/backup2'],
            // 'Dashboard' => ['KPIs' => '/kpi' , 'Plateform' => '/plateform' , 'Commercial' => '/commercial' , 'Head hunt' => '/head' , 'Statistics' => '/statistics' , 'Map' => '/map']
