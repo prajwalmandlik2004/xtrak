@@ -27,13 +27,12 @@
 
      <div id="scrollbar">
          <div class="container-fluid">
-
              <div id="two-column-menu">
              </div>
-             <ul class="navbar-nav" id="navbar-nav">
+              <ul class="navbar-nav" id="navbar-nav">
                  <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                  <li class="nav-item {{ request()->routeIs('landing') ? 'bg-dash-sidebar' : '' }}">
-                     <a class="nav-link menu-link  {{ request()->routeIs('landing') ? '' : '' }}   {{ request()->routeIs('lanings') ? 'active' : '' }}"
+                     <a class="nav-link menu-link  {{ request()->routeIs('landing') ? '' : '' }}   {{ request()->routeIs('laning') ? 'active' : '' }}"
                          href="{{ route('landing') }}">
                          <i class="ri-dashboard-2-line"></i>
                          <span data-key="t-dashboards">
@@ -68,6 +67,9 @@
                  </a>
 
 
+
+
+
                  <!-- Vues -->
 
                  @can('Menu etats')
@@ -83,7 +85,7 @@
                          <ul class="nav nav-sm flex-column">
                              @if (auth()->user()->hasRole('Administrateur'))
                              <li class="nav-item">
-                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
                              </li>
                              <li class="nav-item">
                                  <a href="{{ route('oppdashboard') }}" class="nav-link {{ request()->routeIs('oppdashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">OPPvue</span></a>
@@ -94,11 +96,8 @@
                              <li class="nav-item">
                                  <a href="{{ route('ctcdashboard') }}" class="nav-link {{ request()->routeIs('ctcdashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CTCvue</span></a>
                              </li>
-                             <!-- <li class="nav-item">
+<!--                              <li class="nav-item">
                                  <a href="{{ route('cstdashboard') }}" class="nav-link {{ request()->routeIs('cstdashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CSTvue</span></a>
-                             </li> -->
-                             <!-- <li class="nav-item">
-                                 <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('facvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">FACvue</span></a>
                              </li> -->
                              <li class="nav-item">
                                  <a href="{{ route('dashboard', ['dashboard' => 'consultant']) }}" class="nav-link {{ request()->query('dashboard') === 'consultant' ? 'active' : '' }}" data-key="t-chat">
@@ -107,12 +106,18 @@
                              </li>
                              @elseif (auth()->user()->hasRole('Manager'))
                              <li class="nav-item">
-                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
                              </li>
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPPvue</span></a>
                              </li>
                              @elseif (auth()->user()->hasRole('CST+'))
+<!--                         <li class="nav-item">
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CST+vue</span></a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDT_CSTvue</span></a>
+                             </li> -->
                              @can('CST+ Vue')
                              <li class="nav-item">
                                  <a href="{{ route('dashboard') }}" class="nav-link {{ !request()->query('dashboard') ? 'active' : '' }}" data-key="t-chat">
@@ -121,10 +126,10 @@
                              </li>
                              @endcan
                              <li class="nav-item">
-                                 <a href="{{ route('dashboard', ['dashboard' => 'consultant']) }}" class="nav-link {{ request()->query('dashboard') === 'consultant' ? 'active' : '' }}" data-key="t-chat">
-                                     <span style="color:#09ff00">CDT_CSTvue</span>
-                                 </a>
-                             </li>
+                                <a href="{{ route('dashboard', ['dashboard' => 'consultant']) }}" class="nav-link {{ request()->query('dashboard') === 'consultant' ? 'active' : '' }}" data-key="t-chat">
+                                        <span style="color:#09ff00">CDT_CSTvue</span>
+                                </a>
+                            </li>
                              <li class="nav-item">
                                  <a href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" class="nav-link {{ request()->routeIs('oppvue*') ? 'active' : '' }}" data-key="t-chat"><span style="color:orange">OPP_CSTvue</span></a>
                              </li>
@@ -140,6 +145,7 @@
                      </div>
                  </li>
                  @endcan
+
 
 
                  <!-- Gestion -->
@@ -191,7 +197,7 @@
                                                      <li class="nav-item">
                                                          <a href="/ctcform" class="nav-link" data-key="t-chat"><span style="color:#09ff00">FormCTC</span></a>
                                                      </li>
-                                                     <!-- <li class="nav-item">
+<!--                                                      <li class="nav-item">
                                                          <a href="/cstform" class="nav-link" data-key="t-chat"><span style="color:#09ff00">FormCST</span></a>
                                                      </li> -->
                                                      @else
@@ -282,7 +288,7 @@
                          <li class="nav-item">
                              <!-- <a href="{{ route('tables') }}" class="nav-link {{ request()->routeIs('tables*') ? 'active' : '' }}" data-key="t-tables" style="color:orange">Tables</a> -->
                              <a class="nav-link menu-dropdown"
-                                 href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" data-bs-toggle="collapse" role="button"
+                                 href="#tables" data-bs-toggle="collapse" role="button"
                                  aria-controls="tables">
                                  <span data-key="t-tables" style="color:orange">Tables</span>
                              </a>
@@ -290,21 +296,21 @@
                          <li class="nav-item">
                              <!-- <a href="{{ route('filtrages') }}" class="nav-link {{ request()->routeIs('filtrages*') ? 'active' : '' }}" data-key="t-filtrages" style="color:orange">Filtrages</a> -->
                              <a class="nav-link menu-dropdown"
-                                 href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" data-bs-toggle="collapse" role="button"
+                                 href="#filtrages" data-bs-toggle="collapse" role="button"
                                  aria-controls="filtrages">
                                  <span data-key="t-filtrages" style="color:orange">Filtrages</span>
                              </a>
                          </li>
                          <li class="nav-item">
                              <a class="nav-link menu-dropdown"
-                                 href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" data-bs-toggle="collapse" role="button"
+                                 href="#vue" data-bs-toggle="collapse" role="button"
                                  aria-controls="vue">
                                  <span data-key="t-vue" style="color:orange">Vues</span>
                              </a>
                          </li>
                          <li class="nav-item">
                              <a class="nav-link menu-dropdown"
-                                 href="javascript:void(0);" onclick="alert('New features coming soon! ✅')" data-bs-toggle="collapse" role="button"
+                                 href="#upload" data-bs-toggle="collapse" role="button"
                                  aria-controls="upload">
                                  <span data-key="t-upload" style="color:orange">Uploads</span>
                              </a>
