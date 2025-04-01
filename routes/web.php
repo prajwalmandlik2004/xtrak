@@ -13,6 +13,7 @@ use App\Http\Controllers\OppdashController;
 use App\Http\Controllers\TrgdashController;
 use App\Http\Controllers\CtcdashController;
 use App\Http\Controllers\CtcController;
+use App\Http\Controllers\CstController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\NextStepController;
