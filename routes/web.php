@@ -12,6 +12,7 @@ use App\Http\Controllers\CompagnyController;
 use App\Http\Controllers\OppdashController;
 use App\Http\Controllers\TrgdashController;
 use App\Http\Controllers\CtcdashController;
+use App\Http\Controllers\CstdashController;
 use App\Http\Controllers\CtcController;
 use App\Http\Controllers\CstController;
 use App\Http\Controllers\OpportunityController;
@@ -55,6 +56,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/oppdashboard', [OppdashController::class, 'index'])->name('oppdashboard');
     Route::get('/trgdashboard', [TrgdashController::class, 'index'])->name('trgdashboard');
     Route::get('/ctcdashboard', [CtcdashController::class, 'index'])->name('ctcdashboard');
+    Route::get('/cstdashboard', [CstdashController::class, 'index'])->name('cstdashboard');
+
    
     // Route::get('trgform', [LandingController::class, 'trgform'])->name('trgform');
     // Route::get('ctcform', [LandingController::class, 'ctcform'])->name('ctcform');
