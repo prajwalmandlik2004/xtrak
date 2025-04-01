@@ -96,6 +96,9 @@
                              <li class="nav-item">
                                  <a href="{{ route('ctcdashboard') }}" class="nav-link {{ request()->routeIs('ctcdashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CTCvue</span></a>
                              </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('cstdashboard') }}" class="nav-link {{ request()->routeIs('cstdashboard*') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CSTvue</span></a>
+                             </li>
                              @elseif (auth()->user()->hasRole('Manager'))
                              <li class="nav-item">
                                  <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-key="t-chat"><span style="color:#09ff00">CDTvue</span></a>
@@ -188,6 +191,9 @@
                                                      </li>
                                                      <li class="nav-item">
                                                          <a href="/ctcform" class="nav-link" data-key="t-chat"><span style="color:#09ff00">FormCTC</span></a>
+                                                     </li>
+                                                     <li class="nav-item">
+                                                         <a href="/cstform" class="nav-link" data-key="t-chat"><span style="color:#09ff00">FormCST</span></a>
                                                      </li>
                                                      @else
                                                      <li class="nav-item">
