@@ -60,6 +60,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::get('/ctcform', [App\Http\Controllers\CtcController::class, 'index'])->name('ctcform.index');
     Route::get('/ctcform/{id}', [App\Http\Controllers\CtcController::class, 'show'])->name('ctcform.show');
+
+    Route::get('/cstform', [App\Http\Controllers\CstController::class, 'index'])->name('cstform.index');
+    Route::get('/cstform/{id}', [App\Http\Controllers\CstController::class, 'show'])->name('cstform.show');
     
     Route::get('/trgform', [App\Http\Controllers\TrgController::class, 'index'])->name('trgform.index');
     Route::get('/trgform/{id}', [App\Http\Controllers\TrgController::class, 'show'])->name('trgform.show');
