@@ -15,6 +15,12 @@ use App\Http\Controllers\CtcdashController;
 use App\Http\Controllers\CstdashController;
 use App\Http\Controllers\CtcController;
 use App\Http\Controllers\CstController;
+use App\Http\Controllers\CtclistController;
+use App\Http\Controllers\CstlistController;
+use App\Http\Controllers\OpplistController;
+use App\Http\Controllers\TRGOpplistController;
+use App\Http\Controllers\CdtEvtController;
+use App\Http\Controllers\TrgEvtController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\NextStepController;
@@ -57,6 +63,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/trgdashboard', [TrgdashController::class, 'index'])->name('trgdashboard');
     Route::get('/ctcdashboard', [CtcdashController::class, 'index'])->name('ctcdashboard');
     Route::get('/cstdashboard', [CstdashController::class, 'index'])->name('cstdashboard');
+
+    Route::get('/ctclist', [CtclistController::class, 'index'])->name('ctclist');
+    Route::get('/cstlist', [CstlistController::class, 'index'])->name('cstlist');
+    Route::get('/opplist', [OpplistController::class, 'index'])->name('opplist');
+    Route::get('/cdtevtlist', [CdtEvtController::class, 'index'])->name('cdtevtlist');
+    Route::get('/trgevtlist', [TrgEvtController::class, 'index'])->name('trgevtlist');
+    Route::get('/trgopplist', [TrgOpplistController::class, 'index'])->name('trgopplist');
+
 
    
     // Route::get('trgform', [LandingController::class, 'trgform'])->name('trgform');
