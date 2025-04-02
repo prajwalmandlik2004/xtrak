@@ -245,6 +245,14 @@
             'DtoD Reporting' => ['url' => '/reporting', 'enabled' => false],
             'SGPD' => ['url' => '/sgpd', 'enabled' => false],
             ],
+            'List (Testing)' => [
+            'CTClist' => ['url' => '/ctclist', 'enabled' => true],
+            'CSTlist' => ['url' => '/cstlist', 'enabled' => true],
+            'CDT_EVTlist' => ['url' => '/cdtevtlist', 'enabled' => true],
+            'TRG_EVTlist' => ['url' => '/trgevtlist', 'enabled' => true],
+            'CDT_OPPlist' => ['url' => '/opplist', 'enabled' => true],
+            'TRG_OPPlist' => ['url' => '/trgopplist', 'enabled' => true],
+            ],
             ];
             @endphp
 
