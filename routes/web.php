@@ -13,10 +13,12 @@ use App\Http\Controllers\OppdashController;
 use App\Http\Controllers\TrgdashController;
 use App\Http\Controllers\CtcdashController;
 use App\Http\Controllers\CstdashController;
+use App\Http\Controllers\McpdashController;
 use App\Http\Controllers\CtcController;
 use App\Http\Controllers\CstController;
 use App\Http\Controllers\CtclistController;
 use App\Http\Controllers\CstlistController;
+use App\Http\Controllers\McplistController;
 use App\Http\Controllers\OpplistController;
 use App\Http\Controllers\TRGOpplistController;
 use App\Http\Controllers\CdtEvtController;
@@ -63,9 +65,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/trgdashboard', [TrgdashController::class, 'index'])->name('trgdashboard');
     Route::get('/ctcdashboard', [CtcdashController::class, 'index'])->name('ctcdashboard');
     Route::get('/cstdashboard', [CstdashController::class, 'index'])->name('cstdashboard');
+    Route::get('/mcpdashboard', [McpdashController::class, 'index'])->name('mcpdashboard');
+
 
     Route::get('/ctclist', [CtclistController::class, 'index'])->name('ctclist');
     Route::get('/cstlist', [CstlistController::class, 'index'])->name('cstlist');
+    Route::get('/mcplist', [McplistController::class, 'index'])->name('mcplist');
     Route::get('/opplist', [OpplistController::class, 'index'])->name('opplist');
     Route::get('/cdtevtlist', [CdtEvtController::class, 'index'])->name('cdtevtlist');
     Route::get('/trgevtlist', [TrgEvtController::class, 'index'])->name('trgevtlist');
@@ -81,6 +86,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::get('/cstform', [App\Http\Controllers\CstController::class, 'index'])->name('cstform.index');
     Route::get('/cstform/{id}', [App\Http\Controllers\CstController::class, 'show'])->name('cstform.show');
+
+    Route::get('/mcpform', [App\Http\Controllers\McpController::class, 'index'])->name('mcpform.index');
+    Route::get('/mcpform/{id}', [App\Http\Controllers\McpController::class, 'show'])->name('mcpform.show');
     
     Route::get('/trgform', [App\Http\Controllers\TrgController::class, 'index'])->name('trgform.index');
     Route::get('/trgform/{id}', [App\Http\Controllers\TrgController::class, 'show'])->name('trgform.show');
