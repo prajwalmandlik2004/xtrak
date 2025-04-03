@@ -133,7 +133,7 @@
         <div id="container">
             <button class="circle" style="font-size:1rem; background-color: #FFC0CB;" id="EVT1">EVT</button>
             <button class="circle" style="font-size:1rem; background-color: #FFA500;" id="EVT2">XTK</button>
-            <button class="circle" style="font-size:1rem; background-color: #FF0000;" id="CPN">CPM</button>
+            <button class="circle" style="font-size:1rem; background-color: #FF0000;" id="CPN">MCP</button>
             <button class="circle" style="font-size:1rem; background-color: #800080;" id="OPP">OPP</button>
             <button class="circle" style="font-size:1rem; background-color: #808080;" id="TRG">TRG</button>
             <button class="circle" style="font-size:1rem; background-color: #FFFF00;" id="CDT">CDT</button>
@@ -194,6 +194,10 @@
 
         document.getElementById('CTC').addEventListener('click', function() {
             window.location.href = '{{ route('ctcdashboard') }}';
+        });
+
+        document.getElementById('CPN').addEventListener('click', function() {
+            window.location.href = '{{ route('mcpdashboard') }}';
         });
 
         document.getElementById('land').addEventListener('click', function() {
