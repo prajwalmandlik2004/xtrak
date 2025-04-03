@@ -68,6 +68,7 @@
             'OPPvue' => ['url' => '/oppdashboard', 'disabled' => false],
             'CTCvue' => ['url' => '/ctcdashboard', 'disabled' => false],
             'CSTvue' => ['url' => '/cstdashboard', 'disabled' => false],
+            'MCPvue' => ['url' => '/mcpdashboard', 'disabled' => false],
             'PREFvue' => ['url' => '/views/pref', 'disabled' => true],
             'ANNvue' => ['url' => '/views/ann', 'disabled' => true],
             'CAMvue' => ['url' => '/views/cam', 'disabled' => true],
@@ -226,6 +227,7 @@
             'OPPform' => ['url' => '/opportunity', 'enabled' => true],
             'CTCform' => ['url' => '/ctcform', 'enabled' => true],
             'CSTform' => ['url' => '/cstform', 'enabled' => true],
+            'MCPform' => ['url' => '/mcpform', 'enabled' => true],
             'PREFform' => ['url' => '/forms/pref', 'enabled' => false],
             'ANNform' => ['url' => '/forms/ann', 'enabled' => false],
             'CAMform' => ['url' => '/forms/cam', 'enabled' => false],
@@ -248,6 +250,7 @@
             'List (Testing)' => [
             'CTClist' => ['url' => '/ctclist', 'enabled' => true],
             'CSTlist' => ['url' => '/cstlist', 'enabled' => true],
+            'MCPlist' => ['url' => '/mcplist', 'enabled' => true],
             'CDT_EVTlist' => ['url' => '/cdtevtlist', 'enabled' => true],
             'TRG_EVTlist' => ['url' => '/trgevtlist', 'enabled' => true],
             'CDT_OPPlist' => ['url' => '/opplist', 'enabled' => true],
