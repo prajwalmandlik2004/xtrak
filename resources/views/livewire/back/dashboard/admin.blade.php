@@ -719,7 +719,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 60px;
+            gap: 30px;
         }
 
         .btn-evt {
