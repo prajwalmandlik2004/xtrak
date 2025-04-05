@@ -721,7 +721,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 30px;
+            gap: 60px;
         }
 
         .btn-evt {
