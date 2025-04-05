@@ -11,11 +11,48 @@
             </div>
             @endif
             <div class="modal-content">
-                <div class="modal-header">
+                <!-- <div class="modal-header">
                     <h2>{{ $isEditing ? 'Edit CST Form' : 'CSTform' }}</h2>
-                </div>
+                </div> -->
                 <div>
                     <form wire:submit.prevent="save">
+                        <div class="button-group">
+                            <div class="button-group-left">
+                                <h5 style="margin-left:-22px; background-color:#00FF9C; border-radius:5px; color:black;padding:12px;margin-top:-2px">CSTform</h5>
+                                <a href="/cstform">
+                                    <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1">CST <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                </a>
+                                <div class="two">
+                                    <a href="">
+                                        <button type="button" class="btn btn-opp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                    </a>
+                                    <button id="linkNewOPP" type="button" class="btn btn-opp"><i class="fas fa-link"></i></button>
+                                </div>
+                                <div class="one">
+                                    <a href="">
+                                        <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                    </a>
+                                    <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                </div>
+                                <div class="one">
+                                    <a href="">
+                                        <button type="button" class="btn"><i class="fa-regular fa-envelope fa-2x"></i></button>
+                                    </a>
+                                    <button style="color:red;" type="button" class="btn" onclick="openModal()"><i class="fa-solid fa-phone fa-2x"></i></button>
+                                </div>
+                                <div class="three">
+                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                    <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
+                                        <i class="fa-regular fa-trash-can fa-lg"></i>
+                                    </button>
+                                    <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                    <a href="/landing">
+                                        <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-group date-field">
                                 <label>Date</label>
@@ -88,21 +125,7 @@
                             </div>
                         </div>
 
-                        <div class="button-group">
-                            <div class="button-group-left">
-                                <div class="one">
-                                    <button type="button" class="btn btn-evt">EVTlist</button>
-                                    <button type="button" class="btn btn-evt"> > New</button>
-                                </div>
-                                <div class="three">
-                                    <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
-                                    <button type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
-                                </div>
-                                <a href="/landing">
-                                    <button type="button" class="btn btn-close1">Close</button>
-                                </a>
-                            </div>
-                        </div>
+
                     </form>
                 </div>
             </div>
@@ -112,7 +135,18 @@
     <script>
 
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .btn-opp {
+            background-color: #614BC3;
+            color: white;
+        }
+
+        .btn-opp:hover {
+            background-color: #614BC3;
+            color: white;
+        }
+
         .modal-content {
             background: none;
             border-radius: 8px;
@@ -303,13 +337,13 @@
         .button-group {
             display: flex;
             justify-content: space-between;
-            margin-top: 3%;
+            margin-bottom: 5%;
             padding: 0 20px;
         }
 
         .button-group-left {
             display: flex;
-            gap: 100px;
+            gap: 20px;
         }
 
         .button-group-right {
