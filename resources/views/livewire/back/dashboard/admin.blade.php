@@ -42,6 +42,8 @@
                                 <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
                                     <i class="fa-regular fa-trash-can fa-lg"></i>
                                 </button>
+                            </div>
+                            <div class="">
                                 <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
                                 <a href="/landing">
                                     <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
