@@ -8,7 +8,39 @@
         <div style="margin-bottom:-20px; margin-top:-10px;" class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
-                    <h5 style="margin-left:-5px; color:black;background-color:#00FF9C; padding:12px; width:7%; margin-bottom:0;">CTClist</h5>
+                    <div class="button-group-main">
+                        <div class="button-group-left-main">
+                            <h5 style="margin-left:-22px; background-color:#00FF9C; border-radius:5px; color:black;padding:12px;margin-top:-2px">CTClist</h5>
+                            <a href="/ctcform">
+                                <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </a>
+                            <div class="two">
+                                <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
+                                <a href="">
+                                    <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                </a>
+                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </div>
+
+                            <div class="two">
+                                <a href="/mcplist">
+                                    <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="three">
+                                <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                                </button>
+                                <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                <a href="/landing">
+                                    <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -301,34 +333,34 @@
         </div>
 
         <div class="card-footer mb-2">
-
-            <div class="button-group-main">
-                <div class="button-group-left-main">
-                    <a href="/ctcform">
-                        <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1">NewCTC</button>
-                    </a>
-                    <div class="one"> <button onclick="coming()" type="button" class="btn btn-evt">EVTlist</button>
-                        <button type="button" class="btn btn-evt" onclick="openModal()"> > New</button>
-                    </div>
-                    <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
-                        Suppress
-                    </button>
-                    <div class="three">
-                        <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
-                        <a href="/landing">
-                            <button type="button" class="btn btn-close1">Close</button>
-                        </a>
-                        <!-- <button id="export-button" onclick="exportSelectedCandidates()" type="button" class="btn btn-close1" onclick="closeModal()"> <i class="ri-file-download-line me-1"></i>Exporter <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                <span class="visually-hidden">Exportation...</span>
-                            </span>
-                        </button> -->
-                    </div>
-                </div>
-            </div>
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            .btn-mcp {
+                background-color: #7D0A0A;
+                color: white;
+            }
+
+            .btn-mcp:hover {
+                background-color: #7D0A0A;
+                color: white;
+            }
+
+            .btn-trg {
+                background-color: #DBDBDB;
+                color: black;
+            }
+
+            .btn-trg:hover {
+                background-color: #DBDBDB;
+                color: black;
+            }
+
+
+            .btn-danger {
+                background-color: red;
+            }
+
             .button-group-main {
                 display: flex;
                 justify-content: space-between;
@@ -339,7 +371,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 190px;
+                gap: 60px;
             }
 
             .large-checkbox {
@@ -667,7 +699,7 @@
                 font-size: 14px;
             }
 
-            .evt-button i {
+            t-button i {
                 font-size: 14px;
             }
         </style>
