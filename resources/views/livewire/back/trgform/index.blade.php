@@ -141,6 +141,8 @@
                             </div>
                         </div>
 
+
+
                         <div class="modal fade" id="cdtModal" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
                                 <div class="modal-content cdt-modal-content">
@@ -175,14 +177,14 @@
                                 </div>
                                 <div class="three">
                                     <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
-                                    <button onclick="confirm()" style="background:#4CC9FE; color:black;" type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
+                                    <button style="background:#4CC9FE; color:black;" type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
                                 </div>
                                 <a href="/landing">
                                     <button type="button" class="btn btn-close1">Close</button>
                                 </a>
                             </div>
                         </div>
-                    </div>
+                </div>
                 </form>
             </div>
         </div>
@@ -475,10 +477,10 @@
             font-size: 14px;
         }
 
-         .cdt-modal-dialog {
+        .cdt-modal-dialog {
             max-width: 300px;
         }
-     
+
         .cdt-modal-content {
             padding: 0;
             border: 1px solid #999;
@@ -551,7 +553,7 @@
                 successAlert.style.display = 'none';
             }
         }, 5000);
-        
+
         function confirm() {
             alert("Form Submitted Succefully ✅");
         }
@@ -580,5 +582,4 @@
             });
         });
     </script>
-
 </div>
