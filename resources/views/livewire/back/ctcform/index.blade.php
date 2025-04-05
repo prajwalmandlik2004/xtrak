@@ -1,4 +1,105 @@
 <div>
+    <!-- <div class="row">
+        <div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>CTCform</h2>
+                </div>
+                <div>
+                    <div class="form-row">
+                        <div class="form-group date-field">
+                            <label>Date</label>
+                            <input type="date" class="form-control1" value="">
+                        </div>
+                        <div class="form-group objet-field">
+                            <label>CTCcode</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                        <div class="form-group objet-field">
+                            <label>TRGcode</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                        <div class="form-group company-field">
+                            <label>Company</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group date-field">
+                            <label>Civ</label>
+                            <input type="text" class="form-control1" value="">
+                        </div>
+                        <div class="form-group objet-field">
+                            <label>First Name</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                        <div class="form-group objet-field">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                        <div class="form-group company-field">
+                            <label>Position</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group objet-field">
+                            <label>STD</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                        <div class="form-group date-field">
+                            <label>Ext</label>
+                            <input type="text" class="form-control1" value="">
+                        </div>
+                        <div class="form-group objet-field">
+                            <label>LD</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                        <div class="form-group comment-field">
+                            <label>Remark(s)</label>
+                            <textarea class="form-control2"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group objet-field">
+                            <label>Cell</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                        <div class="form-group mail-field">
+                            <label>Mail</label>
+                            <input type="text" class="form-control1">
+                        </div>
+                        <div class="form-group comment-field">
+                            <label>Note(s)</label>
+                            <textarea class="form-control2"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="button-group">
+                        <div class="button-group-left">
+                            <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
+                                <button type="button" class="btn btn-evt"> > New</button>
+                            </div>
+                            <div class="two">
+                                <button type="button" class="btn btn-input">CTClist</button>
+                                <button type="button" class="btn btn-input"> > New</button>
+                            </div>
+                            <div class="three"><button type="button" class="btn btn-valid">Save</button>
+                                <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
+                                <button type="button" class="btn btn-inputmain">Input</button>
+                            </div>
+                            <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> -->
+
+
     <div class="row">
         <div>
             @if (session()->has('message'))
@@ -11,11 +112,50 @@
             </div>
             @endif
             <div class="modal-content">
-                <div class="modal-header">
+                <!-- <div class="modal-header">
                     <h2>{{ $isEditing ? 'Edit CTC Form' : 'CTCform' }}</h2>
-                </div>
+                </div> -->
                 <div>
                     <form wire:submit.prevent="save">
+                        <div class="button-group">
+                            <div class="button-group-left">
+                                <h5 style="margin-left:-22px; background-color:#06D001; border-radius:5px; color:black;padding:12px;margin-top:-2px">CTCform</h5>
+                                <a href="/ctcform">
+                                    <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                </a>
+                                <div class="one">
+                                    <a href="">
+                                        <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                    </a>
+                                    <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                </div>
+                                <div class="two">
+                                    <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
+                                </div>
+                                <div class="two">
+                                    <a href="/mcplist">
+                                        <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                    </a>
+                                    <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                                </div>
+                                <div class="one">
+                                    <a href="">
+                                        <button type="button" class="btn"><i class="fa-regular fa-envelope fa-2x"></i></button>
+                                    </a>
+                                    <button style="color:red;" type="button" class="btn" onclick="openModal()"><i class="fa-solid fa-phone fa-2x"></i></button>
+                                </div>
+                                <div class="three">
+                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                    <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
+                                        <i class="fa-regular fa-trash-can fa-lg"></i>
+                                    </button>
+                                    <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                    <a href="/landing">
+                                        <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-group date-field">
                                 <label>Date</label>
@@ -91,6 +231,7 @@
                         </div>
 
 
+
                         <div class="modal fade" id="cdtModal" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
                                 <div class="modal-content cdt-modal-content">
@@ -109,25 +250,7 @@
                             </div>
                         </div>
 
-                        <div class="button-group">
-                            <div class="button-group-left">
-                                <div class="one">
-                                    <button type="button" class="btn btn-evt">EVTlist</button>
-                                    <button type="button" class="btn btn-evt"> > New</button>
-                                </div>
-                                <div class="two">
-                                    <button onclick="coming()" type="button" class="btn btn-input">CTClist</button>
-                                    <button id="linkNewCDT" type="button" class="btn btn-input"> > New</button>
-                                </div>
-                                <div class="three">
-                                    <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
-                                    <button onclick="confirm()" type="submit" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
-                                </div>
-                                <a href="/landing">
-                                    <button type="button" class="btn btn-close1">Close</button>
-                                </a>
-                            </div>
-                        </div>
+
                     </form>
                 </div>
             </div>
@@ -137,7 +260,28 @@
     <script>
 
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .btn-mcp {
+            background-color: #7D0A0A;
+            color: white;
+        }
+
+        .btn-mcp:hover {
+            background-color: #7D0A0A;
+            color: white;
+        }
+
+        .btn-trg {
+            background-color: #DBDBDB;
+            color: black;
+        }
+
+        .btn-trg:hover {
+            background-color: #DBDBDB;
+            color: black;
+        }
+
         .modal-content {
             background: none;
             border-radius: 8px;
@@ -154,7 +298,7 @@
         .modal-content {
             background-color: #fff;
             padding: 20px 25px;
-            width: 80%;
+            width: 90%;
             max-width: 1200px;
             border-radius: 2px;
 
@@ -334,7 +478,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 100px;
+            gap: 30px;
         }
 
         .button-group-right {
@@ -439,7 +583,8 @@
             font-size: 14px;
         }
 
-         .cdt-modal-dialog {
+
+        .cdt-modal-dialog {
             max-width: 300px;
         }
 
@@ -515,7 +660,7 @@
                 successAlert.style.display = 'none';
             }
         }, 5000);
-        
+
         function confirm() {
             alert("Form Submitted Successfully ✅");
         }
@@ -545,4 +690,3 @@
         });
     </script>
 </div>
-
