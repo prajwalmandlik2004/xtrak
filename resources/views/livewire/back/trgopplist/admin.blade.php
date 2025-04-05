@@ -5,30 +5,47 @@
     ])
 
     <div class="row">
-        <div style="margin-bottom:-20px; margin-top:-10px;" class="col-md-12">
-            <div class="d-flex align-items-center">
-                <div class="p-1">
-                    <h5 style="margin-left:-2%;; color:white;background-color:grey; padding:12px; width:100%; margin-bottom:0;">TRG_OPPlist</h5>
-                </div>
-                <div class="p-1">
-                    <label for="trgcode">TRGcode</label>
-                    <input type="text" id="trgcode" class="form-control">
-                </div>
-                <div class="p-1">
-                    <label for="company-name">Company name</label>
-                    <input type="text" id="company-name" class="form-control">
-                </div>
-                <div class="p-1">
-                    <label for="ctc-prenom">CTC Prénom</label>
-                    <input type="text" id="ctc-prenom" class="form-control">
-                </div>
-                <div class="p-1">
-                    <label for="ctc-nom">CTC Nom</label>
-                    <input type="text" id="ctc-nom" class="form-control">
-                </div>
-                <div class="p-1">
-                    <label for="ctc-fonction">CTC Fonction</label>
-                    <input type="text" id="ctc-fonction" class="form-control">
+        <div class="col-md-12">
+            <div class="d-flex">
+                <div class="p-1 flex-grow-1">
+                    <div class="button-group-main">
+                        <div class="button-group-left-main">
+                            <h5 style="margin-left:-12px; background-color:#DBDBDB; border-radius:5px; color:black;padding:12px;margin-top:-2px">TRG_OPPlist</h5>
+                            <div class="">
+                                <label for="trgcode">TRGcode</label>
+                            </div>
+                            <div class="">
+                                <label for="ctc-prenom">Company Name</label>
+                            </div>
+                            <div class="one">
+                                <a href="/management">
+                                    <button type="button" class="btn btn-inputmain">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewCDT" type="button" class="btn btn-inputmain"> <i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
+                                <button type="button" class="btn btn-evt">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                <button type="button" class="btn btn-evt" onclick="openModal()"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
+                                <a href="/trgevtlist">
+                                    <button type="button" class="btn btn-evt1">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                </a>
+                                <button type="button" class="btn btn-evt1" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </div>
+                            <div class="three">
+                                <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                                </button>
+                                </button>
+                                <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                <a href="/landing">
+                                    <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -221,44 +238,14 @@
 
 
         <div class="card-footer">
-            <div class="button-group-main">
-                <div class="button-group-left-main">
-                    <!-- <a href="/opportunity">
-                        <button type="button" class="btn btn-evt"> > New EVT</button>
-                    </a> -->
-                    <div class="one">
-                        <a href="/management">
-                            <button type="button" class="btn btn-inputmain">CDTlist</button>
-                        </a>
-                        <button id="linkNewCDT" type="button" class="btn btn-inputmain"> > New</button>
-                    </div>
-                    <div class="one">
-                        <button type="button" class="btn btn-evt">CSTlist</button>
-                        <button type="button" class="btn btn-evt" onclick="openModal()"> > New</button>
-                    </div>
-                    <div class="one">
-                        <button type="button" class="btn btn-evt1">EVTlist</button>
-                        <button type="button" class="btn btn-evt1" onclick="openModal()"> > New</button>
-                    </div>
-                    <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
-                        Suppress
-                    </button>
-                    <div class="three">
-                        <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
-                        <a href="/landing">
-                            <button type="button" class="btn btn-close1">Close</button>
-                        </a>
-                        <!-- <button id="export-button" onclick="exportSelectedCandidates()" type="button" class="btn btn-close1" onclick="closeModal()"> <i class="ri-file-download-line me-1"></i>Exporter <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                <span class="visually-hidden">Exportation...</span>
-                            </span>
-                        </button> -->
-                    </div>
-                </div>
-            </div>
-        </div>
 
+        </div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            .btn-danger {
+                background-color: red;
+            }
+
             .button-group-main {
                 display: flex;
                 justify-content: space-between;
@@ -270,17 +257,17 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 100px;
+                gap: 30px;
             }
 
             .btn-evt {
-                background-color: #AEEA94;
+                background-color: #00FF9C;
                 color: black;
                 margin-left: 10px;
             }
 
             .btn-evt:hover {
-                background-color: #AEEA94;
+                background-color: #00FF9C;
                 color: black;
             }
 
