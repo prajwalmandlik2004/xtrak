@@ -8,9 +8,53 @@
     ])
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="d-flex">
                 <div class="p-2 flex-grow-1">
+
+                    <div class="button-group">
+                        <div class="button-group-left">
+                            <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDTvue</h5>
+                            <div class="one">
+                                <a href="{{ route('candidates.create') }}">
+                                    <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                </a>
+                            </div>
+                            <div class="two">
+                                <a href="/opplist">
+                                    <button type="button" class="btn btn-input">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewOPP" type="button" class="btn btn-input"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
+                                <a href="/cdtevtlist">
+                                    <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                </a>
+                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </div>
+                            <div class="two">
+                                <a href="/mcplist">
+                                    <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="three">
+                                <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
+                                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                                </button>
+                                <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                <a href="/landing">
+                                    <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
                     <a href="{{ route('candidates.create') }}" class="btn "><i class="ri-add-line align-bottom me-1"></i>
                         Saisir des candidats via formulaire</a>
 
@@ -183,7 +227,7 @@
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
-                            <thead style="background:yellow;" class="text-black sticky-top">
+                            <thead class="t-color text-black sticky-top">
                                 <tr>
                                     <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
@@ -314,7 +358,7 @@
         </div><!-- end row -->
 
 
-         <div style="margin-top:-30%;" class="modal fade" id="cdtModal" tabindex="-1">
+        <div style="margin-top:-30%;" class="modal fade" id="cdtModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
                 <div class="modal-content cdt-modal-content">
                     <div class="cdt-modal-header">
@@ -328,37 +372,6 @@
                         </div>
                         <div class="cdt-message"></div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        
-
-        <div class="button-group">
-            <div class="button-group-left">
-                <div class="one">
-                    <a href="{{ route('candidates.create') }}">
-                        <button type="button" class="btn btn-cdt">NewCDT</button>
-                    </a>
-                </div>
-                <div class="two">
-                    <button onclick="coming()" type="button" class="btn btn-input">OPPlist</button>
-                    <button id="linkNewCDT" type="button" class="btn btn-input"> > New</button>
-                </div>
-                <div class="one">
-                    <button type="button" class="btn btn-evt">EVTlist</button>
-                    <button type="button" class="btn btn-evt"> > New</button>
-                </div>
-                <div class="three">
-                    <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
-                        Supprimer
-                    </button>
-                </div>
-                <div class="four">
-                    <button type="button" class="btn btn-save">Save</button>
-                    <a href="/landing">
-                        <button type="button" class="btn btn-close1">Close</button>
-                    </a>
                 </div>
             </div>
         </div>
@@ -391,7 +404,6 @@
                 }
             });
         });
-
 
         function toggleCertificate(index) {
             var hiddenCertificate = document.getElementById('hidden-certificate-' + index);
@@ -681,8 +693,22 @@
         }
     </script>
     @endpush
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .btn-mcp {
+            background-color: #7D0A0A;
+            color: white;
+        }
+
+        .t-color{
+        background-color: yellow;
+        }
+
+        .btn-mcp:hover {
+            background-color: #7D0A0A;
+            color: white;
+        }
+
         .button-group {
             display: flex;
             justify-content: space-between;
@@ -693,7 +719,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 100px;
+            gap: 60px;
         }
 
         .btn-evt {
@@ -754,7 +780,8 @@
             color: white;
         }
 
-         .cdt-modal-dialog {
+
+        .cdt-modal-dialog {
             max-width: 300px;
         }
 
