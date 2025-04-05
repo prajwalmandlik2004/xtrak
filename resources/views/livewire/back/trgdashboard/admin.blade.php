@@ -8,7 +8,61 @@
         <div style="margin-bottom:-20px; margin-top:-10px;" class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
-                    <h4><strong>TRGvue</strong></h4>
+
+                    <div class="button-group-main">
+                        <div class="button-group-left-main">
+                            <h5 style="margin-left:-22px; background-color:#DBDBDB; border-radius:5px; color:black;padding:12px;margin-top:-2px">TRGvue</h5>
+                            <a href="/trgform">
+                                <button style="background:#DBDBDB;color:black;" type="button" class="btn btn-close1">TRG <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </a>
+                            <div class="two">
+                                <a href="/trgopplist">
+                                    <button type="button" class="btn btn-opp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewOPP" type="button" class="btn btn-opp"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
+                                <a href="/trgevtlist">
+                                    <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                </a>
+                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </div>
+                            <div class="two">
+                                <a href="/ctclist">
+                                    <button type="button" class="btn btn-ctc">CTC <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewCDT" type="button" class="btn btn-ctc"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="two">
+                                <a href="/mcplist">
+                                    <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="two">
+                                <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
+                                    {{ empty($selectedRows) ? '' : '' }}>
+                                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                                    <!-- <span class="badge bg-light text-dark ms-1">{{ count($selectedRows) }}</span> -->
+                                </button>
+                                <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                <a href="/landing">
+                                    <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -199,6 +253,7 @@
         <div class="d-flex justify-content-end mt-3">
             {{ $data->links() }}
         </div>
+
 
 
 
@@ -399,40 +454,8 @@
 
 
         <div class="card-footer">
-
-            <div class="button-group-main">
-                <div class="button-group-left-main">
-                    <a href="/trgform">
-                        <button style="background:#999;color:white;" type="button" class="btn btn-close1">New TRG</button>
-                    </a>
-                    <div class="two">
-                        <button onclick="coming()" type="button" class="btn btn-opp">OPPlist</button>
-                        <button id="linkNewOPP" type="button" class="btn btn-opp">New</button>
-                    </div>
-                    <div class="two">
-                        <button onclick="coming()" type="button" class="btn btn-input">CTClist</button>
-                        <button id="linkNewCDT" type="button" class="btn btn-input">New</button>
-                    </div>
-                    <div class="one"> <button onclick="coming()" type="button" class="btn btn-evt">EVTlist</button>
-                        <button type="button" class="btn btn-evt" onclick="openModal()">New</button>
-                    </div>
-<!--                     <button style="background:#F93827;" wire:click="" class="btn btn-danger" id="delete-button-container">
-                        Supprimer
-                    </button> -->
-             
-                    <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
-                        {{ empty($selectedRows) ? 'disabled' : '' }}>
-                        Suppress
-<!--                         <span class="badge bg-light text-dark ms-1">{{ count($selectedRows) }}</span> -->
-                    </button>
-                    <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
-                    <a href="/landing">
-                        <button type="button" class="btn btn-close1">Close</button>
-                    </a>
-                </div>
-            </div>
-
         </div>
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
             .btn-evt {
@@ -443,6 +466,34 @@
             .btn-evt:hover {
                 background-color: #F9C0AB;
                 color: black;
+            }
+
+            .btn-ctc {
+                background-color: #06D001;
+                color: black;
+            }
+
+            .btn-ctc:hover {
+                background-color: #06D001;
+                color: black;
+            }
+
+            .btn-mcp {
+                background-color: #7D0A0A;
+                color: white;
+            }
+
+            .btn-mcp:hover {
+                background-color: #7D0A0A;
+                color: white;
+            }
+
+            .btn-danger {
+                background-color: red;
+            }
+
+            .btn-danger:hover {
+                background-color: red;
             }
 
             .btn-opp {
@@ -465,7 +516,7 @@
                 color: white;
             }
 
-/*             .modal-content {
+            /* .modal-content {
                 background: none;
                 border-radius: 8px;
                 width: 300px;
@@ -493,6 +544,7 @@
                 border-radius: 2px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
+
 
             .modal-header {
                 margin-bottom: 5px;
@@ -753,7 +805,6 @@
                 font-size: 14px;
             }
 
-            
             .cdt-modal-dialog {
                 max-width: 300px;
                 z-index: 1050;
@@ -856,6 +907,25 @@
             alert("Coming Soon 🛑");
         }
 
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     const linkNewCDT = document.getElementById('linkNewCDT');
+        //     const cdtModal = new bootstrap.Modal(document.getElementById('cdtModal'));
+        //     const okButton = document.getElementById('okButton');
+        //     const cdtCodeInput = document.getElementById('cdtCode');
+
+        //     linkNewCDT.addEventListener('click', function() {
+        //         cdtModal.show();
+        //     });
+
+        //     okButton.addEventListener('click', function() {
+        //         const code = cdtCodeInput.value.trim();
+        //         if (code) {
+        //             console.log('CDT Code submitted:', code);
+        //             cdtModal.hide();
+        //             cdtCodeInput.value = '';
+        //         }
+        //     });
+        // });
 
         let currentlyVisibleCertificateIndex = null;
 
