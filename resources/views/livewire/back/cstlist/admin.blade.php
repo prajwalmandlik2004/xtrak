@@ -8,28 +8,37 @@
         <div style="margin-bottom:-20px; margin-top:-10px;" class="col-md-12">
             <div class="d-flex align-items-center">
                 <div class="p-1">
-                    <h4 style="background-color:#00FF9C; padding:12px; width:100%; margin-bottom:0;"><strong>CSTlist</strong></h4>
+                    <div class="button-group-main">
+                        <div class="button-group-left-main">
+                            <h5 style="margin-left:-22px; background-color:#00FF9C; border-radius:5px; color:black;padding:12px;margin-top:-2px">CSTlist</h5>
+                            <a href="/cstform">
+                                <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1">CST <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </a>
+                            <div class="two">
+                                <a href="">
+                                    <button type="button" class="btn btn-opp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewOPP" type="button" class="btn btn-opp"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
+                                <a href="">
+                                    <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                </a>
+                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </div>
+                            <div class="three">
+                                <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                                </button>
+                                <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                <a href="/landing">
+                                    <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-1">
-                    <label for="trgcode">TRGcode</label>
-                    <input type="text" id="trgcode" class="form-control">
-                </div>
-                <div class="p-1">
-                    <label for="company-name">Company name</label>
-                    <input type="text" id="company-name" class="form-control">
-                </div>
-                <div class="p-1">
-                    <label for="ctc-prenom">CTC Prénom</label>
-                    <input type="text" id="ctc-prenom" class="form-control">
-                </div>
-                <div class="p-1">
-                    <label for="ctc-nom">CTC Nom</label>
-                    <input type="text" id="ctc-nom" class="form-control">
-                </div>
-                <div class="p-1">
-                    <label for="ctc-fonction">CTC Fonction</label>
-                    <input type="text" id="ctc-fonction" class="form-control">
-                </div>
+
             </div>
         </div>
 
@@ -324,34 +333,24 @@
 
         <div class="card-footer mb-2">
 
-            <div class="button-group-main">
-                <div class="button-group-left-main">
-                    <a href="/ctcform">
-                        <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1"> NewCST </button>
-                    </a>
-                    <div class="one"> 
-                        <button onclick="coming()" type="button" class="btn btn-evt">EVTlist</button>
-                        <button type="button" class="btn btn-evt" onclick="openModal()"> > New</button>
-                    </div>
-                    <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
-                        Suppress
-                    </button>
-                    <div class="three">
-                        <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
-                        <a href="/landing">
-                            <button type="button" class="btn btn-close1">Close</button>
-                        </a>
-                        <!-- <button id="export-button" onclick="exportSelectedCandidates()" type="button" class="btn btn-close1" onclick="closeModal()"> <i class="ri-file-download-line me-1"></i>Exporter <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                <span class="visually-hidden">Exportation...</span>
-                            </span>
-                        </button> -->
-                    </div>
-                </div>
-            </div>
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            .btn-opp {
+                background-color: #614BC3;
+                color: white;
+            }
+
+            .btn-opp:hover {
+                background-color: #614BC3;
+                color: white;
+            }
+
+            .btn-danger {
+                background-color: red;
+            }
+
+
             .button-group-main {
                 display: flex;
                 justify-content: space-between;
@@ -362,7 +361,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 190px;
+                gap: 100px;
             }
 
             .large-checkbox {
@@ -690,7 +689,7 @@
                 font-size: 14px;
             }
 
-            .evt-button i {
+            t-button i {
                 font-size: 14px;
             }
         </style>
