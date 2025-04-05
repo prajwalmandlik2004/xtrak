@@ -30,26 +30,70 @@
                             C.R.E
                         </a>
                     </li>
-                    <li class="nav-item">
-                            <a style="font-weight:bold;" class="nav-link"
-                                href="/evts">
-                                Hiring
-                            </a>
-                    </li>
                 </ul> -->
 
 
                 <div class="tab-content text-muted">
                     <div class="tab-pane fade  {{ $step == 1 ? 'show active' : '' }}" id="info" role="tabpanel">
+
                         <form wire:submit.prevent="storeCandidateData()">
                             @csrf
                             <div class="card-header">
                                 <div class="d-flex">
                                     <div class="p-2 flex-grow-1">
 
-                                        <h1 style="margin-left:38px; font-size:1.5rem;background:yellow;width:18%;padding:10px;text-align:center" class="mb-0 card-title ">
+                                        <!-- <h1 style="margin-left:38px; font-size:1.5rem;background:yellow;width:18%;padding:10px;text-align:center" class="mb-0 card-title ">
                                             {{ $action == 'create' ? "CDTform" : "CDTform" }}
-                                        </h1>
+                                        </h1> -->
+
+
+
+                                        <div class="button-group-main">
+                                            <div class="button-group-left-main">
+                                                <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDTform</h5>
+                                                <div class="one">
+                                                    <a href="/cdtevtlist">
+                                                        <button type="button" class="btn btn-evtmain">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                                    </a>
+                                                    <button type="button" class="btn btn-evtmain" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                                </div>
+                                                <div class="two">
+                                                    <a href="/opplist">
+                                                        <button type="button" class="btn btn-validmain">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                                    </a>
+                                                    <button id="linkNewOPP" type="button" class="btn btn-validmain"><i class="fas fa-link"></i></button>
+                                                </div>
+                                                <div class="two">
+                                                    <a href="/mcplist">
+                                                        <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                                    </a>
+                                                    <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                                                </div>
+                                                <div class="one">
+                                                    <a href="">
+                                                        <button type="button" class="btn"><i class="fa-regular fa-envelope fa-2x"></i></button>
+                                                    </a>
+                                                    <button style="color:red;" type="button" class="btn" onclick="openModal()"><i class="fa-solid fa-phone fa-2x"></i></button>
+                                                </div>
+                                                <div class="three">
+                                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                                    <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
+                                                        <i class="fa-regular fa-trash-can fa-lg"></i>
+                                                    </button>
+                                                    <button style="background-color:#00CCDD;color:white;" wire:loading.remove wire:target="storeCandidateData" type="submit"
+                                                        class="btn"><i class="fa-regular fa-floppy-disk fa-lg"></i>
+                                                        {{ $action == 'create' ? '' : '' }}</button>
+                                                    <button wire:loading wire:target="storeCandidateData" type="button"
+                                                        class="save btn btn-primary" disabled>
+                                                        <span class="spinner-border spinner-border-sm" role="status"
+                                                            aria-hidden="true"></span>
+                                                    </button>
+                                                    <a href="/landing">
+                                                        <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                     {{-- @if (!$action == 'update')
@@ -57,10 +101,10 @@
                                             <a href="{{ Route('import.candidat') }}" class="btn btn-primary">Uplodad</a>
                                 </div>
                                 @endif --}}
-                                <div class="p-2">
+                                <!-- <div class="p-2">
                                     <a wire:click='resetForm' class="btn btn-danger"></i>Effacer</a>
-                                </div>
-                                <div class="p-2">
+                                </div> -->
+                                <!-- <div class="p-2">
                                     <button wire:click.prevent="storeCandidateData2" wire:loading.remove wire:target="storeCandidateData2" type="button"
                                         class="save btn btn-success btn-label right ms-auto nexttab"><i
                                             class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
@@ -72,7 +116,7 @@
                                             aria-hidden="true"></span>
                                         Saving...
                                     </button>
-                                </div>
+                                </div> -->
                                 <div class="p-2">
                                     {{-- <a href="{{ url()->previous() }}" class="btn btn-primary"><i
                                         class="mdi mdi-arrow-left me-1"></i>
@@ -82,8 +126,8 @@
                                     Base
                                     @endif
                                     </a> --}}
-                                    <a href="/dashboard" class="btn btn-secondary me-1 ms-5"><i
-                                            class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Base' : 'Base et terminer' }}</a>
+                                    <!-- <a href="/dashboard" class="btn btn-secondary me-1 ms-5"><i
+                                            class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Base' : 'Base et terminer' }}</a> -->
                                 </div>
 
                             </div>
@@ -598,103 +642,6 @@
                     </div>
                 </div>
 
-
-                <!-- <div id="evtModal" class="modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2>CDT_EVTform</h2>
-                        </div>
-                        <div class="icons-row">
-                            <div class="icon-item">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="icon-item">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="icon-item">
-                                <i class="fas fa-pen"></i>
-                            </div>
-                            <div class="icon-item">
-                                <i class="fas fa-desktop"></i>
-                            </div>
-                            <div class="icon-item">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
-                        <div class="status-buttons">
-                            <button class="status-btn">OCC</button>
-                            <button class="status-btn">NRP</button>
-                            <button class="status-btn">NRJ</button>
-                            <button class="status-btn">WRN</button>
-                            <button class="status-btn">NHS</button>
-                        </div>
-
-                        <div id="evtForm">
-                            <div class="form-row">
-                                <div class="form-group date-field">
-                                    <label>Date</label>
-                                    <input type="date" class="form-control1" value="">
-                                </div>
-                                <div class="form-group type-field">
-                                    <label>Type</label>
-                                    <input type="text" class="form-control1" value="Call">
-                                </div>
-                                <div class="form-group io-field">
-                                    <label>I/O</label>
-                                    <input type="text" class="form-control1" value="Out">
-                                </div>
-                                <div class="form-group objet-field">
-                                    <label>Objet</label>
-                                    <input type="text" class="form-control1">
-                                </div>
-                                <div class="form-group retour-field">
-                                    <label>Retour</label>
-                                    <input type="text" class="form-control1">
-                                </div>
-                                <div class="form-group statut-field">
-                                    <label>Statut</label>
-                                    <input type="text" class="form-control1">
-                                </div>
-                            </div>
-
-                            <div class="comment-section">
-                                <div class="form-group comment-field">
-                                    <label>Comment</label>
-                                    <textarea class="form-control2"></textarea>
-                                </div>
-                                <div class="right-section">
-                                    <div class="next-ech-row">
-                                        <div class="form-group next-field">
-                                            <label>Next1</label>
-                                            <input type="text" class="form-control1">
-                                        </div>
-                                        <div class="form-group ech-field">
-                                            <label>Ech1</label>
-                                            <input type="text" class="form-control1">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Note1</label>
-                                        <textarea class="form-control1"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="button-group">
-                                <div class="button-group-left">
-                                    <button type="button" class="btn btn-input">Input</button>
-                                    <button type="button" class="btn btn-valid">Valid</button>
-                                    <button type="button" class="btn btn-erase" onclick="eraseForms()">Erase</button>
-                                    <button type="button" class="btn btn-historique">Historique</button>
-                                </div>
-                                <div class="button-group-right">
-                                    <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
                 <div id="evtModal" class="modal-one">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -833,7 +780,7 @@
 
 
                 <div class="card-footer">
-                    <div class="d-flex justify-content-end">
+                    <!-- <div class="d-flex justify-content-end">
                         <button wire:loading.remove wire:target="storeCandidateData" type="submit"
                             class="save btn btn-success btn-label right ms-auto nexttab"><i
                                 class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
@@ -845,33 +792,10 @@
                                 aria-hidden="true"></span>
                             Saving...
                         </button>
-                    </div>
+                    </div> -->
                 </div>
                 </form>
-                <div class="button-group-main">
-                    <div class="button-group-left-main">
-                        <div class="four">
-                            <button type="button" class="btn btn-call">Call</button>
-                            <button type="button" class="btn btn-sendmail">Send Mail</button>
-                        </div>
-                        <div class="one">
-                            <button type="button" class="btn btn-evtmain">EVTlist</button>
-                            <button type="button" class="btn btn-evtmain" onclick="openModal()"> > New</button>
-                        </div>
-                        <div class="two">
-                            <button type="button" class="btn btn-validmain">OPPlist</button>
-                            <a href="/opportunity">
-                                <button type="button" class="btn btn-validmain"> > New</button>
-                            </a>
-                        </div>
-                        <div class="three">
-                            <button type="button" class="btn btn-erase" wire:click='resetForm'>Erase</button>
-                            <a href="/landing">
-                                <button type="button" class="btn btn-close1">Close</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- <div style="margin-right:30%; margin-top:-4%; margin-bottom:10px;" class="d-flex justify-content-end">
                     <button style="background:black; border:none;" wire:loading.remove wire:target="" type="submit"
@@ -926,10 +850,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                            <a style="font-weight:bold;" class="nav-link"
-                                href="/evts">
-                                Hiring
-                            </a>
+                        <a style="font-weight:bold;" class="nav-link"
+                            href="/evts">
+                            Hiring
+                        </a>
                     </li>
                 </ul>
                 <div class="col-sm-12">
@@ -1155,10 +1079,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                            <a style="font-weight:bold;" class="nav-link"
-                                href="/evts">
-                                Hiring
-                            </a>
+                        <a style="font-weight:bold;" class="nav-link"
+                            href="/evts">
+                            Hiring
+                        </a>
                     </li>
                 </ul>
                 <div class="col-sm-12">
@@ -1287,11 +1211,23 @@
     </div>
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
+    .btn-mcp {
+        background-color: #7D0A0A;
+        color: white;
+    }
 
-    .save{
+    .btn-mcp:hover {
+        background-color: #7D0A0A;
+        color: white;
+    }
+
+
+    .save {
         background-color: #06D001;
     }
+
     .btn-evtmain {
         background-color: #F9C0AB;
         color: black;
@@ -1528,7 +1464,7 @@
     .button-group-main {
         display: flex;
         justify-content: space-between;
-        margin-top: -55px;
+        /* margin-top: -55px; */
         margin-bottom: 20px;
         margin-left: 50px;
         padding: 0 20px;
@@ -1536,7 +1472,7 @@
 
     .button-group-left-main {
         display: flex;
-        gap: 80px;
+        gap: 40px;
     }
 
     .button-group {
