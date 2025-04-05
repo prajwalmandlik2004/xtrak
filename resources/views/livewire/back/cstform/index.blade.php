@@ -386,7 +386,7 @@
         }
 
         .btn-valid {
-            background-color: #3D3BF3;
+            background-color: #00CCDD;
             color: white;
         }
 
@@ -401,7 +401,7 @@
         }
 
         .btn-valid:hover {
-            background-color: #3D3BF3;
+            background-color: #00CCDD;
             color: white;
         }
 
