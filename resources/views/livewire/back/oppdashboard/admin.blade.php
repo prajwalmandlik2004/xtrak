@@ -8,7 +8,49 @@
         <div class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
-                    <h4><strong>OPPvue</strong></h4>
+
+                    <div class="button-group-main">
+                        <div class="button-group-left-main">
+                            <h5 style="margin-left:-22px; background-color:#6F61C0; border-radius:5px; color:white;padding:12px;margin-top:-2px">OPPvue</h5>
+                            <a href="/opportunity">
+                                <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </a>
+                            <div class="one">
+                                <a href="/management">
+                                    <button type="button" class="btn btn-inputmain">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                </a>
+                                <button id="linkNewCDT" type="button" class="btn btn-inputmain"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
+                                <a href="/opplist">
+                                    <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                </a>
+                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </div>
+                            <div class="two">
+                                <a href="/cstlist">
+                                    <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="two">
+                                <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
+                                    {{ empty($selectedRows) ? '' : '' }}>
+                                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                                    <!-- <span class="badge bg-light text-dark ms-1">{{ count($selectedRows) }}</span> -->
+                                </button>
+                                <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                <a href="/landing">
+                                    <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
                     <span class="font-size-20 me-5">
                         Période : <strong> Last 7 days </strong>
                     </span>
@@ -48,7 +90,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input id="selectionButton" type="checkbox"  class="large-checkbox">
+                                <input id="selectionButton" type="checkbox" class="large-checkbox">
                             </td>
 
                             <td>
@@ -224,46 +266,9 @@
 
 
         <div class="card-footer">
-            <div class="button-group-main">
-                <div class="button-group-left-main">
-                    <a href="/opportunity">
-                        <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">NewOPP</button>
-                    </a>
-                    <div class="one">
-                        <a href="/management">
-                            <button type="button" class="btn btn-inputmain">CDTlist</button>
-                        </a>
-                        <button id="linkNewCDT" type="button" class="btn btn-inputmain"> > New</button>
-                    </div>
-                    <div class="one">
-                        <button type="button" class="btn btn-evt">EVTlist</button>
-                        <button type="button" class="btn btn-evt" onclick="openModal()"> > New</button>
-                    </div>
-<!--                     <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
-                        Suppress
-                    </button> -->
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
-                            {{ empty($selectedRows) ? 'disabled' : '' }}>
-                            Suppress
-<!--                             <span class="badge bg-light text-dark ms-1">{{ count($selectedRows) }}</span> -->
-                        </button>
-                    </div>
-                    <div class="three">
-                        <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
-                        <a href="/landing">
-                            <button type="button" class="btn btn-close1">Close</button>
-                        </a>
-<!--                         <button id="export-button" onclick="exportSelectedCandidates()" type="button" class="btn btn-close1" onclick="closeModal()"> <i class="ri-file-download-line me-1"></i>Exporter <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                <span class="visually-hidden">Exportation...</span>
-                            </span>
-                        </button> -->
-                    </div>
-                </div>
-            </div>
-        </div>
 
+        </div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
             .button-group-main {
                 display: flex;
@@ -275,7 +280,21 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 100px;
+                gap: 70px;
+            }
+
+            .btn-danger {
+                background-color: red;
+            }
+
+            .btn-cst {
+                background-color: #15F5BA;
+                color: black;
+            }
+
+            .btn-cst:hover {
+                background-color: #15F5BA;
+                color: black;
             }
 
             .btn-evt {
