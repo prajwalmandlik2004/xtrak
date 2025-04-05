@@ -17,30 +17,46 @@
                             <div class="card-header">
                                 <div class="d-flex">
                                     <div class="p-2 flex-grow-1">
-                                        <h2 class="mb-0 card-head">
+                                        <!-- <h2 class="mb-0 card-head">
                                             {{ $action == 'create' ? "FormOPP" : "FormOPP" }}
-                                        </h2>
-                                    </div>
-                                    <div class="p-2">
-                                        <a style="background:#33BBC5; border:none;" wire:click='resetForm' class="btn btn-danger"></i>+ Nouveau</a>
-                                    </div>
-                                    <div class="p-2">
-                                        <button wire:click.prevent="" wire:loading.remove wire:target="" type="button"
-                                            class="btn btn-danger">
-                                            {{ $action == 'create' ? 'Supprimer' : 'Supprimer' }}</button>
+                                        </h2> -->
 
-                                        <button wire:loading wire:target="storeCandidateData2" type="button"
-                                            class="btn btn-primary" disabled>
-                                            <span class="spinner-border spinner-border-sm" role="status"
-                                                aria-hidden="true"></span>
-                                            Supprimer
-                                        </button>
-                                    </div>
-                                    <div class="p-2">
-                                        <a href="/oppdashboard" class="btn btn-secondary me-1 ms-5"><i
-                                                class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Vue' : 'Vue' }}</a>
-                                    </div>
 
+                                        <div class="button-group">
+                                            <div class="button-group-left">
+                                                <h5 style="margin-left:-22px; background-color:#6F61C0; border-radius:5px; color:white;padding:12px;margin-top:-2px">OPPform</h5>
+                                                <a href="/opportunity">
+                                                    <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                                </a>
+                                                <div class="two">
+                                                    <a href="/cstlist">
+                                                        <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                                    </a>
+                                                    <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
+                                                </div>
+                                                <div class="one">
+                                                    <a href="/management">
+                                                        <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                                    </a>
+                                                    <button id="linkNewCDT" type="button" class="btn btn-cdt"><i class="fas fa-link"></i></button>
+                                                </div>
+                                                <div class="one">
+                                                    <a href="/opplist">
+                                                        <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                                    </a>
+                                                    <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                                </div>
+                                                <div class="three">
+                                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                                    <button style="background-color:red;color:white;" type="button" class="btn" wire:click="resetForm"><i class="fa-regular fa-trash-can fa-lg"></i></button>
+                                                    <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                                    <a href="/landing">
+                                                        <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
 
@@ -58,12 +74,12 @@
                                         F.P.
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
                                         href="/management">
                                         CDTlist
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                         href="/evts">
@@ -73,7 +89,7 @@
                                 <li class="nav-item">
                                     <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                                         data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
-                                        Facturation
+                                        Invoicing
                                     </a>
                                 </li>
 
@@ -210,6 +226,9 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+
+
+
 
                                                 <div class="mt-2 col-lg-2 ">
                                                     <div>
@@ -661,7 +680,7 @@
                                                 <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
                                                 <button type="button" class="cdt-ok-btn" id="okButton">OK</button>
                                             </div>
-                                            <div class="cdt-message">("message")</div>
+                                            <div class="cdt-message">("message CDT")</div>
                                         </div>
                                     </div>
                                 </div>
@@ -689,33 +708,10 @@
 
 
 
-                            <div class="button-group">
-                                <div class="button-group-left">
-                                    <div class="two">
-                                        <button onclick="coming()" type="button" class="btn btn-inputmain">CSTlist</button>
-                                        <button type="button" class="btn btn-inputmain"> > New</button>
-                                    </div>
-                                    <div class="two">
-                                        <a href="/management">
-                                            <button type="button" class="btn btn-cdt">CDTlist</button>
-                                        </a>
-                                        <button id="linkNewCDT" type="button" class="btn btn-cdt"> > New</button>
-                                    </div>
-                                    <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
-                                        <button type="button" class="btn btn-evt"> > New</button>
-                                    </div>
-                                    <div class="three">
-                                        <button type="button" class="btn btn-erase" wire:click="resetForm">Erase</button>
-                                        <button type="submit" onclick="confirm()" class="btn btn-valid">{{ $isEditing ? 'Update' : 'Save' }}</button>
-                                        <a href="/landing">
-                                            <button type="button" class="btn btn-close1">Close</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
                     </div>
 
                     </form>
+
 
                     <!-- end tab pane -->
 
@@ -919,19 +915,19 @@
                                     </div>
 
 
-                                    <div class="modal fade" id="cdtModal" tabindex="-1">
+                                    <div class="modal fade" id="cstModal" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
                                             <div class="modal-content cdt-modal-content">
                                                 <div class="cdt-modal-header">
-                                                    <span>Enter CDT code:</span>
+                                                    <span>Enter CST code:</span>
                                                     <button type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
                                                 </div>
                                                 <div class="cdt-modal-body">
                                                     <div class="cdt-input-group">
-                                                        <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
-                                                        <button type="submit" class="cdt-ok-btn" id="okButton">OK</button>
+                                                        <input type="text" class="cdt-input" id="cstCode" value="ADTGFHU">
+                                                        <button type="button" class="cdt-ok-btn" id="okButtonCST">OK</button>
                                                     </div>
-                                                    <div class="cdt-message">("message")</div>
+                                                    <div class="cdt-message">("message CST")</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1257,7 +1253,18 @@
             </div>
         </div>
     </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .btn-cst {
+            background-color: #15F5BA;
+            color: black;
+        }
+
+        .btn-cst:hover {
+            background-color: #15F5BA;
+            color: black;
+        }
+
         .button-group {
             display: flex;
             justify-content: space-between;
@@ -1267,7 +1274,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 150px;
+            gap: 60px;
         }
 
         .btn-close1 {
@@ -1825,6 +1832,7 @@
             padding: 2px 0;
         }
 
+
         .recruitment-table tbody tr.selected {
             background-color: lightblue;
             cursor: pointer;
@@ -1960,12 +1968,12 @@
 @push('page-script')
 <script>
     setTimeout(function() {
-            var successAlert = document.getElementById('successAlert');
-            if (successAlert) {
-                successAlert.style.display = 'none';
-            }
+        var successAlert = document.getElementById('successAlert');
+        if (successAlert) {
+            successAlert.style.display = 'none';
+        }
     }, 5000);
-    
+
     document.addEventListener("input", function(event) {
         if (event.target.tagName.toLowerCase() !== "textarea") return;
         autoResize(event.target);
@@ -1976,13 +1984,14 @@
         textarea.style.height = (textarea.scrollHeight) + "px";
     }
 
-    function confirm(){
-        alert("Form Submitted Successfully ✅");
+    function confirm() {
+        alert("Form Submitted Successfully ✅")
     }
 
     function coming() {
         alert("CSTlist Coming Soon 🛑")
     }
+
 
     function handleFeeTypeChange() {
         const feeType = document.getElementById('feeType').value;
@@ -1996,6 +2005,7 @@
             execFeeInput.value = parseInt(execFeeInput.value) || 0;
         }
     }
+
 
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -2097,6 +2107,25 @@
                 console.log('CDT Code submitted:', code);
                 cdtModal.hide();
                 cdtCodeInput.value = '';
+            }
+        });
+
+
+        const newCST = document.getElementById('newCST');
+        const cstModal = new bootstrap.Modal(document.getElementById('cstModal'));
+        const okButtonCST = document.getElementById('okButtonCST');
+        const cstCodeInput = document.getElementById('cstCode');
+
+        newCST.addEventListener('click', function() {
+            cstModal.show();
+        });
+
+        okButtonCST.addEventListener('click', function() {
+            const code = cstCodeInput.value.trim();
+            if (code) {
+                console.log('CST Code submitted:', code);
+                cstModal.hide();
+                cstCodeInput.value = '';
             }
         });
 
