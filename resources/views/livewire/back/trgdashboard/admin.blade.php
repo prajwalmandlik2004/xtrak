@@ -217,7 +217,7 @@
                                 <tr wire:key="row-{{ $item->id }}"
                                     wire:click="toggleSelect({{ $item->id }})"
                                     wire:dblclick="editRow({{ $item->id }})"
-                                    class="{{ in_array($item->id, $selectedRows) ? 'table-primary' : '' }}"
+                                    class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }}"
                                     style="cursor: pointer;">
                                     <td>{{ $item->creation_date }}</td>
                                     <td>{{ $item->company }}</td>
@@ -458,6 +458,11 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            .select-row {
+                background-color: #37AFE1 !important;
+            }
+
+            
             .btn-evt {
                 background-color: #F9C0AB;
                 color: black;
