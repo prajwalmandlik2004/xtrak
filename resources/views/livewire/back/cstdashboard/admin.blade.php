@@ -193,7 +193,7 @@
                                 <tr wire:key="row-{{ $item->id }}"
                                     wire:click="toggleSelect({{ $item->id }})"
                                     wire:dblclick="editRow({{ $item->id }})"
-                                    class="{{ in_array($item->id, $selectedRows) ? 'table-primary' : '' }}"
+                                    class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }}"
                                     style="cursor: pointer;">
                                     <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
@@ -384,6 +384,10 @@
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            .select-row {
+                background-color: #37AFE1 !important;
+            }
+            
             .btn-opp {
                 background-color: #614BC3;
                 color: white;
