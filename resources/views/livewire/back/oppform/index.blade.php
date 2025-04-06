@@ -35,7 +35,7 @@
                                                     <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
                                                 </div>
                                                 <div class="one">
-                                                    <a href="/management">
+                                                    <a href="/opplist">
                                                         <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                                     </a>
                                                     <button id="linkNewCDT" type="button" class="btn btn-cdt"><i class="fas fa-link"></i></button>
