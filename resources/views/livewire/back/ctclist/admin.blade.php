@@ -12,7 +12,7 @@
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:#00FF9C; border-radius:5px; color:black;padding:12px;margin-top:-2px">CTClist</h5>
                             <a href="/ctcform">
-                                <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
                             <div class="two">
                                 <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
@@ -127,6 +127,10 @@
                                 <tr>
                                     <th style="width:30px;background-color: #00FF9C;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             wire:model="selectAll"></th>
+                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #00FF9C;">
+                                        Date
+                                    </th>
+                                    <th class="libe_col" scope="col" style="background-color: #00FF9C;">Company</th>
                                     <th class="cpdpt_col" scope="col" style="background-color: #00FF9C;">Civ</th>
                                     <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #00FF9C;">
                                         First Name
@@ -134,7 +138,10 @@
                                     <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #00FF9C;">
                                         Last Name
                                     </th>
-                                    <th class="ville_col" scope="col" style="background-color: #00FF9C;">Function</th>
+                                    <th class="ville_col" scope="col" style="background-color: #00FF9C;">Title</th>
+                                    <th class="ref_col" scope="col" style="background-color: #00FF9C;">Standard</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #00FF9C;">Ext</th>
+                                    <th class="reg_col" scope="col" style="background-color:#00FF9C;">DL</th>
                                     <th class="remark_col" scope="col" style="background-color: #00FF9C;">Cell</th>
                                     <th class="statut_col" scope="col" style="background-color: #00FF9C;">Mail</th>
                                 </tr>
@@ -153,6 +160,11 @@
                                     <td>{{ $item->function_ctc }}</td>
                                     <td>{{ $item->cell }}</td>
                                     <td>{{ $item->mail }}</td> -->
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
