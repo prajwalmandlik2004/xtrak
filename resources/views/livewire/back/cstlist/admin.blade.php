@@ -124,17 +124,21 @@
                                 <tr>
                                     <th style="width:30px;background-color: #00FF9C;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             wire:model="selectAll"></th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #00FF9C;">Trigram</th>
-                                    <th class="ville_col" scope="col" style="background-color: #00FF9C;">Qual.</th>
-                                    <th class="ville_col" scope="col" style="background-color: #00FF9C;">Civ</th>
+                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #00FF9C;">
+                                        Date
+                                    </th>
+                                    <th class="libe_col" scope="col" style="background-color: #00FF9C;">Code</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #00FF9C;">Civ</th>
                                     <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #00FF9C;">
                                         First Name
                                     </th>
                                     <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #00FF9C;">
                                         Last Name
                                     </th>
-                                    <th class="remark_col" scope="col" style="background-color: #00FF9C;">Cell</th>
-                                    <th class="statut_col" scope="col" style="background-color: #00FF9C;">Mail</th>
+                                    <th class="ville_col" scope="col" style="background-color: #00FF9C;">Mail</th>
+                                    <th class="ref_col" scope="col" style="background-color: #00FF9C;">Phone</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #00FF9C;">Status</th>
+                                    <th class="reg_col" scope="col" style="background-color:#00FF9C;">Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -151,6 +155,8 @@
                                     <td>{{ $item->function_ctc }}</td>
                                     <td>{{ $item->cell }}</td>
                                     <td>{{ $item->mail }}</td> -->
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
