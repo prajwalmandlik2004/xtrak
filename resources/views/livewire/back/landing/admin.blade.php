@@ -248,6 +248,7 @@
             'SGPD' => ['url' => '/sgpd', 'enabled' => false],
             ],
             'List (Testing)' => [
+            'CDTlist' => ['url' => '/management', 'enabled' => true],
             'CTClist' => ['url' => '/ctclist', 'enabled' => true],
             'CSTlist' => ['url' => '/cstlist', 'enabled' => true],
             'MCPlist' => ['url' => '/mcplist', 'enabled' => true],
