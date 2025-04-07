@@ -8,7 +8,7 @@
     ])
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-15">
             <div class="d-flex">
                 <div class="p-2 flex-grow-1">
 
@@ -36,18 +36,36 @@
                                 <a href="/mcplist">
                                     <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
-                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                                <tyleclas id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
+                                <a href="">
+                                    <button type="button" class="btn"><i class="fa-regular fa-envelope fa-2x"></i></button>
+                                </a>
+                                <button style="color:red;" type="button" class="btn" onclick="openModal()"><i class="fa-solid fa-phone fa-2x"></i></button>
                             </div>
                             <div class="three">
                                 <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
                                     <i class="fa-regular fa-trash-can fa-lg"></i>
                                 </button>
                             </div>
-                            <div class="">
+                            <div class="four">
+                                <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+
                                 <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
                                 <a href="/landing">
                                     <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
                                 </a>
+                            </div>
+                            <div id="exporter">
+                                <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
+                                    <i class="ri-file-download-line me-1"></i>
+                                    <span class="download-text">Exporter</span>
+                                    <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Exportation...</span>
+                                    </span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -86,15 +104,21 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col" style="width:100px">Effacer</th>
-                            <th scope="col">Recherche</th>
+                            <th scope="col">Rech.</th>
                             <!-- <th scope="col">Select</th> -->
-                            <th scope="col">N lignes</th>
-                            <th scope="col">Auteur</th>
-                            <th scope="col">Etat</th>
-                            <th scope="col">Statut</th>
-                            <th scope="col">Société</th>
+                            <th scope="col">Aut.</th>
+                            <!-- <th scope="col">N lignes</th> -->
+                            <th scope="col">Prenom</th>
+                            <th scope="col">Nom</th>
                             <th scope="col">Fonction</th>
                             <th scope="col">CP/Dpt</th>
+
+                            <th scope="col">Etat</th>
+                            <th scope="col">Statut</th>
+                            <!-- <th scope="col">Société</th> -->
+                            <th scope="col">Dispo.</th>
+
+
                             <th scope="col">CV</th>
                             <th scope="col">CRE</th>
                         </tr>
@@ -113,15 +137,7 @@
                                 <input type="text" class="form-control" placeholder="Select" wire:model.live='search'>
                                
                             </td> -->
-                            <td>
-                                <select class="form-control w-md" wire:model.live='nbPaginate'>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30" selected>30</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </td>
+
                             <td>
                                 <select class="form-control w-md" wire:model.live='users_id'>
                                     <option value="" class="bg-secondary text-white" selected>
@@ -134,6 +150,30 @@
                                     @endforeach
                                 </select>
                             </td>
+                            <!-- <td>
+                                    <select class="form-control w-md" wire:model.live='nbPaginate'>
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30" selected>30</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </td> -->
+
+                            <td>
+                                <input type="text" class="form-control" placeholder="Prenom" wire:model.live='first_name'>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="Nom" wire:model.live='last_name'>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="Fonction..." wire:model.live='position'>
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
+                            </td>
+
                             <td>
                                 <select class="form-control w-md" wire:model.live='candidate_state_id'>
                                     <option value="" class="bg-secondary text-white" selected>
@@ -157,17 +197,15 @@
 
                                 </select>
                             </td>
+                            <!-- <td>
+                                    <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+
+                                </td> -->
                             <td>
-                                <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+                                <input type="text" class="form-control" placeholder="Dispo." wire:model.live='disponibility'>
 
                             </td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="Fonction..." wire:model.live='position'>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
 
-                            </td>
                             <td>
                                 <select class="form-control w-md" wire:model.live='cvFileExists'>
                                     <option value="" selected>Selectionner</option>
@@ -195,7 +233,7 @@
                 <div class="card-header">
                     <div class="d-flex">
                         <div class="me-3">
-                            <button type="button" class="btn btn-outline-dark" id="selectionButton">
+                            <button style="display:none;" type="button" class="btn btn-outline-dark" id="selectionButton">
                                 <i class="bi bi-check-square-fill"></i> Sélection
                             </button>
                         </div>
@@ -205,27 +243,18 @@
                             <i class="bi bi-check-square"></i> Désélection
                             </button>
                         </div> -->
-                        <div class="flex-grow-1 text-center">
+                        <!-- <div class="flex-grow-1 text-center">
                             <h4 class="card-title fw-bold fs-2">
                                 CDTvue
                             </h4>
-                        </div>
+                        </div> -->
                         <!-- verifier si la personne authentifiée n'est pas manager avant d'afficher le bouton -->
                         @if (!auth()->user()->hasRole('Manager'))
-                        <div id="exporter">
-                            <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
-                                <i class="ri-file-download-line me-1"></i>
-                                <span class="download-text">Exporter</span>
-                                <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Exportation...</span>
-                                </span>
-                            </button>
-                        </div>
+
                         @endif
                     </div>
                 </div>
-                <div class="card-body">
+                <div style="margin-top:-3%" class="card-body">
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -697,13 +726,23 @@
     @endpush
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .btn-erase {
+            background-color: #ff5722;
+            color: white;
+        }
+
+        .btn-erase:hover {
+            background-color: #ff5722;
+            color: white;
+        }
+
         .btn-mcp {
             background-color: #7D0A0A;
             color: white;
         }
 
-        .t-color{
-        background-color: yellow;
+        .t-color {
+            background-color: yellow;
         }
 
         .btn-mcp:hover {
@@ -721,7 +760,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 60px;
+            gap: 10px;
         }
 
         .btn-evt {
