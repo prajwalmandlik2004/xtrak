@@ -3,83 +3,77 @@
     {{-- créer par MAHAMADOU ALI AdbDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
-    'title' => auth()->user()->hasRole('Manager') ? 'FormOPP' : 'FormOPP',
+    'title' => auth()->user()->hasRole('Manager') ? '' : '',
     'breadcrumbItems' => [['text' => 'Views', 'url' => '#'] , ['text' => 'OPPvue', 'url' => '#'] , ['text' => 'OPPform', 'url' => '#']],
     ])
 
     <div class="row">
         <div class="col-md-12">
-
-              <div class="table-responsive">
-                <table class="table table-nowrap">
-                    <thead>
-                        <tr class="text-left">
-                            <th style="width:80px;" scope="col">Civ.</th>
-                            <th style="width:150px;" aria-activedescendant="" scope="col">First Name</th>
-                            <th style="width:150px;" class="select-cpdpt" scope="col">Last Name</th>
-                            <th style="width:200px;" aria-controls="" scope="col">Title</th>
-                            <th style="width:150px;" scope="col">CDT Code</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" placeholder="" wire:model.live='civ'>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="" wire:model.live='first_name'>
-
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="" wire:model.live='last_name'>
-
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="" wire:model.live='fonction'>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="" wire:model.live='cdt_code'>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            
-            <div class="card">
-                <div class="card-header">
-                    <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'enabled' : '' }}"
-                                href="/opportunity">
-                                Description
+            <div class="cards">
+                <div class="button-group">
+                    <div class="button-group-left">
+                        <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDTlist</h5>
+                        <div class="">
+                            <label for="trgcode">OPPcode</label>
+                        </div>
+                        <div class="">
+                            <label for="ctc-prenom">Libellé poste</label>
+                        </div>
+                        <div class="">
+                            <label for="ctc-nom">Société</label>
+                        </div>
+                        <!-- <div class="one">
+                            <a href="{{ route('candidates.create') }}">
+                                <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                href="/job">
-                                F.P.
+                        </div> -->
+                        <!-- <div class="two">
+                            <a href="/opplist">
+                                <button type="button" class="btn btn-input">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
-                                data-bs-toggle="tab" href="/management" role="tab">
-                                CDTlist
+                            <button id="linkNewOPP" type="button" class="btn btn-input"><i class="fas fa-link"></i></button>
+                        </div> -->
+                        <div class="one">
+                            <a href="/cdtevtlist">
+                                <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
-                                href="/evts">
-                                Hiring
+                            <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                        </div>
+                        <div class="two">
+                            <a href="/mcplist">
+                                <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
-                                href="/opportunity#invoicement">
-                                Facturation
+                            <tyleclas id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                        </div>
+                        <div class="one">
+                            <a href="">
+                                <button type="button" class="btn"><i class="fa-regular fa-envelope fa-2x"></i></button>
                             </a>
-                        </li>
-                    </ul>
+                            <button style="color:red;" type="button" class="btn" onclick="openModal()"><i class="fa-solid fa-phone fa-2x"></i></button>
+                        </div>
+                        <div class="three">
+                            <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
+                                <i class="fa-regular fa-trash-can fa-lg"></i>
+                            </button>
+                        </div>
+                        <div class="four">
+                            <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                            <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                            <a href="/landing">
+                                <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                            </a>
+                        </div>
+                        <div id="exporter">
+                            <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
+                                <i class="ri-file-download-line me-1"></i>
+                                <span class="download-text">Exporter</span>
+                                <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Exportation...</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -115,31 +109,175 @@
                     @endif
                 </div>
             </div>
+
+            <div class="col-md-12 mt-4 mb-3">
+                <div class="table-responsive">
+                    <h5 class="mb-0">Filtrage</h5>
+                    <table class="table table-bordered border-secondary table-nowrap">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col" style="width:100px">Effacer</th>
+                                <th scope="col">Rech.</th>
+                                <!-- <th scope="col">Select</th> -->
+                                <th scope="col">Aut.</th>
+                                <!-- <th scope="col">N lignes</th> -->
+                                <th scope="col">Prenom</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Fonction</th>
+                                <th scope="col">CP/Dpt</th>
+
+                                <th scope="col">Etat</th>
+                                <th scope="col">Statut</th>
+                                <!-- <th scope="col">Société</th> -->
+                                <th scope="col">Dispo.</th>
+
+
+                                <th scope="col">CV</th>
+                                <th scope="col">CRE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-danger ms-4" wire:click="resetFilters">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
+                                </td>
+                                <!-- <td>
+                                <input type="text" class="form-control" placeholder="Select" wire:model.live='search'>
+                               
+                            </td> -->
+
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='users_id'>
+                                        <option value="" class="bg-secondary text-white" selected>
+                                            Auteur
+                                        </option>
+                                        <option value="" selected>Tous</option>
+                                        @foreach ($users as $user)
+                                        <option value="{{ $user->id }}"> {{ $user->trigramme }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <!-- <td>
+                                    <select class="form-control w-md" wire:model.live='nbPaginate'>
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30" selected>30</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </td> -->
+
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Prenom" wire:model.live='first_name'>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Nom" wire:model.live='last_name'>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Fonction..." wire:model.live='position'>
+                                </td>
+
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
+                                </td>
+
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='candidate_state_id'>
+                                        <option value="" class="bg-secondary text-white" selected>
+                                            Selectionner
+                                        </option>
+                                        <option value="" selected>Tous</option>
+                                        @foreach ($candidateStates as $candidateState)
+                                        <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='candidate_statut_id'>
+                                        <option value="" selected> Statut</option>
+                                        @foreach ($candidateStatuses as $candidateStatus)
+                                        <option value="{{ $candidateStatus->id }}" selected>
+                                            {{ $candidateStatus->name }}
+                                        </option>
+                                        @endforeach
+
+                                    </select>
+                                </td>
+                                <!-- <td>
+                                    <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+
+                                </td> -->
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Dispo." wire:model.live='disponibility'>
+
+                                </td>
+
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                        <option value="" selected>Selectionner</option>
+                                        <option value="1">Oui</option>
+                                        <option value="0">Non</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control w-md" wire:model.live='creFileExists'>
+                                        <option value="" selected>Selectionner</option>
+                                        <option value="1">Oui</option>
+                                        <option value="0">Non</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table
                         class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
-                        <thead style="background-color: #D8D9DA;" class="text-black sticky-top">
+                        <thead style="background-color: yellow;" class="text-black sticky-top">
                             <tr>
                                 <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                         style="display:none;" wire:model="selectAll"></th>
                                 <th scope="col" wire:click="sortBy('updated_at')">
                                     Date MAJ
                                 </th>
-                                <th scope="col">CodeCDT</th>
+                                <th scope="col">Aut</th>
                                 <th scope="col">Civ</th>
                                 <th scope="col" wire:click="sortBy('first_name')">
                                     Prénom
                                 </th>
-                                <th style="width:150px;" scope="col" wire:click="sortBy('last_name')">
+                                <th scope="col" wire:click="sortBy('last_name')">
                                     Nom
                                 </th>
                                 <th scope="col">Fonction</th>
-                                <th scope="col">Dispo.</th>
-                                <th scope="col">Délai</th>
-                                <th scope="col">Statut</th>
-                                <th scope="col">Next step</th>
+                                <!-- <th scope="col">Société</th> -->
+                                <th scope="col">Tél</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">CP/Dpt</th>
+                                <!-- <th scope="col">Ville</th>
+                                    <th scope="col">Pays</th> -->
+                                <th scope="col">Etat</th>
 
+                                <th scope="col">Disponibilité</th>
+                                <!-- <th scope="col">Etat</th> -->
+                                <th scope="col">Next step</th>
+                                <!-- <th scope="col">NSdate</th> -->
+                                <th scope="col">CV</th>
+                                <th scope="col">CRE</th>
+                                <th scope="col">Statut</th>
+                                <th scope="col">Commentaire</th>
+                                <th scope="col">Description</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -151,18 +289,27 @@
                                     <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}"
                                         style="display:none;pointer-events: none;" wire:model="checkboxes.{{ $candidate->id }}">
                                 </td>
-                                <td>{{ \Carbon\Carbon::parse($candidate->updated_at)->format('d/m/y') ?? '--' }}</td>
-                                <td>{{ $candidate->code_cdt ?? '--' }}</td>
-                                <!-- <td>{{ $candidate->auteur->trigramme ?? '--' }}</td> -->
-                                <td>{{ $candidate->civ->name ?? '--' }}</td>
-                                <td>{{ $candidate->first_name ?? '--' }}</td>
-                                <td id="Lcol">{{ $candidate->last_name ?? '--' }}</td>
-                                <td id="Lcol">{{ $candidate->position->name ?? '--' }}</td>
-                                <td>{{ $candidate->disponibility->name ?? '--' }}</td>
-                                <td>{{ $candidate->delai->name ?? '--' }}</td>
-                                <td>{{ $candidate->candidateStatut->name ?? '--' }}</td>
-                                <td>{{ $candidate->nextStep->name ?? '--' }}</td>
 
+                                
+
+                                    
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
 
                             @empty
@@ -203,33 +350,104 @@
         </div>
     </div>
 
-    <div class="card-footer mb-4">
-          <div class="d-flex justify-content-end">
-<!--             <button style="background:yellow; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-success link-btn">
-                CDTlist</button> -->
-            <button style="background:yellow; border:none; color:#000; margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-success link-btn" id="linkNewCDT">
-                New </button>
-            <button style="background-color:red; margin-left:5%;" wire:click="" class="btn btn-danger" id="delete-button-container">
-                UNLINK
-            </button>
-            <button style="background:#F9C0AB; color:black; border:none;margin-left:5%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-danger">
-                EVTlist</button>
-            <button style="background:#F9C0AB; color:black; border:none;margin-left:1%;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-danger">
-                > New</button>
-            <button style="background:#010066; color:white; border:none;" wire:loading.remove wire:target="storeCandidateData" type="submit"
-                class="btn btn-success btn-label right ms-auto nexttab"><i
-                    class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>
-                Close</button>
-        </div>
-
-
-    </div>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .btn-mcp {
+            background-color: #7D0A0A;
+            color: white;
+        }
+
+        .btn-erase {
+            background-color: #ff5722;
+            color: white;
+        }
+
+        .btn-erase:hover {
+            background-color: #ff5722;
+            color: white;
+        }
+
+        .t-color {
+            background-color: yellow;
+        }
+
+        .btn-mcp:hover {
+            background-color: #7D0A0A;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1%;
+            margin-bottom: 1%;
+            padding: 0 20px;
+        }
+
+        .button-group-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-evt {
+            background-color: #F9C0AB;
+            color: black;
+            margin-left: 10px;
+        }
+
+        .btn-evt:hover {
+            background-color: #F9C0AB;
+            color: black;
+        }
+
+        .btn-cdt {
+            background-color: yellow;
+            color: black;
+            margin-left: 10px;
+        }
+
+        .btn-cdt:hover {
+            background-color: yellow;
+            color: black;
+        }
+
+        .btn-save {
+            background-color: #4CC9FE;
+            color: black;
+            margin-left: 10px;
+        }
+
+        .btn-save:hover {
+            background-color: #4CC9FE;
+            color: black;
+        }
+
+
+
+        .btn-input {
+            background-color: #6F61C0;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .btn-input:hover {
+            background-color: #6F61C0;
+            color: white;
+        }
+
+
+        .btn-close1 {
+            background-color: #000080;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .btn-close1:hover {
+            background-color: #000080;
+            color: white;
+        }
+
+
         .cdt-modal-dialog {
             max-width: 300px;
         }
