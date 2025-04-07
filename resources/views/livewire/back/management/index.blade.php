@@ -13,14 +13,19 @@
                 <div class="button-group">
                     <div class="button-group-left">
                         <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDTlist</h5>
-                        <div class="">
-                            <label for="trgcode">OPPcode</label>
+                        <div class="mt-1">
+                            <!-- <label for="trgcode">OPPcode</label> -->
+                            <input style="width:70px; padding:5px;" type="text" placeholder="OPPcode"></input>
                         </div>
-                        <div class="">
-                            <label for="ctc-prenom">Libellé poste</label>
+                        <div class="mt-1">
+                            <!-- <label for="ctc-prenom">Libellé poste</label> -->
+                            <input style="width:95px;padding:5px;" type="text" placeholder="Libellé poste"></input>
+
                         </div>
-                        <div class="">
-                            <label for="ctc-nom">Société</label>
+                        <div class="mt-1">
+                            <!-- <label for="ctc-nom">Société</label> -->
+                            <input style="width:60px;padding:5px;" type="text" placeholder="Société"></input>
+
                         </div>
                         <!-- <div class="one">
                             <a href="{{ route('candidates.create') }}">
@@ -112,11 +117,12 @@
 
             <div class="col-md-12 mt-4 mb-3">
                 <div class="table-responsive">
-                    <h5 class="mb-0">Filtrage</h5>
+                    <!-- <h5 class="mb-0">Filtrage</h5> -->
                     <table class="table table-bordered border-secondary table-nowrap">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col" style="width:100px">Effacer</th>
+                                <th class="select-filter" cope="col">Select</th>
+
                                 <th scope="col">Rech.</th>
                                 <!-- <th scope="col">Select</th> -->
                                 <th scope="col">Aut.</th>
@@ -134,15 +140,16 @@
 
                                 <th scope="col">CV</th>
                                 <th scope="col">CRE</th>
+                                <th scope="col" style="width:100px;">Effacer</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+
                                 <td>
-                                    <button class="btn btn-danger ms-4" wire:click="resetFilters">
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
+                                    <input id="selectionButton" type="checkbox" class="large-checkbox">
                                 </td>
+
                                 <td>
                                     <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
                                 </td>
@@ -184,7 +191,7 @@
                                 </td>
 
                                 <td>
-                                    <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
+                                    <input type="text" class="form-control" placeholder="CP/Dpt" wire:model.live='cp'>
                                 </td>
 
                                 <td>
@@ -192,7 +199,7 @@
                                         <option value="" class="bg-secondary text-white" selected>
                                             Selectionner
                                         </option>
-                                        <option value="" selected>Tous</option>
+                                        <option value="" selected>Etat</option>
                                         @foreach ($candidateStates as $candidateState)
                                         <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
                                         </option>
@@ -221,17 +228,22 @@
 
                                 <td>
                                     <select class="form-control w-md" wire:model.live='cvFileExists'>
-                                        <option value="" selected>Selectionner</option>
+                                        <option value="" selected>CV</option>
                                         <option value="1">Oui</option>
                                         <option value="0">Non</option>
                                     </select>
                                 </td>
                                 <td>
                                     <select class="form-control w-md" wire:model.live='creFileExists'>
-                                        <option value="" selected>Selectionner</option>
+                                        <option value="" selected>CRE</option>
                                         <option value="1">Oui</option>
                                         <option value="0">Non</option>
                                     </select>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger ms-4" wire:click="resetFilters">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -286,13 +298,11 @@
                                 class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}"
                                 wire:dblclick.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
                                 <td class="checkbox-cell">
-                                    <input type="checkbox" class="candidate-checkbox" value="{{ $candidate->id }}"
-                                        style="display:none;pointer-events: none;" wire:model="checkboxes.{{ $candidate->id }}">
+                                    <input type="checkbox" class="candidate-checkbox"
+                                        style="display:none;pointer-events: none;">
                                 </td>
 
-                                
-
-                                    
+                               
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -309,7 +319,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td></td> 
                             </tr>
 
                             @empty
@@ -352,6 +362,18 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .large-checkbox {
+            width: 20px;
+            height: 30px;
+            cursor: pointer;
+            margin-top: 3px;
+            margin-left: 10px;
+        }
+
+        .btn-danger {
+            background-color: red;
+        }
+
         .btn-mcp {
             background-color: #7D0A0A;
             color: white;
@@ -386,7 +408,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         .btn-evt {
