@@ -16,13 +16,13 @@
                                 <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
                             <div class="one">
-                                <a href="/opplist">
+                                <a href="/management">
                                     <button type="button" class="btn btn-inputmain">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
                                 <button id="linkNewCDT" type="button" class="btn btn-inputmain"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
-                                <a href="/opplist">
+                                <a href="">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
