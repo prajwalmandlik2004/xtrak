@@ -21,6 +21,12 @@
                                 </a>
                                 <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
                             </div>
+                            <div class="one">
+                                <a href="">
+                                    <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                </a>
+                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </div>
                             <div class="mb-3">
                                 <button type="button" class="btn btn-danger" wire:click="deleteSelected()">
                                     <i class="fa-regular fa-trash-can fa-lg"></i>
