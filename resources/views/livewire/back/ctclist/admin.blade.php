@@ -12,7 +12,7 @@
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:#00FF9C; border-radius:5px; color:black;padding:12px;margin-top:-2px">CTClist</h5>
                             <a href="/ctcform">
-                                <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
                             <div class="two">
                                 <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
