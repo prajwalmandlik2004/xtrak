@@ -5,10 +5,9 @@
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="{{ Route('dashboard') }}">Tableau de bord</a></li>
                     @isset($breadcrumbItems)
                         @foreach ($breadcrumbItems as $breadcrumb)
-<!--                             <li class="breadcrumb-item {{ Request::is($breadcrumb['url']) ? 'active' : '' }}"> -->
+                            <li class="breadcrumb-item {{ Request::is($breadcrumb['url']) ? 'active' : '' }}">
                                 @if (!empty($breadcrumb['url']))
                                     <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['text'] }}</a>
                                 @else
