@@ -4,12 +4,36 @@
     <!-- start page title -->
     @include('components.breadcrumb', [
     'title' => auth()->user()->hasRole('Manager') ? '' : '',
-    'breadcrumbItems' => [['text' => 'Views', 'url' => '#'] , ['text' => 'OPPvue', 'url' => '#'] , ['text' => 'OPPform', 'url' => '#']],
+    'breadcrumbItems' => [['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Views', 'url' => ''] ,['text' => 'CDTvue', 'url' => '/dashboard'] , ['text' => 'CDTlist', 'url' => '/management']],
     ])
 
     <div class="row">
         <div class="col-md-12">
             <div class="cards">
+
+                <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-4 d-flex justify-content-between">
+                    <div>
+                        <span class="font-size-14 me-5">
+                            Total candidats: <strong> {{ $candidates->total() }} {{ $candidates->total() > 1 ? 'candidats' : 'candidat' }} </strong>
+                        </span>
+                        <span class="font-size-14 ms-10">
+                            Total candidats certifiés: <strong> {{ $certifiedCandidatesCount }} </strong>
+                        </span>
+                        <span class="font-size-14 ms-5">
+                            Total candidats en attente: <strong> {{ $uncertifiedCandidatesCount }} </strong>
+                        </span>
+                    </div>
+                    <div>
+                        <a href="{{ route('trgopplist') }}" class="me-2 text-black {{ request()->routeIs('trgopplist.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                        <a href="{{ route('management') }}" class="mx-2  {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                        <a href="{{ route('opplist') }}" class="mx-2 text-black {{ request()->routeIs('opplist.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                        <a href="{{ route('mcplist') }}" class="mx-2 text-black {{ request()->routeIs('mcplist.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                        <a href="{{ route('ctclist') }}" class="mx-2 text-black {{ request()->routeIs('ctclist.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                        <a href="{{ route('management') }}" class="mx-2 text-black  {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                        <a href="{{ route('cstlist') }}" class="ms-2 text-black {{ request()->routeIs('cstlist.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                    </div>
+                </div>
+
                 <div class="button-group">
                     <div class="button-group-left">
                         <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDTlist</h5>
@@ -84,9 +108,9 @@
 
                 <div class="d-flex">
                     <div class="me-3">
-                        <button style="display:none;" type="button" class="btn btn-outline-dark" id="selectionButton">
+                        <!-- <button  type="button" class="btn btn-outline-dark" id="selectionButton">
                             <i class="bi bi-check-square-fill"></i> Sélection
-                        </button>
+                        </button> -->
                     </div>
 
                     <!-- <div class="me-3">
@@ -119,33 +143,9 @@
                 <div class="table-responsive">
                     <!-- <h5 class="mb-0">Filtrage</h5> -->
                     <table class="table table-bordered border-secondary table-nowrap">
-                        <thead>
-                            <tr class="text-center">
-                                <th class="select-filter" cope="col">Select</th>
 
-                                <th scope="col">Rech.</th>
-                                <!-- <th scope="col">Select</th> -->
-                                <th scope="col">Aut.</th>
-                                <!-- <th scope="col">N lignes</th> -->
-                                <th scope="col">Prenom</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Fonction</th>
-                                <th scope="col">CP/Dpt</th>
-
-                                <th scope="col">Etat</th>
-                                <th scope="col">Statut</th>
-                                <!-- <th scope="col">Société</th> -->
-                                <th scope="col">Dispo.</th>
-
-
-                                <th scope="col">CV</th>
-                                <th scope="col">CRE</th>
-                                <th scope="col" style="width:100px;">Effacer</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr>
-
                                 <td>
                                     <input id="selectionButton" type="checkbox" class="large-checkbox">
                                 </td>
@@ -159,7 +159,7 @@
                             </td> -->
 
                                 <td>
-                                    <select class="form-control w-md" wire:model.live='users_id'>
+                                    <select class="form-control" wire:model.live='users_id'>
                                         <option value="" class="bg-secondary text-white" selected>
                                             Auteur
                                         </option>
@@ -195,7 +195,7 @@
                                 </td>
 
                                 <td>
-                                    <select class="form-control w-md" wire:model.live='candidate_state_id'>
+                                    <select class="form-control" wire:model.live='candidate_state_id'>
                                         <option value="" class="bg-secondary text-white" selected>
                                             Selectionner
                                         </option>
@@ -207,7 +207,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select class="form-control w-md" wire:model.live='candidate_statut_id'>
+                                    <select class="form-control" wire:model.live='candidate_statut_id'>
                                         <option value="" selected> Statut</option>
                                         @foreach ($candidateStatuses as $candidateStatus)
                                         <option value="{{ $candidateStatus->id }}" selected>
@@ -227,14 +227,14 @@
                                 </td>
 
                                 <td>
-                                    <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                    <select class="form-control" wire:model.live='cvFileExists'>
                                         <option value="" selected>CV</option>
                                         <option value="1">Oui</option>
                                         <option value="0">Non</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <select class="form-control w-md" wire:model.live='creFileExists'>
+                                    <select class="form-control" wire:model.live='creFileExists'>
                                         <option value="" selected>CRE</option>
                                         <option value="1">Oui</option>
                                         <option value="0">Non</option>
@@ -302,7 +302,68 @@
                                         style="display:none;pointer-events: none;">
                                 </td>
 
-                               
+                                <td>{{ \Carbon\Carbon::parse($candidate->updated_at)->format('d/m/y') ?? '--' }}</td>
+                                <td>{{ $candidate->auteur->trigramme ?? '--' }}</td>
+                                <td>{{ $candidate->civ->name ?? '--' }}</td>
+                                <td>{{ $candidate->first_name ?? '--' }}</td>
+                                <td id="Lcol">{{ $candidate->last_name ?? '--' }}</td>
+                                <td id="Lcol">{{ $candidate->position->name ?? '--' }}</td>
+                                <!-- <td>{{ $candidate->compagny->name ?? '--' }}</td> -->
+                                <td>{{ $candidate->phone ?? '--' }}</td>
+                                <td>{{ $candidate->email ?? '--' }}</td>
+                                <td>{{ $candidate->postal_code ?? '--' }}</td>
+                                <!-- <td>{{ $candidate->city ?? '--' }}</td>
+                                    <td>{{ $candidate->country ?? '--' }}</td> -->
+                                @if($candidate->candidateState->name == 'Certifié')
+                                <td id="colState">
+                                    <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{$index}})">
+                                        <span id="hidden-certificate-{{ $index }}">Certifié</span>
+                                        <span id="visible-certificate-{{ $index }}" style="display: none;">{{ $candidate->certificate }}</span>
+                                    </span>
+                                    <div id="message-{{ $index }}" class="copy-message" style="display: none;"></div>
+                                </td>
+                                @else
+                                <td>
+                                    {{ $candidate->candidateState->name }}
+                                </td>
+                                @endif
+
+                                <td>{{ $candidate->disponibility->name ?? '--' }}</td>
+                                <!-- <td>{{ $candidate->candidateState->name ?? '--' }}</td> -->
+                                <td>{{ $candidate->nextStep->name ?? '--' }}</td>
+                                <!-- <td>{{ $candidate->nsDate->name ?? '--' }}</td> -->
+                                <td>
+                                    @if ($candidate->files()->exists())
+                                    @php
+                                    $cvFile = $candidate->files()->where('file_type', 'cv')->first();
+                                    @endphp
+
+                                    @if ($cvFile)
+                                    <a class="text-body" href="#"
+                                        wire:click.prevent="selectCandidateGoToCv('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
+                                    @else
+                                    n/a
+                                    @endif
+                                    @else
+                                    n/a
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if ($candidate->cres()->exists())
+                                    <a class="text-body " href="#"
+                                        wire:click.prevent="selectCandidateGoToCre('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
+                                    @else
+                                    n/a
+                                    @endif
+
+                                </td>
+                                <td>{{ $candidate->candidateStatut->name ?? '--' }}</td>
+                                <td>{{ $candidate->commentaire ?? '--' }}</td>
+                                <td>{{ $candidate->description ?? '--' }}</td>
+
+
+                                <!-- <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -318,8 +379,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td> 
+                                <td></td> -->
+
                             </tr>
 
                             @empty
@@ -402,7 +463,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 1%;
-            margin-bottom: 1%;
+            /* margin-bottom: 1%; */
             padding: 0 20px;
         }
 
