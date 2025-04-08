@@ -1,13 +1,43 @@
 <div>
     @include('components.breadcrumb', [
-    'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
-    'breadcrumbItems' => [['text' => 'OPPvue', 'url' => '#']],
+    'title' => auth()->user()->hasRole('Manager') ? '' : '',
+    'breadcrumbItems' => [['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Views', 'url' => ''] ,['text' => 'OPPvue', 'url' => '/oppdashboard']],
     ])
 
     <div class="row">
         <div class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
+
+                    <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-3 d-flex justify-content-between">
+                        <div>
+                            <span class="font-size-20 me-5">
+                                Période : <strong> Last 7 days </strong>
+                            </span>
+                            <span class="font-size-20 me-3">
+                                Total OPP en cours : <strong> {{ $data->total() }}</strong>
+                            </span>
+                            <span class="font-size-20  me-3">
+                                N cdt Présentés : <strong> {{ $presentedCount }} </strong>
+                            </span>
+                            <span class="font-size-20  me-3">
+                                N cdt en cours : <strong> {{ $inprogressCount }} </strong>
+                            </span>
+                            <span class="font-size-20  me-3">
+                                N cdt embauchés : <strong> {{ $hiredCount }} </strong>
+                            </span>
+                        </div>
+                        <div>
+                            <a href="{{ route('trgdashboard') }}" class="me-2 text-black {{ request()->routeIs('trgdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                            <a href="{{ route('oppdashboard') }}" class="mx-2  {{ request()->routeIs('oppdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                            <a href="{{ route('mcpdashboard') }}" class="mx-2 text-black {{ request()->routeIs('mcpdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                            <a href="{{ route('ctcdashboard') }}" class="mx-2 text-black {{ request()->routeIs('ctcdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black  {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                            <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                        </div>
+                    </div>
+
 
                     <div class="button-group-main">
                         <div class="button-group-left-main">
@@ -22,7 +52,7 @@
                                 <button id="linkNewCDT" type="button" class="btn btn-inputmain"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
-                                <a href="">
+                                <a href="/opplist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
@@ -51,30 +81,16 @@
 
 
 
-                    <span class="font-size-20 me-5">
-                        Période : <strong> Last 7 days </strong>
-                    </span>
-                    <span class="font-size-20 me-5">
-                        Total OPP en cours : <strong> {{ $data->total() }}</strong>
-                    </span>
-                    <span class="font-size-20 ms-5">
-                        N cdt Présentés : <strong> {{ $presentedCount }} </strong>
-                    </span>
-                    <span class="font-size-20 ms-5">
-                        N cdt en cours : <strong> {{ $inprogressCount }} </strong>
-                    </span>
-                    <span class="font-size-20 ms-5">
-                        N cdt embauchés : <strong> {{ $hiredCount }} </strong>
-                    </span>
+
                 </div>
             </div>
         </div>
 
-        <div class="col-md-12 mt-4 mb-3">
+        <div class="col-md-12 mt-1 mb-3">
             <div class="table-responsive">
-                <h5 class="mb-2">Filtrage</h5>
+                <!-- <h5 class="mb-2">Filtrage</h5> -->
                 <table class="table table-bordered border-secondary table-nowrap">
-                    <thead>
+                    <!-- <thead>
                         <tr class="text-center">
                             <th class="select-filter" cope="col">Select</th>
                             <th scope="col">Recherche</th>
@@ -86,10 +102,10 @@
                             <th scope="col">Remarque(s)</th>
                             <th scope="col" style="width:100px">Effacer</th>
                         </tr>
-                    </thead>
+                    </thead> -->
                     <tbody>
                         <tr>
-                            <td>
+                            <td style="width:10px;">
                                 <input id="selectionButton" type="checkbox" class="large-checkbox">
                             </td>
 
@@ -117,13 +133,13 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='position'>
+                                <input type="text" class="form-control" placeholder="CP/Dpt" wire:model.live='position'>
                             </td>
                             <td>
                                 <input type="text" class="form-control" placeholder="Remarque(s)" wire:model.live='remarks'>
                             </td>
-                            <td>
-                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
+                            <td style="width:10px;">
+                                <button class="btn btn-danger ms-2" wire:click="resetFilters">
                                     <i class="bi bi-x-lg"></i>
                                 </button>
                             </td>
@@ -174,7 +190,7 @@
                         @endif
                     </div>
                 </div>
-                <div style="margin-top:-1%;" class="card-body">
+                <div style="margin-top:-2%;" class="card-body">
                     @if (session()->has('message'))
                     <div style="width:23%;" class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('message') }}
@@ -210,7 +226,7 @@
                                 <tr wire:key="row-{{ $item->id }}"
                                     wire:click="toggleSelect({{ $item->id }})"
                                     wire:dblclick="editRow({{ $item->id }})"
-                                    class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }}"
+                                    class="{{ in_array($item->id, $selectedRows) ? 'table-primary' : '' }}"
                                     style="cursor: pointer;">
                                     <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
@@ -270,15 +286,11 @@
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
-            .select-row {
-                background-color: #37AFE1 !important;
-            }
-            
             .button-group-main {
                 display: flex;
                 justify-content: space-between;
-                margin-top: 15px;
-                margin-bottom: 10px;
+                margin-top: 5px;
+                margin-bottom: 2px;
                 padding: 0 20px;
             }
 
@@ -410,7 +422,7 @@
                 height: 30px;
                 cursor: pointer;
                 margin-top: 3px;
-                margin-left: 10px;
+                margin-left: 5px;
             }
 
             .select-filter {
