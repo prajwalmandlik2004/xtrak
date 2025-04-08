@@ -302,68 +302,8 @@
                                         style="display:none;pointer-events: none;">
                                 </td>
 
-                                <td>{{ \Carbon\Carbon::parse($candidate->updated_at)->format('d/m/y') ?? '--' }}</td>
-                                <td>{{ $candidate->auteur->trigramme ?? '--' }}</td>
-                                <td>{{ $candidate->civ->name ?? '--' }}</td>
-                                <td>{{ $candidate->first_name ?? '--' }}</td>
-                                <td id="Lcol">{{ $candidate->last_name ?? '--' }}</td>
-                                <td id="Lcol">{{ $candidate->position->name ?? '--' }}</td>
-                                <!-- <td>{{ $candidate->compagny->name ?? '--' }}</td> -->
-                                <td>{{ $candidate->phone ?? '--' }}</td>
-                                <td>{{ $candidate->email ?? '--' }}</td>
-                                <td>{{ $candidate->postal_code ?? '--' }}</td>
-                                <!-- <td>{{ $candidate->city ?? '--' }}</td>
-                                    <td>{{ $candidate->country ?? '--' }}</td> -->
-                                @if($candidate->candidateState->name == 'Certifié')
-                                <td id="colState">
-                                    <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{$index}})">
-                                        <span id="hidden-certificate-{{ $index }}">Certifié</span>
-                                        <span id="visible-certificate-{{ $index }}" style="display: none;">{{ $candidate->certificate }}</span>
-                                    </span>
-                                    <div id="message-{{ $index }}" class="copy-message" style="display: none;"></div>
-                                </td>
-                                @else
-                                <td>
-                                    {{ $candidate->candidateState->name }}
-                                </td>
-                                @endif
+                             
 
-                                <td>{{ $candidate->disponibility->name ?? '--' }}</td>
-                                <!-- <td>{{ $candidate->candidateState->name ?? '--' }}</td> -->
-                                <td>{{ $candidate->nextStep->name ?? '--' }}</td>
-                                <!-- <td>{{ $candidate->nsDate->name ?? '--' }}</td> -->
-                                <td>
-                                    @if ($candidate->files()->exists())
-                                    @php
-                                    $cvFile = $candidate->files()->where('file_type', 'cv')->first();
-                                    @endphp
-
-                                    @if ($cvFile)
-                                    <a class="text-body" href="#"
-                                        wire:click.prevent="selectCandidateGoToCv('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
-                                    @else
-                                    n/a
-                                    @endif
-                                    @else
-                                    n/a
-                                    @endif
-
-                                </td>
-                                <td>
-                                    @if ($candidate->cres()->exists())
-                                    <a class="text-body " href="#"
-                                        wire:click.prevent="selectCandidateGoToCre('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $candidate->cres()->exists() ? 'OK' : '--' }}</a>
-                                    @else
-                                    n/a
-                                    @endif
-
-                                </td>
-                                <td>{{ $candidate->candidateStatut->name ?? '--' }}</td>
-                                <td>{{ $candidate->commentaire ?? '--' }}</td>
-                                <td>{{ $candidate->description ?? '--' }}</td>
-
-
-                                <!-- <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -379,7 +319,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td> -->
+                                <td></td>
+                                <td></td>
 
                             </tr>
 
