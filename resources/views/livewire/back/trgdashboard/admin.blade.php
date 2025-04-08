@@ -1,13 +1,28 @@
 <div>
     @include('components.breadcrumb', [
-    'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
-    'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
+    'title' => auth()->user()->hasRole('Manager') ? '' : '',
+    'breadcrumbItems' => [['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Views', 'url' => ''] ,['text' => 'TRGvue', 'url' => '/trgdashboard']],
     ])
 
     <div class="row">
         <div style="margin-bottom:-20px; margin-top:-10px;" class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
+
+                    <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-3 d-flex justify-content-between">
+                        <div>
+
+                        </div>
+                        <div>
+                            <a href="{{ route('trgdashboard') }}" class="me-2 {{ request()->routeIs('trgdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                            <a href="{{ route('oppdashboard') }}" class="mx-2 text-black  {{ request()->routeIs('oppdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                            <a href="{{ route('mcpdashboard') }}" class="mx-2 text-black {{ request()->routeIs('mcpdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                            <a href="{{ route('ctcdashboard') }}" class="mx-2 text-black {{ request()->routeIs('ctcdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black  {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                            <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                        </div>
+                    </div>
 
                     <div class="button-group-main">
                         <div class="button-group-left-main">
@@ -69,9 +84,9 @@
 
         <div class="col-md-12 mt-4 mb-3">
             <div class="table-responsive">
-                <h5 class="mb-2">Filtrage</h5>
+                <!-- <h5 class="mb-2">Filtrage</h5> -->
                 <table class="table table-bordered border-secondary table-nowrap">
-                    <thead>
+                    <!-- <thead>
                         <tr class="text-center">
                             <th style="width:110px;" class="select-cpdpt" cope="col">Effacer</th>
                             <th scope="col">Recherche</th>
@@ -83,48 +98,46 @@
                             <th scope="col">NextStep</th>
                             <th scope="col">Prio</th>
                         </tr>
-                    </thead>
+                    </thead> -->
                     <tbody>
                         <tr>
-                            <!-- <td>
-                                <input id="selectionButton" type="checkbox" wire:model.live='select' class="large-checkbox" id="searchCheckbox">
-                            </td> -->
-                            <td>
-                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
+                            <td style="width:10px;">
+                                <input id="selectionButton" type="checkbox" class="large-checkbox">
                             </td>
 
                             <td>
                                 <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Company" wire:model.live='company'>
+                                <input type="text" class="form-control" placeholder="Company" wire:model.live='codeopp'>
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="CA" wire:model.live='ca'>
+                                <input type="text" class="form-control" placeholder="Prenom" wire:model.live='libelle'>
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='position'>
+                                <input type="text" class="form-control" placeholder="Nom" wire:model.live='company'>
+
                             </td>
                             <td>
-                                <input style="width:130px;" type="date" class="form-control" placeholder="date" wire:model.live='date'>
-                            </td>
-                            <td>
-                                <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                <select class="form-control w-md" wire:model.live='statut'>
                                     <option value="" selected>Selectionner</option>
-                                    <option value="1">Opened</option>
-                                    <option value="0">Closed</option>
-                                    <option value="1">Filled</option>
+                                    <option value="Open">Open</option>
+                                    <option value="Closed">Closed</option>
+                                    <option value="Filled">Filled</option>
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="NextStep" wire:model.live='nextstep'>
+                                <input type="text" class="form-control" placeholder="CP/Dpt" wire:model.live='position'>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Prio" wire:model.live='nextech'>
+                                <input type="text" class="form-control" placeholder="NextStep" wire:model.live='remarks'>
+                            </td>
+                            <td style="width:10px;">
+                                <button class="btn btn-danger ms-2" wire:click="resetFilters">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -173,7 +186,7 @@
                         @endif
                     </div>
                 </div>
-                <div style="margin-top:-1%;" class="card-body">
+                <div style="margin-top:-3%;" class="card-body">
                     @if (session()->has('message'))
                     <div style="width:23%;" class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('message') }}
@@ -458,11 +471,23 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+             .select-row {
+                background-color: #37AFE1 !important;
+            }
+
+            .large-checkbox {
+                width: 20px;
+                height: 30px;
+                cursor: pointer;
+                margin-top: 3px;
+                margin-left: 5px;
+            }
+
+
             .select-row {
                 background-color: #37AFE1 !important;
             }
 
-            
             .btn-evt {
                 background-color: #F9C0AB;
                 color: black;
