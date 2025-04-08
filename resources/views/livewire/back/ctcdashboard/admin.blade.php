@@ -1,18 +1,35 @@
 <div>
     @include('components.breadcrumb', [
-    'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
-    'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
+    'title' => auth()->user()->hasRole('Manager') ? '' : '',
+    'breadcrumbItems' => [['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Views', 'url' => ''] ,['text' => 'CTCvue', 'url' => '/ctcdashboard']],
     ])
 
     <div class="row">
         <div style="margin-bottom:-20px; margin-top:-10px;" class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
+
+                    <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-3 d-flex justify-content-between">
+                        <div>
+                        </div>
+                        <div>
+                            <a href="{{ route('trgdashboard') }}" class="me-2 text-black {{ request()->routeIs('trgdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                            <a href="{{ route('oppdashboard') }}" class="mx-2 text-black  {{ request()->routeIs('oppdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                            <a href="{{ route('mcpdashboard') }}" class="mx-2 text-black {{ request()->routeIs('mcpdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                            <a href="{{ route('ctcdashboard') }}" class="mx-2 {{ request()->routeIs('ctcdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black  {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                            <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                        </div>
+                    </div>
+
+
+
                     <div class="button-group-main">
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:#06D001; border-radius:5px; color:black;padding:12px;margin-top:-2px">CTCvue</h5>
                             <a href="/ctcform">
-                                <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">CTC  <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
                             <div class="two">
                                 <!-- <a href="/mcplist">
@@ -48,15 +65,20 @@
                         </div>
                     </div>
 
+
+
+
+
+
                 </div>
             </div>
         </div>
 
-        <div class="col-md-12 mt-4 mb-3">
+        <div class="col-md-12 mt-3 mb-3">
             <div class="table-responsive">
-                <h5 class="mb-2">Filtrage</h5>
+                <!-- <h5 class="mb-2">Filtrage</h5> -->
                 <table class="table table-bordered border-secondary table-nowrap">
-                    <thead>
+                    <!-- <thead>
                         <tr class="text-center">
                             <th class="select-filter" cope="col">Select</th>
                             <th scope="col">Recherche</th>
@@ -68,44 +90,44 @@
                             <th scope="col">Remarque(s)</th>
                             <th scope="col" style="width:100px">Effacer</th>
                         </tr>
-                    </thead>
+                    </thead> -->
                     <tbody>
                         <tr>
-                            <td>
-                                <input id="selectionButton" type="checkbox" wire:model='selectAll' class="large-checkbox" id="searchCheckbox">
+                            <td style="width:10px;">
+                                <input id="selectionButton" type="checkbox" class="large-checkbox">
                             </td>
 
                             <td>
                                 <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="CodeOPP" wire:model.live='codeopp'>
+                                <input type="text" class="form-control" placeholder="Company" wire:model.live='codeopp'>
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder=" Libellé poste" wire:model.live='libelle'>
+                                <input type="text" class="form-control" placeholder="Prenom" wire:model.live='libelle'>
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+                                <input type="text" class="form-control" placeholder="Nom" wire:model.live='company'>
 
                             </td>
                             <td>
-                                <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                <select class="form-control w-md" wire:model.live='statut'>
                                     <option value="" selected>Selectionner</option>
-                                    <option value="1">Opened</option>
-                                    <option value="0">Closed</option>
-                                    <option value="1">Filled</option>
+                                    <option value="Open">Open</option>
+                                    <option value="Closed">Closed</option>
+                                    <option value="Filled">Filled</option>
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='position'>
+                                <input type="text" class="form-control" placeholder="Standard" wire:model.live='position'>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Remarque(s)" wire:model.live='remarks'>
+                                <input type="text" class="form-control" placeholder="Mail" wire:model.live='remarks'>
                             </td>
-                            <td>
-                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
+                            <td style="width:10px;">
+                                <button class="btn btn-danger ms-2" wire:click="resetFilters">
                                     <i class="bi bi-x-lg"></i>
                                 </button>
                             </td>
@@ -158,7 +180,7 @@
                     </div>
                 </div>
 
-                <div style="margin-top:-2%;" class="card-body">
+                <div style="margin-top:-3%;" class="card-body">
                     @if (session()->has('message'))
                     <div style="width:23%;" class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('message') }}
@@ -170,8 +192,8 @@
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <th style="width:30px;background-color: #06D001;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            wire:model="selectAll"></th>
+                                    <!-- <th style="width:30px;background-color: #06D001;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                            wire:model="selectAll"></th> -->
                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #06D001;">
                                         Date
                                     </th>
@@ -199,10 +221,10 @@
                                     wire:dblclick="editRow({{ $item->id }})"
                                     class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }}"
                                     style="cursor: pointer;">
-                                    <td class="checkbox-cell">
+                                    <!-- <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
                                             style="display:none;pointer-events: none;">
-                                    </td>
+                                    </td> -->
                                     <td>{{ $item->date_ctc }}</td>
                                     <td>{{ $item->company_ctc }}</td>
                                     <td>{{ $item->civ }}</td>
@@ -394,7 +416,17 @@
             .select-row {
                 background-color: #37AFE1 !important;
             }
-            
+
+            .large-checkbox {
+                width: 20px;
+                height: 30px;
+                cursor: pointer;
+                margin-top: 3px;
+                margin-left: 5px;
+            }
+
+
+
             .btn-mcp {
                 background-color: #7D0A0A;
                 color: white;
@@ -414,7 +446,7 @@
                 background-color: #DBDBDB;
                 color: black;
             }
-            
+
 
             .btn-danger {
                 background-color: red;
@@ -430,7 +462,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 60px;
+                gap: 100px;
             }
 
             .large-checkbox {
