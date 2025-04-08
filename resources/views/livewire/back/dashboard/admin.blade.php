@@ -3,14 +3,36 @@
     {{-- créer par MAHAMADOU ALI AdbDOUL RAZAK +226 70147315 --}}
     <!-- start page title -->
     @include('components.breadcrumb', [
-    'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
-    'breadcrumbItems' => [['text' => 'CDTvue', 'url' => '#']],
+    'title' => auth()->user()->hasRole('Manager') ? '' : '',
+    'breadcrumbItems' => [['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Views', 'url' => ''] ,['text' => 'CDTvue', 'url' => '/dashboard']],
     ])
 
     <div class="row">
         <div class="col-md-15">
             <div class="d-flex">
                 <div class="p-2 flex-grow-1">
+                    <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-4 d-flex justify-content-between">
+                        <div>
+                            <span class="font-size-14 me-5">
+                                Total candidats: <strong> {{ $candidates->total() }} {{ $candidates->total() > 1 ? 'candidats' : 'candidat' }} </strong>
+                            </span>
+                            <span class="font-size-14 ms-10">
+                                Total candidats certifiés: <strong> {{ $certifiedCandidatesCount }} </strong>
+                            </span>
+                            <span class="font-size-14 ms-5">
+                                Total candidats en attente: <strong> {{ $uncertifiedCandidatesCount }} </strong>
+                            </span>
+                        </div>
+                        <div>
+                            <a href="{{ route('trgdashboard') }}" class="me-2 text-black {{ request()->routeIs('trgdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2  {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                            <a href="{{ route('oppdashboard') }}" class="mx-2 text-black {{ request()->routeIs('oppdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                            <a href="{{ route('mcpdashboard') }}" class="mx-2 text-black {{ request()->routeIs('mcpdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                            <a href="{{ route('ctcdashboard') }}" class="mx-2 text-black {{ request()->routeIs('ctcdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black  {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                            <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                        </div>
+                    </div>
 
                     <div class="button-group">
                         <div class="button-group-left">
@@ -75,61 +97,28 @@
 
 
 
-                    <a href="{{ route('candidates.create') }}" class="btn "><i class="ri-add-line align-bottom me-1"></i>
+                    <!-- <a href="{{ route('candidates.create') }}" class="btn "><i class="ri-add-line align-bottom me-1"></i>
                         Saisir des candidats via formulaire</a>
 
                     <a href="{{ route('import.candidat') }}" class="btn ms-5"><i
                             class="ri-add-line align-bottom me-1"></i>
-                        Uploader une base de candidats</a>
+                        Uploader une base de candidats</a> -->
                 </div>
 
             </div>
-            <div class="p-2 ms-3">
-                <span class="font-size-14 me-5">
-                    Total candidats: <strong> {{ $candidates->total() }} {{ $candidates->total() > 1 ? 'candidats' : 'candidat' }} </strong>
-                </span>
-                <span class="font-size-14 ms-10">
-                    Total candidats certifiés: <strong> {{ $certifiedCandidatesCount }} </strong>
-                </span>
-                <span class="font-size-14 ms-5">
-                    Total candidats en attente: <strong> {{ $uncertifiedCandidatesCount }} </strong>
-                </span>
-            </div>
+
         </div>
 
-        <div class="col-md-12 mt-4 mb-3">
+        <div class="col-md-12 mt-2 mb-1">
             <div class="table-responsive">
-                <h5 class="mb-0">Filtrage</h5>
+                <!-- <h5 class="mb-0">Filtrage</h5> -->
                 <table class="table table-bordered border-secondary table-nowrap">
-                    <thead>
-                        <tr class="text-center">
-                            <th scope="col" style="width:100px">Effacer</th>
-                            <th scope="col">Rech.</th>
-                            <!-- <th scope="col">Select</th> -->
-                            <th scope="col">Aut.</th>
-                            <!-- <th scope="col">N lignes</th> -->
-                            <th scope="col">Prenom</th>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Fonction</th>
-                            <th scope="col">CP/Dpt</th>
-
-                            <th scope="col">Etat</th>
-                            <th scope="col">Statut</th>
-                            <!-- <th scope="col">Société</th> -->
-                            <th scope="col">Dispo.</th>
-
-
-                            <th scope="col">CV</th>
-                            <th scope="col">CRE</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr>
                             <td>
-                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
+                                <input id="selectionButton" type="checkbox" class="large-checkbox">
                             </td>
+
                             <td>
                                 <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
                             </td>
@@ -139,7 +128,7 @@
                             </td> -->
 
                             <td>
-                                <select class="form-control w-md" wire:model.live='users_id'>
+                                <select class="form-control" wire:model.live='users_id'>
                                     <option value="" class="bg-secondary text-white" selected>
                                         Auteur
                                     </option>
@@ -171,15 +160,15 @@
                             </td>
 
                             <td>
-                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='cp'>
+                                <input type="text" class="form-control" placeholder="CP/Dpt" wire:model.live='cp'>
                             </td>
 
                             <td>
-                                <select class="form-control w-md" wire:model.live='candidate_state_id'>
+                                <select class="form-control" wire:model.live='candidate_state_id'>
                                     <option value="" class="bg-secondary text-white" selected>
                                         Selectionner
                                     </option>
-                                    <option value="" selected>Tous</option>
+                                    <option value="" selected>Etat</option>
                                     @foreach ($candidateStates as $candidateState)
                                     <option value="{{ $candidateState->id }}"> {{ $candidateState->name }}
                                     </option>
@@ -187,7 +176,7 @@
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control w-md" wire:model.live='candidate_statut_id'>
+                                <select class="form-control" wire:model.live='candidate_statut_id'>
                                     <option value="" selected> Statut</option>
                                     @foreach ($candidateStatuses as $candidateStatus)
                                     <option value="{{ $candidateStatus->id }}" selected>
@@ -207,18 +196,23 @@
                             </td>
 
                             <td>
-                                <select class="form-control w-md" wire:model.live='cvFileExists'>
-                                    <option value="" selected>Selectionner</option>
+                                <select class="form-control" wire:model.live='cvFileExists'>
+                                    <option value="" selected>CV</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control w-md" wire:model.live='creFileExists'>
-                                    <option value="" selected>Selectionner</option>
+                                <select class="form-control" wire:model.live='creFileExists'>
+                                    <option value="" selected>CRE</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -233,9 +227,9 @@
                 <div class="card-header">
                     <div class="d-flex">
                         <div class="me-3">
-                            <button style="display:none;" type="button" class="btn btn-outline-dark" id="selectionButton">
+                            <!-- <button style="display:none;" type="button" class="btn btn-outline-dark" id="selectionButton">
                                 <i class="bi bi-check-square-fill"></i> Sélection
-                            </button>
+                            </button> -->
                         </div>
 
                         <!-- <div class="me-3">
@@ -726,6 +720,14 @@
     @endpush
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .large-checkbox {
+            width: 20px;
+            height: 30px;
+            cursor: pointer;
+            margin-top: 3px;
+            margin-left: 10px;
+        }
+
         .btn-erase {
             background-color: #ff5722;
             color: white;
@@ -754,7 +756,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: -1%;
-            margin-bottom: 1%;
+            margin-left: -8px;
             padding: 0 20px;
         }
 
