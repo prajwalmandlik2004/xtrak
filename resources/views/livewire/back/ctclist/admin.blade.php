@@ -9,6 +9,7 @@
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
 
+
                     <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-4 d-flex justify-content-between">
                         <div>
                         </div>
@@ -28,9 +29,9 @@
 
                     <div class="button-group-main">
                         <div class="button-group-left-main">
-                            <h5 style="margin-left:-22px; background-color:#00FF9C; border-radius:5px; color:black;padding:12px;margin-top:-2px">CTClist</h5>
+                            <h5 style="margin-left:-22px; background-color:#06D001; border-radius:5px; color:black;padding:12px;margin-top:-2px">CTClist</h5>
                             <a href="/ctcform">
-                                <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
                             <div class="two">
                                 <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
@@ -143,25 +144,25 @@
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <!-- <th style="width:30px;background-color: #00FF9C;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                    <!-- <th style="width:30px;background-color: #06D001;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             wire:model="selectAll"></th> -->
-                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #00FF9C;">
+                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #06D001;">
                                         Date
                                     </th>
-                                    <th class="libe_col" scope="col" style="background-color: #00FF9C;">Company</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #00FF9C;">Civ</th>
-                                    <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #00FF9C;">
+                                    <th class="libe_col" scope="col" style="background-color: #06D001;">Company</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #06D001;">Civ</th>
+                                    <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #06D001;">
                                         First Name
                                     </th>
-                                    <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #00FF9C;">
+                                    <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #06D001;">
                                         Last Name
                                     </th>
-                                    <th class="ville_col" scope="col" style="background-color: #00FF9C;">Title</th>
-                                    <th class="ref_col" scope="col" style="background-color: #00FF9C;">Standard</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #00FF9C;">Ext</th>
-                                    <th class="reg_col" scope="col" style="background-color:#00FF9C;">DL</th>
-                                    <th class="remark_col" scope="col" style="background-color: #00FF9C;">Cell</th>
-                                    <th class="statut_col" scope="col" style="background-color: #00FF9C;">Mail</th>
+                                    <th class="ville_col" scope="col" style="background-color: #06D001;">Title</th>
+                                    <th class="ref_col" scope="col" style="background-color: #06D001;">Standard</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #06D001;">Ext</th>
+                                    <th class="reg_col" scope="col" style="background-color:#06D001;">DL</th>
+                                    <th class="remark_col" scope="col" style="background-color: #06D001;">Cell</th>
+                                    <th class="statut_col" scope="col" style="background-color: #06D001;">Mail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -446,13 +447,13 @@
             }
 
             .btn-inputmain {
-                background-color: #00FF9C;
+                background-color: #06D001;
                 color: white;
                 margin-left: 10px;
             }
 
             .btn-inputmain:hover {
-                background-color: #00FF9C;
+                background-color: #06D001;
                 color: white;
             }
 
