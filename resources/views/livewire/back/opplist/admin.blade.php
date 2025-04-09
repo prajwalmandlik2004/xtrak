@@ -1,27 +1,45 @@
 <div>
     @include('components.breadcrumb', [
-    'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
-    'breadcrumbItems' => [['text' => 'OPPvue', 'url' => '#']],
+    'title' => auth()->user()->hasRole('Manager') ? '' : '',
+    'breadcrumbItems' => [['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Views', 'url' => ''] ,['text' => 'CDTvue', 'url' => '/dashboard'] , ['text' => 'CDT_OPPlist', 'url' => '/opplist']],
     ])
 
     <div class="row">
         <div class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
+
+                    <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-4 d-flex justify-content-between">
+                        <div>
+                        </div>
+                        <div>
+                            <a href="{{ route('trgopplist') }}" class="me-2 text-black {{ request()->routeIs('trgopplist.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                            <a href="{{ route('management') }}" class="mx-2 text-black {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                            <a href="{{ route('opplist') }}" class="mx-2 text-black {{ request()->routeIs('opplist.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                            <a href="{{ route('mcplist') }}" class="mx-2 text-black {{ request()->routeIs('mcplist.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                            <a href="{{ route('ctclist') }}" class="mx-2  text-black {{ request()->routeIs('ctclist.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                            <a href="{{ route('management') }}" class="mx-2 text-black  {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                            <a href="{{ route('cstlist') }}" class="ms-2 text-black {{ request()->routeIs('cstlist.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                        </div>
+                    </div>
+
+
                     <div class="button-group-main">
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDT_OPPlist</h5>
-                            <div class="">
-                                <label for="trgcode">CDTcode</label>
+                            <div class="mt-1">
+                                <!-- <label for="trgcode">OPPcode</label> -->
+                                <input style="width:70px; padding:5px;" type="text" placeholder="OPPcode"></input>
                             </div>
-                            <div class="">
-                                <label for="ctc-prenom">Prénom</label>
+                            <div class="mt-1">
+                                <!-- <label for="ctc-prenom">Libellé poste</label> -->
+                                <input style="width:95px;padding:5px;" type="text" placeholder="Libellé poste"></input>
+
                             </div>
-                            <div class="">
-                                <label for="ctc-nom">Nom</label>
-                            </div>
-                            <div class="">
-                                <label for="ctc-fonction">Fonction</label>
+                            <div class="mt-1">
+                                <!-- <label for="ctc-nom">Société</label> -->
+                                <input style="width:60px;padding:5px;" type="text" placeholder="Société"></input>
+
                             </div>
                             <a href="/opportunity">
                                 <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1"><i class="fas fa-link"></i></button>
@@ -60,11 +78,11 @@
 
     </div>
 
-    <div class="col-md-12 mt-4 mb-3">
+    <div class="col-md-12 mt-1 mb-3">
         <div class="table-responsive">
             <!-- <h5 class="mb-2">Filtrage</h5> -->
             <table class="table table-bordered border-secondary table-nowrap">
-                <thead>
+                <!-- <thead>
                     <tr class="text-center">
                         <th class="select-filter" cope="col">Select</th>
                         <th scope="col">Recherche</th>
@@ -72,15 +90,15 @@
                         <th scope="col">Libellé poste</th>
                         <th scope="col">CodeTRG</th>
                         <th class="select-statut" scope="col">Statut</th>
-                        <!-- <th class="select-cpdpt" scope="col">CP/Dpt</th> -->
+                       
                         <th scope="col">Denomination</th>
                         <th scope="col" style="width:100px">Effacer</th>
                     </tr>
-                </thead>
+                </thead> -->
                 <tbody>
                     <tr>
-                        <td>
-                            <input id="selectionButton" type="checkbox" wire:model.live='select' class="large-checkbox" id="searchCheckbox">
+                        <td style="width:10px;">
+                            <input id="selectionButton" type="checkbox" class="large-checkbox">
                         </td>
 
                         <td>
@@ -95,7 +113,7 @@
 
                         </td>
                         <td>
-                            <input type="text" class="form-control" placeholder="CodeTRG" wire:model.live='company'>
+                            <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
 
                         </td>
                         <td>
@@ -106,14 +124,14 @@
                                 <option value="Filled">Filled</option>
                             </select>
                         </td>
-                        <!-- <td>
-                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='position'>
-                            </td> -->
                         <td>
-                            <input type="text" class="form-control" placeholder="Denomination" wire:model.live='remarks'>
+                            <input type="text" class="form-control" placeholder="CP/Dpt" wire:model.live='position'>
                         </td>
                         <td>
-                            <button class="btn btn-danger ms-4" wire:click="resetFilters">
+                            <input type="text" class="form-control" placeholder="Remarque(s)" wire:model.live='remarks'>
+                        </td>
+                        <td style="width:10px;">
+                            <button class="btn btn-danger ms-2" wire:click="resetFilters">
                                 <i class="bi bi-x-lg"></i>
                             </button>
                         </td>
@@ -164,7 +182,7 @@
                     @endif
                 </div>
             </div>
-            <div style="margin-top:-1%;" class="card-body">
+            <div style="margin-top:-2%;" class="card-body">
                 <div class="table-responsive">
                     <table
                         class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -261,7 +279,11 @@
 
         .button-group-left-main {
             display: flex;
-            gap: 30px;
+            gap: 50px;
+        }
+
+        .btn-danger {
+            background-color: red;
         }
 
         .btn-evt {
