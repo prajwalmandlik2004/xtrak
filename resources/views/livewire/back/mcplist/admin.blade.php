@@ -1,13 +1,27 @@
 <div>
     @include('components.breadcrumb', [
-    'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
-    'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
+    'title' => auth()->user()->hasRole('Manager') ? '' : '',
+    'breadcrumbItems' => [['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Views', 'url' => ''] ,['text' => 'MCPvue', 'url' => '/mcpdashboard'] , ['text' => 'MCPlist', 'url' => '/mcplist']],
     ])
 
     <div class="row">
         <div style="margin-bottom:-20px; margin-top:-10px;" class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
+
+                    <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-4 d-flex justify-content-between">
+                        <div>
+                        </div>
+                        <div>
+                            <a href="{{ route('trgopplist') }}" class="me-2 text-black {{ request()->routeIs('trgopplist.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                            <a href="{{ route('management') }}" class="mx-2 text-black {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                            <a href="{{ route('opplist') }}" class="mx-2 text-black {{ request()->routeIs('opplist.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                            <a href="{{ route('mcplist') }}" class="mx-2  {{ request()->routeIs('mcplist.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                            <a href="{{ route('ctclist') }}" class="mx-2  text-black {{ request()->routeIs('ctclist.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                            <a href="{{ route('management') }}" class="mx-2 text-black  {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                            <a href="{{ route('cstlist') }}" class="ms-2 text-black {{ request()->routeIs('cstlist.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                        </div>
+                    </div>
 
                     <div class="button-group-main">
                         <div class="button-group-left-main">
@@ -45,11 +59,11 @@
             </div>
         </div>
 
-        <div class="col-md-12 mt-4 mb-3">
+        <div class="col-md-12 mt-2 mb-3">
             <div class="table-responsive">
-                <h5 class="mb-2">Filtrage</h5>
+                <!-- <h5 class="mb-2">Filtrage</h5> -->
                 <table class="table table-bordered border-secondary table-nowrap">
-                    <thead>
+                    <!-- <thead>
                         <tr class="text-center">
                             <th class="select-filter" cope="col">Select</th>
                             <th scope="col">Recherche</th>
@@ -61,49 +75,48 @@
                             <th scope="col">Remarque(s)</th>
                             <th scope="col" style="width:100px">Effacer</th>
                         </tr>
-                    </thead>
+                    </thead> -->
                     <tbody>
-                        <tr>
-                            <td>
-                                <input id="selectionButton" type="checkbox" wire:model='selectAll' class="large-checkbox" id="searchCheckbox">
+                    <tr>
+                            <td style="width:10px;">
+                                <input id="selectionButton" type="checkbox" class="large-checkbox">
                             </td>
 
                             <td>
                                 <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="CodeOPP" wire:model.live='codeopp'>
+                                <input type="text" class="form-control" placeholder="CodeMCP" wire:model.live='codeopp'>
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder=" Libellé poste" wire:model.live='libelle'>
+                                <input type="text" class="form-control" placeholder="Prenom" wire:model.live='libelle'>
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+                                <input type="text" class="form-control" placeholder="Nom" wire:model.live='company'>
 
                             </td>
                             <td>
-                                <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                <select class="form-control w-md" wire:model.live='statut'>
                                     <option value="" selected>Selectionner</option>
-                                    <option value="1">Opened</option>
-                                    <option value="0">Closed</option>
-                                    <option value="1">Filled</option>
+                                    <option value="Open">Open</option>
+                                    <option value="Closed">Closed</option>
+                                    <option value="Filled">Filled</option>
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='position'>
+                                <input type="text" class="form-control" placeholder="Designation" wire:model.live='position'>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Remarque(s)" wire:model.live='remarks'>
+                                <input type="text" class="form-control" placeholder="Remarks" wire:model.live='remarks'>
                             </td>
-                            <td>
-                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
+                            <td style="width:10px;">
+                                <button class="btn btn-danger ms-2" wire:click="resetFilters">
                                     <i class="bi bi-x-lg"></i>
                                 </button>
                             </td>
                         </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -111,7 +124,7 @@
 
         <!-- end page title -->
 
-        <div style="margin-top:-1%;" class="col-md-12">
+        <div style="margin-top:-2%;" class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
@@ -161,25 +174,25 @@
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
-                            <thead class="text-black sticky-top">
+                            <thead class="text-white sticky-top">
                                 <tr>
-                                    <th style="width:30px;background-color: #73EC8B;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            wire:model="selectAll"></th>
-                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #73EC8B;">
+                                    <!-- <th style="width:30px;background-color: #7D0A0A;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                            wire:model="selectAll"></th> -->
+                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #7D0A0A;">
                                         Date
                                     </th>
-                                    <th class="libe_col" scope="col" style="background-color: #73EC8B;">Code</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #73EC8B;">Designation</th>
-                                    <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #73EC8B;">
+                                    <th class="libe_col" scope="col" style="background-color: #7D0A0A;">Code</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #7D0A0A;">Designation</th>
+                                    <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #7D0A0A;">
                                         Object
                                     </th>
-                                    <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #73EC8B;">
+                                    <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #7D0A0A;">
                                         Tag Source
                                     </th>
-                                    <th class="ville_col" scope="col" style="background-color: #73EC8B;">Message</th>
-                                    <th class="ref_col" scope="col" style="background-color: #73EC8B;">Tool</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #73EC8B;">Remarks</th>
-                                    <th class="reg_col" scope="col" style="background-color:#73EC8B;">Notes</th>
+                                    <th class="ville_col" scope="col" style="background-color: #7D0A0A;">Message</th>
+                                    <th class="ref_col" scope="col" style="background-color: #7D0A0A;">Tool</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #7D0A0A;">Remarks</th>
+                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A;">Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -199,7 +212,7 @@
                                     <td>{{ $item->tool }}</td>
                                     <td>{{ $item->remarks }}</td>
                                     <td>{{ $item->notes }}</td> -->
-                                    <td></td>
+                                    <!-- <td></td> -->
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -252,7 +265,7 @@
         <div id="evtModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 style="background:#73EC8B;width:18%;padding:7px;text-align:center">CST_EVTform</h2>
+                    <h2 style="background:#7D0A0A;width:18%;padding:7px;text-align:center">CST_EVTform</h2>
                 </div>
                 <div class="icons-row">
                     <div class="icon-item">
@@ -420,7 +433,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 100px;
+                gap: 140px;
             }
 
             .large-checkbox {
