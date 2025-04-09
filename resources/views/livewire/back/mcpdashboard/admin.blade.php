@@ -179,25 +179,25 @@
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
-                            <thead class="text-black sticky-top">
+                            <thead class="text-white sticky-top">
                                 <tr>
-                                    <!-- <th style="width:30px;background-color: #16C47F;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                    <!-- <th style="width:30px;background-color: #7D0A0A;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             wire:model="selectAll"></th> -->
-                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #16C47F;">
+                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #7D0A0A;">
                                         Date
                                     </th>
-                                    <th class="libe_col" scope="col" style="background-color: #16C47F;">Code</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #16C47F;">Designation</th>
-                                    <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #16C47F;">
+                                    <th class="libe_col" scope="col" style="background-color: #7D0A0A;">Code</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #7D0A0A;">Designation</th>
+                                    <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #7D0A0A;">
                                         Object
                                     </th>
-                                    <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #16C47F;">
+                                    <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #7D0A0A;">
                                         Tag Source
                                     </th>
-                                    <th class="ville_col" scope="col" style="background-color: #16C47F;">Message</th>
-                                    <th class="ref_col" scope="col" style="background-color: #16C47F;">Tool</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #16C47F;">Remarks</th>
-                                    <th class="reg_col" scope="col" style="background-color:#16C47F;">Notes</th>
+                                    <th class="ville_col" scope="col" style="background-color: #7D0A0A;">Message</th>
+                                    <th class="ref_col" scope="col" style="background-color: #7D0A0A;">Tool</th>
+                                    <th class="cpdpt_col" scope="col" style="background-color: #7D0A0A;">Remarks</th>
+                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A;">Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -264,7 +264,7 @@
         <div id="evtModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 style="background:#16C47F;width:18%;padding:7px;text-align:center">CST_EVTform</h2>
+                    <h2 style="background:#7D0A0A;width:18%;padding:7px;text-align:center">CST_EVTform</h2>
                 </div>
                 <div class="icons-row">
                     <div class="icon-item">
