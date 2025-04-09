@@ -384,7 +384,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 140px;
+                gap: 130px;
             }
 
             .large-checkbox {
