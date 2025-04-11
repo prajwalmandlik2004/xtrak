@@ -19,6 +19,25 @@ use App\Http\Controllers\CstController;
 use App\Http\Controllers\CtclistController;
 use App\Http\Controllers\CstlistController;
 use App\Http\Controllers\McplistController;
+
+use App\Http\Controllers\CdtMcpController;
+use App\Http\Controllers\TrgCtcController;
+use App\Http\Controllers\TrgMcpController;
+use App\Http\Controllers\OppCstController;
+use App\Http\Controllers\OppCdtController;
+use App\Http\Controllers\OppEvtController;
+use App\Http\Controllers\OppMcpController;
+use App\Http\Controllers\CtcEvtController;
+use App\Http\Controllers\CtcMcpController;
+use App\Http\Controllers\CstEvtController;
+use App\Http\Controllers\CstOppController;
+use App\Http\Controllers\McpEvtController;
+use App\Http\Controllers\McpDstController;
+
+
+
+
+
 use App\Http\Controllers\OpplistController;
 use App\Http\Controllers\TRGOpplistController;
 use App\Http\Controllers\CdtEvtController;
@@ -73,8 +92,21 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/mcplist', [McplistController::class, 'index'])->name('mcplist');
     Route::get('/opplist', [OpplistController::class, 'index'])->name('opplist');
     Route::get('/cdtevtlist', [CdtEvtController::class, 'index'])->name('cdtevtlist');
+    Route::get('/cdtmcplist', [CdtMcpController::class, 'index'])->name('cdtmcplist');
     Route::get('/trgevtlist', [TrgEvtController::class, 'index'])->name('trgevtlist');
+    Route::get('/trgctclist', [TrgCtcController::class, 'index'])->name('trgctclist');
+    Route::get('/trgmcplist', [TrgMcpController::class, 'index'])->name('trgmcplist');
     Route::get('/trgopplist', [TrgOpplistController::class, 'index'])->name('trgopplist');
+    Route::get('/oppevtlist', [OppEvtController::class, 'index'])->name('oppevtlist');
+    Route::get('/oppcstlist', [OppCstController::class, 'index'])->name('oppcstlist');
+    Route::get('/oppcdtlist', [OppCdtController::class, 'index'])->name('oppcdtlist');
+    Route::get('/oppmcplist', [OppMcpController::class, 'index'])->name('oppmcplist');
+    Route::get('/ctcevtlist', [CtcEvtController::class, 'index'])->name('ctcevtlist');
+    Route::get('/ctcmcplist', [CtcMcpController::class, 'index'])->name('ctcmcplist');
+    Route::get('/cstevtlist', [CstEvtController::class, 'index'])->name('cstevtlist');
+    Route::get('/cstopplist', [CstOppController::class, 'index'])->name('cstopplist');
+    Route::get('/mcpevtlist', [McpEvtController::class, 'index'])->name('mcpevtlist');
+    Route::get('/mcpdstlist', [McpDstController::class, 'index'])->name('mcpdstlist');
 
 
    
