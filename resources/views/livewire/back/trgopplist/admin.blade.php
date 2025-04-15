@@ -36,6 +36,9 @@
                                 <!-- <label for="ctc-prenom">Libellé poste</label> -->
                                 <input style="width:113px;padding:5px;" type="text" placeholder="Company name"></input>
                             </div>
+                            <a href="/opportunity">
+                                <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1"><i class="fas fa-link"></i></button>
+                            </a>
                             <div class="one">
                                 <a href="/management">
                                     <button type="button" class="btn btn-inputmain">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
@@ -182,15 +185,15 @@
                                     <th style="width:2%;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')">
-                                        OPP Date
+                                        OPPdate
                                     </th>
-                                    <th class="ref_col" scope="col">OPP Code</th>
-                                    <th class="libe_col" scope="col">LibelléPoste</th>
+                                    <th class="ref_col" scope="col">OPPcode</th>
+                                    <th class="libe_col" scope="col">Job description</th>
                                     <th class="soci_col" scope="col" wire:click="sortBy('first_name')">
-                                        TRG Code
+                                        TRGcode
                                     </th>
-                                    <th class="cpdpt_col" scope="col">Denomination</th>
-                                    <th class="statut_col" scope="col">Statut</th>
+                                    <th class="cpdpt_col" scope="col">Compan name</th>
+                                    <th class="statut_col" scope="col">OPPstatus</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -276,7 +279,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 40px;
+                gap: 25px;
             }
 
             .btn-evt {
@@ -661,9 +664,9 @@
             var deleteButtonContainer = document.getElementById('delete-button-container');
             let isAnyCheckboxChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked && c.style.display === 'block');
             if (isAnyCheckboxChecked) {
-                deleteButtonContainer.style.display = 'block';
+                deleteButtonContainer.style.display = '';
             } else {
-                deleteButtonContainer.style.display = 'none';
+                deleteButtonContainer.style.display = '';
             }
         }
         //function to toggle the buttons
@@ -673,10 +676,10 @@
             var exporter = document.getElementById('exporter');
 
             if (anyChecked) {
-                deleteButtonContainer.style.display = 'block';
+                deleteButtonContainer.style.display = '';
                 // exporter.style.display = 'none';
             } else {
-                deleteButtonContainer.style.display = 'none';
+                deleteButtonContainer.style.display = '';
                 // exporter.style.display = 'block';
             }
         }
