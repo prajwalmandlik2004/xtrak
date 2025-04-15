@@ -65,7 +65,7 @@
                             </div>
                             <div class="one">
                                 <a href="/oppmcplist">
-                                    <button type="button" class="btn btn-mcp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                    <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                                 <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
                             </div>
