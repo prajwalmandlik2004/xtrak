@@ -69,6 +69,7 @@
             'CTCvue' => ['url' => '/ctcdashboard', 'disabled' => false],
             'CSTvue' => ['url' => '/cstdashboard', 'disabled' => false],
             'MCPvue' => ['url' => '/mcpdashboard', 'disabled' => false],
+            'RTvue' => ['url' => '/rtdashboard', 'disabled' => false],
             'PREFvue' => ['url' => '/views/pref', 'disabled' => true],
             'ANNvue' => ['url' => '/views/ann', 'disabled' => true]
             ],
@@ -226,6 +227,7 @@
             'CTCform' => ['url' => '/ctcform', 'enabled' => true],
             'CSTform' => ['url' => '/cstform', 'enabled' => true],
             'MCPform' => ['url' => '/mcpform', 'enabled' => true],
+            'RTform' => ['url' => '/rtform', 'enabled' => true],
             'PREFform' => ['url' => '/forms/pref', 'enabled' => false],
             'ANNform' => ['url' => '/forms/ann', 'enabled' => false]
             ],
