@@ -9,7 +9,7 @@
     <meta content="XTRAK- HARMEN & BOTTS" name="description" />
     <meta content="Xtrak" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.jpg') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/newFavicon.jpeg') }}">
     <!-- Layout config Js -->
     <script src="{{ asset('assets/js/layout.js') }}"></script>
     <!-- Bootstrap Css -->
