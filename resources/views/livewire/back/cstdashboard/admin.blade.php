@@ -30,13 +30,13 @@
                                 <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1">CST <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
                             <div class="two">
-                                <a href="">
+                                <a href="/cstopplist">
                                     <button type="button" class="btn btn-opp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                                 <button id="linkNewOPP" type="button" class="btn btn-opp"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
-                                <a href="">
+                                <a href="/cstevtlist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
