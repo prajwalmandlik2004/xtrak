@@ -14,6 +14,7 @@ use App\Http\Controllers\TrgdashController;
 use App\Http\Controllers\CtcdashController;
 use App\Http\Controllers\CstdashController;
 use App\Http\Controllers\McpdashController;
+use App\Http\Controllers\RtdashController;
 use App\Http\Controllers\CtcController;
 use App\Http\Controllers\CstController;
 use App\Http\Controllers\CtclistController;
@@ -85,6 +86,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/ctcdashboard', [CtcdashController::class, 'index'])->name('ctcdashboard');
     Route::get('/cstdashboard', [CstdashController::class, 'index'])->name('cstdashboard');
     Route::get('/mcpdashboard', [McpdashController::class, 'index'])->name('mcpdashboard');
+    Route::get('/rtdashboard', [RtdashController::class, 'index'])->name('rtdashboard');
+
 
 
     Route::get('/ctclist', [CtclistController::class, 'index'])->name('ctclist');
@@ -121,6 +124,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::get('/mcpform', [App\Http\Controllers\McpController::class, 'index'])->name('mcpform.index');
     Route::get('/mcpform/{id}', [App\Http\Controllers\McpController::class, 'show'])->name('mcpform.show');
+
+    Route::get('/rtform', [App\Http\Controllers\RtController::class, 'index'])->name('rtform.index');
+    Route::get('/rtform/{id}', [App\Http\Controllers\RtController::class, 'show'])->name('rtform.show');
+
     
     Route::get('/trgform', [App\Http\Controllers\TrgController::class, 'index'])->name('trgform.index');
     Route::get('/trgform/{id}', [App\Http\Controllers\TrgController::class, 'show'])->name('trgform.show');
