@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="XTRAK- HARMEN & BOTTS" name="description" />
     <meta content="Xtrak" name="author" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.jpg') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/newFavicon.jpeg') }}">
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
