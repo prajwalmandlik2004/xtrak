@@ -70,9 +70,7 @@
             'CSTvue' => ['url' => '/cstdashboard', 'disabled' => false],
             'MCPvue' => ['url' => '/mcpdashboard', 'disabled' => false],
             'PREFvue' => ['url' => '/views/pref', 'disabled' => true],
-            'ANNvue' => ['url' => '/views/ann', 'disabled' => true],
-            'CAMvue' => ['url' => '/views/cam', 'disabled' => true],
-            'MAIvue' => ['url' => '/views/mai', 'disabled' => true]
+            'ANNvue' => ['url' => '/views/ann', 'disabled' => true]
             ],
             'Queries' => [],
             'Vaults' => [
@@ -229,9 +227,7 @@
             'CSTform' => ['url' => '/cstform', 'enabled' => true],
             'MCPform' => ['url' => '/mcpform', 'enabled' => true],
             'PREFform' => ['url' => '/forms/pref', 'enabled' => false],
-            'ANNform' => ['url' => '/forms/ann', 'enabled' => false],
-            'CAMform' => ['url' => '/forms/cam', 'enabled' => false],
-            'MAIform' => ['url' => '/forms/mai', 'enabled' => false],
+            'ANNform' => ['url' => '/forms/ann', 'enabled' => false]
             ],
             'Tables' => [
             'CDTtable' => ['url' => '/tables/cdt', 'enabled' => false],
@@ -252,10 +248,23 @@
             'CTClist' => ['url' => '/ctclist', 'enabled' => true],
             'CSTlist' => ['url' => '/cstlist', 'enabled' => true],
             'MCPlist' => ['url' => '/mcplist', 'enabled' => true],
+            'OPPlist' => ['url' => '/opplist', 'enabled' => true],
             'CDT_EVTlist' => ['url' => '/cdtevtlist', 'enabled' => true],
+            'CDT_MCPlist' => ['url' => '/cdtmcplist', 'enabled' => true],
             'TRG_EVTlist' => ['url' => '/trgevtlist', 'enabled' => true],
-            'CDT_OPPlist' => ['url' => '/opplist', 'enabled' => true],
+            'TRG_CTClist' => ['url' => '/trgctclist', 'enabled' => true],
+            'TRG_MCPlist' => ['url' => '/trgmcplist', 'enabled' => true],
             'TRG_OPPlist' => ['url' => '/trgopplist', 'enabled' => true],
+            'OPP_EVTlist' => ['url' => '/oppevtlist', 'enabled' => true],
+            'OPP_CSTlist' => ['url' => '/oppcstlist', 'enabled' => true],
+            'OPP_CDTlist' => ['url' => '/oppcdtlist', 'enabled' => true],
+            'OPP_MCPlist' => ['url' => '/oppmcplist', 'enabled' => true],
+            'CTC_EVTlist' => ['url' => '/ctcevtlist', 'enabled' => true],
+            'CTC_MCPlist' => ['url' => '/ctcmcplist', 'enabled' => true],
+            'CST_EVTlist' => ['url' => '/cstevtlist', 'enabled' => true],
+            'CST_OPPlist' => ['url' => '/cstopplist', 'enabled' => true],
+            'MCP_EVTlist' => ['url' => '/mcpevtlist', 'enabled' => true],
+            'MCP_DSTlist' => ['url' => '/mcpdstlist', 'enabled' => true],
             ],
             ];
             @endphp
