@@ -29,16 +29,16 @@
                             <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDT_OPPlist</h5>
                             <div class="mt-1">
                                 <!-- <label for="trgcode">OPPcode</label> -->
-                                <input style="width:70px; padding:5px;" type="text" placeholder="OPPcode"></input>
+                                <input style="width:70px; padding:5px;" type="text" placeholder="CDTcode"></input>
                             </div>
                             <div class="mt-1">
                                 <!-- <label for="ctc-prenom">Libellé poste</label> -->
-                                <input style="width:95px;padding:5px;" type="text" placeholder="Libellé poste"></input>
+                                <input style="width:85px;padding:5px;" type="text" placeholder="First name"></input>
 
                             </div>
                             <div class="mt-1">
                                 <!-- <label for="ctc-nom">Société</label> -->
-                                <input style="width:60px;padding:5px;" type="text" placeholder="Société"></input>
+                                <input style="width:85px;padding:5px;" type="text" placeholder="Last name"></input>
 
                             </div>
                             <a href="/opportunity">
@@ -50,6 +50,12 @@
                                 </a>
                             </div>
                             <div class="one">
+                                <a href="/cstlist">
+                                    <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button type="button" class="btn btn-cst" onclick="openModal()"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
                                 <a href="/opplist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
@@ -58,7 +64,6 @@
                             <div class="three">
                                 <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
                                     <i class="fa-regular fa-trash-can fa-lg"></i>
-                                </button>
                                 </button>
                                 <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
                                 <a href="/landing">
@@ -191,15 +196,15 @@
                                 <th style="width:2%;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                         style="display:none;" wire:model="selectAll"></th>
                                 <th class="date_col" scope="col" wire:click="sortBy('updated_at')">
-                                    OPP Date
+                                    OPPdate
                                 </th>
-                                <th class="ref_col" scope="col">OPP Code</th>
-                                <th class="libe_col" scope="col">LibelléPoste</th>
+                                <th class="ref_col" scope="col">OPPcode</th>
+                                <th class="libe_col" scope="col">Job description</th>
                                 <th class="soci_col" scope="col" wire:click="sortBy('first_name')">
-                                    TRG Code
+                                    TRGcode
                                 </th>
-                                <th class="cpdpt_col" scope="col">Denomination</th>
-                                <th class="statut_col" scope="col">Statut</th>
+                                <th class="cpdpt_col" scope="col">Compan name</th>
+                                <th class="statut_col" scope="col">OPPstatus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -269,6 +274,17 @@
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .btn-cst {
+            background-color: #00FF9C;
+            color: black;
+            margin-left: 10px;
+        }
+
+        .btn-cst:hover {
+            background-color: #00FF9C;
+            color: black;
+        }
+
         .button-group-main {
             display: flex;
             justify-content: space-between;
@@ -279,7 +295,7 @@
 
         .button-group-left-main {
             display: flex;
-            gap: 50px;
+            gap: 25px;
         }
 
         .btn-danger {
@@ -657,9 +673,9 @@
         var deleteButtonContainer = document.getElementById('delete-button-container');
         let isAnyCheckboxChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked && c.style.display === 'block');
         if (isAnyCheckboxChecked) {
-            deleteButtonContainer.style.display = 'block';
+            deleteButtonContainer.style.display = '';
         } else {
-            deleteButtonContainer.style.display = 'none';
+            deleteButtonContainer.style.display = '';
         }
     }
     //function to toggle the buttons
@@ -669,10 +685,10 @@
         var exporter = document.getElementById('exporter');
 
         if (anyChecked) {
-            deleteButtonContainer.style.display = 'block';
+            deleteButtonContainer.style.display = '';
             // exporter.style.display = 'none';
         } else {
-            deleteButtonContainer.style.display = 'none';
+            deleteButtonContainer.style.display = '';
             // exporter.style.display = 'block';
         }
     }
