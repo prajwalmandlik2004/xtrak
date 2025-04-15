@@ -55,7 +55,7 @@
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
                             <div class="two">
-                                <a href="/mcplist">
+                                <a href="/cdtmcplist">
                                     <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                                 <tyleclas id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
