@@ -1,23 +1,68 @@
 <div>
     @include('components.breadcrumb', [
-    'title' => auth()->user()->hasRole('Manager') ? 'Espace manager' : 'Espace administrateur',
-    'breadcrumbItems' => [['text' => 'BaseCDT', 'url' => '#']],
+    'title' => auth()->user()->hasRole('Manager') ? '' : '',
+    'breadcrumbItems' => [['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Views', 'url' => ''] ,['text' => 'TRGvue', 'url' => '/trgdashboard'] , ['text' => 'TRG_EVTlist', 'url' => '/trgevtlist']],
     ])
 
     <div class="row">
         <div style="margin-bottom:-20px; margin-top:-10px;" class="col-md-12">
             <div class="d-flex">
                 <div class="p-1 flex-grow-1">
-                    <h5 style="margin-left:-5px; color:white;background-color:grey; padding:12px; width:11%; margin-bottom:0;">TRG_EVTlist</h5>
+
+                    <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-4 d-flex justify-content-between">
+                        <div>
+                        </div>
+                        <div>
+                            <a href="{{ route('trgopplist') }}" class="me-2 text-black {{ request()->routeIs('trgopplist.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                            <a href="{{ route('management') }}" class="mx-2 text-black {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                            <a href="{{ route('opplist') }}" class="mx-2 text-black {{ request()->routeIs('opplist.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                            <a href="{{ route('mcplist') }}" class="mx-2 text-black {{ request()->routeIs('mcplist.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                            <a href="{{ route('ctclist') }}" class="mx-2  text-black {{ request()->routeIs('ctclist.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                            <a href="{{ route('management') }}" class="mx-2 text-black  {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                            <a href="{{ route('cstlist') }}" class="ms-2 text-black {{ request()->routeIs('cstlist.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                        </div>
+                    </div>
+
+
+
+                    <div class="button-group-main">
+                        <div class="button-group-left-main">
+                            <h5 style="margin-left:-22px; background-color:#DBDBDB; border-radius:5px; color:black;padding:12px;margin-top:-2px">TRG_EVTlist</h5>
+                            <div class="mt-1">
+                                <!-- <label for="trgcode">OPPcode</label> -->
+                                <input style="width:70px; padding:5px;" type="text" placeholder="TRGcode"></input>
+                            </div>
+                            <div class="mt-1">
+                                <!-- <label for="ctc-prenom">Libellé poste</label> -->
+                                <input style="width:180px;padding:5px;" type="text" placeholder="Company name"></input>
+                            </div>
+
+                            <div class="one">
+                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                            </div>
+                            <div class="three">
+                                <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                                </button>
+                                </button>
+                                <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                <a href="/landing">
+                                    <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
 
-        <div class="col-md-12 mt-4 mb-3">
+        <div class="col-md-12 mt-3 mb-3">
             <div class="table-responsive">
                 <!-- <h5 class="mb-2">Filtrage</h5> -->
                 <table class="table table-bordered border-secondary table-nowrap">
-                    <thead>
+                    <!-- <thead>
                         <tr class="text-center">
                             <th style="width:110px;" class="select-cpdpt" cope="col">Effacer</th>
                             <th scope="col">Recherche</th>
@@ -29,48 +74,46 @@
                             <th scope="col">NextStep</th>
                             <th scope="col">Prio</th>
                         </tr>
-                    </thead>
+                    </thead> -->
                     <tbody>
                         <tr>
-                            <!-- <td>
-                                <input id="selectionButton" type="checkbox" wire:model.live='select' class="large-checkbox" id="searchCheckbox">
-                            </td> -->
-                            <td>
-                                <button class="btn btn-danger ms-4" wire:click="resetFilters">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
+                            <td style="width:10px;">
+                                <input id="selectionButton" type="checkbox" class="large-checkbox">
                             </td>
 
                             <td>
                                 <input type="text" class="form-control" placeholder="Rechercher" wire:model.live='search'>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Company" wire:model.live='company'>
+                                <input type="text" class="form-control" placeholder="CodeOPP" wire:model.live='codeopp'>
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="CA" wire:model.live='ca'>
+                                <input type="text" class="form-control" placeholder=" Libellé poste" wire:model.live='libelle'>
 
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Veuillez entrer la valeur" wire:model.live='position'>
+                                <input type="text" class="form-control" placeholder="Société..." wire:model.live='company'>
+
                             </td>
                             <td>
-                                <input style="width:130px;" type="date" class="form-control" placeholder="date" wire:model.live='date'>
-                            </td>
-                            <td>
-                                <select class="form-control w-md" wire:model.live='cvFileExists'>
+                                <select class="form-control w-md" wire:model.live='statut'>
                                     <option value="" selected>Selectionner</option>
-                                    <option value="1">Opened</option>
-                                    <option value="0">Closed</option>
-                                    <option value="1">Filled</option>
+                                    <option value="Open">Open</option>
+                                    <option value="Closed">Closed</option>
+                                    <option value="Filled">Filled</option>
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="NextStep" wire:model.live='nextstep'>
+                                <input type="text" class="form-control" placeholder="CP/Dpt" wire:model.live='position'>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Prio" wire:model.live='nextech'>
+                                <input type="text" class="form-control" placeholder="Remarque(s)" wire:model.live='remarks'>
+                            </td>
+                            <td style="width:10px;">
+                                <button class="btn btn-danger ms-2" wire:click="resetFilters">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -119,24 +162,24 @@
                         @endif
                     </div>
                 </div>
-                <div style="margin-top:-1%;" class="card-body">
+                <div style="margin-top:-2%;" class="card-body">
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <!-- <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            style="display:none;" wire:model="selectAll"></th> -->
-                                    <th class="cdt_col" scope="col" style="background-color:#F9C0AB;">DateEVT</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">TypeEVT</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Way</th>
+                                    <th style="width:2%;background-color:#F9C0AB;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                            style="display:none;" wire:model="selectAll"></th>
+                                    <th class="cdt_col" scope="col" style="background-color:#F9C0AB;">Date</th>
+                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Type</th>
+                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">I/O</th>
+                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">From</th>
+                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">To</th>
                                     <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Object</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">StatutEVT</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Retour</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">StatutTRG</th>
+                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Status</th>
                                     <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Comment</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">NextStep</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">NSdate</th>
+                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Next</th>
+                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Ech</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -159,6 +202,10 @@
                                     <td>{{ $item->event_status }}</td>
                                     <td>{{ $item->comment_trg }}</td>
                                     <td>{{ $item->next_step }}</td> -->
+                                    <td class="checkbox-cell">
+                                        <input type="checkbox" class="candidate-checkbox"
+                                            style="display:none;pointer-events: none;">
+                                    </td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -387,38 +434,20 @@
             </div>
         </div>
 
-
-        <div class="card-footer">
-
-            <div class="button-group-main">
-                <div class="button-group-left-main">
-                    <a href="/trgform">
-                        <button style="background:#999;color:white;" type="button" class="btn btn-close1">New TRG</button>
-                    </a>
-                    <div class="two">
-                        <button onclick="coming()" type="button" class="btn btn-opp">OPPlist</button>
-                        <button id="linkNewOPP" type="button" class="btn btn-opp">New</button>
-                    </div>
-                    <div class="two">
-                        <button onclick="coming()" type="button" class="btn btn-input">CTClist</button>
-                        <button id="linkNewCDT" type="button" class="btn btn-input">New</button>
-                    </div>
-                    <div class="one"> <button onclick="coming()" type="button" class="btn btn-evt">EVTlist</button>
-                        <button type="button" class="btn btn-evt" onclick="openModal()">New</button>
-                    </div>
-                    <button style="background:#F93827;" wire:click="" class="btn btn-danger" id="delete-button-container">
-                        Supprimer
-                    </button>
-                    <button style="background:#4CC9FE; color:black;" type="button" class="btn btn-close1">Save</button>
-                    <a href="/landing">
-                        <button type="button" class="btn btn-close1">Close</button>
-                    </a>
-                </div>
-            </div>
-
-        </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            .btn-danger {
+                background-color: red;
+            }
+
+            .large-checkbox {
+                width: 20px;
+                height: 30px;
+                cursor: pointer;
+                margin-top: 3px;
+                margin-left: 10px;
+            }
+
             .btn-evt {
                 background-color: #F9C0AB;
                 color: black;
@@ -663,7 +692,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 55px;
+                gap: 140px;
             }
 
             .button-group-right {
@@ -1074,9 +1103,9 @@
             var deleteButtonContainer = document.getElementById('delete-button-container');
             let isAnyCheckboxChecked = Array.from(document.querySelectorAll('.candidate-checkbox')).some(c => c.checked && c.style.display === 'block');
             if (isAnyCheckboxChecked) {
-                deleteButtonContainer.style.display = 'block';
+                deleteButtonContainer.style.display = '';
             } else {
-                deleteButtonContainer.style.display = 'none';
+                deleteButtonContainer.style.display = '';
             }
         }
         //function to toggle the buttons
@@ -1086,10 +1115,10 @@
             var exporter = document.getElementById('exporter');
 
             if (anyChecked) {
-                deleteButtonContainer.style.display = 'block';
+                deleteButtonContainer.style.display = '';
                 // exporter.style.display = 'none';
             } else {
-                deleteButtonContainer.style.display = 'none';
+                deleteButtonContainer.style.display = '';
                 // exporter.style.display = 'block';
             }
         }
