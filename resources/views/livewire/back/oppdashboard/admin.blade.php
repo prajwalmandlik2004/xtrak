@@ -46,22 +46,28 @@
                                 <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
                             <div class="one">
-                                <a href="/management">
+                                <a href="/oppcdtlist">
                                     <button type="button" class="btn btn-inputmain">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
                                 <button id="linkNewCDT" type="button" class="btn btn-inputmain"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
-                                <a href="/opplist">
+                                <a href="/oppevtlist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
                             <div class="two">
-                                <a href="/cstlist">
+                                <a href="/oppcstlist">
                                     <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                                 <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
+                            </div>
+                            <div class="one">
+                                <a href="/oppmcplist">
+                                    <button type="button" class="btn btn-mcp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                </a>
+                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="two">
                                 <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
@@ -286,10 +292,20 @@
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            .btn-mcp {
+                background-color: #7D0A0A;
+                color: white;
+            }
+
+            .btn-mcp:hover {
+                background-color: #7D0A0A;
+                color: white;
+            }
+
             .select-row {
                 background-color: #37AFE1 !important;
             }
-            
+
             .button-group-main {
                 display: flex;
                 justify-content: space-between;
@@ -300,7 +316,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 70px;
+                gap: 40px;
             }
 
             .btn-danger {
