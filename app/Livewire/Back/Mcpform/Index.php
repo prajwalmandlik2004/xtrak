@@ -43,17 +43,24 @@ class Index extends Component
 
     private function generateMcpCode()
     {
-        // Get current date components
-        $date = date('ymd', strtotime($this->date_mcp)); // Format: 240416 (for April 16, 2024)
+        // Extract useful information from form fields
+        $designationPart = $this->designation ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->designation), 0, 2)) : 'XX';
 
-        // Get first two characters of designation (if available)
-        $desPrefix = $this->designation ? strtoupper(substr($this->designation, 0, 2)) : 'XX';
+        $objectPart = $this->object ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->object), 0, 2)) : 'YY';
 
-        // Base code (will be at most 6 characters)
-        $baseCode = $desPrefix . substr($date, 0, 4);
+        $toolPart = $this->tool ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->tool), 0, 1)) : 'Z';
+
+        // Combine parts to create a base for our code (5 characters so far)
+        $baseCode = $designationPart . $objectPart . $toolPart;
 
         // Generate the remaining characters with randomness to ensure uniqueness
-        $randomChars = strtoupper(Str::random(8 - strlen($baseCode)));
+        // Only using alphabetic characters (A-Z)
+        $remainingLength = 8 - strlen($baseCode);
+        $randomChars = '';
+        for ($i = 0; $i < $remainingLength; $i++) {
+            $randomChars .= chr(rand(65, 90)); // ASCII codes for A-Z
+        }
+
         $code = $baseCode . $randomChars;
 
         // Check if this code already exists in the database
@@ -62,7 +69,11 @@ class Index extends Component
         // If code already exists, regenerate until we get a unique one
         $attempts = 0;
         while ($codeExists && $attempts < 10) {
-            $randomChars = strtoupper(Str::random(8 - strlen($baseCode)));
+            $randomChars = '';
+            for ($i = 0; $i < $remainingLength; $i++) {
+                $randomChars .= chr(rand(65, 90)); // ASCII codes for A-Z
+            }
+
             $code = $baseCode . $randomChars;
             $codeExists = Mcpdashboard::where('mcp_code', $code)->exists();
             $attempts++;
@@ -71,16 +82,23 @@ class Index extends Component
         // If we still couldn't generate a unique code after several attempts,
         // create a completely random one as a fallback
         if ($codeExists) {
-            $code = strtoupper(Str::random(8));
+            $code = '';
+            for ($i = 0; $i < 8; $i++) {
+                $code .= chr(rand(65, 90)); // ASCII codes for A-Z
+            }
 
             // Make sure even the completely random code is unique
             while (Mcpdashboard::where('mcp_code', $code)->exists()) {
-                $code = strtoupper(Str::random(8));
+                $code = '';
+                for ($i = 0; $i < 8; $i++) {
+                    $code .= chr(rand(65, 90)); // ASCII codes for A-Z
+                }
             }
         }
 
         return $code;
     }
+
 
 
     public function save()
