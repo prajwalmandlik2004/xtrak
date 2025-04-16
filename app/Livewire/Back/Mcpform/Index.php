@@ -41,29 +41,44 @@ class Index extends Component
         $this->entries = Mcpdashboard::all();
     }
 
-     private function generateMcpCode()
+    private function generateMcpCode()
     {
         // Get current date components
         $date = date('ymd', strtotime($this->date_mcp)); // Format: 240416 (for April 16, 2024)
-        
+
         // Get first two characters of designation (if available)
         $desPrefix = $this->designation ? strtoupper(substr($this->designation, 0, 2)) : 'XX';
-        
-        // Generate a random 2-character string to ensure uniqueness
-        $random = strtoupper(Str::random(2));
-        
-        // Combine elements to create the code (ensuring exactly 8 characters)
-        $code = $desPrefix . $date . $random;
-        
-        // If the code is longer than 8 characters, truncate it
-        if (strlen($code) > 8) {
-            $code = substr($code, 0, 8);
+
+        // Base code (will be at most 6 characters)
+        $baseCode = $desPrefix . substr($date, 0, 4);
+
+        // Generate the remaining characters with randomness to ensure uniqueness
+        $randomChars = strtoupper(Str::random(8 - strlen($baseCode)));
+        $code = $baseCode . $randomChars;
+
+        // Check if this code already exists in the database
+        $codeExists = Mcpdashboard::where('mcp_code', $code)->exists();
+
+        // If code already exists, regenerate until we get a unique one
+        $attempts = 0;
+        while ($codeExists && $attempts < 10) {
+            $randomChars = strtoupper(Str::random(8 - strlen($baseCode)));
+            $code = $baseCode . $randomChars;
+            $codeExists = Mcpdashboard::where('mcp_code', $code)->exists();
+            $attempts++;
         }
-        // If the code is less than 8 characters, pad it with random characters
-        elseif (strlen($code) < 8) {
-            $code .= strtoupper(Str::random(8 - strlen($code)));
+
+        // If we still couldn't generate a unique code after several attempts,
+        // create a completely random one as a fallback
+        if ($codeExists) {
+            $code = strtoupper(Str::random(8));
+
+            // Make sure even the completely random code is unique
+            while (Mcpdashboard::where('mcp_code', $code)->exists()) {
+                $code = strtoupper(Str::random(8));
+            }
         }
-        
+
         return $code;
     }
 
