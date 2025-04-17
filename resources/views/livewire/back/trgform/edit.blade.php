@@ -39,7 +39,7 @@
                             </div>
                             <div class="form-group date-field">
                                 <label>TRGcode</label>
-                                <input type="text" class="form-control1" wire:model="formData.trg_code">
+                                <input type="text" class="form-control1" wire:model="formData.trg_code" readonly>
                             </div>
                         </div>
                         <div class="form-row">
