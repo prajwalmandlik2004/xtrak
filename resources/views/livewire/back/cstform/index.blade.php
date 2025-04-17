@@ -61,7 +61,7 @@
                             </div>
                             <div class="form-group objet-field">
                                 <label>CSTcode</label>
-                                <input type="text" class="form-control1" wire:model="cst_code">
+                                <input type="text" class="form-control1" wire:model="cst_code" readonly placeholder="Auto Generated">
                                 @error('cst_code') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group date-field">
