@@ -56,9 +56,61 @@ class Index extends Component
         $this->entries = Trgdashboard::all();
     }
 
+    private function generateCode()
+    {
+        $companyPart = $this->company ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->company), 0, 2)) : 'XX';
+
+        $postal_code_departmentPart = $this->postal_code_department ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->postal_code_department), 0, 2)) : 'YY';
+
+        $townPart = $this->town ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->town), 0, 1)) : 'Z';
+
+        $baseCode = $companyPart . $postal_code_departmentPart . $townPart;
+
+        $remainingLength = 8 - strlen($baseCode);
+        $randomChars = '';
+        for ($i = 0; $i < $remainingLength; $i++) {
+            $randomChars .= chr(rand(65, 90));
+        }
+
+        $code = $baseCode . $randomChars;
+
+        $codeExists = Trgdashboard::where('trg_code', $code)->exists();
+
+        $attempts = 0;
+        while ($codeExists && $attempts < 10) {
+            $randomChars = '';
+            for ($i = 0; $i < $remainingLength; $i++) {
+                $randomChars .= chr(rand(65, 90));
+            }
+
+            $code = $baseCode . $randomChars;
+            $codeExists = Trgdashboard::where('trg_code', $code)->exists();
+            $attempts++;
+        }
+
+        if ($codeExists) {
+            $code = '';
+            for ($i = 0; $i < 8; $i++) {
+                $code .= chr(rand(65, 90));
+            }
+
+            while (Trgdashboard::where('trg_code', $code)->exists()) {
+                $code = '';
+                for ($i = 0; $i < 8; $i++) {
+                    $code .= chr(rand(65, 90));
+                }
+            }
+        }
+
+        return $code;
+    }
+
+
+
     public function save()
     {
         // $this->validate();
+        $this->trg_code = $this->generateCode();
 
         if ($this->isEditing) {
             $entry = Trgdashboard::find($this->editId);
