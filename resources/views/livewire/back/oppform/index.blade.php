@@ -128,7 +128,8 @@
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('opp_code') is-invalid @enderror "
                                                             wire:model='opp_code'
-                                                            placeholder="OPPCode" />
+                                                            readonly 
+                                                            placeholder="Auto Generated" />
                                                         @error('opp_code')
                                                         <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
