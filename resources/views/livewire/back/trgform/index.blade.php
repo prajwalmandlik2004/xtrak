@@ -84,7 +84,7 @@
                             </div>
                             <div class="form-group date-field">
                                 <label>TRGcode</label>
-                                <input type="text" class="form-control1" wire:model="trg_code">
+                                <input type="text" class="form-control1" wire:model="trg_code" readonly placeholder="Auto Generated">
                             </div>
                         </div>
                         <div class="form-row">
