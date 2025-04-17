@@ -44,9 +44,61 @@ class Index extends Component
         $this->entries = Ctcdashboard::all();
     }
 
+    private function generateCode()
+    {
+        $civPart = $this->civ ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->civ), 0, 2)) : 'XX';
+
+        $first_namePart = $this->first_name ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->first_name), 0, 2)) : 'YY';
+
+        $last_namePart = $this->last_name ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->last_name), 0, 1)) : 'Z';
+
+        $baseCode = $civPart . $first_namePart . $last_namePart;
+
+        $remainingLength = 8 - strlen($baseCode);
+        $randomChars = '';
+        for ($i = 0; $i < $remainingLength; $i++) {
+            $randomChars .= chr(rand(65, 90));
+        }
+
+        $code = $baseCode . $randomChars;
+
+        $codeExists = Ctcdashboard::where('ctc_code', $code)->exists();
+
+        $attempts = 0;
+        while ($codeExists && $attempts < 10) {
+            $randomChars = '';
+            for ($i = 0; $i < $remainingLength; $i++) {
+                $randomChars .= chr(rand(65, 90));
+            }
+
+            $code = $baseCode . $randomChars;
+            $codeExists = Ctcdashboard::where('ctc_code', $code)->exists();
+            $attempts++;
+        }
+
+        if ($codeExists) {
+            $code = '';
+            for ($i = 0; $i < 8; $i++) {
+                $code .= chr(rand(65, 90));
+            }
+
+            while (Ctcdashboard::where('ctc_code', $code)->exists()) {
+                $code = '';
+                for ($i = 0; $i < 8; $i++) {
+                    $code .= chr(rand(65, 90));
+                }
+            }
+        }
+
+        return $code;
+    }
+
+
     public function save()
     {
         // $this->validate();
+        $this->ctc_code = $this->generateCode();
+
 
         if ($this->isEditing) {
             $entry = Ctcdashboard::find($this->editId);
