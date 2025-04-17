@@ -198,6 +198,7 @@
                                         Date
                                     </th>
                                     <th class="libe_col" scope="col" style="background-color: #06D001;">Company</th>
+                                    <th class="libe_col" scope="col" style="background-color: #06D001;">Code</th>
                                     <th class="cpdpt_col" scope="col" style="background-color: #06D001;">Civ</th>
                                     <th class="soci_col" scope="col" wire:click="sortBy('first_name')" style="background-color: #06D001;">
                                         First Name
@@ -227,6 +228,7 @@
                                     </td> -->
                                     <td>{{ $item->date_ctc }}</td>
                                     <td>{{ $item->company_ctc }}</td>
+                                    <td>{{ $item->ctc_code }}</td>
                                     <td>{{ $item->civ }}</td>
                                     <td>{{ $item->first_name }}</td>
                                     <td>{{ $item->last_name }}</td>
