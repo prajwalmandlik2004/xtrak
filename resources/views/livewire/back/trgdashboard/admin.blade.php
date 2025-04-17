@@ -204,6 +204,7 @@
                                         Date
                                     </th>
                                     <th class="libe_col" scope="col" style="background-color: #D0DDD0;">Company</th>
+                                    <th class="libe_col" scope="col" style="background-color: #D0DDD0;">Code</th>
                                     <th class="ref_col" scope="col" style="background-color: #D0DDD0;">TelSTD</th>
                                     <th class="cpdpt_col" scope="col" style="background-color: #D0DDD0;">CP/DPT</th>
                                     <th class="cpdpt_col" scope="col" style="background-color: #16C47F;">Civ</th>
@@ -234,6 +235,7 @@
                                     style="cursor: pointer;">
                                     <td>{{ $item->creation_date }}</td>
                                     <td>{{ $item->company }}</td>
+                                    <td>{{ $item->trg_code}}</td>
                                     <td>{{ $item->standard_phone }}</td>
                                     <td>{{ $item->postal_code_department }}</td>
                                     <td>{{ $item->title }}</td>
