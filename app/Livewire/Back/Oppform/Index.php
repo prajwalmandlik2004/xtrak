@@ -74,9 +74,61 @@ class Index extends Component
         $this->entries = Oppdashboard::all();
     }
 
+    
+    private function generateCode()
+    {
+        $namePart = $this->name ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->name), 0, 2)) : 'XX';
+
+        $townPart = $this->town ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->town), 0, 2)) : 'YY';
+
+        $postal_codePart = $this->postal_code ? strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $this->postal_code), 0, 1)) : 'Z';
+
+        $baseCode = $namePart . $townPart . $postal_codePart;
+
+        $remainingLength = 8 - strlen($baseCode);
+        $randomChars = '';
+        for ($i = 0; $i < $remainingLength; $i++) {
+            $randomChars .= chr(rand(65, 90));
+        }
+
+        $code = $baseCode . $randomChars;
+
+        $codeExists = Oppdashboard::where('opp_code', $code)->exists();
+
+        $attempts = 0;
+        while ($codeExists && $attempts < 10) {
+            $randomChars = '';
+            for ($i = 0; $i < $remainingLength; $i++) {
+                $randomChars .= chr(rand(65, 90));
+            }
+
+            $code = $baseCode . $randomChars;
+            $codeExists = Oppdashboard::where('opp_code', $code)->exists();
+            $attempts++;
+        }
+
+        if ($codeExists) {
+            $code = '';
+            for ($i = 0; $i < 8; $i++) {
+                $code .= chr(rand(65, 90));
+            }
+
+            while (Oppdashboard::where('opp_code', $code)->exists()) {
+                $code = '';
+                for ($i = 0; $i < 8; $i++) {
+                    $code .= chr(rand(65, 90));
+                }
+            }
+        }
+
+        return $code;
+    }
+
+
     public function save()
     {
         // $this->validate();
+        $this->opp_code = $this->generateCode();
 
         if ($this->isEditing) {
             $entry = Oppdashboard::find($this->editId);
