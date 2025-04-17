@@ -213,7 +213,7 @@
                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')">
                                         Date
                                     </th>
-                                    <th class="ref_col" scope="col">Référence</th>
+                                    <th class="ref_col" scope="col">Code</th>
                                     <th class="libe_col" scope="col">LibelléPoste</th>
                                     <th class="soci_col" scope="col" wire:click="sortBy('first_name')">
                                         Société
