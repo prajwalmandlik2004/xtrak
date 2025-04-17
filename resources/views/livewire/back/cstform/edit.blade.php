@@ -23,8 +23,8 @@
                                 @error('formData.date_cst') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group objet-field">
-                                <label>CTCcode</label>
-                                <input type="text" class="form-control1" wire:model="formData.cst_code">
+                                <label>CSTcode</label>
+                                <input type="text" class="form-control1" wire:model="formData.cst_code" readonly>
                                 @error('formData.cst_code') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group date-field">
