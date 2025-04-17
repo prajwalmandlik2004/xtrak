@@ -112,7 +112,8 @@
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('opp_code') is-invalid @enderror "
                                                             wire:model='formData.opp_code'
-                                                            placeholder="OPPCode" />
+                                                            readonly
+                                                            />
                                                         @error('opp_code')
                                                         <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
