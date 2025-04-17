@@ -63,7 +63,7 @@
                             </div>
                             <div class="form-group objet-field">
                                 <label>CTCcode</label>
-                                <input type="text" class="form-control1" wire:model="ctc_code">
+                                <input type="text" class="form-control1" wire:model="ctc_code" readonly placeholder="Auto Generated">
                                 @error('ctc_code') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group objet-field">
