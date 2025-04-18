@@ -295,7 +295,7 @@
 
         .button-group-left-main {
             display: flex;
-            gap: 25px;
+            gap: 20px;
         }
 
         .btn-danger {
