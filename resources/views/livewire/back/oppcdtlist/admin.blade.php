@@ -181,14 +181,14 @@
                                     <th style="background-color:#6F61C0; color:white;" scope="col">CP/Dpt</th>
                                     <!-- <th scope="col">Ville</th>
                                     <th scope="col">Pays</th> -->
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Etat</th>
+<!--                                     <th style="background-color:#6F61C0; color:white;" scope="col">Etat</th> -->
 
                                     <th style="background-color:#6F61C0; color:white;" scope="col">Disponibilité</th>
                                     <!-- <th scope="col">Etat</th> -->
                                     <th style="background-color:#6F61C0; color:white;" scope="col">Next step</th>
                                     <!-- <th scope="col">NSdate</th> -->
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">CV</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">CRE</th>
+<!--                                     <th style="background-color:#6F61C0; color:white;" scope="col">CV</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">CRE</th> -->
                                     <th style="background-color:#6F61C0; color:white;" scope="col">Statut</th>
                                     <th style="background-color:#6F61C0; color:white;" scope="col">Commentaire</th>
                                     <th style="background-color:#6F61C0; color:white;" scope="col">Description</th>
@@ -221,21 +221,15 @@
                                     <td>{{ $link->candidate->phone ?? '--' }}</td>
                                     <td>{{ $link->candidate->email ?? '--' }}</td>
                                     <td>{{ $link->candidate->postal_code ?? '--' }}</td>
-                                    @if($link->candidate->candidateState->name == 'Certifié')
-                                    <td id="colState">
-                                        <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{$index}})">
-                                            <span id="hidden-certificate-{{ $index }}">Certifié</span>
-                                            <span id="visible-certificate-{{ $index }}" style="display: none;">{{ $link->candidate->certificate }}</span>
-                                        </span>
-                                        <div id="message-{{ $index }}" class="copy-message" style="display: none;"></div>
-                                    </td>
-                                    @else
                                     <td>
                                         {{ $link->candidate->candidateState->name }}
                                     </td>
                                     @endif
                                     <td>{{ $link->candidate->disponibility->name ?? '--' }}</td>
                                     <td>{{ $link->candidate->nextStep->name ?? '--' }}</td>
+                                    <td>{{ $link->candidate->candidateStatut->name ?? '--' }}</td>
+                                    <td>{{ $link->candidate->commentaire ?? '--' }}</td>
+                                    <td>{{ $link->candidate->description ?? '--' }}</td>
                                    
                                 </tr>
                                 @endforeach
