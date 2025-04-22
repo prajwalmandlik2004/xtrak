@@ -152,42 +152,21 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex">
-                    <!-- <div class="me-3">
-                            <button type="button" class="btn btn-outline-dark" id="selectionButton">
-                                <i class="bi bi-check-square-fill"></i> Sélection
-                            </button>
-                        </div> -->
-                    <!-- <div>
-                            <button wire:click="" class="btn btn-danger" id="delete-button-container" style="display: none;">
-                                <i class="bi bi-trash-fill"></i>Supprimer
-                            </button>
-                        </div> -->
-                    <!-- <div class="me-3">
-                            <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
-                            <i class="bi bi-check-square"></i> Désélection
-                            </button>
-                        </div> -->
-                    <!-- <div class="flex-grow-1 text-center">
-                            <h4 class="card-title fw-bold fs-2">
-                                OPPvue
-                            </h4>
-                        </div> -->
-                    <!-- verifier si la personne authentifiée n'est pas manager avant d'afficher le bouton -->
                     @if (!auth()->user()->hasRole('Manager'))
-                    <!-- <div id="exporter">
-                            <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
-                                <i class="ri-file-download-line me-1"></i>
-                                <span class="download-text">Exporter</span>
-                                <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Exportation...</span>
-                                </span>
-                            </button>
-                        </div> -->
                     @endif
                 </div>
             </div>
             <div style="margin-top:-2%;" class="card-body">
+
+
+                @if (session()->has('message'))
+                <div style="width:23%;" class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+
                 <div class="table-responsive">
                     <table
                         class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -195,6 +174,7 @@
                             <tr>
                                 <th style="width:2%;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                         style="display:none;" wire:model="selectAll"></th>
+
                                 <th class="date_col" scope="col" wire:click="sortBy('updated_at')">
                                     OPPdate
                                 </th>
@@ -205,37 +185,39 @@
                                 </th>
                                 <th class="cpdpt_col" scope="col">Compan name</th>
                                 <th class="statut_col" scope="col">OPPstatus</th>
+                                <th class="date_col" scope="col">Link Date</th>
+                                <th class="date_col" scope="col">Actions</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!empty($data) && (is_array($data) || is_object($data)) && count($data) > 0)
-                            @foreach($data as $item)
+                            @if($links->count() > 0)
+                            @foreach($links as $link)
                             <tr>
                                 <td class="checkbox-cell">
                                     <input type="checkbox" class="candidate-checkbox"
                                         style="display:none;pointer-events: none;">
                                 </td>
-                                <!-- <td>{{ $item->opportunity_date }}</td>
-                                    <td>{{ $item->opp_code }}</td>
-                                    <td>{{ $item->job_titles }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->postal_code_1 }}</td>
-                                    <td>{{ $item->site_city }}</td>
-                                    <td>{{ $item->opportunity_status }}</td>
-                                    <td>{{ $item->remarks }}</td>
-                                    <td>{{ $item->trg_code }}</td>
-                                    <td>{{ $item->total_paid }}</td> -->
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+
+                                <td>{{ $link->opportunity->opportunity_date ?? '--'}}</td>
+                                <td>{{ $link->opportunity->opp_code ?? '--'}}</td>
+                                <td>{{ $link->opportunity->job_titles ?? '--'}}</td>
+                                <td>{{ $link->opportunity->trg_code ?? '--' }}</td>
+                                <td>{{ $link->opportunity->name ?? '--'}}</td>
+                                <td>{{ $link->opportunity->opportunity_status ?? '--' }}</td>
+                                <td>{{ $link->created_at->format('d/m/y') }}</td>
+                                <td>
+                                    <button
+                                        class="btn btn-sm btn-danger"
+                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to remove this link ⚠')) { @this.deleteCdtLink({{ $link->id }}); }">
+                                        <i class="fas fa-unlink"></i>
+                                    </button>
+                                </td>
                             </tr>
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="16" class="text-center">No data available</td>
+                                <td colspan="20" class="text-center">No linked data available</td>
                             </tr>
                             @endif
                         </tbody>
@@ -245,8 +227,8 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-end mt-3">
-        {{ $data->links() }}
+    <div class="d-flex justify-content-end">
+        {{ $links->links() }}
     </div>
 
 
