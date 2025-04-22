@@ -155,45 +155,41 @@
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
-                            <thead class="text-black sticky-top">
-                                <tr>
-                                    <th style="width:2%;background-color:#6F61C0; color:white;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            style="display:none;" wire:model="selectAll"></th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Link Date</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Actions</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">OPPcode</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">CDTcode</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col" wire:click="sortBy('updated_at')">
-                                        Date MAJ
-                                    </th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Aut</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Civ</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col" wire:click="sortBy('first_name')">
-                                        Prénom
-                                    </th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col" wire:click="sortBy('last_name')">
-                                        Nom
-                                    </th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Fonction</th>
-                                    <!-- <th scope="col">Société</th> -->
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Tél</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Email</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">CP/Dpt</th>
-                                    <!-- <th scope="col">Ville</th>
-                                    <th scope="col">Pays</th> -->
-<!--                                     <th style="background-color:#6F61C0; color:white;" scope="col">Etat</th> -->
+                           <thead class="text-black sticky-top">
+                            <tr>
+                                        <th style="width:2%; background-color:yellow;" scope="col">
+                                            <input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                                style="display:none;" wire:model="selectAll">
+                                        </th>
+                                        <th style="background-color:yellow;" scope="col">Link Date</th>
+                                        <th style="background-color:yellow;" scope="col">Actions</th>
+                                        <th style="background-color:yellow;" scope="col">OPPcode</th>
+                                        <th style="background-color:yellow;" scope="col">CDTcode</th>
+                                        <th style="background-color:yellow;" scope="col" wire:click="sortBy('updated_at')">Date MAJ</th>
+                                        <th style="background-color:yellow;" scope="col">Aut</th>
+                                        <th style="background-color:yellow;" scope="col">Civ</th>
+                                        <th style="background-color:yellow;" scope="col" wire:click="sortBy('first_name')">Prénom</th>
+                                        <th style="background-color:yellow;" scope="col" wire:click="sortBy('last_name')">Nom</th>
+                                        <th style="background-color:yellow;" scope="col">Fonction</th>
+                                        <!-- <th scope="col">Société</th> -->
+                                        <th style="background-color:yellow;" scope="col">Tél</th>
+                                        <th style="background-color:yellow;" scope="col">Email</th>
+                                        <th style="background-color:yellow;" scope="col">CP/Dpt</th>
+                                        <!-- <th scope="col">Ville</th>
+                                        <th scope="col">Pays</th> -->
+                                        <!-- <th style="background-color:yellow;" scope="col">Etat</th> -->
+                                        <th style="background-color:yellow;" scope="col">Disponibilité</th>
+                                        <!-- <th scope="col">Etat</th> -->
+                                        <th style="background-color:yellow;" scope="col">Next step</th>
+                                        <!-- <th scope="col">NSdate</th> -->
+                                        <!-- <th style="background-color:yellow;" scope="col">CV</th>
+                                        <th style="background-color:yellow;" scope="col">CRE</th> -->
+                                        <th style="background-color:yellow;" scope="col">Statut</th>
+                                        <th style="background-color:yellow;" scope="col">Commentaire</th>
+                                        <th style="background-color:yellow;" scope="col">Description</th>
+                                    </tr>
+                                </thead>
 
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Disponibilité</th>
-                                    <!-- <th scope="col">Etat</th> -->
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Next step</th>
-                                    <!-- <th scope="col">NSdate</th> -->
-<!--                                     <th style="background-color:#6F61C0; color:white;" scope="col">CV</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">CRE</th> -->
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Statut</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Commentaire</th>
-                                    <th style="background-color:#6F61C0; color:white;" scope="col">Description</th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 @if($links->count() > 0)
                                 @foreach($links as $link)
