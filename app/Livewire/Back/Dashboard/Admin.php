@@ -17,6 +17,9 @@ use App\Repositories\CandidateRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Response;
+use App\Models\Oppdashboard; // Add this
+use App\Models\CdtOppLink; // We'll create this model
+
 
 class Admin extends Component
 {
@@ -50,6 +53,17 @@ class Admin extends Component
     public $uncertifiedCandidatesCount;
     public $cvFileExists = '';
     public $creFileExists = '';
+
+    // Add properties for CDT linking
+    public $oppCode = '';
+    public $showOppModal = false;
+    public $oppLinkError = '';
+
+    
+    protected $rules = [
+        'oppCode' => 'required',
+    ];
+
 
     public function selectCandidate($id, $page)
     {
@@ -487,6 +501,90 @@ class Admin extends Component
     {
         session()->put($propertyName, $this->{$propertyName});
     }
+
+    
+    // New methods for Opp linking
+    public function openOppModal()
+    {
+        if (empty($this->selectedCandidateId)) {
+            session()->flash('error', 'Please select at least one candidate to link');
+            return;
+        }
+
+        $this->showOppModal = true;
+        $this->oppCode = '';
+        $this->oppLinkError = '';
+        $this->dispatch('open-opp-modal');
+    }
+
+    public function closeOppModal()
+    {
+        $this->showOppModal = false;
+        $this->oppCode = '';
+        $this->oppLinkError = '';
+    }
+
+    public function linkOpp()
+    {
+        $this->validate([
+            'oppCode' => 'required',
+        ]);
+
+        // Check if any rows are selected
+        if (empty($this->selectedCandidateId)) {
+            $this->oppLinkError = 'Please select at least one candidate to link';
+            return;
+        }
+
+        // Find the candidate with the given code
+        $candidate = Oppdashboard::where('opp_code', $this->oppCode)->first();
+
+        if (!$candidate) {
+            $this->oppLinkError = 'No candidate found with this OPP code';
+            return;
+        }
+
+        $linkedCount = 0;
+        $alreadyLinkedCount = 0;
+
+        // Link each selected opportunity to the CDT
+        $candidateIds = explode(',', $this->selectedCandidateId);
+        foreach ($candidateIds as $cdtId) {
+            // Check if already linked
+            $existingLink = CdtOppLink::where('cdt_id', $cdtId)
+                ->where('opp_id', $candidate->id)
+                ->first();
+
+            if ($existingLink) {
+                $alreadyLinkedCount++;
+                continue;
+            }
+
+            // Create new link
+            CdtOppLink::create([
+                'cdt_id' => $cdtId,
+                'opp_id' => $candidate->id
+            ]);
+
+            $linkedCount++;
+        }
+
+        // Show appropriate message
+        if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+        } elseif ($linkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+        } elseif ($alreadyLinkedCount > 0) {
+            $this->oppLinkError = "Selected opportunities are already linked to this CDT";
+            return;
+        }
+
+        // Clear inputs and close modal
+        $this->oppCode = '';
+        $this->closeOppModal();
+    }
+
+
 
     public function render()
     {
