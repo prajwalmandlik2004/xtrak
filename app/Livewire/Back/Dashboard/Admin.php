@@ -30,16 +30,14 @@ class Admin extends Component
     public $company = '';
     public $position = '';
     public $cv = '';
-    public $cre_ref = '';   
+    public $cre_ref = '';
     public $nbPaginate = 100;
     public $candidate_statut_id = '';
     public $candidateStatuses;
     public $filterName = '';
     public $filterDate = '';
     public $candidate_state_id = '';
-    // public $selectedCandidateId;
-    public $selectedCandidateIds = []; // For multiple selections
-    public $selectedCandidateId = null;
+    public $selectedCandidateId;
     public $candidateStates;
     public $positions;
     public $position_id;
@@ -56,12 +54,12 @@ class Admin extends Component
     public $cvFileExists = '';
     public $creFileExists = '';
 
-    // Add properties for CDT linking
+
+     // Add properties for CDT linking
     public $oppCode = '';
     public $showOppModal = false;
     public $oppLinkError = '';
 
-    
     protected $rules = [
         'oppCode' => 'required',
     ];
@@ -90,32 +88,31 @@ class Admin extends Component
     public function selectCandidateGoToCv($id, $page)
     {
         $this->selectedCandidateId = $id;
-        
+
         session(['dash_base_cdt_selected_candidate_id' => $id]);
         session(['dash_base_cdt_current_page' => $page]);
         session(['dash_base_cdt_nb_paginate' => $this->nbPaginate]);
-    
+
         return redirect()->route('candidate.cv', $id);
     }
-    
+
 
     #[On('delete')]
     public function deleteData($id)
     {
         $candidateRepository = new CandidateRepository();
         DB::beginTransaction();
-    
+
         try {
-            foreach($id as $idc){ 
+            foreach ($id as $idc) {
                 $candidate = $candidateRepository->find($idc);
                 $candidateRepository->delete($candidate->id);
             }
-            
+
             DB::commit();
             $this->dispatch('alert', type: 'success', message: "Les candidats sont supprimés avec succès");
             $this->checkboxes = [];
             $this->selectAll = false;
-
         } catch (\Throwable $th) {
             DB::rollBack();
             $ids = implode(', ', $id);
@@ -137,7 +134,7 @@ class Admin extends Component
         $this->sortDirection = $this->sortColumn === $column
             ? ($this->sortDirection === 'asc' ? 'desc' : 'asc')
             : 'asc';
-    
+
         $this->sortColumn = $column;
     }
 
@@ -148,30 +145,30 @@ class Admin extends Component
 
         return Candidate::with(['position', 'disponibility', 'civ', 'compagny', 'speciality', 'field', 'auteur'])
             ->where(function ($query) use ($searchFields) {
-            $query
-                ->where(function ($query) use ($searchFields) {
-                foreach ($searchFields as $field) {
-                    $query->orWhere($field, 'like', '%' . $this->search . '%');
-                }
-                })
-                ->orWhereHas('disponibility', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('civ', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('compagny', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('speciality', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('field', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-                })
-                ->orWhereHas('auteur', function ($query) {
-                $query->where('trigramme', 'like', '%' . $this->search . '%');
-                });
+                $query
+                    ->where(function ($query) use ($searchFields) {
+                        foreach ($searchFields as $field) {
+                            $query->orWhere($field, 'like', '%' . $this->search . '%');
+                        }
+                    })
+                    ->orWhereHas('disponibility', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('civ', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('compagny', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('speciality', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('field', function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('auteur', function ($query) {
+                        $query->where('trigramme', 'like', '%' . $this->search . '%');
+                    });
             })
             ->when($this->filterName, function ($query) {
                 return $query->orderBy('last_name', $this->filterName);
@@ -234,8 +231,14 @@ class Admin extends Component
     public function confirmDeleteChecked($id)
     {
         $idsArray = explode(",", $id);
-        $this->dispatch('swal:confirm', title: 'Suppression', 
-        text: "Vous-êtes sur le point de supprimer le(s) candidat(s) séléctionné(s)", type: 'warning', method: 'delete', id: $idsArray);
+        $this->dispatch(
+            'swal:confirm',
+            title: 'Suppression',
+            text: "Vous-êtes sur le point de supprimer le(s) candidat(s) séléctionné(s)",
+            type: 'warning',
+            method: 'delete',
+            id: $idsArray
+        );
     }
 
     // public function mount()
@@ -306,32 +309,58 @@ class Admin extends Component
         try {
             // Initialisez la requête
             $query = Candidate::with([
-                'position', 'nextStep', 'disponibility', 'civ', 'compagny', 
-                'speciality', 'field', 'auteur', 'cres', 'candidateStatut', 
-                'candidateState', 'nsDate'
+                'position',
+                'nextStep',
+                'disponibility',
+                'civ',
+                'compagny',
+                'speciality',
+                'field',
+                'auteur',
+                'cres',
+                'candidateStatut',
+                'candidateState',
+                'nsDate'
             ]);
-            
+
             // Appliquez les filtres
             $query = $this->applyFilters($query);
-    
+
             // Si des lignes sont sélectionnées, filtrez par les IDs sélectionnés
             if (!empty($selectedCandidateIds)) {
                 $query->whereIn('id', $selectedCandidateIds);
             }
-    
+
             $candidates = $query->get();
-    
+
             // Générer et télécharger le fichier Excel
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
             $headers = [
-                'Source', 'CodeCDT', 'Auteur', 'Civ', 'Prénom', 'Nom', 
-                'Poste', 'Spécialité', 'Domaine', 'Société', 'Mail', 
-                'Tél1', 'Tél2', 'UrlCTC', 'CP/Dpt', 'Ville', 'Région', 
-                'Disponibilité', 'Statut CDT', 'NextStep', 'NSDate'
+                'Source',
+                'CodeCDT',
+                'Auteur',
+                'Civ',
+                'Prénom',
+                'Nom',
+                'Poste',
+                'Spécialité',
+                'Domaine',
+                'Société',
+                'Mail',
+                'Tél1',
+                'Tél2',
+                'UrlCTC',
+                'CP/Dpt',
+                'Ville',
+                'Région',
+                'Disponibilité',
+                'Statut CDT',
+                'NextStep',
+                'NSDate'
             ];
             $sheet->fromArray([$headers], null, 'A1');
-    
+
             $row = 2;
             foreach ($candidates as $candidate) {
                 $rowData = [
@@ -360,127 +389,127 @@ class Admin extends Component
                 $sheet->fromArray([$rowData], null, 'A' . $row);
                 $row++;
             }
-    
+
             $writer = new Xlsx($spreadsheet);
             $fileName = 'base_candidats.xlsx';
             $writer->save($fileName);
-    
+
             $this->dispatch('alert', type: 'success', message: 'Base candidats exportée avec succès');
-            $this->dispatch('exportCompleted'); 
+            $this->dispatch('exportCompleted');
             return response()->download($fileName)->deleteFileAfterSend(true);
         } catch (\Throwable $th) {
             $this->dispatch('alert', type: 'error', message: "Une erreur est survenue, veuillez réessayer ou contacter l'administrateur");
         }
     }
-    
- 
+
+
     protected function applyFilters($query)
     {
         return $query->where(function ($query) {
             $searchFields = ['first_name', 'last_name', 'email', 'phone', 'city', 'address', 'region', 'country', 'commentaire', 'description', 'suivi'];
-    
+
             $query->where(function ($query) use ($searchFields) {
                 foreach ($searchFields as $field) {
                     $query->orWhere($field, 'like', '%' . $this->search . '%');
                 }
             })
-            ->orWhereHas('disponibility', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })
-            ->orWhereHas('civ', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })
-            ->orWhereHas('compagny', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })
-            ->orWhereHas('speciality', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })
-            ->orWhereHas('field', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })
-            ->orWhereHas('auteur', function ($query) {
-                $query->where('trigramme', 'like', '%' . $this->search . '%');
-            });
-        })
-        ->when($this->filterName, function ($query) {
-            return $query->orderBy('last_name', $this->filterName);
-        })
-        ->when($this->filterDate, function ($query) {
-            return $query->orderBy('created_at', $this->filterDate);
-        })
-        ->when($this->candidate_state_id, function ($query) {
-            $query->where('candidate_state_id', $this->candidate_state_id);
-        })
-        ->when($this->candidate_statut_id, function ($query) {
-            $query->where('candidate_statut_id', $this->candidate_statut_id);
-        })
-        ->when($this->position_id, function ($query) {
-            $query->where('position_id', $this->position_id);
-        })
-        ->when($this->users_id, function ($query) {
-            $query->where('created_by', $this->users_id);
-        })
-        ->when($this->cp, function ($query) {
-            $query->where('postal_code', 'like', '%' . $this->cp . '%');
-        })
-        ->when($this->position, function ($query) {
-            $query->whereHas('position', function ($query) {
-                $query->where('name', 'like', '%' . $this->position . '%');
-            });
-        })
-        ->when($this->company, function ($query) {
-            $query->whereHas('compagny', function ($query) {
-                $query->where('name', 'like', '%' . $this->company . '%');
-            });
-        })
-        ->when($this->cvFileExists !== '', function ($query) {
-            if ($this->cvFileExists) {
-                return $query->whereHas('files', function ($query) {
-                    $query->where('file_type', 'cv');
+                ->orWhereHas('disponibility', function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('civ', function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('compagny', function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('speciality', function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('field', function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('auteur', function ($query) {
+                    $query->where('trigramme', 'like', '%' . $this->search . '%');
                 });
-            } else {
-                return $query->whereDoesntHave('files', function ($query) {
-                    $query->where('file_type', 'cv');
+        })
+            ->when($this->filterName, function ($query) {
+                return $query->orderBy('last_name', $this->filterName);
+            })
+            ->when($this->filterDate, function ($query) {
+                return $query->orderBy('created_at', $this->filterDate);
+            })
+            ->when($this->candidate_state_id, function ($query) {
+                $query->where('candidate_state_id', $this->candidate_state_id);
+            })
+            ->when($this->candidate_statut_id, function ($query) {
+                $query->where('candidate_statut_id', $this->candidate_statut_id);
+            })
+            ->when($this->position_id, function ($query) {
+                $query->where('position_id', $this->position_id);
+            })
+            ->when($this->users_id, function ($query) {
+                $query->where('created_by', $this->users_id);
+            })
+            ->when($this->cp, function ($query) {
+                $query->where('postal_code', 'like', '%' . $this->cp . '%');
+            })
+            ->when($this->position, function ($query) {
+                $query->whereHas('position', function ($query) {
+                    $query->where('name', 'like', '%' . $this->position . '%');
                 });
-            }
-        })
-        ->when($this->creFileExists !== '', function ($query) {
-            if ($this->creFileExists) {
-                return $query->whereHas('cres');
-            } else {
-                return $query->whereDoesntHave('cres');
-            }
-        })
-        ->orderBy($this->sortColumn, $this->sortDirection);
+            })
+            ->when($this->company, function ($query) {
+                $query->whereHas('compagny', function ($query) {
+                    $query->where('name', 'like', '%' . $this->company . '%');
+                });
+            })
+            ->when($this->cvFileExists !== '', function ($query) {
+                if ($this->cvFileExists) {
+                    return $query->whereHas('files', function ($query) {
+                        $query->where('file_type', 'cv');
+                    });
+                } else {
+                    return $query->whereDoesntHave('files', function ($query) {
+                        $query->where('file_type', 'cv');
+                    });
+                }
+            })
+            ->when($this->creFileExists !== '', function ($query) {
+                if ($this->creFileExists) {
+                    return $query->whereHas('cres');
+                } else {
+                    return $query->whereDoesntHave('cres');
+                }
+            })
+            ->orderBy($this->sortColumn, $this->sortDirection);
     }
 
-   public function resetFilters()
+    public function resetFilters()
     {
         $this->reset([
-        'search', 
-        'nbPaginate',
-        'users_id', 
-        'candidate_state_id', 
-        'candidate_statut_id',
-        'company', 
-        'position_id',
-        'cp', 
-        'cvFileExists',
-        'creFileExists',
-        'position'
+            'search',
+            'nbPaginate',
+            'users_id',
+            'candidate_state_id',
+            'candidate_statut_id',
+            'company',
+            'position_id',
+            'cp',
+            'cvFileExists',
+            'creFileExists',
+            'position'
         ]);
 
         session()->forget([
-            'search', 
-            'nbPaginate', 
-            'users_id', 
-            'candidate_state_id', 
-            'candidate_statut_id', 
-            'company', 
-            'position_id', 
-            'cp', 
-            'cvFileExists', 
+            'search',
+            'nbPaginate',
+            'users_id',
+            'candidate_state_id',
+            'candidate_statut_id',
+            'company',
+            'position_id',
+            'cp',
+            'cvFileExists',
             'creFileExists',
             'position'
         ]);
@@ -504,7 +533,7 @@ class Admin extends Component
         session()->put($propertyName, $this->{$propertyName});
     }
 
-    
+
     // New methods for Opp linking
     public function openOppModal()
     {
@@ -531,47 +560,62 @@ class Admin extends Component
         $this->validate([
             'oppCode' => 'required',
         ]);
-    
+
         // Check if any rows are selected
         if (empty($this->selectedCandidateId)) {
             $this->oppLinkError = 'Please select at least one candidate to link';
             return;
         }
-    
-        // Find the opportunity with the given code
-        $opportunity = Oppdashboard::where('opp_code', $this->oppCode)->first();
-    
-        if (!$opportunity) {
-            $this->oppLinkError = 'No opportunity found with this OPP code';
+
+        // Find the candidate with the given code
+        $candidate = Oppdashboard::where('opp_code', $this->oppCode)->first();
+
+        if (!$candidate) {
+            $this->oppLinkError = 'No candidate found with this OPP code';
             return;
         }
-    
-        // Handle a single candidate ID (no need for explode)
-        $cdtId = $this->selectedCandidateId;
-        
-        // Check if already linked
-        $existingLink = CdtOppLink::where('cdt_id', $cdtId)
-            ->where('opp_id', $opportunity->id)
-            ->first();
-    
-        if ($existingLink) {
-            $this->oppLinkError = "This candidate is already linked to this opportunity";
+
+        $linkedCount = 0;
+        $alreadyLinkedCount = 0;
+
+        // Link each selected opportunity to the CDT
+        $candidateIds = explode(',', $this->selectedCandidateId);
+        foreach ($candidateIds as $cdtId) {
+            // Check if already linked
+            $existingLink = CdtOppLink::where('cdt_id', $cdtId)
+                ->where('opp_id', $candidate->id)
+                ->first();
+
+            if ($existingLink) {
+                $alreadyLinkedCount++;
+                continue;
+            }
+
+            // Create new link
+            CdtOppLink::create([
+                'cdt_id' => $cdtId,
+                'opp_id' => $candidate->id
+            ]);
+
+            $linkedCount++;
+        }
+
+        // Show appropriate message
+        if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+        } elseif ($linkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+        } elseif ($alreadyLinkedCount > 0) {
+            $this->oppLinkError = "Selected opportunities are already linked to this CDT";
             return;
         }
-    
-        // Create new link
-        CdtOppLink::create([
-            'cdt_id' => $cdtId,
-            'opp_id' => $opportunity->id
-        ]);
-    
-        // Show success message
-        session()->flash('linkmessage', "Candidate successfully linked to opportunity");
-    
+
         // Clear inputs and close modal
         $this->oppCode = '';
         $this->closeOppModal();
     }
+
+
 
 
     public function render()
