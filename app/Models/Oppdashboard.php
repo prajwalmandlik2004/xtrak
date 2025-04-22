@@ -52,6 +52,17 @@ class Oppdashboard extends Model
         'other_two',
         'date_emb'
     ];
+
+    public function cdtLinks()
+    {
+        return $this->hasMany(OppCdtLink::class, 'opp_id');
+    }
+
+    public function candidates()
+    {
+        return $this->belongsToMany(Candidate::class, 'opp_cdt_links', 'opp_id', 'cdt_id')
+            ->withTimestamps();
+    }
 }
 
 
