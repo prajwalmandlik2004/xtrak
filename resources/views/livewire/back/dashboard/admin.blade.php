@@ -292,6 +292,7 @@
                             <tbody>
                                 @forelse ($candidates as $index => $candidate)
                                 <tr data-id="{{ $candidate->id }}"
+                                    wire:click="toggleSelect({{ $candidate->id }})"
                                     class="{{ $selectedCandidateId == $candidate->id ? 'table-info' : ($index % 2 == 0 ? '' : 'cdtnonactiveontable') }}"
                                     wire:dblclick.prevent="selectCandidate('{{ $candidate->id }}', '{{ $candidates->currentPage() }}')">
                                     <td class="checkbox-cell">
