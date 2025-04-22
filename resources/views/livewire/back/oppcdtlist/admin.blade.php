@@ -211,60 +211,7 @@
                                         </button>
                                     </td>
                                     <td>{{ $link->opportunity->opp_code ?? '--' }}</td>
-                                    <td>{{ $link->candidate->code_cdt ?? '--' }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($link->candidate->updated_at)->format('d/m/y') ?? '--' }}</td>
-                                    <td>{{ $link->candidate->auteur->trigramme ?? '--' }}</td>
-                                    <td>{{ $link->candidate->civ->name ?? '--' }}</td>
-                                    <td>{{ $link->candidate->first_name ?? '--' }}</td>
-                                    <td id="Lcol">{{ $link->candidate->last_name ?? '--' }}</td>
-                                    <td id="Lcol">{{ $link->candidate->position->name ?? '--' }}</td>
-                                    <td>{{ $link->candidate->phone ?? '--' }}</td>
-                                    <td>{{ $link->candidate->email ?? '--' }}</td>
-                                    <td>{{ $link->candidate->postal_code ?? '--' }}</td>
-
-                                    @if($link->candidate->candidateState->name == 'Certifié')
-                                    <td id="colState">
-                                        <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{$index}})">
-                                            <span id="hidden-certificate-{{ $index }}">Certifié</span>
-                                            <span id="visible-certificate-{{ $index }}" style="display: none;">{{ $link->candidate->certificate }}</span>
-                                        </span>
-                                        <div id="message-{{ $index }}" class="copy-message" style="display: none;"></div>
-                                    </td>
-                                    @else
-                                    <td>
-                                        {{ $link->candidate->candidateState->name }}
-                                    </td>
-                                    @endif
-
-                                    <td>{{ $link->candidate->disponibility->name ?? '--' }}</td>
-                                    <td>{{ $link->candidate->nextStep->name ?? '--' }}</td>
-                                    <td>
-                                        @if ($link->candidate->files()->exists())
-                                        @php
-                                        $cvFile = $link->candidate->files()->where('file_type', 'cv')->first();
-                                        @endphp
-
-                                        @if ($cvFile)
-                                        <a class="text-body" href="#"
-                                            wire:click.prevent="selectCandidateGoToCv('{{ $link->candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
-                                        @else
-                                        n/a
-                                        @endif
-                                        @else
-                                        n/a
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($link->candidate->cres()->exists())
-                                        <a class="text-body" href="#"
-                                            wire:click.prevent="selectCandidateGoToCre('{{ $link->candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $link->candidate->cres()->exists() ? 'OK' : '--' }}</a>
-                                        @else
-                                        n/a
-                                        @endif
-                                    </td>
-                                    <td>{{ $link->candidate->candidateStatut->name ?? '--' }}</td>
-                                    <td>{{ $link->candidate->commentaire ?? '--' }}</td>
-                                    <td>{{ $link->candidate->description ?? '--' }}</td>
+                                   
                                 </tr>
                                 @endforeach
                                 @else
