@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Oppdashboard;
+use App\Models\CdtOppLink;
 
 class OpplistController extends Controller
 {
     public function index()
     {
 
-        $data = Oppdashboard::all();
+        $data = CdtOppLink::all();
         return view('back.opplist.admin', compact('data'));
     }
 }
