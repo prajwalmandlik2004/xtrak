@@ -37,7 +37,9 @@ class Admin extends Component
     public $filterName = '';
     public $filterDate = '';
     public $candidate_state_id = '';
-    public $selectedCandidateId;
+    // public $selectedCandidateId;
+    public $selectedCandidateIds = []; // For multiple selections
+    public $selectedCandidateId = null;
     public $candidateStates;
     public $positions;
     public $position_id;
@@ -529,61 +531,47 @@ class Admin extends Component
         $this->validate([
             'oppCode' => 'required',
         ]);
-
+    
         // Check if any rows are selected
         if (empty($this->selectedCandidateId)) {
             $this->oppLinkError = 'Please select at least one candidate to link';
             return;
         }
-
-        // Find the candidate with the given code
-        $candidate = Oppdashboard::where('opp_code', $this->oppCode)->first();
-
-        if (!$candidate) {
-            $this->oppLinkError = 'No candidate found with this OPP code';
+    
+        // Find the opportunity with the given code
+        $opportunity = Oppdashboard::where('opp_code', $this->oppCode)->first();
+    
+        if (!$opportunity) {
+            $this->oppLinkError = 'No opportunity found with this OPP code';
             return;
         }
-
-        $linkedCount = 0;
-        $alreadyLinkedCount = 0;
-
-        // Link each selected opportunity to the CDT
-        // $candidateIds = explode(',', $this->selectedCandidateId);
-        foreach ($this->selectedCandidateId as $cdtId) {
-            // Check if already linked
-            $existingLink = CdtOppLink::where('cdt_id', $cdtId)
-                ->where('opp_id', $candidate->id)
-                ->first();
-
-            if ($existingLink) {
-                $alreadyLinkedCount++;
-                continue;
-            }
-
-            // Create new link
-            CdtOppLink::create([
-                'cdt_id' => $cdtId,
-                'opp_id' => $candidate->id
-            ]);
-
-            $linkedCount++;
-        }
-
-        // Show appropriate message
-        if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
-        } elseif ($linkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
-        } elseif ($alreadyLinkedCount > 0) {
-            $this->oppLinkError = "Selected opportunities are already linked to this CDT";
+    
+        // Handle a single candidate ID (no need for explode)
+        $cdtId = $this->selectedCandidateId;
+        
+        // Check if already linked
+        $existingLink = CdtOppLink::where('cdt_id', $cdtId)
+            ->where('opp_id', $opportunity->id)
+            ->first();
+    
+        if ($existingLink) {
+            $this->oppLinkError = "This candidate is already linked to this opportunity";
             return;
         }
-
+    
+        // Create new link
+        CdtOppLink::create([
+            'cdt_id' => $cdtId,
+            'opp_id' => $opportunity->id
+        ]);
+    
+        // Show success message
+        session()->flash('linkmessage', "Candidate successfully linked to opportunity");
+    
         // Clear inputs and close modal
         $this->oppCode = '';
         $this->closeOppModal();
     }
-
 
 
     public function render()
