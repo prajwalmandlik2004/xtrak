@@ -46,7 +46,7 @@
                                 <a href="/opplist">
                                     <button type="button" class="btn btn-input">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
-                                <button id="linkNewOPP" type="button" class="btn btn-input"><i class="fas fa-link"></i></button>
+                                <button type="button" class="btn btn-input"><i class="fas fa-link" wire:click="openOppModal"></i></button>
                             </div>
                             <div class="one">
                                 <a href="/cdtevtlist">
