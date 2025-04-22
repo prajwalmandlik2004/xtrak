@@ -268,7 +268,7 @@ class Admin extends Component
     //     }
     // }
 
-        public function mount()
+    public function mount()
     {
         $this->positions = Position::all();
         $this->candidateStatuses = CandidateStatut::all();
@@ -548,8 +548,8 @@ class Admin extends Component
         $alreadyLinkedCount = 0;
 
         // Link each selected opportunity to the CDT
-        $candidateIds = explode(',', $this->selectedCandidateId);
-        foreach ($candidateIds as $cdtId) {
+        // $candidateIds = explode(',', $this->selectedCandidateId);
+        foreach ($this->selectedCandidateId as $cdtId) {
             // Check if already linked
             $existingLink = CdtOppLink::where('cdt_id', $cdtId)
                 ->where('opp_id', $candidate->id)
