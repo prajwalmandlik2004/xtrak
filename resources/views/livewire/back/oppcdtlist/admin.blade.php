@@ -212,6 +212,15 @@
                                     </td>
                                     <td>{{ $link->opportunity->opp_code ?? '--' }}</td>
                                     <td>{{ $link->candidate->code_cdt ?? '--' }}</td>
+                                    <td>{{ $link->candidate->updated_at->format('d/m/y') ?? '--' }}</td>
+                                    <td>{{ $link->candidate->auteur->trigramme ?? '--' }}</td>
+                                    <td>{{ $link->candidate->civ->name ?? '--' }}</td>
+                                    <td>{{ $link->candidate->first_name ?? '--' }}</td>
+                                    <td id="Lcol">{{ $link->candidate->last_name ?? '--' }}</td>
+                                    <td id="Lcol">{{ $link->candidate->position->name ?? '--' }}</td>
+                                    <td>{{ $link->candidate->phone ?? '--' }}</td>
+                                    <td>{{ $link->candidate->email ?? '--' }}</td>
+                                    <td>{{ $link->candidate->postal_code ?? '--' }}</td>
                                    
                                 </tr>
                                 @endforeach
