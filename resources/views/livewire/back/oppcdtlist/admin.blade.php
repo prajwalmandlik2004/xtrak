@@ -78,21 +78,8 @@
 
         <div class="col-md-14 mt-4 mb-3">
             <div class="table-responsive">
-                <!-- <h5 class="mb-2">Filtrage</h5> -->
                 <table class="table table-bordered border-secondary table-nowrap">
-                    <!-- <thead>
-                        <tr class="text-center">
-                            <th style="width:110px;" class="select-cpdpt" cope="col">Effacer</th>
-                            <th scope="col">Recherche</th>
-                            <th scope="col">Company</th>
-                            <th class="select-cpdpt" scope="col">CA</th>
-                            <th scope="col">CP/Dpt</th>
-                            <th style="width:150px;" scope="col">Date</th>
-                            <th class="select-statut" scope="col">Statut EVT</th>
-                            <th scope="col">NextStep</th>
-                            <th scope="col">Prio</th>
-                        </tr>
-                    </thead> -->
+
                     <tbody>
                         <tr>
                             <td style="width:10px;">
@@ -145,126 +132,144 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex">
-                        <!-- <div class="me-3">
-                            <button type="button" class="btn btn-outline-dark" id="selectionButton">
-                                <i class="bi bi-check-square-fill"></i> Sélection
-                            </button>
-                        </div> -->
                         <div>
                             <button wire:click="" class="btn btn-danger" id="delete-button-container" style="display: none;">
                                 <i class="bi bi-trash-fill"></i>Supprimer
                             </button>
                         </div>
-                        <!-- <div class="me-3">
-                            <button type="button" class="btn btn-outline-dark" id ="uncheckedButton">
-                            <i class="bi bi-check-square"></i> Désélection
-                            </button>
-                        </div> -->
-                        <!-- <div class="flex-grow-1 text-center">
-                            <h4 class="card-title fw-bold fs-2">
-                                OPPvue
-                            </h4>
-                        </div> -->
-                        <!-- verifier si la personne authentifiée n'est pas manager avant d'afficher le bouton -->
                         @if (!auth()->user()->hasRole('Manager'))
-                        <!-- <div id="exporter">
-                            <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
-                                <i class="ri-file-download-line me-1"></i>
-                                <span class="download-text">Exporter</span>
-                                <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Exportation...</span>
-                                </span>
-                            </button>
-                        </div> -->
+
                         @endif
                     </div>
                 </div>
                 <div style="margin-top:-2%;" class="card-body">
+
+                    @if (session()->has('message'))
+                    <div style="width:23%;" class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+
+
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <th style="width:2%;background-color:#F9C0AB;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                    <th style="width:2%;background-color:#6F61C0; color:white;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
-                                    <th style="background-color:#F9C0AB;" scope="col" wire:click="sortBy('updated_at')">
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Link Date</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Actions</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">OPPcode</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">CDTcode</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col" wire:click="sortBy('updated_at')">
                                         Date MAJ
                                     </th>
-                                    <th style="background-color:#F9C0AB;" scope="col">Aut</th>
-                                    <th style="background-color:#F9C0AB;" scope="col">Civ</th>
-                                    <th style="background-color:#F9C0AB;" scope="col" wire:click="sortBy('first_name')">
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Aut</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Civ</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col" wire:click="sortBy('first_name')">
                                         Prénom
                                     </th>
-                                    <th style="background-color:#F9C0AB;" scope="col" wire:click="sortBy('last_name')">
+                                    <th style="background-color:#6F61C0; color:white;" scope="col" wire:click="sortBy('last_name')">
                                         Nom
                                     </th>
-                                    <th style="background-color:#F9C0AB;" scope="col">Fonction</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Fonction</th>
                                     <!-- <th scope="col">Société</th> -->
-                                    <th style="background-color:#F9C0AB;" scope="col">Tél</th>
-                                    <th style="background-color:#F9C0AB;" scope="col">Email</th>
-                                    <th style="background-color:#F9C0AB;" scope="col">CP/Dpt</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Tél</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Email</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">CP/Dpt</th>
                                     <!-- <th scope="col">Ville</th>
                                     <th scope="col">Pays</th> -->
-                                    <th style="background-color:#F9C0AB;" scope="col">Etat</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Etat</th>
 
-                                    <th style="background-color:#F9C0AB;" scope="col">Disponibilité</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Disponibilité</th>
                                     <!-- <th scope="col">Etat</th> -->
-                                    <th style="background-color:#F9C0AB;" scope="col">Next step</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Next step</th>
                                     <!-- <th scope="col">NSdate</th> -->
-                                    <th style="background-color:#F9C0AB;" scope="col">CV</th>
-                                    <th style="background-color:#F9C0AB;" scope="col">CRE</th>
-                                    <th style="background-color:#F9C0AB;" scope="col">Statut</th>
-                                    <th style="background-color:#F9C0AB;" scope="col">Commentaire</th>
-                                    <th style="background-color:#F9C0AB;" scope="col">Description</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">CV</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">CRE</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Statut</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Commentaire</th>
+                                    <th style="background-color:#6F61C0; color:white;" scope="col">Description</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(!empty($data) && (is_array($data) || is_object($data)) && count($data) > 0)
-                                @foreach($data as $item)
+                                @if($links->count() > 0)
+                                @foreach($links as $link)
                                 <tr>
-                                    <!-- <td>{{ $item->creation_date }}</td>
-                                    <td>{{ $item->company }}</td>
-                                    <td>{{ $item->standard_phone }}</td>
-                                    <td>{{ $item->postal_code_department }}</td>
-                                    <td>{{ $item->title }}</td>
-                                    <td>{{ $item->first_name }}</td>
-                                    <td>{{ $item->last_name }}</td>
-                                    <td>{{ $item->position }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->mobile }}</td>
-                                    <td>{{ $item->event_date }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->subject }}</td>
-                                    <td>{{ $item->event_status }}</td>
-                                    <td>{{ $item->comment_trg }}</td>
-                                    <td>{{ $item->next_step }}</td> -->
                                     <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
                                             style="display:none;pointer-events: none;">
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $link->created_at->format('d/m/y') }}</td>
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-danger"
+                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to remove this link ⚠')) { @this.deleteCdtLink({{ $link->id }}); }">
+                                            <i class="fas fa-unlink"></i>
+                                        </button>
+                                    </td>
+                                    <td>{{ $link->opportunity->opp_code ?? '--' }}</td>
+                                    <td>{{ $link->candidate->code_cdt ?? '--' }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($link->candidate->updated_at)->format('d/m/y') ?? '--' }}</td>
+                                    <td>{{ $link->candidate->auteur->trigramme ?? '--' }}</td>
+                                    <td>{{ $link->candidate->civ->name ?? '--' }}</td>
+                                    <td>{{ $link->candidate->first_name ?? '--' }}</td>
+                                    <td id="Lcol">{{ $link->candidate->last_name ?? '--' }}</td>
+                                    <td id="Lcol">{{ $link->candidate->position->name ?? '--' }}</td>
+                                    <td>{{ $link->candidate->phone ?? '--' }}</td>
+                                    <td>{{ $link->candidate->email ?? '--' }}</td>
+                                    <td>{{ $link->candidate->postal_code ?? '--' }}</td>
+
+                                    @if($link->candidate->candidateState->name == 'Certifié')
+                                    <td id="colState">
+                                        <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{$index}})">
+                                            <span id="hidden-certificate-{{ $index }}">Certifié</span>
+                                            <span id="visible-certificate-{{ $index }}" style="display: none;">{{ $link->candidate->certificate }}</span>
+                                        </span>
+                                        <div id="message-{{ $index }}" class="copy-message" style="display: none;"></div>
+                                    </td>
+                                    @else
+                                    <td>
+                                        {{ $link->candidate->candidateState->name }}
+                                    </td>
+                                    @endif
+
+                                    <td>{{ $link->candidate->disponibility->name ?? '--' }}</td>
+                                    <td>{{ $link->candidate->nextStep->name ?? '--' }}</td>
+                                    <td>
+                                        @if ($link->candidate->files()->exists())
+                                        @php
+                                        $cvFile = $link->candidate->files()->where('file_type', 'cv')->first();
+                                        @endphp
+
+                                        @if ($cvFile)
+                                        <a class="text-body" href="#"
+                                            wire:click.prevent="selectCandidateGoToCv('{{ $link->candidate->id }}', '{{ $candidates->currentPage() }}')">OK</a>
+                                        @else
+                                        n/a
+                                        @endif
+                                        @else
+                                        n/a
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($link->candidate->cres()->exists())
+                                        <a class="text-body" href="#"
+                                            wire:click.prevent="selectCandidateGoToCre('{{ $link->candidate->id }}', '{{ $candidates->currentPage() }}')">{{ $link->candidate->cres()->exists() ? 'OK' : '--' }}</a>
+                                        @else
+                                        n/a
+                                        @endif
+                                    </td>
+                                    <td>{{ $link->candidate->candidateStatut->name ?? '--' }}</td>
+                                    <td>{{ $link->candidate->commentaire ?? '--' }}</td>
+                                    <td>{{ $link->candidate->description ?? '--' }}</td>
                                 </tr>
                                 @endforeach
                                 @else
                                 <tr>
-                                    <td colspan="16" class="text-center">No data available</td>
+                                    <td colspan="20" class="text-center">No linked data available</td>
                                 </tr>
                                 @endif
                             </tbody>
@@ -275,8 +280,8 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end mt-3">
-            {{ $data->links() }}
+        <div class="d-flex justify-content-end">
+            {{ $links->links() }}
         </div>
 
 
@@ -952,25 +957,7 @@
             alert("Coming Soon 🛑");
         }
 
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     const linkNewCDT = document.getElementById('linkNewCDT');
-        //     const cdtModal = new bootstrap.Modal(document.getElementById('cdtModal'));
-        //     const okButton = document.getElementById('okButton');
-        //     const cdtCodeInput = document.getElementById('cdtCode');
 
-        //     linkNewCDT.addEventListener('click', function() {
-        //         cdtModal.show();
-        //     });
-
-        //     okButton.addEventListener('click', function() {
-        //         const code = cdtCodeInput.value.trim();
-        //         if (code) {
-        //             console.log('CDT Code submitted:', code);
-        //             cdtModal.hide();
-        //             cdtCodeInput.value = '';
-        //         }
-        //     });
-        // });
 
         let currentlyVisibleCertificateIndex = null;
 
