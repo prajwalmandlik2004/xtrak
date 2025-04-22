@@ -383,6 +383,40 @@
         </div><!-- end row -->
 
 
+
+        <div style="margin-top:-60%;" class="modal fade" id="oppLinkModal" tabindex="-1" aria-labelledby="oppLinkModalLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="oppLinkModalLabel">Link OPP</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="closeOppModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="oppCode">Enter OPP Code</label>
+                            <input type="text" class="form-control" id="oppCode" wire:model.defer="oppCode">
+                        </div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if($oppLinkError)
+                        <div class="alert alert-danger mt-2">
+                            {{ $oppLinkError }}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeOppModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkOpp">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div style="margin-top:-30%;" class="modal fade" id="cdtModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
                 <div class="modal-content cdt-modal-content">
@@ -472,6 +506,16 @@
         }
     </script>
     <script>
+
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-opp-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('oppLinkModal'));
+                myModal.show();
+            });
+        });
+
+
+        
         document.addEventListener('DOMContentLoaded', function() {
             var selectionButton = document.getElementById('selectionButton');
             selectionButton.addEventListener('click', toggleCheckboxes);
