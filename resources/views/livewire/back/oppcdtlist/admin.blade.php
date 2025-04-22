@@ -221,6 +221,21 @@
                                     <td>{{ $link->candidate->phone ?? '--' }}</td>
                                     <td>{{ $link->candidate->email ?? '--' }}</td>
                                     <td>{{ $link->candidate->postal_code ?? '--' }}</td>
+                                    @if($link->candidate->candidateState->name == 'Certifié')
+                                    <td id="colState">
+                                        <span class="badge rounded-pill bg-success" id="certificate-{{ $index }}" onclick="toggleCertificate({{$index}})">
+                                            <span id="hidden-certificate-{{ $index }}">Certifié</span>
+                                            <span id="visible-certificate-{{ $index }}" style="display: none;">{{ $link->candidate->certificate }}</span>
+                                        </span>
+                                        <div id="message-{{ $index }}" class="copy-message" style="display: none;"></div>
+                                    </td>
+                                    @else
+                                    <td>
+                                        {{ $link->candidate->candidateState->name }}
+                                    </td>
+                                    @endif
+                                    <td>{{ $link->candidate->disponibility->name ?? '--' }}</td>
+                                    <td>{{ $link->candidate->nextStep->name ?? '--' }}</td>
                                    
                                 </tr>
                                 @endforeach
