@@ -221,10 +221,6 @@
                                     <td>{{ $link->candidate->phone ?? '--' }}</td>
                                     <td>{{ $link->candidate->email ?? '--' }}</td>
                                     <td>{{ $link->candidate->postal_code ?? '--' }}</td>
-                                    <td>
-                                        {{ $link->candidate->candidateState->name }}
-                                    </td>
-                                    @endif
                                     <td>{{ $link->candidate->disponibility->name ?? '--' }}</td>
                                     <td>{{ $link->candidate->nextStep->name ?? '--' }}</td>
                                     <td>{{ $link->candidate->candidateStatut->name ?? '--' }}</td>
