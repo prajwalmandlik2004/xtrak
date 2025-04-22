@@ -7,6 +7,10 @@ use App\Models\Oppdashboard;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+use App\Models\Candidate; // Add this
+use App\Models\OppCdtLink; // We'll create this model
+
+
 class Admin extends Component
 {
     use WithPagination;
@@ -31,12 +35,26 @@ class Admin extends Component
 
     public $datas;
     public $selectedRows = [];
+
+    // Add properties for CDT linking
+    public $cdtCode = '';
+    public $showCdtModal = false;
+    public $cdtLinkError = '';
+
+    
     protected $listeners = ['refreshTable' => '$refresh'];
     public $isEditing = false;
     public $editId = null;
     public $formData = [];
     public $step=1;
     public $action;
+
+    
+    // Rules for CDT code validation
+    protected $rules = [
+        'cdtCode' => 'required',
+    ];
+
 
     public function refreshData()
     {
@@ -208,6 +226,88 @@ class Admin extends Component
     {
         return Oppdashboard::where('opportunity_status', 'Presented')->count();
     }
+
+    // New methods for CDT linking
+    public function openCdtModal()
+    {
+        if (empty($this->selectedRows)) {
+            session()->flash('error', 'Please select at least one opportunity to link');
+            return;
+        }
+
+        $this->showCdtModal = true;
+        $this->cdtCode = '';
+        $this->cdtLinkError = '';
+        $this->dispatch('open-cdt-modal');
+    }
+
+    public function closeCdtModal()
+    {
+        $this->showCdtModal = false;
+        $this->cdtCode = '';
+        $this->cdtLinkError = '';
+    }
+
+    public function linkCdt()
+    {
+        $this->validate([
+            'cdtCode' => 'required',
+        ]);
+
+        // Check if any rows are selected
+        if (empty($this->selectedRows)) {
+            $this->cdtLinkError = 'Please select at least one opportunity to link';
+            return;
+        }
+
+        // Find the candidate with the given code
+        $candidate = Candidate::where('code_cdt', $this->cdtCode)->first();
+
+        if (!$candidate) {
+            $this->cdtLinkError = 'No candidate found with this CDT code';
+            return;
+        }
+
+        $linkedCount = 0;
+        $alreadyLinkedCount = 0;
+
+        // Link each selected opportunity to the CDT
+        foreach ($this->selectedRows as $oppId) {
+            // Check if already linked
+            $existingLink = OppCdtLink::where('opp_id', $oppId)
+                ->where('cdt_id', $candidate->id)
+                ->first();
+
+            if ($existingLink) {
+                $alreadyLinkedCount++;
+                continue;
+            }
+
+            // Create new link
+            OppCdtLink::create([
+                'opp_id' => $oppId,
+                'cdt_id' => $candidate->id
+            ]);
+
+            $linkedCount++;
+        }
+
+        // Show appropriate message
+        if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+        } elseif ($linkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+        } elseif ($alreadyLinkedCount > 0) {
+            $this->cdtLinkError = "Selected opportunities are already linked to this CDT";
+            return;
+        }
+
+        // Clear inputs and close modal
+        $this->cdtCode = '';
+        $this->closeCdtModal();
+    }
+
+
 
     public function render()
     {
