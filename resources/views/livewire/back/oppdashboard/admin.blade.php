@@ -49,7 +49,7 @@
                                 <a href="/oppcdtlist">
                                     <button type="button" class="btn btn-inputmain">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
-                                <button id="linkNewCDT" type="button" class="btn btn-inputmain"><i class="fas fa-link"></i></button>
+                                <button type="button" class="btn btn-inputmain" wire:click="openCdtModal"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
                                 <a href="/oppevtlist">
@@ -267,7 +267,7 @@
         </div>
 
 
-        <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
+<!--         <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
                 <div class="modal-content cdt-modal-content">
                     <div class="cdt-modal-header">
@@ -283,7 +283,40 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+
+         <div style="margin-top:-40%;" class="modal fade" id="cdtLinkModal" tabindex="-1" aria-labelledby="cdtLinkModalLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cdtLinkModalLabel">Link CDT</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="closeCdtModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="cdtCode">Enter CDT Code</label>
+                            <input type="text" class="form-control" id="cdtCode" wire:model.defer="cdtCode">
+                        </div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if($cdtLinkError)
+                        <div class="alert alert-danger mt-2">
+                            {{ $cdtLinkError }}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeCdtModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkCdt">OK</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
 
 
 
@@ -506,9 +539,18 @@
     </div>
     @push('page-script')
     <script>
-        document.getElementById("linkNewCDT").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "flex";
+        
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-cdt-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('cdtLinkModal'));
+                myModal.show();
+            });
         });
+
+        
+        // document.getElementById("linkNewCDT").addEventListener("click", function() {
+        //     document.getElementById("customModal").style.display = "flex";
+        // });
 
         document.getElementById("closeModal").addEventListener("click", function() {
             document.getElementById("customModal").style.display = "none";
