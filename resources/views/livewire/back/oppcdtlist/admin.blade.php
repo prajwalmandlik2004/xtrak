@@ -211,6 +211,7 @@
                                         </button>
                                     </td>
                                     <td>{{ $link->opportunity->opp_code ?? '--' }}</td>
+                                    <td>{{ $link->candidate->code_cdt ?? '--' }}</td>
                                    
                                 </tr>
                                 @endforeach
