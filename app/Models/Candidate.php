@@ -65,4 +65,15 @@ class Candidate extends Model
         return $this->belongsTo(CandidateState::class);
     }
 
+    public function oppLinks()
+    {
+        return $this->hasMany(OppCdtLink::class, 'cdt_id');
+    }
+
+    public function opportunities()
+    {
+        return $this->belongsToMany(Oppdashboard::class, 'opp_cdt_links', 'cdt_id', 'opp_id')
+            ->withTimestamps();
+    }
+
 }
