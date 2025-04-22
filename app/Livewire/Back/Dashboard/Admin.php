@@ -38,6 +38,7 @@ class Admin extends Component
     public $filterDate = '';
     public $candidate_state_id = '';
     public $selectedCandidateId;
+    public $selectedRows = [];
     public $candidateStates;
     public $positions;
     public $position_id;
@@ -63,6 +64,15 @@ class Admin extends Component
     protected $rules = [
         'oppCode' => 'required',
     ];
+
+    public function toggleSelect($id)
+    {
+        if (in_array($id, $this->selectedRows)) {
+            $this->selectedRows = array_diff($this->selectedRows, [$id]);
+        } else {
+            $this->selectedRows[] = $id;
+        }
+    }
 
 
     public function selectCandidate($id, $page)
@@ -579,8 +589,8 @@ class Admin extends Component
         $alreadyLinkedCount = 0;
 
         // Link each selected opportunity to the CDT
-        $candidateIds = explode(',', $this->selectedCandidateId);
-        foreach ($candidateIds as $cdtId) {
+       
+        foreach ($this->selectedRows as $cdtId) {
             // Check if already linked
             $existingLink = CdtOppLink::where('cdt_id', $cdtId)
                 ->where('opp_id', $candidate->id)
