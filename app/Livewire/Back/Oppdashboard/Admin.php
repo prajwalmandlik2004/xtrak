@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Back\Oppdashboard;
 
-// use App\Models\Ctcdashboard;
+use App\Models\Ctcdashboard;
 use App\Models\Oppdashboard;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,6 +10,12 @@ use Livewire\WithPagination;
 use App\Models\Candidate; // Add this
 use App\Models\OppCdtLink; // We'll create this model
 
+use App\Models\Cstdashboard; // Add this
+use App\Models\OppCstLink; // We'll create this model
+
+
+use App\Models\Mcpdashboard; // Add this
+use App\Models\OppMcpLink; // We'll create this model
 
 class Admin extends Component
 {
@@ -41,18 +47,40 @@ class Admin extends Component
     public $showCdtModal = false;
     public $cdtLinkError = '';
 
-    
+
+    // Add properties for CDT linking
+    public $cstCode = '';
+    public $showCstModal = false;
+    public $cstLinkError = '';
+
+    // Add properties for CDT linking
+    public $mcpCode = '';
+    public $showMcpModal = false;
+    public $mcpLinkError = '';
+
+
     protected $listeners = ['refreshTable' => '$refresh'];
     public $isEditing = false;
     public $editId = null;
     public $formData = [];
-    public $step=1;
+    public $step = 1;
     public $action;
 
-    
     // Rules for CDT code validation
     protected $rules = [
         'cdtCode' => 'required',
+    ];
+
+    
+    // Rules for CDT code validation
+    protected $rules_cst = [
+        'cstCode' => 'required',
+    ];
+
+    
+    // Rules for CDT code validation
+    protected $rules_mcp = [
+        'mcpCode' => 'required',
     ];
 
 
@@ -227,6 +255,7 @@ class Admin extends Component
         return Oppdashboard::where('opportunity_status', 'Presented')->count();
     }
 
+
     // New methods for CDT linking
     public function openCdtModal()
     {
@@ -306,6 +335,175 @@ class Admin extends Component
         $this->cdtCode = '';
         $this->closeCdtModal();
     }
+
+
+
+
+    // New methods for CST linking
+    public function openCstModal()
+    {
+        if (empty($this->selectedRows)) {
+            session()->flash('error', 'Please select at least one opportunity to link');
+            return;
+        }
+
+        $this->showCstModal = true;
+        $this->cstCode = '';
+        $this->cstLinkError = '';
+        $this->dispatch('open-cst-modal');
+    }
+
+    public function closeCstModal()
+    {
+        $this->showCstModal = false;
+        $this->cstCode = '';
+        $this->cstLinkError = '';
+    }
+
+    public function linkCst()
+    {
+        $this->validate([
+            'cstCode' => 'required',
+        ]);
+
+        // Check if any rows are selected
+        if (empty($this->selectedRows)) {
+            $this->cstLinkError = 'Please select at least one opportunity to link';
+            return;
+        }
+
+        // Find the candidate with the given code
+        $candidate = Cstdashboard::where('cst_code', $this->cstCode)->first();
+
+        if (!$candidate) {
+            $this->cstLinkError = 'No data found with this CST code';
+            return;
+        }
+
+        $linkedCount = 0;
+        $alreadyLinkedCount = 0;
+
+        // Link each selected opportunity to the CDT
+        foreach ($this->selectedRows as $oppId) {
+            // Check if already linked
+            $existingLink = OppCstLink::where('opp_id', $oppId)
+                ->where('cst_id', $candidate->id)
+                ->first();
+
+            if ($existingLink) {
+                $alreadyLinkedCount++;
+                continue;
+            }
+
+            // Create new link
+            OppCstLink::create([
+                'opp_id' => $oppId,
+                'cst_id' => $candidate->id
+            ]);
+
+            $linkedCount++;
+        }
+
+        // Show appropriate message
+        if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+        } elseif ($linkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+        } elseif ($alreadyLinkedCount > 0) {
+            $this->cstLinkError = "Selected opportunities are already linked to this CST";
+            return;
+        }
+
+        // Clear inputs and close modal
+        $this->cstCode = '';
+        $this->closeCstModal();
+    }
+
+
+
+    // New methods for MCP linking
+
+    public function openMcpModal()
+    {
+        if (empty($this->selectedRows)) {
+            session()->flash('error', 'Please select at least one opportunity to link');
+            return;
+        }
+
+        $this->showMcpModal = true;
+        $this->mcpCode = '';
+        $this->mcpLinkError = '';
+        $this->dispatch('open-mcp-modal');
+    }
+
+    public function closeMcpModal()
+    {
+        $this->showMcpModal = false;
+        $this->mcpCode = '';
+        $this->mcpLinkError = '';
+    }
+
+    public function linkMcp()
+    {
+        $this->validate([
+            'mcpCode' => 'required',
+        ]);
+
+        // Check if any rows are selected
+        if (empty($this->selectedRows)) {
+            $this->mcpLinkError = 'Please select at least one opportunity to link';
+            return;
+        }
+
+        // Find the candidate with the given code
+        $candidate = Mcpdashboard::where('mcp_code', $this->mcpCode)->first();
+
+        if (!$candidate) {
+            $this->mcpLinkError = 'No data found with this MCP code';
+            return;
+        }
+
+        $linkedCount = 0;
+        $alreadyLinkedCount = 0;
+
+        // Link each selected opportunity to the CDT
+        foreach ($this->selectedRows as $oppId) {
+            // Check if already linked
+            $existingLink = OppMcpLink::where('opp_id', $oppId)
+                ->where('mcp_id', $candidate->id)
+                ->first();
+
+            if ($existingLink) {
+                $alreadyLinkedCount++;
+                continue;
+            }
+
+            // Create new link
+            OppMcpLink::create([
+                'opp_id' => $oppId,
+                'mcp_id' => $candidate->id
+            ]);
+
+            $linkedCount++;
+        }
+
+        // Show appropriate message
+        if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+        } elseif ($linkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+        } elseif ($alreadyLinkedCount > 0) {
+            $this->mcpLinkError = "Selected opportunities are already linked to this MCP";
+            return;
+        }
+
+        // Clear inputs and close modal
+        $this->mcpCode = '';
+        $this->closeMcpModal();
+    }
+
+
+
 
 
 
