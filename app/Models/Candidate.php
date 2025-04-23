@@ -76,4 +76,27 @@ class Candidate extends Model
             ->withTimestamps();
     }
 
+    public function cdt_oppLinks()
+    {
+        return $this->hasMany(CdtOppLink::class, 'cdt_id');
+    }
+
+    public function cdt_opportunities()
+    {
+        return $this->belongsToMany(Oppdashboard::class, 'cdt_opp_links', 'cdt_id', 'opp_id')
+            ->withTimestamps();
+    }
+
+    public function cdt_mcpLinks()
+    {
+        return $this->hasMany(CdtMcpLink::class, 'cdt_id');
+    }
+
+    public function cdt_mcpopportunities()
+    {
+        return $this->belongsToMany(Mcpdashboard::class, 'cdt_mcp_links', 'cdt_id', 'mcp_id')
+            ->withTimestamps();
+    }
+
+
 }
