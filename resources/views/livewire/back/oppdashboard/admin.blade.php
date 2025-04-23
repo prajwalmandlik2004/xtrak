@@ -317,7 +317,7 @@
             </div>
         </div>
 
-         <div style="margin-top:-40%;" class="modal fade" id="cstLinkModal" tabindex="-1" aria-labelledby="cstLinkModalLabel" aria-hidden="true" wire:ignore.self>
+         <div style="margin-top:-60%;" class="modal fade" id="cstLinkModal" tabindex="-1" aria-labelledby="cstLinkModalLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog modal-sm">
                 <div class="modal-content bg-white">
                     <div class="modal-header">
@@ -350,7 +350,7 @@
         </div>
 
 
-        <div style="margin-top:-40%;" class="modal fade" id="mcpLinkModal" tabindex="-1" aria-labelledby="mcpLinkModalLabel" aria-hidden="true" wire:ignore.self>
+        <div style="margin-top:-60%;" class="modal fade" id="mcpLinkModal" tabindex="-1" aria-labelledby="mcpLinkModalLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog modal-sm">
                 <div class="modal-content bg-white">
                     <div class="modal-header">
