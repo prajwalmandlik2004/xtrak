@@ -20,6 +20,11 @@ use Illuminate\Support\Facades\Response;
 use App\Models\Oppdashboard; // Add this
 use App\Models\CdtOppLink; // We'll create this model
 
+use App\Models\Mcpdashboard; // Add this
+use App\Models\CdtMcpLink; // We'll create this model
+
+
+
 
 class Admin extends Component
 {
@@ -55,7 +60,7 @@ class Admin extends Component
     public $creFileExists = '';
 
 
-     // Add properties for CDT linking
+    // Add properties for CDT linking
     public $oppCode = '';
     public $showOppModal = false;
     public $oppLinkError = '';
@@ -63,6 +68,16 @@ class Admin extends Component
     protected $rules = [
         'oppCode' => 'required',
     ];
+
+    // Add properties for MCP linking
+    public $mcpCode = '';
+    public $showMcpModal = false;
+    public $mcpLinkError = '';
+
+    protected $rules_mcp = [
+        'mcpCode' => 'required',
+    ];
+
 
 
     public function selectCandidate($id, $page)
@@ -643,6 +658,98 @@ class Admin extends Component
         $this->oppCode = '';
         $this->closeOppModal();
     }
+
+    // Linking for CDT to MCP
+
+    public function openMcpModal()
+    {
+        $selectedIds = array_keys(array_filter($this->checkboxes));
+
+        if (empty($selectedIds) && empty($this->selectedCandidateId)) {
+            session()->flash('error', 'Please select at least one candidate to link');
+            return;
+        }
+
+        if (empty($this->selectedCandidateId)) {
+            $this->selectedCandidateId = implode(',', $selectedIds);
+        }
+
+        $this->showMcpModal = true;
+        $this->mcpCode = '';
+        $this->mcpLinkError = '';
+        $this->dispatch('open-mcp-modal');
+    }
+
+    
+    public function closeMcpModal()
+    {
+        $this->showMcpModal = false;
+        $this->mcpCode = '';
+        $this->mcpLinkError = '';
+    }
+
+    public function linkMcp()
+    {
+        $this->validate([
+            'mcpCode' => 'required',
+        ]);
+
+        // Check if any rows are selected
+        if (empty($this->selectedCandidateId)) {
+            $this->mcpLinkError = 'Please select at least one candidate to link';
+            return;
+        }
+
+        // Find the candidate with the given code
+        $candidate = Mcpdashboard::where('mcp_code', $this->mcpCode)->first();
+
+        if (!$candidate) {
+            $this->mcpLinkError = 'No candidate found with this MCP code';
+            return;
+        }
+
+        $linkedCount = 0;
+        $alreadyLinkedCount = 0;
+
+        // Link each selected opportunity to the CDT
+        $candidateIds = explode(',', $this->selectedCandidateId);
+        foreach ($candidateIds as $cdtId) {
+            // Check if already linked
+            $existingLink = CdtMcpLink::where('cdt_id', $cdtId)
+                ->where('mcp_id', $candidate->id)
+                ->first();
+
+            if ($existingLink) {
+                $alreadyLinkedCount++;
+                continue;
+            }
+
+            // Create new link
+            CdtMcpLink::create([
+                'cdt_id' => $cdtId,
+                'mcp_id' => $candidate->id
+            ]);
+
+            $linkedCount++;
+        }
+
+        // Show appropriate message
+        if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+        } elseif ($linkedCount > 0) {
+            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+        } elseif ($alreadyLinkedCount > 0) {
+            $this->mcpLinkError = "Selected opportunities are already linked to this CDT";
+            return;
+        }
+
+        // Clear inputs and close modal
+        $this->mcpCode = '';
+        $this->closeMcpModal();
+    }
+
+
+
 
 
 
