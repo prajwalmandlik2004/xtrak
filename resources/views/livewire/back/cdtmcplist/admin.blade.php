@@ -168,65 +168,60 @@
                     </div>
                 </div>
                 <div style="margin-top:-2%;" class="card-body">
+
+                    @if (session()->has('message'))
+                    <div style="width:23%;" class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <th style="width:2%;background-color:#F9C0AB;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                    <th style="width:2%;background-color:#7D0A0A; color:white;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
-                                    <th class="cdt_col" scope="col" style="background-color:#F9C0AB;">Date</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">MCPcode<h>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">CDTcode</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Name</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Object</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Notes</th>
-                                    <!-- <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Status</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Comment</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Next</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Ech</th> -->
+                                    <th class="cdt_col" scope="col" style="background-color:#7D0A0A; color:white;">Date</th>
+                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">MCPcode<h>
+                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">CDTcode</th>
+                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">Name</th>
+                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">Object</th>
+                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">Notes</th>
+                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">Link Date</th>
+                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(!empty($data) && (is_array($data) || is_object($data)) && count($data) > 0)
-                                @foreach($data as $item)
+                                @if($links->count() > 0)
+                                @foreach($links as $link)
                                 <tr>
-                                    <!-- <td>{{ $item->creation_date }}</td>
-                                    <td>{{ $item->company }}</td>
-                                    <td>{{ $item->standard_phone }}</td>
-                                    <td>{{ $item->postal_code_department }}</td>
-                                    <td>{{ $item->title }}</td>
-                                    <td>{{ $item->first_name }}</td>
-                                    <td>{{ $item->last_name }}</td>
-                                    <td>{{ $item->position }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->mobile }}</td>
-                                    <td>{{ $item->event_date }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->subject }}</td>
-                                    <td>{{ $item->event_status }}</td>
-                                    <td>{{ $item->comment_trg }}</td>
-                                    <td>{{ $item->next_step }}</td> -->
+
                                     <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
                                             style="display:none;pointer-events: none;">
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <!-- <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td> -->
+                                    <td>{{ $link->opportunity->date_mcp ?? '--'}}</td>
+                                    <td>{{ $link->opportunity->mcp_code ?? '--'}}</td>
+                                    <td>{{ $link->candidate->code_cdt ?? '--'}}</td>
+                                    <td>{{ $link->candidate->first_name ?? '--'}}</td>
+                                    <td>{{ $link->opportunity->object ?? '--'}}</td>
+                                    <td>{{ $link->opportunity->notes ?? '--'}}</td>
+                                    <td>{{ $link->created_at->format('d/m/y') }}</td>
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-danger"
+                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to remove this link ⚠')) { @this.deleteMcpLink({{ $link->id }}); }">
+                                            <i class="fas fa-unlink"></i>
+                                        </button>
+                                    </td>
 
                                 </tr>
                                 @endforeach
                                 @else
                                 <tr>
-                                    <td colspan="16" class="text-center">No data available</td>
+                                    <td colspan="20" class="text-center">No linked data available</td>
                                 </tr>
                                 @endif
                             </tbody>
@@ -237,9 +232,10 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end mt-3">
-            {{ $data->links() }}
+        <div class="d-flex justify-content-end">
+            {{ $links->links() }}
         </div>
+
 
 
 
