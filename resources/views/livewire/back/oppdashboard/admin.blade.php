@@ -61,13 +61,13 @@
                                 <a href="/oppcstlist">
                                     <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
-                                <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
+                                <button type="button" class="btn btn-cst" wire:click="openCstModal"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
                                 <a href="/oppmcplist">
                                     <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
-                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                                <button type="button" class="btn btn-mcp" wire:click="openMcpModal"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="two">
                                 <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
@@ -317,6 +317,74 @@
             </div>
         </div>
 
+         <div style="margin-top:-40%;" class="modal fade" id="cstLinkModal" tabindex="-1" aria-labelledby="cstLinkModalLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cstLinkModalLabel">Link CST</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="closeCstModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="cstCode">Enter CST Code</label>
+                            <input type="text" class="form-control" id="cstCode" wire:model.defer="cstCode">
+                        </div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if($cstLinkError)
+                        <div class="alert alert-danger mt-2">
+                            {{ $cstLinkError }}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeCstModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkCst">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="margin-top:-40%;" class="modal fade" id="mcpLinkModal" tabindex="-1" aria-labelledby="mcpLinkModalLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mcpLinkModalLabel">Link MCP</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="closeMcpModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="mcpCode">Enter MCP Code</label>
+                            <input type="text" class="form-control" id="mcpCode" wire:model.defer="mcpCode">
+                        </div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if($mcpLinkError)
+                        <div class="alert alert-danger mt-2">
+                            {{ $mcpLinkError }}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeMcpModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkMcp">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
 
 
 
@@ -543,6 +611,20 @@
         document.addEventListener('livewire:initialized', function() {
             Livewire.on('open-cdt-modal', () => {
                 var myModal = new bootstrap.Modal(document.getElementById('cdtLinkModal'));
+                myModal.show();
+            });
+        });
+
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-cst-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('cstLinkModal'));
+                myModal.show();
+            });
+        });
+
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-mcp-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('mcpLinkModal'));
                 myModal.show();
             });
         });
