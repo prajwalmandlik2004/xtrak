@@ -535,17 +535,46 @@ class Admin extends Component
 
 
     // New methods for Opp linking
+    // public function openOppModal()
+    // {
+    //     if (empty($this->selectedCandidateId)) {
+    //         session()->flash('error', 'Please select at least one candidate to link');
+    //         return;
+    //     }
+
+    //     $this->showOppModal = true;
+    //     $this->oppCode = '';
+    //     $this->oppLinkError = '';
+    //     $this->dispatch('open-opp-modal');
+    // }
+
     public function openOppModal()
     {
-        if (empty($this->selectedCandidateId)) {
+        $selectedIds = array_keys(array_filter($this->checkboxes));
+
+        if (empty($selectedIds) && empty($this->selectedCandidateId)) {
             session()->flash('error', 'Please select at least one candidate to link');
             return;
+        }
+
+        if (empty($this->selectedCandidateId)) {
+            $this->selectedCandidateId = implode(',', $selectedIds);
         }
 
         $this->showOppModal = true;
         $this->oppCode = '';
         $this->oppLinkError = '';
         $this->dispatch('open-opp-modal');
+    }
+
+    public function selectRow($id)
+    {
+        $this->selectedCandidateId = $id;
+        if (isset($this->checkboxes[$id])) {
+            $this->checkboxes[$id] = !$this->checkboxes[$id];
+        } else {
+            $this->checkboxes[$id] = true;
+        }
     }
 
     public function closeOppModal()
