@@ -646,11 +646,11 @@ class Admin extends Component
 
         // Show appropriate message
         if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            session()->flash('linkmessage', "$linkedCount candidates linked successfully $alreadyLinkedCount were already linked.");
         } elseif ($linkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+            session()->flash('linkmessage', "$linkedCount candidates linked successfully");
         } elseif ($alreadyLinkedCount > 0) {
-            $this->oppLinkError = "Selected opportunities are already linked to this CDT";
+            $this->oppLinkError = "Selected candidates are already linked to this CDT";
             return;
         }
 
@@ -735,11 +735,11 @@ class Admin extends Component
 
         // Show appropriate message
         if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            session()->flash('linkmessage', "$linkedCount candidates linked successfully $alreadyLinkedCount were already linked.");
         } elseif ($linkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+            session()->flash('linkmessage', "$linkedCount candidates linked successfully");
         } elseif ($alreadyLinkedCount > 0) {
-            $this->mcpLinkError = "Selected opportunities are already linked to this CDT";
+            $this->mcpLinkError = "Selected candidates are already linked to this CDT";
             return;
         }
 
