@@ -63,6 +63,40 @@ class Oppdashboard extends Model
         return $this->belongsToMany(Candidate::class, 'opp_cdt_links', 'opp_id', 'cdt_id')
             ->withTimestamps();
     }
+
+    public function opp_cdtLinks()
+    {
+        return $this->hasMany(CdtOppLink::class, 'opp_id');
+    }
+
+    public function opp_candidates()
+    {
+        return $this->belongsToMany(Candidate::class, 'cdt_opp_links', 'opp_id', 'cdt_id')
+            ->withTimestamps();
+    }
+
+ 
+    public function cstLinks()
+    {
+        return $this->hasMany(OppCstLink::class, 'opp_id');
+    }
+
+    public function candidates_cst()
+    {
+        return $this->belongsToMany(Cstdashboard::class, 'opp_cst_links', 'opp_id', 'cst_id')
+            ->withTimestamps();
+    }
+
+    public function mcpLinks()
+    {
+        return $this->hasMany(OppMcpLink::class, 'opp_id');
+    }
+
+    public function candidates_mcp()
+    {
+        return $this->belongsToMany(Mcpdashboard::class, 'opp_mcp_links', 'opp_id', 'mcp_id')
+            ->withTimestamps();
+    }
 }
 
 
