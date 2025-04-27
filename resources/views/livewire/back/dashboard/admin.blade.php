@@ -392,7 +392,7 @@
             </div>
             
             <!-- Search bar positioned in bottom right corner -->
-            <div class="input-group" style="width: auto;">
+            <div class="input-group" style="width: 25%;">
                 <input type="number" id="page-number-input" class="form-control" placeholder="Enter page number" min="1" max="{{ $this->totalPages }}">
                 <span class="input-group-text bg-light">of {{ $this->totalPages }}</span>
                 <button class="btn btn-primary" id="go-to-page-btn" type="button">Go</button>
