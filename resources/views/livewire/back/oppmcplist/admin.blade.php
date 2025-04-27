@@ -43,7 +43,7 @@
                                 <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="three">
-                                <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                                <button wire:click="deleteSelected()" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
                                     <i class="fa-regular fa-trash-can fa-lg"></i>
                                 </button>
                                 <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
@@ -175,8 +175,12 @@
                             <tbody>
                                 @if($links->count() > 0)
                                 @foreach($links as $link)
-                                <tr>
-
+                                <tr
+                                    wire:key="row-{{ $link->id }}"
+                                    wire:click="toggleSelect({{ $link->id }})"
+                                    wire:dblclick="editRow({{ $link->id }})"
+                                    class="{{ in_array($link->id, $selectedRows) ? 'select-row' : '' }}"
+                                    style="cursor: pointer;">
                                     <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
                                             style="display:none;pointer-events: none;">
@@ -420,6 +424,12 @@
                 background-color: #7D0A0A;
                 color: white;
             }
+
+
+            .select-row {
+                background-color: #37AFE1 !important;
+            }
+
 
             .btn-mcp:hover {
                 background-color: #7D0A0A;
