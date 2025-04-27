@@ -377,11 +377,17 @@
 
         </div>
 
-        <!-- end row -->
-        <div class="row g-0 text-center text-sm-start align-items-center mb-4">
-            <!-- end col -->
-            {{ $candidates->links() }}
-        </div><!-- end row -->
+         <div class="row g-0 mt-2 mb-3">
+            <div class="col-md-4 offset-md-4">
+                <div class="input-group">
+                    <input type="number" id="page-number-input" class="form-control" placeholder="Enter page number" min="1">
+                    <button class="btn btn-primary" id="go-to-page-btn" type="button">Go</button>
+                </div>
+                @if(session()->has('error'))
+                <div class="text-danger small mt-1">{{ session('error') }}</div>
+                @endif
+            </div>
+        </div>
 
 
 
@@ -464,6 +470,33 @@
         function coming() {
             alert("OPPlist Coming Soon 🛑");
         }
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const pageInput = document.getElementById('page-number-input');
+            const goToPageBtn = document.getElementById('go-to-page-btn');
+
+            if (pageInput && goToPageBtn) {
+                goToPageBtn.addEventListener('click', function() {
+                    goToPage();
+                });
+
+                pageInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        goToPage();
+                    }
+                });
+            }
+
+            function goToPage() {
+                const pageNumber = parseInt(pageInput.value);
+                if (pageNumber && pageNumber > 0) {
+                    @this.call('gotoPage', pageNumber);
+                } else {
+                    alert('Please enter a valid page number');
+                }
+            }
+        });
 
         document.addEventListener("DOMContentLoaded", function() {
             const linkNewCDT = document.getElementById('linkNewCDT');
