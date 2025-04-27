@@ -377,22 +377,26 @@
 
         </div>
 
-<div class="row g-0 mt-3">
-    <div class="col-md-6 offset-md-3">
-        <div class="d-flex align-items-center">
-            <div class="input-group me-3">
+<div class="row g-0 mt-2 mb-3">
+    <div class="col-12">
+        <div class="d-flex justify-content-end align-items-center">
+            <!-- Messages positioned to the left of the search bar -->
+            <div class="me-3">
+                @if(session()->has('success'))
+                    <div class="text-success">{{ session('success') }}</div>
+                @elseif(session()->has('error'))
+                    <div class="text-danger">{{ session('error') }}</div>
+                @elseif(!empty($this->currentPageMessage))
+                    <div class="text-muted">{{ $this->currentPageMessage }}</div>
+                @endif
+            </div>
+            
+            <!-- Search bar positioned in bottom right corner -->
+            <div class="input-group" style="width: auto;">
                 <input type="number" id="page-number-input" class="form-control" placeholder="Enter page number" min="1" max="{{ $this->totalPages }}">
                 <span class="input-group-text bg-light">of {{ $this->totalPages }}</span>
                 <button class="btn btn-primary" id="go-to-page-btn" type="button">Go</button>
             </div>
-            
-            @if(session()->has('success'))
-                <div class="text-success">{{ session('success') }}</div>
-            @elseif(session()->has('error'))
-                <div class="text-danger">{{ session('error') }}</div>
-            @elseif(!empty($this->currentPageMessage))
-                <div class="text-muted">{{ $this->currentPageMessage }}</div>
-            @endif
         </div>
     </div>
 </div>
