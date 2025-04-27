@@ -78,6 +78,17 @@ class Admin extends Component
         'mcpCode' => 'required',
     ];
 
+    public function gotoPage($pageNumber)
+    {
+        $maxPage = ceil($this->searchCandidates()->total() / $this->nbPaginate);
+
+        if ($pageNumber > 0 && $pageNumber <= $maxPage) {
+            $this->setPage($pageNumber);
+        } else {
+            session()->flash('error', "Invalid page number. Please enter a number between 1 and $maxPage.");
+        }
+    }
+
 
 
     public function selectCandidate($id, $page)
