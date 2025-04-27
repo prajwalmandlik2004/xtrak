@@ -62,7 +62,7 @@
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
                             <div class="three">
-                                <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                                <button wire:click="deleteSelected()" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
                                     <i class="fa-regular fa-trash-can fa-lg"></i>
                                 </button>
                                 <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
@@ -179,6 +179,7 @@
                                     OPPdate
                                 </th>
                                 <th class="ref_col" scope="col">OPPcode</th>
+                                <th class="ref_col" scope="col">CDT First Name</th>
                                 <th class="libe_col" scope="col">Job description</th>
                                 <th class="soci_col" scope="col" wire:click="sortBy('first_name')">
                                     TRGcode
@@ -193,7 +194,12 @@
                         <tbody>
                             @if($links->count() > 0)
                             @foreach($links as $link)
-                            <tr>
+                            <tr
+                                wire:key="row-{{ $link->id }}"
+                                wire:click="toggleSelect({{ $link->id }})"
+                                wire:dblclick="editRow({{ $link->id }})"
+                                class="{{ in_array($link->id, $selectedRows) ? 'select-row' : '' }}"
+                                style="cursor: pointer;">
                                 <td class="checkbox-cell">
                                     <input type="checkbox" class="candidate-checkbox"
                                         style="display:none;pointer-events: none;">
@@ -201,6 +207,7 @@
 
                                 <td>{{ $link->opportunity->opportunity_date ?? '--'}}</td>
                                 <td>{{ $link->opportunity->opp_code ?? '--'}}</td>
+                                <td>{{ $link->candidate->first_name ?? '--'}}</td>
                                 <td>{{ $link->opportunity->job_titles ?? '--'}}</td>
                                 <td>{{ $link->opportunity->trg_code ?? '--' }}</td>
                                 <td>{{ $link->opportunity->name ?? '--'}}</td>
@@ -260,6 +267,10 @@
             background-color: #00FF9C;
             color: black;
             margin-left: 10px;
+        }
+
+        .select-row {
+            background-color: #37AFE1 !important;
         }
 
         .btn-cst:hover {
