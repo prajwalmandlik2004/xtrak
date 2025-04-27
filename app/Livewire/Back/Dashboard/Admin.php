@@ -78,16 +78,22 @@ class Admin extends Component
         'mcpCode' => 'required',
     ];
 
-    public function gotoPage($pageNumber)
-    {
-        $maxPage = ceil($this->searchCandidates()->total() / $this->nbPaginate);
+    public $totalPages = 0;
+    public $currentPageMessage = '';
 
-        if ($pageNumber > 0 && $pageNumber <= $maxPage) {
-            $this->setPage($pageNumber);
-        } else {
-            session()->flash('error', "Invalid page number. Please enter a number between 1 and $maxPage.");
-        }
+public function gotoPage($pageNumber)
+{
+    $maxPage = ceil($this->searchCandidates()->total() / $this->nbPaginate);
+    $this->totalPages = $maxPage;
+    
+    if ($pageNumber > 0 && $pageNumber <= $maxPage) {
+        $this->setPage($pageNumber);
+        $this->currentPageMessage = "Showing page $pageNumber of $maxPage";
+        session()->flash('success', "Successfully navigated to page $pageNumber");
+    } else {
+        session()->flash('error', "Invalid page number. Please enter a number between 1 and $maxPage.");
     }
+}
 
 
 
@@ -768,6 +774,8 @@ class Admin extends Component
     public function render()
     {
         $users = User::all();
+        $candidates = $this->searchCandidates();
+        $this->totalPages = ceil($candidates->total() / $this->nbPaginate);
 
         return view('livewire.back.dashboard.admin')->with([
             'candidates' => $this->searchCandidates(),
