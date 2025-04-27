@@ -377,17 +377,25 @@
 
         </div>
 
-         <div class="row g-0 mt-2 mb-3">
-            <div class="col-md-4 offset-md-4">
-                <div class="input-group">
-                    <input type="number" id="page-number-input" class="form-control" placeholder="Enter page number" min="1">
-                    <button class="btn btn-primary" id="go-to-page-btn" type="button">Go</button>
-                </div>
-                @if(session()->has('error'))
-                <div class="text-danger small mt-1">{{ session('error') }}</div>
-                @endif
+<div class="row g-0 mt-3">
+    <div class="col-md-6 offset-md-3">
+        <div class="d-flex align-items-center">
+            <div class="input-group me-3">
+                <input type="number" id="page-number-input" class="form-control" placeholder="Enter page number" min="1" max="{{ $this->totalPages }}">
+                <span class="input-group-text bg-light">of {{ $this->totalPages }}</span>
+                <button class="btn btn-primary" id="go-to-page-btn" type="button">Go</button>
             </div>
+            
+            @if(session()->has('success'))
+                <div class="text-success">{{ session('success') }}</div>
+            @elseif(session()->has('error'))
+                <div class="text-danger">{{ session('error') }}</div>
+            @elseif(!empty($this->currentPageMessage))
+                <div class="text-muted">{{ $this->currentPageMessage }}</div>
+            @endif
         </div>
+    </div>
+</div>
 
 
 
@@ -472,31 +480,45 @@
         }
 
         
-        document.addEventListener('DOMContentLoaded', function() {
-            const pageInput = document.getElementById('page-number-input');
-            const goToPageBtn = document.getElementById('go-to-page-btn');
-
-            if (pageInput && goToPageBtn) {
-                goToPageBtn.addEventListener('click', function() {
-                    goToPage();
-                });
-
-                pageInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        goToPage();
-                    }
-                });
-            }
-
-            function goToPage() {
-                const pageNumber = parseInt(pageInput.value);
-                if (pageNumber && pageNumber > 0) {
-                    @this.call('gotoPage', pageNumber);
-                } else {
-                    alert('Please enter a valid page number');
-                }
+       document.addEventListener('DOMContentLoaded', function() {
+    const pageInput = document.getElementById('page-number-input');
+    const goToPageBtn = document.getElementById('go-to-page-btn');
+    
+    if (pageInput && goToPageBtn) {
+        goToPageBtn.addEventListener('click', function() {
+            goToPage();
+        });
+        
+        pageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                goToPage();
             }
         });
+    }
+    
+    function goToPage() {
+        const pageNumber = parseInt(pageInput.value);
+        if (pageNumber && pageNumber > 0) {
+            @this.call('gotoPage', pageNumber);
+        } else {
+            alert('Please enter a valid page number');
+        }
+    }
+
+    // Listen for Livewire updates to clear flash messages after a delay
+    document.addEventListener('livewire:update', function() {
+        setTimeout(function() {
+            const flashMessages = document.querySelectorAll('.text-success, .text-danger');
+            flashMessages.forEach(function(message) {
+                message.style.transition = 'opacity 1s';
+                message.style.opacity = '0';
+                setTimeout(function() {
+                    message.style.display = 'none';
+                }, 1000);
+            });
+        }, 3000);
+    });
+});
 
         document.addEventListener("DOMContentLoaded", function() {
             const linkNewCDT = document.getElementById('linkNewCDT');
