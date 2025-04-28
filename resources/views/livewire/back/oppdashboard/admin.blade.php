@@ -262,7 +262,7 @@
             </div>
         </div>
 
-       <div class="d-flex justify-content-end mt-3 position-relative">
+       <div class="d-flex justify-content-end mt-2 mb-2 position-relative">
             <!-- Message area to the left of the pagination search -->
             @if ($pageMessage)
             <div class="me-3 d-flex align-items-center">
