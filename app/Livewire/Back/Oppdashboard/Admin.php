@@ -83,6 +83,18 @@ class Admin extends Component
         'mcpCode' => 'required',
     ];
 
+    public $showCheckboxes = false;
+
+    public function toggleSelectionMode()
+    {
+        $this->showCheckboxes = !$this->showCheckboxes;
+        if (!$this->showCheckboxes) {
+            $this->selectedRows = [];
+            $this->selectAll = false;
+        }
+    }
+
+
     public $pageNumberInput = '';
     public $totalPages = 0;
     public $pageMessage = '';
@@ -119,16 +131,75 @@ class Admin extends Component
         $this->datas = Oppdashboard::latest()->get();
     }
 
+    // public function updatedSelectAll($value)
+    // {
+    //     if ($value) {
+    //         $this->selectedRows = $this->data->pluck('id')->map(function ($id) {
+    //             return (string) $id;
+    //         })->toArray();
+    //     } else {
+    //         $this->selectedRows = [];
+    //     }
+    // }
+
     public function updatedSelectAll($value)
     {
         if ($value) {
-            $this->selectedRows = $this->data->pluck('id')->map(function ($id) {
+            $query = Oppdashboard::query();
+
+            if ($this->search) {
+                $query->where(function ($q) {
+                    $q->where('opportunity_date', 'like', '%' . $this->search . '%')
+                        ->orWhere('opp_code', 'like', '%' . $this->search . '%')
+                        ->orWhere('job_titles', 'like', '%' . $this->search . '%')
+                        ->orWhere('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('postal_code_1', 'like', '%' . $this->search . '%')
+                        ->orWhere('site_city', 'like', '%' . $this->search . '%')
+                        ->orWhere('opportunity_status', 'like', '%' . $this->search . '%')
+                        ->orWhere('remarks', 'like', '%' . $this->search . '%')
+                        ->orWhere('trg_code', 'like', '%' . $this->search . '%')
+                        ->orWhere('total_paid', 'like', '%' . $this->search . '%');
+                });
+            }
+
+            if ($this->codeopp) {
+                $query->where('opp_code', 'like', '%' . $this->codeopp . '%');
+            }
+
+            if ($this->libelle) {
+                $query->where('job_titles', 'like', '%' . $this->libelle . '%');
+            }
+
+            if ($this->company) {
+                $query->where('name', 'like', '%' . $this->company . '%');
+            }
+
+            if ($this->statut !== '') {
+                if ($this->statut == 'Open') {
+                    $query->where('opportunity_status', 'Open');
+                } else if ($this->statut == 'Closed') {
+                    $query->where('opportunity_status', 'Closed');
+                } else if ($this->statut == 'Filled') {
+                    $query->where('opportunity_status', 'Filled');
+                }
+            }
+
+            if ($this->position) {
+                $query->where('postal_code_1', 'like', '%' . $this->position . '%');
+            }
+
+            if ($this->remarks) {
+                $query->where('remarks', 'like', '%' . $this->remarks . '%');
+            }
+
+            $this->selectedRows = $query->pluck('id')->map(function ($id) {
                 return (string) $id;
             })->toArray();
         } else {
             $this->selectedRows = [];
         }
     }
+
 
     public function toggleSelect($id)
     {
