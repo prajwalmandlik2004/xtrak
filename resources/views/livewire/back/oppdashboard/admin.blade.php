@@ -262,8 +262,26 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end mt-3">
-            {{ $data->links() }}
+       <div class="d-flex justify-content-end mt-3 position-relative">
+            <!-- Message area to the left of the pagination search -->
+            @if ($pageMessage)
+            <div class="me-3 d-flex align-items-center">
+                <small class="{{ $pageMessageType == 'error' ? 'text-danger' : 'text-success' }}">
+                    {{ $pageMessage }}
+                </small>
+            </div>
+            @endif
+
+            <!-- Pagination search at the right corner -->
+            <div class="pagination-search">
+                <div class="d-flex align-items-center">
+                    <div class="input-group" style="width:280px;">
+                        <input type="number" class="form-control" wire:model="pageNumberInput" min="1" placeholder="Enter page number">
+                        <span class="input-group-text">of {{ $totalPages }}</span>
+                        <button class="btn btn-primary" type="button" wire:click="goToPage">Go</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
