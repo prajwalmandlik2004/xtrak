@@ -83,6 +83,36 @@ class Admin extends Component
         'mcpCode' => 'required',
     ];
 
+    public $pageNumberInput = '';
+    public $totalPages = 0;
+    public $pageMessage = '';
+    public $pageMessageType = '';
+
+    public function goToPage()
+    {
+        // Validate page number input
+        if (!is_numeric($this->pageNumberInput) || $this->pageNumberInput < 1) {
+            $this->pageMessageType = 'error';
+            $this->pageMessage = 'Please enter a valid page number';
+            return;
+        }
+
+        // Check if page number is within bounds
+        if ($this->pageNumberInput > $this->totalPages) {
+            $this->pageMessageType = 'error';
+            $this->pageMessage = "Page number out of range. Maximum is {$this->totalPages}";
+            return;
+        }
+
+        // Go to the specified page
+        $this->setPage($this->pageNumberInput);
+
+        // Show success message
+        $this->pageMessageType = 'success';
+        $this->pageMessage = "Successfully navigated to page {$this->pageNumberInput}";
+    }
+
+
 
     public function refreshData()
     {
@@ -221,11 +251,17 @@ class Admin extends Component
         $this->position = '';
         $this->remarks = '';
     }
+    
     public function mount()
     {
         $this->hiredCount = $this->countHired();
         $this->inprogressCount = $this->countInprogress();
         $this->presentedCount = $this->countPresented();
+
+        // Calculate total pages
+        $query = Oppdashboard::query();
+        $totalRecords = $query->count();
+        $this->totalPages = ceil($totalRecords / 100); 
     }
 
     public function sortBy($field)
