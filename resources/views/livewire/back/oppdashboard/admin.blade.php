@@ -112,7 +112,7 @@
                     <tbody>
                         <tr>
                             <td style="width:10px;">
-                                <input id="selectionButton" type="checkbox" class="large-checkbox">
+                                <input id="selectionButton" type="checkbox" class="large-checkbox" wire:click="toggleSelectionMode">
                             </td>
 
                             <td>
@@ -208,8 +208,13 @@
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead style="background:#6F61C0;" class="text-white sticky-top">
                                 <tr>
-                                    <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            style="display:none;" wire:model="selectAll"></th>
+                                     <th scope="col">
+                                        @if($showCheckboxes)
+                                        <input type="checkbox" id="select-all-checkbox"
+                                            wire:model="selectAll"
+                                            wire:click="$refresh">
+                                        @endif
+                                    </th>
                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')">
                                         Date
                                     </th>
@@ -234,9 +239,13 @@
                                     wire:dblclick="editRow({{ $item->id }})"
                                     class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }}"
                                     style="cursor: pointer;">
-                                    <td class="checkbox-cell">
-                                        <input type="checkbox" class="candidate-checkbox"
-                                            style="display:none;pointer-events: none;">
+                                    <td class="checkbox-cell" onclick="event.stopPropagation()">
+                                        @if($showCheckboxes)
+                                        <input type="checkbox"
+                                            value="{{ $item->id }}"
+                                            wire:click="toggleSelect({{ $item->id }})"
+                                            {{ in_array((string)$item->id, $selectedRows) ? 'checked' : '' }}>
+                                        @endif
                                     </td>
                                     <td>{{ $item->opportunity_date }}</td>
                                     <td>{{ $item->opp_code }}</td>
