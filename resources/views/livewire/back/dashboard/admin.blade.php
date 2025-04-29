@@ -72,23 +72,26 @@
                                 </button>
                             </div>
                             <div class="four">
-                                <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
-
+<!--                                 <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button> -->
                                 <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
                                 <a href="/landing">
                                     <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
                                 </a>
                             </div>
-                            <div id="exporter">
-                                <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
-                                    <i class="ri-file-download-line me-1"></i>
-                                    <span class="download-text">Exporter</span>
-                                    <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
-                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Exportation...</span>
-                                    </span>
-                                </button>
+                            
+                            <div class="ms-5 d-flex justify-content-end position-relative">
+                                <!-- Pagination search at the right corner -->
+                                <div class="pagination-search">
+                                    <div class="d-flex align-items-center">
+                                        <div class="input-group" style="width:180px;">
+                                            <input type="number" id="page-number-input" class="form-control" placeholder="Page" min="1" max="{{ $this->totalPages }}">
+                                            <span class="input-group-text bg-light">of {{ $this->totalPages }}</span>
+                                            <button class="btn btn-primary" id="go-to-page-btn" type="button">Go</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            
                         </div>
                     </div>
 
@@ -249,6 +252,18 @@
                     </div>
                 </div>
                 <div style="margin-top:-3%" class="card-body">
+                    
+                    <!-- Messages positioned to the left of the search bar -->
+                    <div class="mb-2 me-3">
+                        @if(session()->has('success'))
+                        <div class="text-success">{{ session('success') }}</div>
+                        @elseif(session()->has('error'))
+                        <div class="text-danger">{{ session('error') }}</div>
+                        @elseif(!empty($this->currentPageMessage))
+                        <div class="text-muted">{{ $this->currentPageMessage }}</div>
+                        @endif
+                    </div>
+                    
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -377,30 +392,16 @@
 
         </div>
 
-<div class="row g-0 mt-2 mb-3">
-    <div class="col-12">
-        <div class="d-flex justify-content-end align-items-center">
-            <!-- Messages positioned to the left of the search bar -->
-            <div class="me-3">
-                @if(session()->has('success'))
-                    <div class="text-success">{{ session('success') }}</div>
-                @elseif(session()->has('error'))
-                    <div class="text-danger">{{ session('error') }}</div>
-                @elseif(!empty($this->currentPageMessage))
-                    <div class="text-muted">{{ $this->currentPageMessage }}</div>
-                @endif
-            </div>
-            
-            <!-- Search bar positioned in bottom right corner -->
-            <div class="input-group" style="width: 25%;">
-                <input type="number" id="page-number-input" class="form-control" placeholder="Enter page number" min="1" max="{{ $this->totalPages }}">
-                <span class="input-group-text bg-light">of {{ $this->totalPages }}</span>
-                <button class="btn btn-primary" id="go-to-page-btn" type="button">Go</button>
-            </div>
+        <div style="margin-top:-1%;" class="d-flex justify-content-end position-relative mb-2" id="exporter">
+            <button id="export-button" onclick="exportSelectedCandidates()" class="btn btn-primary position-relative">
+                <i class="ri-file-download-line me-1"></i>
+                <span class="download-text">Exporter</span>
+                <span wire:loading wire:target="downloadExcel" class="position-absolute top-50 start-50 translate-middle">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span class="visually-hidden">Exportation...</span>
+                </span>
+            </button>
         </div>
-    </div>
-</div>
-
 
 
         <div style="margin-top:-60%;" class="modal fade" id="oppLinkModal" tabindex="-1" aria-labelledby="oppLinkModalLabel" aria-hidden="true" wire:ignore.self>
@@ -893,7 +894,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 10px;
+            gap: 5px;
         }
 
         .btn-evt {
