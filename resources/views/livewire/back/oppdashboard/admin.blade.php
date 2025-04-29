@@ -223,7 +223,7 @@
                     
                     <!-- Message area to the left of the pagination search -->
                     @if ($pageMessage)
-                    <div style="margin-top:-1%;" class="mb-2 d-flex align-items-center">
+                    <div style="margin-top:-1%;margin-bottom:1%;" class="d-flex align-items-center">
                         <small style="font-size:15px;" class="{{ $pageMessageType == 'error' ? 'text-danger' : 'text-success' }}">
                             {{ $pageMessage }}
                         </small>
