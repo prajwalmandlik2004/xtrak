@@ -80,6 +80,22 @@
                                     <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
                                 </a>
                             </div>
+
+                             <div class="d-flex justify-content-end position-relative">
+
+                                <!-- Pagination search at the right corner -->
+                                <div class="pagination-search">
+                                    <div class="d-flex align-items-center">
+                                        <div class="input-group" style="width:180px;">
+                                            <input type="number" class="form-control" wire:model="pageNumberInput" min="1" placeholder="Page">
+                                            <span class="input-group-text">of {{ $totalPages }}</span>
+                                            <button class="btn btn-primary" type="button" wire:click="goToPage">Go</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
                         </div>
                     </div>
 
@@ -203,6 +219,18 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
+
+                    
+                    <!-- Message area to the left of the pagination search -->
+                    @if ($pageMessage)
+                    <div style="margin-top:-1%;" class="mb-2 d-flex align-items-center">
+                        <small style="font-size:15px;" class="{{ $pageMessageType == 'error' ? 'text-danger' : 'text-success' }}">
+                            {{ $pageMessage }}
+                        </small>
+                    </div>
+                    @endif
+
+                    
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -271,27 +299,7 @@
             </div>
         </div>
 
-       <div class="d-flex justify-content-end mt-2 mb-2 position-relative">
-            <!-- Message area to the left of the pagination search -->
-            @if ($pageMessage)
-            <div class="me-3 d-flex align-items-center">
-                <small class="{{ $pageMessageType == 'error' ? 'text-danger' : 'text-success' }}">
-                    {{ $pageMessage }}
-                </small>
-            </div>
-            @endif
-
-            <!-- Pagination search at the right corner -->
-            <div class="pagination-search">
-                <div class="d-flex align-items-center">
-                    <div class="input-group" style="width:280px;">
-                        <input type="number" class="form-control" wire:model="pageNumberInput" min="1" placeholder="Enter page number">
-                        <span class="input-group-text">of {{ $totalPages }}</span>
-                        <button class="btn btn-primary" type="button" wire:click="goToPage">Go</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+      
 
 
 <!--         <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
