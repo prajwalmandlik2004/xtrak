@@ -452,7 +452,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 40px;
+                gap: 15px;
             }
 
             .btn-danger {
