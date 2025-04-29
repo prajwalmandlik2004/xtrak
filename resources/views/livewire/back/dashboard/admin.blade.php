@@ -83,7 +83,7 @@
                                 <!-- Pagination search at the right corner -->
                                 <div class="pagination-search">
                                     <div class="d-flex align-items-center">
-                                        <div class="input-group" style="width:200px;">
+                                        <div class="input-group" style="width:190px;">
                                             <input type="number" id="page-number-input" class="form-control" placeholder="Page" min="1" max="{{ $this->totalPages }}">
                                             <span class="input-group-text bg-light">of {{ $this->totalPages }}</span>
                                             <button class="btn btn-primary" id="go-to-page-btn" type="button">Go</button>
@@ -894,7 +894,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 5px;
+            gap: 4px;
         }
 
         .btn-evt {
