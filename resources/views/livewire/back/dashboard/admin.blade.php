@@ -42,24 +42,64 @@
                                     <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                 </a>
                             </div>
-                            <div class="two">
+                            
+<!--                             <div class="two">
                                 <a href="/opplist">
                                     <button type="button" class="btn btn-input">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                                 <button type="button" class="btn btn-input" wire:click="openOppModal"><i class="fas fa-link"></i></button>
+                            </div> -->
+
+                            
+                            <div class="one">
+                                <button type="button" class="btn btn-input"
+                                    id="opplistButton"
+                                    wire:click="showLinkedDataOPP"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    style="display: block; color: white; background-color:#6F61C0; opacity: 1;">
+                                    OPP <i style="margin-left: 5px;" class="fa-regular fa-file-lines"></i>
+                                </button>
                             </div>
+
+                            <div class="one">
+                                <button type="button" class="btn btn-input" wire:click="openOppModal">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                            </div>
+
+                            
                             <div class="one">
                                 <a href="/cdtevtlist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
-                            <div class="two">
+
+                            
+<!--                             <div class="two">
                                 <a href="/cdtmcplist">
                                     <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                                 <button type="button" class="btn btn-mcp" wire:click="openMcpModal"><i class="fas fa-link"></i></button>
+                            </div> -->
+
+                            <div class="one">
+                                <button type="button" class="btn btn-mcp"
+                                    id="mcplistButton"
+                                    wire:click="showLinkedData"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    style="display: block; color: white; background-color: #7D0A0A; opacity: 1;">
+                                    MCP <i style="margin-left: 5px;" class="fa-regular fa-file-lines"></i>
+                                </button>
                             </div>
+
+                            <div class="one">
+                                <button type="button" class="btn btn-mcp" wire:click="openMcpModal">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                            </div>
+
+                            
                             <div class="one">
                                 <a href="">
                                     <button type="button" class="btn"><i class="fa-regular fa-envelope fa-2x"></i></button>
@@ -252,6 +292,13 @@
                     </div>
                 </div>
                 <div style="margin-top:-3%" class="card-body">
+
+                    @if (session()->has('message'))
+                    <div style="width:28%;" class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
                     
                     <!-- Messages positioned to the left of the search bar -->
                     <div class="mb-2 me-3">
