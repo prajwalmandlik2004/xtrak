@@ -144,6 +144,11 @@ class Admin extends Component
         //           ->orWhere('last_name', 'like', '%' . $this->search . '%');
         //     });
         // }
+
+        if (request()->has('selectedRows')) {
+            $selectedRows = request()->get('selectedRows');
+            $query->whereIn('opp_id', $selectedRows);
+        }
         
         $links = $query->orderBy('created_at', 'desc')->paginate(10);
 
