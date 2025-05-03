@@ -159,6 +159,34 @@ public function gotoPage($pageNumber)
         } else {
             $this->checkboxes = [];
         }
+
+         // Check for linked data
+        $selectedIds = array_keys(array_filter($this->checkboxes));
+
+        if (!empty($selectedIds)) {
+            $linkedDataCount = CdtMcpLink::whereIn('cdt_id', $selectedIds)->count();
+
+            if ($linkedDataCount === 0) {
+                $this->dispatch('hide-mcplist-button');
+            } else {
+                $this->dispatch('enable-mcplist-button');
+            }
+        } else {
+            $this->dispatch('disable-mcplist-button');
+        }
+
+        if (!empty($selectedIds)) {
+            $linkedDataCountOPP = CdtOppLink::whereIn('cdt_id', $selectedIds)->count();
+
+            if ($linkedDataCountOPP === 0) {
+                $this->dispatch('hide-opplist-button');
+            } else {
+                $this->dispatch('enable-opplist-button');
+            }
+        } else {
+            $this->dispatch('disable-opplist-button');
+        }
+
     }
 
     public function sortBy($column)
@@ -565,6 +593,105 @@ public function gotoPage($pageNumber)
         session()->put($propertyName, $this->{$propertyName});
     }
 
+    // Row selection 
+
+    public function selectRow($id)
+    {
+        $this->selectedCandidateId = $id;
+
+        if (isset($this->checkboxes[$id])) {
+            $this->checkboxes[$id] = !$this->checkboxes[$id];
+        } else {
+            $this->checkboxes[$id] = true;
+        }
+
+
+        if (!empty($this->selectedCandidateId)) {
+            $linkedDataCount = CdtMcpLink::where('cdt_id', $this->selectedCandidateId)->count();
+
+            if ($linkedDataCount === 0) {
+                $this->dispatch('hide-mcplist-button');
+            } else {
+                $this->dispatch('enable-mcplist-button');
+            }
+        } else {
+            $this->dispatch('disable-mcplist-button');
+        }
+
+        if (!empty($this->selectedCandidateId)) {
+            $linkedDataCountOPP = CdtOppLink::where('cdt_id', $this->selectedCandidateId)->count();
+
+            if ($linkedDataCountOPP === 0) {
+                $this->dispatch('hide-opplist-button');
+            } else {
+                $this->dispatch('enable-opplist-button');
+            }
+        } else {
+            $this->dispatch('disable-opplist-button');
+        }
+    }
+
+    public function checkLinkedData()
+    {
+        if (empty($this->selectedCandidateId)) {
+            return false;
+        }
+
+        $linkedDataCount = CdtMcpLink::where('cdt_id', $this->selectedCandidateId)->count();
+        return $linkedDataCount > 0;
+    }
+
+    public function checkLinkedDataOPP()
+    {
+        if (empty($this->selectedCandidateId)) {
+            return false;
+        }
+
+        $linkedDataCountOPP = CdtOppLink::where('cdt_id', $this->selectedCandidateId)->count();
+        return $linkedDataCountOPP > 0;
+    }
+
+
+
+    public function showLinkedData()
+    {
+        if (empty($this->selectedCandidateId)) {
+            session()->flash('message', 'Please select a row to view linked data.');
+            return;
+        }
+
+        $linkedDataCount = CdtMcpLink::where('cdt_id', $this->selectedCandidateId)->count();
+
+        if ($linkedDataCount === 0) {
+            $this->dispatch('hide-mcplist-button');
+            session()->flash('message', 'No data linked to the selected row.');
+            return;
+        }
+
+        // Pass the selected CDT ID(s) to the MCP List route
+        redirect()->route('cdtmcplist', ['selectedRows' => [$this->selectedCandidateId]]);
+    }
+
+    public function showLinkedDataOPP()
+    {
+        if (empty($this->selectedCandidateId)) {
+            session()->flash('message', 'Please select a row to view linked data.');
+            return;
+        }
+
+        $linkedDataCountOPP = CdtOppLink::where('cdt_id', $this->selectedCandidateId)->count();
+
+        if ($linkedDataCountOPP === 0) {
+            $this->dispatch('hide-opplist-button');
+            session()->flash('message', 'No data linked to the selected row.');
+            return;
+        }
+
+        // Pass the selected CDT ID(s) to the MCP List route
+        redirect()->route('opplist', ['selectedRows' => [$this->selectedCandidateId]]);
+    }
+
+
 
     // New methods for Opp linking
     // public function openOppModal()
@@ -599,15 +726,15 @@ public function gotoPage($pageNumber)
         $this->dispatch('open-opp-modal');
     }
 
-    public function selectRow($id)
-    {
-        $this->selectedCandidateId = $id;
-        if (isset($this->checkboxes[$id])) {
-            $this->checkboxes[$id] = !$this->checkboxes[$id];
-        } else {
-            $this->checkboxes[$id] = true;
-        }
-    }
+    // public function selectRow($id)
+    // {
+    //     $this->selectedCandidateId = $id;
+    //     if (isset($this->checkboxes[$id])) {
+    //         $this->checkboxes[$id] = !$this->checkboxes[$id];
+    //     } else {
+    //         $this->checkboxes[$id] = true;
+    //     }
+    // }
 
     public function closeOppModal()
     {
