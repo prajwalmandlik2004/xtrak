@@ -45,30 +45,72 @@
                             <a href="/opportunity">
                                 <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
-                            <div class="one">
-                                <a href="/oppcdtlist">
-                                    <button type="button" class="btn btn-inputmain">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
-                                </a>
-                                <button type="button" class="btn btn-inputmain" wire:click="openCdtModal"><i class="fas fa-link"></i></button>
+
+                            
+                             <div class="one">
+                                <button type="button" class="btn btn-inputmain"
+                                    id="cdtlistButton"
+                                    wire:click="showLinkedDataCDT"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    style="display: block; color: black; background-color:yellow; opacity: 1;">
+                                    CDT<i style="margin-left: 5px;" class="fa-regular fa-file-lines"></i>
+                                </button>
                             </div>
+
+                            <div class="one">
+                                <button type="button" class="btn btn-inputmain" wire:click="openCdtModal">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                            </div>
+
+
+                            
                             <div class="one">
                                 <a href="/oppevtlist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
-                            <div class="two">
-                                <a href="/oppcstlist">
-                                    <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a>
-                                <button type="button" class="btn btn-cst" wire:click="openCstModal"><i class="fas fa-link"></i></button>
-                            </div>
+
+
+
                             <div class="one">
-                                <a href="/oppmcplist">
-                                    <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a>
-                                <button type="button" class="btn btn-mcp" wire:click="openMcpModal"><i class="fas fa-link"></i></button>
+                                <button type="button" class="btn btn-cst"
+                                    id="cstlistButton"
+                                    wire:click="showLinkedDataCST"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    style="display: block; color: black; background-color: #15F5BA; opacity: 1;">
+                                    CST<i style="margin-left: 5px;" class="fa-regular fa-file-lines"></i>
+                                </button>
                             </div>
+
+                            <div class="one">
+                                <button type="button" class="btn btn-cst" wire:click="openCstModal">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                            </div>
+
+
+                            <div class="one">
+                                <button type="button" class="btn btn-mcp"
+                                    id="mcplistButton"
+                                    wire:click="showLinkedData"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    style="display: block; color: white; background-color: #7D0A0A; opacity: 1;">
+                                    MCP<i style="margin-left: 5px;" class="fa-regular fa-file-lines"></i>
+                                </button>
+                            </div>
+
+                            <div class="one">
+                                <button type="button" class="btn btn-mcp" wire:click="openMcpModal">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                            </div>
+
+
+
+
+                            
                             <div class="two">
                                 <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
                                     {{ empty($selectedRows) ? '' : '' }}>
@@ -642,6 +684,26 @@
     </div>
     @push('page-script')
     <script>
+
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('hide-mcplist-button', function() {
+                document.getElementById('mcplistButton').style.display = 'none';
+            });
+        });
+
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('hide-cstlist-button', function() {
+                document.getElementById('cstlistButton').style.display = 'none';
+            });
+        });
+
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('hide-cdtlist-button', function() {
+                document.getElementById('cdtlistButton').style.display = 'none';
+            });
+        });
+
+        
         
         document.addEventListener('livewire:initialized', function() {
             Livewire.on('open-cdt-modal', () => {
