@@ -198,17 +198,186 @@ class Admin extends Component
         } else {
             $this->selectedRows = [];
         }
+
+
+        if (!empty($this->selectedRows)) {
+            $linkedDataCount = OppMcpLink::whereIn('opp_id', $this->selectedRows)->count();
+
+            if ($linkedDataCount === 0) {
+                $this->dispatch('hide-mcplist-button');
+            } else {
+                $this->dispatch('enable-mcplist-button');
+            }
+        } else {
+            $this->dispatch('disable-mcplist-button');
+        }
+
+        if (!empty($this->selectedRows)) {
+            $linkedDataCountCST = OppCstLink::whereIn('opp_id', $this->selectedRows)->count();
+
+            if ($linkedDataCountCST === 0) {
+                $this->dispatch('hide-cstlist-button');
+            } else {
+                $this->dispatch('enable-cstlist-button');
+            }
+        } else {
+            $this->dispatch('disable-cstlist-button');
+        }
+
+
+        if (!empty($this->selectedRows)) {
+            $linkedDataCountCDT = OppCdtLink::whereIn('opp_id', $this->selectedRows)->count();
+
+            if ($linkedDataCountCDT === 0) {
+                $this->dispatch('hide-cdtlist-button');
+            } else {
+                $this->dispatch('enable-cdtlist-button');
+            }
+        } else {
+            $this->dispatch('disable-cdtlist-button');
+        }
+
+        
     }
 
 
-    public function toggleSelect($id)
+     public function toggleSelect($id)
     {
         if (in_array($id, $this->selectedRows)) {
             $this->selectedRows = array_diff($this->selectedRows, [$id]);
         } else {
             $this->selectedRows[] = $id;
         }
+
+
+        if (!empty($this->selectedRows)) {
+            $linkedDataCount = OppMcpLink::whereIn('opp_id', $this->selectedRows)->count();
+
+            if ($linkedDataCount === 0) {
+                $this->dispatch('hide-mcplist-button');
+            } else {
+                $this->dispatch('enable-mcplist-button');
+            }
+        } else {
+            $this->dispatch('disable-mcplist-button');
+        }
+
+
+        if (!empty($this->selectedRows)) {
+            $linkedDataCountCST = OppCstLink::whereIn('opp_id', $this->selectedRows)->count();
+
+            if ($linkedDataCountCST === 0) {
+                $this->dispatch('hide-cstlist-button');
+            } else {
+                $this->dispatch('enable-cstlist-button');
+            }
+        } else {
+            $this->dispatch('disable-cstlist-button');
+        }
+
+
+        if (!empty($this->selectedRows)) {
+            $linkedDataCountCDT = OppCdtLink::whereIn('opp_id', $this->selectedRows)->count();
+
+            if ($linkedDataCountCDT === 0) {
+                $this->dispatch('hide-cdtlist-button');
+            } else {
+                $this->dispatch('enable-cdtlist-button');
+            }
+        } else {
+            $this->dispatch('disable-cdtlist-button');
+        }
     }
+
+
+    public function checkLinkedData()
+    {
+        if (empty($this->selectedRows)) {
+            return false;
+        }
+
+        $linkedDataCount = OppMcpLink::whereIn('opp_id', $this->selectedRows)->count();
+        return $linkedDataCount > 0;
+    }
+
+    public function checkLinkedDataCST()
+    {
+        if (empty($this->selectedRows)) {
+            return false;
+        }
+
+        $linkedDataCountCST = OppCstLink::whereIn('opp_id', $this->selectedRows)->count();
+        return $linkedDataCountCST > 0;
+    }
+
+    public function checkLinkedDataCDT()
+    {
+        if (empty($this->selectedRows)) {
+            return false;
+        }
+
+        $linkedDataCountCDT = OppCdtLink::whereIn('opp_id', $this->selectedRows)->count();
+        return $linkedDataCountCDT > 0;
+    }
+
+
+    public function showLinkedData()
+    {
+        if (empty($this->selectedRows)) {
+            session()->flash('message', 'Please select a row to view linked data.');
+            return;
+        }
+
+        $linkedDataCount = OppMcpLink::whereIn('opp_id', $this->selectedRows)->count();
+
+        if ($linkedDataCount === 0) {
+            session()->flash('message', 'No linked data for selected row.');
+            $this->dispatch('hide-mcplist-button');
+            return;
+        }
+
+        redirect()->route('oppmcplist', ['selectedRows' => $this->selectedRows]);
+    }
+
+    public function showLinkedDataCST()
+    {
+        if (empty($this->selectedRows)) {
+            session()->flash('message', 'Please select a row to view linked data.');
+            return;
+        }
+
+        $linkedDataCountCST = OppCstLink::whereIn('opp_id', $this->selectedRows)->count();
+
+        if ($linkedDataCountCST === 0) {
+            session()->flash('message', 'No linked data for selected row.');
+            $this->dispatch('hide-cstlist-button');
+            return;
+        }
+
+        redirect()->route('oppcstlist', ['selectedRows' => $this->selectedRows]);
+    }
+
+
+    public function showLinkedDataCDT()
+    {
+        if (empty($this->selectedRows)) {
+            session()->flash('message', 'Please select a row to view linked data.');
+            return;
+        }
+
+        $linkedDataCountCDT = OppCdtLink::whereIn('opp_id', $this->selectedRows)->count();
+
+        if ($linkedDataCountCDT === 0) {
+            session()->flash('message', 'No linked data for selected row.');
+            $this->dispatch('hide-cdtlist-button');
+            return;
+        }
+
+        redirect()->route('oppcdtlist', ['selectedRows' => $this->selectedRows]);
+    }
+
+
+
 
     public function deleteSelected()
     {
