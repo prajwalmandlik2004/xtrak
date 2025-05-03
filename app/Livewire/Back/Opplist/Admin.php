@@ -178,6 +178,11 @@ class Admin extends Component
         //     });
         // }
 
+        if (request()->has('selectedRows')) {
+            $selectedRows = request()->get('selectedRows');
+            $query->whereIn('cdt_id', $selectedRows); 
+        }
+
         $links = $query->orderBy('created_at', 'desc')->paginate(10);
 
         if ($this->isEditing) {
