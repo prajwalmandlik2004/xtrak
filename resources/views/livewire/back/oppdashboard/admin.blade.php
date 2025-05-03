@@ -256,7 +256,7 @@
                 </div>
                 <div style="margin-top:-2%;" class="card-body">
                     @if (session()->has('message'))
-                    <div style="width:26%;" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div style="width:28%;" class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('message') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
