@@ -29,15 +29,17 @@
                     <div class="button-group-main">
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:#6F61C0; border-radius:5px; color:white;padding:12px;margin-top:-2px">OPP_MCPlist</h5>
+                            
+                            @if($links->count() > 0)
+                            @foreach($links as $link)
                             <div class="mt-1">
-                                <!-- <label for="trgcode">OPPcode</label> -->
-                                <input style="width:70px; padding:5px;" type="text" placeholder="OPPcode"></input>
+                                <input style="width:90px; padding:5px;" type="text" placeholder="{{ $link->opportunity->opp_code ?? '--' }}"></input>
                             </div>
                             <div class="mt-1">
-                                <!-- <label for="ctc-prenom">Libellé poste</label> -->
-                                <input style="width:120px;padding:5px;" type="text" placeholder="Company name"></input>
-
+                                <input style="width:120px;padding:5px;" type="text" placeholder="{{ $link->opportunity->name ?? '--' }}"></input>
                             </div>
+                            @endforeach
+                            @endif
 
                             <div class="one">
                                 <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
@@ -163,7 +165,7 @@
                                     <th style="width:2%;background-color:#7D0A0A" color:white; scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
                                     <th class="cdt_col" scope="col" style="background-color:#7D0A0A; color:white;">Date</th>
-                                    <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">OPPcode </th>
+<!--                                     <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">OPPcode </th> -->
                                     <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">MCPcode </th>
                                     <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">Designation</th>
                                     <th class="reg_col" scope="col" style="background-color:#7D0A0A; color:white;">Object</th>
@@ -186,7 +188,7 @@
                                             style="display:none;pointer-events: none;">
                                     </td>
                                     <td>{{ $link->candidate->date_mcp ?? '--' }}</td>
-                                    <td>{{ $link->opportunity->opp_code ?? '--' }}</td>
+<!--                                     <td>{{ $link->opportunity->opp_code ?? '--' }}</td> -->
                                     <td>{{ $link->candidate->mcp_code ?? '--' }}</td>
                                     <td>{{ $link->candidate->designation ?? '--' }}</td>
                                     <td>{{ $link->candidate->object ?? '--' }}</td>
