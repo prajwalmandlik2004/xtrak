@@ -321,6 +321,7 @@
                                     <th scope="col" wire:click="sortBy('updated_at')">
                                         Date MAJ
                                     </th>
+                                    <th style="width:auto" scope="col">CDTcode</th>
                                     <th scope="col">Aut</th>
                                     <th scope="col">Civ</th>
                                     <th scope="col" wire:click="sortBy('first_name')">
@@ -362,6 +363,7 @@
                                             style="display:none;pointer-events: none;" wire:model="checkboxes.{{ $candidate->id }}">
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($candidate->updated_at)->format('d/m/y') ?? '--' }}</td>
+                                    <td>{{ $candidate->code_cdt ?? '--' }}</td>
                                     <td>{{ $candidate->auteur->trigramme ?? '--' }}</td>
                                     <td>{{ $candidate->civ->name ?? '--' }}</td>
                                     <td>{{ $candidate->first_name ?? '--' }}</td>
