@@ -27,20 +27,18 @@
                     <div class="button-group-main">
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDT_OPPlist</h5>
+                            
+                            @if($links->count() > 0)
+                            @foreach($links as $link)
                             <div class="mt-1">
-                                <!-- <label for="trgcode">OPPcode</label> -->
-                                <input style="width:70px; padding:5px;" type="text" placeholder="CDTcode"></input>
+                                <input style="width:90px; padding:5px;" type="text" placeholder="{{ $link->candidate->code_cdt ?? '--' }}"></input>
                             </div>
                             <div class="mt-1">
-                                <!-- <label for="ctc-prenom">Libellé poste</label> -->
-                                <input style="width:85px;padding:5px;" type="text" placeholder="First name"></input>
-
+                                <input style="width:120px;padding:5px;" type="text" placeholder="{{ $link->candidate->first_name ?? '--' }}{{ " " }}{{ $link->candidate->last_name ?? '--' }}"></input>
                             </div>
-                            <div class="mt-1">
-                                <!-- <label for="ctc-nom">Société</label> -->
-                                <input style="width:85px;padding:5px;" type="text" placeholder="Last name"></input>
-
-                            </div>
+                            @endforeach
+                            @endif
+                            
                             <a href="/opportunity">
                                 <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1"><i class="fas fa-link"></i></button>
                             </a>
@@ -179,7 +177,7 @@
                                     OPPdate
                                 </th>
                                 <th class="ref_col" scope="col">OPPcode</th>
-                                <th class="ref_col" scope="col">CDT First Name</th>
+<!--                                 <th class="ref_col" scope="col">CDT First Name</th> -->
                                 <th class="libe_col" scope="col">Job description</th>
                                 <th class="soci_col" scope="col" wire:click="sortBy('first_name')">
                                     TRGcode
@@ -207,7 +205,7 @@
 
                                 <td>{{ $link->opportunity->opportunity_date ?? '--'}}</td>
                                 <td>{{ $link->opportunity->opp_code ?? '--'}}</td>
-                                <td>{{ $link->candidate->first_name ?? '--'}}</td>
+<!--                                 <td>{{ $link->candidate->first_name ?? '--'}}</td> -->
                                 <td>{{ $link->opportunity->job_titles ?? '--'}}</td>
                                 <td>{{ $link->opportunity->trg_code ?? '--' }}</td>
                                 <td>{{ $link->opportunity->name ?? '--'}}</td>
