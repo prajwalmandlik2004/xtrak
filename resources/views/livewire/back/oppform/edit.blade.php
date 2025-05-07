@@ -723,13 +723,11 @@
                                     <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
                                         <button type="button" class="btn btn-evt"> > New</button>
                                     </div> -->
-                                    <div class="three">
+<!--                                     <div class="three">
                                         <button type="button" class="btn btn-erase" wire:click="cancelEdit">Cancel</button>
                                         <button type="submit" class="btn btn-update">Update</button>
-                                        <!-- <a href="/landing">
-                                            <button type="button" class="btn btn-close1">Close</button>
-                                        </a> -->
-                                    </div>
+                                       
+                                    </div> -->
                                 </div>
                             </div>
                     </div>
