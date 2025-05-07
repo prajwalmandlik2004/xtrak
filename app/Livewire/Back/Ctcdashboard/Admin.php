@@ -43,7 +43,7 @@ class Admin extends Component
         if (in_array($id, $this->selectedRows)) {
             $this->selectedRows = array_diff($this->selectedRows, [$id]);
         } else {
-            $this->selectedRows[] = $id;
+            $this->selectedRows = [$id];
         }
     }
 
