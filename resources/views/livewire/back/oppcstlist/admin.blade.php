@@ -29,15 +29,18 @@
                     <div class="button-group-main">
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:#6F61C0; border-radius:5px; color:white;padding:12px;margin-top:-2px">OPP_CSTlist</h5>
+                            
+                            @if($links->count() > 0)
+                            @foreach($links as $link)
                             <div class="mt-1">
-                                <!-- <label for="trgcode">OPPcode</label> -->
-                                <input style="width:70px; padding:5px;" type="text" placeholder="OPPcode"></input>
+                                <input style="width:90px; padding:5px;" type="text" placeholder="{{ $link->opportunity->opp_code ?? '--' }}"></input>
                             </div>
                             <div class="mt-1">
-                                <!-- <label for="ctc-prenom">Libellé poste</label> -->
-                                <input style="width:120px;padding:5px;" type="text" placeholder="Company name"></input>
+                                <input style="width:120px;padding:5px;" type="text" placeholder="{{ $link->opportunity->name ?? '--' }}"></input>
+                            </div>
+                            @endforeach
+                            @endif
 
-                            </div>
 
                             <div class="one">
                                 <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
