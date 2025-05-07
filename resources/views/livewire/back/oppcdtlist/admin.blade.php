@@ -29,15 +29,17 @@
                     <div class="button-group-main">
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:#6F61C0; border-radius:5px; color:white;padding:12px;margin-top:-2px">OPP_CDTlist</h5>
+                            
+                            @if($links->count() > 0)
+                            @foreach($links as $link)
                             <div class="mt-1">
-                                <!-- <label for="trgcode">OPPcode</label> -->
-                                <input style="width:70px; padding:5px;" type="text" placeholder="OPPcode"></input>
+                                <input style="width:80px; padding:5px;" type="text" placeholder="{{ $link->opportunity->opp_code ?? '--' }}"></input>
                             </div>
                             <div class="mt-1">
-                                <!-- <label for="ctc-prenom">Libellé poste</label> -->
-                                <input style="width:120px;padding:5px;" type="text" placeholder="Company name"></input>
-
+                                <input style="width:120px;padding:5px;" type="text" placeholder="{{ $link->opportunity->name ?? '--' }}"></input>
                             </div>
+                            @endforeach
+                            @endif
 
                             <div class="one">
                                 <button id="linkNewCDT" style="background-color:#6F61C0;color:white;" type="button" class="btn"><i class="fas fa-link"></i></button>
@@ -163,8 +165,8 @@
                                         </th>
                                         <th style="background-color:yellow;" scope="col">Link Date</th>
                                         <th style="background-color:yellow;" scope="col">Actions</th>
-                                        <th style="background-color:yellow;" scope="col">OPPcode</th>
-                                        <th style="background-color:yellow;" scope="col">CDTcode</th>
+<!--                                         <th style="background-color:yellow;" scope="col">OPPcode</th>
+                                        <th style="background-color:yellow;" scope="col">CDTcode</th> -->
                                         <th style="background-color:yellow;" scope="col" wire:click="sortBy('updated_at')">Date MAJ</th>
                                         <th style="background-color:yellow;" scope="col">Aut</th>
                                         <th style="background-color:yellow;" scope="col">Civ</th>
@@ -206,8 +208,8 @@
                                             <i class="fas fa-unlink"></i>
                                         </button>
                                     </td>
-                                    <td>{{ $link->opportunity->opp_code ?? '--' }}</td>
-                                    <td>{{ $link->candidate->code_cdt ?? '--' }}</td>
+<!--                                     <td>{{ $link->opportunity->opp_code ?? '--' }}</td>
+                                    <td>{{ $link->candidate->code_cdt ?? '--' }}</td> -->
                                     <td>{{ $link->candidate->updated_at->format('d/m/y') ?? '--' }}</td>
                                     <td>{{ $link->candidate->auteur->trigramme ?? '--' }}</td>
                                     <td>{{ $link->candidate->civ->name ?? '--' }}</td>
