@@ -1,5 +1,25 @@
 <div>
+    @include('components.breadcrumb', [
+    'title' => 'Nouvelle saisie',
+    'breadcrumbItems' => [
+    ['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Forms', 'url' => ''] ,['text' => 'TRGform', 'url' => '/trgform']
+    ],
+    ])
+
     <div class="row">
+        <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-3 d-flex justify-content-between">
+            <div>
+            </div>
+            <div>
+                <a href="{{ route('trgdashboard') }}" class="me-2 text-black {{ request()->routeIs('trgdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                <a href="{{ route('dashboard') }}" class="mx-2 text-black {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                <a href="{{ route('oppdashboard') }}" class="mx-2 text-black  {{ request()->routeIs('oppdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                <a href="{{ route('mcpdashboard') }}" class="mx-2 text-black {{ request()->routeIs('mcpdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                <a href="{{ route('ctcdashboard') }}" class="mx-2 text-black {{ request()->routeIs('ctcdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                <a href="{{ route('dashboard') }}" class="mx-2 text-black  {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+            </div>
+        </div>
         <div>
             @if (session()->has('message'))
             <div style="margin-top:-2%;" class="d-flex justify-content-left">
@@ -11,11 +31,54 @@
             </div>
             @endif
             <div class="modal-content">
-                <div class="modal-header">
-                    <h2>{{ $isEditing ? 'Edit TRG Form' : 'TRGform' }}</h2>
-                </div>
+                
                 <div>
                     <form wire:submit.prevent="updateForm">
+
+                        <div class="button-group">
+                            <div class="button-group-left">
+                                <h5 style="background-color:#DBDBDB; border-radius:5px; color:black;padding:12px;margin-top:-2px">TRGform</h5>
+                                <a href="/trgform">
+                                    <button style="background:#DBDBDB;color:black;" type="button" class="btn btn-close1">TRG <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                </a>
+                                <div class="two">
+                                    <a href="/ctclist">
+                                        <button type="button" class="btn btn-input">CTC <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                    </a>
+                                    <button id="linkNewCDT" type="button" class="btn btn-input"><i class="fas fa-link"></i></button>
+                                </div>
+                                <div class="two">
+                                    <a href="/opplist">
+                                        <button type="button" class="btn btn-valid">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                    </a>
+                                    <button id="linkNewOPP" type="button" class="btn btn-valid"><i class="fas fa-link"></i></button>
+                                </div>
+                                <div class="one">
+                                    <a href="/trgevtlist">
+                                        <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                    </a>
+                                    <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                </div>
+                                <div class="one">
+                                    <a href="">
+                                        <button type="button" class="btn"><i class="fa-regular fa-envelope fa-2x"></i></button>
+                                    </a>
+                                    <button style="color:red;" type="button" class="btn" onclick="openModal()"><i class="fa-solid fa-phone fa-2x"></i></button>
+                                </div>
+                                <div class="three">
+                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                    <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
+                                        <i class="fa-regular fa-trash-can fa-lg"></i>
+                                    </button>
+                                    <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                    <a href="/landing">
+                                        <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="form-row">
                             <div class="form-group date-field">
                                 <label>Date</label>
@@ -175,10 +238,10 @@
                                     <button onclick="coming()" type="button" class="btn btn-input">CTClist</button>
                                     <button id="linkNewCDT" type="button" class="btn btn-input"> > New</button>
                                 </div> -->
-                                <div class="three">
+                                <!-- <div class="three">
                                     <button type="button" class="btn btn-erase" wire:click="cancelEdit">Cancel</button>
                                     <button type="submit" class="btn btn-update">Update</button>
-                                </div>
+                                </div> -->
                                 <!-- <a href="/landing">
                                     <button type="button" class="btn btn-close1">Close</button>
                                 </a> -->
@@ -192,6 +255,8 @@
     <script>
 
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
     <style>
         .modal-content {
             background: none;
@@ -209,7 +274,7 @@
         .modal-content {
             background-color: #fff;
             padding: 20px 25px;
-            width: 80%;
+            width: 100%;
             max-width: 1500px;
             border-radius: 2px;
 
@@ -376,14 +441,15 @@
         .button-group {
             display: flex;
             justify-content: space-between;
-            margin-top: 3%;
+            margin-top: 1%;
+            margin-bottom: 1%;
             margin-left: -2%;
             padding: 0 20px;
         }
 
         .button-group-left {
             display: flex;
-            gap: 50px;
+            gap: 30px;
         }
 
         .button-group-right {
