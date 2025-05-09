@@ -199,7 +199,11 @@
                             <tbody>
                                 @if($links->count() > 0)
                                 @foreach($links as $link)
-                                <tr>
+                                <tr wire:key="row-{{ $link->id }}"
+                                    wire:click="toggleSelect({{ $link->id }})"
+                                    wire:dblclick="editRow({{ $link->id }})"
+                                    class="{{ in_array($link->id, $selectedRows) ? 'select-row' : '' }}"
+                                    style="cursor: pointer;">
                                     <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
                                             style="display:none;pointer-events: none;">
