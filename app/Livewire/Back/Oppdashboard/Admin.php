@@ -335,7 +335,8 @@ class Admin extends Component
         $linkedDataCount = OppMcpLink::whereIn('opp_id', $this->selectedRows)->count();
 
         if ($linkedDataCount === 0) {
-            session()->flash('message', 'No linked data for selected row.');
+            // session()->flash('message', 'No linked data for selected row.');
+            $this->dispatch('alert', type: 'error', message: "No data linked to the selected row.");
             $this->dispatch('hide-mcplist-button');
             return;
         }
@@ -354,7 +355,8 @@ class Admin extends Component
         $linkedDataCountCST = OppCstLink::whereIn('opp_id', $this->selectedRows)->count();
 
         if ($linkedDataCountCST === 0) {
-            session()->flash('message', 'No linked data for selected row.');
+            // session()->flash('message', 'No linked data for selected row.');
+            $this->dispatch('alert', type: 'error', message: "No data linked to the selected row.");
             $this->dispatch('hide-cstlist-button');
             return;
         }
@@ -374,7 +376,8 @@ class Admin extends Component
         $linkedDataCountCDT = OppCdtLink::whereIn('opp_id', $this->selectedRows)->count();
 
         if ($linkedDataCountCDT === 0) {
-            session()->flash('message', 'No linked data for selected row.');
+            // session()->flash('message', 'No linked data for selected row.');
+            $this->dispatch('alert', type: 'error', message: "No data linked to the selected row.");
             $this->dispatch('hide-cdtlist-button');
             return;
         }
