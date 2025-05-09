@@ -176,7 +176,9 @@ class Index extends Component
                     'date_emb' => $this->date_emb,
                 ]);
 
-                session()->flash('message', 'Record updated successfully!');
+                // session()->flash('message', 'Record updated successfully!');
+                $this->dispatch('alert', type: 'success', message: "Record updated successfully");
+    
             }
         } else {
             Oppdashboard::create([
@@ -222,7 +224,9 @@ class Index extends Component
                 'date_emb' => $this->date_emb,
             ]);
 
-            session()->flash('message', 'Form Submitted Successfully ✅');
+            // session()->flash('message', 'Form Submitted Successfully ✅');
+            $this->dispatch('alert', type: 'success', message: "Form Submitted successfully");
+    
         }
 
         $this->resetForm();
