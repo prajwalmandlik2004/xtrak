@@ -96,38 +96,12 @@
                             <div class="col-md-auto">
 
 
-                                // <div class="hstack gap-1 flex-wrap">
-
-                                //     <a href="{{ route('candidates.create') }}" class="btn btn-info me-1 ms-5  mt-3"><i
-                                //             class="ri-add-line align-bottom me-1"></i>Nouveau</a>
-                                //     <button class="btn btn-danger mt-3"
-                                //         wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
-                                //         type="button" class="btn py-0 fs-16 text-body">
-                                //         Supprimer
-                                //     </button>
-                                //     <a href="{{ route('dashboard') }}" class="btn btn-secondary me-1 ms-5 mt-3">
-                                //         <i class="mdi mdi-arrow-left me-1"></i>Base
-                                //     </a>
-
-                                // </div>
+                              
                             </div>
 
                         </div>
 
-                        // <form wire:submit.prevent="storeData()">
-                        //     <div class="d-flex justify-content-end">
-                        //         <button wire:loading.remove wire:target="storeData"
-                        //             type="submit" class="btn btn-success">
-                        //             Enregistrer
-                        //         </button>
-                        //         <button wire:loading wire:target="storeData"
-                        //             type="button" class="btn btn-success" disabled>
-                        //             <span class="spinner-border spinner-border-sm"
-                        //                 role="status" aria-hidden="true"></span>
-                        //             Enregistrement...
-                        //         </button>
-                        //     </div>
-                        // </form>
+                     
 
 
                         <form wire:submit.prevent="storeData()">
