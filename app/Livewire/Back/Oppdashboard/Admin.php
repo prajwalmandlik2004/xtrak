@@ -104,15 +104,17 @@ class Admin extends Component
     {
         // Validate page number input
         if (!is_numeric($this->pageNumberInput) || $this->pageNumberInput < 1) {
-            $this->pageMessageType = 'error';
-            $this->pageMessage = 'Please enter a valid page number';
+            // $this->pageMessageType = 'error';
+            // $this->pageMessage = 'Please enter a valid page number';
+            $this->dispatch('alert', type: 'error', message: "Please enter a valid page number");
             return;
         }
 
         // Check if page number is within bounds
         if ($this->pageNumberInput > $this->totalPages) {
-            $this->pageMessageType = 'error';
-            $this->pageMessage = "Page number out of range. Maximum is {$this->totalPages}";
+            // $this->pageMessageType = 'error';
+            // $this->pageMessage = "Page number out of range. Maximum is {$this->totalPages}";
+            $this->dispatch('alert', type: 'error', message: "Page number out of range. Maximum is {$this->totalPages}");
             return;
         }
 
@@ -120,8 +122,9 @@ class Admin extends Component
         $this->setPage($this->pageNumberInput);
 
         // Show success message
-        $this->pageMessageType = 'success';
-        $this->pageMessage = "Successfully navigated to page {$this->pageNumberInput}";
+        // $this->pageMessageType = 'success';
+        // $this->pageMessage = "Successfully navigated to page {$this->pageNumberInput}";
+        $this->dispatch('alert', type: 'success', message: "Successfully navigated to page {$this->pageNumberInput}");
     }
 
 
@@ -241,7 +244,7 @@ class Admin extends Component
     }
 
 
-     public function toggleSelect($id)
+    public function toggleSelect($id)
     {
         if (in_array($id, $this->selectedRows)) {
             $this->selectedRows = array_diff($this->selectedRows, [$id]);
@@ -324,7 +327,8 @@ class Admin extends Component
     public function showLinkedData()
     {
         if (empty($this->selectedRows)) {
-            session()->flash('message', 'Please select a row to view linked data.');
+            // session()->flash('message', 'Please select a row to view linked data.');
+            redirect()->route('oppmcplist');
             return;
         }
 
@@ -342,7 +346,8 @@ class Admin extends Component
     public function showLinkedDataCST()
     {
         if (empty($this->selectedRows)) {
-            session()->flash('message', 'Please select a row to view linked data.');
+            // session()->flash('message', 'Please select a row to view linked data.');
+            redirect()->route('oppcstlist');
             return;
         }
 
@@ -361,7 +366,8 @@ class Admin extends Component
     public function showLinkedDataCDT()
     {
         if (empty($this->selectedRows)) {
-            session()->flash('message', 'Please select a row to view linked data.');
+            // session()->flash('message', 'Please select a row to view linked data.');
+            redirect()->route('oppcdtlist');
             return;
         }
 
@@ -391,7 +397,9 @@ class Admin extends Component
 
         $this->refreshData();
 
-        session()->flash('message', 'Data Deleted Successfully 🛑');
+        // session()->flash('message', 'Data Deleted Successfully 🛑');
+        $this->dispatch('alert', type: 'error', message: "Data Deleted Successfully");
+
     }
 
 
@@ -474,7 +482,8 @@ class Admin extends Component
 
             $this->refreshData();
 
-            session()->flash('message', 'Form Updated Successfully ✅');
+            // session()->flash('message', 'Form Updated Successfully ✅');
+            $this->dispatch('alert', type: 'success', message: "Form Updated Successfully");
         }
     }
 
