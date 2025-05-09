@@ -669,8 +669,9 @@ class Admin extends Component
         $linkedDataCount = CdtMcpLink::where('cdt_id', $this->selectedCandidateId)->count();
 
         if ($linkedDataCount === 0) {
+            $this->dispatch('alert', type: 'error', message: "No data linked to the selected row.");
             $this->dispatch('hide-mcplist-button');
-            session()->flash('message', 'No data linked to the selected row.');
+            // session()->flash('message', 'No data linked to the selected row.');
             return;
         }
 
@@ -689,8 +690,9 @@ class Admin extends Component
         $linkedDataCountOPP = CdtOppLink::where('cdt_id', $this->selectedCandidateId)->count();
 
         if ($linkedDataCountOPP === 0) {
+            $this->dispatch('alert', type: 'error', message: "No data linked to the selected row.");
             $this->dispatch('hide-opplist-button');
-            session()->flash('message', 'No data linked to the selected row.');
+            // session()->flash('message', 'No data linked to the selected row.');
             return;
         }
 
