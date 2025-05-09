@@ -452,6 +452,11 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            
+            .select-row {
+                background-color: #37AFE1 !important;
+            }
+            
             .btn-mcp {
                 background-color: #7D0A0A;
                 color: white;
