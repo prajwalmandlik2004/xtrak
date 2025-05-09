@@ -22,7 +22,7 @@ class Admin extends Component
     public $step = 1;
     public $action;
 
-    
+
     public $search = '';
 
 
@@ -39,7 +39,7 @@ class Admin extends Component
     public function updatedSelectAll($value)
     {
         if ($value) {
-            $this->selectedRows = $this->links->pluck('id')->map(function ($id) {
+            $this->selectedRows = $this->data->pluck('id')->map(function ($id) {
                 return (string) $id;
             })->toArray();
         } else {
@@ -52,7 +52,7 @@ class Admin extends Component
         if (in_array($id, $this->selectedRows)) {
             $this->selectedRows = array_diff($this->selectedRows, [$id]);
         } else {
-            $this->selectedRows[] = $id;
+            $this->selectedRows = [$id];
         }
     }
 
@@ -69,9 +69,10 @@ class Admin extends Component
 
         $this->refreshData();
 
-        session()->flash('message', 'Data Deleted Successfully 🛑');
+        // session()->flash('message', 'Data Deleted Successfully 🛑');
+        $this->dispatch('alert', type: 'success', message: "Data Deleted Successfully");
     }
-    
+
 
     public function editRow($id)
     {
@@ -82,7 +83,8 @@ class Admin extends Component
             $this->formData = $link->toArray();
             $this->isEditing = true;
         } else {
-            session()->flash('message', 'Record not found!');
+            // session()->flash('message', 'Record not found!');
+            $this->dispatch('alert', type: 'error', message: "Record not found!");
         }
     }
 
@@ -117,50 +119,41 @@ class Admin extends Component
 
             $this->refreshData();
 
-            session()->flash('message', 'Form Updated Successfully ✅');
+            // session()->flash('message', 'Form Updated Successfully ✅');
+            $this->dispatch('alert', type: 'success', message: "Form Updated Successfully");
         } else {
-            session()->flash('message', 'Record not found ❌');
+            // session()->flash('message', 'Record not found ❌');
+            $this->dispatch('alert', type: 'error', message: "Record not found");
         }
     }
 
-    
+
     public function deleteMcpLink($linkId)
     {
         CdtMcpLink::find($linkId)->delete();
-        session()->flash('message', 'Link removed successfully ✅');
+        // session()->flash('message', 'Link removed successfully ✅');
+        $this->dispatch('alert', type: 'success', message: "Link removed successfully");
     }
-    
+
     public function render()
     {
         $query = CdtMcpLink::with(['opportunity', 'candidate']);
-        
-        // if ($this->search) {
-        //     $query->whereHas('opportunity', function($q) {
-        //         $q->where('opp_code', 'like', '%' . $this->search . '%')
-        //           ->orWhere('job_titles', 'like', '%' . $this->search . '%');
-        //     })->orWhereHas('candidate', function($q) {
-        //         $q->where('trg_code', 'like', '%' . $this->search . '%')
-        //           ->orWhere('first_name', 'like', '%' . $this->search . '%')
-        //           ->orWhere('last_name', 'like', '%' . $this->search . '%');
-        //     });
-        // }
 
         if (request()->has('selectedRows')) {
             $selectedRows = request()->get('selectedRows');
-            $query->whereIn('cdt_id', $selectedRows); 
+            $query->whereIn('cdt_id', $selectedRows);
         }
-        
+
+
         $links = $query->orderBy('created_at', 'desc')->paginate(10);
 
         if ($this->isEditing) {
             return view('livewire.back.cdtmcplist.edit');
         }
-            
+
         return view('livewire.back.cdtmcplist.admin', [
             'links' => $links
         ]);
     }
 }
-
-
 
