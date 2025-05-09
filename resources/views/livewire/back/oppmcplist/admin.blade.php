@@ -30,7 +30,7 @@
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:#6F61C0; border-radius:5px; color:white;padding:12px;margin-top:-2px">OPP_MCPlist</h5>
                             
-                            @if($links->count() > 0)
+                            @if($links->count() == 1)
                             @foreach($links as $link)
                             <div class="mt-1">
                                 <input style="width:90px; padding:5px;" type="text" placeholder="{{ $link->opportunity->opp_code ?? '--' }}"></input>
@@ -39,6 +39,10 @@
                                 <input style="width:120px;padding:5px;" type="text" placeholder="{{ $link->opportunity->name ?? '--' }}"></input>
                             </div>
                             @endforeach
+                            @else 
+                            <div class="mt-2">
+                                <h5>ALL OPEN STATUS OPPS</h5>
+                            </div>
                             @endif
 
                             <div class="one">
