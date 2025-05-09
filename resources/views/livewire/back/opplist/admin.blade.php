@@ -28,7 +28,7 @@
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDT_OPPlist</h5>
                             
-                            @if($links->count() > 0)
+                            @if($links->count() == 1)
                             @foreach($links as $link)
                             <div class="mt-1">
                                 <input style="width:90px; padding:5px;" type="text" placeholder="{{ $link->candidate->code_cdt ?? '--' }}"></input>
@@ -37,6 +37,10 @@
                                 <input style="width:120px;padding:5px;" type="text" placeholder="{{ $link->candidate->first_name ?? '--' }}{{ " " }}{{ $link->candidate->last_name ?? '--' }}"></input>
                             </div>
                             @endforeach
+                            @else 
+                            <div class="mt-2">
+                                <h5>ALL OPEN STATUS CDTS</h5>
+                            </div>
                             @endif
                             
                             <a href="/opportunity">
