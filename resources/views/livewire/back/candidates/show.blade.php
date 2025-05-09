@@ -25,7 +25,7 @@
             </div>
 
 
-            <div class="card mt-n4 mx-n4">
+            <div class="card mt-n8 mx-n4">
                 <div class="bg-secondary-subtle">
                     @if (session()->has('success'))
                     <div class="d-flex justify-content-center mt-3">
@@ -96,38 +96,94 @@
                             <div class="col-md-auto">
 
 
-                                <div class="hstack gap-1 flex-wrap">
+                                // <div class="hstack gap-1 flex-wrap">
 
-                                    <a href="{{ route('candidates.create') }}" class="btn btn-info me-1 ms-5  mt-3"><i
-                                            class="ri-add-line align-bottom me-1"></i>Nouveau</a>
-                                    <button class="btn btn-danger mt-3"
-                                        wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
-                                        type="button" class="btn py-0 fs-16 text-body">
-                                        Supprimer
-                                    </button>
-                                    <a href="{{ route('dashboard') }}" class="btn btn-secondary me-1 ms-5 mt-3">
-                                        <i class="mdi mdi-arrow-left me-1"></i>Base
-                                    </a>
+                                //     <a href="{{ route('candidates.create') }}" class="btn btn-info me-1 ms-5  mt-3"><i
+                                //             class="ri-add-line align-bottom me-1"></i>Nouveau</a>
+                                //     <button class="btn btn-danger mt-3"
+                                //         wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')"
+                                //         type="button" class="btn py-0 fs-16 text-body">
+                                //         Supprimer
+                                //     </button>
+                                //     <a href="{{ route('dashboard') }}" class="btn btn-secondary me-1 ms-5 mt-3">
+                                //         <i class="mdi mdi-arrow-left me-1"></i>Base
+                                //     </a>
 
-                                </div>
+                                // </div>
                             </div>
 
                         </div>
 
+                        // <form wire:submit.prevent="storeData()">
+                        //     <div class="d-flex justify-content-end">
+                        //         <button wire:loading.remove wire:target="storeData"
+                        //             type="submit" class="btn btn-success">
+                        //             Enregistrer
+                        //         </button>
+                        //         <button wire:loading wire:target="storeData"
+                        //             type="button" class="btn btn-success" disabled>
+                        //             <span class="spinner-border spinner-border-sm"
+                        //                 role="status" aria-hidden="true"></span>
+                        //             Enregistrement...
+                        //         </button>
+                        //     </div>
+                        // </form>
+
+
                         <form wire:submit.prevent="storeData()">
-                            <div class="d-flex justify-content-end">
-                                <button wire:loading.remove wire:target="storeData"
-                                    type="submit" class="btn btn-success">
-                                    Enregistrer
-                                </button>
-                                <button wire:loading wire:target="storeData"
-                                    type="button" class="btn btn-success" disabled>
-                                    <span class="spinner-border spinner-border-sm"
-                                        role="status" aria-hidden="true"></span>
-                                    Enregistrement...
-                                </button>
+                            <div class="button-group-main">
+                                <div class="button-group-left-main">
+                                    <h5 style="margin-left:-70px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDTform</h5>
+                                    <div class="one">
+                                        <a href="/cdtevtlist">
+                                            <button type="button" class="btn btn-evtmain">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                        </a>
+                                        <button type="button" class="btn btn-evtmain" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                    </div>
+                                    <div class="two">
+                                        <a href="/opplist">
+                                            <button type="button" class="btn btn-validmain">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                        </a>
+                                        <button id="linkNewOPP" type="button" class="btn btn-validmain"><i class="fas fa-link"></i></button>
+                                    </div>
+                                    <div class="two">
+                                        <a href="/mcplist">
+                                            <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                        </a>
+                                        <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                                    </div>
+                                    <div class="one">
+                                        <a href="">
+                                            <button type="button" class="btn"><i class="fa-regular fa-envelope fa-2x"></i></button>
+                                        </a>
+                                        <button style="color:red;" type="button" class="btn" onclick="openModal()"><i class="fa-solid fa-phone fa-2x"></i></button>
+                                    </div>
+                                    <div class="three">
+                                        <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                        <button style="background:red;" type="button" wire:click="confirmDelete('{{ $candidate->name }}', '{{ $candidate->id }}')" class="btn btn-danger">
+                                            <i class="fa-regular fa-trash-can fa-lg"></i>
+                                        </button>
+                                        <button style="background-color:#00CCDD;color:white;" wire:loading.remove wire:target="storeData" type="submit"
+                                            class="btn"><i class="fa-regular fa-floppy-disk fa-lg"></i>
+                                        </button>
+                                        <button wire:loading wire:target="storeData" type="button"
+                                            class="save btn btn-primary" disabled>
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                        </button>
+                                        <a href="/landing">
+                                            <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                        </a>
+                                        <a href="/dashboard">
+                                            <button type="button" class="btn btn-close1"><i class="mdi mdi-arrow-left me-1"></i>Vue</button>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </form>
+
+
+
 
                         <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                             <li class="nav-item">
@@ -869,7 +925,7 @@
 
 
 
-                                                <div class="button-group-main">
+<!--                                                 <div class="button-group-main">
                                                     <div class="button-group-left-main">
                                                         <div class="four">
                                                             <button type="button" class="btn btn-call">Call</button>
@@ -890,7 +946,7 @@
                                                             <button type="button" class="btn btn-close1" onclick="closeModal()">Close</button>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
 
 
@@ -1178,6 +1234,17 @@
                 </div>
             </div>
             <style>
+
+                .btn-mcp {
+                    background-color: #7D0A0A;
+                    color: white;
+                }
+
+                .btn-mcp:hover {
+                    background-color: #7D0A0A;
+                    color: white;
+                }
+
                 .save {
                     background-color: #06D001;
                 }
@@ -1426,10 +1493,9 @@
                     resize: vertical;
                 }
 
-                .button-group-main {
+               .button-group-main {
                     display: flex;
                     justify-content: space-between;
-                    margin-top: -20px;
                     margin-bottom: 20px;
                     margin-left: 50px;
                     padding: 0 20px;
@@ -1437,7 +1503,7 @@
 
                 .button-group-left-main {
                     display: flex;
-                    gap: 80px;
+                    gap: 40px;
                 }
 
                 .button-group {
