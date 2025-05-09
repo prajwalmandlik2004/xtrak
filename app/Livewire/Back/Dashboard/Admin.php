@@ -81,19 +81,24 @@ class Admin extends Component
     public $totalPages = 0;
     public $currentPageMessage = '';
 
-public function gotoPage($pageNumber)
-{
-    $maxPage = ceil($this->searchCandidates()->total() / $this->nbPaginate);
-    $this->totalPages = $maxPage;
-    
-    if ($pageNumber > 0 && $pageNumber <= $maxPage) {
-        $this->setPage($pageNumber);
-        $this->currentPageMessage = "Showing page $pageNumber of $maxPage";
-        session()->flash('success', "Successfully navigated to page $pageNumber");
-    } else {
-        session()->flash('error', "Invalid page number. Please enter a number between 1 and $maxPage.");
+    public function gotoPage($pageNumber)
+    {
+        $maxPage = ceil($this->searchCandidates()->total() / $this->nbPaginate);
+        $this->totalPages = $maxPage;
+
+        if ($pageNumber > 0 && $pageNumber <= $maxPage) {
+            $this->setPage($pageNumber);
+            // $this->currentPageMessage = "Showing page $pageNumber of $maxPage";
+            // session()->flash('success', "Successfully navigated to page $pageNumber");
+            $this->dispatch('alert', type: 'success', message: "Successfully navigated to page $pageNumber");
+          
+        } else {
+            // session()->flash('error', "Invalid page number. Please enter a number between 1 and $maxPage.");
+            $this->dispatch('alert', type: 'error', message: "Invalid page number. Please enter a number between 1 and $maxPage.");
+          
+        }
     }
-}
+
 
 
 
@@ -656,7 +661,8 @@ public function gotoPage($pageNumber)
     public function showLinkedData()
     {
         if (empty($this->selectedCandidateId)) {
-            session()->flash('message', 'Please select a row to view linked data.');
+            // session()->flash('message', 'Please select a row to view linked data.');
+            redirect()->route('cdtmcplist');
             return;
         }
 
@@ -675,7 +681,8 @@ public function gotoPage($pageNumber)
     public function showLinkedDataOPP()
     {
         if (empty($this->selectedCandidateId)) {
-            session()->flash('message', 'Please select a row to view linked data.');
+            // session()->flash('message', 'Please select a row to view linked data.');
+            redirect()->route('opplist');
             return;
         }
 
