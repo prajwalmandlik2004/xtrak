@@ -401,7 +401,7 @@ class Admin extends Component
         $this->refreshData();
 
         // session()->flash('message', 'Data Deleted Successfully 🛑');
-        $this->dispatch('alert', type: 'error', message: "Data Deleted Successfully");
+        $this->dispatch('alert', type: 'success', message: "Data Deleted Successfully");
 
     }
 
