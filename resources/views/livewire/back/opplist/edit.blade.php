@@ -3,12 +3,28 @@
     @include('components.breadcrumb', [
     'title' => 'Nouvelle saisie',
     'breadcrumbItems' => [
-    ['text' => 'FormOPP', 'url' => '#']
+    ['text' => 'ADM', 'url' => ''] ,['text' => 'Landing', 'url' => '/landing'] ,['text' => 'Forms', 'url' => ''] ,['text' => 'OPPform', 'url' => '/opportunity']
     ],
     ])
 
     <div class="row">
         <div class="col-lg-12">
+
+            <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-3 d-flex justify-content-between">
+                <div>
+                </div>
+                <div>
+                    <a href="{{ route('trgdashboard') }}" class="me-2 text-black {{ request()->routeIs('trgdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                    <a href="{{ route('dashboard') }}" class="mx-2 text-black {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                    <a href="{{ route('oppdashboard') }}" class="mx-2 text-black  {{ request()->routeIs('oppdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                    <a href="{{ route('mcpdashboard') }}" class="mx-2 text-black {{ request()->routeIs('mcpdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                    <a href="{{ route('ctcdashboard') }}" class="mx-2 text-black {{ request()->routeIs('ctcdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                    <a href="{{ route('dashboard') }}" class="mx-2 text-black  {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                    <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                </div>
+            </div>
+
+
             <div class="card">
                 <div class="tab-content text-muted">
                     <div class="tab-pane fade  {{ $step == 1 ? 'show active' : '' }}" id="info" role="tabpanel">
@@ -17,29 +33,46 @@
                             <div class="card-header">
                                 <div class="d-flex">
                                     <div class="p-2 flex-grow-1">
-                                        <h2 class="mb-0 card-head">
-                                            {{ $action == 'create' ? "FormOPP" : "FormOPP" }}
-                                        </h2>
-                                    </div>
-                                    <div class="p-2">
-                                        <a style="background:#33BBC5; border:none;" wire:click='resetForm' class="btn btn-danger"></i>+ Nouveau</a>
-                                    </div>
-                                    <div class="p-2">
-                                        <button wire:click.prevent="" wire:loading.remove wire:target="" type="button"
-                                            class="btn btn-danger">
-                                            {{ $action == 'create' ? 'Supprimer' : 'Supprimer' }}</button>
 
-                                        <button wire:loading wire:target="storeCandidateData2" type="button"
-                                            class="btn btn-primary" disabled>
-                                            <span class="spinner-border spinner-border-sm" role="status"
-                                                aria-hidden="true"></span>
-                                            Supprimer
-                                        </button>
+
+                                        <div class="button-group">
+                                            <div class="button-group-left">
+                                                <h5 style="margin-left:-22px; background-color:#6F61C0; border-radius:5px; color:white;padding:12px;margin-top:-2px">OPPform</h5>
+                                                <a href="/opportunity">
+                                                    <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                                </a>
+                                                <div class="two">
+                                                    <a href="/cstlist">
+                                                        <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                                    </a>
+                                                    <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
+                                                </div>
+                                                <div class="one">
+                                                    <a href="/management">
+                                                        <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                                    </a>
+                                                    <button id="linkNewCDT" type="button" class="btn btn-cdt"><i class="fas fa-link"></i></button>
+                                                </div>
+                                                <div class="one">
+                                                    <a href="/opplist">
+                                                        <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                                    </a>
+                                                    <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                                </div>
+                                                <div class="three">
+                                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                                    <button style="background-color:red;color:white;" type="button" class="btn" wire:click="resetForm"><i class="fa-regular fa-trash-can fa-lg"></i></button>
+                                                    <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                                    <a href="/landing">
+                                                        <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
-                                    <div class="p-2">
-                                        <a href="/oppdashboard" class="btn btn-secondary me-1 ms-5"><i
-                                                class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Vue' : 'Vue' }}</a>
-                                    </div>
+
 
                                 </div>
 
@@ -59,12 +92,6 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ $step == 2 ? 'active' : '' }} fw-bold {{ $step != 2 ? 'enabled' : '' }}"
-                                        href="/management">
-                                        CDTlist
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link {{ $step == 4 ? 'active' : '' }} fw-bold {{ $step != 4 ? 'enabled' : '' }}"
                                         href="/evts">
                                         Hiring
@@ -73,7 +100,7 @@
                                 <li class="nav-item">
                                     <a wire:click="goToCre" class="nav-link {{ $step == 3 ? 'active' : '' }} fw-bold {{ $step != 3 ? 'enabled' : '' }}"
                                         data-bs-toggle="tab" href="{{ $step != 3 ? '#' : '#invoicement' }}" role="tab">
-                                        Facturation
+                                        Invoicing
                                     </a>
                                 </li>
 
@@ -707,13 +734,11 @@
                                     <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
                                         <button type="button" class="btn btn-evt"> > New</button>
                                     </div> -->
-                                    <div class="three">
+                                    <!-- <div class="three">
                                         <button type="button" class="btn btn-erase" wire:click="cancelEdit">Cancel</button>
                                         <button type="submit" class="btn btn-update">Update</button>
-                                        <!-- <a href="/landing">
-                                            <button type="button" class="btn btn-close1">Close</button>
-                                        </a> -->
-                                    </div>
+                                       
+                                    </div> -->
                                 </div>
                             </div>
                     </div>
@@ -1261,7 +1286,19 @@
             </div>
         </div>
     </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        .btn-cst {
+            background-color: #15F5BA;
+            color: black;
+        }
+
+        .btn-cst:hover {
+            background-color: #15F5BA;
+            color: black;
+        }
+
         .button-group {
             display: flex;
             justify-content: space-between;
@@ -1271,7 +1308,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 150px;
+            gap: 60px;
         }
 
         .btn-close1 {
