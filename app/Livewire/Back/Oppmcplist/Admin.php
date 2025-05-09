@@ -22,7 +22,7 @@ class Admin extends Component
     public $step = 1;
     public $action;
 
-    
+
     public $search = '';
 
     public function refreshData()
@@ -51,7 +51,7 @@ class Admin extends Component
         if (in_array($id, $this->selectedRows)) {
             $this->selectedRows = array_diff($this->selectedRows, [$id]);
         } else {
-            $this->selectedRows[] = $id;
+            $this->selectedRows = [$id];
         }
     }
 
@@ -68,9 +68,10 @@ class Admin extends Component
 
         $this->refreshData();
 
-        session()->flash('message', 'Data Deleted Successfully 🛑');
+        // session()->flash('message', 'Data Deleted Successfully 🛑');
+        $this->dispatch('alert', type: 'success', message: "Data Deleted Successfully");
     }
-    
+
 
     public function editRow($id)
     {
@@ -81,7 +82,8 @@ class Admin extends Component
             $this->formData = $link->toArray();
             $this->isEditing = true;
         } else {
-            session()->flash('message', 'Record not found!');
+            // session()->flash('message', 'Record not found!');
+            $this->dispatch('alert', type: 'error', message: "Record not found!");
         }
     }
 
@@ -116,49 +118,38 @@ class Admin extends Component
 
             $this->refreshData();
 
-            session()->flash('message', 'Form Updated Successfully ✅');
+            // session()->flash('message', 'Form Updated Successfully ✅');
+            $this->dispatch('alert', type: 'success', message: "Form Updated Successfully");
         } else {
-            session()->flash('message', 'Record not found ❌');
+            // session()->flash('message', 'Record not found ❌');
+            $this->dispatch('alert', type: 'error', message: "Record not found");
         }
     }
 
-
-    
     public function deleteMcpLink($linkId)
     {
         OppMcpLink::find($linkId)->delete();
-        session()->flash('message', 'Link removed successfully ✅');
+        // session()->flash('message', 'Link removed successfully ✅');
+        $this->dispatch('alert', type: 'success', message: "Link removed successfully");
     }
-    
+
     public function render()
     {
         $query = OppMcpLink::with(['opportunity', 'candidate']);
-        
-        // if ($this->search) {
-        //     $query->whereHas('opportunity', function($q) {
-        //         $q->where('opp_code', 'like', '%' . $this->search . '%')
-        //           ->orWhere('job_titles', 'like', '%' . $this->search . '%');
-        //     })->orWhereHas('candidate', function($q) {
-        //         $q->where('trg_code', 'like', '%' . $this->search . '%')
-        //           ->orWhere('first_name', 'like', '%' . $this->search . '%')
-        //           ->orWhere('last_name', 'like', '%' . $this->search . '%');
-        //     });
-        // }
 
         if (request()->has('selectedRows')) {
             $selectedRows = request()->get('selectedRows');
             $query->whereIn('opp_id', $selectedRows);
         }
-        
+
         $links = $query->orderBy('created_at', 'desc')->paginate(10);
 
         if ($this->isEditing) {
             return view('livewire.back.oppmcplist.edit');
         }
-            
+
         return view('livewire.back.oppmcplist.admin', [
             'links' => $links
         ]);
     }
 }
-
