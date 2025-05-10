@@ -70,37 +70,105 @@
 
             // Gap Calculation of Lats 7 days, 30 days, 12 months and Overall :
 
-            // Last 7 days :
-            $trgCallsGap_7 = round(($averages['7_days']['trg_calls_done'] / $averages['7_days']['trg_calls_obj']) * 100);
-            $trgCtcGap_7 = round(($averages['7_days']['trg_ctc_done'] / $averages['7_days']['trg_ctc_obj']) * 100);
-            $trgRvGap_7 = round(($averages['7_days']['trg_rv_done'] / $averages['7_days']['trg_rv_obj']) * 100);
-            $trgBqfGap_7 = round(($averages['7_days']['trg_bqf_done'] / $averages['7_days']['trg_bqf_obj']) * 100);
-            $trgKlfGap_7 = round(($averages['7_days']['trg_klf_done'] / $averages['7_days']['trg_klf_obj']) * 100);
-            $trgHrdGap_7 = round(($averages['7_days']['trg_hrd_done'] / $averages['7_days']['trg_hrd_obj']) * 100);
+            // Last 7 days:
+            $trgCallsGap_7 = ($averages['7_days']['trg_calls_obj'] > 0)
+            ? round(($averages['7_days']['trg_calls_done'] / $averages['7_days']['trg_calls_obj']) * 100)
+            : 0;
 
-            // Last 30 days :
-            $trgCallsGap_30 = round(($averages['30_days']['trg_calls_done'] / $averages['30_days']['trg_calls_obj']) * 100);
-            $trgCtcGap_30 = round(($averages['30_days']['trg_ctc_done'] / $averages['30_days']['trg_ctc_obj']) * 100);
-            $trgRvGap_30 = round(($averages['30_days']['trg_rv_done'] / $averages['30_days']['trg_rv_obj']) * 100);
-            $trgBqfGap_30 = round(($averages['30_days']['trg_bqf_done'] / $averages['30_days']['trg_bqf_obj']) * 100);
-            $trgKlfGap_30 = round(($averages['30_days']['trg_klf_done'] / $averages['30_days']['trg_klf_obj']) * 100);
-            $trgHrdGap_30 = round(($averages['30_days']['trg_hrd_done'] / $averages['30_days']['trg_hrd_obj']) * 100);
+            $trgCtcGap_7 = ($averages['7_days']['trg_ctc_obj'] > 0)
+            ? round(($averages['7_days']['trg_ctc_done'] / $averages['7_days']['trg_ctc_obj']) * 100)
+            : 0;
+
+            $trgRvGap_7 = ($averages['7_days']['trg_rv_obj'] > 0)
+            ? round(($averages['7_days']['trg_rv_done'] / $averages['7_days']['trg_rv_obj']) * 100)
+            : 0;
+
+            $trgBqfGap_7 = ($averages['7_days']['trg_bqf_obj'] > 0)
+            ? round(($averages['7_days']['trg_bqf_done'] / $averages['7_days']['trg_bqf_obj']) * 100)
+            : 0;
+
+            $trgKlfGap_7 = ($averages['7_days']['trg_klf_obj'] > 0)
+            ? round(($averages['7_days']['trg_klf_done'] / $averages['7_days']['trg_klf_obj']) * 100)
+            : 0;
+
+            $trgHrdGap_7 = ($averages['7_days']['trg_hrd_obj'] > 0)
+            ? round(($averages['7_days']['trg_hrd_done'] / $averages['7_days']['trg_hrd_obj']) * 100)
+            : 0;
+
+            // Last 30 days:
+            $trgCallsGap_30 = ($averages['30_days']['trg_calls_obj'] > 0)
+            ? round(($averages['30_days']['trg_calls_done'] / $averages['30_days']['trg_calls_obj']) * 100)
+            : 0;
+
+            $trgCtcGap_30 = ($averages['30_days']['trg_ctc_obj'] > 0)
+            ? round(($averages['30_days']['trg_ctc_done'] / $averages['30_days']['trg_ctc_obj']) * 100)
+            : 0;
+
+            $trgRvGap_30 = ($averages['30_days']['trg_rv_obj'] > 0)
+            ? round(($averages['30_days']['trg_rv_done'] / $averages['30_days']['trg_rv_obj']) * 100)
+            : 0;
+
+            $trgBqfGap_30 = ($averages['30_days']['trg_bqf_obj'] > 0)
+            ? round(($averages['30_days']['trg_bqf_done'] / $averages['30_days']['trg_bqf_obj']) * 100)
+            : 0;
+
+            $trgKlfGap_30 = ($averages['30_days']['trg_klf_obj'] > 0)
+            ? round(($averages['30_days']['trg_klf_done'] / $averages['30_days']['trg_klf_obj']) * 100)
+            : 0;
+
+            $trgHrdGap_30 = ($averages['30_days']['trg_hrd_obj'] > 0)
+            ? round(($averages['30_days']['trg_hrd_done'] / $averages['30_days']['trg_hrd_obj']) * 100)
+            : 0;
 
             // Last 12 months:
-            $trgCallsGap_12 = round(($averages['12_months']['trg_calls_done'] / $averages['12_months']['trg_calls_obj']) * 100);
-            $trgCtcGap_12 = round(($averages['12_months']['trg_ctc_done'] / $averages['12_months']['trg_ctc_obj']) * 100);
-            $trgRvGap_12 = round(($averages['12_months']['trg_rv_done'] / $averages['12_months']['trg_rv_obj']) * 100);
-            $trgBqfGap_12 = round(($averages['12_months']['trg_bqf_done'] / $averages['12_months']['trg_bqf_obj']) * 100);
-            $trgKlfGap_12 = round(($averages['12_months']['trg_klf_done'] / $averages['12_months']['trg_klf_obj']) * 100);
-            $trgHrdGap_12 = round(($averages['12_months']['trg_hrd_done'] / $averages['12_months']['trg_hrd_obj']) * 100);
+            $trgCallsGap_12 = ($averages['12_months']['trg_calls_obj'] > 0)
+            ? round(($averages['12_months']['trg_calls_done'] / $averages['12_months']['trg_calls_obj']) * 100)
+            : 0;
+
+            $trgCtcGap_12 = ($averages['12_months']['trg_ctc_obj'] > 0)
+            ? round(($averages['12_months']['trg_ctc_done'] / $averages['12_months']['trg_ctc_obj']) * 100)
+            : 0;
+
+            $trgRvGap_12 = ($averages['12_months']['trg_rv_obj'] > 0)
+            ? round(($averages['12_months']['trg_rv_done'] / $averages['12_months']['trg_rv_obj']) * 100)
+            : 0;
+
+            $trgBqfGap_12 = ($averages['12_months']['trg_bqf_obj'] > 0)
+            ? round(($averages['12_months']['trg_bqf_done'] / $averages['12_months']['trg_bqf_obj']) * 100)
+            : 0;
+
+            $trgKlfGap_12 = ($averages['12_months']['trg_klf_obj'] > 0)
+            ? round(($averages['12_months']['trg_klf_done'] / $averages['12_months']['trg_klf_obj']) * 100)
+            : 0;
+
+            $trgHrdGap_12 = ($averages['12_months']['trg_hrd_obj'] > 0)
+            ? round(($averages['12_months']['trg_hrd_done'] / $averages['12_months']['trg_hrd_obj']) * 100)
+            : 0;
 
             // Overall:
-            $trgCallsGap_overall = round(($averages['overall']['trg_calls_done'] / $averages['overall']['trg_calls_obj']) * 100);
-            $trgCtcGap_overall = round(($averages['overall']['trg_ctc_done'] / $averages['overall']['trg_ctc_obj']) * 100);
-            $trgRvGap_overall = round(($averages['overall']['trg_rv_done'] / $averages['overall']['trg_rv_obj']) * 100);
-            $trgBqfGap_overall = round(($averages['overall']['trg_bqf_done'] / $averages['overall']['trg_bqf_obj']) * 100);
-            $trgKlfGap_overall = round(($averages['overall']['trg_klf_done'] / $averages['overall']['trg_klf_obj']) * 100);
-            $trgHrdGap_overall = round(($averages['overall']['trg_hrd_done'] / $averages['overall']['trg_hrd_obj']) * 100);
+            $trgCallsGap_overall = ($averages['overall']['trg_calls_obj'] > 0)
+            ? round(($averages['overall']['trg_calls_done'] / $averages['overall']['trg_calls_obj']) * 100)
+            : 0;
+
+            $trgCtcGap_overall = ($averages['overall']['trg_ctc_obj'] > 0)
+            ? round(($averages['overall']['trg_ctc_done'] / $averages['overall']['trg_ctc_obj']) * 100)
+            : 0;
+
+            $trgRvGap_overall = ($averages['overall']['trg_rv_obj'] > 0)
+            ? round(($averages['overall']['trg_rv_done'] / $averages['overall']['trg_rv_obj']) * 100)
+            : 0;
+
+            $trgBqfGap_overall = ($averages['overall']['trg_bqf_obj'] > 0)
+            ? round(($averages['overall']['trg_bqf_done'] / $averages['overall']['trg_bqf_obj']) * 100)
+            : 0;
+
+            $trgKlfGap_overall = ($averages['overall']['trg_klf_obj'] > 0)
+            ? round(($averages['overall']['trg_klf_done'] / $averages['overall']['trg_klf_obj']) * 100)
+            : 0;
+
+            $trgHrdGap_overall = ($averages['overall']['trg_hrd_obj'] > 0)
+            ? round(($averages['overall']['trg_hrd_done'] / $averages['overall']['trg_hrd_obj']) * 100)
+            : 0;
 
 
             @endphp
@@ -334,39 +402,106 @@
             $cdtCrePerformance = round(($latestCdtDoneEntry->cdt_cre_done / $latestCdtObjEntry->cdt_cre_obj) * 100);
             }
 
-
-        
             // Last 7 days:
-            $cdtCallsGap_7 = round(($averages['7_days']['cdt_calls_done'] / $averages['7_days']['cdt_calls_obj']) * 100);
-            $cdtCtcGap_7 = round(($averages['7_days']['cdt_ctc_done'] / $averages['7_days']['cdt_ctc_obj']) * 100);
-            $cdtCreGap_7 = round(($averages['7_days']['cdt_cre_done'] / $averages['7_days']['cdt_cre_obj']) * 100);
-            $cdtRefsGap_7 = round(($averages['7_days']['cdt_refs_done'] / $averages['7_days']['cdt_refs_obj']) * 100);
-            $cdtCvGap_7 = round(($averages['7_days']['cdt_cv_done'] / $averages['7_days']['cdt_cv_obj']) * 100);
-            $cdtPushGap_7 = round(($averages['7_days']['cdt_push_done'] / $averages['7_days']['cdt_push_obj']) * 100);
+            $cdtCallsGap_7 = ($averages['7_days']['cdt_calls_obj'] > 0)
+            ? round(($averages['7_days']['cdt_calls_done'] / $averages['7_days']['cdt_calls_obj']) * 100)
+            : 0;
+
+            $cdtCtcGap_7 = ($averages['7_days']['cdt_ctc_obj'] > 0)
+            ? round(($averages['7_days']['cdt_ctc_done'] / $averages['7_days']['cdt_ctc_obj']) * 100)
+            : 0;
+
+            $cdtCreGap_7 = ($averages['7_days']['cdt_cre_obj'] > 0)
+            ? round(($averages['7_days']['cdt_cre_done'] / $averages['7_days']['cdt_cre_obj']) * 100)
+            : 0;
+
+            $cdtRefsGap_7 = ($averages['7_days']['cdt_refs_obj'] > 0)
+            ? round(($averages['7_days']['cdt_refs_done'] / $averages['7_days']['cdt_refs_obj']) * 100)
+            : 0;
+
+            $cdtCvGap_7 = ($averages['7_days']['cdt_cv_obj'] > 0)
+            ? round(($averages['7_days']['cdt_cv_done'] / $averages['7_days']['cdt_cv_obj']) * 100)
+            : 0;
+
+            $cdtPushGap_7 = ($averages['7_days']['cdt_push_obj'] > 0)
+            ? round(($averages['7_days']['cdt_push_done'] / $averages['7_days']['cdt_push_obj']) * 100)
+            : 0;
 
             // Last 30 days:
-            $cdtCallsGap_30 = round(($averages['30_days']['cdt_calls_done'] / $averages['30_days']['cdt_calls_obj']) * 100);
-            $cdtCtcGap_30 = round(($averages['30_days']['cdt_ctc_done'] / $averages['30_days']['cdt_ctc_obj']) * 100);
-            $cdtCreGap_30 = round(($averages['30_days']['cdt_cre_done'] / $averages['30_days']['cdt_cre_obj']) * 100);
-            $cdtRefsGap_30 = round(($averages['30_days']['cdt_refs_done'] / $averages['30_days']['cdt_refs_obj']) * 100);
-            $cdtCvGap_30 = round(($averages['30_days']['cdt_cv_done'] / $averages['30_days']['cdt_cv_obj']) * 100);
-            $cdtPushGap_30 = round(($averages['30_days']['cdt_push_done'] / $averages['30_days']['cdt_push_obj']) * 100);
+            $cdtCallsGap_30 = ($averages['30_days']['cdt_calls_obj'] > 0)
+            ? round(($averages['30_days']['cdt_calls_done'] / $averages['30_days']['cdt_calls_obj']) * 100)
+            : 0;
+
+            $cdtCtcGap_30 = ($averages['30_days']['cdt_ctc_obj'] > 0)
+            ? round(($averages['30_days']['cdt_ctc_done'] / $averages['30_days']['cdt_ctc_obj']) * 100)
+            : 0;
+
+            $cdtCreGap_30 = ($averages['30_days']['cdt_cre_obj'] > 0)
+            ? round(($averages['30_days']['cdt_cre_done'] / $averages['30_days']['cdt_cre_obj']) * 100)
+            : 0;
+
+            $cdtRefsGap_30 = ($averages['30_days']['cdt_refs_obj'] > 0)
+            ? round(($averages['30_days']['cdt_refs_done'] / $averages['30_days']['cdt_refs_obj']) * 100)
+            : 0;
+
+            $cdtCvGap_30 = ($averages['30_days']['cdt_cv_obj'] > 0)
+            ? round(($averages['30_days']['cdt_cv_done'] / $averages['30_days']['cdt_cv_obj']) * 100)
+            : 0;
+
+            $cdtPushGap_30 = ($averages['30_days']['cdt_push_obj'] > 0)
+            ? round(($averages['30_days']['cdt_push_done'] / $averages['30_days']['cdt_push_obj']) * 100)
+            : 0;
 
             // Last 12 months:
-            $cdtCallsGap_12 = round(($averages['12_months']['cdt_calls_done'] / $averages['12_months']['cdt_calls_obj']) * 100);
-            $cdtCtcGap_12 = round(($averages['12_months']['cdt_ctc_done'] / $averages['12_months']['cdt_ctc_obj']) * 100);
-            $cdtCreGap_12 = round(($averages['12_months']['cdt_cre_done'] / $averages['12_months']['cdt_cre_obj']) * 100);
-            $cdtRefsGap_12 = round(($averages['12_months']['cdt_refs_done'] / $averages['12_months']['cdt_refs_obj']) * 100);
-            $cdtCvGap_12 = round(($averages['12_months']['cdt_cv_done'] / $averages['12_months']['cdt_cv_obj']) * 100);
-            $cdtPushGap_12 = round(($averages['12_months']['cdt_push_done'] / $averages['12_months']['cdt_push_obj']) * 100);
+            $cdtCallsGap_12 = ($averages['12_months']['cdt_calls_obj'] > 0)
+            ? round(($averages['12_months']['cdt_calls_done'] / $averages['12_months']['cdt_calls_obj']) * 100)
+            : 0;
+
+            $cdtCtcGap_12 = ($averages['12_months']['cdt_ctc_obj'] > 0)
+            ? round(($averages['12_months']['cdt_ctc_done'] / $averages['12_months']['cdt_ctc_obj']) * 100)
+            : 0;
+
+            $cdtCreGap_12 = ($averages['12_months']['cdt_cre_obj'] > 0)
+            ? round(($averages['12_months']['cdt_cre_done'] / $averages['12_months']['cdt_cre_obj']) * 100)
+            : 0;
+
+            $cdtRefsGap_12 = ($averages['12_months']['cdt_refs_obj'] > 0)
+            ? round(($averages['12_months']['cdt_refs_done'] / $averages['12_months']['cdt_refs_obj']) * 100)
+            : 0;
+
+            $cdtCvGap_12 = ($averages['12_months']['cdt_cv_obj'] > 0)
+            ? round(($averages['12_months']['cdt_cv_done'] / $averages['12_months']['cdt_cv_obj']) * 100)
+            : 0;
+
+            $cdtPushGap_12 = ($averages['12_months']['cdt_push_obj'] > 0)
+            ? round(($averages['12_months']['cdt_push_done'] / $averages['12_months']['cdt_push_obj']) * 100)
+            : 0;
 
             // Overall:
-            $cdtCallsGap_overall = round(($averages['overall']['cdt_calls_done'] / $averages['overall']['cdt_calls_obj']) * 100);
-            $cdtCtcGap_overall = round(($averages['overall']['cdt_ctc_done'] / $averages['overall']['cdt_ctc_obj']) * 100);
-            $cdtCreGap_overall = round(($averages['overall']['cdt_cre_done'] / $averages['overall']['cdt_cre_obj']) * 100);
-            $cdtRefsGap_overall = round(($averages['overall']['cdt_refs_done'] / $averages['overall']['cdt_refs_obj']) * 100);
-            $cdtCvGap_overall = round(($averages['overall']['cdt_cv_done'] / $averages['overall']['cdt_cv_obj']) * 100);
-            $cdtPushGap_overall = round(($averages['overall']['cdt_push_done'] / $averages['overall']['cdt_push_obj']) * 100);
+            $cdtCallsGap_overall = ($averages['overall']['cdt_calls_obj'] > 0)
+            ? round(($averages['overall']['cdt_calls_done'] / $averages['overall']['cdt_calls_obj']) * 100)
+            : 0;
+
+            $cdtCtcGap_overall = ($averages['overall']['cdt_ctc_obj'] > 0)
+            ? round(($averages['overall']['cdt_ctc_done'] / $averages['overall']['cdt_ctc_obj']) * 100)
+            : 0;
+
+            $cdtCreGap_overall = ($averages['overall']['cdt_cre_obj'] > 0)
+            ? round(($averages['overall']['cdt_cre_done'] / $averages['overall']['cdt_cre_obj']) * 100)
+            : 0;
+
+            $cdtRefsGap_overall = ($averages['overall']['cdt_refs_obj'] > 0)
+            ? round(($averages['overall']['cdt_refs_done'] / $averages['overall']['cdt_refs_obj']) * 100)
+            : 0;
+
+            $cdtCvGap_overall = ($averages['overall']['cdt_cv_obj'] > 0)
+            ? round(($averages['overall']['cdt_cv_done'] / $averages['overall']['cdt_cv_obj']) * 100)
+            : 0;
+
+            $cdtPushGap_overall = ($averages['overall']['cdt_push_obj'] > 0)
+            ? round(($averages['overall']['cdt_push_done'] / $averages['overall']['cdt_push_obj']) * 100)
+            : 0;
+
 
 
             @endphp
