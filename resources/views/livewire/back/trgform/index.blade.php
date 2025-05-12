@@ -474,7 +474,7 @@
         }
 
         .btn-valid {
-            background-color: #6F61C0;
+            background-color: #00CCDD;
             color: white;
         }
 
@@ -489,7 +489,7 @@
         }
 
         .btn-valid:hover {
-            background-color: #6F61C0;
+            background-color: #00CCDD;
             color: white;
         }
 
