@@ -70,7 +70,7 @@
                                     <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
                                         <i class="fa-regular fa-trash-can fa-lg"></i>
                                     </button>
-                                    <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                    <button type="submit" class="btn btn-save"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
                                     <a href="/landing">
                                         <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
                                     </a>
@@ -278,6 +278,16 @@
             max-width: 1500px;
             border-radius: 2px;
 
+        }
+
+        .btn-save {
+            background-color: #00CCDD;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background-color: #00CCDD;
+            color: white;
         }
 
         .modal-header {
