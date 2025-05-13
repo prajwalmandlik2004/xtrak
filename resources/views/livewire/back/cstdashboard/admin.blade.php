@@ -177,13 +177,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
+
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <!-- <th style="width:30px;background-color: #00FF9C;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            wire:model="selectAll"></th> -->
                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #00FF9C;">
                                         Date
                                     </th>
@@ -195,10 +194,7 @@
                                     <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #00FF9C;">
                                         Last Name
                                     </th>
-                                    <th class="ville_col" scope="col" style="background-color: #00FF9C;">Mail</th>
-                                    <th class="ref_col" scope="col" style="background-color: #00FF9C;">Phone</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #00FF9C;">Status</th>
-                                    <th class="reg_col" scope="col" style="background-color:#00FF9C;">Notes</th>
+                                    <th style="background-color: #00FF9C;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -207,21 +203,41 @@
                                 <tr wire:key="row-{{ $item->id }}"
                                     wire:click="toggleSelect({{ $item->id }})"
                                     wire:dblclick="editRow({{ $item->id }})"
-                                    class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }}"
+                                    class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }} parent-row"
                                     style="cursor: pointer;">
-                                    <!-- <td class="checkbox-cell">
-                                        <input type="checkbox" class="candidate-checkbox"
-                                            style="display:none;pointer-events: none;">
-                                    </td> -->
                                     <td>{{ $item->date_cst }}</td>
                                     <td>{{ $item->cst_code }}</td>
                                     <td>{{ $item->civ }}</td>
                                     <td>{{ $item->first_name }}</td>
                                     <td>{{ $item->last_name }}</td>
-                                    <td>{{ $item->cell }}</td>
-                                    <td>{{ $item->mail }}</td>
-                                    <td>{{ $item->status }}</td>
-                                    <td>{{ $item->notes }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-success toggle-child">+</button>
+                                        <button class="btn btn-sm btn-outline-primary ms-2"><i class="bi bi-eye"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="child-row d-none">
+                                    <td colspan="6">
+                                        <div class="p-3">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="libe_col" scope="col" style="background-color: #00FF9C;">Mail</th>
+                                                        <th class="libe_col" scope="col" style="background-color: #00FF9C;">Phone</th>
+                                                        <th class="libe_col" scope="col" style="background-color: #00FF9C;">Status</th>
+                                                        <th class="libe_col" scope="col" style="background-color: #00FF9C;">Notes</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{ $item->cell }}</td>
+                                                        <td>{{ $item->mail }}</td>
+                                                        <td>{{ $item->status }}</td>
+                                                        <td>{{ $item->notes }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 @else
@@ -761,6 +777,21 @@
 
     </div>
     @push('page-script')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.toggle-child');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Prevent parent row click event
+                    const row = this.closest('tr').nextElementSibling;
+                    row.classList.toggle('d-none');
+                    this.textContent = row.classList.contains('d-none') ? '+' : '-';
+                });
+            });
+        });
+    </script>
+
     <script>
         document.getElementById("linkNewCDT").addEventListener("click", function() {
             document.getElementById("customModal").style.display = "flex";
