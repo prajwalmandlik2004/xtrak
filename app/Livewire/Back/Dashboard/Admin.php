@@ -721,7 +721,9 @@ class Admin extends Component
         $selectedIds = array_keys(array_filter($this->checkboxes));
 
         if (empty($selectedIds) && empty($this->selectedCandidateId)) {
-            session()->flash('error', 'Please select at least one candidate to link');
+            // session()->flash('error', 'Please select at least one candidate to link');
+            $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
+    
             return;
         }
 
@@ -819,7 +821,9 @@ class Admin extends Component
         $selectedIds = array_keys(array_filter($this->checkboxes));
 
         if (empty($selectedIds) && empty($this->selectedCandidateId)) {
-            session()->flash('error', 'Please select at least one candidate to link');
+            // session()->flash('error', 'Please select at least one candidate to link');
+            $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
+    
             return;
         }
 
