@@ -548,7 +548,9 @@ class Admin extends Component
     public function openCdtModal()
     {
         if (empty($this->selectedRows)) {
-            session()->flash('error', 'Please select at least one opportunity to link');
+            // session()->flash('error', 'Please select at least one opportunity to link');
+            $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
+    
             return;
         }
 
@@ -631,7 +633,9 @@ class Admin extends Component
     public function openCstModal()
     {
         if (empty($this->selectedRows)) {
-            session()->flash('error', 'Please select at least one opportunity to link');
+            // session()->flash('error', 'Please select at least one opportunity to link');
+            $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
+    
             return;
         }
 
@@ -714,7 +718,9 @@ class Admin extends Component
     public function openMcpModal()
     {
         if (empty($this->selectedRows)) {
-            session()->flash('error', 'Please select at least one opportunity to link');
+            // session()->flash('error', 'Please select at least one opportunity to link');
+            $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
+    
             return;
         }
 
