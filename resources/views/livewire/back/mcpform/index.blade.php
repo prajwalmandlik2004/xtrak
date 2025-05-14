@@ -6,7 +6,7 @@
     ],
     ])
     <div class="row">
-        
+
         <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-3 d-flex justify-content-between">
             <div>
             </div>
@@ -20,7 +20,7 @@
                 <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
             </div>
         </div>
-        
+
         <div>
             @if (session()->has('message'))
             <div style="margin-top:-2%;" class="d-flex justify-content-left">
@@ -44,10 +44,10 @@
                                     <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                 </a>
                                 <div class="one">
-                                    <!-- <a href="/trglist">
-                                    <button type="button" class="btn btn-trg">TRG <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a> -->
-                                    <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
+                                    <button id="linkNewCDT" type="button" class="btn btn-opp">OPP<i class="fas fa-link"></i></button>
+                                </div>
+                                <div class="one">
+                                    <button id="linkNewCDT" type="button" class="btn btn-trg">TRG<i class="fas fa-link"></i></button>
                                 </div>
                                 <div class="one">
                                     <a href="/mcpevtlist">
@@ -148,6 +148,16 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .btn-opp {
+            background-color: #6F61C0;
+            color: white;
+        }
+
+        .btn-opp:hover {
+            background-color: #6F61C0;
+            color: white;
+        }
+
         .btn-mcp {
             background-color: #7D0A0A;
             color: white;
@@ -365,7 +375,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 60px;
+            gap: 40px;
         }
 
         .button-group-right {
