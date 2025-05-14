@@ -752,6 +752,7 @@ class Admin extends Component
         $this->showOppModal = false;
         $this->oppCode = '';
         $this->oppLinkError = '';
+        $this->dispatch('closeModal', modalId: 'oppLinkModal');
     }
 
     public function linkOpp()
@@ -762,7 +763,8 @@ class Admin extends Component
 
         // Check if any rows are selected
         if (empty($this->selectedCandidateId)) {
-            $this->oppLinkError = 'Please select at least one candidate to link';
+            // $this->oppLinkError = 'Please select at least one candidate to link';
+            $this->dispatch('alert', type: 'error', message: "Please select at least one candidate to link");
             return;
         }
 
@@ -770,7 +772,12 @@ class Admin extends Component
         $candidate = Oppdashboard::where('opp_code', $this->oppCode)->first();
 
         if (!$candidate) {
-            $this->oppLinkError = 'No candidate found with this OPP code';
+            // $this->oppLinkError = 'No candidate found with this OPP code';
+            $this->dispatch('alert', type: 'error', message: "No candidate found with this OPP code");
+            $this->oppCode = '';
+            $this->closeOppModal();
+            $this->dispatch('closeModal', modalId: 'oppLinkModal');
+        
             return;
         }
 
@@ -801,17 +808,33 @@ class Admin extends Component
 
         // Show appropriate message
         if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount candidates linked successfully $alreadyLinkedCount were already linked.");
+            // session()->flash('linkmessage', "$linkedCount candidates linked successfully $alreadyLinkedCount were already linked.");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount candidates linked successfully $alreadyLinkedCount were already linked.");
+            $this->oppCode = '';
+            $this->closeOppModal();
+            $this->dispatch('closeModal', modalId: 'oppLinkModal');
+        
         } elseif ($linkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount candidates linked successfully");
+            // session()->flash('linkmessage', "$linkedCount candidates linked successfully");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount candidates linked successfully");
+            $this->oppCode = '';
+            $this->closeOppModal();
+            $this->dispatch('closeModal', modalId: 'oppLinkModal');
+        
         } elseif ($alreadyLinkedCount > 0) {
-            $this->oppLinkError = "Selected candidates are already linked to this CDT";
+            // $this->oppLinkError = "Selected candidates are already linked to this CDT";
+            $this->dispatch('alert', type: 'error', message: "Selected candidates are already linked to this CDT");
+            $this->oppCode = '';
+            $this->closeOppModal();
+            $this->dispatch('closeModal', modalId: 'oppLinkModal');
+        
             return;
         }
 
         // Clear inputs and close modal
         $this->oppCode = '';
         $this->closeOppModal();
+        $this->dispatch('closeModal', modalId: 'oppLinkModal');
     }
 
     // Linking for CDT to MCP
@@ -843,6 +866,7 @@ class Admin extends Component
         $this->showMcpModal = false;
         $this->mcpCode = '';
         $this->mcpLinkError = '';
+        $this->dispatch('closeModal', modalId: 'mcpLinkModal');
     }
 
     public function linkMcp()
@@ -853,7 +877,9 @@ class Admin extends Component
 
         // Check if any rows are selected
         if (empty($this->selectedCandidateId)) {
-            $this->mcpLinkError = 'Please select at least one candidate to link';
+            // $this->mcpLinkError = 'Please select at least one candidate to link';
+            $this->dispatch('alert', type: 'error', message: "Please select at least one candidate to link");
+        
             return;
         }
 
@@ -861,7 +887,12 @@ class Admin extends Component
         $candidate = Mcpdashboard::where('mcp_code', $this->mcpCode)->first();
 
         if (!$candidate) {
-            $this->mcpLinkError = 'No candidate found with this MCP code';
+            // $this->mcpLinkError = 'No candidate found with this MCP code';
+            $this->dispatch('alert', type: 'error', message: "No candidate found with this MCP code");
+            $this->mcpCode = '';
+            $this->closeMcpModal();
+            $this->dispatch('closeModal', modalId: 'mcpLinkModal');
+        
             return;
         }
 
@@ -892,17 +923,33 @@ class Admin extends Component
 
         // Show appropriate message
         if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount candidates linked successfully $alreadyLinkedCount were already linked.");
+            // session()->flash('linkmessage', "$linkedCount candidates linked successfully $alreadyLinkedCount were already linked.");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount candidates linked successfully $alreadyLinkedCount were already linked.");
+            $this->mcpCode = '';
+            $this->closeMcpModal();
+            $this->dispatch('closeModal', modalId: 'mcpLinkModal');
+        
         } elseif ($linkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount candidates linked successfully");
+            // session()->flash('linkmessage', "$linkedCount candidates linked successfully");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount candidates linked successfully");
+            $this->mcpCode = '';
+            $this->closeMcpModal();
+            $this->dispatch('closeModal', modalId: 'mcpLinkModal');
+        
         } elseif ($alreadyLinkedCount > 0) {
-            $this->mcpLinkError = "Selected candidates are already linked to this CDT";
+            // $this->mcpLinkError = "Selected candidates are already linked to this CDT";
+            $this->dispatch('alert', type: 'error', message: "Selected candidates are already linked to this CDT");
+            $this->mcpCode = '';
+            $this->closeMcpModal();
+            $this->dispatch('closeModal', modalId: 'mcpLinkModal');
+        
             return;
         }
 
         // Clear inputs and close modal
         $this->mcpCode = '';
         $this->closeMcpModal();
+        $this->dispatch('closeModal', modalId: 'mcpLinkModal');
     }
 
 
