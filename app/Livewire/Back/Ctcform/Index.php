@@ -121,7 +121,7 @@ class Index extends Component
                     'notes' => $this->notes,
                 ]);
 
-                session()->flash('message', 'Record updated successfully!');
+                $this->dispatch('alert', type: 'success', message: "Record updated successfully!");
             }
         } else {
             Ctcdashboard::create([
@@ -142,7 +142,7 @@ class Index extends Component
                 'notes' => $this->notes,
             ]);
 
-            session()->flash('message', 'Form Submitted Successfully ✅');
+            $this->dispatch('alert', type: 'success', message: "Form Submitted Successfully");
         }
 
         $this->resetForm();
@@ -205,4 +205,3 @@ class Index extends Component
         return view('livewire.back.ctcform.index');
     }
 }
-

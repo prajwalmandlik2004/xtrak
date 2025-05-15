@@ -59,7 +59,7 @@ class Admin extends Component
 
         $this->refreshData();
 
-        session()->flash('message', 'Data Deleted Successfully 🛑');
+        $this->dispatch('alert', type: 'success', message: "Data Deleted Successfully");
     }
 
 
@@ -121,7 +121,7 @@ class Admin extends Component
 
             $this->refreshData();
 
-            session()->flash('message', 'Form Updated Successfully ✅');
+            $this->dispatch('alert', type: 'success', message: "Form Updated Successfully");
         }
     }
 
