@@ -47,12 +47,12 @@
                                 <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1"><i class="fas fa-link"></i></button>
                             </a>
                             <div class="one">
-                                <a href="/management">
+                                <a href="/oppcdtlist">
                                     <button type="button" class="btn btn-inputmain">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                             </div>
                             <div class="one">
-                                <a href="/cstlist">
+                                <a href="/oppcstlist">
                                     <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                                 <button type="button" class="btn btn-cst" onclick="openModal()"><i class="fas fa-link"></i></button>

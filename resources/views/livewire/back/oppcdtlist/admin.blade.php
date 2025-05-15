@@ -46,7 +46,7 @@
                             @endif
 
                             <div class="one">
-                                <button id="linkNewCDT" style="background-color:#6F61C0;color:white;" type="button" class="btn"><i class="fas fa-link"></i></button>
+                                <button style="background-color:#6F61C0;color:white;" type="button" class="btn"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
                                 <a href="/cdtevtlist">
@@ -55,7 +55,7 @@
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
                             <div class="two">
-                                <a href="/mcplist">
+                                <a href="/oppmcplist">
                                     <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                                 <tyleclas id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
@@ -65,7 +65,7 @@
                                 <a href="">
                                     <button type="button" class="btn btn-mail"><i class="fa-regular fa-envelope fa-lg"></i></button>
                                 </a>
-                                <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                <!-- <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button> -->
                                 <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
                                     <i class="fa-regular fa-trash-can fa-lg"></i>
                                 </button>

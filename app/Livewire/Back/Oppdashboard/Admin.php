@@ -863,10 +863,6 @@ class Admin extends Component
     }
 
 
-
-
-
-
     public function render()
     {
         $query = Oppdashboard::query();

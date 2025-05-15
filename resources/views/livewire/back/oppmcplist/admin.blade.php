@@ -46,7 +46,7 @@
                             @endif
 
                             <div class="one">
-                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                                <button  type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="three">
                                 <button wire:click="deleteSelected()" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">

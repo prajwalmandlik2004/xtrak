@@ -34,7 +34,7 @@ class Show extends Component
     public $postal_code;
     public $candidate_statut_id;
     public $position_id;
-    public $position_name; 
+    public $position_name;
     public $positions;
     public $created_by;
     public $city;
@@ -145,7 +145,7 @@ class Show extends Component
             'compagny_id' => 'nullable',
             'postal_code' => 'nullable',
             'candidate_statut_id' => 'nullable',
-            'position_name' => 'required', 
+            'position_name' => 'required',
             'city' => 'nullable',
             'address' => 'nullable',
             'region' => 'nullable',
@@ -236,9 +236,9 @@ class Show extends Component
             DB::beginTransaction();
             $state = CandidateState::where('id', $id)->first() ?? null;
             $additionalFieldsFilled = $this->candidate->first_name && $this->candidate->last_name && $this->candidate->civ_id && $this->candidate->email && $this->candidate->position_id;
-            if ($state && $this->candidate->files()->exists() && $additionalFieldsFilled && $state->name == 'Certifié' ) {
+            if ($state && $this->candidate->files()->exists() && $additionalFieldsFilled && $state->name == 'Certifié') {
                 $cvFile = $this->candidate->files()->where('file_type', 'cv')->first();
-                if ($cvFile ) {
+                if ($cvFile) {
                     $certificate = Helper::generateCandidateCertificate();
                     $this->candidate->update([
                         'certificate' => $certificate,
@@ -278,7 +278,12 @@ class Show extends Component
             $this->dispatch('alert', type: 'error', message: 'Erreur lors de la modification de l\'état du candidat');
         }
     }
-    
+
+    public function resetForm()
+    {
+        $this->reset(['next_step_id', 'ns_date_id', 'origine', 'commentaire', 'description', 'suivi', 'speciality_id', 'field_id', 'civ_id', 'first_name', 'last_name', 'email', 'phone', 'compagny_id', 'postal_code', 'candidate_statut_id', 'position_id', 'city', 'address', 'region', 'country', 'disponibility_id', 'url_ctc']);
+    }
+
     public function render()
     {
         return view('livewire.back.candidates.show');

@@ -56,7 +56,7 @@
                                             </div>
                                             <div class="three">
                                                 <a href="/opportunity">
-                                                    <button type="button" class="btn btn-erase"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
                                                 </a>
                                                 <a href="/opportunity">
                                                     <button style="background-color:red;color:white;" type="button" class="btn"><i class="fa-regular fa-trash-can fa-lg"></i></button>

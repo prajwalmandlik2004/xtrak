@@ -47,7 +47,7 @@
 
 
                             <div class="one">
-                                <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
+                                <button  type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="three">
                                 <button style="color:red;" type="button" class="btn btn-call" onclick="openModal()"><i class="fa-solid fa-phone fa-lg"></i></button>

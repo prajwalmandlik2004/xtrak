@@ -29,7 +29,7 @@
                     <div class="button-group-main">
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:yellow; border-radius:5px; color:black;padding:12px;margin-top:-2px">CDT_MCPlist</h5>
-                            
+
                             @if($links->count() == 1)
                             @foreach($links as $link)
                             <div class="mt-1">
@@ -39,14 +39,14 @@
                                 <input style="width:120px;padding:5px;" type="text" placeholder="{{ $link->candidate->first_name ?? '--' }}{{ " " }}{{ $link->candidate->last_name ?? '--' }}"></input>
                             </div>
                             @endforeach
-                            @else 
+                            @else
                             <div class="mt-2">
                                 <h5>ALL OPEN STATUS CDTS</h5>
                             </div>
                             @endif
-                            
+
                             <div class="one">
-                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                                <button type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="three">
                                 <button wire:click="deleteSelected()" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
@@ -445,6 +445,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
             .btn-mcp {
+                background-color: #7D0A0A;
+                color: white;
+            }
+
+            .btn-mcp:hover {
                 background-color: #7D0A0A;
                 color: white;
             }
