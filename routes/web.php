@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TrgOppController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CivController;
 use App\Http\Controllers\CreController;
@@ -99,7 +100,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/trgevtlist', [TrgEvtController::class, 'index'])->name('trgevtlist');
     Route::get('/trgctclist', [TrgCtcController::class, 'index'])->name('trgctclist');
     Route::get('/trgmcplist', [TrgMcpController::class, 'index'])->name('trgmcplist');
-    Route::get('/trgopplist', [TrgOpplistController::class, 'index'])->name('trgopplist');
+    Route::get('/trgopplist', [TrgOppController::class, 'index'])->name('trgopplist');
     Route::get('/oppevtlist', [OppEvtController::class, 'index'])->name('oppevtlist');
     Route::get('/oppcstlist', [OppCstController::class, 'index'])->name('oppcstlist');
     Route::get('/oppcdtlist', [OppCdtController::class, 'index'])->name('oppcdtlist');

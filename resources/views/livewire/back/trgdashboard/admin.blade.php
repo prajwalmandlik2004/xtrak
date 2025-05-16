@@ -31,28 +31,38 @@
                                 <button style="background:#DBDBDB;color:black;" type="button" class="btn btn-close1">TRG <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
                             <div class="two">
-                                <a href="/trgopplist">
-                                    <button type="button" class="btn btn-opp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a>
-                                <button id="linkNewOPP" type="button" class="btn btn-opp"><i class="fas fa-link"></i></button>
+                                <button id="opplistButton"
+                                    wire:click="showLinkedData"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    type="button" class="btn btn-opp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i>
+                                </button>
+                            </div>
+                            <div class="one">
+                                <button type="button" class="btn btn-opp" wire:click="openOppModal"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
                                 <a href="/trgevtlist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
-                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
                             <div class="two">
-                                <a href="/trgctclist">
-                                    <button type="button" class="btn btn-ctc">CTC <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a>
-                                <button id="linkNewCDT" type="button" class="btn btn-ctc"><i class="fas fa-link"></i></button>
+                                <button id="ctclistButton"
+                                    wire:click="showLinkedDataCTC"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    type="button" class="btn btn-ctc">CTC <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                            </div>
+                            <div class="one">
+                                <button type="button" class="btn btn-ctc" wire:click="openCtcModal"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="two">
-                                <a href="/trgmcplist">
-                                    <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a>
-                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                                <button id="mcplistButton"
+                                    wire:click="showLinkedDataMCP"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                            </div>
+                            <div class="">
+                                <button type="button" class="btn btn-mcp" wire:click="openMcpModal"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="two">
                                 <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
@@ -102,7 +112,7 @@
                     <tbody>
                         <tr>
                             <td style="width:10px;">
-                                <input id="selectionButton" type="checkbox" class="large-checkbox">
+                                <input id="selectionButton" type="checkbox" class="large-checkbox" wire:click="toggleSelectionMode">
                             </td>
 
                             <td>
@@ -198,8 +208,13 @@
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <!-- <th scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            style="display:none;" wire:model="selectAll"></th> -->
+                                    <th scope="col" style="background-color: #D0DDD0;">
+                                        @if($showCheckboxes)
+                                        <input type="checkbox" id="select-all-checkbox"
+                                            wire:model="selectAll"
+                                            wire:click="$refresh">
+                                        @endif
+                                    </th>
                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #D0DDD0;">
                                         Date
                                     </th>
@@ -233,6 +248,14 @@
                                     wire:dblclick="editRow({{ $item->id }})"
                                     class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }}"
                                     style="cursor: pointer;">
+                                    <td class="checkbox-cell" onclick="event.stopPropagation()">
+                                        @if($showCheckboxes)
+                                        <input type="checkbox"
+                                            value="{{ $item->id }}"
+                                            wire:click="toggleSelect({{ $item->id }})"
+                                            {{ in_array((string)$item->id, $selectedRows) ? 'checked' : '' }}>
+                                        @endif
+                                    </td>
                                     <td>{{ $item->creation_date }}</td>
                                     <td>{{ $item->company }}</td>
                                     <td>{{ $item->trg_code}}</td>
@@ -271,42 +294,107 @@
 
 
 
-
-        <div style="margin-top:-15%;display:none;" class="modal-overlay" id="customModal" tabindex="-1">
-            <div class="modal-dialog  cdt-modal-dialog">
-                <div class="modal-content cdt-modal-content">
-                    <div class="cdt-modal-header">
-                        <span>Enter CTC code:</span>
-                        <button id="closeModal" type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+        <div style="margin-top:-30%;" class="modal fade" id="oppLinkModal" tabindex="-1" aria-labelledby="oppLinkModalLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="oppLinkModalLabel">Link OPP</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="closeOppModal"></button>
                     </div>
-                    <div class="cdt-modal-body">
-                        <div class="cdt-input-group">
-                            <input type="text" class="cdt-input" id="cdtCode" value="">
-                            <button class="cdt-ok-btn" id="okButton">OK</button>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="oppCode">Enter OPP Code</label>
+                            <input type="text" class="form-control" id="oppCode" wire:model.defer="oppCode">
                         </div>
-                        <div class="cdt-message"></div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if($oppLinkError)
+                        <div class="alert alert-danger mt-2">
+                            {{ $oppLinkError }}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeOppModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkOpp">OK</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div style="margin-top:-15%;display:none;" class="modal-overlay" id="customModalOPP" tabindex="-1">
-            <div class="modal-dialog  cdt-modal-dialog">
-                <div class="modal-content cdt-modal-content">
-                    <div class="cdt-modal-header">
-                        <span>Enter OPP code:</span>
-                        <button id="closeModalOPP" type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+
+        <div style="margin-top:-30%;" class="modal fade" id="ctcLinkModal" tabindex="-1" aria-labelledby="ctcLinkModalLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ctcLinkModalLabel">Link CTC</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="closeCtcModal"></button>
                     </div>
-                    <div class="cdt-modal-body">
-                        <div class="cdt-input-group">
-                            <input type="text" class="cdt-input" id="cdtCode" value="">
-                            <button class="cdt-ok-btn" id="okButtonOPP">OK</button>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="ctcCode">Enter CTC Code</label>
+                            <input type="text" class="form-control" id="ctcCode" wire:model.defer="ctcCode">
                         </div>
-                        <div class="cdt-message"></div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if($ctcLinkError)
+                        <div class="alert alert-danger mt-2">
+                            {{ $ctcLinkError }}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeCtcModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkCtc">OK</button>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <div style="margin-top:-30%;" class="modal fade" id="mcpLinkModal" tabindex="-1" aria-labelledby="mcpLinkModalLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mcpLinkModalLabel">Link MCP</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="closeMcpModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="mcpCode">Enter MCP Code</label>
+                            <input type="text" class="form-control" id="mcpCode" wire:model.defer="mcpCode">
+                        </div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if($mcpLinkError)
+                        <div class="alert alert-danger mt-2">
+                            {{ $mcpLinkError }}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeMcpModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkMcp">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
 
 
         <div id="evtModal" class="modal">
@@ -473,7 +561,7 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
-             .select-row {
+            .select-row {
                 background-color: #37AFE1 !important;
             }
 
@@ -548,12 +636,36 @@
                 color: white;
             }
 
-            /* .modal-content {
+            
+
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1050;
+            }
+
+            .modal-content {
                 background: none;
                 border-radius: 8px;
                 width: 300px;
                 text-align: left;
-            } */
+            }
+
+
+            /* 
+            .modal-content {
+                background: none;
+                border-radius: 8px;
+                width: 300px;
+                text-align: left;
+            }
 
             .modal {
                 display: none;
@@ -588,7 +700,7 @@
                 font-size: 1.4em;
                 font-weight: 500;
                 margin-right: 10px;
-            }
+            } */
 
             .icons-row {
                 display: flex;
@@ -762,7 +874,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 55px;
+                gap: 30px;
             }
 
             .button-group-right {
@@ -911,53 +1023,39 @@
     </div>
     @push('page-script')
     <script>
-        document.getElementById("linkNewCDT").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "flex";
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-opp-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('oppLinkModal'));
+                myModal.show();
+            });
         });
 
-        document.getElementById("closeModal").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "none";
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-ctc-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('ctcLinkModal'));
+                myModal.show();
+            });
         });
 
-        document.getElementById("okButton").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "none";
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-mcp-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('mcpLinkModal'));
+                myModal.show();
+            });
         });
 
-        document.getElementById("linkNewOPP").addEventListener("click", function() {
-            document.getElementById("customModalOPP").style.display = "flex";
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('closeModal', ({
+                modalId
+            }) => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                if (modal) {
+                    modal.hide();
+                }
+            });
         });
 
-        document.getElementById("closeModalOPP").addEventListener("click", function() {
-            document.getElementById("customModalOPP").style.display = "none";
-        });
 
-        document.getElementById("okButtonOPP").addEventListener("click", function() {
-            document.getElementById("customModalOPP").style.display = "none";
-        });
-
-        function coming() {
-            alert("Coming Soon 🛑");
-        }
-
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     const linkNewCDT = document.getElementById('linkNewCDT');
-        //     const cdtModal = new bootstrap.Modal(document.getElementById('cdtModal'));
-        //     const okButton = document.getElementById('okButton');
-        //     const cdtCodeInput = document.getElementById('cdtCode');
-
-        //     linkNewCDT.addEventListener('click', function() {
-        //         cdtModal.show();
-        //     });
-
-        //     okButton.addEventListener('click', function() {
-        //         const code = cdtCodeInput.value.trim();
-        //         if (code) {
-        //             console.log('CDT Code submitted:', code);
-        //             cdtModal.hide();
-        //             cdtCodeInput.value = '';
-        //         }
-        //     });
-        // });
 
         let currentlyVisibleCertificateIndex = null;
 

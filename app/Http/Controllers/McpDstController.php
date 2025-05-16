@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Trgdashboard;
+use App\Models\McpTrgLink;
 
 class McpDstController extends Controller
 {
     public function index()
     {
-        $data = Trgdashboard::all();
+        $data = McpTrgLink::all();
         return view('back.mcpdstlist.admin', compact('data'));
     }
 }
+

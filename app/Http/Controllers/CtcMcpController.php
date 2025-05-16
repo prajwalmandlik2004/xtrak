@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Trgdashboard;
+use App\Models\CtcMcpLink;
 
 class CtcMcpController extends Controller
 {
     public function index()
     {
-        $data = Trgdashboard::all();
+        $data = CtcMcpLink::all();
         return view('back.ctcmcplist.admin', compact('data'));
     }
 }
+

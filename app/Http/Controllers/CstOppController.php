@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Trgdashboard;
+use App\Models\CstOppLink;
 
 class CstOppController extends Controller
 {
     public function index()
     {
-        $data = Trgdashboard::all();
+        $data = CstOppLink::all();
         return view('back.cstopplist.admin', compact('data'));
     }
 }
+
+
+

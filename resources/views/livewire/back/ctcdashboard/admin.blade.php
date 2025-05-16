@@ -31,24 +31,25 @@
                             <a href="/ctcform">
                                 <button style="background:#06D001;color:black;" type="button" class="btn btn-close1">CTC <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
-                            <div class="two">
-                                <!-- <a href="/mcplist">
-                                    <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a> -->
+                            <!-- <div class="two">
+                                
                                 <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
-                            </div>
+                            </div> -->
                             <div class="one">
                                 <a href="/ctcevtlist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                 </a>
-                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
 
                             <div class="two">
-                                <a href="/ctcmcplist">
-                                    <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a>
-                                <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
+                                <button id="mcplistButton"
+                                    wire:click="showLinkedDataMCP"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                            </div>
+                            <div class="">
+                                <button type="button" class="btn btn-mcp" wire:click="openMcpModal"><i class="fas fa-link"></i></button>
                             </div>
 
                             <div class="two">
@@ -94,7 +95,7 @@
                     <tbody>
                         <tr>
                             <td style="width:10px;">
-                                <input id="selectionButton" type="checkbox" class="large-checkbox">
+                                <input id="selectionButton" type="checkbox" class="large-checkbox" wire:click="toggleSelectionMode">
                             </td>
 
                             <td>
@@ -192,8 +193,13 @@
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <!-- <th style="width:30px;background-color: #06D001;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            wire:model="selectAll"></th> -->
+                                    <th style="width:30px;background-color: #06D001;" scope="col"> 
+                                        @if($showCheckboxes)
+                                        <input type="checkbox" id="select-all-checkbox"
+                                            wire:model="selectAll"
+                                            wire:click="$refresh">
+                                        @endif
+                                    </th>
                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #06D001;">
                                         Date
                                     </th>
@@ -222,10 +228,14 @@
                                     wire:dblclick="editRow({{ $item->id }})"
                                     class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }}"
                                     style="cursor: pointer;">
-                                    <!-- <td class="checkbox-cell">
-                                        <input type="checkbox" class="candidate-checkbox"
-                                            style="display:none;pointer-events: none;">
-                                    </td> -->
+                                    <td class="checkbox-cell" onclick="event.stopPropagation()">
+                                        @if($showCheckboxes)
+                                        <input type="checkbox"
+                                            value="{{ $item->id }}"
+                                            wire:click="toggleSelect({{ $item->id }})"
+                                            {{ in_array((string)$item->id, $selectedRows) ? 'checked' : '' }}>
+                                        @endif
+                                    </td>
                                     <td>{{ $item->date_ctc }}</td>
                                     <td>{{ $item->company_ctc }}</td>
                                     <td>{{ $item->ctc_code }}</td>
@@ -259,23 +269,39 @@
 
 
 
-        <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
-                <div class="modal-content cdt-modal-content">
-                    <div class="cdt-modal-header">
-                        <span>Enter CDT code:</span>
-                        <button id="closeModal" type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+        <div style="margin-top:-30%;" class="modal fade" id="mcpLinkModal" tabindex="-1" aria-labelledby="mcpLinkModalLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mcpLinkModalLabel">Link MCP</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="closeMcpModal"></button>
                     </div>
-                    <div class="cdt-modal-body">
-                        <div class="cdt-input-group">
-                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
-                            <button class="cdt-ok-btn" id="okButton">OK</button>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="mcpCode">Enter MCP Code</label>
+                            <input type="text" class="form-control" id="mcpCode" wire:model.defer="mcpCode">
                         </div>
-                        <div class="cdt-">("message")</div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if($mcpLinkError)
+                        <div class="alert alert-danger mt-2">
+                            {{ $mcpLinkError }}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeMcpModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkMcp">OK</button>
                     </div>
                 </div>
             </div>
         </div>
+
+
 
 
         <div id="evtModal" class="modal">
@@ -464,7 +490,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 100px;
+                gap: 50px;
             }
 
             .large-checkbox {
@@ -519,7 +545,28 @@
                 color: white;
             }
 
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1050;
+            }
+
             .modal-content {
+                background: none;
+                border-radius: 8px;
+                width: 300px;
+                text-align: left;
+            }
+
+
+            /* .modal-content {
                 background: none;
                 border-radius: 8px;
                 width: 300px;
@@ -558,7 +605,7 @@
                 font-size: 1.4em;
                 font-weight: 500;
                 margin-right: 10px;
-            }
+            } */
 
             .icons-row {
                 display: flex;
@@ -800,17 +847,24 @@
     </div>
     @push('page-script')
     <script>
-        document.getElementById("linkNewCDT").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "flex";
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-mcp-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('mcpLinkModal'));
+                myModal.show();
+            });
         });
 
-        document.getElementById("closeModal").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "none";
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('closeModal', ({
+                modalId
+            }) => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                if (modal) {
+                    modal.hide();
+                }
+            });
         });
 
-        document.getElementById("okButton").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "none";
-        });
 
         function coming() {
             alert("EVTlist Coming Soon 🛑");
