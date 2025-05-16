@@ -294,7 +294,7 @@
 
 
 
-        <div style="margin-top:-30%;" class="modal fade" id="oppLinkModal" tabindex="-1" aria-labelledby="oppLinkModalLabel" aria-hidden="true" wire:ignore.self>
+        <div style="margin-top:-60%;" class="modal fade" id="oppLinkModal" tabindex="-1" aria-labelledby="oppLinkModalLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog modal-sm">
                 <div class="modal-content bg-white">
                     <div class="modal-header">
@@ -327,7 +327,7 @@
         </div>
 
 
-        <div style="margin-top:-30%;" class="modal fade" id="ctcLinkModal" tabindex="-1" aria-labelledby="ctcLinkModalLabel" aria-hidden="true" wire:ignore.self>
+        <div style="margin-top:-60%;" class="modal fade" id="ctcLinkModal" tabindex="-1" aria-labelledby="ctcLinkModalLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog modal-sm">
                 <div class="modal-content bg-white">
                     <div class="modal-header">
@@ -360,7 +360,7 @@
         </div>
 
 
-        <div style="margin-top:-30%;" class="modal fade" id="mcpLinkModal" tabindex="-1" aria-labelledby="mcpLinkModalLabel" aria-hidden="true" wire:ignore.self>
+        <div style="margin-top:-60%;" class="modal fade" id="mcpLinkModal" tabindex="-1" aria-labelledby="mcpLinkModalLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog modal-sm">
                 <div class="modal-content bg-white">
                     <div class="modal-header">
