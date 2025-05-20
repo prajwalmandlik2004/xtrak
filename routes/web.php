@@ -172,8 +172,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 
     //mail-aith-passcode
-    Route::get('/mail-auth', [MailAuthController::class, 'create']);
+    Route::get('/mail-auth', [MailAuthController::class, 'index'])->name('mailauth');
     Route::post('/mail-auth', [MailAuthController::class, 'store'])->name('mailauth.store');
+
     
 
     

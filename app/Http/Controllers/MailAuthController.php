@@ -7,9 +7,10 @@ use App\Models\MailAuth;
 
 class MailAuthController extends Controller
 {
-    public function create()
+    public function index()
     {
-        return view('livewire.back.mailauth.create');
+        // return view('livewire.back.mailauth.create');
+        return view('back.mailauth.index');
     }
 
     public function store(Request $request)

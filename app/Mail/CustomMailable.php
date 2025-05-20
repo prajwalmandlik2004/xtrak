@@ -57,12 +57,12 @@ public function build()
     /**
      * Get the message envelope.
      */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Custom Mailable',
-        );
-    }
+    // public function envelope(): Envelope
+    // {
+    //     return new Envelope(
+    //         subject: 'Custom Mailable',
+    //     );
+    // }
 
     /**
      * Get the message content definition.
