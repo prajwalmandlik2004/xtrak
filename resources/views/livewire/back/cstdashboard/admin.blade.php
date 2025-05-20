@@ -286,15 +286,13 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-<<<<<<< HEAD
-                        <!--  -->
-=======
+
                         @if($oppLinkError)
                         <div class="alert alert-danger mt-2">
                             {{ $oppLinkError }}
                         </div>
                         @endif
->>>>>>> c9939cb61466c164454b9877822e052d364ade5c
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeOppModal">Close</button>
@@ -826,7 +824,7 @@
     </div>
     @push('page-script')
 
-<<<<<<< HEAD
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const buttons = document.querySelectorAll('.toggle-popup');
