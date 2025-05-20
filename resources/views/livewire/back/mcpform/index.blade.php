@@ -123,7 +123,7 @@
                             </div>
 
                             <!-- Email Pass Code Info -->
-                            <div class="col-md-6">
+                            <div class="col-md-6" hidden>
                                 <label class="form-label">Passcode</label>
                                 <input type="text" class="form-control" wire:model="passcode" readonly>
                             </div>
