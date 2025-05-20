@@ -6,6 +6,10 @@ use App\Models\Mcpdashboard;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+// TRG Link 
+use App\Models\Trgdashboard;
+use App\Models\McpTrgLink;
+
 class Admin extends Component
 {
     use WithPagination;
@@ -21,6 +25,27 @@ class Admin extends Component
     public $editId = null;
     public $formData = [];
 
+    // TRG Link 
+    public $trgCode = '';
+    public $showTrgModal = false;
+    public $trgLinkError = '';
+
+    // Rules for TRG code validation
+    protected $rules_trg = [
+        'trgCode' => 'required',
+    ];
+
+    public $showCheckboxes = false;
+
+    public function toggleSelectionMode()
+    {
+        $this->showCheckboxes = !$this->showCheckboxes;
+        if (!$this->showCheckboxes) {
+            $this->selectedRows = [];
+            $this->selectAll = false;
+        }
+    }
+
 
     public function refreshData()
     {
@@ -29,12 +54,24 @@ class Admin extends Component
 
     public function updatedSelectAll($value)
     {
-        if ($value) {
-            $this->selectedRows = $this->data->pluck('id')->map(function ($id) {
-                return (string) $id;
-            })->toArray();
+        // if ($value) {
+        //     $this->selectedRows = $this->data->pluck('id')->map(function ($id) {
+        //         return (string) $id;
+        //     })->toArray();
+        // } else {
+        //     $this->selectedRows = [];
+        // }
+
+        if (!empty($this->selectedRows)) {
+            $linkedDataCount = McpTrgLink::whereIn('mcp_id', $this->selectedRows)->count();
+
+            if ($linkedDataCount === 0) {
+                $this->dispatch('hide-trglist-button');
+            } else {
+                $this->dispatch('enable-trglist-button');
+            }
         } else {
-            $this->selectedRows = [];
+            $this->dispatch('disable-trglist-button');
         }
     }
 
@@ -44,6 +81,18 @@ class Admin extends Component
             $this->selectedRows = array_diff($this->selectedRows, [$id]);
         } else {
             $this->selectedRows = [$id];
+        }
+
+        if (!empty($this->selectedRows)) {
+            $linkedDataCount = McpTrgLink::whereIn('mcp_id', $this->selectedRows)->count();
+
+            if ($linkedDataCount === 0) {
+                $this->dispatch('hide-trglist-button');
+            } else {
+                $this->dispatch('enable-trglist-button');
+            }
+        } else {
+            $this->dispatch('disable-trglist-button');
         }
     }
 
@@ -59,8 +108,148 @@ class Admin extends Component
 
         $this->refreshData();
 
-        session()->flash('message', 'Data Deleted Successfully 🛑');
+        $this->dispatch('alert', type: 'success', message: "Data Deleted Successfully");
     }
+
+    public function checkLinkedDataTRG()
+    {
+        if (empty($this->selectedRows)) {
+            return false;
+        }
+
+        $linkedDataCount = McpTrgLink::whereIn('mcp_id', $this->selectedRows)->count();
+        return $linkedDataCount > 0;
+    }
+
+
+
+    public function showLinkedDataTRG()
+    {
+        if (empty($this->selectedRows)) {
+            // session()->flash('message', 'Please select a row to view linked data.');
+            redirect()->route('mcpdstlist');
+            return;
+        }
+
+        $linkedDataCount = McpTrgLink::whereIn('mcp_id', $this->selectedRows)->count();
+
+        if ($linkedDataCount === 0) {
+            // session()->flash('message', 'No linked data for selected row.');
+            $this->dispatch('alert', type: 'error', message: "No data linked to the selected row.");
+            $this->dispatch('hide-trglist-button');
+            return;
+        }
+
+        redirect()->route('mcpdstlist', ['selectedRows' => $this->selectedRows]);
+    }
+
+
+
+
+    // New methods for TRG linking
+    public function openTrgModal()
+    {
+        if (empty($this->selectedRows)) {
+            // session()->flash('error', 'Please select at least one opportunity to link');
+            $this->dispatch('alert', type: 'error', message: "Please select at least one MCP to link");
+
+            return;
+        }
+
+        $this->showTrgModal = true;
+        $this->trgCode = '';
+        $this->trgLinkError = '';
+        $this->dispatch('open-trg-modal');
+    }
+
+    public function closeTrgModal()
+    {
+        $this->showTrgModal = false;
+        $this->trgCode = '';
+        $this->trgLinkError = '';
+
+        $this->dispatch('closeModal', modalId: 'trgLinkModal');
+    }
+
+    public function linkTrg()
+    {
+        $this->validate([
+            'trgCode' => 'required',
+        ]);
+
+        // Check if any rows are selected
+        if (empty($this->selectedRows)) {
+            // $this->cstLinkError = 'Please select at least one opportunity to link';
+            $this->dispatch('alert', type: 'error', message: "Please select at least one MCP to link");
+            return;
+        }
+
+        // Find the candidate with the given code
+        $candidate = Trgdashboard::where('trg_code', $this->trgCode)->first();
+
+        if (!$candidate) {
+            // $this->cstLinkError = 'No data found with this CST code';
+            $this->dispatch('alert', type: 'error', message: "No data found with this TRG code");
+            $this->trgCode = '';
+            $this->closeTrgModal();
+            $this->dispatch('closeModal', modalId: 'trgLinkModal');
+            return;
+        }
+
+        $linkedCount = 0;
+        $alreadyLinkedCount = 0;
+
+        // Link each selected opportunity to the CDT
+        foreach ($this->selectedRows as $trgId) {
+            // Check if already linked
+            $existingLink = McpTrgLink::where('mcp_id', $trgId)
+                ->where('trg_id', $candidate->id)
+                ->first();
+
+            if ($existingLink) {
+                $alreadyLinkedCount++;
+                continue;
+            }
+
+            // Create new link
+            McpTrgLink::create([
+                'mcp_id' => $trgId,
+                'trg_id' => $candidate->id
+            ]);
+
+            $linkedCount++;
+        }
+
+        // Show appropriate message
+        if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
+            // session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount MCPs linked successfully $alreadyLinkedCount were already linked.");
+            $this->trgCode = '';
+            $this->closeTrgModal();
+            $this->dispatch('closeModal', modalId: 'trgLinkModal');
+        } elseif ($linkedCount > 0) {
+            // session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount MCPs linked successfully");
+            $this->trgCode = '';
+            $this->closeTrgModal();
+            $this->dispatch('closeModal', modalId: 'trgLinkModal');
+        } elseif ($alreadyLinkedCount > 0) {
+            // $this->cstLinkError = "Selected opportunities are already linked to this CST";
+            $this->dispatch('alert', type: 'error', message: "Selected MCPs are already linked to this TRG");
+            $this->trgCode = '';
+            $this->closeTrgModal();
+            $this->dispatch('closeModal', modalId: 'trgLinkModal');
+
+            return;
+        }
+
+        // Clear inputs and close modal
+        $this->trgCode = '';
+        $this->closeTrgModal();
+        $this->dispatch('closeModal', modalId: 'trgLinkModal');
+    }
+
+
 
 
     public function editRow($id)
@@ -111,7 +300,7 @@ class Admin extends Component
 
             $this->refreshData();
 
-            session()->flash('message', 'Form Updated Successfully ✅');
+            $this->dispatch('alert', type: 'success', message: "Form Updated Successfully");
         }
     }
 

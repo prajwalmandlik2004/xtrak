@@ -76,7 +76,7 @@
                                                     <button id="linkNewOPP" type="button" class="btn btn-validmain"><i class="fas fa-link"></i></button>
                                                 </div>
                                                 <div class="two">
-                                                    <a href="/mcplist">
+                                                    <a href="/cdtmcplist">
                                                         <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                                     </a>
                                                     <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>
@@ -89,9 +89,11 @@
                                                 </div>
                                                 <div class="three">
                                                     <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
-                                                    <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
-                                                        <i class="fa-regular fa-trash-can fa-lg"></i>
-                                                    </button>
+                                                    <a href="/candidates/create">
+                                                        <button type="button" style="background:red;" wire:click="" class="btn btn-danger">
+                                                            <i class="fa-regular fa-trash-can fa-lg"></i>
+                                                        </button>
+                                                    </a>
                                                     <button style="background-color:#00CCDD;color:white;" wire:loading.remove wire:target="storeCandidateData" type="submit"
                                                         class="btn"><i class="fa-regular fa-floppy-disk fa-lg"></i>
                                                         {{ $action == 'create' ? '' : '' }}</button>

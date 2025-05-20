@@ -145,7 +145,9 @@ class Index extends Component
                     'priority' => $this->priority
                 ]);
 
-                session()->flash('message', 'Record updated successfully!');
+                // session()->flash('message', 'Record updated successfully!');
+                $this->dispatch('alert', type: 'success', message: "Record updated successfully!");
+   
             }
         } else {
             Trgdashboard::create([
@@ -179,7 +181,9 @@ class Index extends Component
 
             ]);
 
-            session()->flash('message', 'Form Submitted Successfully ✅');
+            // session()->flash('message', 'Form Submitted Successfully ✅');
+            $this->dispatch('alert', type: 'success', message: "Form Submitted Successfully");
+   
         }
 
         $this->resetForm();

@@ -13,13 +13,13 @@
                         <div>
                         </div>
                         <div>
-                            <a href="{{ route('trgopplist') }}" class="me-2 text-black {{ request()->routeIs('trgopplist.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
-                            <a href="{{ route('management') }}" class="mx-2 text-black {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
-                            <a href="{{ route('opplist') }}" class="mx-2 text-black {{ request()->routeIs('opplist.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
-                            <a href="{{ route('mcplist') }}" class="mx-2 text-black {{ request()->routeIs('mcplist.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
-                            <a href="{{ route('ctclist') }}" class="mx-2  text-black {{ request()->routeIs('ctclist.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
-                            <a href="{{ route('management') }}" class="mx-2 text-black  {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
-                            <a href="{{ route('cstlist') }}" class="ms-2 text-black {{ request()->routeIs('cstlist.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                            <a href="{{ route('trgdashboard') }}" class="me-2 text-black{{ request()->routeIs('trgdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                            <a href="{{ route('oppdashboard') }}" class="mx-2 text-black  {{ request()->routeIs('oppdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                            <a href="{{ route('mcpdashboard') }}" class="mx-2 text-black {{ request()->routeIs('mcpdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                            <a href="{{ route('ctcdashboard') }}" class="mx-2 text-black {{ request()->routeIs('ctcdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black  {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                            <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
                         </div>
                     </div>
 
@@ -28,14 +28,20 @@
                     <div class="button-group-main">
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-12px; background-color:#DBDBDB; border-radius:5px; color:black;padding:12px;margin-top:-2px">TRG_OPPlist</h5>
+                            @if($links->count() == 1)
+                            @foreach($links as $link)
                             <div class="mt-1">
-                                <!-- <label for="trgcode">OPPcode</label> -->
-                                <input style="width:70px; padding:5px;" type="text" placeholder="TRGcode"></input>
+                                <input style="width:90px; padding:5px;" type="text" placeholder="{{ $link->opportunity->trg_code ?? '--' }}"></input>
                             </div>
                             <div class="mt-1">
-                                <!-- <label for="ctc-prenom">Libellé poste</label> -->
-                                <input style="width:113px;padding:5px;" type="text" placeholder="Company name"></input>
+                                <input style="width:120px;padding:5px;" type="text" placeholder="{{ $link->opportunity->company ?? '--' }}"></input>
                             </div>
+                            @endforeach
+                            @else
+                            <div class="mt-2">
+                                <h5>ALL OPEN STATUS TRGS</h5>
+                            </div>
+                            @endif
                             <a href="/opportunity">
                                 <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1"><i class="fas fa-link"></i></button>
                             </a>
@@ -43,7 +49,7 @@
                                 <a href="/management">
                                     <button type="button" class="btn btn-inputmain">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
-                                <button id="linkNewCDT" type="button" class="btn btn-inputmain"> <i class="fas fa-link"></i></button>
+                                <button  type="button" class="btn btn-inputmain"> <i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
                                 <button type="button" class="btn btn-evt">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
@@ -56,7 +62,7 @@
                                 <button type="button" class="btn btn-evt1" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
                             <div class="three">
-                                <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                                <button wire:click="deleteSelected()" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
                                     <i class="fa-regular fa-trash-can fa-lg"></i>
                                 </button>
                                 </button>
@@ -184,47 +190,55 @@
                                 <tr>
                                     <th style="width:2%;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
-                                    <th class="date_col" scope="col" wire:click="sortBy('updated_at')">
+                                    <th class="cpdpt_col" scope="col" wire:click="sortBy('updated_at')">
                                         OPPdate
                                     </th>
-                                    <th class="ref_col" scope="col">OPPcode</th>
+                                    <th class="cpdpt_col" scope="col">OPPcode</th>
                                     <th class="libe_col" scope="col">Job description</th>
                                     <th class="soci_col" scope="col" wire:click="sortBy('first_name')">
                                         TRGcode
                                     </th>
-                                    <th class="cpdpt_col" scope="col">Compan name</th>
+                                    <th class="cpdpt_col" scope="col">Company name</th>
                                     <th class="statut_col" scope="col">OPPstatus</th>
+                                    <th class="date_col" scope="col">Link Date</th>
+                                    <th class="date_col" scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(!empty($data) && (is_array($data) || is_object($data)) && count($data) > 0)
-                                @foreach($data as $item)
-                                <tr>
+                                @if($links->count() > 0)
+                                @foreach($links as $link)
+                                <tr
+                                    wire:key="row-{{ $link->id }}"
+                                    wire:click="toggleSelect({{ $link->id }})"
+                                    wire:dblclick="editRow({{ $link->id }})"
+                                    class="{{ in_array($link->id, $selectedRows) ? 'select-row' : '' }}"
+                                    style="cursor: pointer;">
                                     <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
                                             style="display:none;pointer-events: none;">
                                     </td>
-                                    <!-- <td>{{ $item->opportunity_date }}</td>
-                                    <td>{{ $item->opp_code }}</td>
-                                    <td>{{ $item->job_titles }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->postal_code_1 }}</td>
-                                    <td>{{ $item->site_city }}</td>
-                                    <td>{{ $item->opportunity_status }}</td>
-                                    <td>{{ $item->remarks }}</td>
-                                    <td>{{ $item->trg_code }}</td>
-                                    <td>{{ $item->total_paid }}</td> -->
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+
+                                    <td>{{ $link->candidate->opportunity_date ?? '--'}}</td>
+
+                                    <td>{{ $link->candidate->opp_code ?? '--'}}</td>
+                                    <!--                                 <td>{{ $link->candidate->first_name ?? '--'}}</td> -->
+                                    <td>{{ $link->candidate->job_titles ?? '--'}}</td>
+                                    <td>{{ $link->opportunity->trg_code ?? '--' }}</td>
+                                    <td>{{ $link->candidate->name ?? '--'}}</td>
+                                    <td>{{ $link->candidate->opportunity_status ?? '--' }}</td>
+                                    <td>{{ $link->created_at->format('d/m/y') }}</td>
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-danger"
+                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to remove this link ⚠')) { @this.deleteOppLink({{ $link->id }}); }">
+                                            <i class="fas fa-unlink"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 @else
                                 <tr>
-                                    <td colspan="16" class="text-center">No data available</td>
+                                    <td colspan="20" class="text-center">No linked data available</td>
                                 </tr>
                                 @endif
                             </tbody>
@@ -234,8 +248,8 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end mt-3">
-            {{ $data->links() }}
+        <div class="d-flex justify-content-end">
+            {{ $links->links() }}
         </div>
 
 
@@ -267,6 +281,11 @@
             .btn-danger {
                 background-color: red;
             }
+
+            .select-row {
+                background-color: #37AFE1 !important;
+            }
+
 
             .button-group-main {
                 display: flex;

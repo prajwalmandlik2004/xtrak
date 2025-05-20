@@ -9,6 +9,7 @@
 
     <div class="row">
         <div class="col-lg-12">
+
             <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-3 d-flex justify-content-between">
                 <div>
                 </div>
@@ -22,6 +23,8 @@
                     <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
                 </div>
             </div>
+
+
             <div class="card">
                 <div class="tab-content text-muted">
                     <div class="tab-pane fade  {{ $step == 1 ? 'show active' : '' }}" id="info" role="tabpanel">
@@ -29,48 +32,49 @@
                             @csrf
                             <div class="card-header">
                                 <div class="d-flex">
+                                    <div class="p-2 flex-grow-1">
 
-                                    <div class="button-group">
-                                        <div class="button-group-left">
-                                            <h5 style="margin-left:-22px; background-color:#6F61C0; border-radius:5px; color:white;padding:12px;margin-top:-2px">OPPform</h5>
-                                            <a href="/opportunity">
-                                                <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
-                                            </a>
-                                            <div class="two">
-                                                <a href="/oppcstlist">
-                                                    <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                                </a>
-                                                <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
-                                            </div>
-                                            <div class="one">
-                                                <a href="/oppcdtlist">
-                                                    <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
-                                                </a>
-                                                <button id="linkNewCDT" type="button" class="btn btn-cdt"><i class="fas fa-link"></i></button>
-                                            </div>
-                                            <div class="one">
-                                                <a href="/oppevtlist">
-                                                    <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
-                                                </a>
-                                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
-                                            </div>
-                                            <div class="three">
+
+                                        <div class="button-group">
+                                            <div class="button-group-left">
+                                                <h5 style="margin-left:-22px; background-color:#6F61C0; border-radius:5px; color:white;padding:12px;margin-top:-2px">OPPform</h5>
                                                 <a href="/opportunity">
-                                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                                    <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                                 </a>
-                                                <a href="/opportunity">
-                                                    <button style="background-color:red;color:white;" type="button" class="btn"><i class="fa-regular fa-trash-can fa-lg"></i></button>
-                                                </a>
-                                                <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
-                                                <a href="/landing">
-                                                    <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
-                                                </a>
-                                            </div>
-                                            <div class="four">
-                                                <a href="/oppdashboard" class="btn btn-secondary me-1 ms-5"><i
-                                                        class="mdi mdi-arrow-left me-1"></i>{{ $action == 'create' ? 'Vue' : 'Vue' }}</a>
+                                                <div class="two">
+                                                    <a href="/oppcstlist">
+                                                        <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
+                                                    </a>
+                                                    <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
+                                                </div>
+                                                <div class="one">
+                                                    <a href="/oppcdtlist">
+                                                        <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                                    </a>
+                                                    <button id="linkNewCDT" type="button" class="btn btn-cdt"><i class="fas fa-link"></i></button>
+                                                </div>
+                                                <div class="one">
+                                                    <a href="/opplist">
+                                                        <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
+                                                    </a>
+                                                    <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
+                                                </div>
+                                                <div class="three">
+                                                    <a href="/opportunity">
+                                                        <button type="button" class="btn btn-erase"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                                    </a>
+                                                    <a href="/opportunity">
+                                                        <button style="background-color:red;color:white;" type="button" class="btn"><i class="fa-regular fa-trash-can fa-lg"></i></button>
+                                                    </a>
+                                                    <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
+                                                    <a href="/landing">
+                                                        <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
+
+
                                     </div>
 
 
@@ -78,7 +82,7 @@
 
 
                             </div>
-                             <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
+                            <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link {{ $step == 1 ? 'active' : '' }} fw-bold {{ $step != 1 ? 'enabled' : '' }}"
                                         data-bs-toggle="tab" href="{{ $step != 1 ? '#info' : '' }}" role="tab">
@@ -105,7 +109,6 @@
                                 </li>
 
                             </ul>
-
                             <div class="card-body">
 
                                 @if (session()->has('message'))
@@ -129,7 +132,7 @@
                                                         <input
                                                             type="date"
                                                             class="form-control form-control-custom-1 @error('opportunity_date') is-invalid @enderror"
-                                                            wire:model="formData.opportunity_date"
+                                                            wire:model="formData.candidate.opportunity_date"
                                                             value="{{ old('opportunity_date') ?? now()->format('Y-m-d') }}"
                                                             placeholder="Select a date" />
                                                     </div>
@@ -139,9 +142,8 @@
                                                         <label class="form-label">OPPCode</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('opp_code') is-invalid @enderror "
-                                                            wire:model='formData.opp_code'
-                                                            readonly
-                                                            />
+                                                            wire:model='formData.candidate.opp_code'
+                                                            readonly />
                                                         @error('opp_code')
                                                         <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
@@ -152,7 +154,7 @@
                                                         <label class="form-label">Aut.</label>
                                                         <input type="text" class="form-control form-control-custom-1  @error('origine') is-invalid @enderror "
                                                             value="{{ Auth::user()->trigramme ?? '--' }}"
-                                                            wire:model="formData.auth"
+                                                            wire:model="formData.candidate.auth"
                                                             placeholder="auteur" />
                                                     </div>
                                                 </div>
@@ -161,7 +163,7 @@
                                                         <label class="form-label">TRGCode</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('trg_code') is-invalid @enderror "
-                                                            wire:model='formData.trg_code'
+                                                            wire:model='formData.candidate.trg_code'
                                                             placeholder="TRGCode" />
                                                         @error('trg_code')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -174,7 +176,7 @@
                                                                 class="text-danger">*</span></label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('name') is-invalid @enderror "
-                                                            wire:model='formData.name'
+                                                            wire:model='formData.candidate.name'
                                                             placeholder="Dénomination sociale" />
                                                         @error('name')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -187,7 +189,7 @@
                                                                 class="text-danger">*</span></label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('postal_code_1') is-invalid @enderror "
-                                                            wire:model='formData.postal_code_1'
+                                                            wire:model='formData.candidate.postal_code_1'
                                                             placeholder="CP" />
                                                         @error('postal_code_1')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -219,7 +221,7 @@
                                                         <label class="form-label">CTC Code</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('ctc1_code') is-invalid @enderror "
-                                                            wire:model='formData.ctc1_code'
+                                                            wire:model='formData.candidate.ctc1_code'
                                                             placeholder="CTCcode" />
                                                         @error('ctc1_code')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -232,7 +234,7 @@
                                                         <label class="form-label">Civ</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('civs') is-invalid @enderror "
-                                                            wire:model='formData.civs'
+                                                            wire:model='formData.candidate.civs'
                                                             placeholder="Civ" />
                                                         @error('civs')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -249,7 +251,7 @@
                                                                 class="text-danger">*</span></label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('ctc1_first_name') is-invalid @enderror "
-                                                            wire:model='formData.ctc1_first_name'
+                                                            wire:model='formData.candidate.ctc1_first_name'
                                                             placeholder="Prénom" />
 
                                                         @error('ctc1_first_name')
@@ -263,7 +265,7 @@
                                                                 class="text-danger">*</span></label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('ctc1_last_name') is-invalid @enderror "
-                                                            wire:model='formData.ctc1_last_name'
+                                                            wire:model='formData.candidate.ctc1_last_name'
                                                             placeholder="Nom" />
 
                                                         @error('ctc1_last_name')
@@ -277,7 +279,7 @@
                                                                 class="text-danger">*</span></label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('position') is-invalid @enderror "
-                                                            wire:model='formData.position'
+                                                            wire:model='formData.candidate.position'
                                                             placeholder="Fonction" />
 
                                                         @error('position')
@@ -290,7 +292,7 @@
                                                         <label class="form-label">Remarque(s)</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1  @error('remarks') is-invalid @enderror "
-                                                            wire:model='formData.remarks'
+                                                            wire:model='formData.candidate.remarks'
                                                             placeholder="Remarkque(s)" />
 
                                                         @error('remarks')
@@ -315,7 +317,7 @@
                                                         <input type="text"
                                                             class="form-control
                                     form-control-custom-1  @error('job_titles') is-invalid @enderror "
-                                                            min="0" wire:model='formData.job_titles'
+                                                            min="0" wire:model='formData.candidate.job_titles'
                                                             placeholder="Job title" />
                                                         @error('job_titles')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -328,7 +330,7 @@
                                                         <input type="text"
                                                             class="form-control
                                     form-control-custom-1  @error('specificities') is-invalid @enderror "
-                                                            min="0" wire:model='formData.specificities'
+                                                            min="0" wire:model='formData.candidate.specificities'
                                                             placeholder="Speciality" />
                                                         @error('specificities')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -341,7 +343,7 @@
                                                         <input type="text"
                                                             class="form-control
                                     form-control-custom-1  @error('domain') is-invalid @enderror "
-                                                            min="0" wire:model='formData.domain'
+                                                            min="0" wire:model='formData.candidate.domain'
                                                             placeholder="Domain" />
                                                         @error('domain')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -355,7 +357,7 @@
                                                         <input type="text"
                                                             class="form-control
                                     form-control-custom-1  @error('postal_code') is-invalid @enderror "
-                                                            min="0" wire:model='formData.postal_code'
+                                                            min="0" wire:model='formData.candidate.postal_code'
                                                             placeholder="CP/DPT" />
                                                         @error('postal_code')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -369,7 +371,7 @@
                                                         <input type="text"
                                                             class="form-control
                                     form-control-custom-1  @error('town') is-invalid @enderror "
-                                                            min="0" wire:model='formData.town'
+                                                            min="0" wire:model='formData.candidate.town'
                                                             placeholder="Town" />
                                                         @error('town')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -383,7 +385,7 @@
                                                         <input type="text"
                                                             class="form-control
                                     form-control-custom-1  @error('country') is-invalid @enderror "
-                                                            min="0" wire:model='formData.country' />
+                                                            min="0" wire:model='formData.candidate.country' />
                                                         @error('country')
                                                         <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
@@ -406,7 +408,7 @@
                                                         <input type="text"
                                                             class="form-control
                                     form-control-custom-1  @error('experience') is-invalid @enderror "
-                                                            wire:model='formData.experience'
+                                                            wire:model='formData.candidate.experience'
                                                             placeholder="Exp" />
 
                                                         @error('experience')
@@ -419,7 +421,7 @@
                                                         <label class="form-label">Scolarité</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('schooling') is-invalid @enderror"
-                                                            wire:model='formData.schooling'
+                                                            wire:model='formData.candidate.schooling'
                                                             placeholder="Scolarité" />
                                                         @error('schooling')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -431,7 +433,7 @@
                                                         <label class="form-label">Horaires</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('schedules') is-invalid @enderror"
-                                                            wire:model='formData.schedules'
+                                                            wire:model='formData.candidate.schedules'
                                                             placeholder="Hor" />
                                                         @error('schedules')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -443,7 +445,7 @@
                                                         <label class="form-label">Mobilité</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('mobility') is-invalid @enderror"
-                                                            wire:model='formData.mobility'
+                                                            wire:model='formData.candidate.mobility'
                                                             placeholder="Mobilité" />
                                                         @error('mobility')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -455,7 +457,7 @@
                                                         <label class="form-label">Permis</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('permission') is-invalid @enderror"
-                                                            wire:model='formData.permission'
+                                                            wire:model='formData.candidate.permission'
                                                             placeholder="Per" />
                                                         @error('permission')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -467,7 +469,7 @@
                                                         <label class="form-label">Type</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('type') is-invalid @enderror"
-                                                            wire:model='formData.type'
+                                                            wire:model='formData.candidate.type'
                                                             placeholder="Type" />
                                                         @error('type')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -479,7 +481,7 @@
                                                         <label class="form-label">Véhiculé</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('vehicle') is-invalid @enderror"
-                                                            wire:model='formData.vehicle'
+                                                            wire:model='formData.candidate.vehicle'
                                                             placeholder="Véhiculé" />
                                                         @error('vehicle')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -493,7 +495,7 @@
                                                         </label>
                                                         <input
                                                             type="date"
-                                                            wire:model='formData.job_offer_date'
+                                                            wire:model='formData.candidate.job_offer_date'
                                                             class="form-control form-control-custom-1 @error('job_offer_date') is-invalid @enderror"
                                                             value="{{ old('job_offer_date') ?? now()->format('Y-m-d') }}"
                                                             placeholder="Select a date" />
@@ -515,7 +517,7 @@
                                                         <label class="form-label">Skill 1</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('skill_one') is-invalid @enderror"
-                                                            wire:model='formData.skill_one'
+                                                            wire:model='formData.candidate.skill_one'
                                                             placeholder="Skill 1" />
                                                         @error('skill_one')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -527,7 +529,7 @@
                                                         <label class="form-label">Skill 2</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('skill_two') is-invalid @enderror"
-                                                            wire:model='formData.skill_two'
+                                                            wire:model='formData.candidate.skill_two'
                                                             placeholder="Skill 2" />
                                                         @error('skill_two')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -539,7 +541,7 @@
                                                         <label class="form-label">Skill 3</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('skill_three') is-invalid @enderror"
-                                                            wire:model='formData.skill_three'
+                                                            wire:model='formData.candidate.skill_three'
                                                             placeholder="Skill 3" />
                                                         @error('skill_three')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -551,7 +553,7 @@
                                                         <label class="form-label">Autres</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('other_one') is-invalid @enderror"
-                                                            wire:model='formData.other_one'
+                                                            wire:model='formData.candidate.other_one'
                                                             placeholder="Autres" />
                                                         @error('other_one')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -563,7 +565,7 @@
                                                         <label class="form-label">Remarque(s)</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('remarks_two') is-invalid @enderror"
-                                                            wire:model='formData.remarks_two'
+                                                            wire:model='formData.candidate.remarks_two'
                                                             placeholder="Remarque(s)" />
                                                         @error('remarks_two')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -575,7 +577,7 @@
                                                         <label class="form-label">Onboarding term</label>
                                                         <input type="date"
                                                             class="form-control form-control-custom-1 @error('job_start_date') is-invalid @enderror"
-                                                            wire:model='formData.job_start_date'
+                                                            wire:model='formData.candidate.job_start_date'
                                                             placeholder="Onboarding term" />
                                                         @error('job_start_date')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -585,7 +587,7 @@
                                                         <label class="mt-3 form-label">Invoicement date</label>
                                                         <input type="date"
                                                             class="form-control form-control-custom-1 @error('invoice_date') is-invalid @enderror"
-                                                            wire:model='formData.invoice_date'
+                                                            wire:model='formData.candidate.invoice_date'
                                                             placeholder="Invoicement date" />
                                                         @error('invoice_date')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -608,7 +610,7 @@
                                                         <label class="form-label">Brut annuel<span class="text-danger">*</span></label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('gross_salary') is-invalid @enderror"
-                                                            wire:model='formData.gross_salary'
+                                                            wire:model='formData.candidate.gross_salary'
                                                             placeholder="Brut annuel" />
                                                         @error('gross_salary')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -620,7 +622,7 @@
                                                         <label class="form-label">Avantage 1</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('bonus_1') is-invalid @enderror"
-                                                            wire:model='formData.bonus_1'
+                                                            wire:model='formData.candidate.bonus_1'
                                                             placeholder="Avantage 1" />
                                                         @error('bonus_1')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -632,7 +634,7 @@
                                                         <label class="form-label">Avantage 2</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('bonus_2') is-invalid @enderror"
-                                                            wire:model='formData.bonus_2'
+                                                            wire:model='formData.candidate.bonus_2'
                                                             placeholder="Avantage 2" />
                                                         @error('bonus_2')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -644,7 +646,7 @@
                                                         <label class="form-label">Avantage 3</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('bonus_3') is-invalid @enderror"
-                                                            wire:model='formData.bonus_3'
+                                                            wire:model='formData.candidate.bonus_3'
                                                             placeholder="Avantage 3" />
                                                         @error('bonus_3')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -656,7 +658,7 @@
                                                         <label class="form-label">Autres</label>
                                                         <input type="text"
                                                             class="form-control form-control-custom-1 @error('other_two') is-invalid @enderror"
-                                                            wire:model='formData.other_two'
+                                                            wire:model='formData.candidate.other_two'
                                                             placeholder="Autres" />
                                                         @error('other_two')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -736,7 +738,7 @@
                                     <div class="one"> <button type="button" class="btn btn-evt">EVTlist</button>
                                         <button type="button" class="btn btn-evt"> > New</button>
                                     </div> -->
-<!--                                     <div class="three">
+                                    <!-- <div class="three">
                                         <button type="button" class="btn btn-erase" wire:click="cancelEdit">Cancel</button>
                                         <button type="submit" class="btn btn-update">Update</button>
                                        
@@ -1288,7 +1290,8 @@
             </div>
         </div>
     </div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">                         
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         .btn-cst {
             background-color: #15F5BA;
@@ -1309,7 +1312,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 40px;
+            gap: 60px;
         }
 
         .btn-close1 {

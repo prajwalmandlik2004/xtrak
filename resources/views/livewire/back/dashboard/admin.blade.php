@@ -42,15 +42,15 @@
                                     <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                 </a>
                             </div>
-                            
-<!--                             <div class="two">
+
+                            <!--                             <div class="two">
                                 <a href="/opplist">
                                     <button type="button" class="btn btn-input">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
                                 <button type="button" class="btn btn-input" wire:click="openOppModal"><i class="fas fa-link"></i></button>
                             </div> -->
 
-                            
+
                             <div class="one">
                                 <button type="button" class="btn btn-input"
                                     id="opplistButton"
@@ -67,7 +67,7 @@
                                 </button>
                             </div>
 
-                            
+
                             <div class="one">
                                 <a href="/cdtevtlist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
@@ -75,8 +75,8 @@
                                 <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </div>
 
-                            
-<!--                             <div class="two">
+
+                            <!--                             <div class="two">
                                 <a href="/cdtmcplist">
                                     <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                 </a>
@@ -99,7 +99,7 @@
                                 </button>
                             </div>
 
-                            
+
                             <div class="one">
                                 <a href="">
                                     <button type="button" class="btn"><i class="fa-regular fa-envelope fa-2x"></i></button>
@@ -112,13 +112,13 @@
                                 </button>
                             </div>
                             <div class="four">
-<!--                                 <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button> -->
+                                <!--                                 <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button> -->
                                 <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
                                 <a href="/landing">
                                     <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
                                 </a>
                             </div>
-                            
+
                             <div class="ms-5 d-flex justify-content-end position-relative">
                                 <!-- Pagination search at the right corner -->
                                 <div class="pagination-search">
@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -299,7 +299,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
-                    
+
                     <!-- Messages positioned to the left of the search bar -->
                     <div class="mb-2 me-3">
                         @if(session()->has('success'))
@@ -310,7 +310,7 @@
                         <div class="text-muted">{{ $this->currentPageMessage }}</div>
                         @endif
                     </div>
-                    
+
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
@@ -485,7 +485,7 @@
             </div>
         </div>
 
-  
+
         <div style="margin-top:-60%;" class="modal fade" id="mcpLinkModal" tabindex="-1" aria-labelledby="mcpLinkModalLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog modal-sm">
                 <div class="modal-content bg-white">
@@ -519,10 +519,10 @@
         </div>
 
 
- 
 
 
-      
+
+
 
     </div>
     @push('page-script')
@@ -533,46 +533,57 @@
             alert("OPPlist Coming Soon 🛑");
         }
 
-        
-       document.addEventListener('DOMContentLoaded', function() {
-    const pageInput = document.getElementById('page-number-input');
-    const goToPageBtn = document.getElementById('go-to-page-btn');
-    
-    if (pageInput && goToPageBtn) {
-        goToPageBtn.addEventListener('click', function() {
-            goToPage();
-        });
-        
-        pageInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                goToPage();
-            }
-        });
-    }
-    
-    function goToPage() {
-        const pageNumber = parseInt(pageInput.value);
-        if (pageNumber && pageNumber > 0) {
-            @this.call('gotoPage', pageNumber);
-        } else {
-            alert('Please enter a valid page number');
-        }
-    }
 
-    // Listen for Livewire updates to clear flash messages after a delay
-    document.addEventListener('livewire:update', function() {
-        setTimeout(function() {
-            const flashMessages = document.querySelectorAll('.text-success, .text-danger');
-            flashMessages.forEach(function(message) {
-                message.style.transition = 'opacity 1s';
-                message.style.opacity = '0';
-                setTimeout(function() {
-                    message.style.display = 'none';
-                }, 1000);
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('closeModal', ({
+                modalId
+            }) => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                if (modal) {
+                    modal.hide();
+                }
             });
-        }, 3000);
-    });
-});
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const pageInput = document.getElementById('page-number-input');
+            const goToPageBtn = document.getElementById('go-to-page-btn');
+
+            if (pageInput && goToPageBtn) {
+                goToPageBtn.addEventListener('click', function() {
+                    goToPage();
+                });
+
+                pageInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        goToPage();
+                    }
+                });
+            }
+
+            function goToPage() {
+                const pageNumber = parseInt(pageInput.value);
+                if (pageNumber && pageNumber > 0) {
+                    @this.call('gotoPage', pageNumber);
+                } else {
+                    alert('Please enter a valid page number');
+                }
+            }
+
+            // Listen for Livewire updates to clear flash messages after a delay
+            document.addEventListener('livewire:update', function() {
+                setTimeout(function() {
+                    const flashMessages = document.querySelectorAll('.text-success, .text-danger');
+                    flashMessages.forEach(function(message) {
+                        message.style.transition = 'opacity 1s';
+                        message.style.opacity = '0';
+                        setTimeout(function() {
+                            message.style.display = 'none';
+                        }, 1000);
+                    });
+                }, 3000);
+            });
+        });
 
         document.addEventListener("DOMContentLoaded", function() {
             const linkNewCDT = document.getElementById('linkNewCDT');
@@ -636,7 +647,6 @@
         }
     </script>
     <script>
-
         document.addEventListener('livewire:initialized', function() {
             Livewire.on('open-opp-modal', () => {
                 var myModal = new bootstrap.Modal(document.getElementById('oppLinkModal'));
@@ -644,7 +654,7 @@
             });
         });
 
-         document.addEventListener('livewire:initialized', function() {
+        document.addEventListener('livewire:initialized', function() {
             Livewire.on('open-mcp-modal', () => {
                 var myModal = new bootstrap.Modal(document.getElementById('mcpLinkModal'));
                 myModal.show();
@@ -652,7 +662,7 @@
         });
 
 
-        
+
         document.addEventListener('DOMContentLoaded', function() {
             var selectionButton = document.getElementById('selectionButton');
             selectionButton.addEventListener('click', toggleCheckboxes);

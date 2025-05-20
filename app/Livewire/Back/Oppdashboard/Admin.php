@@ -71,13 +71,13 @@ class Admin extends Component
         'cdtCode' => 'required',
     ];
 
-    
+
     // Rules for CDT code validation
     protected $rules_cst = [
         'cstCode' => 'required',
     ];
 
-    
+
     // Rules for CDT code validation
     protected $rules_mcp = [
         'mcpCode' => 'required',
@@ -239,8 +239,6 @@ class Admin extends Component
         } else {
             $this->dispatch('disable-cdtlist-button');
         }
-
-        
     }
 
 
@@ -402,7 +400,6 @@ class Admin extends Component
 
         // session()->flash('message', 'Data Deleted Successfully 🛑');
         $this->dispatch('alert', type: 'success', message: "Data Deleted Successfully");
-
     }
 
 
@@ -503,7 +500,7 @@ class Admin extends Component
         $this->position = '';
         $this->remarks = '';
     }
-    
+
     public function mount()
     {
         $this->hiredCount = $this->countHired();
@@ -513,7 +510,7 @@ class Admin extends Component
         // Calculate total pages
         $query = Oppdashboard::query();
         $totalRecords = $query->count();
-        $this->totalPages = ceil($totalRecords / 100); 
+        $this->totalPages = ceil($totalRecords / 100);
     }
 
     public function sortBy($field)
@@ -550,7 +547,7 @@ class Admin extends Component
         if (empty($this->selectedRows)) {
             // session()->flash('error', 'Please select at least one opportunity to link');
             $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
-    
+
             return;
         }
 
@@ -565,6 +562,8 @@ class Admin extends Component
         $this->showCdtModal = false;
         $this->cdtCode = '';
         $this->cdtLinkError = '';
+
+        $this->dispatch('closeModal', modalId: 'cdtLinkModal');
     }
 
     public function linkCdt()
@@ -575,7 +574,8 @@ class Admin extends Component
 
         // Check if any rows are selected
         if (empty($this->selectedRows)) {
-            $this->cdtLinkError = 'Please select at least one opportunity to link';
+            // $this->cdtLinkError = 'Please select at least one opportunity to link';
+            $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
             return;
         }
 
@@ -583,7 +583,12 @@ class Admin extends Component
         $candidate = Candidate::where('code_cdt', $this->cdtCode)->first();
 
         if (!$candidate) {
-            $this->cdtLinkError = 'No candidate found with this CDT code';
+            // $this->cdtLinkError = 'No candidate found with this CDT code';
+            $this->dispatch('alert', type: 'error', message: "No candidate found with this CDT code");
+            $this->cdtCode = '';
+            $this->closeCdtModal();
+
+            $this->dispatch('closeModal', modalId: 'cdtLinkModal');
             return;
         }
 
@@ -613,17 +618,35 @@ class Admin extends Component
 
         // Show appropriate message
         if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            // session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            $this->cdtCode = '';
+            $this->closeCdtModal();
+
+            $this->dispatch('closeModal', modalId: 'cdtLinkModal');
         } elseif ($linkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+            // session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount opportunities linked successfully");
+            $this->cdtCode = '';
+            $this->closeCdtModal();
+
+            $this->dispatch('closeModal', modalId: 'cdtLinkModal');
         } elseif ($alreadyLinkedCount > 0) {
-            $this->cdtLinkError = "Selected opportunities are already linked to this CDT";
+            // $this->cdtLinkError = "Selected opportunities are already linked to this CDT";
+            $this->dispatch('alert', type: 'error', message: "Selected opportunities are already linked to this CDT");
+            $this->cdtCode = '';
+            $this->closeCdtModal();
+
+            $this->dispatch('closeModal', modalId: 'cdtLinkModal');
+
             return;
         }
 
         // Clear inputs and close modal
         $this->cdtCode = '';
         $this->closeCdtModal();
+
+        $this->dispatch('closeModal', modalId: 'cdtLinkModal');
     }
 
 
@@ -635,7 +658,7 @@ class Admin extends Component
         if (empty($this->selectedRows)) {
             // session()->flash('error', 'Please select at least one opportunity to link');
             $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
-    
+
             return;
         }
 
@@ -650,6 +673,8 @@ class Admin extends Component
         $this->showCstModal = false;
         $this->cstCode = '';
         $this->cstLinkError = '';
+
+        $this->dispatch('closeModal', modalId: 'cstLinkModal');
     }
 
     public function linkCst()
@@ -660,7 +685,8 @@ class Admin extends Component
 
         // Check if any rows are selected
         if (empty($this->selectedRows)) {
-            $this->cstLinkError = 'Please select at least one opportunity to link';
+            // $this->cstLinkError = 'Please select at least one opportunity to link';
+            $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
             return;
         }
 
@@ -668,7 +694,11 @@ class Admin extends Component
         $candidate = Cstdashboard::where('cst_code', $this->cstCode)->first();
 
         if (!$candidate) {
-            $this->cstLinkError = 'No data found with this CST code';
+            // $this->cstLinkError = 'No data found with this CST code';
+            $this->dispatch('alert', type: 'error', message: "No data found with this CST code");
+            $this->cstCode = '';
+            $this->closeCstModal();
+            $this->dispatch('closeModal', modalId: 'cstLinkModal');
             return;
         }
 
@@ -698,17 +728,31 @@ class Admin extends Component
 
         // Show appropriate message
         if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            // session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            $this->cstCode = '';
+            $this->closeCstModal();
+            $this->dispatch('closeModal', modalId: 'cstLinkModal');
         } elseif ($linkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+            // session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount opportunities linked successfully");
+            $this->cstCode = '';
+            $this->closeCstModal();
+            $this->dispatch('closeModal', modalId: 'cstLinkModal');
         } elseif ($alreadyLinkedCount > 0) {
-            $this->cstLinkError = "Selected opportunities are already linked to this CST";
+            // $this->cstLinkError = "Selected opportunities are already linked to this CST";
+            $this->dispatch('alert', type: 'error', message: "Selected opportunities are already linked to this CST");
+            $this->cstCode = '';
+            $this->closeCstModal();
+            $this->dispatch('closeModal', modalId: 'cstLinkModal');
+
             return;
         }
 
         // Clear inputs and close modal
         $this->cstCode = '';
         $this->closeCstModal();
+        $this->dispatch('closeModal', modalId: 'cstLinkModal');
     }
 
 
@@ -720,7 +764,7 @@ class Admin extends Component
         if (empty($this->selectedRows)) {
             // session()->flash('error', 'Please select at least one opportunity to link');
             $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
-    
+
             return;
         }
 
@@ -735,6 +779,7 @@ class Admin extends Component
         $this->showMcpModal = false;
         $this->mcpCode = '';
         $this->mcpLinkError = '';
+        $this->dispatch('closeModal', modalId: 'mcpLinkModal');
     }
 
     public function linkMcp()
@@ -745,7 +790,8 @@ class Admin extends Component
 
         // Check if any rows are selected
         if (empty($this->selectedRows)) {
-            $this->mcpLinkError = 'Please select at least one opportunity to link';
+            // $this->mcpLinkError = 'Please select at least one opportunity to link';
+            $this->dispatch('alert', type: 'error', message: "Please select at least one opportunity to link");
             return;
         }
 
@@ -753,7 +799,11 @@ class Admin extends Component
         $candidate = Mcpdashboard::where('mcp_code', $this->mcpCode)->first();
 
         if (!$candidate) {
-            $this->mcpLinkError = 'No data found with this MCP code';
+            // $this->mcpLinkError = 'No data found with this MCP code';
+            $this->dispatch('alert', type: 'error', message: "No data found with this MCP code");
+            $this->mcpCode = '';
+            $this->closeMcpModal();
+            $this->dispatch('closeModal', modalId: 'mcpLinkModal');
             return;
         }
 
@@ -783,22 +833,34 @@ class Admin extends Component
 
         // Show appropriate message
         if ($linkedCount > 0 && $alreadyLinkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            // session()->flash('linkmessage', "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount opportunities linked successfully $alreadyLinkedCount were already linked.");
+
+            $this->mcpCode = '';
+            $this->closeMcpModal();
+            $this->dispatch('closeModal', modalId: 'mcpLinkModal');
         } elseif ($linkedCount > 0) {
-            session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+            // session()->flash('linkmessage', "$linkedCount opportunities linked successfully");
+            $this->dispatch('alert', type: 'success', message: "$linkedCount opportunities linked successfully");
+
+            $this->mcpCode = '';
+            $this->closeMcpModal();
+            $this->dispatch('closeModal', modalId: 'mcpLinkModal');
         } elseif ($alreadyLinkedCount > 0) {
-            $this->mcpLinkError = "Selected opportunities are already linked to this MCP";
+            // $this->mcpLinkError = "Selected opportunities are already linked to this MCP";
+            $this->dispatch('alert', type: 'error', message: "Selected opportunities are already linked to this MCP");
+
+            $this->mcpCode = '';
+            $this->closeMcpModal();
+            $this->dispatch('closeModal', modalId: 'mcpLinkModal');
             return;
         }
 
         // Clear inputs and close modal
         $this->mcpCode = '';
         $this->closeMcpModal();
+        $this->dispatch('closeModal', modalId: 'mcpLinkModal');
     }
-
-
-
-
 
 
     public function render()

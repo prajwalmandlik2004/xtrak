@@ -42,13 +42,13 @@
                                                     <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                                 </a>
                                                 <div class="two">
-                                                    <a href="/cstlist">
+                                                    <a href="/oppcstlist">
                                                         <button type="button" class="btn btn-cst">CST <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                                     </a>
                                                     <button id="linkNewCDT" type="button" class="btn btn-cst"><i class="fas fa-link"></i></button>
                                                 </div>
                                                 <div class="one">
-                                                    <a href="/management">
+                                                    <a href="/oppcdtlist">
                                                         <button type="button" class="btn btn-cdt">CDT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
                                                     </a>
                                                     <button id="linkNewCDT" type="button" class="btn btn-cdt"><i class="fas fa-link"></i></button>
@@ -60,8 +60,12 @@
                                                     <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                                 </div>
                                                 <div class="three">
-                                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
-                                                    <button style="background-color:red;color:white;" type="button" class="btn" wire:click="resetForm"><i class="fa-regular fa-trash-can fa-lg"></i></button>
+                                                    <a href="/opportunity">
+                                                        <button type="button" class="btn btn-erase"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                                    </a>
+                                                    <a href="/opportunity">
+                                                        <button style="background-color:red;color:white;" type="button" class="btn"><i class="fa-regular fa-trash-can fa-lg"></i></button>
+                                                    </a>
                                                     <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
                                                     <a href="/landing">
                                                         <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>

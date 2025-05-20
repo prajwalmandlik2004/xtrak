@@ -121,7 +121,7 @@
                                         <button id="linkNewOPP" type="button" class="btn btn-validmain"><i class="fas fa-link"></i></button>
                                     </div>
                                     <div class="two">
-                                        <a href="/mcplist">
+                                        <a href="/cdtmcplist">
                                             <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                         </a>
                                         <button id="linkNewCDT" type="button" class="btn btn-mcp"><i class="fas fa-link"></i></button>

@@ -46,8 +46,8 @@
                                 <button style="background:#6F61C0;color:white;" type="button" class="btn btn-close1">OPP<i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
 
-                            
-                             <div class="one">
+
+                            <div class="one">
                                 <button type="button" class="btn btn-inputmain"
                                     id="cdtlistButton"
                                     wire:click="showLinkedDataCDT"
@@ -64,7 +64,7 @@
                             </div>
 
 
-                            
+
                             <div class="one">
                                 <a href="/oppevtlist">
                                     <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
@@ -110,7 +110,7 @@
 
 
 
-                            
+
                             <div class="two">
                                 <button type="button" class="btn btn-danger" wire:click="deleteSelected()"
                                     {{ empty($selectedRows) ? '' : '' }}>
@@ -123,7 +123,7 @@
                                 </a>
                             </div>
 
-                             <div class="d-flex justify-content-end position-relative">
+                            <div class="d-flex justify-content-end position-relative">
 
                                 <!-- Pagination search at the right corner -->
                                 <div class="pagination-search">
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
 
-                            
+
                         </div>
                     </div>
 
@@ -262,7 +262,7 @@
                     </div>
                     @endif
 
-                    
+
                     <!-- Message area to the left of the pagination search -->
                     @if ($pageMessage)
                     <div style="margin-top:-1%;margin-bottom:1%;" class="d-flex align-items-center">
@@ -272,13 +272,13 @@
                     </div>
                     @endif
 
-                    
+
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead style="background:#6F61C0;" class="text-white sticky-top">
                                 <tr>
-                                     <th scope="col">
+                                    <th scope="col">
                                         @if($showCheckboxes)
                                         <input type="checkbox" id="select-all-checkbox"
                                             wire:model="selectAll"
@@ -341,10 +341,10 @@
             </div>
         </div>
 
-      
 
 
-<!--         <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
+
+        <!--         <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
                 <div class="modal-content cdt-modal-content">
                     <div class="cdt-modal-header">
@@ -362,7 +362,7 @@
             </div>
         </div> -->
 
-         <div style="margin-top:-60%;" class="modal fade" id="cdtLinkModal" tabindex="-1" aria-labelledby="cdtLinkModalLabel" aria-hidden="true" wire:ignore.self>
+        <div style="margin-top:-60%;" class="modal fade" id="cdtLinkModal" tabindex="-1" aria-labelledby="cdtLinkModalLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog modal-sm">
                 <div class="modal-content bg-white">
                     <div class="modal-header">
@@ -394,7 +394,7 @@
             </div>
         </div>
 
-         <div style="margin-top:-60%;" class="modal fade" id="cstLinkModal" tabindex="-1" aria-labelledby="cstLinkModalLabel" aria-hidden="true" wire:ignore.self>
+        <div style="margin-top:-60%;" class="modal fade" id="cstLinkModal" tabindex="-1" aria-labelledby="cstLinkModalLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog modal-sm">
                 <div class="modal-content bg-white">
                     <div class="modal-header">
@@ -684,7 +684,6 @@
     </div>
     @push('page-script')
     <script>
-
         document.addEventListener('livewire:load', function() {
             Livewire.on('hide-mcplist-button', function() {
                 document.getElementById('mcplistButton').style.display = 'none';
@@ -703,12 +702,23 @@
             });
         });
 
-        
-        
+
+
         document.addEventListener('livewire:initialized', function() {
             Livewire.on('open-cdt-modal', () => {
                 var myModal = new bootstrap.Modal(document.getElementById('cdtLinkModal'));
                 myModal.show();
+            });
+        });
+
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('closeModal', ({
+                modalId
+            }) => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                if (modal) {
+                    modal.hide();
+                }
             });
         });
 
@@ -726,7 +736,7 @@
             });
         });
 
-        
+
         // document.getElementById("linkNewCDT").addEventListener("click", function() {
         //     document.getElementById("customModal").style.display = "flex";
         // });

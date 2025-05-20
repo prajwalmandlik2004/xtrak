@@ -50,10 +50,10 @@
                                     <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                 </a>
                                 <div class="one">
-                                    <!-- <a href="/trglist">
-                                    <button type="button" class="btn btn-trg">TRG <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a> -->
-                                    <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
+                                    <button type="button" class="btn btn-opp">OPP<i class="fas fa-link"></i></button>
+                                </div>
+                                <div class="one">
+                                    <button type="button" class="btn btn-trg">TRG<i class="fas fa-link"></i></button>
                                 </div>
                                 <div class="one">
                                     <a href="/mcpevtlist">
@@ -62,10 +62,14 @@
                                     <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                 </div>
                                 <div class="three">
-                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
-                                    <button type="button" style="background:red;" class="btn btn-danger">
-                                        <i class="fa-regular fa-trash-can fa-lg"></i>
-                                    </button>
+                                    <a href="/mcpform">
+                                        <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                    </a>
+                                    <a href="/mcpform">
+                                        <button type="button" style="background:red;" class="btn btn-danger">
+                                            <i class="fa-regular fa-trash-can fa-lg"></i>
+                                        </button>
+                                    </a>
                                     <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
                                     <a href="/landing">
                                         <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
@@ -139,8 +143,18 @@
         </div>
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   
+
     <style>
+        .btn-opp {
+            background-color: #6F61C0;
+            color: white;
+        }
+
+        .btn-opp:hover {
+            background-color: #6F61C0;
+            color: white;
+        }
+
         .btn-mcp {
             background-color: #7D0A0A;
             color: white;

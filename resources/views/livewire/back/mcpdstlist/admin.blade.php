@@ -13,13 +13,13 @@
                         <div>
                         </div>
                         <div>
-                            <a href="{{ route('trgopplist') }}" class="me-2 text-black {{ request()->routeIs('trgopplist.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
-                            <a href="{{ route('management') }}" class="mx-2 text-black {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
-                            <a href="{{ route('opplist') }}" class="mx-2 text-black {{ request()->routeIs('opplist.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
-                            <a href="{{ route('mcplist') }}" class="mx-2 text-black {{ request()->routeIs('mcplist.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
-                            <a href="{{ route('ctclist') }}" class="mx-2 text-black {{ request()->routeIs('ctclist.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
-                            <a href="{{ route('management') }}" class="mx-2 text-black  {{ request()->routeIs('management.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
-                            <a href="{{ route('cstlist') }}" class="ms-2 text-black {{ request()->routeIs('cstlist.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
+                            <a href="{{ route('trgdashboard') }}" class="me-2 text-black{{ request()->routeIs('trgdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">TRG</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CDT</a> -
+                            <a href="{{ route('oppdashboard') }}" class="mx-2 text-black  {{ request()->routeIs('oppdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">OPP</a> -
+                            <a href="{{ route('mcpdashboard') }}" class="mx-2 text-black {{ request()->routeIs('mcpdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">MCP</a> -
+                            <a href="{{ route('ctcdashboard') }}" class="mx-2 text-black {{ request()->routeIs('ctcdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CTC</a> -
+                            <a href="{{ route('dashboard') }}" class="mx-2 text-black  {{ request()->routeIs('dashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">ANN</a> -
+                            <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
                         </div>
                     </div>
 
@@ -29,20 +29,22 @@
                     <div class="button-group-main">
                         <div class="button-group-left-main">
                             <h5 style="margin-left:-22px; background-color:#7D0A0A; border-radius:5px; color:white;padding:12px;margin-top:-2px">MCP_DSTlist</h5>
+                            @if($links->count() == 1)
+                            @foreach($links as $link)
                             <div class="mt-1">
-                                <!-- <label for="trgcode">OPPcode</label> -->
-                                <input style="width:90px; padding:5px;" type="text" placeholder="MCPcode"></input>
+                                <input style="width:90px; padding:5px;" type="text" placeholder="{{ $link->opportunity->mcp_code ?? '--' }}"></input>
                             </div>
                             <div class="mt-1">
-                                <!-- <label for="ctc-prenom">Libellé poste</label> -->
-                                <input style="width:180px;padding:5px;" type="text" placeholder="Company designation"></input>
-
+                                <input style="width:120px;padding:5px;" type="text" placeholder="{{ $link->opportunity->designation ?? '--' }}"></input>
                             </div>
-                            <!-- <div class="one">
-                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
-                            </div> -->
+                            @endforeach
+                            @else
+                            <div class="mt-2">
+                                <h5>ALL OPEN STATUS MCPS</h5>
+                            </div>
+                            @endif
                             <div class="three">
-                                <button wire:click="" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
+                                <button wire:click="deleteSelected()" id="delete-button-container" style="background:#F93827;" class="btn btn-danger">
                                     <i class="fa-regular fa-trash-can fa-lg"></i>
                                 </button>
                                 <button style="background:#4CC9FE;" type="button" class="btn btn-close1"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
@@ -168,53 +170,52 @@
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <th style="width:2%;background-color:#F9C0AB;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
+                                    <th style="width:2%;background-color:#DBDBDB;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
                                             style="display:none;" wire:model="selectAll"></th>
-                                    <th class="cdt_col" scope="col" style="background-color:#F9C0AB;">Date</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">CampName</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Dest. name</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Mail</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Status</th>
-                                    <th class="reg_col" scope="col" style="background-color:#F9C0AB;">Note</th>
+                                    <th class="cdt_col" scope="col" style="background-color:#DBDBDB;">Date</th>
+                                    <th class="reg_col" scope="col" style="background-color:#DBDBDB;">CampName</th>
+                                    <th class="reg_col" scope="col" style="background-color:#DBDBDB;">Dest. name</th>
+                                    <th class="reg_col" scope="col" style="background-color:#DBDBDB;">Mail</th>
+                                    <th class="reg_col" scope="col" style="background-color:#DBDBDB;">Status</th>
+                                    <th class="reg_col" scope="col" style="background-color:#DBDBDB;">Note</th>
+                                    <th class="reg_col" scope="col" style="background-color:#DBDBDB;">Link</th>
+                                    <th class="reg_col" scope="col" style="background-color:#DBDBDB;">Actions</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(!empty($data) && (is_array($data) || is_object($data)) && count($data) > 0)
-                                @foreach($data as $item)
-                                <tr>
-                                    <!-- <td>{{ $item->creation_date }}</td>
-                                    <td>{{ $item->company }}</td>
-                                    <td>{{ $item->standard_phone }}</td>
-                                    <td>{{ $item->postal_code_department }}</td>
-                                    <td>{{ $item->title }}</td>
-                                    <td>{{ $item->first_name }}</td>
-                                    <td>{{ $item->last_name }}</td>
-                                    <td>{{ $item->position }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->mobile }}</td>
-                                    <td>{{ $item->event_date }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->subject }}</td>
-                                    <td>{{ $item->event_status }}</td>
-                                    <td>{{ $item->comment_trg }}</td>
-                                    <td>{{ $item->next_step }}</td> -->
+                                @if($links->count() > 0)
+                                @foreach($links as $link)
+                                <tr
+                                    wire:key="row-{{ $link->id }}"
+                                    wire:click="toggleSelect({{ $link->id }})"
+                                    wire:dblclick="editRow({{ $link->id }})"
+                                    class="{{ in_array($link->id, $selectedRows) ? 'select-row' : '' }}"
+                                    style="cursor: pointer;">
                                     <td class="checkbox-cell">
                                         <input type="checkbox" class="candidate-checkbox"
                                             style="display:none;pointer-events: none;">
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $link->candidate->creation_date ?? '--'}}</td>
+                                    <td>{{ $link->candidate->company ?? '--'}}</td>
+                                    <td>{{ $link->opportunity->designation ?? '--'}}</td>
+                                    <td>{{ $link->candidate->email ?? '--'}}</td>
+                                    <td>{{ $link->candidate->trg_status ?? '--'}}</td>
+                                    <td>{{ $link->candidate->notes ?? '--'}}</td>
+                                    <td>{{ $link->created_at->format('d/m/y') }}</td>
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-danger"
+                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to remove this link ⚠')) { @this.deleteTrgLink({{ $link->id }}); }">
+                                            <i class="fas fa-unlink"></i>
+                                        </button>
+                                    </td>
 
                                 </tr>
                                 @endforeach
                                 @else
                                 <tr>
-                                    <td colspan="16" class="text-center">No data available</td>
+                                    <td colspan="20" class="text-center">No linked data available</td>
                                 </tr>
                                 @endif
                             </tbody>
@@ -225,9 +226,11 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end mt-3">
-            {{ $data->links() }}
+        <div class="d-flex justify-content-end">
+            {{ $links->links() }}
         </div>
+
+
 
 
 
@@ -429,6 +432,10 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            .select-row {
+                background-color: #37AFE1 !important;
+            }
+
             .large-checkbox {
                 width: 20px;
                 height: 30px;
@@ -442,12 +449,12 @@
             }
 
             .btn-evt {
-                background-color: #F9C0AB;
+                background-color: #DBDBDB;
                 color: black;
             }
 
             .btn-evt:hover {
-                background-color: #F9C0AB;
+                background-color: #DBDBDB;
                 color: black;
             }
 

@@ -50,7 +50,7 @@
                                     <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1">CST <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                 </a>
                                 <div class="two">
-                                    <a href="">
+                                    <a href="/opplist">
                                         <button type="button" class="btn btn-opp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
                                     </a>
                                     <button id="linkNewOPP" type="button" class="btn btn-opp"><i class="fas fa-link"></i></button>
@@ -68,10 +68,14 @@
                                     <button style="color:red;" type="button" class="btn" onclick="openModal()"><i class="fa-solid fa-phone fa-2x"></i></button>
                                 </div>
                                 <div class="three">
-                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
-                                    <button style="background:red;" wire:click="" class="btn btn-danger" id="delete-button-container">
-                                        <i class="fa-regular fa-trash-can fa-lg"></i>
-                                    </button>
+                                    <a href="/cstform">
+                                        <button type="button" class="btn btn-erase"><i class="fa-solid fa-eraser fa-lg"></i></button>
+                                    </a>
+                                    <a href="/cstform">
+                                        <button type="button" style="background:red;" wire:click="" class="btn btn-danger">
+                                            <i class="fa-regular fa-trash-can fa-lg"></i>
+                                        </button>
+                                    </a>
                                     <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
                                     <a href="/landing">
                                         <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
@@ -403,7 +407,7 @@
         }
 
         .btn-valid {
-            background-color:#00CCDD;
+            background-color: #00CCDD;
             color: white;
         }
 
