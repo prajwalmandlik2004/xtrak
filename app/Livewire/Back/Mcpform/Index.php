@@ -162,7 +162,8 @@ class Index extends Component
 
                 ]);
 
-                session()->flash('message', 'Record updated successfully!');
+                $this->dispatch('alert', type: 'success', message: "Record updated successfully!");
+   
             }
         } else {
             if (!Storage::disk('public')->exists('mcp/recipients')) {
@@ -322,6 +323,7 @@ class Index extends Component
             session()->flash('message', 'Form submitted and email campaign scheduled ✅');
     
 
+
         }
 
         $this->resetForm();
@@ -422,3 +424,5 @@ class Index extends Component
         return view('livewire.back.mcpform.index');
     }
 }
+
+

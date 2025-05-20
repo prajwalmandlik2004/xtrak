@@ -6,7 +6,7 @@
     ],
     ])
     <div class="row">
-        
+
         <div style="margin-top: -1%;margin-left:-10px;" class="p-2 mb-3 d-flex justify-content-between">
             <div>
             </div>
@@ -20,7 +20,7 @@
                 <a href="{{ route('cstdashboard') }}" class="ms-2 text-black {{ request()->routeIs('cstdashboard.*') ? 'text-decoration-underline fw-bold' : '' }}">CST</a>
             </div>
         </div>
-        
+
         <div>
             @if (session()->has('message'))
             <div style="margin-top:-2%;" class="d-flex justify-content-left">
@@ -38,15 +38,21 @@
 
                 <div class="container py-4">
                     <form wire:submit.prevent="save">
+
                         <div class="mb-3 d-flex justify-content-between align-items-center">
                             <h5 class="text-white bg-danger px-3 py-2 rounded">MCP Form</h5>
                             <div>
                                 <a href="/mcpform" class="btn btn-outline-primary me-2">MCP <i class="fa-regular fa-square-plus ms-1"></i></a>
+                                <button id="linkNewCDT" type="button" class="btn btn-opp">OPP<i class="fas fa-link"></i></button>
+                                <button id="linkNewCDT" type="button" class="btn btn-trg">TRG<i class="fas fa-link"></i></button>
                                 <a href="/mcpevtlist" class="btn btn-outline-info me-2">EVT <i class="fa-regular fa-file-lines ms-1"></i></a>
+                                <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                                 <button type="button" class="btn btn-outline-danger me-2" wire:click="resetForm"><i class="fa-solid fa-eraser"></i></button>
                                 <button type="button" style="background:red;" class="btn btn-danger"><i class="fa-regular fa-trash-can fa-lg"></i></button>
                                 <button type="submit" class="btn btn-success me-2"><i class="fa-regular fa-floppy-disk"></i></button>
                                 <a href="/landing" class="btn btn-secondary"><i class="fas fa-times"></i></a>
+
+                       
                             </div>
                         </div>
 
@@ -232,6 +238,16 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .btn-opp {
+            background-color: #6F61C0;
+            color: white;
+        }
+
+        .btn-opp:hover {
+            background-color: #6F61C0;
+            color: white;
+        }
+
         .btn-mcp {
             background-color: #7D0A0A;
             color: white;
@@ -449,7 +465,7 @@
 
         .button-group-left {
             display: flex;
-            gap: 60px;
+            gap: 40px;
         }
 
         .button-group-right {

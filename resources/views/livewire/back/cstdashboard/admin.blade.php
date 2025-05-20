@@ -181,13 +181,15 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
+
+
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <!-- <th style="width:30px;background-color: #00FF9C;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            wire:model="selectAll"></th> -->
+
+
                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #00FF9C;">
                                         Date
                                     </th>
@@ -210,19 +212,22 @@
                                     wire:dblclick="editRow({{ $item->id }})"
                                     class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }} parent-row"
                                     style="cursor: pointer;">
-                                    <!-- <td class="checkbox-cell">
-                                        <input type="checkbox" class="candidate-checkbox"
-                                            style="display:none;pointer-events: none;">
-                                    </td> -->
+
+                                    
+
                                     <td>{{ $item->date_cst }}</td>
                                     <td>{{ $item->cst_code }}</td>
                                     <td>{{ $item->civ }}</td>
                                     <td>{{ $item->first_name }}</td>
                                     <td>{{ $item->last_name }}</td>
-                                    <td>{{ $item->cell }}</td>
-                                    <td>{{ $item->mail }}</td>
-                                    <td>{{ $item->status }}</td>
-                                    <td>{{ $item->notes }}</td>
+                                    <td>
+
+                                        <button class="btn btn-sm btn-outline-primary ms-2 toggle-popup"
+                                            onclick="event.stopPropagation();" {{-- prevent Livewire propagation --}}
+                                            data-item='@json($item)'><i class="bi bi-eye"></i></button>
+                                        <!-- <button class="btn btn-sm btn-outline-primary ms-2"><i class="bi bi-eye"></i></button> -->
+
+                                    </td>
                                 </tr>
                                 @endforeach
 
@@ -275,7 +280,25 @@
                             <label for="oppCode">Enter OPP Code</label>
                             <input type="text" class="form-control" id="oppCode" wire:model.defer="oppCode">
                         </div>
-                        <div class="cdt-">("message")</div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+<<<<<<< HEAD
+                        <!--  -->
+=======
+                        @if($oppLinkError)
+                        <div class="alert alert-danger mt-2">
+                            {{ $oppLinkError }}
+                        </div>
+                        @endif
+>>>>>>> c9939cb61466c164454b9877822e052d364ade5c
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeOppModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkOpp">OK</button>
                     </div>
                 </div>
             </div>
@@ -802,18 +825,161 @@
 
     </div>
     @push('page-script')
+
+<<<<<<< HEAD
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.toggle-popup');
+    const popup = document.getElementById('popup');
+    const popupBody = document.getElementById('popup-body');
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const maximizeBtn = document.getElementById('maximize-btn');
+    const header = document.getElementById('popup-header');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+  const itemData = JSON.parse(this.getAttribute('data-item'));
+
+  popup.style.width = '100%'; // Ensure enough width
+popup.style.maxWidth = '1000px'; // Limit too-wide layouts
+popup.style.minWidth = '600px'
+
+  popupBody.innerHTML = `
+  <div class="container-fluid">
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Date</label>
+        <div class="form-control bg-light">${itemData.date_cst}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">CST Code</label>
+        <div class="form-control bg-light">${itemData.cst_code}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Civ</label>
+        <div class="form-control bg-light">${itemData.civ}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">First Name</label>
+        <div class="form-control bg-light">${itemData.first_name}</div>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Last Name</label>
+        <div class="form-control bg-light">${itemData.last_name}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Cell</label>
+        <div class="form-control bg-light">${itemData.cell}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Email</label>
+        <div class="form-control bg-light">${itemData.mail}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Status</label>
+        <div class="form-control bg-light">${itemData.status}</div>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label fw-semibold text-muted">Notes</label>
+        <div class="form-control bg-light" style="min-height: 60px;">${itemData.notes}</div>
+      </div>
+    </div>
+  </div>
+`;
+
+
+  popup.style.height = 'auto';
+  popup.style.top = '100px';
+  popup.style.left = '100px';
+  popupBody.style.display = 'block';
+  maximizeBtn.textContent = '🗖';
+  popup.style.position = 'absolute';
+  popup.style.display = 'block';
+});
+
+    });
+
+    // Draggable logic
+    let offsetX, offsetY, isDown = false;
+    header.addEventListener('mousedown', function(e) {
+        isDown = true;
+        offsetX = e.clientX - popup.offsetLeft;
+        offsetY = e.clientY - popup.offsetTop;
+    });
+
+    document.addEventListener('mouseup', () => isDown = false);
+    document.addEventListener('mousemove', function(e) {
+        if (!isDown) return;
+        popup.style.left = `${e.clientX - offsetX}px`;
+        popup.style.top = `${e.clientY - offsetY}px`;
+    });
+
+    // Minimize button: toggle popupBody visibility
+    minimizeBtn.addEventListener('click', () => {
+        if (popupBody.style.display === 'none') {
+            popupBody.style.display = 'block';
+            popupBody.style.maxHeight = '70vh';       // set max height
+            popupBody.style.overflowY = 'auto';      // enable vertical scroll if needed
+            minimizeBtn.textContent = '_';
+        } else {
+            popupBody.style.display = 'none';
+            popupBody.style.maxHeight = '';          // reset max height
+            popupBody.style.overflowY = '';          // reset overflow
+            minimizeBtn.textContent = '▭'; // minimized icon
+        }
+    });
+
+    // Maximize button: toggle fullscreen/small size
+    maximizeBtn.addEventListener('click', () => {
+        if (popup.style.position === 'fixed') {
+            // Restore to original
+            popup.style.position = 'absolute';
+            popup.style.width = '400px';
+            popup.style.height = 'auto';
+            popup.style.top = '100px';
+            popup.style.left = '100px';
+            maximizeBtn.textContent = '🗖'; // maximize icon
+        } else {
+            // Maximize fullscreen
+            popup.style.position = 'fixed';
+            popup.style.top = '0';
+            popup.style.left = '0';
+            popup.style.width = '70vw';
+            popup.style.height = '70vh';
+            popupBody.style.height = 'calc(100vh - 70px)';
+            popupBody.style.overflowY = 'auto';
+            maximizeBtn.textContent = '🗗'; // restore icon
+        }
+    });
+});
+
+</script>
+
+
+
     <script>
-        document.getElementById("linkNewCDT").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "flex";
+
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-opp-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('oppLinkModal'));
+                myModal.show();
+            });
         });
 
-        document.getElementById("closeModal").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "none";
+
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('closeModal', ({
+                modalId
+            }) => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                if (modal) {
+                    modal.hide();
+                }
+            });
         });
 
-        document.getElementById("okButton").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "none";
-        });
 
         function coming() {
             alert("EVTlist Coming Soon 🛑");
