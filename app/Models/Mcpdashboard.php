@@ -18,6 +18,21 @@ class Mcpdashboard extends Model
         'tool',
         'remarks',
         'notes',
+        'recip_list_path',
+        'message_doc',
+        'attachments',
+        'from_email',
+        'subject',
+        'launch_date',
+        'pause_min',
+        'pause_max',
+        'batch_min',
+        'batch_max',
+        'work_time_start',
+        'work_time_end',
+        'ref_time',
+        'status',
+        'target_status',
     ];
 
     public function oppLinks()

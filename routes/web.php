@@ -61,6 +61,8 @@ use App\Livewire\Chat\CreateChat;
 use App\Livewire\Chat\Main;
 use App\Livewire\Back\Cres\ShowPdf;
 
+use App\Http\Controllers\MailAuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -167,6 +169,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('management', [OpportunityController::class, 'management'])->name('management');
     Route::get('evts', [OpportunityController::class, 'evts'])->name('evts');
     Route::get('/landing', [LandingController::class, 'index'])->name('landing');
+
+    //mail-aith-passcode
+    Route::get('/mail-auth', [MailAuthController::class, 'create']);
+    Route::post('/mail-auth', [MailAuthController::class, 'store'])->name('mailauth.store');
     
 
     

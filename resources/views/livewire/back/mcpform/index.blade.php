@@ -31,114 +31,198 @@
                 </div>
             </div>
             @endif
-            <div class="modal-content">
+            <div class="modal-content w-100 mb-1">
                 <!-- <div class="modal-header">
                     <h2>{{ $isEditing ? 'Edit MCP Form' : 'MCPform' }}</h2>
                 </div> -->
-                <div>
+
+                <div class="container py-4">
                     <form wire:submit.prevent="save">
-                        <div class="button-group">
-                            <div class="button-group-left">
-                                <h5 style="margin-left:-22px; background-color:#7D0A0A; border-radius:5px; color:white;padding:12px;margin-top:-2px">MCPform</h5>
-                                <a href="/mcpform">
-                                    <button type="button" class="btn btn-mcp">MCP <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
-                                </a>
-                                <div class="one">
-                                    <!-- <a href="/trglist">
-                                    <button type="button" class="btn btn-trg">TRG <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a> -->
-                                    <button id="linkNewCDT" type="button" class="btn btn-trg"><i class="fas fa-link"></i></button>
-                                </div>
-                                <div class="one">
-                                    <a href="/mcpevtlist">
-                                        <button type="button" class="btn btn-evt">EVT <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i> </button>
-                                    </a>
-                                    <button type="button" class="btn btn-evt" onclick="openModal()">EVT <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
-                                </div>
-                                <div class="three">
-                                    <button type="button" class="btn btn-erase" wire:click="resetForm"><i class="fa-solid fa-eraser fa-lg"></i></button>
-                                    <button type="button" style="background:red;" class="btn btn-danger">
-                                        <i class="fa-regular fa-trash-can fa-lg"></i>
-                                    </button>
-                                    <button type="submit" class="btn btn-valid"><i class="fa-regular fa-floppy-disk fa-lg"></i></button>
-                                    <a href="/landing">
-                                        <button type="button" class="btn btn-close1"><i class="fas fa-times fa-lg"></i></button>
-                                    </a>
-                                </div>
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <h5 class="text-white bg-danger px-3 py-2 rounded">MCP Form</h5>
+                            <div>
+                                <a href="/mcpform" class="btn btn-outline-primary me-2">MCP <i class="fa-regular fa-square-plus ms-1"></i></a>
+                                <a href="/mcpevtlist" class="btn btn-outline-info me-2">EVT <i class="fa-regular fa-file-lines ms-1"></i></a>
+                                <button type="button" class="btn btn-outline-danger me-2" wire:click="resetForm"><i class="fa-solid fa-eraser"></i></button>
+                                <button type="button" style="background:red;" class="btn btn-danger"><i class="fa-regular fa-trash-can fa-lg"></i></button>
+                                <button type="submit" class="btn btn-success me-2"><i class="fa-regular fa-floppy-disk"></i></button>
+                                <a href="/landing" class="btn btn-secondary"><i class="fas fa-times"></i></a>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group date-field">
-                                <label>Date</label>
-                                <input type="date" class="form-control1" wire:model="date_mcp">
-                                @error('date_mcp') <span class="text-danger">{{ $message }}</span> @enderror
+                        <div class="row g-3">
+                            <!-- Basic Info -->
+                            <div class="col-md-3">
+                                <label class="form-label">Date</label>
+                                <input type="date" class="form-control" wire:model="date_mcp">
                             </div>
-                            <div class="form-group objet-field">
-                                <label>MCPcode</label>
-                                <input type="text" class="form-control1" wire:model="mcp_code" readonly placeholder="Auto Generated">
-                                @error('mcp_code') <span class="text-danger">{{ $message }}</span> @enderror
+                            <div class="col-md-3">
+                                <label class="form-label">MCP Code</label>
+                                <input type="text" class="form-control" wire:model="mcp_code" readonly>
                             </div>
-                            <div class="form-group objet-field">
-                                <label>Designation</label>
-                                <input type="text" class="form-control1" wire:model="designation">
-                                @error('designation') <span class="text-danger">{{ $message }}</span> @enderror
+                            <div class="col-md-3">
+                                <label class="form-label">Designation</label>
+                                <input type="text" class="form-control" wire:model="designation">
                             </div>
-                            <div class="form-group objet-field">
-                                <label>Object</label>
-                                <input type="text" class="form-control1" wire:model="object">
+                            <div class="col-md-3">
+                                <label class="form-label">Object</label>
+                                <input type="text" class="form-control" wire:model="object">
                             </div>
-                            <div class="form-group objet-field">
-                                <label>Tag Source</label>
-                                <input type="text" class="form-control1" wire:model="tag_source">
+
+                            <!-- Additional Details -->
+                            <div class="col-md-4">
+                                <label class="form-label">Tag Source</label>
+                                <input type="text" class="form-control" wire:model="tag_source">
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group objet-field">
-                                <label>Message</label>
-                                <input type="text" class="form-control1" wire:model="message">
+                            <div class="col-md-4">
+                                <label class="form-label">Message</label>
+                                <input type="text" class="form-control" wire:model="message">
                             </div>
-                            <div class="form-group objet-field">
-                                <label>Tool</label>
-                                <select class="form-control1" wire:model="tool">
+                            <div class="col-md-4">
+                                <label class="form-label">Tool</label>
+                                <select class="form-select" wire:model="tool">
                                     <option value="">Select Tool</option>
                                     <option value="MCM">MCM</option>
                                     <option value="Outlook Direct">Outlook Direct</option>
                                 </select>
                             </div>
-                            <div class="form-group objet-field">
-                                <label>Remarks</label>
-                                <input type="text" class="form-control1" wire:model="remarks">
+
+                            <!-- File Uploads -->
+                            <div class="col-md-4">
+                                <label class="form-label">Recipient List (Excel/CSV)</label>
+                                <input type="file" class="form-control" wire:model="recip_list_path">
                             </div>
-                            <div class="form-group comment-field">
-                                <label>Note(s)</label>
-                                <textarea class="form-control2" wire:model="notes"></textarea>
+                            <div class="col-md-4">
+                                <label class="form-label">Message Document (docx/pdf)</label>
+                                <input type="file" class="form-control" wire:model="message_doc">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Attachments</label>
+                                <input type="file" class="form-control" wire:model="attachments" multiple>
+                            </div>
+
+                            <!-- Email Info -->
+                            <!-- <div class="col-md-6">
+                                <label class="form-label">From (Sender Email)</label>
+                                <input type="email" class="form-control" wire:model="from">
+                            </div> -->
+                            <div class="col-md-6">
+                                <label class="form-label">From (Sender Email)</label>
+                                <select class="form-select" wire:model="from" wire:change="fetchPasscode">
+                                    <option value="">Select Email</option>
+                                    @foreach($mailOptions as $mail)
+                                        <option value="{{ $mail->email }}">{{ $mail->email }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Email Pass Code Info -->
+                            <div class="col-md-6">
+                                <label class="form-label">Passcode</label>
+                                <input type="text" class="form-control" wire:model="passcode" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Subject</label>
+                                <input type="text" class="form-control" wire:model="subject">
+                            </div>
+
+                            <!-- Schedule Settings -->
+                            <div class="col-md-3">
+                                <label class="form-label">Launch Date</label>
+                                <input type="datetime-local" class="form-control" wire:model="launch_date">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Pause Time (Min - Max in sec)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" wire:model="pause_min" placeholder="Min">
+                                    <input type="number" class="form-control" wire:model="pause_max" placeholder="Max">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Batch Size (Min - Max)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" wire:model="batch_min" placeholder="Min">
+                                    <input type="number" class="form-control" wire:model="batch_max" placeholder="Max">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Work Time (HH:MM - HH:MM)</label>
+                                <div class="input-group">
+                                    <input type="time" class="form-control" wire:model="work_time_start">
+                                    <input type="time" class="form-control" wire:model="work_time_end">
+                                </div>
+                            </div>
+
+                            <!-- Time Zone & Status -->
+                            <div class="col-md-4">
+                                <label class="form-label">Reference Timezone</label>
+                                <select class="form-select" wire:model="ref_time">
+                                    <option value="">Select</option>
+                                    <option value="UTC+1">UTC+1</option>
+                                    <option value="UTC+2">UTC+2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Campaign Status</label>
+                                <select class="form-select" wire:model="status">
+                                    <option>Planned</option>
+                                    <option>Executed</option>
+                                    <option>Running</option>
+                                    <option>Paused</option>
+                                    <option>Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Target Status</label>
+                                <select class="form-select" wire:model="target_status">
+                                    <option>TRG</option>
+                                    <option>CDT</option>
+                                    <option>CTC</option>
+                                </select>
+                            </div>
+
+                            <!-- Comments -->
+                            <div class="col-md-12">
+                                <label class="form-label">Remarks</label>
+                                <input type="text" class="form-control" wire:model="remarks">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-control" rows="3" wire:model="notes"></textarea>
+                            </div>
+                            <div class="mt-3">
+                                <button type="button" class="btn btn-info" wire:click="generatePreview">Preview First Email</button>
+                                @if($previewMessage)
+                                    <div class="mt-3 p-3 border bg-light">
+                                        <h5>Preview for: {{ $previewRecipientEmail }}</h5>
+                                        <pre style="white-space: pre-wrap;">{!! nl2br(e($previewMessage)) !!}</pre>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
-
-
+                        <!-- Hidden Modal still preserved here -->
                         <div class="modal fade" id="cdtModal" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
-                                <div class="modal-content cdt-modal-content">
-                                    <div class="cdt-modal-header">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
                                         <span>Enter CTC code:</span>
-                                        <button type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
-                                    <div class="cdt-modal-body">
-                                        <div class="cdt-input-group">
-                                            <input type="text" class="cdt-input" id="cdtCode" value="">
-                                            <button type="button" class="cdt-ok-btn" id="okButton">OK</button>
+                                    <div class="modal-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="cdtCode">
+                                            <button class="btn btn-primary" type="button" id="okButton">OK</button>
                                         </div>
-                                        <div class="cdt-message"></div>
+                                        <div class="cdt-message mt-2"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </form>
                 </div>
+
+
             </div>
         </div>
     </div>

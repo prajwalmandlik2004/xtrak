@@ -30,10 +30,14 @@
                                 <button style="background:#00FF9C;color:black;" type="button" class="btn btn-close1">CST <i style="margin-left:5px;" class="fa-regular fa-square-plus"></i></button>
                             </a>
                             <div class="two">
-                                <a href="/cstopplist">
-                                    <button type="button" class="btn btn-opp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i></button>
-                                </a>
-                                <button id="linkNewOPP" type="button" class="btn btn-opp"><i class="fas fa-link"></i></button>
+                                <button id="opplistButton"
+                                    wire:click="showLinkedData"
+                                    onclick="if (this.classList.contains('disabled')) { alert('Please select a row to see the list.'); return false; }"
+                                    type="button" class="btn btn-opp">OPP <i style="margin-left:5px;" class="fa-regular fa-file-lines"></i>
+                                </button>
+                            </div>
+                            <div class="one">
+                                <button type="button" class="btn btn-opp" wire:click="openOppModal"><i class="fas fa-link"></i></button>
                             </div>
                             <div class="one">
                                 <a href="/cstevtlist">
@@ -82,9 +86,9 @@
                         </tr>
                     </thead> -->
                     <tbody>
-                    <tr>
+                        <tr>
                             <td style="width:10px;">
-                                <input id="selectionButton" type="checkbox" class="large-checkbox">
+                                <input id="selectionButton" type="checkbox" class="large-checkbox" wire:click="toggleSelectionMode">
                             </td>
 
                             <td>
@@ -177,13 +181,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
+                    
+
                     <div class="table-responsive">
                         <table
                             class="table table-striped table-bordered table-hover table-hover-primary align-middle table-nowrap mb-0">
                             <thead class="text-black sticky-top">
                                 <tr>
-                                    <!-- <th style="width:30px;background-color: #00FF9C;" scope="col"><input type="checkbox" id="select-all-checkbox" class="candidate-checkbox"
-                                            wire:model="selectAll"></th> -->
+                                    
                                     <th class="date_col" scope="col" wire:click="sortBy('updated_at')" style="background-color: #00FF9C;">
                                         Date
                                     </th>
@@ -195,10 +200,7 @@
                                     <th class="soci_col" scope="col" wire:click="sortBy('last_name')" style="background-color: #00FF9C;">
                                         Last Name
                                     </th>
-                                    <th class="ville_col" scope="col" style="background-color: #00FF9C;">Mail</th>
-                                    <th class="ref_col" scope="col" style="background-color: #00FF9C;">Phone</th>
-                                    <th class="cpdpt_col" scope="col" style="background-color: #00FF9C;">Status</th>
-                                    <th class="reg_col" scope="col" style="background-color:#00FF9C;">Notes</th>
+                                    <th style="background-color: #00FF9C;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -207,23 +209,23 @@
                                 <tr wire:key="row-{{ $item->id }}"
                                     wire:click="toggleSelect({{ $item->id }})"
                                     wire:dblclick="editRow({{ $item->id }})"
-                                    class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }}"
+                                    class="{{ in_array($item->id, $selectedRows) ? 'select-row' : '' }} parent-row"
                                     style="cursor: pointer;">
-                                    <!-- <td class="checkbox-cell">
-                                        <input type="checkbox" class="candidate-checkbox"
-                                            style="display:none;pointer-events: none;">
-                                    </td> -->
+                                    
                                     <td>{{ $item->date_cst }}</td>
                                     <td>{{ $item->cst_code }}</td>
                                     <td>{{ $item->civ }}</td>
                                     <td>{{ $item->first_name }}</td>
                                     <td>{{ $item->last_name }}</td>
-                                    <td>{{ $item->cell }}</td>
-                                    <td>{{ $item->mail }}</td>
-                                    <td>{{ $item->status }}</td>
-                                    <td>{{ $item->notes }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary ms-2 toggle-popup"
+                                            onclick="event.stopPropagation();" {{-- prevent Livewire propagation --}}
+                                            data-item='@json($item)'><i class="bi bi-eye"></i></button>
+                                        <!-- <button class="btn btn-sm btn-outline-primary ms-2"><i class="bi bi-eye"></i></button> -->
+                                    </td>
                                 </tr>
                                 @endforeach
+
                                 @else
                                 <tr>
                                     <td colspan="16" class="text-center">No data available</td>
@@ -236,26 +238,54 @@
             </div>
         </div>
 
+        <div id="popup" wire:ignore class="card shadow p-3 bg-white rounded"
+            style="display: none; position: absolute; top: 100px; left: 100px; width: 400px; z-index: 1050;">
+
+            <div id="popup-header" style="cursor: move; display: flex; align-items: center; justify-content: space-between;">
+                <strong>Details</strong>
+
+                <div>
+                    <button id="minimize-btn" class="btn btn-sm btn-outline-secondary me-1" title="Minimize"><i class="bi bi-dash"></i></button>
+                    <button id="maximize-btn" class="btn btn-sm btn-outline-secondary me-1" title="Maximize"><i class="bi bi-fullscreen"></i></button>
+                    <button onclick="document.getElementById('popup').style.display='none'" class="btn btn-sm btn-outline-secondary me-1"><i class="bi bi-x"></i></button>
+                </div>
+            </div>
+
+            <hr>
+
+            <div id="popup-body">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
 
         <div class="d-flex justify-content-end mt-3">
             {{ $data?->links() }}
         </div>
 
 
-
-        <div class="modal-overlay" style="display: none;" id="customModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered cdt-modal-dialog">
-                <div class="modal-content cdt-modal-content">
-                    <div class="cdt-modal-header">
-                        <span>Enter CDT code:</span>
-                        <button id="closeModal" type="button" class="cdt-close-btn" data-bs-dismiss="modal">×</button>
+        <div style="margin-top:-30%;" class="modal fade" id="oppLinkModal" tabindex="-1" aria-labelledby="oppLinkModalLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="oppLinkModalLabel">Link OPP</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="closeOppModal"></button>
                     </div>
-                    <div class="cdt-modal-body">
-                        <div class="cdt-input-group">
-                            <input type="text" class="cdt-input" id="cdtCode" value="ADTGFHU">
-                            <button class="cdt-ok-btn" id="okButton">OK</button>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="oppCode">Enter OPP Code</label>
+                            <input type="text" class="form-control" id="oppCode" wire:model.defer="oppCode">
                         </div>
-                        <div class="cdt-">("message")</div>
+                        @if (session()->has('linkmessage'))
+                        <div style="width:100%;" class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('linkmessage') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        <!--  -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" wire:click="closeOppModal">Close</button>
+                        <button type="button" class="btn btn-success" wire:click="linkOpp">OK</button>
                     </div>
                 </div>
             </div>
@@ -426,7 +456,7 @@
 
             .button-group-left-main {
                 display: flex;
-                gap: 140px;
+                gap: 100px;
             }
 
             .large-checkbox {
@@ -481,7 +511,28 @@
                 color: white;
             }
 
+
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1050;
+            }
+
             .modal-content {
+                background: none;
+                border-radius: 8px;
+                width: 300px;
+                text-align: left;
+            }
+
+            /* .modal-content {
                 background: none;
                 border-radius: 8px;
                 width: 300px;
@@ -520,7 +571,7 @@
                 font-size: 1.4em;
                 font-weight: 500;
                 margin-right: 10px;
-            }
+            } */
 
             .icons-row {
                 display: flex;
@@ -761,18 +812,159 @@
 
     </div>
     @push('page-script')
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.toggle-popup');
+    const popup = document.getElementById('popup');
+    const popupBody = document.getElementById('popup-body');
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const maximizeBtn = document.getElementById('maximize-btn');
+    const header = document.getElementById('popup-header');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+  const itemData = JSON.parse(this.getAttribute('data-item'));
+
+  popup.style.width = '100%'; // Ensure enough width
+popup.style.maxWidth = '1000px'; // Limit too-wide layouts
+popup.style.minWidth = '600px'
+
+  popupBody.innerHTML = `
+  <div class="container-fluid">
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Date</label>
+        <div class="form-control bg-light">${itemData.date_cst}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">CST Code</label>
+        <div class="form-control bg-light">${itemData.cst_code}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Civ</label>
+        <div class="form-control bg-light">${itemData.civ}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">First Name</label>
+        <div class="form-control bg-light">${itemData.first_name}</div>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Last Name</label>
+        <div class="form-control bg-light">${itemData.last_name}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Cell</label>
+        <div class="form-control bg-light">${itemData.cell}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Email</label>
+        <div class="form-control bg-light">${itemData.mail}</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label fw-semibold text-muted">Status</label>
+        <div class="form-control bg-light">${itemData.status}</div>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label fw-semibold text-muted">Notes</label>
+        <div class="form-control bg-light" style="min-height: 60px;">${itemData.notes}</div>
+      </div>
+    </div>
+  </div>
+`;
+
+
+  popup.style.height = 'auto';
+  popup.style.top = '100px';
+  popup.style.left = '100px';
+  popupBody.style.display = 'block';
+  maximizeBtn.textContent = '🗖';
+  popup.style.position = 'absolute';
+  popup.style.display = 'block';
+});
+
+    });
+
+    // Draggable logic
+    let offsetX, offsetY, isDown = false;
+    header.addEventListener('mousedown', function(e) {
+        isDown = true;
+        offsetX = e.clientX - popup.offsetLeft;
+        offsetY = e.clientY - popup.offsetTop;
+    });
+
+    document.addEventListener('mouseup', () => isDown = false);
+    document.addEventListener('mousemove', function(e) {
+        if (!isDown) return;
+        popup.style.left = `${e.clientX - offsetX}px`;
+        popup.style.top = `${e.clientY - offsetY}px`;
+    });
+
+    // Minimize button: toggle popupBody visibility
+    minimizeBtn.addEventListener('click', () => {
+        if (popupBody.style.display === 'none') {
+            popupBody.style.display = 'block';
+            popupBody.style.maxHeight = '70vh';       // set max height
+            popupBody.style.overflowY = 'auto';      // enable vertical scroll if needed
+            minimizeBtn.textContent = '_';
+        } else {
+            popupBody.style.display = 'none';
+            popupBody.style.maxHeight = '';          // reset max height
+            popupBody.style.overflowY = '';          // reset overflow
+            minimizeBtn.textContent = '▭'; // minimized icon
+        }
+    });
+
+    // Maximize button: toggle fullscreen/small size
+    maximizeBtn.addEventListener('click', () => {
+        if (popup.style.position === 'fixed') {
+            // Restore to original
+            popup.style.position = 'absolute';
+            popup.style.width = '400px';
+            popup.style.height = 'auto';
+            popup.style.top = '100px';
+            popup.style.left = '100px';
+            maximizeBtn.textContent = '🗖'; // maximize icon
+        } else {
+            // Maximize fullscreen
+            popup.style.position = 'fixed';
+            popup.style.top = '0';
+            popup.style.left = '0';
+            popup.style.width = '70vw';
+            popup.style.height = '70vh';
+            popupBody.style.height = 'calc(100vh - 70px)';
+            popupBody.style.overflowY = 'auto';
+            maximizeBtn.textContent = '🗗'; // restore icon
+        }
+    });
+});
+
+</script>
+
+
+
     <script>
-        document.getElementById("linkNewCDT").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "flex";
+        document.addEventListener('livewire:initialized', function() {
+            Livewire.on('open-opp-modal', () => {
+                var myModal = new bootstrap.Modal(document.getElementById('oppLinkModal'));
+                myModal.show();
+            });
         });
 
-        document.getElementById("closeModal").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "none";
+
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('closeModal', ({
+                modalId
+            }) => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                if (modal) {
+                    modal.hide();
+                }
+            });
         });
 
-        document.getElementById("okButton").addEventListener("click", function() {
-            document.getElementById("customModal").style.display = "none";
-        });
 
         function coming() {
             alert("EVTlist Coming Soon 🛑");
